@@ -33,13 +33,11 @@ Node.js 24, npm, Git, and Python 3 are required for a rendered preview. The
 projection itself requires only Python 3.
 
 ```bash
-python3 scripts/publish_garden.py \
-  --repository-root "/path/to/consumer" \
-  verify
+mindgarden publish verify \
+  --repository-root "/path/to/consumer"
 
-python3 scripts/quartz_site.py \
+mindgarden site serve \
   --repository-root "/path/to/consumer" \
-  serve \
   --port 8080
 ```
 
@@ -50,9 +48,8 @@ ignored `.cache/mindgarden/` directory.
 Build without serving:
 
 ```bash
-python3 scripts/quartz_site.py \
-  --repository-root "/path/to/consumer" \
-  build
+mindgarden site build \
+  --repository-root "/path/to/consumer"
 ```
 
 ## GitHub Pages

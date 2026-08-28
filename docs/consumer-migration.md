@@ -28,12 +28,12 @@ applies to any repository moving from an embedded copy.
 6. Remove the embedded implementation only after the pinned interface passes
    the consumer's integration and Pages workflows.
 
-Example verification from a Mindgarden checkout:
+Example verification through an installed, pinned Mindgarden package:
 
 ```bash
-python3 scripts/validate_garden.py --repository-root "/path/to/consumer"
-python3 scripts/garden_agent.py --repository-root "/path/to/consumer" verify
-python3 scripts/publish_garden.py --repository-root "/path/to/consumer" verify
+mindgarden validate --repository-root "/path/to/consumer"
+mindgarden verify --repository-root "/path/to/consumer"
+mindgarden publish verify --repository-root "/path/to/consumer"
 ```
 
 ## Compatibility and recovery

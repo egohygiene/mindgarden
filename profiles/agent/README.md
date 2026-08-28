@@ -14,9 +14,8 @@ reproducible.
 Run the complete agent projection contract:
 
 ```bash
-python3 scripts/garden_agent.py \
-  --repository-root "/path/to/consumer" \
-  verify
+mindgarden verify \
+  --repository-root "/path/to/consumer"
 ```
 
 Verification rebuilds the catalog and context packs twice, compares their bytes,
@@ -30,9 +29,8 @@ frequencies. Results include the contribution of each matched term, so agents do
 not receive an opaque relevance score.
 
 ```bash
-python3 scripts/garden_agent.py \
+mindgarden search \
   --repository-root "/path/to/consumer" \
-  search \
   --query "architecture decisions" \
   --limit 5
 ```
@@ -47,9 +45,8 @@ declare stable inclusions, exclusions, lifecycle filters, and character and note
 budgets.
 
 ```bash
-python3 scripts/garden_agent.py \
+mindgarden context \
   --repository-root "/path/to/consumer" \
-  context \
   --pack "example-agent-default" \
   --format "markdown"
 ```
@@ -66,9 +63,8 @@ counts, and lexical term frequencies. It contains no wall-clock generation
 timestamp, embeddings, absolute host paths, or hidden database state.
 
 ```bash
-python3 scripts/garden_agent.py \
+mindgarden index \
   --repository-root "/path/to/consumer" \
-  index \
   --write
 ```
 
@@ -83,9 +79,8 @@ URL, invokes a model, guesses a capture date, or overwrites an existing artifact
 The default is a read-only plan:
 
 ```bash
-python3 scripts/garden_agent.py \
+mindgarden ingest \
   --repository-root "/path/to/consumer" \
-  ingest \
   --input "/path/to/source.md" \
   --source-id "source-example" \
   --title "Example source" \

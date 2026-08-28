@@ -40,6 +40,7 @@ This document identifies Mindgarden's logical systems and responsibilities. It a
 | Obsidian projection | Implemented v0 profile | Defines a portable vault topology with native Bases and no required community plugins. |
 | Quartz publication | Implemented v0 baseline | Projects reviewed public notes, rewrites source-boundary links, and renders through an immutable Quartz checkout. |
 | Validation | Implemented v0 | Fails closed on schema, path, lifecycle, relationship, provenance, privacy, and publication violations. |
+| Package and command interface | Implemented 0.1 | Provides a dependency-free installable Python package, unified `mindgarden` command, stable exit codes, public library surface, and temporary 0.x script shims. |
 | Initialization and migration | Target | Will create and upgrade consumer-owned gardens without replacing canonical knowledge implicitly. |
 | Federation and routing | Target | Will discover repository gardens and assemble organization-level projections through explicit contracts. |
 
@@ -63,7 +64,7 @@ Systems fail closed at destructive, publication, privacy, and security boundarie
 
 ## Evidence and uncertainty
 
-- **Observed:** The extracted v0 schemas, commands, profiles, fixtures, and tests provide runnable evidence for the implemented states above.
+- **Observed:** The v0 schemas, installable package, unified command, profiles, fixtures, clean-wheel smoke tests, and conformance tests provide runnable evidence for the implemented states above.
 - **Decided:** Mindgarden owns reusable capability; each consumer owns its canonical `.garden/` knowledge.
 - **Proposed:** v1 stabilization, initialization, archive interpretation, richer synapses, and federation remain roadmap work.
 - **Open question:** Which v0 compatibility guarantees must be retained in the first independently versioned release?

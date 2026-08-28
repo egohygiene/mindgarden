@@ -37,8 +37,36 @@ jobs:
         with:
           node-version: "24"
 
+      - name: Install package builder
+        run: python -m pip install --disable-pip-version-check "build==1.3.0"
+
+      - name: Build source and wheel distributions
+        run: python -m build --sdist --wheel --outdir ".cache/dist"
+
+      - name: Install wheel into a clean environment
+        run: |
+          python -m venv ".cache/package-smoke"
+          ".cache/package-smoke/bin/python" -m pip install \
+            --disable-pip-version-check \
+            --no-index \
+            --find-links ".cache/dist" \
+            "mindgarden==0.1.0"
+
+      - name: Smoke-test the installed command and library
+        run: |
+          ".cache/package-smoke/bin/mindgarden" --version
+          ".cache/package-smoke/bin/mindgarden" version
+          ".cache/package-smoke/bin/mindgarden" validate \
+            --repository-root "tests/fixtures/public-garden"
+          ".cache/package-smoke/bin/mindgarden" verify \
+            --repository-root "tests/fixtures/public-garden"
+          ".cache/package-smoke/bin/mindgarden" publish verify \
+            --repository-root "tests/fixtures/public-garden"
+          ".cache/package-smoke/bin/python" -c \
+            "from pathlib import Path; import mindgarden; assert mindgarden.__version__ == '0.1.0'; assert mindgarden.validate_repository(Path('tests/fixtures/public-garden')) == 3"
+
       - name: Compile Python sources
-        run: python -m compileall -q scripts tests
+        run: python -m compileall -q src scripts tests
 
       - name: Run standalone test suite
         run: python -m unittest discover --start-directory tests --verbose
