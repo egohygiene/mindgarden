@@ -20,6 +20,8 @@ dependencies. PyPI trusted publication is reserved for the final release gate.
 
 ```text
 mindgarden validate
+mindgarden init
+mindgarden migrate
 mindgarden ingest
 mindgarden index
 mindgarden search
@@ -41,6 +43,14 @@ Every garden operation accepts the long-form
 Examples:
 
 ```bash
+mindgarden init \
+  --repository-root "/path/to/consumer" \
+  --visibility "public"
+
+mindgarden migrate \
+  --repository-root "/path/to/consumer" \
+  --plan
+
 mindgarden index \
   --repository-root "/path/to/consumer" \
   --write
@@ -65,6 +75,12 @@ mindgarden site serve \
 
 Ingestion remains a read-only plan unless `--write` is supplied. Public-garden
 writes additionally require `--confirm-public`.
+
+Initialization defaults to a complete read-only file plan. Migration requires
+one explicit mode: `--plan`, `--apply`, or `--check`. Both apply paths require
+the exact `--plan-digest` from the reviewed plan. See
+[`initialization-migration.md`](initialization-migration.md) for the atomicity,
+idempotency, rollback, and v0 → v1 evidence-preservation contract.
 
 ## Stable exit codes
 
@@ -98,6 +114,8 @@ Lower-level modules make the architectural boundary explicit:
 
 - `mindgarden.domain.validation` owns contract parsing and validation;
 - `mindgarden.application.agent` owns deterministic use cases;
+- `mindgarden.application.lifecycle` owns review-gated initialization and
+  migration;
 - `mindgarden.adapters.publishing` and `mindgarden.adapters.quartz` own
   replaceable external projections;
 - `mindgarden.interfaces.cli` owns command parsing, diagnostics, and exit codes.

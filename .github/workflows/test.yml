@@ -59,6 +59,8 @@ jobs:
         run: |
           ".cache/package-smoke/bin/mindgarden" --version
           ".cache/package-smoke/bin/mindgarden" version
+          ".cache/package-smoke/bin/mindgarden" init --help
+          ".cache/package-smoke/bin/mindgarden" migrate --help
           ".cache/package-smoke/bin/mindgarden" validate \
             --repository-root "tests/fixtures/public-garden"
           ".cache/package-smoke/bin/mindgarden" verify \

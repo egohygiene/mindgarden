@@ -1,9 +1,10 @@
 # Mindgarden v1 contract model
 
 Mindgarden v1 defines the portable semantic contract shared by repository,
-personal, and organization gardens. The schemas are additive design authority:
-the 0.1 CLI continues to read and write v0 until initialization, migration, and
-v1 validation land through issues #7 and #10.
+personal, and organization gardens. The schemas are additive design authority.
+The 0.1 CLI initializes v1 and migrates validated v0 gardens through a reviewed
+plan while the established agent and publication commands retain v0 behavior.
+Hardened general v1 validation remains issue #10.
 
 Every schema uses JSON Schema 2020-12, has a stable URN identifier, closes
 unknown top-level fields, and permits namespaced extension fields matching
