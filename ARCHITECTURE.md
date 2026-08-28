@@ -25,6 +25,10 @@ an embedding provider, or a site generator.
 
 - Markdown and YAML committed under `.garden/` are durable source.
 - Generated indexes, embeddings, caches, and rendered sites are disposable.
+- Deterministic ingestion records the supplied artifact, declared origin,
+  transformations, and hashes without fetching or interpreting the source.
+- Agent search and context packs are bounded projections with explainable
+  lexical ranking; reviewed knowledge is the default trust boundary.
 - Agent-authored knowledge enters as `draft` or `proposed` and remains visibly
   unreviewed until a human promotes it.
 - A public repository may commit only public garden material.

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:provenance:v0",
+  "title": "Mindgarden source provenance v0",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "noteId",
+    "artifact",
+    "origin",
+    "mediaType",
+    "captured",
+    "contentSha256",
+    "artifactSha256",
+    "transformations",
+    "generator",
+    "rights"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.provenance/v0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "noteId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "artifact": {
+      "type": "string",
+      "pattern": "^[^/].*\\.md$"
+    },
+    "origin": {
+      "type": "string",
+      "format": "uri"
+    },
+    "mediaType": {
+      "type": "string",
+      "pattern": "^[a-z0-9!#$&^_.+-]+/[a-z0-9!#$&^_.+-]+$"
+    },
+    "captured": {
+      "type": "string",
+      "format": "date"
+    },
+    "contentSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "artifactSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "transformations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "generator": {
+      "const": "mindgarden.ingest/v0"
+    },
+    "rights": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

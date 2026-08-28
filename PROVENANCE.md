@@ -27,6 +27,8 @@ or assets to this import:
   interchangeable Obsidian views;
 - `InlitX/Obsidian-Dashboard-Gallery` — optional Obsidian dashboard patterns;
 - Dark Factory — shared-memory agent-system reference architecture.
+- `AnswerDotAI/llms-txt` — a compact, Markdown-native agent discovery
+  entrypoint with curated links to deeper context.
 
 External implementations must be evaluated independently for compatibility,
 security, maintenance, and license obligations before any future incorporation.

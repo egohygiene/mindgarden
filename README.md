@@ -40,14 +40,22 @@ The incubating v0 contract includes:
   frontmatter;
 - [`contracts/obsidian-profile.schema.json`](contracts/obsidian-profile.schema.json)
   for portable, reviewable Obsidian integration metadata;
+- [`contracts/provenance.schema.json`](contracts/provenance.schema.json) for
+  source-to-artifact integrity records;
+- [`contracts/context-pack.schema.json`](contracts/context-pack.schema.json)
+  and [`contracts/index.schema.json`](contracts/index.schema.json) for
+  deterministic agent projections;
 - [`scripts/validate_garden.py`](scripts/validate_garden.py) for dependency-free
   repository validation;
+- [`scripts/garden_agent.py`](scripts/garden_agent.py) for ingestion, indexing,
+  explainable search, context packs, and `llms.txt`;
 - [`templates/note.md`](templates/note.md) for new knowledge notes.
 
 Validate a consumer repository from its root:
 
 ```bash
 python3 mindgarden/scripts/validate_garden.py --repository-root .
+python3 mindgarden/scripts/garden_agent.py --repository-root . verify
 ```
 
 The v0 parser deliberately supports only scalar values and scalar lists. This
@@ -66,3 +74,7 @@ No external project implementation is incorporated in this foundation pass.
 The first consumer profile lives in [`profiles/obsidian/`](profiles/obsidian/).
 It prefers native Obsidian capabilities and treats community plugins as explicit
 human-approved options.
+
+The portable agent surface lives in [`profiles/agent/`](profiles/agent/). Its
+CLI is the dependency-free baseline; runtime-specific hooks and MCP servers may
+wrap it later without changing canonical garden storage.

@@ -15,6 +15,8 @@
     "entrypoint",
     "content_roots",
     "generated_roots",
+    "provenance_root",
+    "context_pack_root",
     "private_overlay"
   ],
   "properties": {
@@ -72,6 +74,14 @@
         "type": "string",
         "minLength": 1
       }
+    },
+    "provenance_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "context_pack_root": {
+      "type": "string",
+      "minLength": 1
     },
     "private_overlay": {
       "type": "string",

@@ -1,5 +1,7 @@
 # Copyright 2026 Ego Hygiene
 # SPDX-License-Identifier: MIT
+# pylint: disable=wrong-import-position
+# ruff: noqa: PLR0913, PT027
 
 from __future__ import annotations
 
@@ -14,7 +16,6 @@ MINDGARDEN_ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(MINDGARDEN_ROOT))
 
 from scripts.validate_garden import ContractError, validate_repository  # noqa: E402
-
 
 MANIFEST = """
 schema: mindgarden.garden/v0
@@ -32,6 +33,8 @@ content_roots:
   - concepts
 generated_roots:
   - .index
+provenance_root: provenance
+context_pack_root: context-packs
 private_overlay: ../.garden.local
 """
 
@@ -80,6 +83,8 @@ class GardenFixture:
         self.garden = root / ".garden"
         self.garden.mkdir()
         (self.garden / "concepts").mkdir()
+        (self.garden / "provenance").mkdir()
+        (self.garden / "context-packs").mkdir()
         (self.garden / "garden.yaml").write_text(
             textwrap.dedent(MANIFEST).lstrip(),
             encoding="utf8",
