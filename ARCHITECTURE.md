@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-19
+updated: 2026-08-28
 governed_by:
   - architecture-architecture
 depends_on:
@@ -24,65 +24,73 @@ supersedes: []
 
 # Mindgarden Architecture
 
-## Purpose and scope
+## Architectural intent
 
-Mindgarden uses a layered, contract-driven architecture. This document owns structural boundaries, dependency direction, integration rules, and current-to-target evolution. Logical responsibilities remain canonical in [SYSTEM.md](SYSTEM.md).
+Mindgarden is a local-first knowledge substrate. A repository's `.garden/`
+directory is canonical; every user interface, search index, agent integration,
+and published site is an adapter or derived projection.
 
-## Layer model
+## Layers
 
-1. **Intent and contracts** — identity, policy, specifications, schemas, and accepted decisions.
-2. **Domain** — canonical concepts and pure domain behavior.
-3. **Application** — planning, orchestration, use cases, and state transitions.
-4. **Adapters** — filesystems, providers, frameworks, renderers, and external tools.
-5. **Interfaces** — CLI, library, site, reports, generated artifacts, and automation contracts.
-6. **Evidence** — tests, diagnostics, provenance, manifests, and health projections.
+1. **Knowledge contract** — versioned manifests, Markdown notes, YAML
+   frontmatter, stable identifiers, provenance, confidence, and lifecycle.
+2. **Garden engine** — initialization, validation, migration, indexing, and
+   deterministic transformations.
+3. **Adapters** — Obsidian configuration, agent CLI/MCP access, search, and
+   GitHub Pages publishing.
+4. **Consumer gardens** — repository-owned `.garden/` instances such as
+   Empathy's initial garden.
 
-Dependencies point inward toward stable contracts and domain behavior. External details do not become canonical domain truth.
+Dependencies flow downward from consumer adapters toward the knowledge
+contract. The knowledge contract cannot depend on Obsidian, a particular LLM,
+an embedding provider, or a site generator.
 
-## Structural view
+## Source and projection boundary
 
-```mermaid
-flowchart LR
-  S1[Garden contract]
-  S2[Ingestion pipeline]
-  S3[Normalization and indexing]
-  S4[Synapse model]
-  S5[Context-pack builder]
-  S6[Obsidian projection]
-  S7[Quartz publication]
-  S1 --> S2
-  S2 --> S3
-  S3 --> S4
-  S4 --> S5
-  S5 --> S6
-  S6 --> S7
-```
+- Markdown and YAML committed under `.garden/` are durable source.
+- Generated indexes, embeddings, caches, and rendered sites are disposable.
+- Deterministic ingestion records the supplied artifact, declared origin,
+  transformations, and hashes without fetching or interpreting the source.
+- Agent search and context packs are bounded projections with explainable
+  lexical ranking; reviewed knowledge is the default trust boundary.
+- The publishing projector admits only reviewed public notes, rewrites links
+  across the source boundary, and produces a disposable renderer input.
+- Quartz is an immutable external adapter; neither its checkout nor rendered
+  output is committed as canonical knowledge.
+- Agent-authored knowledge enters as `draft` or `proposed` and remains visibly
+  unreviewed until a human promotes it.
+- A public repository may commit only public garden material.
+- Private or internal material belongs in an ignored external overlay such as
+  `.garden.local/`, not in a build-exclusion convention.
 
-The diagram is conceptual. [SYSTEM.md](SYSTEM.md) remains authoritative for responsibilities and implementation evidence determines current availability.
+## Ownership and integration boundary
+
+This repository is the sole durable source owner for reusable Mindgarden
+capability. Consumer repositories own their `.garden/` knowledge and integrate
+through an immutable Mindgarden release, package, or commit. Mindgarden does not
+import consumer internals, and consumers do not copy or fork this source as an
+embedded implementation.
+
+Empathy remains the first golden consumer. Its migration from the incubated
+copy to a pinned standalone dependency is tracked separately so extraction and
+consumer cutover remain independently reviewable.
 
 ## Dependency rules
 
-- Sibling domain capabilities integrate through versioned public contracts, not direct access to internals.
-- Generated artifacts never become the canonical source unless an accepted decision explicitly changes ownership.
-- Provider and platform adapters depend on application ports; core behavior does not depend on a provider implementation.
-- Read, plan, apply, verify, publish, and recover remain separate authority boundaries when consequential.
-- Cross-repository references use releases, immutable commits, schemas, packages, or documented APIs rather than mutable default-branch assumptions.
+- Sibling capabilities integrate through versioned public contracts.
+- Generated artifacts never become canonical source.
+- Provider and platform adapters depend on stable contracts; core behavior does
+  not depend on a provider implementation.
+- Read, plan, apply, verify, publish, and recover remain separate authority
+  boundaries when consequential.
+- Cross-repository references use releases, immutable commits, schemas,
+  packages, or documented APIs rather than mutable default branches.
 
-## Ecosystem interfaces
+## Current evidence and target evolution
 
-- Mindcap capture
-- Aether agents
-- repository-local .garden directories
-- Obsidian
-- Quartz and GitHub Pages
-
-## Deployment and portability
-
-The architecture favors independently usable local and self-hosted operation. Optional managed services may add availability, collaboration, support, and hosted infrastructure without becoming the canonical holder of portable state.
-
-## Evidence and uncertainty
-
-- **Observed:** The repository README establishes the intended boundary as a versioned knowledge-garden and second-brain foundation for repositories, people, and organizations; significant implementation remains incomplete.
-- **Decided for this draft:** The repository owns the bounded concern described here and participates through versioned contracts.
-- **Proposed:** Target systems and later roadmap phases remain proposals until accepted and implemented.
-- **Open question:** Which parts of this draft should become active in the first independently versioned release?
+The contract schemas, validation, local artifact ingestion, lexical indexing,
+context packs, Obsidian profile, public projection, and Quartz adapter are
+implemented as a preserved v0 baseline. Initialization, migrations, richer
+relationship semantics, archive interpretation, and federation remain target
+capabilities. [SYSTEM.md](SYSTEM.md) owns the capability inventory and
+[ROADMAP.md](ROADMAP.md) owns delivery order.

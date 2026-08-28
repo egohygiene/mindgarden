@@ -1,0 +1,14 @@
+schema: mindgarden.context-pack/v0
+id: public-garden-default
+title: Public Garden Context
+description: Reviewed synthetic knowledge for standalone integration tests.
+query: architecture garden
+include:
+  - public-garden-home
+exclude:
+  - public-garden-draft
+statuses:
+  - reviewed
+kinds: []
+max_notes: 3
+max_characters: 2400

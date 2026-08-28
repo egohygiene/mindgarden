@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-19
+updated: 2026-08-28
 governed_by:
   - architecture-system
 depends_on:
@@ -32,14 +32,16 @@ This document identifies Mindgarden's logical systems and responsibilities. It a
 
 | System | State | Responsibility |
 | --- | --- | --- |
-| Garden contract | Target | Owns its bounded portion of a versioned knowledge-garden and second-brain foundation for repositories, people, and organizations; exposes explicit inputs, outputs, failure states, and evidence. |
-| Ingestion pipeline | Target | Owns its bounded portion of a versioned knowledge-garden and second-brain foundation for repositories, people, and organizations; exposes explicit inputs, outputs, failure states, and evidence. |
-| Normalization and indexing | Target | Owns its bounded portion of a versioned knowledge-garden and second-brain foundation for repositories, people, and organizations; exposes explicit inputs, outputs, failure states, and evidence. |
-| Synapse model | Target | Owns its bounded portion of a versioned knowledge-garden and second-brain foundation for repositories, people, and organizations; exposes explicit inputs, outputs, failure states, and evidence. |
-| Context-pack builder | Target | Owns its bounded portion of a versioned knowledge-garden and second-brain foundation for repositories, people, and organizations; exposes explicit inputs, outputs, failure states, and evidence. |
-| Obsidian projection | Target | Owns its bounded portion of a versioned knowledge-garden and second-brain foundation for repositories, people, and organizations; exposes explicit inputs, outputs, failure states, and evidence. |
-| Quartz publication | Target | Owns its bounded portion of a versioned knowledge-garden and second-brain foundation for repositories, people, and organizations; exposes explicit inputs, outputs, failure states, and evidence. |
-| Validation | Target | Owns its bounded portion of a versioned knowledge-garden and second-brain foundation for repositories, people, and organizations; exposes explicit inputs, outputs, failure states, and evidence. |
+| Garden contract | Implemented v0 | Defines manifests, notes, provenance, context packs, indexes, Obsidian profiles, and publish profiles through versioned schemas. |
+| Ingestion pipeline | Implemented v0 baseline | Normalizes a supplied local UTF-8 artifact into a proposed source note and hash-bound provenance record; acquisition and interpretation are not yet implemented. |
+| Normalization and indexing | Implemented v0 baseline | Builds a deterministic lexical catalog and explainable search results without provider state. |
+| Synapse model | Target | Will represent richer typed relationships and cross-garden knowledge links; v0 currently validates note identifiers, `related`, and `supersedes`. |
+| Context-pack builder | Implemented v0 baseline | Selects reviewed notes through bounded profiles and emits source-labelled Markdown or JSON context. |
+| Obsidian projection | Implemented v0 profile | Defines a portable vault topology with native Bases and no required community plugins. |
+| Quartz publication | Implemented v0 baseline | Projects reviewed public notes, rewrites source-boundary links, and renders through an immutable Quartz checkout. |
+| Validation | Implemented v0 | Fails closed on schema, path, lifecycle, relationship, provenance, privacy, and publication violations. |
+| Initialization and migration | Target | Will create and upgrade consumer-owned gardens without replacing canonical knowledge implicitly. |
+| Federation and routing | Target | Will discover repository gardens and assemble organization-level projections through explicit contracts. |
 
 ## External systems
 
@@ -61,7 +63,7 @@ Systems fail closed at destructive, publication, privacy, and security boundarie
 
 ## Evidence and uncertainty
 
-- **Observed:** The repository README establishes the intended boundary as a versioned knowledge-garden and second-brain foundation for repositories, people, and organizations; significant implementation remains incomplete.
-- **Decided for this draft:** The repository owns the bounded concern described here and participates through versioned contracts.
-- **Proposed:** Target systems and later roadmap phases remain proposals until accepted and implemented.
-- **Open question:** Which parts of this draft should become active in the first independently versioned release?
+- **Observed:** The extracted v0 schemas, commands, profiles, fixtures, and tests provide runnable evidence for the implemented states above.
+- **Decided:** Mindgarden owns reusable capability; each consumer owns its canonical `.garden/` knowledge.
+- **Proposed:** v1 stabilization, initialization, archive interpretation, richer synapses, and federation remain roadmap work.
+- **Open question:** Which v0 compatibility guarantees must be retained in the first independently versioned release?

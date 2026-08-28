@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:publish-profile:v0",
+  "title": "Mindgarden publish profile v0",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "adapter",
+    "garden_root",
+    "entrypoint",
+    "repository",
+    "repository_ref",
+    "base_url",
+    "quartz_repository",
+    "quartz_commit",
+    "node_major",
+    "statuses",
+    "visibilities"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.publish-profile/v0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "adapter": {
+      "const": "quartz-v5"
+    },
+    "garden_root": {
+      "const": ".garden"
+    },
+    "entrypoint": {
+      "type": "string",
+      "pattern": "^[^/].*\\.md$"
+    },
+    "repository": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://github\\.com/"
+    },
+    "repository_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "base_url": {
+      "type": "string",
+      "pattern": "^[^:/]+(?:/[^/]+)*$"
+    },
+    "quartz_repository": {
+      "const": "https://github.com/jackyzha0/quartz.git"
+    },
+    "quartz_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "node_major": {
+      "type": "integer",
+      "minimum": 22
+    },
+    "statuses": {
+      "type": "array",
+      "const": ["reviewed"]
+    },
+    "visibilities": {
+      "type": "array",
+      "const": ["public"]
+    }
+  },
+  "additionalProperties": false
+}

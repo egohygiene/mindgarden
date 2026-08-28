@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:index:v0",
+  "title": "Mindgarden deterministic index v0",
+  "type": "object",
+  "required": ["schema", "garden", "notes"],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.index/v0"
+    },
+    "garden": {
+      "type": "object",
+      "required": ["id", "title", "version", "entrypoint", "manifestSha256"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "entrypoint": {
+          "type": "string"
+        },
+        "manifestSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "path",
+          "sha256",
+          "title",
+          "kind",
+          "status",
+          "reviewed",
+          "confidence",
+          "visibility",
+          "updated",
+          "owners",
+          "sources",
+          "related",
+          "tags",
+          "headings",
+          "wordCount",
+          "terms",
+          "titleTerms",
+          "headingTerms",
+          "tagTerms"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "reviewed": {
+            "type": "boolean"
+          },
+          "confidence": {
+            "type": "string"
+          },
+          "visibility": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "string"
+          },
+          "owners": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "related": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "headings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "wordCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "terms": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "titleTerms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "headingTerms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tagTerms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
