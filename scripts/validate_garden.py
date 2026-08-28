@@ -9,14 +9,17 @@
 from __future__ import annotations
 
 from argparse import ArgumentParser
-from collections.abc import Mapping
 from datetime import date
 import hashlib
 import json
 from pathlib import Path
 import re
 import sys
+from typing import TYPE_CHECKING
 from urllib.parse import urlparse
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 FRONTMATTER_PATTERN = re.compile(r"\A---\n(?P<body>.*?)\n---\n", re.DOTALL)
 IDENTIFIER_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")

@@ -937,10 +937,11 @@ def main() -> int:
         return 1
     try:
         result: int = arguments.handler(arguments)
-        return result
     except (ContractError, OSError, ValueError, json.JSONDecodeError) as error:
         print(f"mindgarden agent command failed: {error}", file=sys.stderr)
         return 1
+    else:
+        return result
 
 
 if __name__ == "__main__":
