@@ -33,7 +33,8 @@ and published site is an adapter or derived projection.
 ## Layers
 
 1. **Knowledge contract** — versioned manifests, Markdown notes, YAML
-   frontmatter, stable identifiers, provenance, confidence, and lifecycle.
+   frontmatter, stable identifiers, sources, knowledge, claims, typed synapses,
+   provenance, review, confidence, privacy, classification, and lifecycle.
 2. **Garden engine** — initialization, validation, migration, indexing, and
    deterministic transformations.
 3. **Adapters** — Obsidian configuration, agent CLI/MCP access, search, and
@@ -101,12 +102,27 @@ consumer cutover remain independently reviewable.
 - Cross-repository references use releases, immutable commits, schemas,
   packages, or documented APIs rather than mutable default branches.
 
+## Contract-version boundary
+
+The shipped v0 runtime and root contract files remain the 0.1 compatibility
+surface. The additive [`contracts/v1/`](contracts/v1/) registry defines the
+target semantic model without silently changing consumer behavior. V1 uses
+stable `{garden, id}` identities, optional immutable revisions, independent
+semantic axes, authoritative domain/topic metadata, and explicit publication
+allowlists.
+
+V1 schema availability is not v1 runtime support. Initialization and migration
+issue #7 will create and plan v1 instances; validation issue #10 will enforce
+cross-record, path, body, attachment, and leak invariants. Migration remains
+side-by-side, digest-bound, atomic, and rollback-safe.
+
 ## Current evidence and target evolution
 
-The contract schemas, validation, local artifact ingestion, lexical indexing,
-context packs, Obsidian profile, public projection, and Quartz adapter are
-implemented as a preserved v0 baseline behind the installable 0.1 package and
-CLI. Initialization, migrations, richer relationship semantics, archive
-interpretation, and federation remain target capabilities.
+The v1 semantic contract, valid/adversarial schema fixtures, v0 compatibility
+matrix, v0 validation, local artifact ingestion, lexical indexing, context
+packs, Obsidian profile, public projection, and Quartz adapter are implemented
+behind the installable 0.1 package and CLI. V1 runtime initialization,
+migration, hardened validation, archive interpretation, and federation remain
+target capabilities.
 [SYSTEM.md](SYSTEM.md) owns the capability inventory and [ROADMAP.md](ROADMAP.md)
 owns delivery order.

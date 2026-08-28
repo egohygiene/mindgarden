@@ -1,0 +1,76 @@
+{
+  "schema": "mindgarden.knowledge/v1",
+  "id": "knowledge-agent-proposal",
+  "garden": "example-garden",
+  "title": "Repository gardens remain consumer owned",
+  "kind": "concept",
+  "status": "proposed",
+  "confidence": "medium",
+  "visibility": "private",
+  "owners": [
+    "egohygiene"
+  ],
+  "authors": [
+    {
+      "kind": "agent",
+      "id": "example-curator",
+      "version": "2026-08-28"
+    }
+  ],
+  "review": {
+    "state": "unreviewed",
+    "reviewers": [],
+    "reviewed_at": null,
+    "rationale": null
+  },
+  "created": "2026-08-28",
+  "updated": "2026-08-28",
+  "domains": [
+    "software-engineering"
+  ],
+  "topics": [
+    "knowledge-systems"
+  ],
+  "aliases": [],
+  "tags": [
+    "architecture"
+  ],
+  "content": {
+    "path": "knowledge/consumer-ownership.md",
+    "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+  },
+  "sources": [
+    {
+      "source": {
+        "garden": "example-garden",
+        "id": "source-normalized",
+        "revision": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "locator": "lines:1-12",
+      "content_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  ],
+  "claims": [
+    {
+      "garden": "example-garden",
+      "id": "claim-consumer-ownership",
+      "revision": null
+    }
+  ],
+  "synapses": [
+    {
+      "garden": "example-garden",
+      "id": "synapse-ownership-architecture",
+      "revision": null
+    }
+  ],
+  "provenance": [
+    {
+      "garden": "example-garden",
+      "id": "provenance-knowledge-proposal",
+      "revision": null
+    }
+  ],
+  "supersedes": [],
+  "publication": "excluded"
+}

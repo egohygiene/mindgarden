@@ -30,6 +30,20 @@ Those boundaries allow the same committed knowledge to support an Obsidian
 vault, a GitHub Pages garden, and multiple agent runtimes without creating
 three competing stores.
 
+## Stabilized v1 contract
+
+[`contracts/v1/`](contracts/v1/) defines the additive JSON Schema 2020-12
+contract for gardens, captured and normalized sources, durable knowledge,
+claims and evidence, typed synapses, ordered provenance, projections, and
+migration history. It makes stable identity, privacy, review, classification,
+routing scope, and publication authority explicit without treating folders or
+a third-party application as canonical.
+
+The v1 schemas are the target contract for the 1.0 roadmap. The current 0.1 CLI
+continues to operate on v0 until initialization/migration and hardened v1
+validation land separately. See the [v1 contract model](docs/contracts-v1.md)
+and [v0 → v1 compatibility matrix](docs/v0-v1-compatibility.md).
+
 ## Implemented v0 surface
 
 The extracted v0 engine includes:

@@ -105,26 +105,30 @@ issues: [6, 8]
 
 <!-- roadmap-step
 id: MIG-Q03
-status: planned
+status: active
 depends_on: [MIG-Q02]
-issues: [1]
+issues: [1, 9, 7, 10]
 -->
 #### MIG-Q03 — Implement the knowledge contract
 
-**State:** `planned`  
+**State:** `active`
 **Depends on:** `MIG-Q02`
 
 **Outcome:** Issue #1 yields a versioned schema and validator for private knowledge records.
 
 **Exit criteria:**
 
-- [ ] Valid and invalid fixtures are tested in CI.
-- [ ] Identity, provenance, privacy, and migration fields are explicit.
+- [x] Valid and invalid fixtures are tested in CI.
+- [x] Identity, provenance, privacy, and migration fields are explicit.
+- [ ] Deterministic v1 initialization and migration are implemented.
+- [ ] Stable cross-record and privacy diagnostics validate complete v1 gardens.
 
 **Current evidence:**
 
 - Issue #1 tracks the knowledge contract.
 - Seven v0 schemas, dependency-free validation, and valid/invalid contract tests provide a baseline for v1 stabilization.
+- Issue #9 adds nine JSON Schema 2020-12 v1 contracts, a canonical ontology, executable golden/adversarial fixtures, and a non-destructive v0 → v1 compatibility specification.
+- The v0 runtime remains supported while issues #7 and #10 implement v1 lifecycle operations and hardened validation.
 
 <!-- roadmap-step
 id: MIG-Q04

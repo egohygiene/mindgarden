@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:claim:v1",
+  "title": "Mindgarden claim and evidence v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "garden",
+    "subject",
+    "statement",
+    "epistemic_state",
+    "status",
+    "confidence",
+    "visibility",
+    "owners",
+    "authors",
+    "review",
+    "evidence"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.claim/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "subject": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    },
+    "statement": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+    },
+    "epistemic_state": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/epistemicState"
+    },
+    "status": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/lifecycleStatus",
+      "default": "proposed"
+    },
+    "confidence": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence",
+      "default": "unknown"
+    },
+    "visibility": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/visibility",
+      "default": "private"
+    },
+    "owners": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/owners"
+    },
+    "authors": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/authors"
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "evidence": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "relationship",
+          "target",
+          "rationale"
+        ],
+        "properties": {
+          "relationship": {
+            "enum": [
+              "supports",
+              "contradicts",
+              "uncertain",
+              "supersedes"
+            ]
+          },
+          "target": {
+            "oneOf": [
+              {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+              },
+              {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+              }
+            ]
+          },
+          "rationale": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "patternProperties": {
+    "^x-[a-z0-9]+(?:-[a-z0-9]+)*$": true
+  },
+  "additionalProperties": false
+}

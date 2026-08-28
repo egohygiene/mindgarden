@@ -1,0 +1,81 @@
+{
+  "schema": "mindgarden.garden/v1",
+  "id": "example-garden",
+  "title": "Example Repository Garden",
+  "version": "1.0.0",
+  "kind": "repository",
+  "status": "active",
+  "visibility": "public",
+  "owners": [
+    "egohygiene"
+  ],
+  "canonical_uri": "urn:egohygiene:garden:example-garden",
+  "repository": "https://github.com/egohygiene/example",
+  "classification": {
+    "domains": [
+      "software-engineering"
+    ],
+    "topics": [
+      "knowledge-systems",
+      "repository-architecture"
+    ]
+  },
+  "contracts": {
+    "reads": [
+      "mindgarden.garden/v0",
+      "mindgarden.garden/v1"
+    ],
+    "writes": [
+      "mindgarden.garden/v1"
+    ]
+  },
+  "roots": {
+    "sources": "sources",
+    "knowledge": "knowledge",
+    "provenance": "provenance",
+    "context_packs": "context-packs",
+    "generated": [
+      ".generated/index",
+      ".generated/projections"
+    ]
+  },
+  "private_overlay": "../.garden.local",
+  "publication": {
+    "default_action": "deny",
+    "allowed_visibilities": [
+      "public"
+    ],
+    "required_review_states": [
+      "approved"
+    ],
+    "raw_sources": "exclude",
+    "allow": {
+      "kinds": [
+        "concept",
+        "decision",
+        "map"
+      ],
+      "domains": [
+        "software-engineering"
+      ],
+      "topics": []
+    }
+  },
+  "routing": {
+    "domains": [
+      "software-engineering"
+    ],
+    "topics": [
+      "knowledge-systems"
+    ],
+    "private_fallback": null
+  },
+  "migrations": [
+    {
+      "garden": "example-garden",
+      "id": "migration-v0-v1",
+      "revision": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "x-fixture": "contract-conformance"
+}

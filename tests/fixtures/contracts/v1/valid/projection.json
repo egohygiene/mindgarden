@@ -1,0 +1,47 @@
+{
+  "schema": "mindgarden.projection/v1",
+  "id": "projection-public-site",
+  "garden": "example-garden",
+  "kind": "site",
+  "status": "verified",
+  "visibility": "public",
+  "review": {
+    "state": "approved",
+    "reviewers": [
+      "example-reviewer"
+    ],
+    "reviewed_at": "2026-08-28T00:00:00Z",
+    "rationale": "The allowlisted public projection passed review."
+  },
+  "source_revision": "git:0123456789abcdef0123456789abcdef01234567",
+  "inputs": [
+    {
+      "garden": "example-garden",
+      "id": "knowledge-public-map",
+      "revision": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+    }
+  ],
+  "output_root": ".generated/site",
+  "base_uri": "https://example.egohygiene.io/garden/",
+  "policy": {
+    "default_action": "deny",
+    "allowed_visibilities": [
+      "public"
+    ],
+    "required_review_states": [
+      "approved"
+    ],
+    "exclude_raw_sources": true,
+    "allow": {
+      "kinds": [
+        "concept",
+        "decision",
+        "map"
+      ],
+      "domains": [
+        "software-engineering"
+      ],
+      "topics": []
+    }
+  }
+}

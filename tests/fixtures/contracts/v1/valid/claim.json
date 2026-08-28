@@ -1,0 +1,73 @@
+{
+  "schema": "mindgarden.claim/v1",
+  "id": "claim-consumer-ownership",
+  "garden": "example-garden",
+  "subject": {
+    "garden": "example-garden",
+    "id": "knowledge-agent-proposal",
+    "revision": null
+  },
+  "statement": "A consumer repository owns its canonical garden knowledge.",
+  "epistemic_state": "decided",
+  "status": "proposed",
+  "confidence": "high",
+  "visibility": "private",
+  "owners": [
+    "egohygiene"
+  ],
+  "authors": [
+    {
+      "kind": "agent",
+      "id": "example-curator",
+      "version": "2026-08-28"
+    }
+  ],
+  "review": {
+    "state": "unreviewed",
+    "reviewers": [],
+    "reviewed_at": null,
+    "rationale": null
+  },
+  "evidence": [
+    {
+      "relationship": "supports",
+      "target": {
+        "source": {
+          "garden": "example-garden",
+          "id": "source-normalized",
+          "revision": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        },
+        "locator": "lines:1-4",
+        "content_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "rationale": "The source states the ownership boundary directly."
+    },
+    {
+      "relationship": "contradicts",
+      "target": {
+        "garden": "example-garden",
+        "id": "claim-central-store",
+        "revision": null
+      },
+      "rationale": "The competing claim proposes centralized ownership."
+    },
+    {
+      "relationship": "uncertain",
+      "target": {
+        "garden": "example-garden",
+        "id": "claim-private-hosting",
+        "revision": null
+      },
+      "rationale": "Private hosting behavior is not yet implemented."
+    },
+    {
+      "relationship": "supersedes",
+      "target": {
+        "garden": "example-garden",
+        "id": "claim-embedded-garden",
+        "revision": "git:0123456789abcdef0123456789abcdef01234567"
+      },
+      "rationale": "The standalone ownership decision replaces the incubated model."
+    }
+  ]
+}

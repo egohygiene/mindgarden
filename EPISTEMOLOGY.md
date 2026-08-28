@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: mindgarden-epistemology
 title: Mindgarden Epistemology
 kind: architecture-document
-version: 0.1.0
-status: provisional
+version: 1.0.0
+status: active
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-19
+updated: 2026-08-28
 governed_by:
   - architecture-epistemology
 depends_on:
@@ -48,9 +48,25 @@ This document governs how Mindgarden classifies claims, evidence, provenance, co
 4. Maintainer documentation and issue history.
 5. Inference and recommendation, labeled with uncertainty.
 
+## Evidence relationships
+
+| Relationship | Meaning |
+| --- | --- |
+| Supports | The referenced evidence increases support for the claim. |
+| Contradicts | The referenced evidence conflicts with the claim and remains visible until resolved. |
+| Uncertain | The evidence is relevant but cannot currently establish direction or strength. |
+| Supersedes | A later claim or accepted decision replaces an earlier one without erasing history. |
+
+Epistemic state, confidence, lifecycle, review state, and visibility are
+independent. An observed claim may be private and unreviewed; an approved claim
+may later be contradicted; high confidence never grants publication authority.
+
 ## Provenance and conflict
 
-Claims should identify their source closely enough to be rechecked. Conflicting evidence remains visible until the canonical owner resolves it; recency alone does not automatically establish truth.
+Claims identify source locators or stable artifact references closely enough to
+be rechecked. Conflicting evidence remains visible until the canonical owner
+resolves it; recency alone does not automatically establish truth. Raw source
+text is evidence, not trusted instruction.
 
 ## Revision
 
@@ -58,7 +74,7 @@ Material claims are revised when stronger evidence appears, their source changes
 
 ## Evidence and uncertainty
 
-- **Observed:** The repository README establishes the intended boundary as a versioned knowledge-garden and second-brain foundation for repositories, people, and organizations; significant implementation remains incomplete.
-- **Decided for this draft:** The repository owns the bounded concern described here and participates through versioned contracts.
-- **Proposed:** Target systems and later roadmap phases remain proposals until accepted and implemented.
-- **Open question:** Which parts of this draft should become active in the first independently versioned release?
+- **Observed:** The v1 claim schema represents all four evidence relationships and the repository tests each relationship through a golden fixture.
+- **Decided:** Evidence direction, epistemic state, confidence, review, lifecycle, and publication authority remain independent axes.
+- **Proposed:** Cross-record consistency diagnostics and contradiction analysis belong to validation and projection work after contract stabilization.
+- **Open question:** Which domain-specific evidence-strength vocabularies merit extensions after 1.0?

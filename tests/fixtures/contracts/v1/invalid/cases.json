@@ -1,0 +1,243 @@
+{
+  "schema": "mindgarden.contract-fixtures/v1",
+  "cases": [
+    {
+      "id": "unstable-identifier",
+      "contract": "knowledge",
+      "base": "knowledge-agent-proposal.json",
+      "category": "identity",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/id",
+          "value": "Not A Stable ID"
+        }
+      ],
+      "expected_validator": "pattern"
+    },
+    {
+      "id": "invalid-created-date",
+      "contract": "knowledge",
+      "base": "knowledge-agent-proposal.json",
+      "category": "dates",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/created",
+          "value": "2026-99-99"
+        }
+      ],
+      "expected_validator": "format"
+    },
+    {
+      "id": "captured-source-publication",
+      "contract": "source",
+      "base": "source-captured.json",
+      "category": "privacy",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/visibility",
+          "value": "public"
+        },
+        {
+          "operation": "replace",
+          "pointer": "/publication",
+          "value": "eligible"
+        }
+      ],
+      "expected_validator": "const"
+    },
+    {
+      "id": "unreviewed-public-knowledge",
+      "contract": "knowledge",
+      "base": "knowledge-agent-proposal.json",
+      "category": "privacy",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/status",
+          "value": "active"
+        },
+        {
+          "operation": "replace",
+          "pointer": "/visibility",
+          "value": "public"
+        },
+        {
+          "operation": "replace",
+          "pointer": "/publication",
+          "value": "eligible"
+        }
+      ],
+      "expected_validator": "const"
+    },
+    {
+      "id": "normalized-source-without-input",
+      "contract": "source",
+      "base": "source-normalized.json",
+      "category": "provenance",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/inputs",
+          "value": []
+        }
+      ],
+      "expected_validator": "minItems"
+    },
+    {
+      "id": "invalid-provenance-hash",
+      "contract": "provenance",
+      "base": "provenance.json",
+      "category": "provenance",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/artifact_sha256",
+          "value": "not-a-sha256"
+        }
+      ],
+      "expected_validator": "pattern"
+    },
+    {
+      "id": "mutable-cross-garden-reference",
+      "contract": "synapse",
+      "base": "synapse.json",
+      "category": "cross-garden-reference",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/target/revision",
+          "value": "branch:main"
+        }
+      ],
+      "expected_validator": "anyOf"
+    },
+    {
+      "id": "unknown-synapse-relationship",
+      "contract": "synapse",
+      "base": "synapse.json",
+      "category": "relationships",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/type",
+          "value": "likes"
+        }
+      ],
+      "expected_validator": "enum"
+    },
+    {
+      "id": "unknown-unprefixed-extension",
+      "contract": "knowledge",
+      "base": "knowledge-agent-proposal.json",
+      "category": "extension-fields",
+      "mutations": [
+        {
+          "operation": "add",
+          "pointer": "/custom",
+          "value": true
+        }
+      ],
+      "expected_validator": "additionalProperties"
+    },
+    {
+      "id": "approval-without-reviewer",
+      "contract": "knowledge",
+      "base": "knowledge-agent-proposal.json",
+      "category": "review-authority",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/review/state",
+          "value": "approved"
+        }
+      ],
+      "expected_validator": "minItems"
+    },
+    {
+      "id": "unknown-claim-evidence-relationship",
+      "contract": "claim",
+      "base": "claim.json",
+      "category": "claim-evidence",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/evidence/0/relationship",
+          "value": "agrees"
+        }
+      ],
+      "expected_validator": "enum"
+    },
+    {
+      "id": "applied-migration-without-time",
+      "contract": "migration",
+      "base": "migration.json",
+      "category": "migration-history",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/status",
+          "value": "applied"
+        }
+      ],
+      "expected_validator": "type"
+    },
+    {
+      "id": "knowledge-without-domain",
+      "contract": "knowledge",
+      "base": "knowledge-agent-proposal.json",
+      "category": "classification",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/domains",
+          "value": []
+        }
+      ],
+      "expected_validator": "minItems"
+    },
+    {
+      "id": "source-without-origin",
+      "contract": "source",
+      "base": "source-captured.json",
+      "category": "origin",
+      "mutations": [
+        {
+          "operation": "remove",
+          "pointer": "/origin"
+        }
+      ],
+      "expected_validator": "required"
+    },
+    {
+      "id": "public-projection-allows-internal",
+      "contract": "projection",
+      "base": "projection.json",
+      "category": "publication-policy",
+      "mutations": [
+        {
+          "operation": "add",
+          "pointer": "/policy/allowed_visibilities/-",
+          "value": "internal"
+        }
+      ],
+      "expected_validator": "const"
+    },
+    {
+      "id": "invalid-repository-uri",
+      "contract": "garden",
+      "base": "garden.json",
+      "category": "garden-identity",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/repository",
+          "value": "main"
+        }
+      ],
+      "expected_validator": "pattern"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "mindgarden.synapse/v1",
+  "id": "synapse-ownership-architecture",
+  "garden": "example-garden",
+  "type": "related",
+  "source": {
+    "garden": "example-garden",
+    "id": "knowledge-agent-proposal",
+    "revision": null
+  },
+  "target": {
+    "garden": "organization-garden",
+    "id": "repository-architecture",
+    "revision": "git:0123456789abcdef0123456789abcdef01234567"
+  },
+  "directed": false,
+  "status": "proposed",
+  "confidence": "medium",
+  "visibility": "private",
+  "owners": [
+    "egohygiene"
+  ],
+  "authors": [
+    {
+      "kind": "agent",
+      "id": "example-curator",
+      "version": "2026-08-28"
+    }
+  ],
+  "review": {
+    "state": "unreviewed",
+    "reviewers": [],
+    "reviewed_at": null,
+    "rationale": null
+  },
+  "evidence": [
+    {
+      "source": {
+        "garden": "example-garden",
+        "id": "source-normalized",
+        "revision": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "locator": "lines:5-12",
+      "content_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+    }
+  ]
+}

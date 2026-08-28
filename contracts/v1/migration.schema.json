@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:migration:v1",
+  "title": "Mindgarden migration history record v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "garden",
+    "from_contract",
+    "to_contract",
+    "status",
+    "plan_sha256",
+    "created_at",
+    "applied_at",
+    "preserved_ids",
+    "mappings",
+    "provenance"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.migration/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "from_contract": {
+      "type": "string",
+      "pattern": "^mindgarden\\.[a-z-]+/v0$"
+    },
+    "to_contract": {
+      "type": "string",
+      "pattern": "^mindgarden\\.[a-z-]+/v1$"
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "applied",
+        "rolled-back",
+        "failed"
+      ]
+    },
+    "plan_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "applied_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "preserved_ids": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifierSet"
+    },
+    "mappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "kind",
+          "from",
+          "to",
+          "reason"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "preserve",
+              "rename",
+              "split",
+              "merge",
+              "defer"
+            ]
+          },
+          "from": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReferences"
+          },
+          "to": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReferences"
+          },
+          "reason": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "provenance": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "planned"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "applied_at": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "applied"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "applied_at": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "patternProperties": {
+    "^x-[a-z0-9]+(?:-[a-z0-9]+)*$": true
+  },
+  "additionalProperties": false
+}
