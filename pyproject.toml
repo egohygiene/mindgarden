@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mindgarden"
+version = "0.1.0"
+description = "A versioned knowledge garden and second-brain foundation"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [
+  { name = "Ego Hygiene" },
+]
+keywords = [
+  "agents",
+  "knowledge-base",
+  "knowledge-garden",
+  "local-first",
+  "obsidian",
+  "provenance",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Documentation",
+  "Topic :: Text Processing :: Markup :: Markdown",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/egohygiene/mindgarden"
+Issues = "https://github.com/egohygiene/mindgarden/issues"
+Repository = "https://github.com/egohygiene/mindgarden"
+
+[project.scripts]
+mindgarden = "mindgarden.interfaces.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mindgarden = ["py.typed"]
+
+[tool.setuptools.data-files]
+"share/mindgarden/contracts" = ["contracts/*.schema.json"]
+"share/mindgarden/profiles/agent" = ["profiles/agent/*.md"]
+"share/mindgarden/profiles/obsidian" = ["profiles/obsidian/*.json", "profiles/obsidian/*.md"]
+"share/mindgarden/profiles/quartz" = ["profiles/quartz/*.yaml", "profiles/quartz/*.md"]
+"share/mindgarden/templates" = ["templates/*.md"]

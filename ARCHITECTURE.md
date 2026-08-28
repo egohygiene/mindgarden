@@ -45,6 +45,21 @@ Dependencies flow downward from consumer adapters toward the knowledge
 contract. The knowledge contract cannot depend on Obsidian, a particular LLM,
 an embedding provider, or a site generator.
 
+## Package structure
+
+The installable Python package mirrors those dependency boundaries:
+
+- `mindgarden.domain` owns contract parsing and validation;
+- `mindgarden.application` owns deterministic use cases over the domain;
+- `mindgarden.adapters` owns filesystem and renderer integrations;
+- `mindgarden.interfaces` owns CLI parsing, diagnostics, and process exit codes.
+
+The stable `mindgarden` console entry point depends inward through those
+layers. Root-level `scripts/` files are temporary 0.x compatibility shims and
+contain no reusable implementation. Package construction includes the public
+schemas, profiles, and templates without moving their repository source of
+truth.
+
 ## Source and projection boundary
 
 - Markdown and YAML committed under `.garden/` are durable source.
@@ -90,7 +105,8 @@ consumer cutover remain independently reviewable.
 
 The contract schemas, validation, local artifact ingestion, lexical indexing,
 context packs, Obsidian profile, public projection, and Quartz adapter are
-implemented as a preserved v0 baseline. Initialization, migrations, richer
-relationship semantics, archive interpretation, and federation remain target
-capabilities. [SYSTEM.md](SYSTEM.md) owns the capability inventory and
-[ROADMAP.md](ROADMAP.md) owns delivery order.
+implemented as a preserved v0 baseline behind the installable 0.1 package and
+CLI. Initialization, migrations, richer relationship semantics, archive
+interpretation, and federation remain target capabilities.
+[SYSTEM.md](SYSTEM.md) owns the capability inventory and [ROADMAP.md](ROADMAP.md)
+owns delivery order.

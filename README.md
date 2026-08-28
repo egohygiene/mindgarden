@@ -47,22 +47,38 @@ The extracted v0 engine includes:
   deterministic agent projections;
 - [`contracts/publish-profile.schema.json`](contracts/publish-profile.schema.json)
   for fail-closed static-site publication;
-- [`scripts/validate_garden.py`](scripts/validate_garden.py) for dependency-free
-  repository validation;
-- [`scripts/garden_agent.py`](scripts/garden_agent.py) for ingestion, indexing,
-  explainable search, context packs, and `llms.txt`;
-- [`scripts/publish_garden.py`](scripts/publish_garden.py) and
-  [`scripts/quartz_site.py`](scripts/quartz_site.py) for reviewed-public
-  projection and pinned Quartz rendering;
+- the installable [`mindgarden`](src/mindgarden/) Python package and unified
+  command for validation, ingestion, indexing, search, context, publication,
+  and verification;
+- explicit domain, application, adapter, and interface package boundaries;
+- compatibility shims under [`scripts/`](scripts/) for the incubated 0.x
+  command paths;
 - [`templates/note.md`](templates/note.md) for new knowledge notes.
 
-From a Mindgarden checkout, point the commands at a consumer repository:
+## Installation
+
+Mindgarden supports Python 3.12 and 3.13. Before the first PyPI release, install
+an immutable checkout or a reviewed local clone:
 
 ```bash
-python3 scripts/validate_garden.py --repository-root "/path/to/consumer"
-python3 scripts/garden_agent.py --repository-root "/path/to/consumer" verify
-python3 scripts/publish_garden.py --repository-root "/path/to/consumer" verify
+python3 -m pip install "/path/to/mindgarden"
+mindgarden --version
 ```
+
+PyPI publication is part of the final 1.0 release gate; no provisional package
+is published by this change.
+
+Point the installed command at a consumer repository:
+
+```bash
+mindgarden validate --repository-root "/path/to/consumer"
+mindgarden verify --repository-root "/path/to/consumer"
+mindgarden publish verify --repository-root "/path/to/consumer"
+```
+
+The package has no runtime Python dependencies. Core validation, indexing,
+search, and context generation remain offline. See [`docs/cli.md`](docs/cli.md)
+for the full command, exit-code, library, and compatibility contracts.
 
 The v0 parser deliberately supports only scalar values and scalar lists. This
 keeps the foundational contract deterministic and dependency-free while the

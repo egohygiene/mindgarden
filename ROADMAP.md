@@ -80,7 +80,7 @@ issues: [1, 2]
 id: MIG-Q02
 status: active
 depends_on: [MIG-Q01]
-issues: [6]
+issues: [6, 8]
 -->
 #### MIG-Q02 — Extract the incubated implementation
 
@@ -98,6 +98,8 @@ issues: [6]
 
 - Issue #6 imports the v0 engine with nine commits of provenance-linked source history.
 - Contracts, commands, profiles, synthetic fixtures, and Python/Node CI are now standalone.
+- Issue #8 packages the v0 engine behind the dependency-free `mindgarden` command and importable Python API while retaining 0.x script compatibility.
+- Source and wheel distributions build successfully and pass clean-environment installation tests; final PyPI trusted publication remains a 1.0 release gate.
 - Empathy consumer content and generated/private state remain excluded.
 - Empathy cutover to a pinned standalone release or commit remains open.
 

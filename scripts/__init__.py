@@ -1,4 +1,4 @@
 # Copyright 2026 Ego Hygiene
 # SPDX-License-Identifier: MIT
 
-"""Mindgarden command implementations."""
+"""Compatibility shims for the pre-package Mindgarden commands."""
