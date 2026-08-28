@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:obsidian-profile:v0",
+  "title": "Mindgarden Obsidian profile v0",
+  "type": "object",
+  "required": [
+    "schema",
+    "vaultRoot",
+    "gardenRoot",
+    "configurationRoot",
+    "templatesRoot",
+    "attachmentsRoot",
+    "dashboard",
+    "nativeFeatures",
+    "requiredCommunityPlugins",
+    "optionalCommunityPlugins",
+    "retiredReferences"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.obsidian-profile/v0"
+    },
+    "vaultRoot": {
+      "const": "."
+    },
+    "gardenRoot": {
+      "type": "string",
+      "minLength": 1
+    },
+    "configurationRoot": {
+      "type": "string",
+      "minLength": 1
+    },
+    "templatesRoot": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attachmentsRoot": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dashboard": {
+      "type": "string",
+      "pattern": "\\.md$"
+    },
+    "nativeFeatures": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      }
+    },
+    "requiredCommunityPlugins": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "optionalCommunityPlugins": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/plugin"
+      }
+    },
+    "retiredReferences": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/retiredReference"
+      }
+    }
+  },
+  "$defs": {
+    "plugin": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "version",
+        "minimumObsidianVersion",
+        "source",
+        "purpose"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "minimumObsidianVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "source": {
+          "type": "string",
+          "format": "uri"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "retiredReference": {
+      "type": "object",
+      "required": ["id", "source", "reason"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "source": {
+          "type": "string",
+          "format": "uri"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -49,7 +49,7 @@ NOTE_REQUIRED_FIELDS = {
     "supersedes",
 }
 
-NOTE_OPTIONAL_FIELDS = {"aliases", "tags"}
+NOTE_OPTIONAL_FIELDS = {"aliases", "cssclasses", "tags"}
 GARDEN_STATUSES = {"incubating", "active", "deprecated", "archived"}
 NOTE_KINDS = {"map", "concept", "decision", "project", "procedure", "source", "note"}
 NOTE_STATUSES = {"draft", "proposed", "reviewed", "deprecated", "archived"}
@@ -273,10 +273,17 @@ def validate_note_metadata(
     if updated < created:
         raise ContractError(f"{path}: updated date precedes created date")
 
-    for field in ("sources", "related", "supersedes", "aliases", "tags"):
+    for field in (
+        "sources",
+        "related",
+        "supersedes",
+        "aliases",
+        "cssclasses",
+        "tags",
+    ):
         if field in metadata:
             values = require_string_list(metadata, field, path)
-            if field in {"related", "supersedes", "tags"}:
+            if field in {"related", "supersedes", "cssclasses", "tags"}:
                 for value in values:
                     require_identifier(value, field, path)
 

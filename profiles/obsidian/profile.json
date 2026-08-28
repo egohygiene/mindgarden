@@ -1,0 +1,28 @@
+{
+  "schema": "mindgarden.obsidian-profile/v0",
+  "vaultRoot": ".",
+  "gardenRoot": ".garden",
+  "configurationRoot": ".obsidian",
+  "templatesRoot": ".garden/templates",
+  "attachmentsRoot": ".garden/attachments",
+  "dashboard": ".garden/dashboard.md",
+  "nativeFeatures": ["bases", "backlinks", "graph", "properties", "templates"],
+  "requiredCommunityPlugins": [],
+  "optionalCommunityPlugins": [
+    {
+      "id": "project-manager",
+      "name": "Project Manager",
+      "version": "1.8.0",
+      "minimumObsidianVersion": "1.13.0",
+      "source": "https://github.com/StepanKropachev/obsidian-pm",
+      "purpose": "Optional table, Gantt, and Kanban views over Markdown project data."
+    }
+  ],
+  "retiredReferences": [
+    {
+      "id": "dataview",
+      "source": "https://github.com/blacksmithgu/obsidian-dataview",
+      "reason": "Upstream archived on 2026-08-13; native Obsidian Bases is the default dashboard engine."
+    }
+  ]
+}

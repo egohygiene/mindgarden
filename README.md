@@ -38,6 +38,8 @@ The incubating v0 contract includes:
   `.garden/garden.yaml`;
 - [`contracts/note.schema.json`](contracts/note.schema.json) for Markdown YAML
   frontmatter;
+- [`contracts/obsidian-profile.schema.json`](contracts/obsidian-profile.schema.json)
+  for portable, reviewable Obsidian integration metadata;
 - [`scripts/validate_garden.py`](scripts/validate_garden.py) for dependency-free
   repository validation;
 - [`templates/note.md`](templates/note.md) for new knowledge notes.
@@ -60,3 +62,7 @@ keep this directory independently extractable are defined in
 [`EXTRACTION.md`](EXTRACTION.md).
 
 No external project implementation is incorporated in this foundation pass.
+
+The first consumer profile lives in [`profiles/obsidian/`](profiles/obsidian/).
+It prefers native Obsidian capabilities and treats community plugins as explicit
+human-approved options.
