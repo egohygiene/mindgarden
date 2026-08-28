@@ -29,6 +29,10 @@ an embedding provider, or a site generator.
   transformations, and hashes without fetching or interpreting the source.
 - Agent search and context packs are bounded projections with explainable
   lexical ranking; reviewed knowledge is the default trust boundary.
+- The publishing projector admits only reviewed public notes, rewrites links
+  across the source boundary, and produces a disposable renderer input.
+- Quartz is an immutable external adapter; neither its checkout nor rendered
+  output is committed as canonical knowledge.
 - Agent-authored knowledge enters as `draft` or `proposed` and remains visibly
   unreviewed until a human promotes it.
 - A public repository may commit only public garden material.

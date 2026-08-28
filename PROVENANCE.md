@@ -29,7 +29,13 @@ or assets to this import:
 - Dark Factory — shared-memory agent-system reference architecture.
 - `AnswerDotAI/llms-txt` — a compact, Markdown-native agent discovery
   entrypoint with curated links to deeper context.
+- `jackyzha0/quartz` — Obsidian-compatible static publishing, backlinks,
+  graph navigation, search, tags, and GitHub Pages deployment patterns.
 
 External implementations must be evaluated independently for compatibility,
 security, maintenance, and license obligations before any future incorporation.
 In particular, a repository without an explicit license is reference-only.
+
+Quartz remains an external MIT-licensed build dependency pinned by commit in
+the publishing profile. No Quartz implementation code or assets are vendored
+into Mindgarden.

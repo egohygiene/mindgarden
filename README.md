@@ -45,10 +45,15 @@ The incubating v0 contract includes:
 - [`contracts/context-pack.schema.json`](contracts/context-pack.schema.json)
   and [`contracts/index.schema.json`](contracts/index.schema.json) for
   deterministic agent projections;
+- [`contracts/publish-profile.schema.json`](contracts/publish-profile.schema.json)
+  for fail-closed static-site publication;
 - [`scripts/validate_garden.py`](scripts/validate_garden.py) for dependency-free
   repository validation;
 - [`scripts/garden_agent.py`](scripts/garden_agent.py) for ingestion, indexing,
   explainable search, context packs, and `llms.txt`;
+- [`scripts/publish_garden.py`](scripts/publish_garden.py) and
+  [`scripts/quartz_site.py`](scripts/quartz_site.py) for reviewed-public
+  projection and pinned Quartz rendering;
 - [`templates/note.md`](templates/note.md) for new knowledge notes.
 
 Validate a consumer repository from its root:
@@ -56,6 +61,7 @@ Validate a consumer repository from its root:
 ```bash
 python3 mindgarden/scripts/validate_garden.py --repository-root .
 python3 mindgarden/scripts/garden_agent.py --repository-root . verify
+python3 mindgarden/scripts/publish_garden.py --repository-root . verify
 ```
 
 The v0 parser deliberately supports only scalar values and scalar lists. This
@@ -78,3 +84,7 @@ human-approved options.
 The portable agent surface lives in [`profiles/agent/`](profiles/agent/). Its
 CLI is the dependency-free baseline; runtime-specific hooks and MCP servers may
 wrap it later without changing canonical garden storage.
+
+The public-site adapter lives in [`profiles/quartz/`](profiles/quartz/). It
+filters canonical notes before an immutable Quartz checkout renders them, so
+generator ignore rules are never treated as a privacy boundary.
