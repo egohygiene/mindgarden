@@ -60,10 +60,12 @@ The Pages workflow validates and builds the site for pull requests. A push to
 
 The same Pages artifact includes the repository intelligence dashboard at
 <https://egohygiene.github.io/empathy/intelligence/>. The dashboard is generated
-after Quartz into `.cache/mindgarden/site/intelligence/`, so it remains a
-separate static projection beside the garden rather than a canonical garden
-note. Completed trusted OSV, MegaLinter, and OpenSSF Scorecard workflow runs
-republish the site after their stable summaries are committed, including failed
+after Quartz by a pinned Relay action into
+`.cache/mindgarden/site/intelligence/`, so it remains a separate static
+projection beside the garden rather than a canonical garden note. The
+repository-owned workflow uploads both projections as one Pages artifact.
+Completed trusted OSV, MegaLinter, and OpenSSF Scorecard workflow runs republish
+the site after their stable summaries are committed, including failed
 executions whose state should remain visible.
 
 After merging the first publishing change, select **GitHub Actions** as the
