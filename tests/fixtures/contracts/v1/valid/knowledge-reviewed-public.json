@@ -1,0 +1,66 @@
+{
+  "schema": "mindgarden.knowledge/v1",
+  "id": "knowledge-public-map",
+  "garden": "example-garden",
+  "title": "Example garden map",
+  "kind": "map",
+  "status": "active",
+  "confidence": "high",
+  "visibility": "public",
+  "owners": [
+    "egohygiene"
+  ],
+  "authors": [
+    {
+      "kind": "human",
+      "id": "example-author",
+      "version": null
+    }
+  ],
+  "review": {
+    "state": "approved",
+    "reviewers": [
+      "example-reviewer"
+    ],
+    "reviewed_at": "2026-08-28T00:00:00Z",
+    "rationale": "The map contains only reviewed public knowledge."
+  },
+  "created": "2026-08-28",
+  "updated": "2026-08-28",
+  "domains": [
+    "software-engineering"
+  ],
+  "topics": [
+    "knowledge-systems"
+  ],
+  "aliases": [],
+  "tags": [
+    "architecture"
+  ],
+  "content": {
+    "path": "knowledge/home.md",
+    "sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "sources": [
+    {
+      "source": {
+        "garden": "example-garden",
+        "id": "source-normalized",
+        "revision": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "locator": "lines:1-12",
+      "content_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  ],
+  "claims": [],
+  "synapses": [],
+  "provenance": [
+    {
+      "garden": "example-garden",
+      "id": "provenance-knowledge-public-map",
+      "revision": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+    }
+  ],
+  "supersedes": [],
+  "publication": "eligible"
+}

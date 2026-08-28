@@ -1,0 +1,55 @@
+{
+  "schema": "mindgarden.provenance/v1",
+  "id": "provenance-source-normalized",
+  "garden": "example-garden",
+  "artifact": {
+    "garden": "example-garden",
+    "id": "source-normalized",
+    "revision": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "artifact_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "origin": "urn:example:capture:architecture-notes",
+  "inputs": [
+    {
+      "artifact": {
+        "garden": "example-garden",
+        "id": "source-captured",
+        "revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "role": "source"
+    }
+  ],
+  "transformations": [
+    {
+      "order": 1,
+      "name": "normalize-line-endings",
+      "version": "1",
+      "parameters": {
+        "ending": "lf"
+      },
+      "performed_by": {
+        "kind": "agent",
+        "id": "mindgarden-normalizer",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "order": 2,
+      "name": "normalize-frontmatter",
+      "version": "1",
+      "parameters": {},
+      "performed_by": {
+        "kind": "agent",
+        "id": "mindgarden-normalizer",
+        "version": "0.1.0"
+      }
+    }
+  ],
+  "generator": {
+    "name": "mindgarden-normalizer",
+    "version": "0.1.0"
+  },
+  "created_at": "2026-08-28T00:00:00Z",
+  "rights": "Private source; no publication grant"
+}

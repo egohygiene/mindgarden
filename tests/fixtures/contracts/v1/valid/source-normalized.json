@@ -1,0 +1,49 @@
+{
+  "schema": "mindgarden.source/v1",
+  "id": "source-normalized",
+  "garden": "example-garden",
+  "title": "Normalized architecture notes",
+  "kind": "normalized",
+  "status": "active",
+  "visibility": "private",
+  "owners": [
+    "egohygiene"
+  ],
+  "authors": [
+    {
+      "kind": "agent",
+      "id": "mindgarden-normalizer",
+      "version": "0.1.0"
+    }
+  ],
+  "review": {
+    "state": "unreviewed",
+    "reviewers": [],
+    "reviewed_at": null,
+    "rationale": null
+  },
+  "origin": "urn:example:capture:architecture-notes",
+  "captured_at": "2026-08-28T00:00:00Z",
+  "media_type": "text/markdown",
+  "rights": "Private source; no publication grant",
+  "artifact": {
+    "path": "sources/source-normalized.md",
+    "size_bytes": 96,
+    "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "inputs": [
+    {
+      "garden": "example-garden",
+      "id": "source-captured",
+      "revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  ],
+  "provenance": [
+    {
+      "garden": "example-garden",
+      "id": "provenance-source-normalized",
+      "revision": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    }
+  ],
+  "publication": "excluded"
+}

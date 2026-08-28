@@ -1,0 +1,43 @@
+{
+  "schema": "mindgarden.source/v1",
+  "id": "source-captured",
+  "garden": "example-garden",
+  "title": "Captured architecture notes",
+  "kind": "captured",
+  "status": "active",
+  "visibility": "private",
+  "owners": [
+    "egohygiene"
+  ],
+  "authors": [
+    {
+      "kind": "human",
+      "id": "example-author",
+      "version": null
+    }
+  ],
+  "review": {
+    "state": "unreviewed",
+    "reviewers": [],
+    "reviewed_at": null,
+    "rationale": null
+  },
+  "origin": "urn:example:capture:architecture-notes",
+  "captured_at": "2026-08-28T00:00:00Z",
+  "media_type": "text/markdown",
+  "rights": "Private source; no publication grant",
+  "artifact": {
+    "path": "sources/source-captured.md",
+    "size_bytes": 128,
+    "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "inputs": [],
+  "provenance": [
+    {
+      "garden": "example-garden",
+      "id": "provenance-source-captured",
+      "revision": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    }
+  ],
+  "publication": "excluded"
+}

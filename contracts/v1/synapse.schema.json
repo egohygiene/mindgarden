@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:synapse:v1",
+  "title": "Mindgarden typed synapse v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "garden",
+    "type",
+    "source",
+    "target",
+    "directed",
+    "status",
+    "confidence",
+    "visibility",
+    "owners",
+    "authors",
+    "review",
+    "evidence"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.synapse/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "type": {
+      "enum": [
+        "related",
+        "supports",
+        "contradicts",
+        "supersedes",
+        "derived-from",
+        "part-of",
+        "depends-on",
+        "references"
+      ]
+    },
+    "source": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    },
+    "target": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    },
+    "directed": {
+      "type": "boolean"
+    },
+    "status": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/lifecycleStatus",
+      "default": "proposed"
+    },
+    "confidence": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence",
+      "default": "unknown"
+    },
+    "visibility": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/visibility",
+      "default": "private"
+    },
+    "owners": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/owners"
+    },
+    "authors": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/authors"
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "evidence": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+      }
+    }
+  },
+  "patternProperties": {
+    "^x-[a-z0-9]+(?:-[a-z0-9]+)*$": true
+  },
+  "additionalProperties": false
+}

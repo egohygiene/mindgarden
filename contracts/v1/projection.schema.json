@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:projection:v1",
+  "title": "Mindgarden projection and publication contract v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "garden",
+    "kind",
+    "status",
+    "visibility",
+    "review",
+    "source_revision",
+    "inputs",
+    "output_root",
+    "base_uri",
+    "policy"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.projection/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "kind": {
+      "enum": [
+        "index",
+        "graph",
+        "context-pack",
+        "llms",
+        "site",
+        "federation"
+      ]
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "generated",
+        "verified",
+        "failed"
+      ]
+    },
+    "visibility": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/visibility"
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "source_revision": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+    },
+    "inputs": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReferences"
+    },
+    "output_root": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/portablePath"
+    },
+    "base_uri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "policy": {
+      "type": "object",
+      "required": [
+        "default_action",
+        "allowed_visibilities",
+        "required_review_states",
+        "exclude_raw_sources",
+        "allow"
+      ],
+      "properties": {
+        "default_action": {
+          "const": "deny"
+        },
+        "allowed_visibilities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/visibility"
+          }
+        },
+        "required_review_states": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "const": "approved"
+          }
+        },
+        "exclude_raw_sources": {
+          "const": true
+        },
+        "allow": {
+          "type": "object",
+          "required": [
+            "kinds",
+            "domains",
+            "topics"
+          ],
+          "properties": {
+            "kinds": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifierSet"
+            },
+            "domains": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifierSet"
+            },
+            "topics": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifierSet"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "visibility": {
+            "const": "public"
+          }
+        },
+        "required": [
+          "visibility"
+        ]
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "properties": {
+              "state": {
+                "const": "approved"
+              }
+            }
+          },
+          "policy": {
+            "properties": {
+              "allowed_visibilities": {
+                "items": {
+                  "const": "public"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "patternProperties": {
+    "^x-[a-z0-9]+(?:-[a-z0-9]+)*$": true
+  },
+  "additionalProperties": false
+}

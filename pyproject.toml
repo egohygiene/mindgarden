@@ -53,6 +53,7 @@ mindgarden = ["py.typed"]
 
 [tool.setuptools.data-files]
 "share/mindgarden/contracts" = ["contracts/*.schema.json"]
+"share/mindgarden/contracts/v1" = ["contracts/v1/*.schema.json"]
 "share/mindgarden/profiles/agent" = ["profiles/agent/*.md"]
 "share/mindgarden/profiles/obsidian" = ["profiles/obsidian/*.json", "profiles/obsidian/*.md"]
 "share/mindgarden/profiles/quartz" = ["profiles/quartz/*.yaml", "profiles/quartz/*.md"]
