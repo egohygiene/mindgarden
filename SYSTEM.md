@@ -41,7 +41,7 @@ This document identifies Mindgarden's logical systems and responsibilities. It a
 | Quartz publication | Implemented v0 baseline | Projects reviewed public notes, rewrites source-boundary links, and renders through an immutable Quartz checkout. |
 | Validation | Implemented v0 | Fails closed on schema, path, lifecycle, relationship, provenance, privacy, and publication violations. |
 | Package and command interface | Implemented 0.1 | Provides a dependency-free installable Python package, unified `mindgarden` command, stable exit codes, public library surface, and temporary 0.x script shims. |
-| Initialization and migration | V1 behavior specified | Defines additive, identity-preserving, provenance-safe migration records; deterministic plan/apply execution remains target behavior. |
+| Initialization and migration | V1 lifecycle implemented | Creates deterministic gardens and applies digest-bound, identity-preserving, provenance-safe migration with an exact v0 rollback tree. |
 | Federation and routing | Target | Will discover repository gardens and assemble organization-level projections through explicit contracts. |
 
 ## External systems
@@ -64,7 +64,7 @@ Systems fail closed at destructive, publication, privacy, and security boundarie
 
 ## Evidence and uncertainty
 
-- **Observed:** The v1 schemas and adversarial fixtures plus the v0 runtime, installable package, profiles, clean-wheel smoke tests, and conformance tests provide runnable evidence for the implemented states above.
+- **Observed:** The v1 schemas, adversarial fixtures, lifecycle regression suite, v0 runtime, installable package, profiles, clean-wheel smoke tests, and conformance tests provide runnable evidence for the implemented states above.
 - **Decided:** Mindgarden owns reusable capability; each consumer owns its canonical `.garden/` knowledge.
-- **Proposed:** V1 initialization, hardened validation, archive interpretation, graph projections, routing, and federation remain roadmap work.
+- **Proposed:** Hardened v1 validation, archive interpretation, graph projections, routing, and federation remain roadmap work.
 - **Open question:** Which later consumer milestone permits deprecating the v0 runtime surface?

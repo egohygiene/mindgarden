@@ -12,7 +12,7 @@ from typing import Any, Protocol, Sequence
 
 from .. import __version__
 from ..adapters import publishing, quartz
-from ..application import agent
+from ..application import agent, lifecycle
 from ..domain.validation import ContractError, validate_repository
 
 
@@ -95,6 +95,83 @@ def add_ingest_command(commands: ParserCollection) -> None:
         help="Confirm the supplied source is safe for a public garden",
     )
     parser.set_defaults(handler=agent.run_ingest)
+
+
+def add_lifecycle_commands(commands: ParserCollection) -> None:
+    """Register deterministic initialization and v0 to v1 migration."""
+    init_parser = commands.add_parser("init", help="Plan or initialize a v1 garden")
+    add_repository_root(init_parser)
+    init_parser.add_argument(
+        "--visibility",
+        choices=("public", "internal", "private"),
+        help="Committed garden visibility; required unless --check is used",
+    )
+    init_parser.add_argument(
+        "--garden-id",
+        help="Stable garden identifier (default: normalized repository directory name)",
+    )
+    init_parser.add_argument("--title", help="Garden title (default: derived from garden id)")
+    init_parser.add_argument(
+        "--kind",
+        choices=("repository", "personal", "organization"),
+        default="repository",
+        help="Garden identity kind",
+    )
+    init_parser.add_argument(
+        "--owner",
+        action="append",
+        default=[],
+        help="Stable owner identifier; repeat as needed",
+    )
+    init_parser.add_argument("--canonical-uri", help="Stable canonical garden URI")
+    init_parser.add_argument("--repository-uri", help="Optional HTTPS repository URI")
+    init_parser.add_argument(
+        "--domain",
+        action="append",
+        default=[],
+        help="Authoritative domain identifier; repeat as needed",
+    )
+    init_parser.add_argument(
+        "--topic",
+        action="append",
+        default=[],
+        help="Authoritative topic identifier; repeat as needed",
+    )
+    init_mode = init_parser.add_mutually_exclusive_group()
+    init_mode.add_argument("--apply", action="store_true", help="Apply a reviewed plan")
+    init_mode.add_argument("--check", action="store_true", help="Check the initialized tree")
+    init_parser.add_argument(
+        "--plan-digest",
+        help="Exact plan_sha256 emitted by the reviewed dry run",
+    )
+    init_parser.set_defaults(handler=lifecycle.run_init)
+
+    migrate_parser = commands.add_parser(
+        "migrate",
+        help="Plan, apply, or check a v0 to v1 migration",
+    )
+    add_repository_root(migrate_parser)
+    migrate_parser.add_argument(
+        "--domain",
+        action="append",
+        default=[],
+        help="Authoritative v1 domain identifier; repeat as needed",
+    )
+    migrate_parser.add_argument(
+        "--topic",
+        action="append",
+        default=[],
+        help="Authoritative v1 topic identifier; repeat as needed",
+    )
+    migrate_mode = migrate_parser.add_mutually_exclusive_group(required=True)
+    migrate_mode.add_argument("--plan", action="store_true", help="Print the complete plan")
+    migrate_mode.add_argument("--apply", action="store_true", help="Apply a reviewed plan")
+    migrate_mode.add_argument("--check", action="store_true", help="Check migrated v1 state")
+    migrate_parser.add_argument(
+        "--plan-digest",
+        help="Exact plan_sha256 emitted by --plan",
+    )
+    migrate_parser.set_defaults(handler=lifecycle.run_migrate)
 
 
 def add_agent_commands(commands: ParserCollection) -> None:
@@ -225,6 +302,7 @@ def build_parser() -> ArgumentParser:
     validate.set_defaults(handler=run_validation)
     version = commands.add_parser("version", help="Show the installed version")
     version.set_defaults(handler=run_version)
+    add_lifecycle_commands(commands)
     add_ingest_command(commands)
     add_agent_commands(commands)
     add_publish_command(commands)

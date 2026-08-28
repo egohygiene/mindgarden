@@ -120,7 +120,7 @@ issues: [1, 9, 7, 10]
 
 - [x] Valid and invalid fixtures are tested in CI.
 - [x] Identity, provenance, privacy, and migration fields are explicit.
-- [ ] Deterministic v1 initialization and migration are implemented.
+- [x] Deterministic v1 initialization and migration are implemented.
 - [ ] Stable cross-record and privacy diagnostics validate complete v1 gardens.
 
 **Current evidence:**
@@ -128,7 +128,8 @@ issues: [1, 9, 7, 10]
 - Issue #1 tracks the knowledge contract.
 - Seven v0 schemas, dependency-free validation, and valid/invalid contract tests provide a baseline for v1 stabilization.
 - Issue #9 adds nine JSON Schema 2020-12 v1 contracts, a canonical ontology, executable golden/adversarial fixtures, and a non-destructive v0 → v1 compatibility specification.
-- The v0 runtime remains supported while issues #7 and #10 implement v1 lifecycle operations and hardened validation.
+- Issue #7 adds deterministic initialization plus digest-bound, atomic, rollback-safe v0 → v1 migration.
+- The v0 runtime remains supported while issue #10 adds hardened v1 validation around the implemented lifecycle operations.
 
 <!-- roadmap-step
 id: MIG-Q04

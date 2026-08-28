@@ -1,9 +1,9 @@
 # Mindgarden v0 to v1 compatibility
 
-Mindgarden v1 is additive. Root-level schemas and the 0.1 CLI retain v0
-behavior while `contracts/v1/` stabilizes the target format. Issue #7 will
-implement deterministic plan/apply migration; this document defines the
-behavior that implementation must follow.
+Mindgarden v1 is additive. Root-level schemas and established 0.1 agent and
+publishing commands retain v0 behavior while `contracts/v1/` defines the target
+format. Deterministic plan/apply migration implements the rules below; hardened
+general validation remains separate.
 
 ## Compatibility matrix
 
@@ -39,6 +39,11 @@ Migration is non-destructive and reviewable:
 8. Require the reviewed plan digest for apply.
 9. Leave canonical v0 knowledge unchanged if any operation fails.
 10. Record an applied migration and rollback instructions after success.
+
+The implemented cutover retains the exact v0 tree at `.garden.v0` and selects
+the completely staged v1 tree as `.garden`. See
+[`initialization-migration.md`](initialization-migration.md) for the commands
+and refusal behavior.
 
 Re-running the same plan against unchanged input must be idempotent. A changed
 input invalidates the plan digest and requires a new review.

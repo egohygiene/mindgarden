@@ -111,18 +111,18 @@ stable `{garden, id}` identities, optional immutable revisions, independent
 semantic axes, authoritative domain/topic metadata, and explicit publication
 allowlists.
 
-V1 schema availability is not v1 runtime support. Initialization and migration
-issue #7 will create and plan v1 instances; validation issue #10 will enforce
-cross-record, path, body, attachment, and leak invariants. Migration remains
-side-by-side, digest-bound, atomic, and rollback-safe.
+V1 schema availability alone is not hardened v1 runtime support. Issue #7 adds
+deterministic initialization and review-gated migration with lifecycle-level
+integrity checks; validation issue #10 will enforce general cross-record, path,
+body, attachment, and leak invariants. Migration remains side-by-side,
+digest-bound, atomic, and rollback-safe.
 
 ## Current evidence and target evolution
 
 The v1 semantic contract, valid/adversarial schema fixtures, v0 compatibility
 matrix, v0 validation, local artifact ingestion, lexical indexing, context
 packs, Obsidian profile, public projection, and Quartz adapter are implemented
-behind the installable 0.1 package and CLI. V1 runtime initialization,
-migration, hardened validation, archive interpretation, and federation remain
-target capabilities.
+behind the installable 0.1 package and CLI. V1 hardened validation, archive
+interpretation, and federation remain target capabilities.
 [SYSTEM.md](SYSTEM.md) owns the capability inventory and [ROADMAP.md](ROADMAP.md)
 owns delivery order.

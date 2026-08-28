@@ -95,7 +95,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Date:** 2026-08-28
 - **Context:** The shipped 0.1 CLI and existing consumers use v0, while v1 separates sources, knowledge, claims, synapses, review, classification, and publication authority.
 - **Decision:** Preserve v0 schemas and runtime behavior while publishing v1 in a parallel registry. Migration must plan before apply, preserve identifiers and provenance, stage atomically, and never invent missing evidence.
-- **Consequences:** The transition takes more than one issue but remains rollback-safe and independently reviewable. v1 schema availability does not imply v1 runtime support.
+- **Consequences:** The transition takes more than one issue but remains rollback-safe and independently reviewable. V1 lifecycle commands are explicit, while schema availability alone does not imply hardened general runtime support.
 - **Reconsider when:** All supported consumers have migrated and the compatibility policy permits retiring v0.
 
 ## Open decisions
@@ -105,7 +105,8 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 
 ## Evidence and uncertainty
 
-- **Observed:** The v1 schema registry, compatibility matrix, and conformance fixtures implement ADR-004 through ADR-006 as reviewable contracts.
+- **Observed:** The v1 schema registry, compatibility matrix, conformance fixtures, and lifecycle regression suite implement ADR-004 through ADR-006 as reviewable contracts and rollback-safe operations.
 - **Decided:** Consumer ownership, private/public separation, deterministic projections, metadata classification, stable references, and additive migration constrain 1.0 implementation.
-- **Proposed:** Runtime migration, validation, routing, federation, and garden rendering remain later roadmap work.
+- **Implemented:** Deterministic initialization and digest-bound v0 → v1 migration retain an exact rollback tree and never invent review evidence.
+- **Proposed:** Hardened validation, routing, federation, and garden rendering remain later roadmap work.
 - **Open question:** When may v0 move from supported compatibility surface to archived contract evidence?

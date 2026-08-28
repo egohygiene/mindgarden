@@ -53,6 +53,8 @@ class PackageTests(unittest.TestCase):
         help_text = build_parser().format_help()
         for command in (
             "validate",
+            "init",
+            "migrate",
             "ingest",
             "index",
             "search",

@@ -39,10 +39,13 @@ migration history. It makes stable identity, privacy, review, classification,
 routing scope, and publication authority explicit without treating folders or
 a third-party application as canonical.
 
-The v1 schemas are the target contract for the 1.0 roadmap. The current 0.1 CLI
-continues to operate on v0 until initialization/migration and hardened v1
-validation land separately. See the [v1 contract model](docs/contracts-v1.md)
-and [v0 → v1 compatibility matrix](docs/v0-v1-compatibility.md).
+The v1 schemas are the target contract for the 1.0 roadmap. The 0.1 CLI now
+creates deterministic v1 gardens and performs review-gated, rollback-safe
+v0 → v1 migration while retaining the existing v0 agent and publishing
+surface. Hardened general v1 validation remains a separate gate. See the
+[v1 contract model](docs/contracts-v1.md), [lifecycle command
+contract](docs/initialization-migration.md), and [v0 → v1 compatibility
+matrix](docs/v0-v1-compatibility.md).
 
 ## Implemented v0 surface
 
@@ -85,14 +88,17 @@ is published by this change.
 Point the installed command at a consumer repository:
 
 ```bash
+mindgarden init --repository-root "/path/to/new-consumer" --visibility "public"
+mindgarden migrate --repository-root "/path/to/v0-consumer" --plan
 mindgarden validate --repository-root "/path/to/consumer"
 mindgarden verify --repository-root "/path/to/consumer"
 mindgarden publish verify --repository-root "/path/to/consumer"
 ```
 
-The package has no runtime Python dependencies. Core validation, indexing,
-search, and context generation remain offline. See [`docs/cli.md`](docs/cli.md)
-for the full command, exit-code, library, and compatibility contracts.
+The package has no runtime Python dependencies. Initialization, migration,
+validation, indexing, search, and context generation remain offline. See
+[`docs/cli.md`](docs/cli.md) for the full command, exit-code, library, and
+compatibility contracts.
 
 The v0 parser deliberately supports only scalar values and scalar lists. This
 keeps the foundational contract deterministic and dependency-free while the
