@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:context-pack:v0",
+  "title": "Mindgarden context pack v0",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "title",
+    "description",
+    "query",
+    "include",
+    "exclude",
+    "statuses",
+    "kinds",
+    "max_notes",
+    "max_characters"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.context-pack/v0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "query": {
+      "type": "string",
+      "minLength": 1
+    },
+    "include": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      }
+    },
+    "exclude": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      }
+    },
+    "statuses": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["draft", "proposed", "reviewed", "deprecated", "archived"]
+      }
+    },
+    "kinds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "map",
+          "concept",
+          "decision",
+          "project",
+          "procedure",
+          "source",
+          "note"
+        ]
+      }
+    },
+    "max_notes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_characters": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "additionalProperties": false
+}

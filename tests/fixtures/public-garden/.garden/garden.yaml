@@ -1,0 +1,18 @@
+schema: mindgarden.garden/v0
+id: public-garden-fixture
+title: Public Garden Fixture
+version: 0.2.0
+status: active
+owners:
+  - egohygiene
+repository: https://github.com/example/public-garden
+visibility: public
+entrypoint: home.md
+content_roots:
+  - home.md
+  - concepts
+generated_roots:
+  - .index
+provenance_root: provenance
+context_pack_root: context-packs
+private_overlay: ../.garden.local

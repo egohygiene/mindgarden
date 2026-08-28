@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-24
+updated: 2026-08-28
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -33,14 +33,14 @@ repository: egohygiene/mindgarden
 visibility: public
 publication: central
 route: /roadmap/mindgarden/
-updated: 2026-08-24
+updated: 2026-08-28
 -->
-## 2026-08-24 execution snapshot
+## 2026-08-28 execution snapshot
 
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate:** Extract the incubated implementation from Empathy and establish a tested knowledge contract.  
+**Current gate:** Complete standalone extraction, then move Empathy to an immutable consumption interface.
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
 
 ### Visual roadmap publication
@@ -80,7 +80,7 @@ issues: [1, 2]
 id: MIG-Q02
 status: active
 depends_on: [MIG-Q01]
-issues: []
+issues: [6]
 -->
 #### MIG-Q02 — Extract the incubated implementation
 
@@ -91,13 +91,15 @@ issues: []
 
 **Exit criteria:**
 
-- [ ] The authoritative implementation lives in this repository.
+- [x] The authoritative implementation lives in this repository.
 - [ ] Empathy consumes it through a declared version or build interface.
 
 **Current evidence:**
 
-- No code, schemas, tests, or workflows were observed in Mindgarden.
-- Empathy currently composes .cache/mindgarden output.
+- Issue #6 imports the v0 engine with nine commits of provenance-linked source history.
+- Contracts, commands, profiles, synthetic fixtures, and Python/Node CI are now standalone.
+- Empathy consumer content and generated/private state remain excluded.
+- Empathy cutover to a pinned standalone release or commit remains open.
 
 <!-- roadmap-step
 id: MIG-Q03
@@ -120,6 +122,7 @@ issues: [1]
 **Current evidence:**
 
 - Issue #1 tracks the knowledge contract.
+- Seven v0 schemas, dependency-free validation, and valid/invalid contract tests provide a baseline for v1 stabilization.
 
 <!-- roadmap-step
 id: MIG-Q04
@@ -141,7 +144,8 @@ issues: []
 
 **Current evidence:**
 
-- No ingestion, index, or context-pack implementation was observed.
+- The extracted v0 engine implements supplied-file ingestion, hash-bound provenance, deterministic lexical indexing, explainable search, and bounded context packs.
+- Mindcap/archive interpretation and the stable adapter boundary remain unimplemented.
 
 <!-- roadmap-step
 id: MIG-Q05
@@ -164,7 +168,8 @@ issues: [2]
 **Current evidence:**
 
 - Issue #2 tracks projections.
-- No CI, Pages, or release publication was observed.
+- The v0 reviewed-public projector and immutable Quartz adapter are tested with a synthetic consumer fixture.
+- Consumer deployment workflows and an organization-level garden route remain unimplemented.
 
 ### Roadmap-to-issue handoff
 
@@ -254,7 +259,7 @@ Optional managed services, enterprise controls, marketplaces, and the conversati
 
 ## Evidence and uncertainty
 
-- **Observed:** The repository README establishes the intended boundary as a versioned knowledge-garden and second-brain foundation for repositories, people, and organizations; significant implementation remains incomplete.
-- **Decided for this draft:** The repository owns the bounded concern described here and participates through versioned contracts.
-- **Proposed:** Target systems and later roadmap phases remain proposals until accepted and implemented.
-- **Open question:** Which parts of this draft should become active in the first independently versioned release?
+- **Observed:** A provenance-linked v0 implementation, synthetic fixture, and standalone test workflow now exist in this repository.
+- **Decided:** Source ownership graduates before Empathy consumer cutover and before v1 contract expansion.
+- **Proposed:** Stable archive adapters, v1 schemas, initialization, release packaging, publication composition, and federation remain later steps.
+- **Open question:** Which consumption format should Empathy pin first: a release archive, package, or immutable source checkout?

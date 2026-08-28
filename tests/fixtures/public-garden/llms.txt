@@ -1,0 +1,30 @@
+# Public Garden Fixture
+
+> A public, repository-local Mindgarden for maintainers, contributors, automation, and
+> AI agents.
+
+Canonical knowledge is Markdown under `.garden/`. Generated indexes and context packs
+are disposable projections. Prefer reviewed notes, retain their provenance and
+confidence metadata, and do not silently promote agent-authored drafts.
+
+## Core knowledge
+
+- [Public Garden Fixture](.garden/home.md): map knowledge; high confidence; stable id
+  `public-garden-home`.
+- [Architecture Contract](.garden/concepts/architecture.md): concept knowledge; high
+  confidence; stable id `public-garden-architecture`.
+
+## Agent access
+
+- [Agent
+  profile](https://github.com/egohygiene/mindgarden/blob/main/profiles/agent/README.md):
+  Deterministic ingestion, indexing, search, context, and verification commands.
+- [Mindgarden contract](https://github.com/egohygiene/mindgarden/blob/main/README.md):
+  Knowledge ownership and adapter boundaries.
+- [Public Garden Context](.garden/context-packs/default.yaml): Context-pack profile
+  `public-garden-default`.
+
+## Optional
+
+- [Obsidian profile](.obsidian/README.md): Human-facing vault and native Bases
+  dashboard.

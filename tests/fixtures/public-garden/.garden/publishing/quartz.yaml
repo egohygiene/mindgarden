@@ -1,0 +1,15 @@
+schema: mindgarden.publish-profile/v0
+id: public-garden-quartz
+adapter: quartz-v5
+garden_root: .garden
+entrypoint: home.md
+repository: https://github.com/example/public-garden
+repository_ref: fixture-revision
+base_url: example.github.io/public-garden
+quartz_repository: https://github.com/jackyzha0/quartz.git
+quartz_commit: 075afd3f712da0088a07f5284a7b3aba37dd61b6
+node_major: 24
+statuses:
+  - reviewed
+visibilities:
+  - public

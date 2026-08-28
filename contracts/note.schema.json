@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:note:v0",
+  "title": "Mindgarden note metadata v0",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "title",
+    "kind",
+    "status",
+    "reviewed",
+    "confidence",
+    "visibility",
+    "owners",
+    "created",
+    "updated",
+    "sources",
+    "related",
+    "supersedes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.note/v0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "map",
+        "concept",
+        "decision",
+        "project",
+        "procedure",
+        "source",
+        "note"
+      ]
+    },
+    "status": {
+      "enum": ["draft", "proposed", "reviewed", "deprecated", "archived"]
+    },
+    "reviewed": {
+      "type": "boolean"
+    },
+    "confidence": {
+      "enum": ["uncertain", "low", "medium", "high"]
+    },
+    "visibility": {
+      "enum": ["public", "internal", "private"]
+    },
+    "owners": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      }
+    },
+    "created": {
+      "type": "string",
+      "format": "date"
+    },
+    "updated": {
+      "type": "string",
+      "format": "date"
+    },
+    "sources": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "related": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      }
+    },
+    "supersedes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      }
+    },
+    "aliases": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      }
+    },
+    "cssclasses": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      }
+    }
+  },
+  "patternProperties": {
+    "^x-[a-z0-9]+(?:-[a-z0-9]+)*$": {}
+  },
+  "additionalProperties": false
+}
