@@ -936,7 +936,8 @@ def main() -> int:
         print("mindgarden agent command failed: limit must be positive", file=sys.stderr)
         return 1
     try:
-        return arguments.handler(arguments)
+        result: int = arguments.handler(arguments)
+        return result
     except (ContractError, OSError, ValueError, json.JSONDecodeError) as error:
         print(f"mindgarden agent command failed: {error}", file=sys.stderr)
         return 1

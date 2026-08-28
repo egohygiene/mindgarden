@@ -27,13 +27,13 @@ try:
     )
     from .validate_garden import ContractError
 except ImportError:
-    from publish_garden import (  # type: ignore[import-not-found,no-redef]
+    from publish_garden import (  # type: ignore[no-redef]
         DEFAULT_OUTPUT_PATH,
         DEFAULT_PROFILE_PATH,
         load_publish_profile,
         project_garden,
     )
-    from validate_garden import ContractError  # type: ignore[import-not-found,no-redef]
+    from validate_garden import ContractError  # type: ignore[no-redef]
 
 
 DEFAULT_ENGINE_PATH = Path(".cache/mindgarden/quartz")

@@ -34,8 +34,8 @@ try:
         validate_repository,
     )
 except ImportError:
-    from garden_agent import markdown_body  # type: ignore[import-not-found,no-redef]
-    from validate_garden import (  # type: ignore[import-not-found,no-redef]
+    from garden_agent import markdown_body  # type: ignore[no-redef]
+    from validate_garden import (  # type: ignore[no-redef]
         ContractError,
         discover_note_paths,
         parse_manifest,

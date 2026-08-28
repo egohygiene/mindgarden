@@ -9,6 +9,7 @@
 from __future__ import annotations
 
 from argparse import ArgumentParser
+from collections.abc import Mapping
 from datetime import date
 import hashlib
 import json
@@ -176,7 +177,7 @@ def parse_note(path: Path) -> dict[str, str | bool | int | list[str]]:
     return parse_simple_yaml(match.group("body"), path)
 
 
-def require_string(metadata: dict[str, object], field: str, source: Path) -> str:
+def require_string(metadata: Mapping[str, object], field: str, source: Path) -> str:
     value = metadata.get(field)
     if not isinstance(value, str) or not value:
         raise ContractError(f"{source}: {field} must be a non-empty string")
@@ -184,7 +185,7 @@ def require_string(metadata: dict[str, object], field: str, source: Path) -> str
 
 
 def require_string_list(
-    metadata: dict[str, object],
+    metadata: Mapping[str, object],
     field: str,
     source: Path,
     *,
@@ -510,8 +511,8 @@ def validate_context_packs(
         if set(kinds) - NOTE_KINDS:
             raise ContractError(f"{pack_path}: unsupported context-pack kinds")
         for field in ("max_notes", "max_characters"):
-            value = metadata.get(field)
-            if not isinstance(value, int) or isinstance(value, bool) or value < 1:
+            limit_value = metadata.get(field)
+            if not isinstance(limit_value, int) or isinstance(limit_value, bool) or limit_value < 1:
                 raise ContractError(f"{pack_path}: {field} must be a positive integer")
     return len(pack_ids)
 
