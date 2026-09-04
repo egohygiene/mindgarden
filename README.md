@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/assets/mindgarden-banner.png" alt="Mindgarden — cultivate insight, connect ideas, grow understanding" width="100%" />
+</p>
+
 # Mindgarden
 
 🌱 A versioned knowledge garden and second-brain foundation for projects,
@@ -7,6 +11,16 @@ Mindgarden is the standalone source owner for the portable contract behind a
 repository's `.garden/` directory. Obsidian vaults, agent context, search
 indexes, and published sites are projections of that committed knowledge, not
 competing sources of truth.
+
+## System at a glance
+
+<p align="center">
+  <img src="docs/assets/mindgarden-architecture.png" alt="Mindgarden architecture: input, knowledge, structure, agent, view, and output layers on a local-first, versioned, portable, open, observable, secure, and extensible foundation" width="100%" />
+</p>
+
+The diagram captures the product vision. The repository documents below remain
+the authoritative source for implemented boundaries and contract status as the
+v1 roadmap advances.
 
 ## Responsibilities
 
