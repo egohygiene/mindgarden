@@ -37,14 +37,14 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 
 ## Index
 
-- ADR-001: Keep the consumer garden repository-owned
-- ADR-002: Separate reviewed public projection from private source
-- ADR-003: Provide deterministic context packs for agents
-- ADR-004: Keep classification independent from folder layout
-- ADR-005: Use stable cross-garden identities and immutable revisions
-- ADR-006: Introduce v1 additively through reviewed migration
+- ADR-0001: Keep the consumer garden repository-owned
+- ADR-0002: Separate reviewed public projection from private source
+- ADR-0003: Provide deterministic context packs for agents
+- ADR-0004: Keep classification independent from folder layout
+- ADR-0005: Use stable cross-garden identities and immutable revisions
+- ADR-0006: Introduce v1 additively through reviewed migration
 
-## ADR-001: Keep the consumer garden repository-owned
+## ADR-0001: Keep the consumer garden repository-owned
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-08-19
@@ -53,7 +53,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** The choice improves ownership and predictability while requiring maintained contracts, validation, and migration discipline.
 - **Reconsider when:** New evidence shows that the boundary prevents standalone usefulness, safety, portability, or maintainability.
 
-## ADR-002: Separate reviewed public projection from private source
+## ADR-0002: Separate reviewed public projection from private source
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-08-19
@@ -62,7 +62,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** The choice improves ownership and predictability while requiring maintained contracts, validation, and migration discipline.
 - **Reconsider when:** New evidence shows that the boundary prevents standalone usefulness, safety, portability, or maintainability.
 
-## ADR-003: Provide deterministic context packs for agents
+## ADR-0003: Provide deterministic context packs for agents
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-08-19
@@ -71,7 +71,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** The choice improves ownership and predictability while requiring maintained contracts, validation, and migration discipline.
 - **Reconsider when:** New evidence shows that the boundary prevents standalone usefulness, safety, portability, or maintainability.
 
-## ADR-004: Keep classification independent from folder layout
+## ADR-0004: Keep classification independent from folder layout
 
 - **Status:** Accepted
 - **Date:** 2026-08-28
@@ -80,7 +80,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** Consumers must read metadata to classify knowledge, but file moves no longer change meaning and multi-domain knowledge remains one canonical artifact.
 - **Reconsider when:** A future storage model can preserve stable identity and multi-axis classification without metadata.
 
-## ADR-005: Use stable cross-garden identities and immutable revisions
+## ADR-0005: Use stable cross-garden identities and immutable revisions
 
 - **Status:** Accepted
 - **Date:** 2026-08-28
@@ -89,7 +89,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** References remain portable and auditable. Consumers must resolve garden identities through explicit catalogs rather than guessing repository layouts.
 - **Reconsider when:** A stronger content-addressed identity standard is adopted without weakening offline resolution or ownership.
 
-## ADR-006: Introduce v1 additively through reviewed migration
+## ADR-0006: Introduce v1 additively through reviewed migration
 
 - **Status:** Accepted
 - **Date:** 2026-08-28
@@ -105,8 +105,21 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 
 ## Evidence and uncertainty
 
-- **Observed:** The v1 schema registry, compatibility matrix, conformance fixtures, and lifecycle regression suite implement ADR-004 through ADR-006 as reviewable contracts and rollback-safe operations.
+- **Observed:** The v1 schema registry, compatibility matrix, conformance fixtures, and lifecycle regression suite implement ADR-0004 through ADR-0006 as reviewable contracts and rollback-safe operations.
 - **Decided:** Consumer ownership, private/public separation, deterministic projections, metadata classification, stable references, and additive migration constrain 1.0 implementation.
 - **Implemented:** Deterministic initialization and digest-bound v0 → v1 migration retain an exact rollback tree and never invent review evidence.
 - **Proposed:** Hardened validation, routing, federation, and garden rendering remain later roadmap work.
 - **Open question:** When may v0 move from supported compatibility surface to archived contract evidence?
+
+## Identifier format migration (2026-10-18)
+
+The maintainer selected four-digit numbering in [Hygiene #73](https://github.com/egohygiene/hygiene/issues/73). This padding-only migration changes current labels and anchors; logical numbers, decision content, dates and disposition remain unchanged. Git retains prior versions. New canonical records use `ADR-NNNN` under Hygiene policy v1.2.0.
+
+| Previous ID | Current ID | Record |
+| --- | --- | --- |
+| `ADR-001` | `ADR-0001` | [DECISIONS.md](DECISIONS.md#adr-0001-keep-the-consumer-garden-repository-owned) |
+| `ADR-002` | `ADR-0002` | [DECISIONS.md](DECISIONS.md#adr-0002-separate-reviewed-public-projection-from-private-source) |
+| `ADR-003` | `ADR-0003` | [DECISIONS.md](DECISIONS.md#adr-0003-provide-deterministic-context-packs-for-agents) |
+| `ADR-004` | `ADR-0004` | [DECISIONS.md](DECISIONS.md#adr-0004-keep-classification-independent-from-folder-layout) |
+| `ADR-005` | `ADR-0005` | [DECISIONS.md](DECISIONS.md#adr-0005-use-stable-cross-garden-identities-and-immutable-revisions) |
+| `ADR-006` | `ADR-0006` | [DECISIONS.md](DECISIONS.md#adr-0006-introduce-v1-additively-through-reviewed-migration) |
