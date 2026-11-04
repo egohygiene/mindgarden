@@ -1,0 +1,143 @@
+{
+  "archive_id": "synthetic-conversation",
+  "archive_revision": 1,
+  "capabilities": {
+    "model": false,
+    "network": false
+  },
+  "classification": {
+    "coverage": "limited",
+    "readiness": "review-required",
+    "reasons": [
+      "Authored fixture."
+    ],
+    "value": "synthetic"
+  },
+  "compression": {
+    "checkpoint_count": 1,
+    "checkpoint_limit": 8,
+    "context_pressure": "none",
+    "count_method": "estimated",
+    "generated_word_limit": 6000,
+    "generated_words_at_freeze": null,
+    "limitations": [
+      "Generated narrative word count is outside this importer fixture."
+    ],
+    "omitted_categories": [],
+    "predecessor_refs": [],
+    "reserved_post_freeze_words": 0,
+    "strategy": "summary-and-journey"
+  },
+  "content_mode": "compact",
+  "counts": {
+    "limitations": [
+      "Wire shape for producer counts is not standardized in the available prose; retained opaquely."
+    ]
+  },
+  "coverage_detail": {
+    "limitations": [
+      "No claim about an upstream producer, remote execution, or complete source history."
+    ]
+  },
+  "created_at": "2026-11-04T00:00:00Z",
+  "delivery": {
+    "limitations": [],
+    "method": "synthetic-local-packager",
+    "status": "validated",
+    "type": "zip"
+  },
+  "disabled_layers": [
+    "external-persistence",
+    "creative",
+    "knowledge-handoff",
+    "visuals"
+  ],
+  "execution": {
+    "fallback_reason": null,
+    "order": "extract-only",
+    "routing_scope": "none",
+    "source_capture_id": null
+  },
+  "freeze": {
+    "scope": "synthetic-package",
+    "time": "2026-11-04T00:00:00Z"
+  },
+  "layer_status": {
+    "creative": {
+      "reason": "Synthetic extract-only checkpoint.",
+      "status": "disabled"
+    },
+    "knowledge": {
+      "reason": "Curation is a separate reviewed application step.",
+      "status": "disabled"
+    }
+  },
+  "options": {
+    "creative_candidates": "off",
+    "drive_persistence": "off",
+    "mindgarden": "off",
+    "mode": "extract-only",
+    "visuals": "off"
+  },
+  "package_profile": "summary-journey",
+  "provenance": {
+    "extracted_at": "2026-11-04T00:00:00Z",
+    "extractor": "synthetic-fixture",
+    "prior_archive_ids": [],
+    "transformations": []
+  },
+  "routing": {
+    "mode": "extract-only",
+    "plan_path": null,
+    "planned_stages": [],
+    "prepackage": {
+      "reason": "Explicit extract-only fixture.",
+      "status": "not-applicable"
+    },
+    "profile_id": null,
+    "profile_revision": null,
+    "reason": "History-only until a separately authored curation plan."
+  },
+  "schema_registry": {
+    "limitations": [
+      "Retained as producer metadata; importer verifies known control versions directly."
+    ]
+  },
+  "schema_version": "3.2",
+  "source_inputs": [
+    {
+      "adapter": "synthetic-fixture",
+      "adapter_version": "1.0.0",
+      "archive_path": null,
+      "byte_fidelity": "derived",
+      "capture_method": "synthetic-fixture",
+      "format": "authored-json",
+      "locator": "urn:synthetic:conversation",
+      "observed_metadata": {
+        "synthetic": true
+      },
+      "product": "synthetic-fixture",
+      "provider": "synthetic",
+      "source_id": "synthetic-input"
+    }
+  ],
+  "source_scope": {
+    "limitations": [
+      "Synthetic fixture only; producer scope serialization is not standardized by the available prose."
+    ]
+  },
+  "spec_version": "3.2.3",
+  "summary_paths": {
+    "continuation": null,
+    "journey": "JOURNEY.md",
+    "machine_trail": "SUMMARY-TRAIL.json",
+    "main": "CHAT-SUMMARY.md"
+  },
+  "title": "Synthetic conversation archive",
+  "transcript_preserved": false,
+  "unit_kind": "conversation",
+  "updated_at": "2026-11-04T00:00:00Z",
+  "warnings": [
+    "Synthetic data only."
+  ]
+}

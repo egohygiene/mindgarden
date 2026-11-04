@@ -1,0 +1,20 @@
+{
+  "archive_id": "synthetic-conversation",
+  "checks": [
+    {
+      "evidence": [],
+      "id": "synthetic-members",
+      "method": "synthetic-fixture",
+      "notes": [
+        "Importer independently verifies actual ZIP members and hashes."
+      ],
+      "status": "pass"
+    }
+  ],
+  "limitations": [
+    "This is an importer conformance fixture, not a full producer workflow conformance claim."
+  ],
+  "overall": "incomplete",
+  "schema_version": "2.0",
+  "validated_at": "2026-11-04T00:00:00Z"
+}

@@ -1,0 +1,2 @@
+# Visual insights
+None selected.

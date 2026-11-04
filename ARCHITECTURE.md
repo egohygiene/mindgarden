@@ -113,8 +113,8 @@ allowlists.
 
 V1 schema availability alone is not hardened v1 runtime support. Issue #7 adds
 deterministic initialization and review-gated migration with lifecycle-level
-integrity checks; validation issue #10 will enforce general cross-record, path,
-body, attachment, and leak invariants. Migration remains side-by-side,
+integrity checks; the milestone draft stack now adds general cross-record, path,
+body, attachment, and leak validation for #10. Migration remains side-by-side,
 digest-bound, atomic, and rollback-safe.
 
 ## Current evidence and target evolution
@@ -122,8 +122,9 @@ digest-bound, atomic, and rollback-safe.
 The v1 semantic contract, valid/adversarial schema fixtures, v0 compatibility
 matrix, v0 validation, local artifact ingestion, lexical indexing, context
 packs, Obsidian profile, public projection, and Quartz adapter are implemented
-behind the installable 0.1 package and CLI. V1 hardened validation, archive
-interpretation, and federation remain target capabilities.
+behind the installable 0.1 package and CLI. The milestone draft stack extends
+general v1 validation, source adapters and reviewed projections; federation remains
+a target capability. Draft implementation does not ratify proposed ADRs.
 [SYSTEM.md](SYSTEM.md) owns the capability inventory and [ROADMAP.md](ROADMAP.md)
 owns delivery order.
 
