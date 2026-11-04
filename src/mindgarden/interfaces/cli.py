@@ -64,7 +64,7 @@ def add_ingest_command(commands: ParserCollection) -> None:
     parser.add_argument("--source-id", required=True, help="Stable source note identifier")
     parser.add_argument("--title", required=True, help="Source note title")
     parser.add_argument("--origin", required=True, help="HTTP(S) or URN source origin")
-    parser.add_argument("--captured", required=True, help="Capture date in YYYY-MM-DD")
+    parser.add_argument("--captured", required=True, help="V0 capture date or v1 RFC3339 captured timestamp")
     parser.add_argument("--owner", required=True, help="Stable owner identifier")
     parser.add_argument("--rights", required=True, help="Rights or license statement")
     parser.add_argument(
@@ -94,7 +94,17 @@ def add_ingest_command(commands: ParserCollection) -> None:
         action="store_true",
         help="Confirm the supplied source is safe for a public garden",
     )
-    parser.set_defaults(handler=agent.run_ingest)
+    parser.add_argument("--local-config", type=Path, help="Explicit machine-local storage bindings for v1")
+    parser.add_argument("--vault-id", help="Logical private source vault for v1")
+    parser.add_argument("--adapter", help="Explicit registered source adapter")
+    parser.add_argument("--manifest-version", help="Declared captured-package contract version")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--plan", action="store_true", help="Preview v1 normalization without writing")
+    mode.add_argument("--apply", action="store_true", help="Apply a digest-bound v1 plan")
+    parser.add_argument("--plan-digest", help="Reviewed v1 plan_sha256")
+    from ..application.ingestion import run_ingest
+
+    parser.set_defaults(handler=run_ingest)
 
 
 def add_lifecycle_commands(commands: ParserCollection) -> None:
