@@ -102,9 +102,11 @@ cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-demo
 documentation only. Python 3.13 dev tools were installed using a workspace venv
 without ensurepip and the host pip's `--python` option; they are not runtime dependencies.
 
-No new hosted CI pass is claimed. Both versions in the owner CI matrix passed
-locally. Automatic GitHub Test run 26 was in progress when inspected; see draft
-PR #64 for the current hosted status. No workflow was manually launched.
+Both versions in the owner CI matrix passed locally. Automatic GitHub
+[Test run 27](https://github.com/egohygiene/mindgarden/actions/runs/41778548306)
+completed successfully on `072ec03229563daff09ce548f683becfca7e6d5d`, whose functional
+code is the revision above. Later documentation-only heads may have fresh checks;
+see draft PR #64 for current status. No workflow was manually launched.
 
 ## Stack and remaining acceptance
 
@@ -155,7 +157,7 @@ target read/write contracts are checked explicitly.
 | #31 | Authorization before bodies/ranking, safe metadata/caches, revocation | Realm/provider/encryption assurance | #62, #63, #64 | Adversarial no-model retrieval | Review local reference boundary |
 | #45 | Bounded filesystem audit/export/restore/relocation | Asset/triage/retention, #30/#35, encryption/providers/platform proof | #56, #63, #64 | Corruption, missing, stale, recovery, offline proof | Review local checkpoint; retain full #45 scope |
 
-This supports [#20](https://github.com/egohygiene/mindgarden/issues/20), without
+The [bounded evidence is linked to #20](https://github.com/egohygiene/mindgarden/issues/20#issuecomment-6623276660), without
 proving a real legacy archive, optional AI producer, Empathy package consumption,
 `/garden` publication, public federation or final consumer acceptance. Real private
 archives and unavailable historical specifications were not replaced with invented

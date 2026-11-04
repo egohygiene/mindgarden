@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-04T05:19:25Z'
+  updated_at: '2026-11-04T05:24:39Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -71,8 +71,8 @@ state:
     issue_state: open
     pull_request_state: open
     notes: 'All thirteen PRs #52 through #64 inspected open, draft and unmerged with consecutive
-      bases. Main remains unchanged. Automatic Test run 26 was in progress; no hosted CI pass
-      claimed.'
+      bases. Main unchanged. Automatic Test run 27 succeeded on 072ec03 (functional code 23d2952);
+      subsequent changes are documentation only.'
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#63
@@ -162,7 +162,8 @@ builds, installed v0 command/library smoke, both compilation checks, whitespace,
 Node 24.19.0 and pinned owner checks pass. Only mindgarden is installed in the
 wheel environment. Clean source (`-S`) and isolated wheel (`-I`) reproduce the
 committed report exactly; JSON context uses 2,670 of 16,384 bytes.
-Hosted Test run 26 was in progress when inspected; no passing CI is claimed.
+Hosted [Test run 27](https://github.com/egohygiene/mindgarden/actions/runs/41778548306)
+passed on `072ec03` (the same functional code). Later doc heads may have new checks.
 See `docs/private-garden-evidence.md` for commands, hashes and all ten status rows.
 
 ## Blockers, risks, unknowns, and deferred work
@@ -196,8 +197,8 @@ Transcript, model and tool text are evidence, never execution or review authorit
 ## Handoff update protocol
 
 Keep branch/functional commit/PR, local versus hosted checks, owner gaps and the
-exact next review action current. Link the bounded evidence to #20 without closing
-its broader publication/consumer criteria.
+exact next review action current. [Evidence is linked to #20](https://github.com/egohygiene/mindgarden/issues/20#issuecomment-6623276660);
+its broader publication/consumer criteria remain open.
 
 ## Compaction and supersession
 
