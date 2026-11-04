@@ -259,6 +259,13 @@ def add_agent_commands(commands: ParserCollection) -> None:
 
 def run_validation(arguments: Namespace) -> int:
     """Validate one consumer repository."""
+    if (arguments.repository_root / ".mindgarden-write.lock").exists():
+        if arguments.format == "json":
+            print(json.dumps({"schema": "mindgarden.validation/v1", "status": "incomplete", "diagnostics": [{
+                "code": "WRITE_LOCKED", "severity": "warning", "location": "garden.json",
+                "message": "A write or recovery owns this garden", "remediation": "Complete or recover the owning operation."}]}))
+            return ExitCode.CONTRACT
+        raise ContractError("WRITE_LOCKED: complete or recover the owning operation before validation")
     resolver = None
     if arguments.local_config:
         from ..application.bindings import LocalBindings
@@ -378,6 +385,17 @@ def build_parser() -> ArgumentParser:
     gardenize_mode.add_argument("--apply", type=Path, help="Apply the supplied proposal after review")
     gardenize.add_argument("--plan-digest", help="Exact reviewed preview digest")
     gardenize.set_defaults(handler=run_gardenize)
+    from ..application.routing import run_route
+
+    route = commands.add_parser("route", help="Explain or apply authored candidate placement across explicit gardens")
+    route.add_argument("--local-config", type=Path, required=True)
+    route.add_argument("--catalog", type=Path, help="Portable versioned garden catalog")
+    route.add_argument("--input", type=Path, help="Authored routing-plan document")
+    mode = route.add_mutually_exclusive_group()
+    for operation in ("plan", "apply", "explain", "check", "recover"):
+        mode.add_argument("--" + operation, action="store_true")
+    route.add_argument("--plan-digest", help="Reviewed plan digest, or interrupted operation digest for recovery")
+    route.set_defaults(handler=run_route)
     from ..application.storage import run_vault
 
     vault = commands.add_parser("vault", help="Manage explicitly bound private source storage")
