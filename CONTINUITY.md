@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-04T05:01:47Z'
+  updated_at: '2026-11-04T05:14:25Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -44,9 +44,9 @@ work:
   next:
     kind: issue
     id: egohygiene/mindgarden#42
-    description: 'Finish clean source checkout verification, refresh the evidence ledger and
-      exact draft PR/commit, link bounded evidence to #20, then leave the stack for human
-      architecture and code review without merging.'
+    description: "Review the ownership map and proposed ADR-0007\u20130010 in draft #52, then\
+      \ review the dependent draft stack in order. Keep full #20/#45 and external policy,\
+      \ registry, PDF, federation and consumer criteria open; merge only through human review."
     readiness: ready
     references:
     - https://github.com/egohygiene/mindgarden/issues/42
@@ -55,7 +55,7 @@ state:
   base:
     revision: afbd420d081203395832a7b06370203fe691ebf6
     ref: refs/heads/milestone/12-vault-recovery
-    verified_at: '2026-11-04T05:01:47Z'
+    verified_at: '2026-11-04T05:14:25Z'
   candidate:
     branch: milestone/13-offline-workflow-proof
     revision: null
@@ -107,24 +107,24 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/63
 review:
   status: passed
-  reviewed_at: '2026-11-04T05:01:47Z'
+  reviewed_at: '2026-11-04T05:14:25Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests
     outcome: passed
-    observed_at: '2026-11-04T05:01:47Z'
-    notes: 137 tests passed on Python 3.12.14.
+    observed_at: '2026-11-04T05:14:25Z'
+    notes: 139 tests passed on Python 3.12.14.
   - command: .venv/bin/python -m compileall -q src scripts tests
     outcome: passed
-    observed_at: '2026-11-04T05:01:47Z'
+    observed_at: '2026-11-04T05:14:25Z'
     notes: All Python sources compiled.
   - command: git diff --check
     outcome: passed
-    observed_at: '2026-11-04T05:01:47Z'
+    observed_at: '2026-11-04T05:14:25Z'
     notes: No whitespace errors.
   - command: Pinned Hygiene decision validator and Aether continuity schema/headings/limits
     outcome: passed
-    observed_at: '2026-11-04T05:01:47Z'
+    observed_at: '2026-11-04T05:14:25Z'
     notes: Owner checks run after this refresh.
   environment_limitations:
   - No new hosted CI run or Python 3.13 local execution claimed.
@@ -168,7 +168,7 @@ PR are null before their creation. No merge or new hosted CI pass is claimed.
 
 ## Completed and material changes
 
-Added the committed synthetic archive-to-reviewed-prompt/search/exact-evidence/context/relocation/restore proof, matching portable report and full workflow regression. Empty publication allowlists deny by the existing v1 contract across validation/routing/public query selection. Physical and credential source origins fail without echo. Fresh distributions built; isolated wheel has only mindgarden installed and passes v0 command/library and offline v1 proof. Both Python 3.12.14 and 3.13.5 pass 137 tests with no skips; compilation, whitespace and Node 24.19.0 pass. Clean committed source-checkout proof remains the final integration observation.
+Functional revision 23d2952 completes the finite synthetic archive-to-reviewed-prompt/search/exact-evidence/bounded-context/vault-relocation/restore proof. Clean git-archive checkout with site packages disabled and isolated installed wheel both match the committed report byte-for-byte. Python 3.12.14 and 3.13.5 each pass all 139 tests without skips; fresh source/wheel builds, v0 installed command/library smoke, compilation, whitespace and Node 24.19.0 pass. Only mindgarden is installed in the wheel test environment. Explicit scope precedes version dispatch, and incompatible binding policy/capabilities are denied before physical root probes. Empty allowlists deny publication. All records/fixtures are synthetic; networking, Google and models are unnecessary. Broad parent acceptance and proposed ADR ratification remain open.
 
 Prior draft stack: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57); [#58](https://github.com/egohygiene/mindgarden/pull/58); [#59](https://github.com/egohygiene/mindgarden/pull/59); [#60](https://github.com/egohygiene/mindgarden/pull/60); [#61](https://github.com/egohygiene/mindgarden/pull/61); [#62](https://github.com/egohygiene/mindgarden/pull/62); [#63](https://github.com/egohygiene/mindgarden/pull/63). Each parent retains its unchecked acceptance scope.
 The checkpoint sequence and proposed dependency corrections are owned by
@@ -176,7 +176,7 @@ The checkpoint sequence and proposed dependency corrections are owned by
 
 ## Validation and review evidence
 
-137 tests passed on Python 3.12.14. Python compilation and whitespace
+139 tests passed on Python 3.12.14. Python compilation and whitespace
 checks passed. Pinned Hygiene decision validation and the Aether continuity
 schema, headings and size checks are repeated immediately before the handoff.
 Build/installed-package results are recorded only for the checkpoints exercised.
@@ -191,7 +191,7 @@ Bounded implementation was explicitly authorized; merging was not.
 
 ## Next dependency-ready work
 
-Finish clean source checkout verification, refresh the evidence ledger and exact draft PR/commit, link bounded evidence to #20, then leave the stack for human architecture and code review without merging. See [#42](https://github.com/egohygiene/mindgarden/issues/42).
+Review the ownership map and proposed ADR-0007–0010 in draft #52, then review the dependent draft stack in order. Keep full #20/#45 and external policy, registry, PDF, federation and consumer criteria open; merge only through human review. See [#42](https://github.com/egohygiene/mindgarden/issues/42).
 Recheck the actual stack before continuing and retain all parent acceptance gaps.
 
 ## Parallel changes and reconciliation

@@ -1,6 +1,6 @@
 # Portable private-garden checkpoint evidence
 
-This finite synthetic checkpoint implements the ten requested work items on an
+This finite synthetic checkpoint provides bounded results for the ten requested work items on an
 unmerged draft stack. It does not complete the parent issues or ratify ADR-0007
 through ADR-0010. The Python engine and CLI remain dependency-free with supported
 v0 behavior. No release, deployment or consumer publication is claimed.
@@ -63,21 +63,48 @@ produce the same safe denial.
 
 ## Verification ledger
 
-The working-tree proof passes. Final clean-checkout, fresh-distribution and
-isolated-wheel observations will replace this pending ledger before declaring
-the checkpoint usable.
+Verified functional revision: `23d2952d705552c91833bbbf015d66bc806df9bc` on Linux.
+The clean source checkout and isolated installed wheel reproduce the committed
+report byte-for-byte. The finite local workflow is demonstrated; broader parent
+and consumer acceptance remains open.
 
 | Command/check | Current evidence |
 | --- | --- |
-| `.venv/bin/python -m unittest discover --start-directory tests` | 134 tests passed before the final publication regressions; final suite pending |
-| `.venv/bin/python -m compileall -q src scripts tests` | Passed for the working proof |
-| `git diff --check` | Passed for the working proof |
+| `.venv/bin/python -m unittest discover --start-directory tests` | 139 passed, no skips; Python 3.12.14 |
+| `.cache/python313/bin/python -m unittest discover --start-directory tests` | 139 passed, no skips; Python 3.13.5 |
+| Both interpreters: `-m compileall -q src scripts tests` | Passed |
+| `git diff --check` | Passed |
 | `node --version` | v24.19.0 |
-| Pinned Hygiene ADR and Aether continuity schema/headings/limits | Passed at prior checkpoint; repeat at final handoff |
-| Fresh sdist/wheel, clean source checkout, isolated installed wheel | Pending final checkpoint |
+| `.venv/bin/python -m build --sdist --wheel --outdir .cache/dist` | Fresh source/wheel build passed; package/resource assertions passed |
+| Clean source checkout with `-S --require-source` | Exact committed report matched; no site packages loaded |
+| Isolated wheel with `-I --require-installed` | Exact report matched; only `mindgarden` installed |
+| Installed v0 version/help/validate/verify/publish/library smoke | Passed; 3 notes, 1 context profile, 2 public projected notes |
+| Pinned Hygiene ADR and Aether continuity schema/headings/limits | Passed; repeated at final handoff |
 
-No new hosted CI pass is claimed. The owner CI matrix includes Python 3.13;
-unavailable/unobserved CI is not a passing result. No workflow is manually launched.
+Exact clean-source and installed-wheel proof commands (from the repository root):
+
+```sh
+mkdir .cache/clean-private-checkout-final
+git archive --format=tar HEAD | tar --extract --directory .cache/clean-private-checkout-final
+PYTHONPATH=.cache/clean-private-checkout-final/src .venv/bin/python -S \
+  .cache/clean-private-checkout-final/scripts/private_garden_demo.py --require-source \
+  --workspace .cache/private-demo-clean-final --report .cache/private-demo-clean-final-report.json
+python3 -m venv --without-pip .cache/private-wheel
+python3 -m pip --python .cache/private-wheel/bin/python install --no-cache-dir \
+  --disable-pip-version-check --no-index --force-reinstall --find-links .cache/dist mindgarden==0.1.0
+.cache/private-wheel/bin/python -I scripts/private_garden_demo.py --require-installed \
+  --workspace .cache/private-demo-wheel-final --report .cache/private-demo-wheel-final-report.json
+cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-demo-clean-final-report.json
+cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-demo-wheel-final-report.json
+```
+
+`HEAD` was the functional revision above. Later handoff/evidence commits change
+documentation only. Python 3.13 dev tools were installed using a workspace venv
+without ensurepip and the host pip's `--python` option; they are not runtime dependencies.
+
+No new hosted CI pass is claimed. Both versions in the owner CI matrix passed
+locally; unavailable/unobserved hosted CI is not a passing result. No workflow was
+manually launched.
 
 ## Stack and remaining acceptance
 
@@ -86,7 +113,7 @@ through [#62](https://github.com/egohygiene/mindgarden/pull/62), each based on i
 predecessor. P12a is [#63](https://github.com/egohygiene/mindgarden/pull/63), with
 functional commit `16394c4` and handoff `afbd420`. P12b is the combined
 `milestone/13-offline-workflow-proof` checkout based on P12a. CONTINUITY.md records
-its draft PR and verified functional revision after creation.
+its draft PR, verified functional revision and complete final handoff.
 
 Final review corrected empty publication allowlists to deny values, as the
 existing v1 contract requires. Routing, validation and public query selection
