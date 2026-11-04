@@ -59,7 +59,10 @@ state:
   candidate:
     branch: milestone/12-vault-recovery
     revision: 16394c4e57a21a14202ab8bf8edc1586dfcd7ff1
-    pull_request: null
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#63
+      url: https://github.com/egohygiene/mindgarden/pull/63
     handoff_state: ready-for-review
   live:
     status: verified
@@ -161,8 +164,7 @@ bounded context and relocation/restore proof with networking and models disabled
 ## State snapshot
 
 P12a candidate: `milestone/12-vault-recovery`, based on `e31d5748669f56b2351be546a4744b92a1561f32` from
-`milestone/11-scoped-retrieval`. Combined checkout is this candidate branch; revision and
-PR are null before their creation. No merge or new hosted CI pass is claimed.
+`milestone/11-scoped-retrieval`. Combined checkout is this candidate branch; functional revision is `16394c4`; draft PR is [#63](https://github.com/egohygiene/mindgarden/pull/63). No merge or new hosted CI pass is claimed.
 
 ## Completed and material changes
 
