@@ -69,7 +69,9 @@ state:
     pull_request_state: not-applicable
     notes: Main and open PRs inspected through GitHub; no open PR observed before this checkpoint.
   parallel_changes:
-  - https://github.com/egohygiene/mindgarden/pull/52
+  - provider: github
+    id: egohygiene/mindgarden#52
+    url: https://github.com/egohygiene/mindgarden/pull/52
 review:
   status: passed
   reviewed_at: '2026-11-04T02:31:06Z'
