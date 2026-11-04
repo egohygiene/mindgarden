@@ -1,0 +1,11 @@
+{
+  "description": "Synthetic path and active-link adversaries; no private source content.",
+  "paths": ["../outside.md", "/absolute.md", "C:/outside.md", "knowledge\\outside.md"],
+  "links": [
+    {"target": "file:///synthetic-private-marker", "code": "LINK_UNSAFE"},
+    {"target": "javascript:synthetic-private-marker", "code": "LINK_UNSAFE"},
+    {"target": "https://synthetic-user:synthetic-password@example.invalid", "code": "LINK_UNSAFE"},
+    {"target": "../../synthetic-private-marker", "code": "LINK_UNAVAILABLE"},
+    {"target": "%2e%2e/%2e%2e/synthetic-private-marker", "code": "LINK_UNAVAILABLE"}
+  ]
+}

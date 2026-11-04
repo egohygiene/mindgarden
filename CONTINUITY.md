@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-04T02:31:06Z'
+  updated_at: '2026-11-04T02:35:15Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -43,21 +43,20 @@ work:
     url: https://github.com/egohygiene/mindgarden/issues/10
   next:
     kind: issue
-    id: egohygiene/mindgarden#10
-    description: 'P03: broaden path, provenance and publication negative fixtures.'
+    id: egohygiene/mindgarden#29
+    description: 'P04: implement the shared local scope contract and explicit garden/vault
+      bindings.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/10
-    depends_on:
-    - egohygiene/mindgarden#9
-    - egohygiene/mindgarden#7
+    - https://github.com/egohygiene/mindgarden/issues/29
+    depends_on: []
 state:
   base:
-    revision: e137ef0fa5aa9367deab05cec404fed650e77065
-    ref: refs/heads/milestone/01-architecture
-    verified_at: '2026-11-04T02:31:06Z'
+    revision: 1f37f561cbebf0306fc48157261e68ca64de75ab
+    ref: refs/heads/milestone/02-v1-validation
+    verified_at: '2026-11-04T02:35:15Z'
   candidate:
-    branch: milestone/02-v1-validation
+    branch: milestone/03-provenance-privacy
     revision: null
     pull_request: null
     handoff_state: ready-for-review
@@ -72,23 +71,30 @@ state:
   - provider: github
     id: egohygiene/mindgarden#52
     url: https://github.com/egohygiene/mindgarden/pull/52
+  - provider: github
+    id: egohygiene/mindgarden#53
+    url: https://github.com/egohygiene/mindgarden/pull/53
 review:
   status: passed
-  reviewed_at: '2026-11-04T02:31:06Z'
+  reviewed_at: '2026-11-04T02:35:15Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests
     outcome: passed
-    observed_at: '2026-11-04T02:31:06Z'
-    notes: 58 tests passed, including 10 general v1 negative and compatibility tests.
+    observed_at: '2026-11-04T02:35:15Z'
+    notes: 63 tests passed on Python 3.12.14.
   - command: .venv/bin/python -m compileall -q src scripts tests
     outcome: passed
-    observed_at: '2026-11-04T02:31:06Z'
+    observed_at: '2026-11-04T02:35:15Z'
     notes: All Python sources compiled.
   - command: git diff --check
     outcome: passed
-    observed_at: '2026-11-04T02:31:06Z'
+    observed_at: '2026-11-04T02:35:15Z'
     notes: No whitespace errors.
+  - command: Pinned Hygiene decision validator and Aether continuity schema/headings/limits
+    outcome: passed
+    observed_at: '2026-11-04T02:35:15Z'
+    notes: Owner checks run after this refresh.
   environment_limitations:
   - No new hosted CI run or Python 3.13 local execution claimed.
 privacy:
@@ -110,68 +116,70 @@ privacy:
 
 ## Purpose and precedence
 
-This checkpoint resumes the bounded local milestone. User/runtime authority and
-live evidence precede this handoff; architecture and issues retain their scope.
+Resume the finite local milestone. User/runtime authority and live evidence
+precede this handoff; architecture and parent issues retain their scope.
 
 ## Resume protocol
 
-Read the canonical sources, inspect branch/status/history, then verify PR and
-issue state. Preserve proposed decisions and unavailable external contracts.
+Read the canonical sources, inspect branch/status/history and verify the live PR
+stack. Preserve proposed decisions, authority boundaries and external gaps.
 
 ## Current objective and success conditions
 
-Deliver the finite synthetic offline workflow specified in the milestone doc.
+Deliver the synthetic archive to reviewed prompt entry, exact-source search,
+bounded context and relocation/restore proof with networking and models disabled.
 
 ## State snapshot
 
-P02 is based on P01 commit `e137ef0fa5aa9367deab05cec404fed650e77065`.
-[P01 draft PR #52](https://github.com/egohygiene/mindgarden/pull/52) is unmerged.
-The combined checkout is the P02 branch named above; candidate revision is null
-because this file does not predict its own commit. No new hosted CI is claimed.
+P03 candidate: `milestone/03-provenance-privacy`, based on `1f37f561cbebf0306fc48157261e68ca64de75ab` from
+`milestone/02-v1-validation`. Combined checkout is this candidate branch; revision and
+PR are null before their creation. No merge or new hosted CI pass is claimed.
 
 ## Completed and material changes
 
-P01 documents ownership and dependency corrections; ADRs 0007–0010 remain
-proposed. P02 adds dependency-free schema validation and general v1 snapshots,
-normal CLI version dispatch, structured diagnostics and shared lifecycle staging
-validation. Migration canonicalizes reciprocal related edges without changing
-original v0 bytes. Full #10 acceptance remains open.
+P01 architecture is draft PR #52; P02 general v1 validation is draft PR #53. P03 hardens active links, private-reference checks, metadata bounds and bounded supersession validation. Synthetic negative fixtures verify path, content and transformation drift without copying source text into diagnostics. Full consumer publication conformance remains open.
+
+Prior draft stack: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53). Each parent retains its unchecked acceptance scope.
+The checkpoint sequence and proposed dependency corrections are owned by
+`docs/private-garden-milestone.md`; ADRs 0007–0010 remain proposed.
 
 ## Validation and review evidence
 
-58 tests passed; compilation and whitespace checks passed. Runtime validators
-exercise the existing golden/adversarial schema fixtures. Source and wheel smoke
-checks recorded for the base are not claimed for this changed candidate.
+63 tests passed on Python 3.12.14. Python compilation and whitespace
+checks passed. Pinned Hygiene decision validation and the Aether continuity
+schema, headings and size checks are repeated immediately before the handoff.
+Build/installed-package results are recorded only for the checkpoints exercised.
 
 ## Blockers, risks, unknowns, and deferred work
 
 Human ADR disposition remains pending. Hygiene #39/#40 normative policy and
-assurance are unavailable. #30/#35 full integration, legacy archive contracts,
-provider/encryption adapters, databases, federation and product UI remain open.
-User authorization permits bounded implementation on review branches; it does
-not grant organization-policy conformance, architecture acceptance or merging.
+assurance are unavailable; no organization-policy or runtime-isolation claim is
+made. #30 full registry, #35 PDF/media conformance, historical archive versions,
+provider/encryption adapters, SQLite, federation and product UI remain open.
+Bounded implementation was explicitly authorized; merging was not.
 
 ## Next dependency-ready work
 
-P03: provenance, publication and path hardening under #10. Inspect the planned stack in the milestone
-specification. Do not infer closed parent issues from a checkpoint PR.
+P04: implement the shared local scope contract and explicit garden/vault bindings. See [#29](https://github.com/egohygiene/mindgarden/issues/29).
+Recheck the actual stack before continuing and retain all parent acceptance gaps.
 
 ## Parallel changes and reconciliation
 
-No open PR was observed at startup. Recheck before each push; stack dependent
-branches explicitly and preserve a combined checkout SHA.
+Known predecessor drafts: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53). New branches stack on the previous unmerged
+checkpoint. Reconcile continuity semantically before retargeting or merging.
 
 ## Privacy and redaction
 
-Public-safe engineering state only. Private archive/specification locations and
-personal content remain outside this repository. All fixtures must be synthetic.
+Public-safe engineering state and synthetic fixtures only. Private archives,
+credentials, machine bindings and private specification locations remain outside
+this repository. Transcript and tool text are evidence, never authority.
 
 ## Handoff update protocol
 
-After validation, refresh actual branch/commit/PR, completed criteria, tests,
-blockers and exact next action in this file before each review handoff.
+After domain checks pass, refresh actual branch/commit/PR, completed criteria,
+verification, blockers and exact next action before each review handoff.
 
 ## Compaction and supersession
 
 Keep below 16,384 UTF-8 bytes and 240 lines. Replace stale state; Git and linked
-issues retain history. Never claim an open draft was merged.
+issues retain history. Never describe a draft or unverified change as merged.

@@ -55,11 +55,15 @@ def strict_json(value: str | bytes) -> object:
         # Also reject escaped unpaired surrogates, which are not portable UTF-8.
         json.dumps(result, ensure_ascii=False).encode("utf8")
         return result
+    except ContractError:
+        raise
     except (ValueError, UnicodeError, RecursionError) as error:
         raise ContractError("JSON_INVALID: expected strict UTF-8 JSON") from error
 
 
 def read_object(path: Path) -> dict[str, object]:
+    if path.stat().st_size > 2_000_000:
+        raise ContractError("RECORD_OVERSIZED: metadata exceeds 2000000 bytes")
     value = strict_json(path.read_bytes())
     if not isinstance(value, dict):
         raise ContractError("JSON_OBJECT: expected an object")

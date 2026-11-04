@@ -128,3 +128,18 @@ python3 -m unittest tests.test_v1_contracts --verbose
 ```
 
 The published `mindgarden` wheel retains zero runtime dependencies.
+
+## Runtime integrity checkpoint
+
+The normal CLI now validates general v1 records through a closed local schema
+registry, with no runtime dependencies or schema downloads. Unknown schema
+keywords, versions and nonportable JSON fail closed. Metadata records are bounded
+to 2,000,000 bytes. Referenced artifact bytes, exact supported evidence selectors,
+provenance input/output hashes and pinned provenance metadata are verified.
+
+Unsafe paths, symlinks, overlapping roots, unsafe or missing active Markdown
+links, private references from public records, duplicate typed relationships and
+supersession cycles have stable diagnostics. Cross-garden targets require
+explicit authorization; unavailable coverage is incomplete, not successful.
+This is structural integrity and publication eligibility, not a repository-wide
+secret scanner, factual verification or completed public-consumer conformance.

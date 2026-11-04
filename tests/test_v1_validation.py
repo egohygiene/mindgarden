@@ -43,6 +43,14 @@ class RuntimeContractTests(unittest.TestCase):
                 strict_json(value)
             self.assertNotIn("private", str(caught.exception))
 
+    def test_unknown_schema_vocabulary_is_not_silently_ignored(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary)
+            write_json(path / "common.schema.json", {
+                "$id": "urn:synthetic:unsupported", "unevaluatedProperties": False})
+            with self.assertRaisesRegex(ContractError, "CONTRACT_UNSUPPORTED"):
+                ContractRegistry(path)
+
 
 class V1ValidationTests(unittest.TestCase):
     def setUp(self):
@@ -129,3 +137,39 @@ class V1ValidationTests(unittest.TestCase):
         (self.garden / "garden.yaml").write_text("schema: mindgarden.garden/v0\n")
         with self.assertRaisesRegex(ContractError, "MANIFEST_AMBIGUOUS"):
             validate_repository(self.root)
+
+    def test_active_link_and_path_fixtures_fail_without_echoing_content(self):
+        cases = json.loads((Path(__file__).parent / "fixtures/v1-validation/cases.json").read_text())
+        for item in cases["links"]:
+            with self.subTest(link=item["target"]):
+                add_knowledge(self.root, body="[Synthetic evidence](" + item["target"] + ")\n")
+                report = inspect_garden(self.root).report()
+                self.assertIn(item["code"], {value["code"] for value in report["diagnostics"]})
+                self.assertNotIn("synthetic-private-marker", json.dumps(report))
+                self.assertNotIn("synthetic-password", json.dumps(report))
+        for value in cases["paths"]:
+            record = add_knowledge(self.root)
+            record["content"]["path"] = value
+            write_json(self.garden / "knowledge/synthetic-prompt.json", record)
+            self.assertTrue(self.codes() & {"PATH_UNSAFE", "SCHEMA_PATTERN"})
+
+    def test_public_links_cannot_expose_private_knowledge(self):
+        add_knowledge(self.root, "private-note")
+        add_knowledge(self.root, "public-note", body="[Reference](private-note.md)\n", visibility="public")
+        self.assertIn("PUBLIC_PRIVATE_LINK", self.codes())
+
+    def test_transformation_metadata_tampering_invalidates_its_pinned_reference(self):
+        add_knowledge(self.root)
+        path = self.garden / "provenance/provenance-synthetic-prompt.json"
+        record = json.loads(path.read_text())
+        record["transformations"][0]["parameters"] = {"changed": True}
+        write_json(path, record)
+        self.assertIn("REFERENCE_REVISION", self.codes())
+
+    def test_binary_knowledge_and_oversized_metadata_fail_safely(self):
+        record = add_knowledge(self.root)
+        (self.garden / record["content"]["path"]).write_bytes(b"\xff")
+        self.assertTrue(self.codes())
+        path = self.garden / "knowledge/oversized.json"
+        path.write_text(" " * 2_000_001)
+        self.assertIn("RECORD_OVERSIZED", self.codes())
