@@ -103,8 +103,8 @@ documentation only. Python 3.13 dev tools were installed using a workspace venv
 without ensurepip and the host pip's `--python` option; they are not runtime dependencies.
 
 No new hosted CI pass is claimed. Both versions in the owner CI matrix passed
-locally; unavailable/unobserved hosted CI is not a passing result. No workflow was
-manually launched.
+locally. Automatic GitHub Test run 26 was in progress when inspected; see draft
+PR #64 for the current hosted status. No workflow was manually launched.
 
 ## Stack and remaining acceptance
 
@@ -112,8 +112,29 @@ P01–P11 are draft PRs [#52](https://github.com/egohygiene/mindgarden/pull/52)
 through [#62](https://github.com/egohygiene/mindgarden/pull/62), each based on its
 predecessor. P12a is [#63](https://github.com/egohygiene/mindgarden/pull/63), with
 functional commit `16394c4` and handoff `afbd420`. P12b is the combined
-`milestone/13-offline-workflow-proof` checkout based on P12a. CONTINUITY.md records
-its draft PR, verified functional revision and complete final handoff.
+`milestone/13-offline-workflow-proof` checkout based on P12a, in
+[draft #64](https://github.com/egohygiene/mindgarden/pull/64). CONTINUITY.md records
+its verified functional revision and complete final handoff. All thirteen PRs were
+inspected as open, draft and unmerged; each base is the preceding head:
+
+| Draft | Base branch | Head/combined checkout | Inspected head |
+| --- | --- | --- | --- |
+| [#52](https://github.com/egohygiene/mindgarden/pull/52) | `main` | `milestone/01-architecture` | `e137ef0` |
+| [#53](https://github.com/egohygiene/mindgarden/pull/53) | `milestone/01-architecture` | `milestone/02-v1-validation` | `1f37f56` |
+| [#54](https://github.com/egohygiene/mindgarden/pull/54) | `milestone/02-v1-validation` | `milestone/03-provenance-privacy` | `b93969c` |
+| [#55](https://github.com/egohygiene/mindgarden/pull/55) | `milestone/03-provenance-privacy` | `milestone/04-scope-bindings` | `dd4be16` |
+| [#56](https://github.com/egohygiene/mindgarden/pull/56) | `milestone/04-scope-bindings` | `milestone/05-local-vault` | `febb2b0` |
+| [#57](https://github.com/egohygiene/mindgarden/pull/57) | `milestone/05-local-vault` | `milestone/06-source-adapters` | `f655d03` |
+| [#58](https://github.com/egohygiene/mindgarden/pull/58) | `milestone/06-source-adapters` | `milestone/07-v1-retrieval` | `8836fdd` |
+| [#59](https://github.com/egohygiene/mindgarden/pull/59) | `milestone/07-v1-retrieval` | `milestone/08-curation` | `1a49992` |
+| [#60](https://github.com/egohygiene/mindgarden/pull/60) | `milestone/08-curation` | `milestone/09-conversation-archives` | `fb3bcf3` |
+| [#61](https://github.com/egohygiene/mindgarden/pull/61) | `milestone/09-conversation-archives` | `milestone/10-private-routing` | `df724c4` |
+| [#62](https://github.com/egohygiene/mindgarden/pull/62) | `milestone/10-private-routing` | `milestone/11-scoped-retrieval` | `e31d574` |
+| [#63](https://github.com/egohygiene/mindgarden/pull/63) | `milestone/11-scoped-retrieval` | `milestone/12-vault-recovery` | `afbd420` |
+| [#64](https://github.com/egohygiene/mindgarden/pull/64) | `milestone/12-vault-recovery` | `milestone/13-offline-workflow-proof` | `ebe11f8` |
+
+The last head receives later documentation-only handoff updates. Functional code
+remains pinned to `23d2952d705552c91833bbbf015d66bc806df9bc`.
 
 Final review corrected empty publication allowlists to deny values, as the
 existing v1 contract requires. Routing, validation and public query selection
@@ -124,15 +145,15 @@ target read/write contracts are checked explicitly.
 | Item | Completed checkpoint | Remaining parent scope | PRs | Verification | Next action |
 | --- | --- | --- | --- | --- | --- |
 | #42 | Ownership map and four proposed ADRs | Human ratification, broader architecture | #52 | Pinned decision checks | Review ADR-0007–0010 |
-| #10 | General v1 integrity/publication, v0 compatibility | Wider consumer/publication conformance | #53, #54, P12 | Schema, hash, path, migration negatives | Review validation/compatibility |
+| #10 | General v1 integrity/publication, v0 compatibility | Wider consumer/publication conformance | #53, #54, #63, #64 | Schema, hash, path, migration negatives | Review validation/compatibility |
 | #11 | Text adapter, exact identities, digest-bound plans, extension | Mindcap/bookmark and other adapters | #57 | Duplicate/stale/extension fixtures | Review adapter boundary |
-| #12 | Knowledge/claim search, graph/backlinks, exact evidence, context | Federation, consumer/scale acceptance | #58, P12 | Retrieval, budgets and rebuilds | Review finite usability evidence |
+| #12 | Knowledge/claim search, graph/backlinks, exact evidence, context | Federation, consumer/scale acceptance | #58, #63, #64 | Retrieval, budgets and rebuilds | Review finite usability evidence |
 | #13 | Six authored dispositions, evidence, separate human review | Optional models, broader asset curation | #59 | Authority, stale/conflict fixtures | Review authored plan contract |
 | #15 | Both versions/profiles of v3.2.2/v3.2.3 | Historical specs, collections/multipart, full producer conformance | #60 | Four profile/version cases, overlap/hostile packages | Obtain exact missing contracts |
-| #14 | Explained private fallback, one home, references, recovery | Existing moves/splits/transfers, full registry/organization integration | #61, P12 | Garden kinds, public review/denial, rollback | Review routing and transfer boundary |
+| #14 | Explained private fallback, one home, references, recovery | Existing moves/splits/transfers, full registry/organization integration | #61, #63, #64 | Garden kinds, public review/denial, rollback | Review routing and transfer boundary |
 | #29 | Independent scope axes and inherited restrictions | Normative Hygiene policy/assurance | #55, #62 | Public/personal/org/restricted/mixed fixtures | Obtain versioned owner contracts |
-| #31 | Authorization before bodies/ranking, safe metadata/caches, revocation | Realm/provider/encryption assurance | #62, P12 | Adversarial no-model retrieval | Review local reference boundary |
-| #45 | Bounded filesystem audit/export/restore/relocation | Asset/triage/retention, #30/#35, encryption/providers/platform proof | #56, #63, P12b | Corruption, missing, stale, recovery, offline proof | Review local checkpoint; retain full #45 scope |
+| #31 | Authorization before bodies/ranking, safe metadata/caches, revocation | Realm/provider/encryption assurance | #62, #63, #64 | Adversarial no-model retrieval | Review local reference boundary |
+| #45 | Bounded filesystem audit/export/restore/relocation | Asset/triage/retention, #30/#35, encryption/providers/platform proof | #56, #63, #64 | Corruption, missing, stale, recovery, offline proof | Review local checkpoint; retain full #45 scope |
 
 This supports [#20](https://github.com/egohygiene/mindgarden/issues/20), without
 proving a real legacy archive, optional AI producer, Empathy package consumption,
