@@ -112,6 +112,9 @@ class V1ContractTests(unittest.TestCase):
                 "provenance",
                 "source",
                 "synapse",
+                "scope",
+                "local-bindings",
+                "session",
             },
         )
         identifiers = set()

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:scope:v1",
+  "title": "Mindgarden scope v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "visibility",
+    "persistence",
+    "execution",
+    "publication",
+    "policy"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.scope/v1"
+    },
+    "visibility": {
+      "enum": [
+        "public",
+        "organization",
+        "personal",
+        "restricted"
+      ]
+    },
+    "persistence": {
+      "enum": [
+        "git-tracked",
+        "machine-local",
+        "encrypted-vault"
+      ]
+    },
+    "execution": {
+      "enum": [
+        "networked",
+        "controlled-import",
+        "offline"
+      ]
+    },
+    "publication": {
+      "enum": [
+        "publishable",
+        "review-required",
+        "never-exportable"
+      ]
+    },
+    "policy": {
+      "title": "Mindgarden policy-reference v1",
+      "type": "object",
+      "required": [
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

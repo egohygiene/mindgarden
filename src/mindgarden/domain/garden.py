@@ -95,6 +95,10 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
         if snapshot.diagnostics:
             return snapshot
         manifest = snapshot.manifest
+        if "scope" in manifest:
+            from .scope import validate_scope
+
+            validate_scope(manifest["scope"], manifest["visibility"])
         roots = manifest["roots"]
         declared = [roots[field] for field in ("sources", "knowledge", "provenance", "context_packs")]
         generated = roots["generated"]
@@ -137,6 +141,10 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                 snapshot.records[record_id] = record
                 snapshot.locations[record_id] = relative
                 snapshot.hashes[record_id] = digest_bytes(path.read_bytes())
+                if "scope" in record:
+                    from .scope import validate_scope
+
+                    validate_scope(record["scope"], record.get("visibility"))
                 if record.get("updated", "9999") < record.get("created", "0000"):
                     issue("DATE_ORDER", relative, "Updated date precedes creation",
                           "Preserve consistent observed creation/update dates.")

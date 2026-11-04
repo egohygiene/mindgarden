@@ -77,6 +77,9 @@
       "items": {
         "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
       }
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
     }
   },
   "patternProperties": {
