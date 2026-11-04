@@ -229,6 +229,30 @@ def add_agent_commands(commands: ParserCollection) -> None:
 
 def run_validation(arguments: Namespace) -> int:
     """Validate one consumer repository."""
+    if arguments.format == "json":
+        from ..domain.garden import inspect_garden
+
+        if (arguments.repository_root / ".garden/garden.json").exists():
+            if (arguments.repository_root / ".garden/garden.yaml").exists():
+                payload = {"schema": "mindgarden.validation/v1", "status": "invalid",
+                           "diagnostics": [{"code": "MANIFEST_AMBIGUOUS", "severity": "error",
+                                            "location": "garden.json", "message": "Multiple garden manifests",
+                                            "remediation": "Select one contract version."}]}
+            else:
+                payload = inspect_garden(arguments.repository_root).report()
+        else:
+            try:
+                count = validate_repository(arguments.repository_root)
+                payload = {"schema": "mindgarden.validation/v1", "status": "valid",
+                           "coverage": {"contracts": "v0"}, "records": count, "diagnostics": []}
+            except ContractError:
+                payload = {"schema": "mindgarden.validation/v1", "status": "invalid",
+                           "coverage": {"contracts": "v0"}, "diagnostics": [{
+                               "code": "V0_CONTRACT", "severity": "error", "location": ".garden",
+                               "message": "Legacy contract validation failed",
+                               "remediation": "Run text validation in the authorized local workspace."}]}
+        print(json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2))
+        return ExitCode.SUCCESS if payload["status"] == "valid" else ExitCode.CONTRACT
     note_count = validate_repository(arguments.repository_root)
     print(f"mindgarden validation passed: {note_count} note(s)")
     return ExitCode.SUCCESS
@@ -299,6 +323,7 @@ def build_parser() -> ArgumentParser:
 
     validate = commands.add_parser("validate", help="Validate a garden repository")
     add_repository_root(validate)
+    validate.add_argument("--format", choices=("text", "json"), default="text")
     validate.set_defaults(handler=run_validation)
     version = commands.add_parser("version", help="Show the installed version")
     version.set_defaults(handler=run_version)

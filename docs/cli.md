@@ -139,3 +139,17 @@ python3 scripts/publish_garden.py \
 
 New consumers should use `mindgarden`. The compatibility shims contain no
 independent implementation and will not become a second public API.
+
+## General v1 validation
+
+`mindgarden validate --repository-root "/path/to/workspace"` detects the selected
+v0 or v1 manifest. `--format "json"` emits stable diagnostic codes, severity,
+portable locations and remediation. `invalid` and `incomplete` both return the
+contract exit code 3; missing cross-garden authorization is incomplete rather
+than successful validation. Validation never discovers private overlays or
+fetches remote schemas.
+
+V1 checks the shipped schema vocabulary, unique identities, typed references,
+immutable revisions, content/evidence/provenance hashes and supersession cycles.
+Initialization and migration use the same general validator for their staged
+trees. The published runtime remains dependency-free.
