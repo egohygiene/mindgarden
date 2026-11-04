@@ -10,7 +10,7 @@ from ..domain.contracts import ContractRegistry, canonical_json, read_object
 from ..domain.scope import POLICY_REFERENCE, local_scope
 from ..domain.validation import ContractError
 from .bindings import LocalBindings
-from .query import QueryContext
+from .query import QueryContext, selected_garden_ids
 from .query_view import metadata_view
 
 
@@ -22,9 +22,7 @@ def bind_session_revisions(local_config: Path, supplied: dict) -> dict:
     if len(readable) != len(session["readable"]):
         raise ContractError("SESSION_INVALID: duplicate readable identities")
     document = read_object(local_config)
-    selected = {item.get("id") for item in document.get("gardens", []) if isinstance(item, dict)
-                and item.get("id") in readable and isinstance(item.get("scope"), dict)
-                and item["scope"].get("visibility") in session["allowed_visibilities"]}
+    selected = selected_garden_ids(document, session)
     if session["id"] in document.get("revoked_sessions", []):
         raise ContractError("SESSION_REVOKED: choose a new explicitly authorized session identity")
     bindings = LocalBindings.load(local_config, garden_ids=selected, vault_ids=set())

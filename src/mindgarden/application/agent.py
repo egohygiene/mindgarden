@@ -111,7 +111,7 @@ def metadata_list(metadata: dict[str, Any], field: str) -> list[str]:
 
 def build_index(repository_root: Path, *, query_context=None) -> dict[str, Any]:
     """Build the complete deterministic in-memory garden index."""
-    if (repository_root / ".garden/garden.json").is_file():
+    if query_context is not None or (repository_root / ".garden/garden.json").is_file():
         if query_context is None:
             raise ContractError("SCOPE_REQUIRED: v1 indexing requires an explicit QueryContext")
         from .retrieval import build_index as build_v1_index
@@ -251,7 +251,7 @@ def search_payload(
     query_context=None,
 ) -> dict[str, Any]:
     """Create a stable JSON search response."""
-    if index.get("schema") == "mindgarden.index/v1":
+    if query_context is not None or index.get("schema") == "mindgarden.index/v1":
         if query_context is None:
             raise ContractError("SCOPE_REQUIRED: v1 search requires an explicit QueryContext")
         from .retrieval import search_payload as search_v1
@@ -735,9 +735,14 @@ def generated_index_path(repository_root: Path) -> Path:
     return garden_root / roots[0] / "catalog.json"
 
 
+def scoped_request(arguments: Namespace) -> bool:
+    return (getattr(arguments, "scope", None) is not None or getattr(arguments, "local_config", None) is not None
+            or (arguments.repository_root / ".garden/garden.json").is_file())
+
+
 def run_index(arguments: Namespace) -> int:
     """Print, write, or check the deterministic catalog."""
-    if (arguments.repository_root / ".garden/garden.json").is_file():
+    if scoped_request(arguments):
         from .retrieval import run_projection
 
         return run_projection(arguments, "index")
@@ -758,7 +763,7 @@ def run_index(arguments: Namespace) -> int:
 
 def run_search(arguments: Namespace) -> int:
     """Search the current garden and emit stable JSON."""
-    if (arguments.repository_root / ".garden/garden.json").is_file():
+    if scoped_request(arguments):
         from .retrieval import run_projection
 
         return run_projection(arguments, "search")
@@ -775,7 +780,7 @@ def run_search(arguments: Namespace) -> int:
 
 def run_context(arguments: Namespace) -> int:
     """Render one named context pack."""
-    if (arguments.repository_root / ".garden/garden.json").is_file():
+    if scoped_request(arguments):
         from .retrieval import run_projection
 
         return run_projection(arguments, "context")
@@ -803,7 +808,7 @@ def run_context(arguments: Namespace) -> int:
 
 def run_llms(arguments: Namespace) -> int:
     """Print, write, or check the repository llms.txt entrypoint."""
-    if (arguments.repository_root / ".garden/garden.json").is_file():
+    if scoped_request(arguments):
         from .retrieval import run_projection
 
         return run_projection(arguments, "llms")
@@ -827,7 +832,7 @@ def run_llms(arguments: Namespace) -> int:
 
 def run_verify(arguments: Namespace) -> int:
     """Verify deterministic builds, packs, and the committed agent entrypoint."""
-    if (arguments.repository_root / ".garden/garden.json").is_file():
+    if scoped_request(arguments):
         from .retrieval import run_projection
 
         return run_projection(arguments, "verify")

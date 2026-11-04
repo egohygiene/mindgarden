@@ -79,6 +79,58 @@ class ScopedRetrievalTests(unittest.TestCase):
         self.assertNotIn(b"denied-vault", before)
         self.assertEqual(len(json.loads(before)["inputs"]), 1)
 
+    def test_unknown_policy_and_unavailable_encryption_are_denied_before_root_probe(self):
+        configuration = json.loads(self.configuration.read_text())
+        unknown = local_scope(); unknown["policy"]["id"] = "unknown-policy"
+        configuration["gardens"] += [{"id": "unknown-policy-garden", "root": "/missing/denied-policy-root", "scope": unknown},
+                                      {"id": "restricted-garden", "root": "/missing/denied-restricted-root", "scope": local_scope("restricted")}]
+        write_json(self.configuration, configuration)
+        session = json.loads(self.session_path.read_text()); session["allowed_visibilities"].append("restricted")
+        session["readable"] += [{"garden": identity, "revision": "sha256:" + "0" * 64}
+                                for identity in ("unknown-policy-garden", "restricted-garden")]
+        from mindgarden.application.bindings import explicit_root
+
+        def guarded_root(value, **options):
+            if "denied-" in value:
+                raise AssertionError("Denied root probed before policy/capability authorization")
+            return explicit_root(value, **options)
+
+        with patch("mindgarden.application.bindings.explicit_root", side_effect=guarded_root):
+            write_json(self.session_path, bind_session_revisions(self.configuration, session))
+            context = QueryContext.load(self.configuration, self.session_path)
+            before = canonical_json(build_index(context))
+        configuration["gardens"][-2]["root"] = str(self.workspace)
+        write_json(self.configuration, configuration)
+        self.assertEqual(before, canonical_json(build_index(context)))
+        self.assertNotIn(b"unknown-policy-garden", before)
+        self.assertNotIn(b"restricted-garden", before)
+
+    def test_explicit_scope_never_falls_back_to_unscoped_v0_cli_or_library(self):
+        from mindgarden.application import agent
+
+        v0_root = Path(__file__).parent / "fixtures/public-garden"
+        legacy = agent.build_index(v0_root)
+        self.assertEqual(agent.build_index(v0_root, query_context=self.context)["schema"], "mindgarden.index/v1")
+        result = agent.search_payload(legacy, "prompt", limit=10, include_unreviewed=False, query_context=self.context)
+        self.assertEqual(result["schema"], "mindgarden.search-results/v1")
+        expected = search_payload(self.context, "prompt")
+        with redirect_stdout(io.StringIO()) as output:
+            self.assertEqual(main(["search", "--repository-root", str(v0_root), "--local-config", str(self.configuration),
+                                   "--scope", str(self.session_path), "--query", "prompt"]), 0)
+        self.assertEqual(json.loads(output.getvalue()), expected)
+        unbound = self.root / "denied-cli-root"
+        is_file = Path.is_file
+
+        def guarded_file(path):
+            if path == unbound / ".garden/garden.json":
+                raise AssertionError("Unbound root probed during scoped command dispatch")
+            return is_file(path)
+
+        with patch.object(Path, "is_file", guarded_file), redirect_stdout(io.StringIO()) as output:
+            self.assertEqual(main(["search", "--repository-root", str(unbound), "--local-config", str(self.configuration),
+                                   "--scope", str(self.session_path), "--query", "prompt"]), 0)
+        self.assertEqual(json.loads(output.getvalue()), expected)
+
     def test_denied_source_dependency_excludes_reviewed_derivation_before_body_read(self):
         before = canonical_json(build_index(self.context))
         source = add_source(self.workspace, b"restricted-source-canary", record_id="restricted-source")
