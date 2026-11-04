@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-04T02:39:36Z'
+  updated_at: '2026-11-04T02:44:41Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -39,24 +39,24 @@ work:
     relocation works offline.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#29
-    url: https://github.com/egohygiene/mindgarden/issues/29
+    id: egohygiene/mindgarden#45
+    url: https://github.com/egohygiene/mindgarden/issues/45
   next:
     kind: issue
-    id: egohygiene/mindgarden#45
-    description: 'P05: implement immutable filesystem objects and portable source content
-      references.'
+    id: egohygiene/mindgarden#11
+    description: 'P06: implement the first normalized-source adapter and digest-bound import
+      service.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/45
+    - https://github.com/egohygiene/mindgarden/issues/11
     depends_on: []
 state:
   base:
-    revision: b93969c9f116149a209dbc63a53e97d747d75cc8
-    ref: refs/heads/milestone/03-provenance-privacy
-    verified_at: '2026-11-04T02:39:36Z'
+    revision: dd4be1618011215d3b6312eed9799267633382d6
+    ref: refs/heads/milestone/04-scope-bindings
+    verified_at: '2026-11-04T02:44:41Z'
   candidate:
-    branch: milestone/04-scope-bindings
+    branch: milestone/05-local-vault
     revision: null
     pull_request: null
     handoff_state: ready-for-review
@@ -77,26 +77,29 @@ state:
   - provider: github
     id: egohygiene/mindgarden#54
     url: https://github.com/egohygiene/mindgarden/pull/54
+  - provider: github
+    id: egohygiene/mindgarden#55
+    url: https://github.com/egohygiene/mindgarden/pull/55
 review:
   status: passed
-  reviewed_at: '2026-11-04T02:39:36Z'
+  reviewed_at: '2026-11-04T02:44:41Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests
     outcome: passed
-    observed_at: '2026-11-04T02:39:36Z'
-    notes: 69 tests passed on Python 3.12.14.
+    observed_at: '2026-11-04T02:44:41Z'
+    notes: 75 tests passed on Python 3.12.14.
   - command: .venv/bin/python -m compileall -q src scripts tests
     outcome: passed
-    observed_at: '2026-11-04T02:39:36Z'
+    observed_at: '2026-11-04T02:44:41Z'
     notes: All Python sources compiled.
   - command: git diff --check
     outcome: passed
-    observed_at: '2026-11-04T02:39:36Z'
+    observed_at: '2026-11-04T02:44:41Z'
     notes: No whitespace errors.
   - command: Pinned Hygiene decision validator and Aether continuity schema/headings/limits
     outcome: passed
-    observed_at: '2026-11-04T02:39:36Z'
+    observed_at: '2026-11-04T02:44:41Z'
     notes: Owner checks run after this refresh.
   environment_limitations:
   - No new hosted CI run or Python 3.13 local execution claimed.
@@ -134,21 +137,21 @@ bounded context and relocation/restore proof with networking and models disabled
 
 ## State snapshot
 
-P04 candidate: `milestone/04-scope-bindings`, based on `b93969c9f116149a209dbc63a53e97d747d75cc8` from
-`milestone/03-provenance-privacy`. Combined checkout is this candidate branch; revision and
+P05 candidate: `milestone/05-local-vault`, based on `dd4be1618011215d3b6312eed9799267633382d6` from
+`milestone/04-scope-bindings`. Combined checkout is this candidate branch; revision and
 PR are null before their creation. No merge or new hosted CI pass is claimed.
 
 ## Completed and material changes
 
-P04 adds shared scope, local-bindings and session schemas to the existing v1 registry, conservative inheritance, explicit legacy mappings and safe local root bindings. Synthetic fixtures cover public, organization, personal, restricted and mixed requirements. This is a draft local policy and bounded #30 prerequisite; organization assurance and complete session enforcement are not claimed.
+P05 adds the immutable content port and filesystem baseline, portable vault references alongside existing garden-relative paths, explicit storage states, initialization plans, checksums, audit and normal CLI storage resolution. Duplicate bytes share one object; source identity remains independent. Encryption and remote/recovery capabilities are not claimed at this checkpoint.
 
-Prior draft stack: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54). Each parent retains its unchecked acceptance scope.
+Prior draft stack: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55). Each parent retains its unchecked acceptance scope.
 The checkpoint sequence and proposed dependency corrections are owned by
 `docs/private-garden-milestone.md`; ADRs 0007–0010 remain proposed.
 
 ## Validation and review evidence
 
-69 tests passed on Python 3.12.14. Python compilation and whitespace
+75 tests passed on Python 3.12.14. Python compilation and whitespace
 checks passed. Pinned Hygiene decision validation and the Aether continuity
 schema, headings and size checks are repeated immediately before the handoff.
 Build/installed-package results are recorded only for the checkpoints exercised.
@@ -163,12 +166,12 @@ Bounded implementation was explicitly authorized; merging was not.
 
 ## Next dependency-ready work
 
-P05: implement immutable filesystem objects and portable source content references. See [#45](https://github.com/egohygiene/mindgarden/issues/45).
+P06: implement the first normalized-source adapter and digest-bound import service. See [#11](https://github.com/egohygiene/mindgarden/issues/11).
 Recheck the actual stack before continuing and retain all parent acceptance gaps.
 
 ## Parallel changes and reconciliation
 
-Known predecessor drafts: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54). New branches stack on the previous unmerged
+Known predecessor drafts: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55). New branches stack on the previous unmerged
 checkpoint. Reconcile continuity semantically before retargeting or merging.
 
 ## Privacy and redaction

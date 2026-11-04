@@ -605,7 +605,7 @@ def validate_v0_repository(repository_root: Path) -> int:
     return len(notes)
 
 
-def validate_repository(repository_root: Path) -> int:
+def validate_repository(repository_root: Path, *, content_resolver=None) -> int:
     """Validate an explicit garden using its declared contract version."""
     garden = repository_root / ".garden"
     if (garden / "garden.json").exists():
@@ -613,7 +613,7 @@ def validate_repository(repository_root: Path) -> int:
             raise ContractError("MANIFEST_AMBIGUOUS: retain one selected garden manifest")
         from .garden import inspect_garden
 
-        return inspect_garden(repository_root).require_valid().count
+        return inspect_garden(repository_root, content_resolver=content_resolver).require_valid().count
     return validate_v0_repository(repository_root)
 
 

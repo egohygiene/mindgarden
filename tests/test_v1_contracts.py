@@ -115,6 +115,7 @@ class V1ContractTests(unittest.TestCase):
                 "scope",
                 "local-bindings",
                 "session",
+                "vault",
             },
         )
         identifiers = set()

@@ -229,6 +229,12 @@ def add_agent_commands(commands: ParserCollection) -> None:
 
 def run_validation(arguments: Namespace) -> int:
     """Validate one consumer repository."""
+    resolver = None
+    if arguments.local_config:
+        from ..application.bindings import LocalBindings
+        from ..application.storage import content_resolver
+
+        resolver = content_resolver(LocalBindings.load(arguments.local_config))
     if arguments.format == "json":
         from ..domain.garden import inspect_garden
 
@@ -239,7 +245,7 @@ def run_validation(arguments: Namespace) -> int:
                                             "location": "garden.json", "message": "Multiple garden manifests",
                                             "remediation": "Select one contract version."}]}
             else:
-                payload = inspect_garden(arguments.repository_root).report()
+                payload = inspect_garden(arguments.repository_root, content_resolver=resolver).report()
         else:
             try:
                 count = validate_repository(arguments.repository_root)
@@ -253,7 +259,7 @@ def run_validation(arguments: Namespace) -> int:
                                "remediation": "Run text validation in the authorized local workspace."}]}
         print(json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2))
         return ExitCode.SUCCESS if payload["status"] == "valid" else ExitCode.CONTRACT
-    note_count = validate_repository(arguments.repository_root)
+    note_count = validate_repository(arguments.repository_root, content_resolver=resolver)
     print(f"mindgarden validation passed: {note_count} note(s)")
     return ExitCode.SUCCESS
 
@@ -324,6 +330,7 @@ def build_parser() -> ArgumentParser:
     validate = commands.add_parser("validate", help="Validate a garden repository")
     add_repository_root(validate)
     validate.add_argument("--format", choices=("text", "json"), default="text")
+    validate.add_argument("--local-config", type=Path, help="Explicit nonportable storage bindings")
     validate.set_defaults(handler=run_validation)
     version = commands.add_parser("version", help="Show the installed version")
     version.set_defaults(handler=run_version)
@@ -332,6 +339,22 @@ def build_parser() -> ArgumentParser:
     add_agent_commands(commands)
     add_publish_command(commands)
     add_site_command(commands)
+    from ..application.storage import run_vault
+
+    vault = commands.add_parser("vault", help="Manage explicitly bound private source storage")
+    vault_commands = vault.add_subparsers(dest="operation", required=True)
+    for operation in ("init", "audit", "capabilities", "resolve"):
+        command = vault_commands.add_parser(operation)
+        command.add_argument("--local-config", type=Path, required=True)
+        command.add_argument("--vault-id", required=True)
+        if operation == "init":
+            mode = command.add_mutually_exclusive_group()
+            mode.add_argument("--plan", action="store_true")
+            mode.add_argument("--apply", action="store_true")
+            command.add_argument("--plan-digest")
+        if operation == "resolve":
+            command.add_argument("--content-id", required=True)
+        command.set_defaults(handler=run_vault)
     return parser
 
 

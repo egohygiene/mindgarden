@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:vault:v1",
+  "title": "Mindgarden local vault manifest v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "adapter",
+    "format_version"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.vault/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "adapter": {
+      "const": "filesystem"
+    },
+    "format_version": {
+      "const": "1.0.0"
+    }
+  },
+  "additionalProperties": false
+}
