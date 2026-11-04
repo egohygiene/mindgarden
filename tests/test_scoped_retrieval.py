@@ -218,7 +218,8 @@ class ScopedRetrievalTests(unittest.TestCase):
         self.assertEqual(index["scope"]["publication"], "never-exportable")
         with self.assertRaisesRegex(ContractError, "OUTPUT_SCOPE"):
             write_projection(context, public_root, "index.json", canonical_json(index))
-        self.assertFalse((public_root / ".garden/generated/agent/scopes").exists())
+        manifest = json.loads((public_root / ".garden/garden.json").read_text())
+        self.assertFalse((public_root / ".garden" / manifest["roots"]["generated"][0] / "scopes").exists())
 
     def test_authorized_corruption_has_generic_diagnostics_and_no_partial_stdout(self):
         (self.workspace / ".garden/knowledge/synthetic-prompt.md").write_text("denied-body-canary")

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:vault-export:v1",
+  "title": "Mindgarden vault-export v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "format_version",
+    "vault",
+    "objects"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.vault-export/v1"
+    },
+    "format_version": {
+      "const": "1.0.0"
+    },
+    "vault": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "objects": {
+      "type": "array",
+      "maxItems": 4093,
+      "items": {
+        "type": "object",
+        "required": [
+          "content_id",
+          "size_bytes"
+        ],
+        "properties": {
+          "content_id": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 104857600
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

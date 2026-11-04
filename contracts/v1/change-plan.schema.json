@@ -88,6 +88,9 @@
     },
     "plan_sha256": {
       "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "applied": {
+      "type": "boolean"
     }
   },
   "additionalProperties": false

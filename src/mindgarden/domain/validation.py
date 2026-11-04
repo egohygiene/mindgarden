@@ -605,7 +605,7 @@ def validate_v0_repository(repository_root: Path) -> int:
     return len(notes)
 
 
-def validate_repository(repository_root: Path, *, content_resolver=None) -> int:
+def validate_repository(repository_root: Path, *, content_resolver=None, authorized_gardens=None) -> int:
     """Validate an explicit garden using its declared contract version."""
     if (repository_root / ".mindgarden-write.lock").exists():
         raise ContractError("WRITE_LOCKED: complete or recover the owning operation before validation")
@@ -615,7 +615,8 @@ def validate_repository(repository_root: Path, *, content_resolver=None) -> int:
             raise ContractError("MANIFEST_AMBIGUOUS: retain one selected garden manifest")
         from .garden import inspect_garden
 
-        return inspect_garden(repository_root, content_resolver=content_resolver).require_valid().count
+        return inspect_garden(repository_root, content_resolver=content_resolver,
+                              authorized_gardens=authorized_gardens).require_valid().count
     return validate_v0_repository(repository_root)
 
 

@@ -128,6 +128,9 @@ class V1ContractTests(unittest.TestCase):
                 "garden-catalog",
                 "routing-plan",
                 "routing-receipt",
+                "vault-export",
+                "vault-recovery-plan",
+                "evidence",
             },
         )
         identifiers = set()

@@ -10,7 +10,7 @@ Base: `7ac577e385f0b2c26eff37bdfb10f3b550f29da1`. Python 3.12.14 passes 48
 existing tests. Fresh source/wheel builds and clean installed-command/library
 smoke checks pass. Normal `validate` rejects initialized v1 gardens because it
 still expects `garden.yaml`. No open PR was observed before this milestone.
-V1 schemas and lifecycle exist; general v1 validation/retrieval do not.
+At that base, v1 schemas and lifecycle exist; general v1 validation/retrieval do not.
 
 ## Proposed dependency corrections
 
@@ -49,6 +49,12 @@ PR is review material, not a merged or accepted result.
 | P10 | 10-private-routing | #14 | Explained fallback, canonical home and journaled partial-failure recovery |
 | P11 | 11-scoped-retrieval | #31 | Denied-content/metadata, budget, expiry and revocation adversaries |
 | P12 | 12-vault-recovery | #45, #20 | Offline clean-checkout archive-to-context and relocation/restore proof |
+
+For review, P12 is split into P12a (`12-vault-recovery`: storage recovery and exact
+citation services) and P12b (`13-offline-workflow-proof`: committed integration
+proof, package verification and final handoff). P12b stacks on P12a. This separates
+the implemented contract/local checkpoint from its clean-checkout integration
+evidence; it introduces no bypass of #30/#31/#35/#40/#42 parent prerequisites.
 
 ## Contract and authority defaults
 

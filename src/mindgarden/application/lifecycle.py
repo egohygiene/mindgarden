@@ -29,11 +29,14 @@ IDENTIFIER_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 V1_CONTRACTS = (
     "mindgarden.claim/v1",
+    "mindgarden.context-profile/v1",
+    "mindgarden.curation-receipt/v1",
     "mindgarden.garden/v1",
     "mindgarden.knowledge/v1",
     "mindgarden.migration/v1",
     "mindgarden.projection/v1",
     "mindgarden.provenance/v1",
+    "mindgarden.routing-receipt/v1",
     "mindgarden.source/v1",
     "mindgarden.synapse/v1",
 )

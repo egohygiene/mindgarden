@@ -108,6 +108,8 @@ def build_ingestion_plan(bindings: LocalBindings, garden_id: str, vault_id: str,
                                    "evidence": locators, "metadata": unit.metadata})
     contract_registry = ContractRegistry()
     for content in files.values():
+        if len(content) > 2_000_000:
+            raise ContractError("SOURCE_METADATA_LIMIT: generated portable metadata exceeds the supported 2 MB bound")
         from ..domain.contracts import strict_json
 
         record = strict_json(content)

@@ -156,6 +156,8 @@ class ConversationArchiveTests(unittest.TestCase):
             adapter.normalize(output.getvalue(), {})
         with self.assertRaisesRegex(ContractError, "ARCHIVE_CORRUPTED"):
             adapter.normalize(b"not a zip", {})
+        with self.assertRaisesRegex(ContractError, "ARCHIVE_COLLISION"):
+            adapter.normalize(package_bytes({"file": b"a", "file/child": b"b"}), {})
 
     def test_compact_machine_index_cannot_fabricate_messages_or_mismatch_phases(self):
         members = package_members("summary-journey")

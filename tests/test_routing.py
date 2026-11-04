@@ -107,6 +107,11 @@ class RoutingTests(unittest.TestCase):
         self.assertEqual(len(canonical), 3)
         self.assertEqual(len({item["x-routing"]["unit"] for item in canonical}), 3)
         again = self.plan(); self.assertFalse(again.apply(again.digest))
+        for garden in ("synthetic-garden", "synthetic-repository", "synthetic-organization"):
+            with redirect_stdout(io.StringIO()) as output:
+                self.assertEqual(main(["validate", "--repository-root", str(self.bindings.garden(garden)["root"]),
+                                       "--local-config", str(self.configuration), "--format", "json"]), 0)
+            self.assertEqual(json.loads(output.getvalue())["status"], "valid")
 
     def test_missing_fallback_stays_unresolved_and_check_returns_contract_failure(self):
         self.catalog["private_fallback"] = None; write_json(self.catalog_path, self.catalog)
@@ -136,6 +141,12 @@ class RoutingTests(unittest.TestCase):
         output = json.loads((self.bindings.garden("synthetic-public")["root"] / ".garden/knowledge/routed-personal.json").read_text())
         self.assertEqual(output["publication"], "eligible")
         self.assertEqual(output["sources"], self.public_evidence)
+        public_bytes = b"".join(path.read_bytes() for path in
+                                (self.bindings.garden("synthetic-public")["root"] / ".garden").rglob("*.json"))
+        for private_value in (digest_bytes(self.request_path.read_bytes()), digest_bytes(self.catalog_path.read_bytes()),
+                              "synthetic-garden", "candidate-personal", "synthetic-routing:candidate-personal"):
+            self.assertNotIn(private_value.encode(), public_bytes)
+        self.assertTrue((self.workspace / ".garden/provenance/routing-synthetic-routing.json").is_file())
 
     def test_changed_target_invalidates_digest_and_cannot_overwrite_human_content(self):
         plan = self.plan()
