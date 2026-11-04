@@ -8,6 +8,7 @@ from pathlib import Path
 
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes, read_object
 from ..domain.garden import evidence_bytes, inspect_garden
+from ..domain.publication import permits_publication
 from ..domain.scope import LEGACY_VISIBILITY, inherit_scope, record_scope
 from ..domain.validation import ContractError
 from .bindings import LocalBindings, garden_fingerprint
@@ -105,9 +106,8 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path, *,
                         or public_review["state"] != "approved" or output["review"]["state"] != "approved"
                         or "public" not in policy["allowed_visibilities"]):
                     raise ContractError("ROUTE_PUBLIC: public destination lacks explicit publication authority")
-                for field, values in (("kinds", [output["kind"]]), ("domains", output["domains"]), ("topics", output["topics"])):
-                    if policy["allow"][field] and not set(values) <= set(policy["allow"][field]):
-                        raise ContractError("ROUTE_PUBLIC: proposed output is outside the target publication allowlist")
+                if not permits_publication(policy, kind=output["kind"], domains=output["domains"], topics=output["topics"]):
+                    raise ContractError("ROUTE_PUBLIC: proposed output is outside the target publication allowlist")
                 if any(item["schema"] == "mindgarden.source/v1" and item["kind"] == "captured" for item in inputs):
                     raise ContractError("ROUTE_PUBLIC: raw captures never authorize a public route")
             if output["id"] in output_ids:

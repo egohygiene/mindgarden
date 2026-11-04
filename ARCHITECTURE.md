@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-28
+updated: 2026-11-04
 governed_by:
   - architecture-architecture
 depends_on:
@@ -147,3 +147,11 @@ The first target is single-user, single-writer and local-first. Authentication,
 collaboration, multi-writer synchronization, deployment topology, specialized
 databases and web frameworks remain deferred. Runtime confidentiality claims
 require separate Realm/Hygiene evidence.
+
+The local draft implementation now includes filesystem vault recovery and exact
+reviewed-citation resolution. [The finite proof](docs/private-garden-evidence.md)
+records the archive-to-context and relocation boundary. Portable records, immutable
+content and explicit location bindings remain separate; ordinary application
+services require no hosting, model provider, web framework or specialized store.
+Full media triage, organization policy/assurance and consumer publication remain
+unverified integration scope. Proposed ADRs remain proposed after implementation.

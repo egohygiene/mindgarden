@@ -11,7 +11,7 @@ from ..adapters.conversation_archive import ConversationArchiveAdapter
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes
 from ..domain.garden import evidence_bytes, inspect_garden
 from ..domain.scope import validate_scope
-from ..domain.sources import AdapterRegistry
+from ..domain.sources import AdapterRegistry, validate_origin
 from ..domain.validation import ContractError
 from .bindings import LocalBindings, garden_fingerprint
 from .changes import ChangePlan
@@ -40,6 +40,7 @@ def build_ingestion_plan(bindings: LocalBindings, garden_id: str, vault_id: str,
                          input_path: Path, metadata: dict, *, registry: AdapterRegistry | None = None,
                          adapter_id: str | None = None, manifest_version: str | None = None) -> ChangePlan:
     binding = bindings.garden(garden_id)
+    validate_origin(metadata["origin"])
     root, scope = binding["root"], validate_scope(binding["scope"])
     if scope["visibility"] == "public" or scope["persistence"] == "encrypted-vault":
         raise ContractError("SOURCE_BOUNDARY: this adapter requires an ordinary explicitly private vault")

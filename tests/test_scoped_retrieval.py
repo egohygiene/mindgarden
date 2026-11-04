@@ -221,6 +221,32 @@ class ScopedRetrievalTests(unittest.TestCase):
         manifest = json.loads((public_root / ".garden/garden.json").read_text())
         self.assertFalse((public_root / ".garden" / manifest["roots"]["generated"][0] / "scopes").exists())
 
+    def test_public_allowlist_denial_precedes_body_reads_and_candidate_metadata(self):
+        root = self.root / "public-policy"; create_garden(root, "public-policy", "public")
+        body = "publication-denied-canary\n"
+        note = add_knowledge(root, "public-note", body=body, visibility="public"); note["publication"] = "eligible"
+        write_json(root / ".garden/knowledge/public-note.json", note)
+        configuration = json.loads(self.configuration.read_text())
+        configuration["gardens"].append({"id": "public-policy", "root": str(root),
+                                          "scope": local_scope("public", publication="publishable")})
+        write_json(self.configuration, configuration)
+        session = write_session(self.session_path, self.configuration, visibility=["public"], readable_ids=["public-policy"], writable=None)
+        session.update(publication_authority="publishable", request_scope=local_scope("public", publication="publishable"))
+        write_json(self.session_path, bind_session_revisions(self.configuration, session))
+        context = QueryContext.load(self.configuration, self.session_path)
+        before = canonical_json(build_index(context))
+        self.assertEqual(json.loads(before)["records"], [])
+        (root / ".garden/knowledge/public-note.md").write_text("Modified denied body; must not be verified or exported.")
+        self.assertEqual(before, canonical_json(build_index(context)))
+        self.assertNotIn(b"publication-denied-canary", before)
+        (root / ".garden/knowledge/public-note.md").write_text(body)
+        manifest_path = root / ".garden/garden.json"; manifest = json.loads(manifest_path.read_text())
+        manifest["publication"]["allow"] = {"kinds": ["procedure"], "domains": ["knowledge-systems"], "topics": ["prompt-bank"]}
+        write_json(manifest_path, manifest)
+        write_json(self.session_path, bind_session_revisions(self.configuration, session))
+        allowed = build_index(QueryContext.load(self.configuration, self.session_path))
+        self.assertEqual(allowed["records"][0]["reference"]["id"], "public-note")
+
     def test_authorized_corruption_has_generic_diagnostics_and_no_partial_stdout(self):
         (self.workspace / ".garden/knowledge/synthetic-prompt.md").write_text("denied-body-canary")
         with redirect_stdout(io.StringIO()) as output, redirect_stderr(io.StringIO()) as errors:

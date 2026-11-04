@@ -129,6 +129,16 @@ class V1ValidationTests(unittest.TestCase):
         self.assertIn("PUBLIC_PRIVATE_CONTENT", self.codes())
         self.assertIn("PUBLIC_PRIVATE_REFERENCE", self.codes())
 
+    def test_empty_publication_allowlists_deny_eligible_content(self):
+        manifest = json.loads((self.garden / "garden.json").read_text()); manifest["visibility"] = "public"
+        write_json(self.garden / "garden.json", manifest)
+        note = add_knowledge(self.root, visibility="public"); note["publication"] = "eligible"
+        write_json(self.garden / "knowledge/synthetic-prompt.json", note)
+        self.assertIn("PUBLICATION_POLICY", self.codes())
+        manifest["publication"]["allow"] = {"kinds": ["procedure"], "domains": ["knowledge-systems"], "topics": ["prompt-bank"]}
+        write_json(self.garden / "garden.json", manifest)
+        self.assertEqual(self.codes(), set())
+
     def test_unavailable_cross_garden_is_incomplete_not_valid(self):
         record = add_knowledge(self.root)
         record["supersedes"] = [reference("other-garden", "other-note")]

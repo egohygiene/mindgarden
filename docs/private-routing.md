@@ -33,9 +33,15 @@ merge and explicit supersession remain available independently.
 Public placement additionally requires explicit human public review, approved
 normalized public evidence, approved knowledge review and the target publication
 allowlist. Private sources never become public by applying or routing a proposal.
+Empty allowlists grant no values; a fresh public garden therefore denies routes
+until its kind/domain/topic allowlists are explicitly reviewed and configured.
 Raw captures remain excluded. General staged validation rechecks all public and
 cross-record invariants. Private rejected alternatives remain in the private
-preview; portable per-home receipts omit them and incompatible destination refs.
+preview. Public placements require an explicit personal controller for private
+request/catalog hashes and routing labels. Public provenance and curation receipts
+represent only the selected reviewed public proposal; raw private plan digests and
+labels are not copied into public records. Other per-home receipts omit rejected
+alternatives and incompatible destination refs.
 Review the entire public placement, including its attribution and identifiers.
 
 ```sh
