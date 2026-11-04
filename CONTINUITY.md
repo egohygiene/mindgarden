@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-04T04:06:39Z'
+  updated_at: '2026-11-04T04:40:13Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -39,26 +39,26 @@ work:
     relocation works offline.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#31
-    url: https://github.com/egohygiene/mindgarden/issues/31
+    id: egohygiene/mindgarden#45
+    url: https://github.com/egohygiene/mindgarden/issues/45
   next:
     kind: issue
-    id: egohygiene/mindgarden#45
-    description: 'P12: implement deterministic filesystem vault export/restore and relocation,
-      then run committed synthetic archive-to-reviewed-prompt/search/context proof from a
-      clean combined checkout and wheel; link bounded evidence to #20.'
+    id: egohygiene/mindgarden#20
+    description: 'P12b: commit the synthetic integration proof, build fresh distributions,
+      demonstrate clean source checkout and isolated wheel operation offline, link bounded
+      evidence to #20, and leave the complete stack for human review.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/45
+    - https://github.com/egohygiene/mindgarden/issues/20
     depends_on: []
 state:
   base:
-    revision: df724c47592a1a11def52271b957328b6873cd8b
-    ref: refs/heads/milestone/10-private-routing
-    verified_at: '2026-11-04T04:06:39Z'
+    revision: e31d5748669f56b2351be546a4744b92a1561f32
+    ref: refs/heads/milestone/11-scoped-retrieval
+    verified_at: '2026-11-04T04:40:13Z'
   candidate:
-    branch: milestone/11-scoped-retrieval
-    revision: null
+    branch: milestone/12-vault-recovery
+    revision: 16394c4e57a21a14202ab8bf8edc1586dfcd7ff1
     pull_request: null
     handoff_state: ready-for-review
   live:
@@ -99,26 +99,30 @@ state:
   - provider: github
     id: egohygiene/mindgarden#61
     url: https://github.com/egohygiene/mindgarden/pull/61
+  - provider: github
+    id: egohygiene/mindgarden#62
+    url: https://github.com/egohygiene/mindgarden/pull/62
 review:
   status: passed
-  reviewed_at: '2026-11-04T04:06:39Z'
+  reviewed_at: '2026-11-04T04:40:13Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests
     outcome: passed
-    observed_at: '2026-11-04T04:06:39Z'
-    notes: 118 tests passed on Python 3.12.14.
+    observed_at: '2026-11-04T04:40:13Z'
+    notes: '132 tests ran: 130 passed, 2 distribution tests skipped because the isolated checkout
+      has no built distributions. Python 3.12.14.'
   - command: .venv/bin/python -m compileall -q src scripts tests
     outcome: passed
-    observed_at: '2026-11-04T04:06:39Z'
+    observed_at: '2026-11-04T04:40:13Z'
     notes: All Python sources compiled.
   - command: git diff --check
     outcome: passed
-    observed_at: '2026-11-04T04:06:39Z'
+    observed_at: '2026-11-04T04:40:13Z'
     notes: No whitespace errors.
   - command: Pinned Hygiene decision validator and Aether continuity schema/headings/limits
     outcome: passed
-    observed_at: '2026-11-04T04:06:39Z'
+    observed_at: '2026-11-04T04:40:13Z'
     notes: Owner checks run after this refresh.
   environment_limitations:
   - No new hosted CI run or Python 3.13 local execution claimed.
@@ -156,21 +160,21 @@ bounded context and relocation/restore proof with networking and models disabled
 
 ## State snapshot
 
-P11 candidate: `milestone/11-scoped-retrieval`, based on `df724c47592a1a11def52271b957328b6873cd8b` from
-`milestone/10-private-routing`. Combined checkout is this candidate branch; revision and
+P12a candidate: `milestone/12-vault-recovery`, based on `e31d5748669f56b2351be546a4744b92a1561f32` from
+`milestone/11-scoped-retrieval`. Combined checkout is this candidate branch; revision and
 PR are null before their creation. No merge or new hosted CI pass is claimed.
 
 ## Completed and material changes
 
-Enforced metadata authorization and complete source/provenance sensitivity closure before body reads, ranking and traversal. Added authorized-view revisions insensitive to denied changes, portable scope-session authoring, exact include-revision checks, scoped private caches, bounded agent metadata, and generic shareable failures. Synthetic adversaries cover hidden backlinks, denied/corrupt bodies, budgets, unknown policy, mixed derivations, expiration, mid-query revocation and interrupted-write locks. No organization-policy, encryption or Realm runtime-assurance claim.
+Functional commit 16394c4 adds bounded deterministic vault export/restore, complete reference-aware audits, checksum verification, non-destructive relocation/rebind and failed-rebind retry, plus exact reviewed-citation evidence resolution. Public routing keeps private request/catalog fingerprints and routing labels out of public records; governing metadata scope and target capability declarations fail closed. Isolated committed P12a checkout ran 132 tests: 130 passed and two distribution tests skipped because that checkout has no built artifacts. Python compilation, whitespace and Node 24.19.0 checks passed. The full working integration proof has 134 passing tests, but is deliberately left for P12b and is not part of this candidate.
 
-Prior draft stack: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57); [#58](https://github.com/egohygiene/mindgarden/pull/58); [#59](https://github.com/egohygiene/mindgarden/pull/59); [#60](https://github.com/egohygiene/mindgarden/pull/60); [#61](https://github.com/egohygiene/mindgarden/pull/61). Each parent retains its unchecked acceptance scope.
+Prior draft stack: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57); [#58](https://github.com/egohygiene/mindgarden/pull/58); [#59](https://github.com/egohygiene/mindgarden/pull/59); [#60](https://github.com/egohygiene/mindgarden/pull/60); [#61](https://github.com/egohygiene/mindgarden/pull/61); [#62](https://github.com/egohygiene/mindgarden/pull/62). Each parent retains its unchecked acceptance scope.
 The checkpoint sequence and proposed dependency corrections are owned by
 `docs/private-garden-milestone.md`; ADRs 0007–0010 remain proposed.
 
 ## Validation and review evidence
 
-118 tests passed on Python 3.12.14. Python compilation and whitespace
+130 tests passed on Python 3.12.14. Python compilation and whitespace
 checks passed. Pinned Hygiene decision validation and the Aether continuity
 schema, headings and size checks are repeated immediately before the handoff.
 Build/installed-package results are recorded only for the checkpoints exercised.
@@ -185,12 +189,12 @@ Bounded implementation was explicitly authorized; merging was not.
 
 ## Next dependency-ready work
 
-P12: implement deterministic filesystem vault export/restore and relocation, then run committed synthetic archive-to-reviewed-prompt/search/context proof from a clean combined checkout and wheel; link bounded evidence to #20. See [#45](https://github.com/egohygiene/mindgarden/issues/45).
+P12b: commit the synthetic integration proof, build fresh distributions, demonstrate clean source checkout and isolated wheel operation offline, link bounded evidence to #20, and leave the complete stack for human review. See [#20](https://github.com/egohygiene/mindgarden/issues/20).
 Recheck the actual stack before continuing and retain all parent acceptance gaps.
 
 ## Parallel changes and reconciliation
 
-Known predecessor drafts: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57); [#58](https://github.com/egohygiene/mindgarden/pull/58); [#59](https://github.com/egohygiene/mindgarden/pull/59); [#60](https://github.com/egohygiene/mindgarden/pull/60); [#61](https://github.com/egohygiene/mindgarden/pull/61). New branches stack on the previous unmerged
+Known predecessor drafts: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57); [#58](https://github.com/egohygiene/mindgarden/pull/58); [#59](https://github.com/egohygiene/mindgarden/pull/59); [#60](https://github.com/egohygiene/mindgarden/pull/60); [#61](https://github.com/egohygiene/mindgarden/pull/61); [#62](https://github.com/egohygiene/mindgarden/pull/62). New branches stack on the previous unmerged
 checkpoint. Reconcile continuity semantically before retargeting or merging.
 
 ## Privacy and redaction
