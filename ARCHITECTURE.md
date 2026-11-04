@@ -126,3 +126,23 @@ behind the installable 0.1 package and CLI. V1 hardened validation, archive
 interpretation, and federation remain target capabilities.
 [SYSTEM.md](SYSTEM.md) owns the capability inventory and [ROADMAP.md](ROADMAP.md)
 owns delivery order.
+
+## Portable private-garden milestone
+
+The bounded [milestone specification](docs/private-garden-milestone.md) and
+[proposed ADR-0007 through ADR-0010](docs/decisions/README.md) extend the existing
+consumer-ownership, review, deterministic projection and additive migration
+directions. New decisions remain proposed; the user authorized their bounded
+implementation on review branches, not architecture ratification or merging.
+
+Reviewed portable records own semantic knowledge. Captured originals have a
+separate private storage boundary. Logical artifact identity, immutable content
+identity and machine-local storage bindings are distinct. Query stores and
+graphs remain rebuildable. CLI and future interfaces call shared Python
+application services; adapters normalize supplied artifacts without acquisition
+or model calls. Hosted storage and model providers are optional.
+
+The first target is single-user, single-writer and local-first. Authentication,
+collaboration, multi-writer synchronization, deployment topology, specialized
+databases and web frameworks remain deferred. Runtime confidentiality claims
+require separate Realm/Hygiene evidence.
