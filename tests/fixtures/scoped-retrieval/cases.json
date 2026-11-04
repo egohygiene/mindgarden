@@ -1,0 +1,23 @@
+{
+  "schema": "mindgarden.synthetic-scope-adversaries/v1",
+  "canaries": [
+    "denied-body-canary",
+    "restricted-source-canary",
+    "hidden-backlink-canary",
+    "unreviewed-cache-canary"
+  ],
+  "cases": [
+    "denied garden has missing or malformed machine bindings",
+    "unreviewed record has modified hashes and unsafe body paths",
+    "restricted evidence hides an otherwise reviewed derivation",
+    "hidden relationships do not affect counts or view revisions",
+    "absent and denied traversal targets produce identical outputs",
+    "explicit includes never enumerate unauthorized identities",
+    "candidate, result, depth and byte budgets apply after authorization",
+    "expired and revoked sessions stop reads and cache writes",
+    "generated outputs are isolated by the explicit session scope",
+    "public cache destinations reject private and mixed sensitivity",
+    "unknown policy and failed content verification fail closed",
+    "transcript instructions never confer execution authority"
+  ]
+}

@@ -52,6 +52,7 @@ class GardenSnapshot:
     hashes: dict[str, str] = field(default_factory=dict)
     contents: dict[str, bytes] = field(default_factory=dict)
     diagnostics: list[Diagnostic] = field(default_factory=list)
+    metadata_only: bool = False
 
     @property
     def count(self) -> int:
@@ -62,11 +63,13 @@ class GardenSnapshot:
         errors = sorted(self.diagnostics, key=lambda item: (item.location, item.code, item.message))
         return {"schema": "mindgarden.validation/v1",
                 "status": "invalid" if any(item.severity == "error" for item in errors)
-                else "incomplete" if errors else "valid",
-                "coverage": {"contracts": "v1", "provenance": "hashes-and-lineage"},
+                else "incomplete" if errors or self.metadata_only else "valid",
+                "coverage": {"contracts": "v1", "provenance": "metadata-only" if self.metadata_only else "hashes-and-lineage"},
                 "records": len(self.records), "diagnostics": [item.document() for item in errors]}
 
     def require_valid(self) -> GardenSnapshot:
+        if self.metadata_only:
+            raise ContractError("CONTENT_UNVERIFIED: metadata inspection is not content or provenance verification")
         if self.diagnostics:
             item = sorted(self.diagnostics, key=lambda error: (error.location, error.code))[0]
             raise ContractError(f"{item.code}: {item.location}: {item.message}. {item.remediation}")
@@ -76,10 +79,12 @@ class GardenSnapshot:
 def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], bytes] | None = None,
                    authorized_gardens: dict[str, GardenSnapshot] | None = None,
                    garden_root: Path | None = None,
-                   allow_unavailable_references: bool = False) -> GardenSnapshot:
+                   allow_unavailable_references: bool = False,
+                   record_filter: Callable[[dict], bool] | None = None,
+                   metadata_only: bool = False) -> GardenSnapshot:
     """Read only the explicitly supplied garden; never discover private overlays."""
     root = garden_root or repository_root.absolute() / ".garden"
-    snapshot = GardenSnapshot(root, {})
+    snapshot = GardenSnapshot(root, {}, metadata_only=metadata_only)
 
     def issue(code: str, location: str, message: str, remediation: str,
               severity: str = "error") -> None:
@@ -115,24 +120,39 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
             if not safe_path(root, value).is_dir():
                 issue("ROOT_MISSING", "garden.json/roots", "Declared content root is missing",
                       "Restore the declared directory.")
+        ambiguous: set[str] = set()
         for path in sorted(root.rglob("*")):
             relative = path.relative_to(root).as_posix()
-            if path.is_symlink():
-                issue("PATH_SYMLINK", relative, "Garden contains a symlink", "Use regular contained files.")
-                continue
             if any(relative == value or relative.startswith(value + "/") for value in generated):
+                continue
+            if path.is_symlink():
+                if record_filter is None:
+                    issue("PATH_SYMLINK", relative, "Garden contains a symlink", "Use regular contained files.")
                 continue
             if not path.is_file() or path.suffix != ".json" or path == manifest_path:
                 continue
+            permitted = record_filter is None
             try:
                 record = read_object(path)
+                if record_filter is not None:
+                    permitted = record_filter(record)
+                    if not permitted:
+                        continue
                 errors = registry.errors(record, str(record.get("schema", "unknown")))
-                for error in errors:
-                    issue(error.code, relative + error.location[1:], error.message, error.remediation)
+                if not (metadata_only and record_filter is not None):
+                    for error in errors:
+                        issue(error.code, relative + error.location[1:], error.message, error.remediation)
                 if errors:
                     continue
                 record_id = record["id"]
+                if record_id in ambiguous:
+                    continue
                 if record_id in snapshot.records:
+                    if metadata_only and record_filter is not None:
+                        ambiguous.add(record_id)
+                        for table in (snapshot.records, snapshot.locations, snapshot.hashes):
+                            table.pop(record_id, None)
+                        continue
                     issue("IDENTITY_DUPLICATE", relative, "Artifact identity is duplicated",
                           "Keep one canonical record for each garden/artifact identity.")
                     continue
@@ -146,6 +166,10 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                     from .scope import validate_scope
 
                     validate_scope(record["scope"], record.get("visibility"))
+                if metadata_only:
+                    if record["schema"] in {"mindgarden.knowledge/v1", "mindgarden.source/v1"}:
+                        snapshot.hashes[record_id] = record.get("content", record.get("artifact"))["sha256"]
+                    continue
                 if record.get("updated", "9999") < record.get("created", "0000"):
                     issue("DATE_ORDER", relative, "Updated date precedes creation",
                           "Preserve consistent observed creation/update dates.")
@@ -158,6 +182,8 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                     # unavailable; the explicit incomplete diagnostic prevents
                     # this declaration from being mistaken for verification.
                     snapshot.hashes[record_id] = artifact["sha256"]
+                    if metadata_only:
+                        continue
                     if "path" in artifact:
                         content = safe_path(root, artifact["path"]).read_bytes()
                     elif content_resolver is not None:
@@ -203,12 +229,17 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                                     issue("LINK_UNAVAILABLE", relative, "Local link is unsafe or unavailable",
                                           "Use a contained regular file within the authorized garden.")
             except (OSError, ContractError, UnicodeError) as error:
+                if not permitted:
+                    continue
                 code = str(error).split(":", 1)[0] if isinstance(error, ContractError) else "CONTENT_MISSING"
                 issue(code, relative, "Record or referenced content cannot be verified",
                       "Restore valid records and their contained source bytes.")
     except (OSError, ContractError) as error:
         code = str(error).split(":", 1)[0] if isinstance(error, ContractError) else "GARDEN_UNAVAILABLE"
         issue(code, "garden.json", "Garden manifest cannot be verified", "Supply a valid explicit garden root.")
+        return snapshot
+
+    if metadata_only:
         return snapshot
 
     records_by_location = {snapshot.locations[key]: record for key, record in snapshot.records.items()}
@@ -225,6 +256,8 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
             return None
         record = owner.records.get(reference["id"])
         if record is None:
+            if record_filter is not None and allow_unavailable_references:
+                return None
             issue("REFERENCE_DANGLING", location, "Artifact reference does not resolve",
                   "Restore the target or review the relationship.")
             return None

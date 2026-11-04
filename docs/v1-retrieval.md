@@ -9,12 +9,29 @@ their existing behavior; v1 requires explicit authorized inputs.
 ## Explicit inputs
 
 Supply `--local-config` with external bindings and `--scope` with a
-`mindgarden.session/v1` JSON file. Readable entries pin garden fingerprints;
-`garden_fingerprint` in the application bindings module computes them without
-host paths or generated caches. Session policy matches `POLICY_REFERENCE` in the
+`mindgarden.session/v1` JSON file. Readable entries pin authorized-view revisions;
+`bind_session_revisions` in the application sessions module computes them without
+host paths, denied records or generated caches. This refines the earlier draft's
+whole-garden fingerprints; regenerate those draft sessions. Owner write plans
+continue to use whole-garden fingerprints. Session policy matches `POLICY_REFERENCE` in the
 domain scope module. Session IDs, scopes, projections, review states, budgets,
 expiration and a nullable writable target are explicit. Never copy a real local
 binding file into the public repository.
+
+```sh
+mindgarden scope --local-config /private/bindings.json \
+  --session-id local-review --readable-garden private-garden \
+  --writable-garden private-garden --allowed-visibility personal \
+  --expires-at 2026-11-05T00:00:00Z --output /private/session.json
+```
+
+Omit `--output` to preview. Outputs are new private files (0600), with approved
+review states, offline execution, personal request scope and no publication
+authority by default. Readable/writable IDs are explicit; no roots are discovered.
+Choose a current future expiration. Refresh into a new file after authorized
+knowledge/review/policy changes. Revocation uses the external bindings' explicit
+`revoked_sessions` list. This local reference authoring tool is not an identity
+provider or a substitute for the unavailable Realm/Hygiene runtime contracts.
 
 The session can optionally classify request/query data with `request_scope`.
 Omission defaults to personal: public sources do not automatically make a private
@@ -59,9 +76,10 @@ metadata budgets fail explicitly. Markdown fences cannot be closed by embedded
 source backticks. Enclosed text is structurally untrusted evidence.
 
 Projection writes require the explicit writable target and a compatible output
-scope. They remain under the garden's first declared generated root and refuse
+scope including all contributing evidence restrictions. They remain under
+`<first-generated-root>/scopes/<session-sha256>/` and refuse
 unowned nonempty directories. V1 `context --output` is a relative filename under
-that owned root; v0 retains its existing output argument semantics. Indexes and
+that scope directory; v0 retains its existing output argument semantics. Indexes and
 entrypoints are rebuilt, not promoted into canonical knowledge.
 
 ## Checkpoint verification and remaining boundary
@@ -76,6 +94,7 @@ renders bounded context and rebuilds through both CLI and library services.
 Moving the garden root without changing records produces identical projections.
 Networking and model services are unnecessary.
 
-The full adversarial per-record, generated-metadata and cache isolation audit is
-the later #31 checkpoint. This bounded #12 result does not claim federation,
-consumer publication, broad scale acceptance or runtime isolation assurance.
+The [scoped retrieval checkpoint](scoped-retrieval.md) adds adversarial per-record,
+generated-metadata and cache isolation checks for #31. This bounded result does
+not claim federation, consumer publication, broad scale acceptance or runtime
+isolation assurance.

@@ -54,13 +54,18 @@ class LocalBindings:
         if path.is_symlink():
             raise ContractError("BINDING_SYMLINK: configuration must be a regular file")
         document = read_object(path)
-        if ContractRegistry().errors(document, "local-bindings"):
+        checked = dict(document)
+        for field, selected in (("gardens", garden_ids), ("vaults", vault_ids)):
+            if selected is not None:
+                checked[field] = [item for item in document.get(field, [])
+                                  if isinstance(item, dict) and item.get("id") in selected]
+        if ContractRegistry().errors(checked, "local-bindings"):
             raise ContractError("BINDINGS_INVALID: use the supported local-bindings contract")
         gardens: dict[str, dict] = {}
         vaults: dict[str, dict] = {}
         roots: list[Path] = []
         for field, table in (("gardens", gardens), ("vaults", vaults)):
-            for item in document[field]:
+            for item in checked[field]:
                 selected = garden_ids if field == "gardens" else vault_ids
                 if selected is not None and item["id"] not in selected:
                     continue
@@ -99,13 +104,17 @@ class LocalBindings:
 
     def vault(self, vault_id: str) -> dict:
         if vault_id not in self.vaults:
-            item = next((item for item in self.document["vaults"] if item["id"] == vault_id), None)
-            if item is None:
+            items = [item for item in self.document.get("vaults", []) if isinstance(item, dict) and item.get("id") == vault_id]
+            if not items:
                 raise ContractError("STORAGE_UNAVAILABLE: explicit vault binding is unavailable")
+            if len(items) != 1 or ContractRegistry().errors({"schema": "mindgarden.local-bindings/v1", "gardens": [],
+                                                           "vaults": items, "revoked_sessions": []}, "local-bindings"):
+                raise ContractError("STORAGE_UNAVAILABLE: explicit vault binding is invalid")
+            item = items[0]
             root = explicit_root(item["root"], must_exist=False)
             for garden in self.gardens.values():
                 existing = garden["root"]
                 if root == existing or root in existing.parents or existing in root.parents:
                     raise ContractError("BINDING_OVERLAP: source storage overlaps canonical ownership")
-            return {**item, "root": root}
+            self.vaults[vault_id] = {**item, "root": root}
         return self.vaults[vault_id]
