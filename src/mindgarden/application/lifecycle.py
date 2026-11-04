@@ -353,6 +353,12 @@ def base_files(identity: GardenIdentity) -> dict[str, bytes]:
             files[f".garden/{directory}/.gitkeep"] = b""
     for path, content in INITIALIZER_TEMPLATES.items():
         files[f".garden/{path}"] = content.encode("utf8")
+    files[".garden/context-packs/default.json"] = canonical_json({
+        "schema": "mindgarden.context-profile/v1", "id": "default", "garden": identity.garden_id,
+        "title": "Reviewed garden context", "description": "Bounded reviewed knowledge with exact provenance.",
+        "query": "", "include": [], "exclude": [], "kinds": [],
+        "max_items": 8, "max_bytes": 16384, "max_candidates": 100,
+    })
     return files
 
 

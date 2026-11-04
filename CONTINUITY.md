@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-04T02:55:27Z'
+  updated_at: '2026-11-04T03:10:03Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -39,24 +39,24 @@ work:
     relocation works offline.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#11
-    url: https://github.com/egohygiene/mindgarden/issues/11
+    id: egohygiene/mindgarden#12
+    url: https://github.com/egohygiene/mindgarden/issues/12
   next:
     kind: issue
-    id: egohygiene/mindgarden#12
-    description: 'P07: implement reviewed v1 search, typed graph/backlinks and bounded provenance
-      context.'
+    id: egohygiene/mindgarden#13
+    description: 'P08: implement authored curation plans with exact evidence and separate
+      per-item review authority.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/12
+    - https://github.com/egohygiene/mindgarden/issues/13
     depends_on: []
 state:
   base:
-    revision: febb2b0f8dbd29a257a6071a523e18342bee5fa8
-    ref: refs/heads/milestone/05-local-vault
-    verified_at: '2026-11-04T02:55:27Z'
+    revision: f655d035048d2c0651dda78f8e0d16f27a8e2bc7
+    ref: refs/heads/milestone/06-source-adapters
+    verified_at: '2026-11-04T03:10:03Z'
   candidate:
-    branch: milestone/06-source-adapters
+    branch: milestone/07-v1-retrieval
     revision: null
     pull_request: null
     handoff_state: ready-for-review
@@ -83,26 +83,29 @@ state:
   - provider: github
     id: egohygiene/mindgarden#56
     url: https://github.com/egohygiene/mindgarden/pull/56
+  - provider: github
+    id: egohygiene/mindgarden#57
+    url: https://github.com/egohygiene/mindgarden/pull/57
 review:
   status: passed
-  reviewed_at: '2026-11-04T02:55:27Z'
+  reviewed_at: '2026-11-04T03:10:03Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests
     outcome: passed
-    observed_at: '2026-11-04T02:55:27Z'
-    notes: 81 tests passed on Python 3.12.14.
+    observed_at: '2026-11-04T03:10:03Z'
+    notes: 85 tests passed on Python 3.12.14.
   - command: .venv/bin/python -m compileall -q src scripts tests
     outcome: passed
-    observed_at: '2026-11-04T02:55:27Z'
+    observed_at: '2026-11-04T03:10:03Z'
     notes: All Python sources compiled.
   - command: git diff --check
     outcome: passed
-    observed_at: '2026-11-04T02:55:27Z'
+    observed_at: '2026-11-04T03:10:03Z'
     notes: No whitespace errors.
   - command: Pinned Hygiene decision validator and Aether continuity schema/headings/limits
     outcome: passed
-    observed_at: '2026-11-04T02:55:27Z'
+    observed_at: '2026-11-04T03:10:03Z'
     notes: Owner checks run after this refresh.
   environment_limitations:
   - No new hosted CI run or Python 3.13 local execution claimed.
@@ -140,21 +143,21 @@ bounded context and relocation/restore proof with networking and models disabled
 
 ## State snapshot
 
-P06 candidate: `milestone/06-source-adapters`, based on `febb2b0f8dbd29a257a6071a523e18342bee5fa8` from
-`milestone/05-local-vault`. Combined checkout is this candidate branch; revision and
+P07 candidate: `milestone/07-v1-retrieval`, based on `f655d035048d2c0651dda78f8e0d16f27a8e2bc7` from
+`milestone/06-source-adapters`. Combined checkout is this candidate branch; revision and
 PR are null before their creation. No merge or new hosted CI pass is claimed.
 
 ## Completed and material changes
 
-P06 adds the captured-source adapter port, UTF-8/Markdown adapter, explicit extension registry, digest-bound change plans and staged non-overwriting application. Immutable original/normalized revisions and exact evidence selectors survive duplicate imports. Unchanged units retain their records and new observations add lineage. Authored curation, archive parsing, routing and full scoped retrieval follow separately.
+P07 delivers the first practical private v1 usability checkpoint: reviewed knowledge/claim indexes, explainable search, typed graphs/backlinks and bounded Markdown/JSON context through shared services and explicit sessions. Synthetic CLI/library fixtures verify exact evidence, byte budgets and reproducible projections across garden-root moves. Broader adversarial #31 enforcement and the archive/vault recovery proof remain open.
 
-Prior draft stack: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56). Each parent retains its unchecked acceptance scope.
+Prior draft stack: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57). Each parent retains its unchecked acceptance scope.
 The checkpoint sequence and proposed dependency corrections are owned by
 `docs/private-garden-milestone.md`; ADRs 0007–0010 remain proposed.
 
 ## Validation and review evidence
 
-81 tests passed on Python 3.12.14. Python compilation and whitespace
+85 tests passed on Python 3.12.14. Python compilation and whitespace
 checks passed. Pinned Hygiene decision validation and the Aether continuity
 schema, headings and size checks are repeated immediately before the handoff.
 Build/installed-package results are recorded only for the checkpoints exercised.
@@ -169,12 +172,12 @@ Bounded implementation was explicitly authorized; merging was not.
 
 ## Next dependency-ready work
 
-P07: implement reviewed v1 search, typed graph/backlinks and bounded provenance context. See [#12](https://github.com/egohygiene/mindgarden/issues/12).
+P08: implement authored curation plans with exact evidence and separate per-item review authority. See [#13](https://github.com/egohygiene/mindgarden/issues/13).
 Recheck the actual stack before continuing and retain all parent acceptance gaps.
 
 ## Parallel changes and reconciliation
 
-Known predecessor drafts: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56). New branches stack on the previous unmerged
+Known predecessor drafts: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57). New branches stack on the previous unmerged
 checkpoint. Reconcile continuity semantically before retargeting or merging.
 
 ## Privacy and redaction

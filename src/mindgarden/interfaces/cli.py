@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from argparse import SUPPRESS, ArgumentParser, ArgumentTypeError, Namespace
 from enum import IntEnum
+from functools import partial
 import json
 from pathlib import Path
 import subprocess
@@ -235,6 +236,25 @@ def add_agent_commands(commands: ParserCollection) -> None:
     verify_parser = commands.add_parser("verify", help="Verify agent projections")
     add_repository_root(verify_parser)
     verify_parser.set_defaults(handler=agent.run_verify)
+
+    for command in (index_parser, search_parser, context_parser, llms_parser, verify_parser):
+        command.add_argument("--local-config", type=Path, help="Explicit local garden and storage bindings")
+        command.add_argument("--scope", type=Path, help="Explicit v1 scoped-query session")
+
+    from ..application.retrieval import run_projection
+
+    for name in ("graph", "backlinks"):
+        command = commands.add_parser(name, help="Retrieve an authorized typed relationship projection")
+        add_repository_root(command)
+        command.add_argument("--local-config", type=Path, required=True)
+        command.add_argument("--scope", type=Path, required=True)
+        if name == "graph":
+            command.add_argument("--start", help="Stable garden/artifact traversal start")
+            command.add_argument("--max-depth", type=positive_integer, default=1)
+            command.add_argument("--limit", type=positive_integer, default=100)
+        else:
+            command.add_argument("--artifact", required=True, help="Stable garden/artifact identifier")
+        command.set_defaults(handler=partial(run_projection, operation=name))
 
 
 def run_validation(arguments: Namespace) -> int:

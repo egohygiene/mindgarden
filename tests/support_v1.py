@@ -82,3 +82,23 @@ def add_source(root: Path, content: bytes, *, record_id: str = "synthetic-source
     write_json(garden / f"provenance/{provenance['id']}.json", provenance)
     write_json(garden / f"sources/{record_id}.json", record)
     return record
+
+
+def write_session(path: Path, bindings_path: Path, *, visibility: list[str] | None = None,
+                  readable_ids: list[str] | None = None, writable: str | None = "synthetic-garden") -> dict:
+    from mindgarden.application.bindings import garden_fingerprint
+    from mindgarden.domain.scope import POLICY_REFERENCE
+
+    bindings = json.loads(bindings_path.read_text())
+    session = {"schema": "mindgarden.session/v1", "id": "synthetic-session",
+               "readable": [{"garden": item["id"], "revision": garden_fingerprint(Path(item["root"]))}
+                            for item in bindings["gardens"] if readable_ids is None or item["id"] in readable_ids],
+               "writable": writable, "allowed_visibilities": visibility or ["personal"],
+               "allowed_review_states": ["approved"], "execution": "offline",
+               "publication_authority": "never-exportable",
+               "projections": ["index", "search", "graph", "backlinks", "context", "llms", "evidence"],
+               "budgets": {"max_results": 100, "max_context_bytes": 16384, "max_depth": 4,
+                           "max_candidates": 1000}, "policy": dict(POLICY_REFERENCE),
+               "expires_at": "2099-01-01T00:00:00Z"}
+    write_json(path, session)
+    return session

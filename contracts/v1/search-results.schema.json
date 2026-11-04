@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:search-results:v1",
+  "title": "Mindgarden search-results projection v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "scope",
+    "policy",
+    "inputs",
+    "results"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.search-results/v1"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "policy": {
+      "title": "Mindgarden policy-reference v1",
+      "type": "object",
+      "required": [
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "garden",
+          "revision"
+        ],
+        "properties": {
+          "garden": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "revision": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "reference",
+          "title",
+          "kind",
+          "review",
+          "scope",
+          "sources",
+          "score",
+          "selection_reasons",
+          "snippet"
+        ],
+        "properties": {
+          "reference": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+          },
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "review": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+          },
+          "scope": {
+            "$ref": "urn:egohygiene:mindgarden:scope:v1"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+            }
+          },
+          "score": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "selection_reasons": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "snippet": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
