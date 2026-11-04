@@ -68,7 +68,8 @@
           "sources",
           "score",
           "selection_reasons",
-          "snippet"
+          "snippet",
+          "qualifications"
         ],
         "properties": {
           "reference": {
@@ -104,6 +105,43 @@
           },
           "snippet": {
             "type": "string"
+          },
+          "qualifications": {
+            "type": "object",
+            "required": [
+              "epistemic_state",
+              "attribution",
+              "caveats",
+              "uncertainty",
+              "contradictions"
+            ],
+            "properties": {
+              "epistemic_state": {
+                "type": "string"
+              },
+              "attribution": {
+                "type": "string"
+              },
+              "caveats": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "uncertainty": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "contradictions": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+                }
+              }
+            },
+            "additionalProperties": false
           }
         },
         "additionalProperties": false

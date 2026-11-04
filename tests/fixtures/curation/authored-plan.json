@@ -1,0 +1,340 @@
+{
+  "candidates": [
+    {
+      "action": "keep",
+      "id": "candidate-keep",
+      "merge_inputs": [],
+      "output": {
+        "attribution": "assistant-suggestion",
+        "authors": [
+          {
+            "id": "synthetic-producer",
+            "kind": "agent",
+            "version": "fixture-1"
+          }
+        ],
+        "body": "Cite exact evidence and keep uncertainty explicit.\n",
+        "caveats": [
+          "Synthetic example; not an independently verified universal rule."
+        ],
+        "claims": [
+          {
+            "confidence": "medium",
+            "epistemic_state": "proposed",
+            "evidence": [
+              {
+                "rationale": "Exact supporting synthetic source.",
+                "relationship": "supports",
+                "target": {
+                  "content_sha256": "0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc",
+                  "locator": "artifact",
+                  "source": {
+                    "garden": "synthetic-garden",
+                    "id": "source-18d6ccee3b2e335585edd932-0b4a434de6c3849e",
+                    "revision": "sha256:0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc"
+                  }
+                }
+              }
+            ],
+            "id": "synthetic-reviewed-claim",
+            "review": {
+              "rationale": "Explicit synthetic human review of this candidate.",
+              "reviewed_at": "2026-11-04T00:00:00Z",
+              "reviewers": [
+                "synthetic-reviewer"
+              ],
+              "state": "approved"
+            },
+            "statement": "Exact evidence is a proposed useful prompting practice."
+          }
+        ],
+        "confidence": "medium",
+        "contradictions": [],
+        "domains": [
+          "knowledge-systems"
+        ],
+        "epistemic_state": "proposed",
+        "id": "reviewed-prompt",
+        "kind": "procedure",
+        "review": {
+          "rationale": "Explicit synthetic human review of this candidate.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "status": "active",
+        "synapses": [
+          {
+            "directed": false,
+            "id": "synthetic-contradiction",
+            "rationale": "Explicit synthetic disagreement remains reviewable.",
+            "review": {
+              "rationale": "Explicit synthetic human review of this candidate.",
+              "reviewed_at": "2026-11-04T00:00:00Z",
+              "reviewers": [
+                "synthetic-reviewer"
+              ],
+              "state": "approved"
+            },
+            "target": {
+              "garden": "synthetic-garden",
+              "id": "summarized-note",
+              "revision": null
+            },
+            "type": "contradicts"
+          }
+        ],
+        "title": "Synthetic prompt-bank procedure",
+        "topics": [
+          "prompt-bank"
+        ],
+        "uncertainty": [
+          "Effectiveness remains unmeasured."
+        ]
+      },
+      "rationale": "Authored synthetic keep disposition.",
+      "sources": [
+        {
+          "content_sha256": "0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc",
+          "locator": "artifact",
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-18d6ccee3b2e335585edd932-0b4a434de6c3849e",
+            "revision": "sha256:0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc"
+          }
+        }
+      ]
+    },
+    {
+      "action": "summarize",
+      "id": "candidate-summarize",
+      "merge_inputs": [],
+      "output": {
+        "attribution": "assistant-suggestion",
+        "authors": [
+          {
+            "id": "synthetic-producer",
+            "kind": "agent",
+            "version": "fixture-1"
+          }
+        ],
+        "body": "Cite exact evidence and keep uncertainty explicit.\n",
+        "caveats": [
+          "Synthetic example; not an independently verified universal rule."
+        ],
+        "claims": [],
+        "confidence": "medium",
+        "contradictions": [],
+        "domains": [
+          "knowledge-systems"
+        ],
+        "epistemic_state": "proposed",
+        "id": "summarized-note",
+        "kind": "procedure",
+        "review": {
+          "rationale": "Explicit synthetic human review of this candidate.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "status": "active",
+        "synapses": [],
+        "title": "Synthetic prompt-bank procedure",
+        "topics": [
+          "prompt-bank"
+        ],
+        "uncertainty": [
+          "Effectiveness remains unmeasured."
+        ]
+      },
+      "rationale": "Authored synthetic summarize disposition.",
+      "sources": [
+        {
+          "content_sha256": "0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc",
+          "locator": "artifact",
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-18d6ccee3b2e335585edd932-0b4a434de6c3849e",
+            "revision": "sha256:0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc"
+          }
+        }
+      ]
+    },
+    {
+      "action": "reference",
+      "id": "candidate-reference",
+      "merge_inputs": [],
+      "output": {
+        "attribution": "assistant-suggestion",
+        "authors": [
+          {
+            "id": "synthetic-producer",
+            "kind": "agent",
+            "version": "fixture-1"
+          }
+        ],
+        "body": "Cite exact evidence and keep uncertainty explicit.\n",
+        "caveats": [
+          "Synthetic example; not an independently verified universal rule."
+        ],
+        "claims": [],
+        "confidence": "medium",
+        "contradictions": [],
+        "domains": [
+          "knowledge-systems"
+        ],
+        "epistemic_state": "proposed",
+        "id": "source-reference",
+        "kind": "reference",
+        "review": {
+          "rationale": "Explicit synthetic human review of this candidate.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "status": "active",
+        "synapses": [],
+        "title": "Synthetic prompt-bank procedure",
+        "topics": [
+          "prompt-bank"
+        ],
+        "uncertainty": [
+          "Effectiveness remains unmeasured."
+        ]
+      },
+      "rationale": "Authored synthetic reference disposition.",
+      "sources": [
+        {
+          "content_sha256": "0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc",
+          "locator": "artifact",
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-18d6ccee3b2e335585edd932-0b4a434de6c3849e",
+            "revision": "sha256:0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc"
+          }
+        }
+      ]
+    },
+    {
+      "action": "merge",
+      "id": "candidate-merge",
+      "merge_inputs": [
+        {
+          "garden": "synthetic-garden",
+          "id": "merge-left",
+          "revision": "sha256:cde326d75e07cd9ed5727351cc1caedc8725a379c55b237f67791cb1842d7f5a"
+        },
+        {
+          "garden": "synthetic-garden",
+          "id": "merge-right",
+          "revision": "sha256:bf9ba5df49b7b32c1c16ae6b066ba88e565aa85bdb77441b0155c39a0e4598b1"
+        }
+      ],
+      "output": {
+        "attribution": "mixed",
+        "authors": [
+          {
+            "id": "synthetic-producer",
+            "kind": "agent",
+            "version": "fixture-1"
+          }
+        ],
+        "body": "Cite exact evidence and keep uncertainty explicit.\n",
+        "caveats": [
+          "Synthetic example; not an independently verified universal rule."
+        ],
+        "claims": [],
+        "confidence": "medium",
+        "contradictions": [],
+        "domains": [
+          "knowledge-systems"
+        ],
+        "epistemic_state": "proposed",
+        "id": "merged-note",
+        "kind": "procedure",
+        "review": {
+          "rationale": "Explicit synthetic human review of this candidate.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "status": "active",
+        "synapses": [],
+        "title": "Synthetic prompt-bank procedure",
+        "topics": [
+          "prompt-bank"
+        ],
+        "uncertainty": [
+          "Effectiveness remains unmeasured."
+        ]
+      },
+      "rationale": "Authored synthetic merge disposition.",
+      "sources": [
+        {
+          "content_sha256": "0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc",
+          "locator": "artifact",
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-18d6ccee3b2e335585edd932-0b4a434de6c3849e",
+            "revision": "sha256:0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc"
+          }
+        }
+      ]
+    },
+    {
+      "action": "defer",
+      "id": "candidate-defer",
+      "merge_inputs": [],
+      "rationale": "Authored synthetic defer disposition.",
+      "sources": [
+        {
+          "content_sha256": "0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc",
+          "locator": "artifact",
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-18d6ccee3b2e335585edd932-0b4a434de6c3849e",
+            "revision": "sha256:0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc"
+          }
+        }
+      ]
+    },
+    {
+      "action": "exclude",
+      "id": "candidate-exclude",
+      "merge_inputs": [],
+      "rationale": "Authored synthetic exclude disposition.",
+      "sources": [
+        {
+          "content_sha256": "0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc",
+          "locator": "artifact",
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-18d6ccee3b2e335585edd932-0b4a434de6c3849e",
+            "revision": "sha256:0b4a434de6c3849e6b3a6732716270c3afa49968c900000aa4c65fb0712d30fc"
+          }
+        }
+      ]
+    }
+  ],
+  "created_at": "2026-11-04T00:00:00Z",
+  "garden": "synthetic-garden",
+  "id": "synthetic-curation",
+  "producer": {
+    "id": "synthetic-producer",
+    "kind": "agent",
+    "version": "fixture-1"
+  },
+  "review_authority": {
+    "id": "synthetic-reviewer",
+    "kind": "human"
+  },
+  "schema": "mindgarden.curation-plan/v1"
+}
