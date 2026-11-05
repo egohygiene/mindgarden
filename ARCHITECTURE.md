@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-04
+updated: 2026-11-05
 governed_by:
   - architecture-architecture
 depends_on:
@@ -113,7 +113,7 @@ allowlists.
 
 V1 schema availability alone is not hardened v1 runtime support. Issue #7 adds
 deterministic initialization and review-gated migration with lifecycle-level
-integrity checks; the milestone draft stack now adds general cross-record, path,
+integrity checks; the merged milestone stack now adds general cross-record, path,
 body, attachment, and leak validation for #10. Migration remains side-by-side,
 digest-bound, atomic, and rollback-safe.
 
@@ -122,9 +122,9 @@ digest-bound, atomic, and rollback-safe.
 The v1 semantic contract, valid/adversarial schema fixtures, v0 compatibility
 matrix, v0 validation, local artifact ingestion, lexical indexing, context
 packs, Obsidian profile, public projection, and Quartz adapter are implemented
-behind the installable 0.1 package and CLI. The milestone draft stack extends
+behind the installable 0.1 package and CLI. The merged milestone stack extends
 general v1 validation, source adapters and reviewed projections; federation remains
-a target capability. Draft implementation does not ratify proposed ADRs.
+a target capability. Implementation and merging do not ratify proposed ADRs.
 [SYSTEM.md](SYSTEM.md) owns the capability inventory and [ROADMAP.md](ROADMAP.md)
 owns delivery order.
 
@@ -134,7 +134,7 @@ The bounded [milestone specification](docs/private-garden-milestone.md) and
 [proposed ADR-0007 through ADR-0010](docs/decisions/README.md) extend the existing
 consumer-ownership, review, deterministic projection and additive migration
 directions. New decisions remain proposed; the user authorized their bounded
-implementation on review branches, not architecture ratification or merging.
+implementation and subsequently merging #52–#64, without architecture ratification.
 
 Reviewed portable records own semantic knowledge. Captured originals have a
 separate private storage boundary. Logical artifact identity, immutable content
@@ -148,10 +148,13 @@ collaboration, multi-writer synchronization, deployment topology, specialized
 databases and web frameworks remain deferred. Runtime confidentiality claims
 require separate Realm/Hygiene evidence.
 
-The local draft implementation now includes filesystem vault recovery and exact
+The local implementation now includes filesystem vault recovery and exact
 reviewed-citation resolution. [The finite proof](docs/private-garden-evidence.md)
 records the archive-to-context and relocation boundary. Portable records, immutable
 content and explicit location bindings remain separate; ordinary application
 services require no hosting, model provider, web framework or specialized store.
 Full media triage, organization policy/assurance and consumer publication remain
 unverified integration scope. Proposed ADRs remain proposed after implementation.
+
+The [open-issue coverage ledger](docs/open-issue-coverage.md) records the
+2026-11-05 merge receipts, remaining parent scope and proposed delivery batches.

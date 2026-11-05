@@ -56,7 +56,7 @@ a third-party application as canonical.
 The v1 schemas are the target contract for the 1.0 roadmap. The 0.1 CLI now
 creates deterministic v1 gardens and performs review-gated, rollback-safe
 v0 → v1 migration while retaining the existing v0 agent and publishing
-surface. The milestone draft stack adds general v1 validation and the bounded
+surface. The merged milestone stack adds general v1 validation and the bounded
 private workflow below. Its architecture ADRs remain proposed. See the
 [v1 contract model](docs/contracts-v1.md), [lifecycle command
 contract](docs/initialization-migration.md), and [v0 → v1 compatibility
@@ -68,6 +68,11 @@ human-reviewed prompt-bank proposal, searches exact evidence, builds bounded
 context and relocates/restores a separate immutable source vault. The reference
 workflow uses Python and local files; Google Drive, GitHub hosting, model services,
 web interfaces and databases are optional integrations.
+
+The [open-issue ledger](docs/open-issue-coverage.md) reconciles the merged
+checkpoint with every remaining issue and its dependencies. Versioned public
+descriptors/projections are the next bounded implementation; full consumer,
+publication and architecture acceptance remain separate.
 
 ```sh
 python3 scripts/private_garden_demo.py --workspace ".cache/private-garden-demo"

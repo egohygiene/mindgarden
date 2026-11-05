@@ -1,7 +1,10 @@
 # Portable private-garden checkpoint evidence
 
-This finite synthetic checkpoint provides bounded results for the ten requested work items on an
-unmerged draft stack. It does not complete the parent issues or ratify ADR-0007
+This finite synthetic checkpoint provides bounded results for the ten requested work items.
+The original draft stack #52–#64 was merged with maintainer authorization on
+2026-11-05 at `9fae752b3cf7eb9c74033a72a12d125c42f8659e`, with exactly the
+tested combined tree. [The merge and coverage ledger](open-issue-coverage.md)
+records all merge commits and remaining work. It does not complete the parent issues or ratify ADR-0007
 through ADR-0010. The Python engine and CLI remain dependency-free with supported
 v0 behavior. No release, deployment or consumer publication is claimed.
 

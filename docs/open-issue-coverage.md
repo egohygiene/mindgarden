@@ -1,0 +1,211 @@
+# Open-issue coverage — 2026-11-05
+
+This is the detailed coverage ledger for [ROADMAP.md](../ROADMAP.md). It records
+all **38 open issues**, refreshed through GitHub issue bodies/comments and open
+PRs after the authorized merge of #52–#64. It preserves each issue's acceptance
+criteria; a batch is a bounded checkpoint, not automatic parent completion.
+
+## Observed baseline and authority
+
+Merged main: `9fae752b3cf7eb9c74033a72a12d125c42f8659e`. Its tree is exactly
+`a381b8bea2270b6ebd41a8bbe205d5f0a6f3e188`, the tree of the tested combined
+checkout `b82520b883b86be70bc939302411a0fb8587aab2`. All thirteen PR heads had
+successful automatic Test runs, no submitted reviews and no unresolved threads.
+The maintainer explicitly authorized merging the stack; that instruction does
+not ratify ADR-0007–0010. They remain **proposed**. All 38 parent issues remain open.
+
+Before merging, both `.venv/bin/python -m unittest discover --start-directory tests`
+and `.cache/python313/bin/python -m unittest discover --start-directory tests`
+passed **139 tests without skips** (Python 3.12.14 and 3.13.5). The unchanged-tree
+comparison after merge passed. These are local checks, distinct from the thirteen
+successful hosted head checks. No workflow was manually dispatched.
+
+[The private-workflow evidence](private-garden-evidence.md) records the synthetic
+archive → reviewed prompt → exact evidence → bounded context → vault relocation
+proof. A bounded synthetic proof does not establish real-consumer, publication,
+confidential-runtime, platform, release or complete product acceptance.
+
+| PR | Merge commit | Original head |
+| --- | --- | --- |
+| [#52](https://github.com/egohygiene/mindgarden/pull/52) | `4a18d51aebff7a1293a4252dac58c3f21479a6a9` | `e137ef0` |
+| [#53](https://github.com/egohygiene/mindgarden/pull/53) | `834f8c874d62cf04be20706d8f23d701f2e2ba34` | `1f37f56` |
+| [#54](https://github.com/egohygiene/mindgarden/pull/54) | `fdd990875aae1cf5125e8b31e3ba633596fcfdf7` | `b93969c` |
+| [#55](https://github.com/egohygiene/mindgarden/pull/55) | `39cef64f6f6ebe330a9d95fda36d35434eadc3f8` | `dd4be16` |
+| [#56](https://github.com/egohygiene/mindgarden/pull/56) | `a35e2aec3cea7b7567e5bbbd876f56907d7f119b` | `febb2b0` |
+| [#57](https://github.com/egohygiene/mindgarden/pull/57) | `d8c44800741007dddecc73812e296fdb4eee95fa` | `f655d03` |
+| [#58](https://github.com/egohygiene/mindgarden/pull/58) | `298411eaa80f3b9f23c643a7367930c8379cfac3` | `8836fdd` |
+| [#59](https://github.com/egohygiene/mindgarden/pull/59) | `f2e43fd70bad2f5dac0c4d381db077001d42a49b` | `1a49992` |
+| [#60](https://github.com/egohygiene/mindgarden/pull/60) | `1c58c561be747271417040a339f64e1f3e6e9bf4` | `fb3bcf3` |
+| [#61](https://github.com/egohygiene/mindgarden/pull/61) | `5251abda4397ca7cbd1f83261ef90a7cd99225ec` | `df724c4` |
+| [#62](https://github.com/egohygiene/mindgarden/pull/62) | `26f17c386c07be43ed39bb1721a370bc586f8477` | `e31d574` |
+| [#63](https://github.com/egohygiene/mindgarden/pull/63) | `7b6537dfc269042cab3321bc081ece3c8e5a2ae7` | `afbd420` |
+| [#64](https://github.com/egohygiene/mindgarden/pull/64) | `9fae752b3cf7eb9c74033a72a12d125c42f8659e` | `b82520b` |
+
+## Readiness and proposed batches
+
+`ready` means the stated next checkpoint can proceed; `partial` means some parent
+scope is implemented with remaining work; `blocked` names a missing contract,
+decision or proof; `deferred` is deliberate scheduling; `umbrella` coordinates
+children. Ready never means fully accepted. These batches express dependencies,
+not one serial gate over all work.
+
+| Batch | Bounded deliverable and exit evidence |
+| --- | --- |
+| B0 | Reconcile the merged stack, all open issues, proposed decisions and this ledger. No parent closure. |
+| B1 | #16 local descriptor/public-projection contract, checksums and deterministic synthetic catalog; reviewed-public leak negatives. No deployment or remote acquisition. |
+| B2 | #30 non-destructive registry lifecycle over existing bindings and B1 identity/version contracts; explicit platform support and isolated union-view fixtures. Accepted architecture controls consequential extensions. |
+| B3a | #17 public `/garden` renderer checkpoint after B1, preserving the pinned Quartz boundary; accessibility and empty/failure fixtures. |
+| B3b | #18 caller-owned portal build/composition after the relevant #17 artifact contract; Relay integration separately pinned and verified. |
+| B4 | #20 consumer checkpoints, one at a time: synthetic publication proof, approved private legacy pilot, then pinned Empathy consumption through its owner. |
+| B5 | #19 release readiness after B4 and release acceptance. Actual release/registry publication requires separate authorization. |
+| R0 | #46 compaction/retention policy and schema proposal early; preserve originals and separate retention classes. Full compaction/private pilot waits for its evidence and decisions. |
+| R1 | #37 generic dependency-build/observation contract, then separate #49 memory and #28 learning projection checkpoints. |
+| D | #41/#42 decision disposition/adoption, then #43 publication and #44 typed ADR projection, through shared owners. Independent of completing every 1.0 child. |
+| Q | #32 adapter/SQLite baseline after B1, scoped inputs and accepted storage decisions; #33/#34 optional evaluations only after the baseline is measurable. |
+| P | #40/#47 product discovery and accepted API/web/runtime decisions, then the shared-interface slice. #38 design tokens can proceed independently. |
+| J | #48 synthetic bookmark contract/cleanup, then separately approved Akashic packet and consumer proofs; upstream contracts remain owned upstream. |
+| L | #27 release-convention preparation can proceed independently; final shared-validator and publication evidence stays gated. |
+| A | #51 two local provider-fixture recovery proof over supported scoped context contracts. No paid provider or full #47 application is required. |
+| E | #26 reference evaluation; #21 post-1.0 infographic candidates and other explicitly optional experiments. |
+
+## Dependency corrections proposed for review
+
+1. Preserve the distinction in #5 between engine 1.0 and #40's broader product.
+   The #40 comment's #41/#42 gate governs broader product choices. Historical ADR
+   backfill, a full web application and completed fleet rollout are not blanket
+   prerequisites for an offline engine/projection checkpoint. Decisions remain
+   proposed until supported human disposition is recorded.
+2. #16 needs the usable #10/#12/#14 contracts, now implemented in the merged
+   stack. It does not require completing their unrelated consumer/media scope.
+   Its descriptor contract precedes #30 federation integration and #32 imports.
+   A local build does not satisfy hosting or Akashic acceptance.
+3. #29 and #45 supplied prerequisite scope/content-reference contracts before
+   ingestion/routing; the later #30 registry and #35 document proofs remain open.
+   Retain the [milestone's original corrections](private-garden-milestone.md).
+4. #18's **full** acceptance retains #17 and Relay dependencies. A caller-owned
+   output contract may be proposed before final UI acceptance; this is not
+   permission to claim a deployed portal or bypass #17's accessibility proof.
+5. #20's local synthetic proof can advance before all publication consumers are
+   ready. Full #20 still requires #16/#17/#18, the approved private legacy pilot,
+   Aether/Relay and Empathy evidence. It must not depend on closing #1, whose
+   acceptance itself includes Empathy. Empathy #65 explicitly records this cycle.
+6. #46 policy requirements are considered before destructive retention or media
+   lifecycle choices. Its #20/private-pilot dependency gates full proof, not early
+   schema proposals. #49 must distinguish projection expiry from source deletion.
+7. #51 is a conformance/recovery scenario over supported contracts. #40/#47/#49
+   are related horizons, not automatic gates requiring a web app or live provider.
+8. #27 can prepare a pinned release declaration/artifacts now. Open EgoLint #29
+   retains fixture/dogfood acceptance; neither local builds nor closed upstream
+   issues establish an approved release, PyPI availability or completed #19.
+
+## Cross-cutting coverage
+
+| Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
+| --- | --- | --- | --- | --- |
+| [#1](https://github.com/egohygiene/mindgarden/issues/1) — ecosystem knowledge contract/adapters | umbrella | V1 schemas/lifecycle; merged #53–#64 validation, sources, reviewed knowledge and context | Hygiene/catalog references, complete consumer acceptance and Empathy integration | HYG-04/EMP-05; children #10–#16/#20; B1–B4, avoid umbrella/consumer cycle |
+| [#2](https://github.com/egohygiene/mindgarden/issues/2) — workstation/public projections | umbrella | V0 Obsidian/Quartz profiles and publication negatives; scoped v1 engine | V1 projection mapping, OpenWiki spike/disposition, deployed reviewed-public reference site | #1 contracts, Relay; B1/B3/B4, optional adapters distinguished |
+| [#5](https://github.com/egohygiene/mindgarden/issues/5) — engine 1.0 delivery | umbrella | Extracted package/lifecycle plus merged private workflow proof | Publication/federation, real archive, golden consumer and reproducible release acceptance | Owning child contracts and evidence; B0–B5; broader product remains separate |
+| [#37](https://github.com/egohygiene/mindgarden/issues/37) — evidence/observation/claim dependency builds | umbrella | V1 claims/provenance and digest-bound rebuilt projections in #58/#62/#64 | Observation contract, generic dependency manifests, targeted invalidation/full reconciliation, multi-output and private pilot | #11/#12/#13/#16/#29; Mindcap #33, Hygiene #42; R1 after owning source contracts |
+| [#40](https://github.com/egohygiene/mindgarden/issues/40) — self-hosted second-brain product | umbrella | Existing Python services/CLI and finite offline workflow; ownership proposals | Audience/product decisions, accepted ADR sequence, topology/auth/editor/API/web, complete lifecycle and accessibility proof | #41/#42 govern broader product, #47 and owner contracts; P, no blanket 1.0 gate |
+
+## Architecture and decision lineage
+
+| Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
+| --- | --- | --- | --- | --- |
+| [#41](https://github.com/egohygiene/mindgarden/issues/41) — historical ADR migration/continuous capture | blocked | Legacy ADR-0001–0006 preserved; #52 adds policy pin/index and proposed ADRs; #50 migration map predates stack | Complete evidence-backed history/disposition map, managed hook/shared CI, live Decisions publication | Hygiene #15 and Holon #6 closed; Relay #5/#27/#33 and Pace #5 still have adoption/acceptance gates; D, verify released inputs before backfill |
+| [#42](https://github.com/egohygiene/mindgarden/issues/42) — target architecture decisions | partial | #52 ownership/identity/services/scope proposals and architecture map | Human disposition, remaining query/runtime/tenancy/MCP/product decisions and bookmark proof | #40 requirements, #29 and Hygiene #39; #41 is useful evidence, not a blanket serialization gate; D |
+| [#43](https://github.com/egohygiene/mindgarden/issues/43) — shared `/decisions/` view | blocked | Canonical decision navigation exists; no claimed deployed view | Pinned shared build/collector, represented lineage, composed preview, accessibility and public route proof | #41/#42, Relay #27/#30/#33, Holon #22, Observatory #7; D after compatible source/build contract |
+| [#44](https://github.com/egohygiene/mindgarden/issues/44) — typed ADR knowledge projections | blocked | Generic reviewed graph/context primitives; ADRs remain canonical files | ADR projection schema, authoritative/inferred relationships, lifecycle/private leak fixtures and consumer proof | #41/#42/#12/#16/#29/#31 and Hygiene #15; D after B1 and supported ADR inputs |
+
+## Privacy, scopes, registry and source vault
+
+| Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
+| --- | --- | --- | --- | --- |
+| [#10](https://github.com/egohygiene/mindgarden/issues/10) — versioned validation/publication gates | partial | #53/#54/#64 validate v0/v1, relationships, hashes, unsafe paths, empty allowlists and explicit scoped dispatch | Complete reusable consumer conformance/leak matrix across publication, attachments, logs and all supported adapters | #7/#8/#9 implemented; extend in each owning B1/B3/B4 checkpoint |
+| [#29](https://github.com/egohygiene/mindgarden/issues/29) — independent scope/sensitivity axes | partial | #55/#62 local versioned contract, deterministic inheritance, compatibility/adversarial fixtures | Normative organization policy, declassification/federation integration and verified restricted runtime | Hygiene #39, Realm #25 → #60, #10/#14/#16; local contract usable, external assurance blocked |
+| [#30](https://github.com/egohygiene/mindgarden/issues/30) — local registry/private overlays | partial | #55 explicit safe bindings; #62 scoped multi-garden views | Platform-local registry schema and plan/apply/list/inspect/doctor/unregister lifecycle; platform matrix and owned-cache cleanup | #29/#14/#16, Realm #25/#60; B2 after B1 contract, preserve content on unregister |
+| [#31](https://github.com/egohygiene/mindgarden/issues/31) — scoped retrieval/sensitivity | partial | #62/#64 filter before bodies/ranking, inherit evidence closure, deny metadata leaks, enforce budgets/expiry/revocation | Full federation/consumer projections, normative assurance/declassification and runtime integration | #29/#10/#12/#14, Hygiene #40 and Realm #25/#60; carry invariants into B1/B2/Q |
+| [#35](https://github.com/egohygiene/mindgarden/issues/35) — confidential document/PDF ingestion | blocked | Shared adapter and immutable-byte storage boundary available; no PDF support claimed | Document-bundle contract, deterministic page/span extraction, OCR/encrypted/partial states, restricted temporary-state proof | #29/#10/#11, Hygiene #40, Realm #25/#60; contract/fixtures may be proposed, no real document ingestion |
+| [#45](https://github.com/egohygiene/mindgarden/issues/45) — portable private source/media vault | partial | #56/#63/#64 immutable hashes, duplicate-safe storage, audit/export/restore/relocation and offline exact-reference proof | Full asset/rights/triage/retention, #30/#35 integration, encrypted/provider/platform/power-loss acceptance | #11/#15/#30/#31/#35/#40/#42; R0 early, later local/media checkpoints and independent adapter proofs |
+
+## Ingestion, curation, routing and retrieval
+
+| Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
+| --- | --- | --- | --- | --- |
+| [#11](https://github.com/egohygiene/mindgarden/issues/11) — normalized-source extension boundary | partial | #57 text adapter/registry; #60 archives; stale-plan, duplicate, hash/locator and extension fixtures | Provider-neutral bookmark handoff through same boundary and full evolving-adapter conformance | #8/#9/#10; Mindcap #35/#48 for bookmark proof; J; capture/model producer stays separate |
+| [#12](https://github.com/egohygiene/mindgarden/issues/12) — graph/search/bounded context | partial | #58/#62/#64 reviewed knowledge/claim indexes, typed links, explainable search, exact evidence and reproducible context | Complete projection golden/schema matrix and honest large-corpus runtime/memory bounds | #8/#9/#10; B1 public output, Q performance; no database needed for current workflow |
+| [#13](https://github.com/egohygiene/mindgarden/issues/13) — reviewable curation/extraction plans | partial | #59/#64 six authored dispositions, exact evidence, attribution/caveats/contradictions and separate human authority | Wider independent media/redaction/multi-route proofs; optional versioned entity/triple producer with failure/resume/evaluation fixtures | #9/#10/#11; J and optional producer checkpoint; no model prerequisite for authored plans |
+| [#14](https://github.com/egohygiene/mindgarden/issues/14) — canonical routing/private fallback | partial | #61 explained plans, explicit public review, one home/typed references; #63/#64 recovery | Existing-item move/rename/split/merge/transfer reconciliation, full registry and organization contracts | #9/#10/#12/#13; B1 descriptors then B2 registry; no public default from missing fallback |
+| [#15](https://github.com/egohygiene/mindgarden/issues/15) — conversation archives/selective assets | partial | #60/#64 tested v3.2.2/v3.2.3 single-unit full-source and compact profiles, overlap identities, attribution and malformed-package negatives | Exact v1.2.1/v2.0.1 specifications/fixtures, delivery/fallback semantics, collections/multipart, wider selective-media and producer conformance | #11/#13, Mindcap #31; B4 historical compatibility only after authoritative specs; do not infer old-version support |
+
+## Projections, federation and portability
+
+| Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
+| --- | --- | --- | --- | --- |
+| [#16](https://github.com/egohygiene/mindgarden/issues/16) — descriptors/federated discovery/agent projections | ready | #58/#61/#62 supply retrieval/routing/scope inputs; no merged v1 federation descriptor | Versioned descriptor, public indexes/graph/links/llms/checksums, deterministic catalog and negative fixtures; later local-private federation and actual consumer proof | #10/#12/#14 implemented contracts; B1 now, Akashic #176 and Aether #69 integration later |
+| [#18](https://github.com/egohygiene/mindgarden/issues/18) — composable portal artifact | blocked | V0 Quartz output baseline; no v1 portal-composition proof | Explicit caller-owned `/garden` artifact, path/base URL checks, sibling isolation, previews, recoverable pinned Relay/host proofs | #17 and Relay #4; B3b, propose output contract early without claiming full gate met |
+| [#49](https://github.com/egohygiene/mindgarden/issues/49) — assistant-memory snippets | deferred | Bounded context and authored review primitives, no memory-specific contract | Taxonomy, merge/rewrite/demote/expire/split/pin, transparent budgets, copyable snippets and refresh/privacy fixtures; generalized publication drafts | #46 owning retention contract, #16 and #15 related; R1 after R0; provider-neutral, no source deletion |
+| [#51](https://github.com/egohygiene/mindgarden/issues/51) — provider-switch recovery scenario | ready | #64 clean source/wheel context recovery and immutable evidence baseline | Two distinguishable removable local adapter fixtures, supersession/decision context, isolation and evidence report | Supported #16/#45/context contracts; #47/#49 related rather than whole-application prerequisites; A after B1 |
+
+## Design, shared services, API and web
+
+| Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
+| --- | --- | --- | --- | --- |
+| [#38](https://github.com/egohygiene/mindgarden/issues/38) — stack-neutral design tokens | ready | Existing README banner and architecture visual references | Small token/schema/style/prompt documents and validated consumer entry point | Independent bounded P/design PR; does not select a frontend or block B1 |
+| [#17](https://github.com/egohygiene/mindgarden/issues/17) — public Obsidian-like `/garden` | blocked | Pinned v0 Quartz adapter/profile and reviewed-public projection | V1 navigation/search/graph/backlinks/provenance, configurable path, empty/large/mobile/WCAG 2.2 AA proof and metadata | #10/#12/#16; B3a after B1; distinct from #47 authenticated editing/application |
+| [#47](https://github.com/egohygiene/mindgarden/issues/47) — shared CLI/API/web product slice | blocked | Python application-service boundaries and offline CLI workflow | Accepted runtime/framework/identity ADRs, API/web/worker parity, editing/media, Compose lifecycle/accessibility and two-organization canaries | #40/#42/#43/#44/#45/#46/#10–#15/#29–#32; Realm #20/#34, Relay #40, Aether #69; P in bounded slices after actual contracts |
+
+## Bookmark/reference journey
+
+| Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
+| --- | --- | --- | --- | --- |
+| [#48](https://github.com/egohygiene/mindgarden/issues/48) — private bookmark cleanup/separate Akashic publication | blocked | Reusable normalization/curation/routing/scope primitives, no bookmark cleanup implementation | Accepted source/delta and intake contracts, reversible cleaned export, quarantine/resume, independent per-item public packet and synthetic cross-source extraction proof | #42/#11/#13/#14/#16/#29/#30/#31, Mindcap #35, Akashic #173–#176; J contracts/fixtures first; metadata-only mode remains useful |
+
+## Consumer, packaging and release readiness
+
+| Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
+| --- | --- | --- | --- | --- |
+| [#20](https://github.com/egohygiene/mindgarden/issues/20) — complete archive/Empathy golden path | partial | #64 committed synthetic offline source/wheel proof linked on the issue; exact references survive relocation | Approved real legacy archive, selected media, optional AI-proposal path, pinned Empathy, `/garden` publication and reviewed-public federation | #7–#18 contracts/proofs, Aether #51, Relay #40, Empathy #65; B4 staged, no private content in this repository |
+| [#27](https://github.com/egohygiene/mindgarden/issues/27) — Python release-convention pilot | partial | Installable 0.1 package, fresh source/wheel and clean install checks | Pinned declaration/changelog/Taskfile/shared-validator flow, complete checksums/provenance/SBOM/signature states and approved release evidence | Aether #61, Hygiene #27, Relay #46/#47 closed; EgoLint #29 remains partial; L preparation can proceed, final conformance/publication separate |
+| [#19](https://github.com/egohygiene/mindgarden/issues/19) — reproducible 1.0 release | blocked | Dependency-free package and v0 compatibility; local reproducible private-workflow proof | Full 1.0 acceptance, clean released-version consumption, reproducible artifacts/guides/threat model, reviewed GitHub/PyPI OIDC release and Empathy pin | #20, Empathy #65, Relay #4, #27 convention; B5 after B4, explicit publication authority |
+
+## Query stores and optional evaluations
+
+| Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
+| --- | --- | --- | --- | --- |
+| [#32](https://github.com/egohygiene/mindgarden/issues/32) — replaceable query-store/SQLite baseline | blocked | Deterministic scoped JSON retrieval exists; no SQLite implementation | Adapter/schema/capabilities, scoped FTS/typed traversal, incremental rebuild, migration/backup/reset/corruption and performance proof | #12/#16/#31, Realm #25/#60 and accepted #42 storage decisions; Q after B1, canonical files remain authoritative |
+| [#26](https://github.com/egohygiene/mindgarden/issues/26) — OpenAleph architectural evaluation | deferred | Evaluation question set only; no dependency adopted | Versioned evidence-backed adopt/adapt/reject matrix, privacy/license/cost analysis and optional synthetic export experiment | Related #11–#17, no required gate on deterministic engine; E independently when selected |
+| [#33](https://github.com/egohygiene/mindgarden/issues/33) — optional CozoDB projection evaluation | deferred | No CozoDB dependency or conformance claim | Exact-version/license/platform evidence, removable adapter, scoped corpus and resource/recovery measurements | #32 baseline, #26 related, Realm #25/#60; Q optional after baseline; rejection is valid |
+| [#34](https://github.com/egohygiene/mindgarden/issues/34) — optional OpenViking context projection | deferred | No OpenViking dependency or conformance claim | Exact-version/license/network/model/telemetry tests, scoped removable adapter and comparative lifecycle/resource evidence | #32/#12, #26 related, Aether #64, Realm #25/#60; Q optional; rejection never blocks core |
+
+## Learning, insights, compaction and retention
+
+| Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
+| --- | --- | --- | --- | --- |
+| [#21](https://github.com/egohygiene/mindgarden/issues/21) — reviewed infographic candidates | deferred | Canonical claims/sources and authored review available; no rendering/publication adapter | Renderer-neutral candidate schema, claim-level privacy/rights, deterministic batches, downstream artifact feedback and negative fixtures | #13/#14/#16/#19; explicitly post-1.0 E; private `szmyty/garden` consumer remains separate |
+| [#28](https://github.com/egohygiene/mindgarden/issues/28) — learning cards/summaries/review schedules | deferred | Reviewed source/context primitives; no learning-specific schema | Candidate/card/event/schedule contracts, authored no-model export/roundtrip, contradiction/privacy/refresh and accessible review proof | #9/#10/#12/#13; #17 for web rendering, Realm #20 for runtime; R1 contract/export can precede full UI if selected |
+| [#46](https://github.com/egohygiene/mindgarden/issues/46) — hierarchical compaction/retention | ready | #59 dispositions and #64 evidence-backed context support the proposal; no complete compaction schema | Hierarchy/retention schemas, temporal contradiction/supersession and invalidation, quality budgets/evaluation, reviewed synthetic and approved private pilot | #11/#13/#14/#15/#20/#31/#45; R0 policy early, full proof after owning contracts/pilot; destructive actions remain separately reviewed |
+
+## Retention requirements carried forward now
+
+R0 must define separate retention for immutable source archives, durable reviewed
+knowledge, disposable model/context/cache state, and publication artifacts. An
+expired projection is not permission to remove source evidence or knowledge.
+Supersession and discard-proposed are review states, not deletion instructions.
+Every future prune/garbage-collection operation needs an exact-input reviewed
+plan, protected references, recovery evidence and backup-policy accounting.
+Unknown retention policy preserves originals and blocks destructive application.
+Mixed-source derivatives retain the highest contributing sensitivity; compression
+never supplies declassification or factual authority. These are proposed owning
+requirements, not a claimed implemented retention engine or accepted ADR.
+
+## Refresh and next action
+
+Keep this ledger synchronized at each checkpoint with the actual branch/PR,
+commits, commands/results, remaining acceptance and exact next action. Refresh
+open issue/PR state before selecting another batch. Use `Refs #…` for partial
+work and leave new work in draft PRs; do not silently close umbrella scope.
+
+Next: open the B0 roadmap reconciliation draft, then implement B1 (#16) in a
+dependent draft. Preserve a combined checkout and record the descriptor's tested
+scope, privacy boundary, unavailable capabilities and next consumer proof.

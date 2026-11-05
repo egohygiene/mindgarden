@@ -2,7 +2,10 @@
 
 This is the finite local checkpoint for #42, #10, #11, #12, #13, #15, #14,
 #29, #31 and #45. Each parent keeps its original acceptance criteria. User
-implementation authorization does not ratify proposed ADRs or authorize merging.
+original implementation authorization did not ratify proposed ADRs or authorize
+merging. The maintainer subsequently authorized the merge of #52–#64 on
+2026-11-05; [the merge ledger](open-issue-coverage.md) records the result.
+Proposed decisions and remaining parent acceptance retain their status.
 
 ## Observed baseline
 
