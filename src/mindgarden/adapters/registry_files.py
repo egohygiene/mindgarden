@@ -57,16 +57,19 @@ def control_path(path: Path) -> Path:
 
 def private_parent(path: Path) -> None:
     path = control_path(path)
-    missing = []
-    current = path.parent
-    while not current.exists():
-        missing.append(current)
-        current = current.parent
-    for directory in reversed(missing):
-        try:
-            directory.mkdir(mode=0o700)
-        except FileExistsError:
-            pass
+    try:
+        missing = []
+        current = path.parent
+        while not current.exists():
+            missing.append(current)
+            current = current.parent
+        for directory in reversed(missing):
+            try:
+                directory.mkdir(mode=0o700)
+            except FileExistsError:
+                pass
+    except OSError as error:
+        raise ContractError("REGISTRY_IO: private control directory cannot be created safely") from error
     control_path(path)
 
 
@@ -164,12 +167,18 @@ def preserve_snapshot(path: Path, content: bytes) -> str:
             raise ContractError("REGISTRY_HISTORY: history ownership cannot be verified")
     else:
         create_control(marker, history_marker(path))
-    members = list(directory.iterdir())
-    if (any(item.name != HISTORY_MARKER and not re.fullmatch(r"[0-9a-f]{64}\.json", item.name) for item in members)
-            or len(members) > MAX_SNAPSHOTS):
-        raise ContractError("REGISTRY_HISTORY: preserve owned history; retention needs a separate reviewed action")
+    try:
+        members = list(directory.iterdir())
+    except OSError as error:
+        raise ContractError("REGISTRY_HISTORY: private history cannot be inspected safely") from error
     revision = digest_bytes(content)
-    create_control(directory / (revision + ".json"), content)
+    snapshot = directory / (revision + ".json")
+    snapshots = [item for item in members if item.name != HISTORY_MARKER]
+    if (any(item.name != HISTORY_MARKER and not re.fullmatch(r"[0-9a-f]{64}\.json", item.name) for item in members)
+            or len(snapshots) > MAX_SNAPSHOTS
+            or (len(snapshots) == MAX_SNAPSHOTS and snapshot not in snapshots)):
+        raise ContractError("REGISTRY_HISTORY: preserve owned history; retention needs a separate reviewed action")
+    create_control(snapshot, content)
     return revision
 
 

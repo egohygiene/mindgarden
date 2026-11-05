@@ -33,6 +33,16 @@ knowledge/review/policy changes. Revocation uses the external bindings' explicit
 `revoked_sessions` list. This local reference authoring tool is not an identity
 provider or a substitute for the unavailable Realm/Hygiene runtime contracts.
 
+A [managed registry](local-registry.md) remains a `local-bindings/v1` document.
+Use `--registry-view "focus"` instead of repeated `--readable-garden` arguments
+to select an explicitly registered union. Visibility, writable target, review,
+publication, execution and budget grants remain explicit. Sessions pin the
+selected view's generation and membership. Changed/deleted selections fail with
+`SESSION_VIEW_STALE` before root probes; refresh into a new session file.
+Unrelated private labels/registrations do not enter public revisions, search
+counts, backlinks, context or federation artifacts. Configuration restore
+preserves explicit revocations and never revives old named-view sessions.
+
 The session can optionally classify request/query data with `request_scope`.
 Omission defaults to personal: public sources do not automatically make a private
 query or its metadata public. Publication authority remains independent of review.

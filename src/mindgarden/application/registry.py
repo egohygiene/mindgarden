@@ -9,7 +9,7 @@ import stat
 import sys
 
 from ..adapters.registry_files import (
-    MAX_CONTROL_BYTES, control_path, create_control, read_control, read_snapshot,
+    MAX_CONTROL_BYTES, control_path, create_control, history_directory, read_control, read_snapshot,
     registry_writer, replace_registry, require_platform,
 )
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes, safe_path, strict_json
@@ -33,7 +33,7 @@ def state(path: Path) -> tuple[bytes | None, dict]:
 def protect_location(path: Path, document: dict) -> None:
     for item in document["gardens"] + document["vaults"]:
         root = Path(item["root"])
-        if not root.is_absolute() or ".." in root.parts:
+        if not root.is_absolute() or ".." in root.parts or item["root"].startswith("//"):
             raise ContractError("REGISTRY_PATH: declared bindings require absolute roots without traversal")
         if path == root or root in path.parents:
             raise ContractError("REGISTRY_LOCATION: machine-local control state belongs outside registered garden and vault roots")
@@ -90,7 +90,7 @@ def check_overlaps(document: dict) -> None:
     roots = []
     for item in document["gardens"] + document["vaults"]:
         root = Path(item["root"])
-        if not root.is_absolute() or ".." in root.parts:
+        if not root.is_absolute() or ".." in root.parts or item["root"].startswith("//"):
             raise ContractError("REGISTRY_PATH: declared roots must be absolute without traversal")
         if any(root == other or root in other.parents or other in root.parents for other in roots):
             raise ContractError("REGISTRY_CONFLICT: canonical garden and vault ownership roots overlap")
@@ -340,8 +340,10 @@ def run_registry(arguments) -> int:
     if arguments.output:
         _raw, document = state(path)
         protect_location(arguments.output, document)
-        if arguments.operation == "register":
-            protect_location(arguments.output, {"gardens": [{"root": request["root"]}], "vaults": []})
+        protect_location(arguments.output, strict_json(plan.after))
+        history = history_directory(path)
+        if arguments.output == path or arguments.output == history or history in arguments.output.parents:
+            raise ContractError("REGISTRY_LOCATION: save reviewed plans separately from registry state and owned history")
         create_control(arguments.output, canonical_json(plan.document()))
     print(canonical_json(plan.document()).decode(), end="")
     return 0

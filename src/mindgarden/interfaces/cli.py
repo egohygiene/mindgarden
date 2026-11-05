@@ -467,7 +467,9 @@ def build_parser() -> ArgumentParser:
     scope = commands.add_parser("scope", help="Author an explicit local query session with current authorized revisions")
     scope.add_argument("--local-config", type=Path, required=True)
     scope.add_argument("--session-id", required=True)
-    scope.add_argument("--readable-garden", action="append", required=True)
+    selection = scope.add_mutually_exclusive_group(required=True)
+    selection.add_argument("--readable-garden", action="append")
+    selection.add_argument("--registry-view", help="Named selection from a managed registry; grants remain explicit")
     scope.add_argument("--writable-garden")
     scope.add_argument("--allowed-visibility", action="append", required=True,
                        choices=("public", "organization", "personal", "restricted"))

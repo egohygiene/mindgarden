@@ -165,6 +165,9 @@
     },
     "request_scope": {
       "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "registry_view": {
+      "$ref": "urn:egohygiene:mindgarden:registry:v1#/$defs/session_reference"
     }
   },
   "additionalProperties": false

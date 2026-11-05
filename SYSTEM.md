@@ -44,7 +44,8 @@ This document identifies Mindgarden's logical systems and responsibilities. It a
 | Initialization and migration | V1 lifecycle implemented | Creates deterministic gardens and applies digest-bound, identity-preserving, provenance-safe migration with an exact v0 rollback tree. |
 | Candidate routing | Local checkpoint merged | Places authored reviewed candidates with private fallback, one home, typed references and recoverable multi-garden writes. |
 | Source storage | Filesystem checkpoint merged | Preserves immutable content identities, verifies checksums and supports bounded audit/export/restore/relocation independently from location. |
-| Federation | Local public checkpoint on dependent draft (#16) | Builds reviewed checksum-bound descriptor/index/graph/agent artifacts and supplied-directory catalogs; hosting, private federation and external adoption remain open. |
+| Federation | Local public checkpoint merged through #66 (#16) | Builds reviewed checksum-bound descriptor/index/graph/agent artifacts and supplied-directory catalogs; hosting, private federation and external adoption remain open. |
+| Local registry | Bounded Linux checkpoint on draft #67 (#30) | Manages existing bindings through saved plans, manifest inspection, named scope selections, non-destructive unregister and private configuration restore; native/restricted assurance and cache cleanup remain open. |
 
 ## External systems
 
@@ -69,7 +70,7 @@ Systems fail closed at destructive, publication, privacy, and security boundarie
 - **Observed:** The v1 schemas, adversarial fixtures, lifecycle regression suite, v0 runtime, installable package, profiles, clean-wheel smoke tests, and conformance tests provide runnable evidence for the implemented states above.
 - **Decided:** Mindgarden owns reusable capability; each consumer owns its canonical `.garden/` knowledge.
 - **Implemented in the merged milestone checkpoint:** General v1 validation, local source storage, normalized-source adapters, reviewed retrieval/context, and authored curation have local conformance evidence. See CONTINUITY.md for exact revisions and checks.
-- **Proposed/deferred:** Architecture ratification, full federation/consumer acceptance, media/registry/provider integration and external runtime assurance remain open. Local checkpoint evidence does not complete the parent issues.
+- **Proposed/deferred:** Architecture ratification, full federation/consumer acceptance, remaining media/registry/provider integration and external runtime assurance remain open. Local checkpoint evidence does not complete the parent issues.
 - **Open question:** Which later consumer milestone permits deprecating the v0 runtime surface?
 
 ## Milestone ownership and state

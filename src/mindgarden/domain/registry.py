@@ -105,7 +105,8 @@ def verify_session_view(document: dict, session: dict) -> None:
     try:
         view = selected_view(document, reference["id"])
         if (reference != view_reference(view)
-                or {item["garden"] for item in session["readable"]} != set(view["gardens"])):
+                or {item["garden"] for item in session["readable"]} != set(view["gardens"])
+                or (session.get("writable") is not None and session["writable"] not in view["gardens"])):
             raise ValueError()
     except (ContractError, KeyError, TypeError, ValueError) as error:
         raise ContractError("SESSION_VIEW_STALE: named view changed or was removed; refresh explicit session authority") from error

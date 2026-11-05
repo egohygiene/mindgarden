@@ -1,6 +1,8 @@
 # Machine-local registry checkpoint
 
-This is the bounded #30 tool capability, based on merged main `44cc1e8` (#65/#66).
+This is the bounded #30 tool capability on draft
+[#67](https://github.com/egohygiene/mindgarden/pull/67), branch
+`feature/30-local-registry`, based on merged main `44cc1e8` (#65/#66).
 It uses existing v1 gardens, scope policy, sessions and bindings. Implementation
 and synthetic testing do not configure the user's real gardens. Proposed
 [ADR-0012](decisions/ADR-0012-machine-local-registry.md) records the decision;
@@ -109,7 +111,24 @@ doctor exits `3`; healthy inspection exits `0` using stable JSON.
 and `registry remove-view --view-id "focus"` create reviewed control plans.
 Views select existing registered IDs; publication, allowed scopes, writable target,
 review, execution and budgets still belong to explicit sessions. The session
-integration is completed in the same draft checkpoint after the lifecycle core.
+pins its selected view before any root probes. Use `--registry-view` instead of
+repeated `--readable-garden` arguments:
+
+```sh
+mindgarden scope --local-config "/private/mindgarden/registry.json" \
+  --registry-view "focus" --session-id "local-review" \
+  --allowed-visibility "public" --allowed-visibility "personal" \
+  --request-visibility "personal" --publication-authority "never-exportable" \
+  --expires-at "2099-01-01T00:00:00Z" --output "/private/mindgarden/session.json"
+```
+
+Choose an appropriate future expiration and explicit grants. Writable targets
+must be members; a view never supplies write/review/publication authority.
+Changed/deleted membership fails `SESSION_VIEW_STALE`; create a fresh session.
+Registering an unrelated garden leaves existing named grants valid. Denied roots
+are filtered before probes; unrelated private metadata is inert to public output.
+Public artifacts match the existing explicit-binding golden byte for byte,
+including when a private garden links to public knowledge or becomes unavailable.
 
 Applies retain immutable private snapshots beneath `<registry-file>.history/`.
 `registry restore --revision "<snapshot-sha256>"` previews a restore; apply still
@@ -128,11 +147,33 @@ concurrent filesystem mutation assurance remain separate runtime proof.
 
 ## Verification and retained scope
 
-Initial lifecycle evidence: the 159-test merged baseline passes. Fifteen new
-registry tests plus five existing contract tests pass, including plan idempotence,
-canonical-file preservation, stale/root/owner/scope conflicts, unsafe locations,
-atomic failure/retry, kernel leases, unavailable roots, immutable snapshot restore,
-monotonic revocations/view generations and reference JSON Schema parity.
+The [committed synthetic report](../tests/fixtures/registry/expected-proof.json)
+comes from [the ordinary-CLI demo](../scripts/registry_demo.py). It adopts an
+explicit synthetic vault descriptor, registers two v1 gardens, diagnoses them,
+creates a named private union and public session, searches exact evidence and
+generates a 5,691-byte public context within 16,384 bytes. A private-to-public
+relationship appears only in the authorized private view. Public export bytes
+equal the pre-registry federation golden. Unregister/restore preserves canonical
+garden/vault bytes and leaves old named sessions invalid. Every apply is repeated
+to verify idempotence. Managed plans/configuration/history live in a private
+temporary directory outside Git and are removed when the demo exits; its
+requested workspace contains synthetic garden fixtures only.
+
+```sh
+python3 -S scripts/registry_demo.py --require-source \
+  --workspace ".cache/registry-demo" --report ".cache/registry-report.json"
+cmp tests/fixtures/registry/expected-proof.json .cache/registry-report.json
+```
+
+Use Python 3.12/3.13 and a new or empty workspace. The demo clears integration
+environment variables and blocks socket/HTTP/process calls in-process. This
+proves useful dependency-free operation; it does not claim host isolation.
+Platform-location fixtures cover Linux/XDG, macOS and Windows. Lifecycle and
+adversarial tests cover input/root/digest drift, owner/scope conflict, unsafe or
+public control files, bounded history without deletion, failed-write retry,
+kernel leases, unavailable roots, no content reads during registration,
+monotonic revocations/view generations, public noninterference before denied-root
+probes, retained owned caches and reference JSON Schema parity.
 
 Only synthetic fixtures and private temporary control directories are used. Full
 #30 restricted coexistence, native platforms, organization/runtime assurance,

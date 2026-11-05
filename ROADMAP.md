@@ -40,7 +40,7 @@ updated: 2026-11-05
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate:** Establish the v1 public projection/federation contract, then prove publication and pinned Empathy consumption.
+**Current gate:** Review the bounded local registry checkpoint; full publication and pinned Empathy consumption retain separate gates.
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
 
 ### Complete open-issue coverage and next batches
@@ -56,8 +56,13 @@ The authorized stack #52–#64 is merged at
 tree. Both supported Python versions pass 139 tests. These bounded checkpoints
 do not close their parents or ratify ADR-0007–0010, which remain proposed.
 
-Next batches are B0 (post-merge reconciliation), B1 (#16 local descriptors and
-reviewed-public projections), and B2 (#30 non-destructive registry lifecycle).
+B0 coverage (#65) and B1 local public descriptors/projections (#66) are merged
+at `44cc1e8`, with 159 baseline tests passing on both supported Python versions.
+B2 is draft [#67](https://github.com/egohygiene/mindgarden/pull/67), branch
+`feature/30-local-registry`: saved lifecycle plans, named scoped selections,
+non-destructive unregister, private snapshots/restore and synthetic public
+isolation evidence. See [the registry contract and proof](docs/local-registry.md).
+This is implemented/tested draft work; full #30 and ADR acceptance remain open.
 Public `/garden`/portal proofs (#17/#18) and the complete #20 consumer path follow
 their actual contracts. #27 release preparation and #38 design tokens can advance
 independently. #46 retention policy is considered early; full compaction, SQLite,
@@ -204,8 +209,7 @@ issues: [2, 16, 17, 18]
 - The v0 reviewed-public projector and immutable Quartz adapter are tested with a synthetic consumer fixture.
 - Consumer deployment workflows and an organization-level garden route remain unimplemented.
 - B1 implements #16's local versioned descriptor, reviewed-public artifacts and
-  supplied synthetic catalog on the dependent draft branch
-  `feature/16-local-federation-projections`, based on roadmap draft #65. See the
+  supplied synthetic catalog, merged through #66 after #65. See the
   [contract and reproducer](docs/federation.md). A local build does not establish
   consumer deployment, organization adoption or full federation acceptance.
 

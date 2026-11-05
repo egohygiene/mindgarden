@@ -71,7 +71,7 @@ web interfaces and databases are optional integrations.
 
 The [open-issue ledger](docs/open-issue-coverage.md) reconciles the merged
 checkpoint with every remaining issue and its dependencies. Versioned public
-descriptors/projections are implemented in the next dependent draft checkpoint;
+descriptors/projections are merged through #66;
 full consumer, publication and architecture acceptance remain separate.
 
 The [public discovery checkpoint](docs/federation.md) adds reviewed, digest-bound
@@ -79,6 +79,14 @@ local exports and a catalog over explicitly supplied public bundles. It declares
 remote fetching/querying/writing, private federation and signatures unavailable.
 Run `python3 scripts/federation_demo.py --workspace ".cache/federation-demo"`
 to reproduce the synthetic two-garden proof without integrations.
+
+The [machine-local registry checkpoint](docs/local-registry.md), draft
+[#67](https://github.com/egohygiene/mindgarden/pull/67), adds reviewed registration,
+named private selections, diagnosis, non-destructive unregister and configuration
+recovery over existing local bindings. It changes machine-local control state;
+canonical gardens and source vaults retain ownership. Run
+`python3 scripts/registry_demo.py --workspace ".cache/registry-demo"` for the
+synthetic Linux proof. Real consumer gardens are never configured by this demo.
 
 ```sh
 python3 scripts/private_garden_demo.py --workspace ".cache/private-garden-demo"

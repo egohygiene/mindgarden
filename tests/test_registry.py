@@ -14,7 +14,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
 
-from mindgarden.adapters.registry_files import create_control, history_directory, read_snapshot, registry_writer
+from mindgarden.adapters.registry_files import create_control, history_directory, preserve_snapshot, read_snapshot, registry_writer
 from mindgarden.application.bindings import LocalBindings, garden_fingerprint
 from mindgarden.application.registry import apply_registry_plan, build_registry_plan, registry_report
 from mindgarden.domain.contracts import ContractRegistry, canonical_json, digest_bytes
@@ -165,6 +165,42 @@ class RegistryTests(unittest.TestCase):
         with registry_writer(self.registry), self.assertRaisesRegex(ContractError, "REGISTRY_LOCKED"):
             apply_registry_plan(self.registry, plan.document(), plan.document()["plan_sha256"])
         self.assertTrue(apply_registry_plan(self.registry, plan.document(), plan.document()["plan_sha256"]))
+
+    def test_private_directory_failure_keeps_diagnostics_free_of_local_paths(self):
+        plan = build_registry_plan(self.registry, "init", {})
+        with patch.object(Path, "mkdir", side_effect=PermissionError("private-registry-path-canary")):
+            with self.assertRaisesRegex(ContractError, "REGISTRY_IO") as caught:
+                apply_registry_plan(self.registry, plan.document(), plan.document()["plan_sha256"])
+        self.assertNotIn("private-registry-path-canary", str(caught.exception))
+        self.assertFalse(self.registry.exists())
+
+    def test_full_history_is_preserved_and_existing_snapshot_can_be_verified(self):
+        self.initialize()
+        with patch("mindgarden.adapters.registry_files.MAX_SNAPSHOTS", 2):
+            first = b"synthetic first history checkpoint"
+            second = b"synthetic second history checkpoint"
+            revision = preserve_snapshot(self.registry, first)
+            preserve_snapshot(self.registry, second)
+            self.assertEqual(preserve_snapshot(self.registry, first), revision)
+            with self.assertRaisesRegex(ContractError, "REGISTRY_HISTORY"):
+                preserve_snapshot(self.registry, b"do not silently prune history")
+        self.assertEqual(read_snapshot(self.registry, revision)[1], first)
+        self.assertEqual(len(list(history_directory(self.registry).glob("[!.]*.json"))), 2)
+
+    def test_saved_plans_cannot_enter_restored_roots_or_replace_registry_state(self):
+        with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()) as errors:
+            self.assertEqual(main(["registry", "init", "--registry", str(self.registry), "--output", str(self.registry)]), 3)
+        self.assertFalse(self.registry.exists())
+        self.assertIn("REGISTRY_LOCATION", errors.getvalue())
+        self.initialize(); self.register()
+        revision = digest_bytes(self.registry.read_bytes())
+        self.apply("unregister", {"garden": "synthetic-garden"})
+        output = self.garden / "control-plans/restore.json"
+        with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()) as errors:
+            self.assertEqual(main(["registry", "restore", "--registry", str(self.registry), "--revision", revision,
+                                   "--output", str(output)]), 3)
+        self.assertFalse(output.parent.exists())
+        self.assertIn("REGISTRY_LOCATION", errors.getvalue())
 
     def test_missing_roots_doctor_and_unregister_never_discover_or_delete_content(self):
         self.initialize(); self.register()
