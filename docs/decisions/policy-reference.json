@@ -1,0 +1,17 @@
+{
+  "schema": "egohygiene.architecture-decision-policy-reference/v1",
+  "repository": "egohygiene/mindgarden",
+  "policy": {
+    "contract": "egohygiene.architecture-decision/v1",
+    "version": "1.2.0",
+    "source": {
+      "repository": "egohygiene/hygiene",
+      "revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
+      "path": "docs/decisions/POLICY.md"
+    }
+  },
+  "decision_directory": "docs/decisions",
+  "index": "docs/decisions/README.md",
+  "extensions": [],
+  "exceptions": []
+}

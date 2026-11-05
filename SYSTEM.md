@@ -68,3 +68,25 @@ Systems fail closed at destructive, publication, privacy, and security boundarie
 - **Decided:** Mindgarden owns reusable capability; each consumer owns its canonical `.garden/` knowledge.
 - **Proposed:** Hardened v1 validation, archive interpretation, graph projections, routing, and federation remain roadmap work.
 - **Open question:** Which later consumer milestone permits deprecating the v0 runtime surface?
+
+## Milestone ownership and state
+
+| Concern | Owner | Milestone state |
+| --- | --- | --- |
+| Faithful capture and captured bundles | Mindcap or supplying capture tool | External input; no capture implementation here |
+| Source normalization and exact evidence selectors | Mindgarden adapters/application | Proposed local text and archive checkpoint |
+| Immutable original bytes | Explicit private vault, owned by consumer | Proposed filesystem checkpoint under #45 |
+| Reviewed knowledge and typed relationships | Consumer garden; Mindgarden contracts/services | V1 contract exists; general runtime checkpoint proposed |
+| Review, curation, routing and context selection | Mindgarden services; human authority | Proposed deterministic plan/apply workflow |
+| Archival reservoir | Athena | Separate integration, deferred |
+| Public reviewed resource catalog | Akashic | Separate publication approval and integration, deferred |
+| Agent behavior and capabilities | Aether | Optional producer/session integration |
+| Runtime and environment composition | Realm | Separate from semantic storage and policy |
+| Normative policy and information flow | Hygiene | ADR policy ratified; confidential policy contract unavailable |
+| Scaffolding, validation and build orchestration | Holon, EgoLint, Relay | Consume owner contracts; no copied implementations |
+| Evidence read models and convergence | Observatory, Pace | Read-only evidence and reviewed adoption |
+| Brand, visual and distribution outputs | Identity, Renderflow, Beacon | Downstream optional projections |
+| Product/process orchestration and intake | Flow, organization .github | Consumers/coordination, not canonical garden owners |
+
+See [the checkpoint specification](docs/private-garden-milestone.md) for dependency
+corrections, implemented versus proposed behavior, and the finite usable proof.

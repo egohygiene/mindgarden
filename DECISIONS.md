@@ -123,3 +123,7 @@ The maintainer selected four-digit numbering in [Hygiene #73](https://github.com
 | `ADR-004` | `ADR-0004` | [DECISIONS.md](DECISIONS.md#adr-0004-keep-classification-independent-from-folder-layout) |
 | `ADR-005` | `ADR-0005` | [DECISIONS.md](DECISIONS.md#adr-0005-use-stable-cross-garden-identities-and-immutable-revisions) |
 | `ADR-006` | `ADR-0006` | [DECISIONS.md](DECISIONS.md#adr-0006-introduce-v1-additively-through-reviewed-migration) |
+
+## New milestone proposals
+
+The [decision index](docs/decisions/README.md) links proposed ADR-0007 through ADR-0010. This addition preserves the existing six inline records and does not claim their migration or new human disposition.

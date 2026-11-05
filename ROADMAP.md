@@ -270,3 +270,25 @@ Optional managed services, enterprise controls, marketplaces, and the conversati
 - **Decided:** Source ownership graduates before Empathy consumer cutover and before v1 contract expansion.
 - **Proposed:** Stable archive adapters, v1 schemas, initialization, release packaging, publication composition, and federation remain later steps.
 - **Open question:** Which consumption format should Empathy pin first: a release archive, package, or immutable source checkout?
+
+## Portable private-garden checkpoint sequence
+
+This user-selected milestone advances bounded parts of #42, #10, #11, #12, #13,
+#15, #14, #29, #31 and #45. It does not replace parent acceptance criteria.
+[The checkpoint specification](docs/private-garden-milestone.md) records the
+proposed dependency corrections and [CONTINUITY.md](CONTINUITY.md) records live
+implementation, PR stack, verification, blockers and the exact next action.
+
+Order: architecture/ownership proposal; general v1 validation; scope and explicit
+local bindings; source-reference/filesystem foundation; text adapter; reviewed
+retrieval/context; authored curation; current archive profiles; routing; complete
+scoped retrieval; vault recovery and clean offline end-to-end proof.
+
+#29 supplies a prerequisite contract earlier than its original position. #45
+splits its early source-storage contract from its final relocation proof. #30
+contributes only explicit safe local bindings; full registry composition and #35
+PDF/media ingestion remain integration work. #41 historical backfill and hosted
+product/publication work do not become blanket blockers for existing v1 work.
+
+SQLite #32, federation, web/API productization, provider integrations and broader
+retention remain deferred. New ADRs stay proposed and all partial PRs use Refs.
