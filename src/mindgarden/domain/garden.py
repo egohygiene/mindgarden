@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 import re
 from typing import Callable
+from urllib.parse import unquote, urlsplit
 
 from .contracts import (
     ContractRegistry, Diagnostic, digest_bytes, read_object, safe_path, strict_json,
@@ -136,6 +137,9 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                 snapshot.records[record_id] = record
                 snapshot.locations[record_id] = relative
                 snapshot.hashes[record_id] = digest_bytes(path.read_bytes())
+                if record.get("updated", "9999") < record.get("created", "0000"):
+                    issue("DATE_ORDER", relative, "Updated date precedes creation",
+                          "Preserve consistent observed creation/update dates.")
                 if manifest["visibility"] == "public" and record.get("visibility", "public") != "public":
                     issue("PUBLIC_PRIVATE_CONTENT", relative, "Public garden contains non-public material",
                           "Move the record and its bytes to an explicitly private storage boundary.")
@@ -157,7 +161,35 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                     if "size_bytes" in artifact and len(content) != artifact["size_bytes"]:
                         issue("CONTENT_SIZE", relative, "Artifact byte size differs from its manifest",
                               "Restore the original artifact and verify its checksum.")
-            except (OSError, ContractError) as error:
+                    if record["schema"] == "mindgarden.knowledge/v1":
+                        for match in re.finditer(r"!?\[[^\]]*\]\(([^\s)]+)(?:\s+[^)]*)?\)",
+                                                 content.decode("utf8")):
+                            link = urlsplit(match[1])
+                            if link.scheme in {"file", "javascript", "data"} or link.username or link.password:
+                                issue("LINK_UNSAFE", relative, "Knowledge contains an unsafe active link",
+                                      "Use a safe public URI or a contained, authorized evidence reference.")
+                            elif not link.scheme and link.path:
+                                target = unquote(link.path)
+                                # Relative links may navigate between canonical
+                                # folders, but must never leave the garden.
+                                base = safe_path(root, artifact["path"]).parent
+                                candidate = base / target
+                                try:
+                                    contained = candidate.resolve().relative_to(root.resolve()).as_posix()
+                                    checked = safe_path(root, contained)
+                                    if not checked.is_file():
+                                        raise OSError()
+                                    # Check the unresolved chain too: resolve()
+                                    # must not conceal a symlink component.
+                                    current = candidate
+                                    while current != root and current != current.parent:
+                                        if current.is_symlink():
+                                            raise OSError()
+                                        current = current.parent
+                                except (ValueError, OSError, ContractError):
+                                    issue("LINK_UNAVAILABLE", relative, "Local link is unsafe or unavailable",
+                                          "Use a contained regular file within the authorized garden.")
+            except (OSError, ContractError, UnicodeError) as error:
                 code = str(error).split(":", 1)[0] if isinstance(error, ContractError) else "CONTENT_MISSING"
                 issue(code, relative, "Record or referenced content cannot be verified",
                       "Restore valid records and their contained source bytes.")
@@ -165,6 +197,10 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
         code = str(error).split(":", 1)[0] if isinstance(error, ContractError) else "GARDEN_UNAVAILABLE"
         issue(code, "garden.json", "Garden manifest cannot be verified", "Supply a valid explicit garden root.")
         return snapshot
+
+    records_by_location = {snapshot.locations[key]: record for key, record in snapshot.records.items()}
+    content_visibility = {record.get("content", record.get("artifact", {})).get("path"): record.get("visibility")
+                          for record in snapshot.records.values()}
 
     def resolve(reference: dict, location: str, expected: str | None = None) -> tuple[GardenSnapshot, dict] | None:
         target_garden = reference["garden"]
@@ -181,6 +217,11 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
         if expected is not None and record["schema"] != "mindgarden." + expected + "/v1":
             issue("REFERENCE_KIND", location, "Reference has the wrong artifact kind",
                   "Reference an artifact of the declared kind.")
+        referring = records_by_location.get(location)
+        if (referring and referring.get("visibility") == "public"
+                and record.get("visibility", "public") != "public"):
+            issue("PUBLIC_PRIVATE_REFERENCE", location, "Public record refers to non-public evidence",
+                  "Keep the source mapping private and create a separately reviewed public derivative.")
         revision = reference.get("revision")
         if revision and revision.startswith("sha256:") and owner.hashes.get(reference["id"]) != revision[7:]:
             issue("REFERENCE_REVISION", location, "Represented immutable revision does not match",
@@ -212,6 +253,19 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
         for reference in record.get("provenance", []) if kind in {"knowledge", "source"} else []:
             resolve(reference, location, "provenance")
         if kind == "knowledge":
+            if record["visibility"] == "public" and record_id in snapshot.contents:
+                text = snapshot.contents[record_id].decode("utf8", errors="replace")
+                for match in re.finditer(r"!?\[[^\]]*\]\(([^\s)]+)", text):
+                    link = urlsplit(match[1])
+                    if not link.scheme and link.path:
+                        target = safe_path(root, record["content"]["path"]).parent / unquote(link.path)
+                        try:
+                            relative = target.resolve().relative_to(root.resolve()).as_posix()
+                        except ValueError:
+                            continue
+                        if content_visibility.get(relative, "public") != "public":
+                            issue("PUBLIC_PRIVATE_LINK", location, "Public content links to non-public material",
+                                  "Keep private links outside the public derivative.")
             for field, expected in (("claims", "claim"), ("synapses", "synapse"), ("supersedes", "knowledge")):
                 for reference in record[field]:
                     resolve(reference, location, expected)
@@ -277,14 +331,25 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                     issue("PROVENANCE_INPUT_HASH", location, "Transformation input hash differs",
                           "Review a new plan against the changed input.")
 
-    def visit(node: str, trail: set[str]) -> None:
-        if node in trail:
-            issue("SUPERSESSION_CYCLE", snapshot.locations.get(node, "garden.json"),
-                  "Supersession contains a cycle", "Preserve history with an acyclic replacement chain.")
-            return
-        for target in supersession.get(node, set()):
-            visit(target, trail | {node})
-
+    # An iterative three-state walk is bounded even for long or adversarial
+    # graphs; recursion and enumerating every path would not be.
+    state: dict[str, int] = {}
     for node in sorted(supersession):
-        visit(node, set())
+        if state.get(node) == 2:
+            continue
+        stack = [(node, False)]
+        while stack:
+            current, leaving = stack.pop()
+            if leaving:
+                state[current] = 2
+                continue
+            if state.get(current) == 1:
+                issue("SUPERSESSION_CYCLE", snapshot.locations.get(current, "garden.json"),
+                      "Supersession contains a cycle", "Preserve an acyclic replacement chain.")
+                continue
+            if state.get(current) == 2:
+                continue
+            state[current] = 1
+            stack.append((current, True))
+            stack.extend((target, False) for target in sorted(supersession.get(current, set()), reverse=True))
     return snapshot
