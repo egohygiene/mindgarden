@@ -520,7 +520,7 @@ def validate_context_packs(
     return len(pack_ids)
 
 
-def validate_repository(repository_root: Path) -> int:
+def validate_v0_repository(repository_root: Path) -> int:
     repository_root = repository_root.resolve()
     garden_root = repository_root / ".garden"
     manifest_path = garden_root / "garden.yaml"
@@ -603,6 +603,18 @@ def validate_repository(repository_root: Path) -> int:
     validate_context_packs(context_pack_root, known_ids)
 
     return len(notes)
+
+
+def validate_repository(repository_root: Path) -> int:
+    """Validate an explicit garden using its declared contract version."""
+    garden = repository_root / ".garden"
+    if (garden / "garden.json").exists():
+        if (garden / "garden.yaml").exists():
+            raise ContractError("MANIFEST_AMBIGUOUS: retain one selected garden manifest")
+        from .garden import inspect_garden
+
+        return inspect_garden(repository_root).require_valid().count
+    return validate_v0_repository(repository_root)
 
 
 def build_parser() -> ArgumentParser:

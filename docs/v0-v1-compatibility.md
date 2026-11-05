@@ -68,3 +68,16 @@ Migration does not rewrite the v0 source in place. Until a consumer explicitly
 accepts a v1 cutover, its v0 garden and current CLI remain authoritative. A
 rollback restores the previously selected canonical tree or pinned revision;
 it does not reverse-engineer v0 by discarding v1-only evidence.
+
+## General validation checkpoint
+
+Normal CLI validation now selects v1 from `garden.json` and retains the v0
+`garden.yaml` path. Both manifests at once are ambiguous. Future/unknown record
+contracts fail closed. JSON diagnostics report incomplete cross-garden coverage.
+
+New v0 migrations canonicalize reciprocal undirected `related` edges to one
+stable endpoint ordering while preserving each note's reference. The more
+restrictive legacy visibility wins. Already produced duplicate v1 edges require
+a reviewed repair; no validator silently rewrites them. The original v0 tree
+and note bytes remain unchanged. Migration provenance verifies its pinned v0
+configuration against the explicit rollback manifest, not the new v1 manifest.

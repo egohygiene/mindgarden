@@ -714,6 +714,8 @@ def synapse_v1(
     visibility: str,
 ) -> dict[str, object]:
     """Create one typed, unreviewed relationship without promoting authority."""
+    if relationship == "related":
+        source_id, target_id = sorted((source_id, target_id))
     synapse_id = f"{source_id}-{relationship}-{target_id}"
     return {
         "schema": "mindgarden.synapse/v1",
@@ -820,7 +822,13 @@ def build_migration_plan(root: Path, domains: Iterable[str], topics: Iterable[st
                     require_string(metadata, "visibility", path),
                 )
                 synapse_id = str(synapse["id"])
-                files[f".garden/synapses/{synapse_id}.json"] = canonical_json(synapse)
+                synapse_path = f".garden/synapses/{synapse_id}.json"
+                if synapse_path in files:
+                    existing = json.loads(files[synapse_path])
+                    levels = {"public": 0, "internal": 1, "private": 2}
+                    if levels[existing["visibility"]] > levels[synapse["visibility"]]:
+                        synapse["visibility"] = existing["visibility"]
+                files[synapse_path] = canonical_json(synapse)
                 references.append(artifact_reference(identity.garden_id, synapse_id))
         if source_id in knowledge_records:
             knowledge_records[source_id]["synapses"] = references
@@ -956,92 +964,10 @@ def load_json_object(path: Path) -> dict[str, object]:
 
 
 def check_v1_tree(garden: Path) -> int:
-    """Check lifecycle-produced v1 layout and byte integrity.
+    """Validate lifecycle staging through the same general v1 domain service."""
+    from ..domain.garden import inspect_garden
 
-    This deliberately checks only issue #7's initialization and migration
-    invariants. The hardened, general v1 validator remains issue #10.
-    """
-    reject_symlinks(garden)
-    manifest_path = garden / "garden.json"
-    if not manifest_path.is_file():
-        raise ContractError(f"{manifest_path}: missing v1 garden manifest")
-    manifest = load_json_object(manifest_path)
-    if manifest.get("schema") != "mindgarden.garden/v1":
-        raise ContractError(f"{manifest_path}: unsupported garden schema")
-    garden_id = manifest.get("id")
-    if not isinstance(garden_id, str):
-        raise ContractError(f"{manifest_path}: id must be a string")
-    require_identifier(garden_id, "garden id")
-    roots = manifest.get("roots")
-    if not isinstance(roots, dict):
-        raise ContractError(f"{manifest_path}: roots must be an object")
-    for field in ("sources", "knowledge", "provenance", "context_packs"):
-        value = roots.get(field)
-        if not isinstance(value, str):
-            raise ContractError(f"{manifest_path}: roots.{field} must be a string")
-        target = safe_relative_path(garden, value, f"roots.{field}")
-        if not target.is_dir():
-            raise ContractError(f"{manifest_path}: roots.{field} does not exist")
-    overlay = manifest.get("private_overlay")
-    if overlay is not None and (
-        not isinstance(overlay, str)
-        or not overlay.startswith("../")
-        or ".." in PurePosixPath(overlay).parts[1:]
-    ):
-        raise ContractError(f"{manifest_path}: private overlay must remain outside .garden")
-
-    records = 0
-    artifacts: dict[tuple[str, str], str] = {}
-    for path in sorted(garden.rglob("*.json")):
-        value = load_json_object(path)
-        schema = value.get("schema")
-        visibility = value.get("visibility")
-        if manifest.get("visibility") == "public" and visibility not in {None, "public"}:
-            raise ContractError(f"{path}: public garden contains {visibility} committed content")
-        if schema == "mindgarden.knowledge/v1":
-            content = value.get("content")
-            if not isinstance(content, dict):
-                raise ContractError(f"{path}: knowledge content must be an object")
-            content_path = content.get("path")
-            digest = content.get("sha256")
-            if not isinstance(content_path, str) or not isinstance(digest, str):
-                raise ContractError(f"{path}: invalid knowledge content reference")
-            artifact = safe_relative_path(garden, content_path, "knowledge content")
-            if not artifact.is_file() or sha256_bytes(artifact.read_bytes()) != digest:
-                raise ContractError(f"{path}: knowledge content hash does not match")
-            artifact_id = value.get("id")
-            if isinstance(artifact_id, str):
-                artifacts[(garden_id, artifact_id)] = digest
-            records += 1
-        elif schema == "mindgarden.source/v1":
-            artifact_value = value.get("artifact")
-            if not isinstance(artifact_value, dict):
-                raise ContractError(f"{path}: source artifact must be an object")
-            artifact_path = artifact_value.get("path")
-            digest = artifact_value.get("sha256")
-            if not isinstance(artifact_path, str) or not isinstance(digest, str):
-                raise ContractError(f"{path}: invalid source artifact reference")
-            artifact = safe_relative_path(garden, artifact_path, "source artifact")
-            if not artifact.is_file() or sha256_bytes(artifact.read_bytes()) != digest:
-                raise ContractError(f"{path}: source artifact hash does not match")
-            artifact_id = value.get("id")
-            if isinstance(artifact_id, str):
-                artifacts[(garden_id, artifact_id)] = digest
-            records += 1
-
-    for path in sorted((garden / "provenance").glob("*.json")):
-        value = load_json_object(path)
-        if value.get("schema") != "mindgarden.provenance/v1":
-            raise ContractError(f"{path}: unsupported provenance schema")
-        artifact = value.get("artifact")
-        digest = value.get("artifact_sha256")
-        if not isinstance(artifact, dict) or not isinstance(digest, str):
-            raise ContractError(f"{path}: invalid provenance artifact reference")
-        key = (str(artifact.get("garden")), str(artifact.get("id")))
-        expected = artifacts.get(key)
-        if expected is not None and expected != digest:
-            raise ContractError(f"{path}: provenance artifact hash does not match")
-    return records
+    return inspect_garden(garden.parent, garden_root=garden).require_valid().count
 
 
 def require_plan_digest(value: str | None, expected: str) -> None:

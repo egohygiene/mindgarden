@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-04T02:21:20Z'
+  updated_at: '2026-11-04T02:31:06Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -39,13 +39,12 @@ work:
     relocation works offline.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#42
-    url: https://github.com/egohygiene/mindgarden/issues/42
+    id: egohygiene/mindgarden#10
+    url: https://github.com/egohygiene/mindgarden/issues/10
   next:
     kind: issue
     id: egohygiene/mindgarden#10
-    description: Implement normal version-aware v1 validation under the existing additive
-      v1 contract.
+    description: 'P03: broaden path, provenance and publication negative fixtures.'
     readiness: ready
     references:
     - https://github.com/egohygiene/mindgarden/issues/10
@@ -54,11 +53,11 @@ work:
     - egohygiene/mindgarden#7
 state:
   base:
-    revision: 7ac577e385f0b2c26eff37bdfb10f3b550f29da1
-    ref: refs/heads/main
-    verified_at: '2026-11-04T02:21:20Z'
+    revision: e137ef0fa5aa9367deab05cec404fed650e77065
+    ref: refs/heads/milestone/01-architecture
+    verified_at: '2026-11-04T02:31:06Z'
   candidate:
-    branch: milestone/01-architecture
+    branch: milestone/02-v1-validation
     revision: null
     pull_request: null
     handoff_state: ready-for-review
@@ -69,27 +68,27 @@ state:
     issue_state: open
     pull_request_state: not-applicable
     notes: Main and open PRs inspected through GitHub; no open PR observed before this checkpoint.
-  parallel_changes: []
+  parallel_changes:
+  - provider: github
+    id: egohygiene/mindgarden#52
+    url: https://github.com/egohygiene/mindgarden/pull/52
 review:
   status: passed
-  reviewed_at: '2026-11-04T02:21:20Z'
+  reviewed_at: '2026-11-04T02:31:06Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests
     outcome: passed
-    observed_at: '2026-11-04T02:21:20Z'
-    notes: 48 baseline tests passed on Python 3.12.14.
-  - command: .venv/bin/python -m build --sdist --wheel --outdir ".cache/dist"
+    observed_at: '2026-11-04T02:31:06Z'
+    notes: 58 tests passed, including 10 general v1 negative and compatibility tests.
+  - command: .venv/bin/python -m compileall -q src scripts tests
     outcome: passed
-    observed_at: '2026-11-04T02:21:20Z'
-    notes: Fresh source/wheel build and clean offline installed-command/library smoke checks
-      passed.
-  - command: Pinned Hygiene decision validator; Aether continuity schema, required headings
-      and size limits
+    observed_at: '2026-11-04T02:31:06Z'
+    notes: All Python sources compiled.
+  - command: git diff --check
     outcome: passed
-    observed_at: '2026-11-04T02:21:20Z'
-    notes: Four proposed ADRs, decision set, policy reference and continuity contract passed;
-      no human ratification claimed.
+    observed_at: '2026-11-04T02:31:06Z'
+    notes: No whitespace errors.
   environment_limitations:
   - No new hosted CI run or Python 3.13 local execution claimed.
 privacy:
@@ -125,20 +124,24 @@ Deliver the finite synthetic offline workflow specified in the milestone doc.
 
 ## State snapshot
 
-P01 is a documentation candidate on `milestone/01-architecture`; no runtime
-checkpoint or new ADR ratification is claimed. Base is recorded above.
+P02 is based on P01 commit `e137ef0fa5aa9367deab05cec404fed650e77065`.
+[P01 draft PR #52](https://github.com/egohygiene/mindgarden/pull/52) is unmerged.
+The combined checkout is the P02 branch named above; candidate revision is null
+because this file does not predict its own commit. No new hosted CI is claimed.
 
 ## Completed and material changes
 
-Architecture, system ownership and roadmap identify the milestone. New ADRs
-0007–0010 remain proposed. Existing decision history is preserved. The milestone
-specification owns the proposed dependency corrections and checkpoint sequence.
+P01 documents ownership and dependency corrections; ADRs 0007–0010 remain
+proposed. P02 adds dependency-free schema validation and general v1 snapshots,
+normal CLI version dispatch, structured diagnostics and shared lifecycle staging
+validation. Migration canonicalizes reciprocal related edges without changing
+original v0 bytes. Full #10 acceptance remains open.
 
 ## Validation and review evidence
 
-Baseline tests: 48 passed. Fresh distributions and installed smoke checks passed.
-Pinned Hygiene decision and Aether continuity checks passed; no new hosted CI
-result or human ADR disposition is claimed.
+58 tests passed; compilation and whitespace checks passed. Runtime validators
+exercise the existing golden/adversarial schema fixtures. Source and wheel smoke
+checks recorded for the base are not claimed for this changed candidate.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -150,7 +153,7 @@ not grant organization-policy conformance, architecture acceptance or merging.
 
 ## Next dependency-ready work
 
-P02: general v1 validation under #10. Inspect the planned stack in the milestone
+P03: provenance, publication and path hardening under #10. Inspect the planned stack in the milestone
 specification. Do not infer closed parent issues from a checkpoint PR.
 
 ## Parallel changes and reconciliation
