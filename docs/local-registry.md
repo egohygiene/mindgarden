@@ -28,7 +28,9 @@ These are proposed bounded dependency corrections, not closure of those parents.
 
 The current filesystem adapter supports ordinary Linux single-user operation.
 Platform location fixtures cover Linux/XDG, macOS and Windows conventions; native
-macOS/Windows mutation and host-specific assurance are explicitly unsupported.
+macOS/Windows mutation, Dev Container host/mount semantics and host-specific
+assurance are explicitly unsupported. The observed managed Linux test container
+proves the ordinary single-user filesystem baseline only.
 Restricted/encrypted registration is rejected before any root probe. Registering
 a public garden does not supply publication authority or change its review policy.
 
@@ -183,14 +185,15 @@ issue or proposed ADR is declared accepted by this local checkpoint.
 ## Verification receipt — 2026-11-05
 
 Lifecycle commit `a47797b3d4ecb28052f42811eaa828f7868363ce` opened draft #67;
-functional named-view/proof commit `3e654d3366ea20b61a30d73bcea6a5e64d2c06cc`
-is the clean-source archive and installed-wheel source below. Later evidence and
+named-view/proof commit `3e654d3366ea20b61a30d73bcea6a5e64d2c06cc` and final
+malformed-authority guard `8c3ed427e703c71a49dcdf79292e122e5823b3a1` complete
+the functional checkpoint. The latter is the clean-source/wheel source below. Later evidence and
 handoff commits are documentation only.
 
 | Exact command/check | Observed result |
 | --- | --- |
-| `.venv/bin/python -m unittest discover --start-directory tests --verbose` | 186 passed, no skips; Python 3.12.14 |
-| `.cache/python313/bin/python -m unittest discover --start-directory tests --verbose` | 186 passed, no skips; Python 3.13.5 |
+| `.venv/bin/python -m unittest discover --start-directory tests --verbose` | 187 passed, no skips; Python 3.12.14 |
+| `.cache/python313/bin/python -m unittest discover --start-directory tests --verbose` | 187 passed, no skips; Python 3.13.5 |
 | `.venv/bin/python -m build --sdist --wheel --outdir .cache/dist` | Fresh source/wheel built from functional commit |
 | `.venv/bin/python -m unittest tests.test_distribution --verbose` | 2 passed against fresh artifacts, including registry modules/schemas/demo/fixtures |
 | Both interpreters: `-m compileall -q src scripts tests` | Passed |
@@ -210,30 +213,32 @@ test tools.
 Exact proof commands from the repository root, using fresh paths:
 
 ```sh
-mkdir .cache/registry-clean-checkout
-git archive --format=tar 3e654d3366ea20b61a30d73bcea6a5e64d2c06cc | \
-  tar --extract --directory .cache/registry-clean-checkout
-PYTHONPATH=.cache/registry-clean-checkout/src .venv/bin/python -S \
-  .cache/registry-clean-checkout/scripts/registry_demo.py --require-source \
-  --workspace .cache/registry-clean-proof --report .cache/registry-clean-report.json
-cmp tests/fixtures/registry/expected-proof.json .cache/registry-clean-report.json
-.venv/bin/python -m venv --without-pip .cache/registry-wheel
-python3 -m pip --python .cache/registry-wheel/bin/python install --no-cache-dir \
+mkdir .cache/registry-final-checkout
+git archive --format=tar 8c3ed427e703c71a49dcdf79292e122e5823b3a1 | \
+  tar --extract --directory .cache/registry-final-checkout
+PYTHONPATH=.cache/registry-final-checkout/src .venv/bin/python -S \
+  .cache/registry-final-checkout/scripts/registry_demo.py --require-source \
+  --workspace .cache/registry-final-clean-proof --report .cache/registry-final-clean-report.json
+cmp tests/fixtures/registry/expected-proof.json .cache/registry-final-clean-report.json
+.venv/bin/python -m venv --without-pip .cache/registry-final-wheel
+python3 -m pip --python .cache/registry-final-wheel/bin/python install --no-cache-dir \
   --disable-pip-version-check --no-index --find-links .cache/dist mindgarden==0.1.0
-.cache/registry-wheel/bin/python -I scripts/registry_demo.py --require-installed \
-  --workspace .cache/registry-installed-proof --report .cache/registry-installed-report.json
-cmp tests/fixtures/registry/expected-proof.json .cache/registry-installed-report.json
-PYTHONPATH=.cache/registry-clean-checkout/src .venv/bin/python -S \
-  .cache/registry-clean-checkout/scripts/private_garden_demo.py --require-source \
-  --workspace .cache/private-after-registry-clean --report .cache/private-after-registry-clean.json
-cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-after-registry-clean.json
-.cache/registry-wheel/bin/python -I scripts/private_garden_demo.py --require-installed \
-  --workspace .cache/private-after-registry-installed --report .cache/private-after-registry-installed.json
-cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-after-registry-installed.json
+.cache/registry-final-wheel/bin/python -I scripts/registry_demo.py --require-installed \
+  --workspace .cache/registry-final-installed-proof --report .cache/registry-final-installed-report.json
+cmp tests/fixtures/registry/expected-proof.json .cache/registry-final-installed-report.json
+PYTHONPATH=.cache/registry-final-checkout/src .venv/bin/python -S \
+  .cache/registry-final-checkout/scripts/private_garden_demo.py --require-source \
+  --workspace .cache/private-after-registry-final-clean --report .cache/private-after-registry-final-clean.json
+cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-after-registry-final-clean.json
+.cache/registry-final-wheel/bin/python -I scripts/private_garden_demo.py --require-installed \
+  --workspace .cache/private-after-registry-final-installed --report .cache/private-after-registry-final-installed.json
+cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-after-registry-final-installed.json
 ```
 
 Automatic [Test run 42107523013](https://github.com/egohygiene/mindgarden/actions/runs/42107523013)
-succeeded on initial lifecycle head `a47797b`. That is distinct from local checks
-of functional `3e654d3`; later pushed heads receive their own automatic checks.
+succeeded on initial lifecycle head `a47797b`; [run 42110373037](https://github.com/egohygiene/mindgarden/actions/runs/42110373037)
+succeeded on named-view/evidence head `eb4bfb7`. Those are distinct from the
+local checks of final functional `8c3ed42`; later pushed heads receive their own
+automatic checks.
 No paid workflow was manually launched or retried. The checkpoint is draft,
 unmerged and not fully accepted; ADR-0012 remains proposed/null approval.

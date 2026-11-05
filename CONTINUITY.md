@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-05T21:09:39Z'
+  updated_at: '2026-11-05T21:17:06Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -59,7 +59,7 @@ state:
     verified_at: '2026-11-05T20:51:42Z'
   candidate:
     branch: feature/30-local-registry
-    revision: 3e654d3366ea20b61a30d73bcea6a5e64d2c06cc
+    revision: 8c3ed427e703c71a49dcdf79292e122e5823b3a1
     pull_request:
       provider: github
       id: egohygiene/mindgarden#67
@@ -77,37 +77,37 @@ state:
   parallel_changes: []
 review:
   status: passed
-  reviewed_at: '2026-11-05T21:09:39Z'
+  reviewed_at: '2026-11-05T21:17:06Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-05T21:09:39Z'
-    notes: 186 passed, no skips; Python 3.12.14.
+    observed_at: '2026-11-05T21:17:06Z'
+    notes: 187 passed, no skips; Python 3.12.14.
   - command: .cache/python313/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-05T21:09:39Z'
-    notes: 186 passed, no skips; Python 3.13.5.
+    observed_at: '2026-11-05T21:17:06Z'
+    notes: 187 passed, no skips; Python 3.13.5.
   - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist
     outcome: passed
-    observed_at: '2026-11-05T21:09:39Z'
+    observed_at: '2026-11-05T21:17:06Z'
     notes: Fresh functional-commit artifacts; two distribution checks and 10 installed v0/registry/library
       smoke checks pass.
   - command: scripts/registry_demo.py --require-source / --require-installed
     outcome: passed
-    observed_at: '2026-11-05T21:09:39Z'
+    observed_at: '2026-11-05T21:17:06Z'
     notes: Clean Git archive with -S and isolated wheel with -I reproduce the committed synthetic report
       exactly; exact commands in docs/local-registry.md.
   - command: scripts/private_garden_demo.py --require-source / --require-installed
     outcome: passed
-    observed_at: '2026-11-05T21:09:39Z'
+    observed_at: '2026-11-05T21:17:06Z'
     notes: Original archive/review/context/vault-relocation golden matches exactly in both clean-source
       and isolated-wheel modes.
   - command: 'Both interpreters: -m compileall -q src scripts tests; node --version; git diff --check'
     outcome: passed
-    observed_at: '2026-11-05T21:09:39Z'
-    notes: Passed; Node 24.19.0. Hosted lifecycle run 42107523013 passed on a47797b; later heads require
-      their own check observation.
+    observed_at: '2026-11-05T21:17:06Z'
+    notes: Passed; Node 24.19.0. Hosted runs 42107523013/a47797b and 42110373037/eb4bfb7 passed; later
+      heads require separate observation.
   environment_limitations:
   - Registry filesystem operations support Linux only; native macOS/Windows and encrypted/restricted
     assurance remain unclaimed.
@@ -158,7 +158,7 @@ Base main is 44cc1e876282928685b5f3dba83d413db37b83c0. #65 merged at 38c4edf;
 #66 merged at 44cc1e8 with the tested 5f39fc2 tree. Branch
 feature/30-local-registry, draft https://github.com/egohygiene/mindgarden/pull/67.
 Lifecycle commit a47797b3d4ecb28052f42811eaa828f7868363ce opened the draft.
-Functional named-view/proof commit 3e654d3366ea20b61a30d73bcea6a5e64d2c06cc
+Final registry/recovery-guard commit 8c3ed427e703c71a49dcdf79292e122e5823b3a1
 is the clean-source archive and installed-wheel source. Later evidence/handoff
 commits change documentation only.
 ## Completed and material changes
@@ -178,7 +178,7 @@ to public output; denied roots are not probed. Unregister retains query caches.
 
 ## Validation and review evidence
 
-Both Python 3.12.14/3.13.5 pass 186 tests without skips, including 27 registry
+Both Python 3.12.14/3.13.5 pass 187 tests without skips, including 28 registry
 lifecycle/location/view/demo tests. Fresh package/resource checks, both compile
 checks, Node 24.19.0 and installed v0/registry/library smoke pass. Clean git-archive
 -S source and isolated -I wheel reproduce the committed registry report exactly.
@@ -193,8 +193,8 @@ apply verifies desired state. Unregister/restore preserves garden/vault bytes an
 does not revive old sessions. Network/process calls are blocked in-process;
 Google/model integrations are unused. This is not host isolation evidence.
 
-Automatic lifecycle Test run 42107523013 passed on a47797b. Check current pushed
-head separately. Local results are not substituted for hosted results. No manual
+Automatic runs 42107523013/a47797b and 42110373037/eb4bfb7 passed.
+Check the current pushed head separately. Local results are not substituted for hosted results. No manual
 workflow launch/retry, real-garden setup, package/site publication or ADR approval.
 
 ## Blockers, risks, unknowns, and deferred work

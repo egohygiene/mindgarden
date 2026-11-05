@@ -262,7 +262,7 @@ now check view membership/generation before root probes, and synthetic private
 union/backlink fixtures preserve byte-identical public output. The ordinary-CLI
 proof records exact evidence, bounded context, non-destructive unregister and
 restore without reviving sessions. Repeated apply verifies the desired state.
-Functional `3e654d3366ea20b61a30d73bcea6a5e64d2c06cc` passes 186 tests without
+Final functional `8c3ed427e703c71a49dcdf79292e122e5823b3a1` passes 187 tests without
 skips on each supported Python version. Fresh source/wheel, clean source and
 isolated installed registry/private-workflow proofs, installed v0 compatibility,
 compile/Node/whitespace and pinned owner/38-row coverage checks pass. Exact
