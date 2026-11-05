@@ -97,6 +97,9 @@
         },
         "additionalProperties": false
       }
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
     }
   },
   "patternProperties": {

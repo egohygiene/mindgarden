@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:session:v1",
+  "title": "Mindgarden session v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "readable",
+    "writable",
+    "allowed_visibilities",
+    "allowed_review_states",
+    "execution",
+    "publication_authority",
+    "projections",
+    "budgets",
+    "policy",
+    "expires_at"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.session/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "readable": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "garden",
+          "revision"
+        ],
+        "properties": {
+          "garden": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "revision": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        },
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "writable": {
+      "anyOf": [
+        {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "allowed_visibilities": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "public",
+          "organization",
+          "personal",
+          "restricted"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "allowed_review_states": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "approved",
+          "in-review",
+          "unreviewed",
+          "rejected"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "execution": {
+      "enum": [
+        "networked",
+        "controlled-import",
+        "offline"
+      ]
+    },
+    "publication_authority": {
+      "enum": [
+        "publishable",
+        "review-required",
+        "never-exportable"
+      ]
+    },
+    "projections": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "index",
+          "search",
+          "graph",
+          "backlinks",
+          "context",
+          "llms",
+          "evidence"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "budgets": {
+      "type": "object",
+      "required": [
+        "max_results",
+        "max_context_bytes",
+        "max_depth",
+        "max_candidates"
+      ],
+      "properties": {
+        "max_results": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "max_context_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000000
+        },
+        "max_depth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "max_candidates": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        }
+      },
+      "additionalProperties": false
+    },
+    "policy": {
+      "title": "Mindgarden policy-reference v1",
+      "type": "object",
+      "required": [
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

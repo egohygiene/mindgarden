@@ -110,6 +110,9 @@
         "eligible"
       ],
       "default": "excluded"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
     }
   },
   "allOf": [

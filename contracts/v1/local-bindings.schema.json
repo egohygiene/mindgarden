@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:local-bindings:v1",
+  "title": "Mindgarden local-bindings v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "gardens",
+    "vaults",
+    "revoked_sessions"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.local-bindings/v1"
+    },
+    "gardens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "root",
+          "scope"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "root": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scope": {
+            "$ref": "urn:egohygiene:mindgarden:scope:v1"
+          }
+        },
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "vaults": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "adapter",
+          "root"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "adapter": {
+            "const": "filesystem"
+          },
+          "root": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "revoked_sessions": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}
