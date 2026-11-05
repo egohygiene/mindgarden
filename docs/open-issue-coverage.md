@@ -208,13 +208,16 @@ work and leave new work in draft PRs; do not silently close umbrella scope.
 
 B0 is draft [#65](https://github.com/egohygiene/mindgarden/pull/65), branch
 `roadmap/14-post-merge-coverage`, initial checkpoint `503153f`. Its coverage,
-pinned owner schemas/continuity and whitespace checks pass. Next: implement B1
-(#16) in a dependent draft. Preserve a combined checkout and record the descriptor's tested
-scope, privacy boundary, unavailable capabilities and next consumer proof.
+pinned owner schemas/continuity and whitespace checks pass. B1 is dependent draft
+[#66](https://github.com/egohygiene/mindgarden/pull/66), with combined checkout
+`feature/16-local-federation-projections`, functional commit
+`015f39676387a4e00c338fdb017a98c6cd11b821`. Next: review both drafts, then select
+B2 (#30) against the supported contracts and remaining decision/runtime gates.
 
 ### B1 implementation checkpoint
 
-`feature/16-local-federation-projections` depends on B0 draft #65. It adds the
+[Draft #66](https://github.com/egohygiene/mindgarden/pull/66), branch
+`feature/16-local-federation-projections`, depends on B0 draft #65 at `3caea8d`. It adds the
 [public discovery contract and reproducer](federation.md), proposed ADR-0011,
 20 focused federation tests and committed synthetic golden artifacts/report.
 The CLI proof combines two gardens and six public records, follows a catalog
@@ -228,3 +231,13 @@ before body reads and public revision calculation. Canonical files remain unchan
 exports are create-or-verify and conflicting/incomplete directories are refused.
 Incoming unsigned descriptors remain untrusted assertions. Full #16 consumer,
 private-federation, incremental and authentication acceptance remains open.
+
+Verification at functional `015f396`: 159 tests pass without skips on each of
+Python 3.12.14 and 3.13.5. Fresh source/wheel, clean installed v0 smoke, both
+compilation checks, Node 24.19.0, five proposed ADRs against pinned Hygiene,
+pinned Aether continuity and whitespace checks pass. Clean -S source and isolated
+-I wheel reproduce the federation report exactly; the clean-source private proof
+also matches its original report. Main Test run 41960090464 and B0 run
+41963994340 succeeded. B1 Test run 41965122996 also succeeded on `9149b2f`,
+containing functional `015f396`; later documentation-only heads may have fresh checks.
+No workflow was manually dispatched. Exact proof commands: [federation evidence](federation.md).

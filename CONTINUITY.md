@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-05T03:58:27Z'
+  updated_at: '2026-11-05T04:04:44Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -54,6 +54,7 @@ work:
     readiness: ready
     references:
     - https://github.com/egohygiene/mindgarden/pull/65
+    - https://github.com/egohygiene/mindgarden/pull/66
     - https://github.com/egohygiene/mindgarden/issues/16
     - https://github.com/egohygiene/mindgarden/issues/30
     depends_on: []
@@ -64,17 +65,21 @@ state:
     verified_at: '2026-11-05T03:58:27Z'
   candidate:
     branch: feature/16-local-federation-projections
-    revision: de2760716d390ba33003fc8ebc8142068665a779
-    pull_request: null
-    handoff_state: in-progress
+    revision: 015f39676387a4e00c338fdb017a98c6cd11b821
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#66
+      url: https://github.com/egohygiene/mindgarden/pull/66
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-05T03:58:27Z'
+    observed_at: '2026-11-05T04:02:02Z'
     default_branch_revision: 9fae752b3cf7eb9c74033a72a12d125c42f8659e
     issue_state: open
     pull_request_state: draft
-    notes: 'Main remains merged stack 9fae752. B0 draft #65 is open at 3caea8d; B1 is prepared locally
-      and will depend on it. All 38 parent issues remain open; ADR-0007–0011 remain proposed.'
+    notes: 'Main 9fae752 and B0 #65 at 3caea8d have successful checks. B1 #66 Test run 41965122996
+      passed on 9149b2f (functional 015f396); later handoff changes are documentation only. All 38
+      parent issues stay open; ADR-0007–0011 stay proposed.'
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#65
@@ -101,8 +106,21 @@ review:
     outcome: passed
     observed_at: '2026-11-05T03:58:27Z'
     notes: Node v24.19.0; compilation and whitespace passed.
+  - command: Clean git-archive -S source and isolated installed-wheel -I federation_demo.py; cmp
+      committed expected-proof.json
+    outcome: passed
+    observed_at: '2026-11-05T04:02:02Z'
+    notes: Both reports match byte-for-byte; clean-source private_garden_demo.py also matches its
+      original proof; only mindgarden is installed. Exact commands in docs/federation.md.
+  - command: Pinned Hygiene ADR metadata/set/policy and Aether continuity schema/headings/limits;
+      coverage row check
+    outcome: passed
+    observed_at: '2026-11-05T04:02:02Z'
+    notes: Five ADRs remain proposed with null approval; all 38 issue rows unique. Owner pins are
+      recorded in the policy reference and coverage ledger.
   environment_limitations:
-  - No B1 hosted CI, hosting, private-federation or cryptographic-authentication acceptance is claimed.
+  - Later documentation-only heads may have fresh checks. Hosting/private-federation/signature and
+    broader consumer acceptance remain unclaimed.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -144,7 +162,9 @@ Keep full consumer, private-federation and hosting acceptance separate.
 Main is 9fae752b3cf7eb9c74033a72a12d125c42f8659e. All thirteen old PRs #52–#64
 are merged; its tree exactly matches tested b82520b. B0 draft #65 reconciles all
 38 open issues. B1 branch feature/16-local-federation-projections depends on B0
-3caea8d; open B1 as a draft after committing the coherent checkpoint.
+3caea8d. B1 is draft #66, functional commit
+015f39676387a4e00c338fdb017a98c6cd11b821; proof checkout 9149b2f. Later handoff
+updates change documentation only. Neither new draft is merged.
 
 ## Completed and material changes
 
@@ -162,7 +182,10 @@ federation tests. Fresh source/wheel distributions, both compileall checks, Node
 24.19.0 and git diff --check pass. The committed two-garden/six-record CLI proof
 follows a catalog reference into search and 5,691-byte context within 16,384,
 then verifies export relocation, clean rebuild and unchanged canonical inputs.
-Final source/wheel proof and current CI observations will be linked at handoff.
+Clean -S source and isolated -I wheel match the committed federation proof; the
+clean-source private proof also matches. Only mindgarden is installed in the wheel
+environment. Main, B0 and B1 functional-head CI pass. B1 Test run 41965122996 passed on
+9149b2f; later documentation-only heads may have fresh checks.
 No workflow was manually dispatched.
 
 ## Blockers, risks, unknowns, and deferred work
@@ -176,14 +199,15 @@ retention policy preserves originals; no destructive cleanup is authorized.
 
 ## Next dependency-ready work
 
-Review the B0 coverage/dependency corrections and B1 format/capability/privacy
-contract. Then select #30's non-destructive registry lifecycle over explicit local
+Review #65 coverage/dependency corrections and #66 format/capability/privacy
+contract; exact proof commands/results are in docs/federation.md. Then select #30's non-destructive registry lifecycle over explicit local
 bindings and the supported identity/version contract; preserve remaining decision,
 organization/runtime and platform gates rather than claiming full integration.
 
 ## Parallel changes and reconciliation
 
-B1 depends on B0 draft #65. Keep their base/head relationship and reproducible
+Draft #66 depends on B0 draft #65; combined checkout is
+feature/16-local-federation-projections. Keep their base/head relationship and reproducible
 combined branch explicit. The merge authorization covered the old #52–#64 stack;
 new drafts remain for maintainer review. Do not infer ADR ratification from merges.
 

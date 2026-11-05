@@ -9,7 +9,7 @@ visibility: public
 owners:
 - egohygiene/mindgarden
 issue: https://github.com/egohygiene/mindgarden/issues/16
-pull_request: null
+pull_request: https://github.com/egohygiene/mindgarden/pull/66
 related:
 - ADR-0007
 - ADR-0009
@@ -27,6 +27,9 @@ evidence:
 - type: issue
   url: https://github.com/egohygiene/mindgarden/issues/31
   description: Authorization, sensitivity and denied-metadata invariants apply before projection.
+- type: implementation
+  url: https://github.com/egohygiene/mindgarden/pull/66
+  description: Draft local checkpoint, functional commit 015f396; not merged or fully accepted.
 exceptions: []
 approval: null
 ---

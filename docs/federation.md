@@ -135,3 +135,58 @@ private/internal local federation, incremental refresh, signature/authentication
 remote query/serving, rendered route, Akashic/Aether and actual consumer acceptance.
 No site is deployed and no parent issue is closed. #30 can consume the supported
 identity/version contract, while broader registry/platform/runtime gates remain.
+
+## Verification evidence — 2026-11-05
+
+Implementation is draft [#66](https://github.com/egohygiene/mindgarden/pull/66),
+based on roadmap draft [#65](https://github.com/egohygiene/mindgarden/pull/65)
+at `3caea8ddebc4cb5319c985479f35db4f750a7f44`. The combined checkout is
+`feature/16-local-federation-projections`. Functional commit:
+`015f39676387a4e00c338fdb017a98c6cd11b821`; the verified clean-source archive
+was `9149b2f8421936f0c5723fb068812f82acd27e38` (merging B0 documentation only).
+Later handoff/evidence changes are documentation only. Neither new draft is
+merged. Main remains the authorized private-workflow merge `9fae752`.
+
+| Command/check | Observed result |
+| --- | --- |
+| `.venv/bin/python -m unittest discover --start-directory tests` | 159 passed, no skips; Python 3.12.14 |
+| `.cache/python313/bin/python -m unittest discover --start-directory tests` | 159 passed, no skips; Python 3.13.5 |
+| `.venv/bin/python -m unittest tests.test_federation --verbose` | 20 passed |
+| `.venv/bin/python -m build --sdist --wheel --outdir .cache/dist` | Fresh artifacts built; distribution/resource checks pass |
+| Both interpreters: `-m compileall -q src scripts tests` | Passed |
+| `node --version`; `git diff --check` | v24.19.0; passed |
+| Clean source `-S --require-source`, isolated wheel `-I --require-installed` | Federation report matches committed golden byte-for-byte in both modes |
+| Installed v0 `--version`, `validate`, `verify`, `publish verify` | 0.1.0; 3 notes/1 context pack; 2 deterministic public notes |
+| Installed environment distribution inventory | Only `mindgarden`; no runtime Python dependencies |
+| Clean source private archive/vault proof | Original committed private-workflow report still matches exactly |
+| Pinned Hygiene/Aether owner checks | Five ADRs retain proposed/null approval; policy/set/schema/index and continuity schema/headings/limits pass |
+| Coverage inventory | Exactly 38 unique issue rows; no parent issue closed |
+
+Exact clean-source and wheel commands, from the repository root with fresh
+paths (the observed `HEAD` was the archive commit above):
+
+```sh
+mkdir .cache/federation-clean-checkout
+git archive --format=tar HEAD | tar --extract --directory .cache/federation-clean-checkout
+PYTHONPATH=.cache/federation-clean-checkout/src .venv/bin/python -S \
+  .cache/federation-clean-checkout/scripts/federation_demo.py --require-source \
+  --workspace .cache/federation-clean-proof --report .cache/federation-clean-report.json
+cmp tests/fixtures/federation/expected-proof.json .cache/federation-clean-report.json
+.venv/bin/python -m venv --without-pip .cache/federation-wheel
+python3 -m pip --python .cache/federation-wheel/bin/python install --no-cache-dir \
+  --disable-pip-version-check --no-index --find-links .cache/dist mindgarden==0.1.0
+.cache/federation-wheel/bin/python -I scripts/federation_demo.py --require-installed \
+  --workspace .cache/federation-installed-proof --report .cache/federation-installed-report.json
+cmp tests/fixtures/federation/expected-proof.json .cache/federation-installed-report.json
+PYTHONPATH=.cache/federation-clean-checkout/src .venv/bin/python -S \
+  .cache/federation-clean-checkout/scripts/private_garden_demo.py --require-source \
+  --workspace .cache/private-after-federation-clean --report .cache/private-after-federation-clean.json
+cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-after-federation-clean.json
+```
+
+Hosted main [Test run 41960090464](https://github.com/egohygiene/mindgarden/actions/runs/41960090464)
+and B0 [Test run 41963994340](https://github.com/egohygiene/mindgarden/actions/runs/41963994340)
+succeeded. B1 [Test run 41965122996](https://github.com/egohygiene/mindgarden/actions/runs/41965122996)
+also succeeded on `9149b2f8421936f0c5723fb068812f82acd27e38`, containing the
+verified functional code. Later documentation-only heads may have fresh checks;
+see the draft's current checks. No workflow was manually dispatched.
