@@ -66,7 +66,9 @@ old named grants cannot silently revive. Runtime readers ignore unrelated privat
 management labels; named sessions validate their selected view before root probes.
 
 Store control state in platform user configuration, or an explicitly supplied
-private location outside canonical roots and actual Git workspaces. Local plans,
+dedicated private directory disjoint from garden/vault ownership and actual Git
+workspaces. The boundary covers leases, staging, history and recognized
+unregistered garden roots as well as the registry file. Local plans,
 snapshots, labels, paths and registry identities are never public projection
 lineage. Preserve the existing additive v0/v1 APIs and dependency-free Python
 engine. Ordinary Linux filesystem operations are the bounded baseline.

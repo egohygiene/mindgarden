@@ -261,8 +261,10 @@ commit `a47797b3d4ecb28052f42811eaa828f7868363ce` opened the draft. Named sessio
 now check view membership/generation before root probes, and synthetic private
 union/backlink fixtures preserve byte-identical public output. The ordinary-CLI
 proof records exact evidence, bounded context, non-destructive unregister and
-restore without reviving sessions. Repeated apply verifies the desired state.
-Final functional `8c3ed427e703c71a49dcdf79292e122e5823b3a1` passes 187 tests without
+restore without reviving sessions. Dedicated directories keep history/staging
+disjoint from canonical roots, including recognized unregistered gardens.
+Repeated apply verifies the desired state.
+Final functional `656f6b6fd19cbd1b03a0ee2c367f1bdfb79f0daa` passes 188 tests without
 skips on each supported Python version. Fresh source/wheel, clean source and
 isolated installed registry/private-workflow proofs, installed v0 compatibility,
 compile/Node/whitespace and pinned owner/38-row coverage checks pass. Exact

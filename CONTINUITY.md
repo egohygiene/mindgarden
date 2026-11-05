@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-05T21:17:06Z'
+  updated_at: '2026-11-05T21:23:58Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -59,7 +59,7 @@ state:
     verified_at: '2026-11-05T20:51:42Z'
   candidate:
     branch: feature/30-local-registry
-    revision: 8c3ed427e703c71a49dcdf79292e122e5823b3a1
+    revision: 656f6b6fd19cbd1b03a0ee2c367f1bdfb79f0daa
     pull_request:
       provider: github
       id: egohygiene/mindgarden#67
@@ -77,37 +77,37 @@ state:
   parallel_changes: []
 review:
   status: passed
-  reviewed_at: '2026-11-05T21:17:06Z'
+  reviewed_at: '2026-11-05T21:23:58Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-05T21:17:06Z'
-    notes: 187 passed, no skips; Python 3.12.14.
+    observed_at: '2026-11-05T21:23:58Z'
+    notes: 188 passed, no skips; Python 3.12.14.
   - command: .cache/python313/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-05T21:17:06Z'
-    notes: 187 passed, no skips; Python 3.13.5.
+    observed_at: '2026-11-05T21:23:58Z'
+    notes: 188 passed, no skips; Python 3.13.5.
   - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist
     outcome: passed
-    observed_at: '2026-11-05T21:17:06Z'
+    observed_at: '2026-11-05T21:23:58Z'
     notes: Fresh functional-commit artifacts; two distribution checks and 10 installed v0/registry/library
       smoke checks pass.
   - command: scripts/registry_demo.py --require-source / --require-installed
     outcome: passed
-    observed_at: '2026-11-05T21:17:06Z'
+    observed_at: '2026-11-05T21:23:58Z'
     notes: Clean Git archive with -S and isolated wheel with -I reproduce the committed synthetic report
       exactly; exact commands in docs/local-registry.md.
   - command: scripts/private_garden_demo.py --require-source / --require-installed
     outcome: passed
-    observed_at: '2026-11-05T21:17:06Z'
+    observed_at: '2026-11-05T21:23:58Z'
     notes: Original archive/review/context/vault-relocation golden matches exactly in both clean-source
       and isolated-wheel modes.
   - command: 'Both interpreters: -m compileall -q src scripts tests; node --version; git diff --check'
     outcome: passed
-    observed_at: '2026-11-05T21:17:06Z'
-    notes: Passed; Node 24.19.0. Hosted runs 42107523013/a47797b and 42110373037/eb4bfb7 passed; later
-      heads require separate observation.
+    observed_at: '2026-11-05T21:23:58Z'
+    notes: Passed; Node 24.19.0. Hosted runs 42107523013/a47797b, 42110373037/eb4bfb7 and 42111248007/f64be4a
+      passed; later heads checked separately.
   environment_limitations:
   - Registry filesystem operations support Linux only; native macOS/Windows and encrypted/restricted
     assurance remain unclaimed.
@@ -158,7 +158,7 @@ Base main is 44cc1e876282928685b5f3dba83d413db37b83c0. #65 merged at 38c4edf;
 #66 merged at 44cc1e8 with the tested 5f39fc2 tree. Branch
 feature/30-local-registry, draft https://github.com/egohygiene/mindgarden/pull/67.
 Lifecycle commit a47797b3d4ecb28052f42811eaa828f7868363ce opened the draft.
-Final registry/recovery-guard commit 8c3ed427e703c71a49dcdf79292e122e5823b3a1
+Final registry/recovery-guard commit 656f6b6fd19cbd1b03a0ee2c367f1bdfb79f0daa
 is the clean-source archive and installed-wheel source. Later evidence/handoff
 commits change documentation only.
 ## Completed and material changes
@@ -167,8 +167,8 @@ Three additive control schemas and optional registry metadata on existing local
 bindings; private explicit/platform locations; saved preview/exact-digest apply;
 manifest-only registration; list/inspect/doctor; non-destructive unregister and
 view pruning; immutable owned configuration snapshots and reviewed restore.
-Writer leases/atomic replace preserve complete configuration on pre-commit failure.
-Plans cannot enter restored canonical roots or overwrite registry/history.
+Dedicated control directories keep leases/staging/history disjoint from canonical
+ownership; atomic replacement preserves complete state on pre-commit failure.
 
 Named sessions select registered IDs without granting visibility, write,
 publication, review or network authority. Selected membership/generation is
@@ -178,7 +178,7 @@ to public output; denied roots are not probed. Unregister retains query caches.
 
 ## Validation and review evidence
 
-Both Python 3.12.14/3.13.5 pass 187 tests without skips, including 28 registry
+Both Python 3.12.14/3.13.5 pass 188 tests without skips, including 29 registry
 lifecycle/location/view/demo tests. Fresh package/resource checks, both compile
 checks, Node 24.19.0 and installed v0/registry/library smoke pass. Clean git-archive
 -S source and isolated -I wheel reproduce the committed registry report exactly.

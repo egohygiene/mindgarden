@@ -43,12 +43,19 @@ to `~/.config/mindgarden/registry.json` on Linux. The macOS convention is
 conventions, not claims of native runtime support. An explicit `--registry` path
 avoids any use of real default configuration during tests.
 
-The registry and plan files use owner-only regular files (0600) in private
-directories (0700). Symlink/traversal paths, canonical garden/vault locations and
+The registry and plan files use owner-only regular files (0600) in dedicated
+private directories (0700), disjoint from garden/vault ownership roots. This
+protects writer leases, staging and history as well as the registry itself.
+Control state cannot live below recognized unregistered v0/v1 garden manifests.
+Adopting legacy bindings may require copying the control file into a dedicated
+private directory first; its absolute bindings preserve canonical identity.
+Symlink/traversal paths, canonical garden/vault locations and
 actual Git workspaces are refused, including ignored folders inside a repository.
 No Git executable is required. A sandbox's empty protected `.git` policy stub is
 distinguished from an actual gitdir/HEAD. Registration roots are explicit and are
 never discovered by crawling home, cloud-sync or repository-parent folders.
+Ancestor marker checks only validate an explicit control destination; they do
+not discover or register gardens.
 
 All registry plans/reports are **machine-local control data, never exportable**.
 Plans include concrete paths and changed metadata so the operator can review the
@@ -185,15 +192,16 @@ issue or proposed ADR is declared accepted by this local checkpoint.
 ## Verification receipt — 2026-11-05
 
 Lifecycle commit `a47797b3d4ecb28052f42811eaa828f7868363ce` opened draft #67;
-named-view/proof commit `3e654d3366ea20b61a30d73bcea6a5e64d2c06cc` and final
-malformed-authority guard `8c3ed427e703c71a49dcdf79292e122e5823b3a1` complete
-the functional checkpoint. The latter is the clean-source/wheel source below. Later evidence and
-handoff commits are documentation only.
+named-view/proof commit `3e654d3366ea20b61a30d73bcea6a5e64d2c06cc` adds the
+synthetic workflow, and `8c3ed42` adds malformed-authority diagnostics. Final
+directory-ownership hardening `656f6b6fd19cbd1b03a0ee2c367f1bdfb79f0daa` is the
+clean-source/wheel source below. Later evidence/handoff commits are documentation
+only.
 
 | Exact command/check | Observed result |
 | --- | --- |
-| `.venv/bin/python -m unittest discover --start-directory tests --verbose` | 187 passed, no skips; Python 3.12.14 |
-| `.cache/python313/bin/python -m unittest discover --start-directory tests --verbose` | 187 passed, no skips; Python 3.13.5 |
+| `.venv/bin/python -m unittest discover --start-directory tests --verbose` | 188 passed, no skips; Python 3.12.14 |
+| `.cache/python313/bin/python -m unittest discover --start-directory tests --verbose` | 188 passed, no skips; Python 3.13.5 |
 | `.venv/bin/python -m build --sdist --wheel --outdir .cache/dist` | Fresh source/wheel built from functional commit |
 | `.venv/bin/python -m unittest tests.test_distribution --verbose` | 2 passed against fresh artifacts, including registry modules/schemas/demo/fixtures |
 | Both interpreters: `-m compileall -q src scripts tests` | Passed |
@@ -213,32 +221,32 @@ test tools.
 Exact proof commands from the repository root, using fresh paths:
 
 ```sh
-mkdir .cache/registry-final-checkout
-git archive --format=tar 8c3ed427e703c71a49dcdf79292e122e5823b3a1 | \
-  tar --extract --directory .cache/registry-final-checkout
-PYTHONPATH=.cache/registry-final-checkout/src .venv/bin/python -S \
-  .cache/registry-final-checkout/scripts/registry_demo.py --require-source \
-  --workspace .cache/registry-final-clean-proof --report .cache/registry-final-clean-report.json
-cmp tests/fixtures/registry/expected-proof.json .cache/registry-final-clean-report.json
-.venv/bin/python -m venv --without-pip .cache/registry-final-wheel
-python3 -m pip --python .cache/registry-final-wheel/bin/python install --no-cache-dir \
+mkdir .cache/registry-reviewed-checkout
+git archive --format=tar 656f6b6fd19cbd1b03a0ee2c367f1bdfb79f0daa | \
+  tar --extract --directory .cache/registry-reviewed-checkout
+PYTHONPATH=.cache/registry-reviewed-checkout/src .venv/bin/python -S \
+  .cache/registry-reviewed-checkout/scripts/registry_demo.py --require-source \
+  --workspace .cache/registry-reviewed-clean-proof --report .cache/registry-reviewed-clean-report.json
+cmp tests/fixtures/registry/expected-proof.json .cache/registry-reviewed-clean-report.json
+.venv/bin/python -m venv --without-pip .cache/registry-reviewed-wheel
+python3 -m pip --python .cache/registry-reviewed-wheel/bin/python install --no-cache-dir \
   --disable-pip-version-check --no-index --find-links .cache/dist mindgarden==0.1.0
-.cache/registry-final-wheel/bin/python -I scripts/registry_demo.py --require-installed \
-  --workspace .cache/registry-final-installed-proof --report .cache/registry-final-installed-report.json
-cmp tests/fixtures/registry/expected-proof.json .cache/registry-final-installed-report.json
-PYTHONPATH=.cache/registry-final-checkout/src .venv/bin/python -S \
-  .cache/registry-final-checkout/scripts/private_garden_demo.py --require-source \
-  --workspace .cache/private-after-registry-final-clean --report .cache/private-after-registry-final-clean.json
-cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-after-registry-final-clean.json
-.cache/registry-final-wheel/bin/python -I scripts/private_garden_demo.py --require-installed \
-  --workspace .cache/private-after-registry-final-installed --report .cache/private-after-registry-final-installed.json
-cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-after-registry-final-installed.json
+.cache/registry-reviewed-wheel/bin/python -I scripts/registry_demo.py --require-installed \
+  --workspace .cache/registry-reviewed-installed-proof --report .cache/registry-reviewed-installed-report.json
+cmp tests/fixtures/registry/expected-proof.json .cache/registry-reviewed-installed-report.json
+PYTHONPATH=.cache/registry-reviewed-checkout/src .venv/bin/python -S \
+  .cache/registry-reviewed-checkout/scripts/private_garden_demo.py --require-source \
+  --workspace .cache/private-after-registry-reviewed-clean --report .cache/private-after-registry-reviewed-clean.json
+cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-after-registry-reviewed-clean.json
+.cache/registry-reviewed-wheel/bin/python -I scripts/private_garden_demo.py --require-installed \
+  --workspace .cache/private-after-registry-reviewed-installed --report .cache/private-after-registry-reviewed-installed.json
+cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-after-registry-reviewed-installed.json
 ```
 
 Automatic [Test run 42107523013](https://github.com/egohygiene/mindgarden/actions/runs/42107523013)
 succeeded on initial lifecycle head `a47797b`; [run 42110373037](https://github.com/egohygiene/mindgarden/actions/runs/42110373037)
 succeeded on named-view/evidence head `eb4bfb7`. Those are distinct from the
-local checks of final functional `8c3ed42`; later pushed heads receive their own
+local checks of final functional `656f6b6`; later pushed heads receive their own
 automatic checks.
 No paid workflow was manually launched or retried. The checkpoint is draft,
 unmerged and not fully accepted; ADR-0012 remains proposed/null approval.
