@@ -1,0 +1,9 @@
+{
+  "canaries": ["personal-content-canary", "private-view-canary", "private-registry-path-canary", "restricted-root-canary"],
+  "platforms": [
+    {"platform": "linux", "user_home": "/synthetic/user", "environment": {}, "expected": "/synthetic/user/.config/mindgarden/registry.json"},
+    {"platform": "linux", "user_home": "/synthetic/user", "environment": {"XDG_CONFIG_HOME": "/synthetic/config"}, "expected": "/synthetic/config/mindgarden/registry.json"},
+    {"platform": "darwin", "user_home": "/Users/synthetic", "environment": {}, "expected": "/Users/synthetic/Library/Application Support/mindgarden/registry.json"},
+    {"platform": "win32", "user_home": "C:\\Users\\synthetic", "environment": {"LOCALAPPDATA": "C:\\Users\\synthetic\\AppData\\Local"}, "expected": "C:\\Users\\synthetic\\AppData\\Local\\Mindgarden\\registry.json"}
+  ]
+}

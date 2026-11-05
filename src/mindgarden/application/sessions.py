@@ -8,6 +8,7 @@ from pathlib import Path
 
 from ..domain.contracts import ContractRegistry, canonical_json, read_object
 from ..domain.scope import POLICY_REFERENCE, local_scope
+from ..domain.registry import selected_view, verify_session_view, view_reference
 from ..domain.validation import ContractError
 from .bindings import LocalBindings
 from .query import QueryContext, selected_garden_ids
@@ -22,6 +23,7 @@ def bind_session_revisions(local_config: Path, supplied: dict) -> dict:
     if len(readable) != len(session["readable"]):
         raise ContractError("SESSION_INVALID: duplicate readable identities")
     document = read_object(local_config)
+    verify_session_view(document, session)
     selected = selected_garden_ids(document, session)
     if session["id"] in document.get("revoked_sessions", []):
         raise ContractError("SESSION_REVOKED: choose a new explicitly authorized session identity")
@@ -42,7 +44,7 @@ def bind_session_revisions(local_config: Path, supplied: dict) -> dict:
 
 def run_scope(arguments: Namespace) -> int:
     session = {"schema": "mindgarden.session/v1", "id": arguments.session_id,
-               "readable": [{"garden": identity, "revision": "sha256:" + "0" * 64} for identity in arguments.readable_garden],
+               "readable": [{"garden": identity, "revision": "sha256:" + "0" * 64} for identity in (arguments.readable_garden or [])],
                "writable": arguments.writable_garden, "allowed_visibilities": arguments.allowed_visibility,
                "allowed_review_states": arguments.allowed_review_state or ["approved"],
                "execution": arguments.execution, "publication_authority": arguments.publication_authority,
@@ -50,6 +52,10 @@ def run_scope(arguments: Namespace) -> int:
                "budgets": {"max_results": arguments.max_results, "max_context_bytes": arguments.max_context_bytes,
                            "max_depth": arguments.max_depth, "max_candidates": arguments.max_candidates},
                "policy": dict(POLICY_REFERENCE), "expires_at": arguments.expires_at}
+    if getattr(arguments, "registry_view", None) is not None:
+        view = selected_view(read_object(arguments.local_config), arguments.registry_view)
+        session["readable"] = [{"garden": identity, "revision": "sha256:" + "0" * 64} for identity in view["gardens"]]
+        session["registry_view"] = view_reference(view)
     session["request_scope"] = local_scope(arguments.request_visibility, execution=arguments.execution,
                                             publication=arguments.publication_authority)
     session = bind_session_revisions(arguments.local_config, session)

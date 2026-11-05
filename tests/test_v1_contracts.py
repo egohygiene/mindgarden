@@ -137,6 +137,9 @@ class V1ContractTests(unittest.TestCase):
                 "federation-catalog-request",
                 "federation-catalog",
                 "federation-plan",
+                "registry",
+                "registry-view",
+                "registry-plan",
             },
         )
         identifiers = set()

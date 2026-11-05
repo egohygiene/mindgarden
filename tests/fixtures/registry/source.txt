@@ -1,0 +1,2 @@
+Synthetic immutable source-vault fixture for local registry preservation.
+Registering or unregistering gardens must not alter or delete these bytes.

@@ -7,6 +7,13 @@ criteria; a batch is a bounded checkpoint, not automatic parent completion.
 
 ## Observed baseline and authority
 
+Current main is `44cc1e876282928685b5f3dba83d413db37b83c0`: B0 #65 and B1 #66
+are merged after explicit maintainer authorization, with the tested `5f39fc2`
+tree. B2 #30 is implemented on draft [#67](https://github.com/egohygiene/mindgarden/pull/67),
+branch `feature/30-local-registry`; see the current registry checkpoint below.
+The original stack receipt and B1 draft evidence that follow are historical.
+All 38 parent issues remain open; ADR-0007–0012 remain proposed/null approval.
+
 Merged main: `9fae752b3cf7eb9c74033a72a12d125c42f8659e`. Its tree is exactly
 `a381b8bea2270b6ebd41a8bbe205d5f0a6f3e188`, the tree of the tested combined
 checkout `b82520b883b86be70bc939302411a0fb8587aab2`. All thirteen PR heads had
@@ -123,7 +130,7 @@ not one serial gate over all work.
 | --- | --- | --- | --- | --- |
 | [#10](https://github.com/egohygiene/mindgarden/issues/10) — versioned validation/publication gates | partial | #53/#54/#64 validate v0/v1, relationships, hashes, unsafe paths, empty allowlists and explicit scoped dispatch | Complete reusable consumer conformance/leak matrix across publication, attachments, logs and all supported adapters | #7/#8/#9 implemented; extend in each owning B1/B3/B4 checkpoint |
 | [#29](https://github.com/egohygiene/mindgarden/issues/29) — independent scope/sensitivity axes | partial | #55/#62 local versioned contract, deterministic inheritance, compatibility/adversarial fixtures | Normative organization policy, declassification/federation integration and verified restricted runtime | Hygiene #39, Realm #25 → #60, #10/#14/#16; local contract usable, external assurance blocked |
-| [#30](https://github.com/egohygiene/mindgarden/issues/30) — local registry/private overlays | partial | #55 explicit safe bindings; #62 scoped multi-garden views | Platform-local registry schema and plan/apply/list/inspect/doctor/unregister lifecycle; platform matrix and owned-cache cleanup | #29/#14/#16, Realm #25/#60; B2 after B1 contract, preserve content on unregister |
+| [#30](https://github.com/egohygiene/mindgarden/issues/30) — local registry/private overlays | partial | #55/#62 bindings/scoped queries; draft #67 Linux lifecycle, named views, atomic private recovery and CLI public-isolation proof | Native macOS/Windows mutation, verified restricted/encrypted coexistence, organization/host assurance and owned-cache cleanup; full parent review | #29/#14/#16 contracts available; Hygiene #39/#40 and Realm #25/#60 gate assurance; B2 local checkpoint ready for review, preserve content on unregister |
 | [#31](https://github.com/egohygiene/mindgarden/issues/31) — scoped retrieval/sensitivity | partial | #62/#64 filter before bodies/ranking, inherit evidence closure, deny metadata leaks, enforce budgets/expiry/revocation | Full federation/consumer projections, normative assurance/declassification and runtime integration | #29/#10/#12/#14, Hygiene #40 and Realm #25/#60; carry invariants into B1/B2/Q |
 | [#35](https://github.com/egohygiene/mindgarden/issues/35) — confidential document/PDF ingestion | blocked | Shared adapter and immutable-byte storage boundary available; no PDF support claimed | Document-bundle contract, deterministic page/span extraction, OCR/encrypted/partial states, restricted temporary-state proof | #29/#10/#11, Hygiene #40, Realm #25/#60; contract/fixtures may be proposed, no real document ingestion |
 | [#45](https://github.com/egohygiene/mindgarden/issues/45) — portable private source/media vault | partial | #56/#63/#64 immutable hashes, duplicate-safe storage, audit/export/restore/relocation and offline exact-reference proof | Full asset/rights/triage/retention, #30/#35 integration, encrypted/provider/platform/power-loss acceptance | #11/#15/#30/#31/#35/#40/#42; R0 early, later local/media checkpoints and independent adapter proofs |
@@ -206,13 +213,14 @@ commits, commands/results, remaining acceptance and exact next action. Refresh
 open issue/PR state before selecting another batch. Use `Refs #…` for partial
 work and leave new work in draft PRs; do not silently close umbrella scope.
 
-B0 is draft [#65](https://github.com/egohygiene/mindgarden/pull/65), branch
-`roadmap/14-post-merge-coverage`, initial checkpoint `503153f`. Its coverage,
-pinned owner schemas/continuity and whitespace checks pass. B1 is dependent draft
-[#66](https://github.com/egohygiene/mindgarden/pull/66), with combined checkout
-`feature/16-local-federation-projections`, functional commit
-`015f39676387a4e00c338fdb017a98c6cd11b821`. Next: review both drafts, then select
-B2 (#30) against the supported contracts and remaining decision/runtime gates.
+B0 [#65](https://github.com/egohygiene/mindgarden/pull/65) and B1
+[#66](https://github.com/egohygiene/mindgarden/pull/66) are merged. B1 functional
+commit is `015f39676387a4e00c338fdb017a98c6cd11b821`; the final reviewed tree is
+on main `44cc1e8`. B2 draft [#67](https://github.com/egohygiene/mindgarden/pull/67)
+implements the bounded #30 lifecycle and named-view proof. Review its supported
+Linux checkpoint; refresh live contracts before selecting B3 publication/portal
+work or independent #27 release preparation. Retain native/restricted and policy
+gates, real-consumer setup boundaries and all remaining parent acceptance.
 
 ### B1 implementation checkpoint
 
@@ -241,3 +249,26 @@ also matches its original report. Main Test run 41960090464 and B0 run
 41963994340 succeeded. B1 Test run 41965122996 also succeeded on `9149b2f`,
 containing functional `015f396`; later documentation-only heads may have fresh checks.
 No workflow was manually dispatched. Exact proof commands: [federation evidence](federation.md).
+
+## Registry checkpoint after the B0/B1 merge
+
+#65 merged at `38c4edf5740f0b05e279f3b1e3b98488d6f6ac4e`; #66 at
+`44cc1e876282928685b5f3dba83d413db37b83c0`, with the tested `5f39fc2` tree.
+Their earlier draft descriptions above are historical evidence. B2 (#30) now
+proceeds on draft [#67](https://github.com/egohygiene/mindgarden/pull/67), branch
+`feature/30-local-registry`, using synthetic gardens only. Initial lifecycle
+commit `a47797b3d4ecb28052f42811eaa828f7868363ce` opened the draft. Named sessions
+now check view membership/generation before root probes, and synthetic private
+union/backlink fixtures preserve byte-identical public output. The ordinary-CLI
+proof records exact evidence, bounded context, non-destructive unregister and
+restore without reviving sessions. Dedicated directories keep history/staging
+disjoint from canonical roots, including recognized unregistered gardens.
+Repeated apply verifies the desired state.
+Final functional `656f6b6fd19cbd1b03a0ee2c367f1bdfb79f0daa` passes 188 tests without
+skips on each supported Python version. Fresh source/wheel, clean source and
+isolated installed registry/private-workflow proofs, installed v0 compatibility,
+compile/Node/whitespace and pinned owner/38-row coverage checks pass. Exact
+commands/results: [registry evidence](local-registry.md). Initial lifecycle
+automatic Test run 42107523013 passed; later head results are observed separately.
+Full restricted/native-platform/cache-cleanup/organization-runtime acceptance
+remains open. See [the registry contract](local-registry.md) and CONTINUITY.md.

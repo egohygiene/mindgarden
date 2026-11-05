@@ -123,8 +123,9 @@ The v1 semantic contract, valid/adversarial schema fixtures, v0 compatibility
 matrix, v0 validation, local artifact ingestion, lexical indexing, context
 packs, Obsidian profile, public projection, and Quartz adapter are implemented
 behind the installable 0.1 package and CLI. The merged milestone stack extends
-general v1 validation, source adapters and reviewed projections; federation remains
-a target capability. Implementation and merging do not ratify proposed ADRs.
+general v1 validation, source adapters and reviewed projections. Local public
+federation is merged through #66; broader federation remains a target capability.
+Implementation and merging do not ratify proposed ADRs.
 [SYSTEM.md](SYSTEM.md) owns the capability inventory and [ROADMAP.md](ROADMAP.md)
 owns delivery order.
 
@@ -161,7 +162,7 @@ The [open-issue coverage ledger](docs/open-issue-coverage.md) records the
 
 ## Public discovery checkpoint
 
-The dependent #16 draft adds [reviewed public discovery artifacts](docs/federation.md)
+The merged #16 checkpoint (#66) adds [reviewed public discovery artifacts](docs/federation.md)
 over existing scoped retrieval and `mindgarden.projection/v1` profiles. Proposed
 [ADR-0011](docs/decisions/ADR-0011-public-federation-projections.md) records the
 sanitized represented-revision, canonical-route and supplied-catalog boundaries.
@@ -170,3 +171,16 @@ bundles and catalogs are rebuildable projections; original knowledge ownership
 does not move. Unsigned checksums establish consistency, not authenticated human
 authority. Remote acquisition, serving, private federation and signing are
 explicit unavailable capabilities rather than hidden integrations.
+
+## Machine-local registry checkpoint
+
+Draft [#67](https://github.com/egohygiene/mindgarden/pull/67) implements the bounded
+[#30 registry lifecycle](docs/local-registry.md), under proposed
+[ADR-0012](docs/decisions/ADR-0012-machine-local-registry.md). Existing portable
+manifests own garden IDs, owners and declared scope. Application services manage
+optional metadata in existing local bindings; a Linux filesystem adapter owns
+private control files, kernel writer leases, atomic replacement and snapshots.
+Named selections constrain existing session grants without expanding authority.
+Originals and knowledge remain read-only inputs. Public projections exclude
+registry paths, labels, membership and control hashes. Restricted/encrypted
+runtime, native macOS/Windows mutation and owned-cache cleanup remain deferred.

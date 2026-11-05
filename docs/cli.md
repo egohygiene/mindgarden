@@ -26,6 +26,18 @@ mindgarden ingest
 mindgarden index
 mindgarden search
 mindgarden context
+mindgarden scope
+mindgarden registry init
+mindgarden registry register
+mindgarden registry unregister
+mindgarden registry set-view
+mindgarden registry remove-view
+mindgarden registry restore
+mindgarden registry apply
+mindgarden registry list
+mindgarden registry inspect
+mindgarden registry doctor
+mindgarden registry capabilities
 mindgarden llms
 mindgarden federation build
 mindgarden federation catalog
@@ -38,7 +50,7 @@ mindgarden version
 mindgarden --version
 ```
 
-Every garden operation accepts the long-form
+Content operations accept the long-form
 `--repository-root "/path/to/consumer"` argument. Run any command with
 `--help` for its complete long-form options.
 
@@ -83,6 +95,13 @@ one explicit mode: `--plan`, `--apply`, or `--check`. Both apply paths require
 the exact `--plan-digest` from the reviewed plan. See
 [`initialization-migration.md`](initialization-migration.md) for the atomicity,
 idempotency, rollback, and v0 → v1 evidence-preservation contract.
+
+The [machine-local registry](local-registry.md) uses `--registry` at an absolute
+private configuration location, outside Git and canonical garden/vault roots.
+Lifecycle operations preview by default; save with `--output`, inspect the saved
+plan, then `registry apply --plan ... --plan-digest ...`. Apply changes only
+control state. `scope --registry-view` selects registered IDs while retaining
+explicit session visibility, review, execution, expiration and budget grants.
 
 ## Stable exit codes
 

@@ -10,6 +10,7 @@ from typing import Callable
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes, read_object
 from ..domain.garden import GardenSnapshot, inspect_garden
 from ..domain.scope import POLICY_REFERENCE, inherit_scope, local_scope, record_scope, validate_scope
+from ..domain.registry import verify_session_view
 from ..domain.validation import ContractError
 from .bindings import LocalBindings
 from .query_view import metadata_view
@@ -86,6 +87,7 @@ class QueryContext:
         raw_bindings = authority_object(local_config)
         if session["id"] in raw_bindings.get("revoked_sessions", []):
             raise ContractError("SESSION_REVOKED: query authority was revoked")
+        verify_session_view(raw_bindings, session)
         selected = selected_garden_ids(raw_bindings, session)
         bindings = LocalBindings.load(local_config, garden_ids=selected, vault_ids=set())
         context = cls(session_path.absolute(), session, bindings,
@@ -106,6 +108,7 @@ class QueryContext:
             raise ContractError("SESSION_CONFIGURATION: revocation authority is unavailable")
         if self.session["id"] in current["revoked_sessions"]:
             raise ContractError("SESSION_REVOKED: query authority was revoked")
+        verify_session_view(current, self.session)
         def relevant(document):
             return {field: [item for item in document.get(field, []) if isinstance(item, dict) and item.get("id") in selected]
                     for field, selected in (("gardens", self.bindings.gardens), ("vaults", self.bindings.vaults))}

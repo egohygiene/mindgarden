@@ -23,6 +23,15 @@ unknown top-level fields, and permits namespaced extension fields matching
 | Provenance | `mindgarden.provenance/v1` | Input hashes, ordered transformations, generator identity, origin, output hash, and rights. |
 | Projection | `mindgarden.projection/v1` | Disposable indexes, graphs, context packs, agent entrypoints, sites, and federation outputs governed by publication policy. |
 | Migration | `mindgarden.migration/v1` | Reviewable plan or history evidence for movement between contract versions. |
+| Local registry | `mindgarden.registry/v1` | Optional machine-local management metadata within existing bindings; no canonical content or authority grant. |
+| Registry view | `mindgarden.registry-view/v1` | Named registered identities and monotonic selection generation. |
+| Registry plan | `mindgarden.registry-plan/v1` | Never-exportable saved lifecycle effects bound to control/input digests and root identity. |
+
+The additive [registry checkpoint](local-registry.md) extends existing
+`local-bindings/v1` and optionally pins `session/v1.registry_view`. These control
+documents are separate from portable garden records and public lineage. Existing
+explicit bindings/sessions remain valid without management metadata. Proposed
+ADR-0012 governs the bounded reference implementation; it remains unratified.
 
 ## Independent semantic axes
 

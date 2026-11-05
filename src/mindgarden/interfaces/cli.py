@@ -383,6 +383,41 @@ def add_federation_command(commands: ParserCollection) -> None:
     catalog.set_defaults(handler=run_federation)
 
 
+def add_registry_command(commands: ParserCollection) -> None:
+    """Register machine-local control flows without changing canonical gardens."""
+    from ..application.registry import run_registry
+
+    registry = commands.add_parser("registry", help="Manage explicit machine-local garden registrations")
+    operations = registry.add_subparsers(dest="operation", required=True)
+    for name in ("init", "register", "unregister", "set-view", "remove-view", "restore", "apply", "list", "inspect", "doctor", "capabilities"):
+        command = operations.add_parser(name)
+        command.add_argument("--registry", type=Path, help="Absolute private registry path; defaults to platform user configuration")
+        if name in {"init", "register", "unregister", "set-view", "remove-view", "restore"}:
+            command.add_argument("--plan", action="store_true", help="Preview only (default); apply uses a saved plan separately")
+            command.add_argument("--output", type=Path, help="Save a new private plan file; omission previews JSON only")
+        if name in {"register", "unregister", "inspect", "doctor"}:
+            command.add_argument("--garden-id", required=name in {"unregister", "inspect"})
+        if name == "register":
+            command.add_argument("--root", type=Path, required=True, help="Explicit absolute garden root; no discovery")
+            command.add_argument("--visibility", required=True, choices=("public", "organization", "personal", "restricted"))
+            command.add_argument("--persistence", choices=("git-tracked", "machine-local", "encrypted-vault"))
+            command.add_argument("--execution", choices=("offline", "controlled-import", "networked"), default="offline")
+            command.add_argument("--publication", choices=("publishable", "review-required", "never-exportable"), default="review-required")
+            command.add_argument("--owner", action="append", default=[], help="Assert canonical owner; registration never rewrites it")
+        if name in {"set-view", "remove-view"}:
+            command.add_argument("--view-id", required=True)
+        if name == "set-view":
+            command.add_argument("--garden", action="append", default=[], help="Registered garden identity; repeat for an authorized union selection")
+        if name == "restore":
+            command.add_argument("--revision", required=True, help="Owned immutable registry snapshot SHA-256")
+        if name == "apply":
+            command.add_argument("--plan", type=Path, required=True, help="Saved reviewed registry-plan JSON")
+            command.add_argument("--plan-digest", required=True)
+        if name in {"list", "inspect", "doctor"}:
+            command.add_argument("--include-local-paths", action="store_true", help="Show paths in private control output")
+        command.set_defaults(handler=run_registry)
+
+
 def build_parser() -> ArgumentParser:
     """Build the stable package command contract."""
     parser = ArgumentParser(prog="mindgarden", description=__doc__)
@@ -406,6 +441,7 @@ def build_parser() -> ArgumentParser:
     add_publish_command(commands)
     add_site_command(commands)
     add_federation_command(commands)
+    add_registry_command(commands)
     from ..application.curation import run_gardenize
 
     gardenize = commands.add_parser("gardenize", help="Preview or apply an authored curation proposal")
@@ -431,7 +467,9 @@ def build_parser() -> ArgumentParser:
     scope = commands.add_parser("scope", help="Author an explicit local query session with current authorized revisions")
     scope.add_argument("--local-config", type=Path, required=True)
     scope.add_argument("--session-id", required=True)
-    scope.add_argument("--readable-garden", action="append", required=True)
+    selection = scope.add_mutually_exclusive_group(required=True)
+    selection.add_argument("--readable-garden", action="append")
+    selection.add_argument("--registry-view", help="Named selection from a managed registry; grants remain explicit")
     scope.add_argument("--writable-garden")
     scope.add_argument("--allowed-visibility", action="append", required=True,
                        choices=("public", "organization", "personal", "restricted"))
