@@ -56,3 +56,29 @@ def add_knowledge(root: Path, record_id: str = "synthetic-prompt", body: str = "
     write_json(garden / f"provenance/{provenance['id']}.json", provenance)
     write_json(garden / f"knowledge/{record_id}.json", record)
     return record
+
+
+def add_source(root: Path, content: bytes, *, record_id: str = "synthetic-source",
+               vault_reference: dict | None = None) -> dict:
+    garden = root / ".garden"
+    garden_id = json.loads((garden / "garden.json").read_text())["id"]
+    record = json.loads((FIXTURES / "source-captured.json").read_text())
+    record.update(id=record_id, garden=garden_id, title="Synthetic source", visibility="private",
+                  origin="urn:synthetic:source", captured_at=TIME, rights="Synthetic fixture only.",
+                  inputs=[], publication="excluded")
+    artifact = {"sha256": digest_bytes(content), "size_bytes": len(content)}
+    if vault_reference is not None:
+        artifact["vault"] = vault_reference
+    else:
+        artifact["path"] = f"sources/{record_id}.txt"
+        (garden / artifact["path"]).write_bytes(content)
+    record["artifact"] = artifact
+    provenance = json.loads((FIXTURES / "provenance.json").read_text())
+    provenance.update(id="provenance-" + record_id, garden=garden_id,
+                      artifact=reference(garden_id, record_id, digest_bytes(content)),
+                      artifact_sha256=digest_bytes(content), inputs=[],
+                      origin="urn:synthetic:source", created_at=TIME, rights="Synthetic fixture only.")
+    record["provenance"] = [reference(garden_id, provenance["id"], digest_bytes(canonical_json(provenance)))]
+    write_json(garden / f"provenance/{provenance['id']}.json", provenance)
+    write_json(garden / f"sources/{record_id}.json", record)
+    return record

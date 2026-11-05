@@ -75,7 +75,6 @@
     "artifact": {
       "type": "object",
       "required": [
-        "path",
         "size_bytes",
         "sha256"
       ],
@@ -89,9 +88,48 @@
         },
         "sha256": {
           "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+        },
+        "vault": {
+          "type": "object",
+          "required": [
+            "id",
+            "content_id"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+            },
+            "content_id": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          },
+          "additionalProperties": false
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "path"
+          ],
+          "not": {
+            "required": [
+              "vault"
+            ]
+          }
+        },
+        {
+          "required": [
+            "vault"
+          ],
+          "not": {
+            "required": [
+              "path"
+            ]
+          }
+        }
+      ]
     },
     "inputs": {
       "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReferences"

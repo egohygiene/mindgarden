@@ -153,6 +153,10 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                           "Move the record and its bytes to an explicitly private storage boundary.")
                 if record.get("schema") in {"mindgarden.knowledge/v1", "mindgarden.source/v1"}:
                     artifact = record.get("content", record.get("artifact"))
+                    # Preserve the represented content identity when storage is
+                    # unavailable; the explicit incomplete diagnostic prevents
+                    # this declaration from being mistaken for verification.
+                    snapshot.hashes[record_id] = artifact["sha256"]
                     if "path" in artifact:
                         content = safe_path(root, artifact["path"]).read_bytes()
                     elif content_resolver is not None:
