@@ -27,6 +27,8 @@ mindgarden index
 mindgarden search
 mindgarden context
 mindgarden llms
+mindgarden federation build
+mindgarden federation catalog
 mindgarden publish project
 mindgarden publish verify
 mindgarden site build
@@ -94,6 +96,14 @@ idempotency, rollback, and v0 → v1 evidence-preservation contract.
 
 Diagnostics are written to standard error and begin with a stable Mindgarden
 error category.
+
+The additive [federation checkpoint](federation.md) uses explicit
+`--local-config`, `--scope`, `--profile` and `--output-directory` inputs for
+`federation build`. Its default is a read-only plan; `--apply` requires the exact
+`--plan-digest`, and `--check` verifies the immutable output. `federation catalog`
+accepts a machine-local `--input` request containing supplied public directories
+and expected revisions. A partial catalog prints its structured result and exits
+`3`; it never fetches remote gardens. Existing v0 commands remain unchanged.
 
 ## Python library
 

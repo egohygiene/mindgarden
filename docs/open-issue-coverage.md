@@ -142,7 +142,7 @@ not one serial gate over all work.
 
 | Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
 | --- | --- | --- | --- | --- |
-| [#16](https://github.com/egohygiene/mindgarden/issues/16) — descriptors/federated discovery/agent projections | ready | #58/#61/#62 supply retrieval/routing/scope inputs; no merged v1 federation descriptor | Versioned descriptor, public indexes/graph/links/llms/checksums, deterministic catalog and negative fixtures; later local-private federation and actual consumer proof | #10/#12/#14 implemented contracts; B1 now, Akashic #176 and Aether #69 integration later |
+| [#16](https://github.com/egohygiene/mindgarden/issues/16) — descriptors/federated discovery/agent projections | partial | B1 dependent draft implements reviewed checksum-bound descriptor/index/graph/agent exports and supplied public catalogs; 20 targeted tests and committed two-garden CLI proof | Review/merge of B1; private/internal federation, incremental refresh, signatures/authentication, rendered routes and actual consumer proof | #10/#12/#14 implemented contracts; B1 review, Akashic #176 and Aether #69 integration later |
 | [#18](https://github.com/egohygiene/mindgarden/issues/18) — composable portal artifact | blocked | V0 Quartz output baseline; no v1 portal-composition proof | Explicit caller-owned `/garden` artifact, path/base URL checks, sibling isolation, previews, recoverable pinned Relay/host proofs | #17 and Relay #4; B3b, propose output contract early without claiming full gate met |
 | [#49](https://github.com/egohygiene/mindgarden/issues/49) — assistant-memory snippets | deferred | Bounded context and authored review primitives, no memory-specific contract | Taxonomy, merge/rewrite/demote/expire/split/pin, transparent budgets, copyable snippets and refresh/privacy fixtures; generalized publication drafts | #46 owning retention contract, #16 and #15 related; R1 after R0; provider-neutral, no source deletion |
 | [#51](https://github.com/egohygiene/mindgarden/issues/51) — provider-switch recovery scenario | ready | #64 clean source/wheel context recovery and immutable evidence baseline | Two distinguishable removable local adapter fixtures, supersession/decision context, isolation and evidence report | Supported #16/#45/context contracts; #47/#49 related rather than whole-application prerequisites; A after B1 |
@@ -208,6 +208,36 @@ work and leave new work in draft PRs; do not silently close umbrella scope.
 
 B0 is draft [#65](https://github.com/egohygiene/mindgarden/pull/65), branch
 `roadmap/14-post-merge-coverage`, initial checkpoint `503153f`. Its coverage,
-pinned owner schemas/continuity and whitespace checks pass. Next: implement B1
-(#16) in a dependent draft. Preserve a combined checkout and record the descriptor's tested
-scope, privacy boundary, unavailable capabilities and next consumer proof.
+pinned owner schemas/continuity and whitespace checks pass. B1 is dependent draft
+[#66](https://github.com/egohygiene/mindgarden/pull/66), with combined checkout
+`feature/16-local-federation-projections`, functional commit
+`015f39676387a4e00c338fdb017a98c6cd11b821`. Next: review both drafts, then select
+B2 (#30) against the supported contracts and remaining decision/runtime gates.
+
+### B1 implementation checkpoint
+
+[Draft #66](https://github.com/egohygiene/mindgarden/pull/66), branch
+`feature/16-local-federation-projections`, depends on B0 draft #65 at `3caea8d`. It adds the
+[public discovery contract and reproducer](federation.md), proposed ADR-0011,
+20 focused federation tests and committed synthetic golden artifacts/report.
+The CLI proof combines two gardens and six public records, follows a catalog
+reference into scoped search and a 5,691-byte context within 16,384 bytes, and
+preserves references after export relocation and a clean rebuild. All network/
+process entry points are blocked in-process; Google/model integrations are unused.
+This is implemented on a review branch, not merged or fully accepted.
+
+A public-output fix also excludes review-required/never-exportable contributions
+before body reads and public revision calculation. Canonical files remain unchanged;
+exports are create-or-verify and conflicting/incomplete directories are refused.
+Incoming unsigned descriptors remain untrusted assertions. Full #16 consumer,
+private-federation, incremental and authentication acceptance remains open.
+
+Verification at functional `015f396`: 159 tests pass without skips on each of
+Python 3.12.14 and 3.13.5. Fresh source/wheel, clean installed v0 smoke, both
+compilation checks, Node 24.19.0, five proposed ADRs against pinned Hygiene,
+pinned Aether continuity and whitespace checks pass. Clean -S source and isolated
+-I wheel reproduce the federation report exactly; the clean-source private proof
+also matches its original report. Main Test run 41960090464 and B0 run
+41963994340 succeeded. B1 Test run 41965122996 also succeeded on `9149b2f`,
+containing functional `015f396`; later documentation-only heads may have fresh checks.
+No workflow was manually dispatched. Exact proof commands: [federation evidence](federation.md).

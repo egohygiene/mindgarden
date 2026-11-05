@@ -1,0 +1,22 @@
+{
+  "canaries": [
+    "private-review-rationale-canary",
+    "unreviewed-body-canary",
+    "private-body-canary",
+    "hidden-garden-canary",
+    "hidden-root-canary",
+    "hidden-vault-canary"
+  ],
+  "unsafe_routes": [
+    "file:///private/source/",
+    "https://user:secret@example.test/garden/",
+    "https://example.test/garden/?token=secret",
+    "https://example.test/a/../private/",
+    "https://example.test/%2e%2e/private/",
+    "https://example.test/%252e%252e/private/",
+    "https://localhost/garden/",
+    "https://127.0.0.1/garden/",
+    "https://10.0.0.1/garden/",
+    "https://example.test/garden/#private"
+  ]
+}

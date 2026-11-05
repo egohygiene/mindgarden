@@ -100,3 +100,13 @@ The [scoped retrieval checkpoint](scoped-retrieval.md) adds adversarial per-reco
 generated-metadata and cache isolation checks for #31. This bounded result does
 not claim federation, consumer publication, broad scale acceptance or runtime
 isolation assurance.
+
+## Public discovery and publication boundaries
+
+The [#16 public discovery draft](federation.md) reuses these application services
+and requires a public-only approved publication session plus an explicitly
+reviewed projection profile. Public output filters review-required and
+never-exportable contributions before body reads, inheritance and public
+revision calculation. Public visibility alone never supplies export authority.
+Descriptors/catalogs do not grant session or tool authority, and retrieval still
+requires explicit authorized canonical inputs. No remote query API is advertised.

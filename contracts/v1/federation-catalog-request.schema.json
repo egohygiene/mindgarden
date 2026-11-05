@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:federation-catalog-request:v1",
+  "title": "Mindgarden federation-catalog-request v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "bundles"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.federation-catalog-request/v1"
+    },
+    "bundles": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "required": [
+          "directory",
+          "expected_revision"
+        ],
+        "properties": {
+          "directory": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_revision": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

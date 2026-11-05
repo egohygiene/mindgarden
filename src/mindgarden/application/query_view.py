@@ -38,6 +38,8 @@ def dependencies(record: dict) -> set[tuple[str, str]]:
 
 def metadata_view(context):
     snapshots = {}
+    public_output = (context.session.get("request_scope", {}).get("visibility") == "public"
+                     and context.session["publication_authority"] == "publishable")
     recognized = {"mindgarden." + item + "/v1" for item in ("knowledge", "claim", "synapse", "source", "provenance")}
     for garden, binding in sorted(context.bindings.gardens.items()):
         def permitted(record):
@@ -45,8 +47,12 @@ def metadata_view(context):
             if not isinstance(schema, str) or schema not in recognized:
                 return False
             reviewed = schema in {"mindgarden.knowledge/v1", "mindgarden.claim/v1", "mindgarden.synapse/v1"}
-            return (context.allowed(garden, record, review=reviewed)
-                    and (not reviewed or record.get("status") in {"active", "proposed"}))
+            if not (context.allowed(garden, record, review=reviewed)
+                    and (not reviewed or record.get("status") in {"active", "proposed"})):
+                return False
+            if public_output and context.declared_scope_for(garden, record)["publication"] != "publishable":
+                return False
+            return True
 
         snapshot = inspect_garden(binding["root"], metadata_only=True, record_filter=permitted,
                                   allow_unavailable_references=True)
@@ -55,8 +61,6 @@ def metadata_view(context):
         snapshots[garden] = snapshot
     records = {(garden, record_id): record for garden, snapshot in snapshots.items()
                for record_id, record in snapshot.records.items()}
-    public_output = (context.session.get("request_scope", {}).get("visibility") == "public"
-                     and context.session["publication_authority"] == "publishable")
     if public_output:
         for identity, record in list(records.items()):
             if record["schema"] == "mindgarden.knowledge/v1" and (record["publication"] != "eligible"

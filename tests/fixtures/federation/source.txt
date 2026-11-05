@@ -1,0 +1,2 @@
+Keep exact source evidence when building a bounded context pack.
+An assistant suggestion remains attributed and uncertain after human review.

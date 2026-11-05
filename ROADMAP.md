@@ -182,13 +182,13 @@ issues: [11, 12, 13, 14, 15, 29, 31, 45]
 
 <!-- roadmap-step
 id: MIG-Q05
-status: planned
+status: active
 depends_on: [MIG-Q04]
 issues: [2, 16, 17, 18]
 -->
 #### MIG-Q05 — Publish privacy-safe projections
 
-**State:** `planned`  
+**State:** `active`
 **Depends on:** `MIG-Q04`
 
 **Outcome:** Issue #2 produces an opt-in Pages or Quartz projection that cannot expose private records by default.
@@ -203,9 +203,11 @@ issues: [2, 16, 17, 18]
 - Issue #2 tracks projections.
 - The v0 reviewed-public projector and immutable Quartz adapter are tested with a synthetic consumer fixture.
 - Consumer deployment workflows and an organization-level garden route remain unimplemented.
-- B1 selects #16's local versioned descriptor, reviewed-public artifacts and
-  synthetic catalog checkpoint next. A local build will not establish consumer
-  deployment, organization adoption or full federation acceptance.
+- B1 implements #16's local versioned descriptor, reviewed-public artifacts and
+  supplied synthetic catalog on the dependent draft branch
+  `feature/16-local-federation-projections`, based on roadmap draft #65. See the
+  [contract and reproducer](docs/federation.md). A local build does not establish
+  consumer deployment, organization adoption or full federation acceptance.
 
 ### Roadmap-to-issue handoff
 

@@ -158,3 +158,15 @@ unverified integration scope. Proposed ADRs remain proposed after implementation
 
 The [open-issue coverage ledger](docs/open-issue-coverage.md) records the
 2026-11-05 merge receipts, remaining parent scope and proposed delivery batches.
+
+## Public discovery checkpoint
+
+The dependent #16 draft adds [reviewed public discovery artifacts](docs/federation.md)
+over existing scoped retrieval and `mindgarden.projection/v1` profiles. Proposed
+[ADR-0011](docs/decisions/ADR-0011-public-federation-projections.md) records the
+sanitized represented-revision, canonical-route and supplied-catalog boundaries.
+Session/profile hashes and local storage locations remain control state. Public
+bundles and catalogs are rebuildable projections; original knowledge ownership
+does not move. Unsigned checksums establish consistency, not authenticated human
+authority. Remote acquisition, serving, private federation and signing are
+explicit unavailable capabilities rather than hidden integrations.

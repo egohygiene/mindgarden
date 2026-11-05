@@ -14,3 +14,4 @@ New decisions inherit [Hygiene policy v1.2.0](policy-reference.json). Decision s
 | [ADR-0008](ADR-0008-immutable-source-vault.md) | Separate source identity, immutable content, and location | Proposed | 2026-11-04 |
 | [ADR-0009](ADR-0009-shared-local-application-services.md) | Extend shared Python application services for the local workflow | Proposed | 2026-11-04 |
 | [ADR-0010](ADR-0010-local-scope-and-review-authority.md) | Keep local scope, review and publication authority independent | Proposed | 2026-11-04 |
+| [ADR-0011](ADR-0011-public-federation-projections.md) | Build public discovery from reviewed scoped projections | Proposed | 2026-11-05 |
