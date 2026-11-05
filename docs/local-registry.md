@@ -179,3 +179,61 @@ Only synthetic fixtures and private temporary control directories are used. Full
 #30 restricted coexistence, native platforms, organization/runtime assurance,
 owned-query-cache cleanup and broad integration acceptance remain open. No parent
 issue or proposed ADR is declared accepted by this local checkpoint.
+
+## Verification receipt — 2026-11-05
+
+Lifecycle commit `a47797b3d4ecb28052f42811eaa828f7868363ce` opened draft #67;
+functional named-view/proof commit `3e654d3366ea20b61a30d73bcea6a5e64d2c06cc`
+is the clean-source archive and installed-wheel source below. Later evidence and
+handoff commits are documentation only.
+
+| Exact command/check | Observed result |
+| --- | --- |
+| `.venv/bin/python -m unittest discover --start-directory tests --verbose` | 186 passed, no skips; Python 3.12.14 |
+| `.cache/python313/bin/python -m unittest discover --start-directory tests --verbose` | 186 passed, no skips; Python 3.13.5 |
+| `.venv/bin/python -m build --sdist --wheel --outdir .cache/dist` | Fresh source/wheel built from functional commit |
+| `.venv/bin/python -m unittest tests.test_distribution --verbose` | 2 passed against fresh artifacts, including registry modules/schemas/demo/fixtures |
+| Both interpreters: `-m compileall -q src scripts tests` | Passed |
+| `node --version`; `git diff --check` | v24.19.0; passed |
+| Clean source `-S --require-source`, isolated wheel `-I --require-installed` | Registry report matches the committed golden exactly in both modes |
+| Same two modes, `scripts/private_garden_demo.py` | Original archive/review/context/vault-relocation report still matches exactly |
+| Isolated wheel command/library smoke | 10 checks passed, including v0 validate/verify/publish verify; no runtime dependencies installed |
+| `python3 .cache/registry_owner_checks.py` (local orchestration of pinned owner validators) | Six proposed/null-approval ADRs, policy/schema/set/index, continuity schema/12 headings/limits and 38-row coverage inventory pass |
+
+Owner checks load Hygiene's validator/schema at
+`a05b14f8b9e2772124f879f818e09a911e996ad8` and Aether's continuity schema at
+`b7597301c4d22a9bcd580967b5753138bb368111` from their checked-out repositories.
+The local orchestration is not a new owner-policy implementation or a runtime
+dependency; the CLI proofs below need neither owner repository nor third-party
+test tools.
+
+Exact proof commands from the repository root, using fresh paths:
+
+```sh
+mkdir .cache/registry-clean-checkout
+git archive --format=tar 3e654d3366ea20b61a30d73bcea6a5e64d2c06cc | \
+  tar --extract --directory .cache/registry-clean-checkout
+PYTHONPATH=.cache/registry-clean-checkout/src .venv/bin/python -S \
+  .cache/registry-clean-checkout/scripts/registry_demo.py --require-source \
+  --workspace .cache/registry-clean-proof --report .cache/registry-clean-report.json
+cmp tests/fixtures/registry/expected-proof.json .cache/registry-clean-report.json
+.venv/bin/python -m venv --without-pip .cache/registry-wheel
+python3 -m pip --python .cache/registry-wheel/bin/python install --no-cache-dir \
+  --disable-pip-version-check --no-index --find-links .cache/dist mindgarden==0.1.0
+.cache/registry-wheel/bin/python -I scripts/registry_demo.py --require-installed \
+  --workspace .cache/registry-installed-proof --report .cache/registry-installed-report.json
+cmp tests/fixtures/registry/expected-proof.json .cache/registry-installed-report.json
+PYTHONPATH=.cache/registry-clean-checkout/src .venv/bin/python -S \
+  .cache/registry-clean-checkout/scripts/private_garden_demo.py --require-source \
+  --workspace .cache/private-after-registry-clean --report .cache/private-after-registry-clean.json
+cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-after-registry-clean.json
+.cache/registry-wheel/bin/python -I scripts/private_garden_demo.py --require-installed \
+  --workspace .cache/private-after-registry-installed --report .cache/private-after-registry-installed.json
+cmp tests/fixtures/conversation-archives/expected-proof.json .cache/private-after-registry-installed.json
+```
+
+Automatic [Test run 42107523013](https://github.com/egohygiene/mindgarden/actions/runs/42107523013)
+succeeded on initial lifecycle head `a47797b`. That is distinct from local checks
+of functional `3e654d3`; later pushed heads receive their own automatic checks.
+No paid workflow was manually launched or retried. The checkpoint is draft,
+unmerged and not fully accepted; ADR-0012 remains proposed/null approval.

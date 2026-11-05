@@ -138,14 +138,16 @@ identity/version contract, while broader registry/platform/runtime gates remain.
 
 ## Verification evidence — 2026-11-05
 
-Implementation is draft [#66](https://github.com/egohygiene/mindgarden/pull/66),
-based on roadmap draft [#65](https://github.com/egohygiene/mindgarden/pull/65)
-at `3caea8ddebc4cb5319c985479f35db4f750a7f44`. The combined checkout is
-`feature/16-local-federation-projections`. Functional commit:
+The bounded implementation [#66](https://github.com/egohygiene/mindgarden/pull/66)
+and roadmap [#65](https://github.com/egohygiene/mindgarden/pull/65) are merged
+after explicit maintainer authorization. Main `44cc1e8` has the tested `5f39fc2`
+tree. The preparation receipts below retain their original branch/revisions;
+merging did not ratify ADR-0011 or complete #16. The combined review branch was
+`feature/16-local-federation-projections`, based on B0 `3caea8d`. Functional commit:
 `015f39676387a4e00c338fdb017a98c6cd11b821`; the verified clean-source archive
 was `9149b2f8421936f0c5723fb068812f82acd27e38` (merging B0 documentation only).
-Later handoff/evidence changes are documentation only. Neither new draft is
-merged. Main remains the authorized private-workflow merge `9fae752`.
+The later registry checkpoint [#67](https://github.com/egohygiene/mindgarden/pull/67)
+also reproduces these public golden bytes with managed named-view sessions.
 
 | Command/check | Observed result |
 | --- | --- |

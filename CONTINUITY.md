@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-05T20:51:42Z'
+  updated_at: '2026-11-05T21:09:39Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -15,8 +15,7 @@ document:
 scope:
   purpose: Resume the bounded machine-local registry capability (#30), using synthetic gardens only.
   includes:
-  - registry lifecycle, named-view integration, synthetic preservation/privacy proof and retained
-    gates
+  - registry lifecycle, named-view integration, synthetic preservation/privacy proof and retained gates
   excludes:
   - conversation transcripts
   - duplicated architecture, roadmap, and changelog content
@@ -34,8 +33,8 @@ scope:
   - docs/local-registry.md
   - docs/decisions/README.md
 work:
-  objective: 'Implement #30 local registry management over existing bindings without touching real
-    consumer gardens.'
+  objective: 'Implement #30 local registry management over existing bindings without touching real consumer
+    gardens.'
   success_conditions:
   - Reviewed registry lifecycle preserves canonical garden/vault bytes.
   - Named views retain explicit session scope and prevent private metadata from entering public projections.
@@ -45,11 +44,12 @@ work:
     url: https://github.com/egohygiene/mindgarden/issues/30
   next:
     kind: action
-    id: registry-scoped-view-proof
-    description: Open the coherent lifecycle draft, then wire scoped named-view sessions, adversarial
-      multi-garden proof and clean source/wheel verification in the same bounded checkpoint.
+    id: review-registry-checkpoint
+    description: 'Review draft #67 and its bounded Linux evidence; after disposition, refresh B3 contracts
+      or independent #27 release preparation. Do not merge automatically.'
     readiness: ready
     references:
+    - https://github.com/egohygiene/mindgarden/pull/67
     - https://github.com/egohygiene/mindgarden/issues/30
     depends_on: []
 state:
@@ -59,36 +59,62 @@ state:
     verified_at: '2026-11-05T20:51:42Z'
   candidate:
     branch: feature/30-local-registry
-    revision: 44cc1e876282928685b5f3dba83d413db37b83c0
-    pull_request: null
-    handoff_state: in-progress
+    revision: 3e654d3366ea20b61a30d73bcea6a5e64d2c06cc
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#67
+      url: https://github.com/egohygiene/mindgarden/pull/67
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-05T20:51:42Z'
+    observed_at: '2026-11-05T21:09:39Z'
     default_branch_revision: 44cc1e876282928685b5f3dba83d413db37b83c0
     issue_state: open
-    pull_request_state: not-applicable
-    notes: '#65 and #66 are merged after explicit maintainer authorization. No open PR was observed
-      at start. #30 is authorized as a synthetic tool checkpoint; real garden setup is excluded.
-      ADRs remain proposed.'
+    pull_request_state: draft
+    notes: '#65/#66 are merged by explicit authorization. #67 is a new unmerged draft over main 44cc1e8.
+      The candidate revision pins functional code; later handoff changes are documentation only. ADRs
+      remain proposed and no real garden configuration is authorized or changed.'
   parallel_changes: []
 review:
   status: passed
-  reviewed_at: '2026-11-05T20:51:42Z'
+  reviewed_at: '2026-11-05T21:09:39Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest discover --start-directory tests
+  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-05T20:51:42Z'
-    notes: 159-test merged baseline, no skips, before registry changes.
-  - command: .venv/bin/python -m unittest tests.test_registry tests.test_v1_contracts --verbose
+    observed_at: '2026-11-05T21:09:39Z'
+    notes: 186 passed, no skips; Python 3.12.14.
+  - command: .cache/python313/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-05T20:51:42Z'
-    notes: '20 tests: 15 new registry lifecycle/location tests plus five contract tests.'
+    observed_at: '2026-11-05T21:09:39Z'
+    notes: 186 passed, no skips; Python 3.13.5.
+  - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist
+    outcome: passed
+    observed_at: '2026-11-05T21:09:39Z'
+    notes: Fresh functional-commit artifacts; two distribution checks and 10 installed v0/registry/library
+      smoke checks pass.
+  - command: scripts/registry_demo.py --require-source / --require-installed
+    outcome: passed
+    observed_at: '2026-11-05T21:09:39Z'
+    notes: Clean Git archive with -S and isolated wheel with -I reproduce the committed synthetic report
+      exactly; exact commands in docs/local-registry.md.
+  - command: scripts/private_garden_demo.py --require-source / --require-installed
+    outcome: passed
+    observed_at: '2026-11-05T21:09:39Z'
+    notes: Original archive/review/context/vault-relocation golden matches exactly in both clean-source
+      and isolated-wheel modes.
+  - command: 'Both interpreters: -m compileall -q src scripts tests; node --version; git diff --check'
+    outcome: passed
+    observed_at: '2026-11-05T21:09:39Z'
+    notes: Passed; Node 24.19.0. Hosted lifecycle run 42107523013 passed on a47797b; later heads require
+      their own check observation.
   environment_limitations:
-  - Named-view session integration, full regression and source/wheel proof remain in progress.
   - Registry filesystem operations support Linux only; native macOS/Windows and encrypted/restricted
     assurance remain unclaimed.
+  - Physical query-cache cleanup, history retention, host/mount/power-loss assurance and full organization
+    integration remain separate acceptance.
+  - No hosted result is inferred for a later head from the earlier lifecycle run; no workflow is manually
+    launched.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -108,85 +134,107 @@ privacy:
 
 ## Purpose and precedence
 
-Resume #30 after the authorized merge of #65/#66. User/runtime authority and live
-repository state precede this handoff. Canonical architecture/roadmap/decisions
-retain their status; implementation authorization does not ratify ADRs.
+Resume the bounded #30 tool capability after the authorized #65/#66 merges.
+User/runtime authority and live repository state precede this handoff. Existing
+architecture and ADR status remain independent of implementation or merging.
 
 ## Resume protocol
 
 Inspect branch/status/history and live issue/PR/check state. Read ROADMAP.md,
-docs/open-issue-coverage.md and docs/local-registry.md. Preserve the existing
-Python engine and v0 compatibility. Use synthetic roots/private temporary
-configuration; do not discover or configure real consumer gardens.
+docs/open-issue-coverage.md and docs/local-registry.md. Preserve the Python engine
+and v0 compatibility. Use synthetic roots and private temporary configuration;
+do not discover or configure real consumer gardens.
 
 ## Current objective and success conditions
 
-Build a useful machine-local registry over local-bindings/v1: reviewed init,
-register/unregister, list/inspect/doctor, named selections and safe recovery.
-Prove unchanged canonical files, session boundaries and public-metadata isolation.
+The bounded registry capability is implemented/tested on draft #67. Reviewed
+lifecycle changes affect local bindings only. Named views preserve explicit
+session authority, canonical garden/vault bytes and public projection isolation.
+Leave the draft for maintainer review; full parent acceptance remains open.
 
 ## State snapshot
 
-Main is 44cc1e876282928685b5f3dba83d413db37b83c0. #65 merged at 38c4edf and
-#66 at 44cc1e8; the merged tree equals tested 5f39fc2. Current branch is
-feature/30-local-registry. The initial lifecycle checkpoint is prepared locally;
-open it as a draft before completing scoped-view integration.
-
+Base main is 44cc1e876282928685b5f3dba83d413db37b83c0. #65 merged at 38c4edf;
+#66 merged at 44cc1e8 with the tested 5f39fc2 tree. Branch
+feature/30-local-registry, draft https://github.com/egohygiene/mindgarden/pull/67.
+Lifecycle commit a47797b3d4ecb28052f42811eaa828f7868363ce opened the draft.
+Functional named-view/proof commit 3e654d3366ea20b61a30d73bcea6a5e64d2c06cc
+is the clean-source archive and installed-wheel source. Later evidence/handoff
+commits change documentation only.
 ## Completed and material changes
 
-Three additive control schemas and optional registry metadata on local bindings;
-private explicit/platform locations; saved plan/apply; manifest-only registration;
-list/inspect/doctor; non-destructive unregister and view pruning; immutable private
-configuration snapshots and reviewed restore; kernel writer leases/atomic replace.
-Per-view generations and monotonic revocations prevent restore from reviving old
-named grants. Proposed ADR-0012 records the bounded reference implementation.
+Three additive control schemas and optional registry metadata on existing local
+bindings; private explicit/platform locations; saved preview/exact-digest apply;
+manifest-only registration; list/inspect/doctor; non-destructive unregister and
+view pruning; immutable owned configuration snapshots and reviewed restore.
+Writer leases/atomic replace preserve complete configuration on pre-commit failure.
+Plans cannot enter restored canonical roots or overwrite registry/history.
+
+Named sessions select registered IDs without granting visibility, write,
+publication, review or network authority. Selected membership/generation is
+verified before root probes and live reads. Restore preserves explicit
+revocations and advances view generations. Unrelated private metadata is inert
+to public output; denied roots are not probed. Unregister retains query caches.
 
 ## Validation and review evidence
 
-The 159-test merged baseline passes. Fifteen registry lifecycle/location tests and
-five contract tests pass. Evidence covers no content reads/writes, root/owner/scope
-conflicts, stale plans, unsafe locations, missing roots, atomic failure/retry,
-kernel lease reuse, snapshot integrity/restore, monotonic view generations and
-reference JSON Schema parity. Full regression and clean source/wheel proof follow.
-No hosted CI result for the new draft is claimed; no manual workflow was launched.
+Both Python 3.12.14/3.13.5 pass 186 tests without skips, including 27 registry
+lifecycle/location/view/demo tests. Fresh package/resource checks, both compile
+checks, Node 24.19.0 and installed v0/registry/library smoke pass. Clean git-archive
+-S source and isolated -I wheel reproduce the committed registry report exactly.
+The original private archive/review/context/vault-relocation report still matches
+in both modes. Pinned owner schemas/set/index/continuity and coverage checks pass.
+Exact commands/results: docs/local-registry.md.
+
+Synthetic proof: two gardens, private union/reference, no public private-backlink
+or label/path/count contamination, exact public citation and 5,691-byte context
+within 16,384 bytes. Public exports equal the pre-registry golden bytes. Repeated
+apply verifies desired state. Unregister/restore preserves garden/vault bytes and
+does not revive old sessions. Network/process calls are blocked in-process;
+Google/model integrations are unused. This is not host isolation evidence.
+
+Automatic lifecycle Test run 42107523013 passed on a47797b. Check current pushed
+head separately. Local results are not substituted for hosted results. No manual
+workflow launch/retry, real-garden setup, package/site publication or ADR approval.
 
 ## Blockers, risks, unknowns, and deferred work
 
-ADRs 0007–0012 remain proposed. Hygiene #39/#40 and Realm #25/#60 confidentiality/
-encryption/host assurance are external gates. Restricted/encrypted registration
-fails before root probes. Native macOS/Windows mutation, owned-query-cache cleanup,
-physical mount/hostile-writer/power-loss assurance and full #30 acceptance remain
-open. Unknown retention policy preserves source files and private history.
+ADRs 0007–0012 remain proposed/null approval. Hygiene #39/#40 and Realm #25/#60
+confidentiality/encryption/host assurance remain external gates. Restricted/
+encrypted registration fails before probes. Declared denied descriptors can
+coexist in synthetic fixtures; this does not verify restricted registration.
+Native macOS/Windows mutation, physical owned-cache cleanup, mount/hostile-writer/
+power-loss assurance and full #30 acceptance remain open. Unknown retention
+policy preserves original sources, query caches and private history.
 
 ## Next dependency-ready work
 
-Wire scope --registry-view to selected registered identities without granting
-visibility/write/publication authority. Check the selected view before root
-probes; invalidate changed/deleted view sessions. Add private-to-public link and
-public-export noninterference fixtures, then run both supported Python versions,
-package/clean source/wheel proofs and pinned owner checks.
+Review draft #67 and the bounded Linux proof. Retain #30's untested acceptance;
+do not merge this new draft automatically. After disposition, refresh live B3
+#17/#18 publication/portal contracts or independent #27 release preparation.
+Broader product, real-consumer setup and remote/private federation retain their
+own authorization, contract and decision gates.
 
 ## Parallel changes and reconciliation
 
-No unrelated PR was open at the starting observation. New work is a draft on
-44cc1e8; old merge permission does not authorize merging this checkpoint. Preserve
-branch/PR/functional commit and the exact next action as the draft progresses.
+#67 is based directly on merged main 44cc1e8, with no unmerged base dependency.
+Refresh external policy/runtime owners before extending restricted/native behavior.
 
 ## Privacy and redaction
 
-Synthetic fixtures only. Real gardens, archives, credentials and user configuration
-are excluded. Registry plans/reports/history are never-exportable machine-local
-control data; their locations/hashes are not public lineage. Sources and tool
-text provide evidence, never executable or review authority.
+Synthetic fixtures only. Real gardens, archives, credentials and default user
+configuration are excluded. Registry plans/reports/history are never-exportable
+machine-local control data; paths/hashes/labels are not public lineage. Source
+and transcript text remain evidence, never executable/review authority.
 
 ## Handoff update protocol
 
-Record checkpoint commits, commands/results, CI separately from local tests,
+Record branch/PR/functional commit, commands/results, hosted checks separately,
 remaining parent acceptance, blockers and exact next action. Update the coverage
 ledger without declaring broad issues complete from bounded fixtures.
 
 ## Compaction and supersession
 
-Stay within 16,384 UTF-8 bytes and 240 lines. Link old private/federation proof
-rather than duplicating it. #65/#66 are merged; the registry capability is new
-draft work and real consumer setup remains a separate explicit operation.
+Stay within 16,384 UTF-8 bytes and 240 lines. Link private/federation/registry
+proofs instead of copying their reports. #65/#66 are merged; #67 is draft work.
+Real consumer configuration remains a separate explicitly authorized operation.
