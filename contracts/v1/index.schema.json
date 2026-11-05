@@ -280,7 +280,11 @@
           "type": "object",
           "required": [
             "from",
-            "type"
+            "type",
+            "reference",
+            "review",
+            "scope",
+            "sources"
           ],
           "properties": {
             "from": {
@@ -288,6 +292,21 @@
             },
             "type": {
               "type": "string"
+            },
+            "reference": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+            },
+            "review": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+            },
+            "scope": {
+              "$ref": "urn:egohygiene:mindgarden:scope:v1"
+            },
+            "sources": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+              }
             }
           },
           "additionalProperties": false

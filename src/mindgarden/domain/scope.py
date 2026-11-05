@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from functools import lru_cache
+
 from .contracts import ContractRegistry, canonical_json, digest_bytes
 from .validation import ContractError
 
@@ -21,8 +23,14 @@ EXECUTION_ORDER = {"networked": 0, "controlled-import": 1, "offline": 2}
 PERSISTENCE_ORDER = {"git-tracked": 0, "machine-local": 1, "encrypted-vault": 2}
 
 
+@lru_cache(maxsize=1)
+def scope_contracts() -> ContractRegistry:
+    """Reuse immutable shipped schemas; never cache user records or decisions."""
+    return ContractRegistry()
+
+
 def validate_scope(scope: dict, visibility: str | None = None) -> dict:
-    errors = ContractRegistry().errors(scope, "scope")
+    errors = scope_contracts().errors(scope, "scope")
     if errors:
         raise ContractError("SCOPE_INVALID: supply a complete supported scope contract")
     if scope["policy"] != POLICY_REFERENCE:

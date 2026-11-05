@@ -396,6 +396,27 @@ def build_parser() -> ArgumentParser:
         mode.add_argument("--" + operation, action="store_true")
     route.add_argument("--plan-digest", help="Reviewed plan digest, or interrupted operation digest for recovery")
     route.set_defaults(handler=run_route)
+    from ..application.sessions import run_scope
+
+    scope = commands.add_parser("scope", help="Author an explicit local query session with current authorized revisions")
+    scope.add_argument("--local-config", type=Path, required=True)
+    scope.add_argument("--session-id", required=True)
+    scope.add_argument("--readable-garden", action="append", required=True)
+    scope.add_argument("--writable-garden")
+    scope.add_argument("--allowed-visibility", action="append", required=True,
+                       choices=("public", "organization", "personal", "restricted"))
+    scope.add_argument("--allowed-review-state", action="append", choices=("approved", "in-review", "unreviewed", "rejected"))
+    scope.add_argument("--execution", choices=("offline", "controlled-import", "networked"), default="offline")
+    scope.add_argument("--publication-authority", choices=("never-exportable", "review-required", "publishable"), default="never-exportable")
+    scope.add_argument("--request-visibility", choices=("public", "organization", "personal", "restricted"), default="personal")
+    scope.add_argument("--projection", action="append", choices=("index", "search", "graph", "backlinks", "context", "llms", "evidence"))
+    scope.add_argument("--max-results", type=positive_integer, default=100)
+    scope.add_argument("--max-context-bytes", type=positive_integer, default=16384)
+    scope.add_argument("--max-depth", type=positive_integer, default=4)
+    scope.add_argument("--max-candidates", type=positive_integer, default=1000)
+    scope.add_argument("--expires-at", required=True)
+    scope.add_argument("--output", type=Path, help="Create a new private session file; omission previews JSON")
+    scope.set_defaults(handler=run_scope)
     from ..application.storage import run_vault
 
     vault = commands.add_parser("vault", help="Manage explicitly bound private source storage")

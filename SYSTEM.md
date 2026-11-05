@@ -67,7 +67,7 @@ Systems fail closed at destructive, publication, privacy, and security boundarie
 - **Observed:** The v1 schemas, adversarial fixtures, lifecycle regression suite, v0 runtime, installable package, profiles, clean-wheel smoke tests, and conformance tests provide runnable evidence for the implemented states above.
 - **Decided:** Mindgarden owns reusable capability; each consumer owns its canonical `.garden/` knowledge.
 - **Implemented on the milestone draft stack:** General v1 validation, local source storage, normalized-source adapters, reviewed retrieval/context, and authored curation have local conformance evidence. See CONTINUITY.md for exact revisions and checks.
-- **Proposed/deferred:** Complete scope enforcement and vault recovery remain checkpoint work; federation remains later integration scope.
+- **Proposed/deferred:** Vault recovery remains checkpoint work; federation and external runtime assurance remain later integration scope.
 - **Open question:** Which later consumer milestone permits deprecating the v0 runtime surface?
 
 ## Milestone ownership and state
@@ -78,7 +78,7 @@ Systems fail closed at destructive, publication, privacy, and security boundarie
 | Source normalization and exact evidence selectors | Mindgarden adapters/application | Text and bounded v3.2.2/v3.2.3 archive adapters on draft stack; full producer conformance unclaimed |
 | Immutable original bytes | Explicit private vault, owned by consumer | Filesystem identity/checksum/audit checkpoint on draft stack; export/restore/relocation pending |
 | Reviewed knowledge and typed relationships | Consumer garden; Mindgarden contracts/services | General v1 validation and reviewed projections on draft stack |
-| Review, curation, routing and context selection | Mindgarden services; human authority | Authored curation, bounded context and candidate routing/recovery on draft stack; complete scope adversaries pending |
+| Review, curation, routing and context selection | Mindgarden services; human authority | Authored curation, bounded context, candidate routing/recovery and local scope adversaries on draft stack; external policy/assurance integration open |
 | Archival reservoir | Athena | Separate integration, deferred |
 | Public reviewed resource catalog | Akashic | Separate publication approval and integration, deferred |
 | Agent behavior and capabilities | Aether | Optional producer/session integration |
