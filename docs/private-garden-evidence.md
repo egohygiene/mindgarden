@@ -109,11 +109,11 @@ Both versions in the owner CI matrix passed locally. Automatic GitHub
 [Test run 27](https://github.com/egohygiene/mindgarden/actions/runs/41778548306)
 completed successfully on `072ec03229563daff09ce548f683becfca7e6d5d`, whose functional
 code is the revision above. Later documentation-only heads may have fresh checks;
-see draft PR #64 for current status. No workflow was manually launched.
+the 2026-11-05 merge receipts are in the coverage ledger. No workflow was manually launched.
 
 ## Stack and remaining acceptance
 
-P01–P11 are draft PRs [#52](https://github.com/egohygiene/mindgarden/pull/52)
+At the original pre-merge handoff, P01–P11 were draft PRs [#52](https://github.com/egohygiene/mindgarden/pull/52)
 through [#62](https://github.com/egohygiene/mindgarden/pull/62), each based on its
 predecessor. P12a is [#63](https://github.com/egohygiene/mindgarden/pull/63), with
 functional commit `16394c4` and handoff `afbd420`. P12b is the combined
