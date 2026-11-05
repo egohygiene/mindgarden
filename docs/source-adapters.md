@@ -13,6 +13,12 @@ and emits exactly one terminal newline. Originals remain byte-identical in the
 private vault; both original and normalized hashes and ordered transformations
 are retained. Text inputs are bounded to 2,000,000 bytes.
 
+Origins are credential-free HTTP(S) or URN identities. File paths, URL userinfo
+and known credential/signature query fields are rejected without echoing them.
+Acquisition paths and provider credentials belong in private runtime bindings,
+not portable source/provenance records. Generated metadata is bounded to 2 MB;
+oversized metadata fails during planning before any immutable blob is written.
+
 ```bash
 mindgarden ingest --repository-root "/private/garden" \
   --local-config "/private/bindings.json" --vault-id "private-sources" \

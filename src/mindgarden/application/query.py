@@ -32,6 +32,23 @@ def authority_object(path: Path) -> dict:
         raise ContractError("SESSION_UNAVAILABLE: explicit local authority cannot be read") from error
 
 
+def selected_garden_ids(document: dict, session: dict) -> set[str]:
+    """Deny incompatible policy/capabilities before probing physical roots."""
+    readable = {item["garden"] for item in session["readable"]}
+    selected = set()
+    for item in document.get("gardens", []):
+        if not isinstance(item, dict) or not isinstance(item.get("id"), str) or item["id"] not in readable:
+            continue
+        try:
+            scope = validate_scope(item["scope"])
+        except (ContractError, KeyError, TypeError):
+            continue
+        if (scope["visibility"] in session["allowed_visibilities"] and scope["persistence"] != "encrypted-vault"
+                and scope["execution"] == session["execution"]):
+            selected.add(item["id"])
+    return selected
+
+
 @dataclass
 class QueryContext:
     session_path: Path
@@ -69,10 +86,7 @@ class QueryContext:
         raw_bindings = authority_object(local_config)
         if session["id"] in raw_bindings.get("revoked_sessions", []):
             raise ContractError("SESSION_REVOKED: query authority was revoked")
-        selected = {item["id"] for item in raw_bindings.get("gardens", [])
-                    if isinstance(item, dict) and item.get("id") in readable
-                    and isinstance(item.get("scope"), dict) and item["scope"].get("visibility")
-                    in session["allowed_visibilities"]}
+        selected = selected_garden_ids(raw_bindings, session)
         bindings = LocalBindings.load(local_config, garden_ids=selected, vault_ids=set())
         context = cls(session_path.absolute(), session, bindings,
                       selected_clock, digest_bytes(session_path.read_bytes()))

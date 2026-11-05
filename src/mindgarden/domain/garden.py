@@ -307,9 +307,24 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
     for record_id, record in snapshot.records.items():
         location = snapshot.locations[record_id]
         kind = record["schema"].removeprefix("mindgarden.").removesuffix("/v1")
+        if kind in {"source", "provenance"} and record.get("origin") is not None:
+            from .sources import validate_origin
+
+            try:
+                validate_origin(record["origin"])
+            except (ContractError, ValueError):
+                issue("SOURCE_ORIGIN_UNSAFE", location, "Source origin contains unsupported physical or credential metadata",
+                      "Use a credential-free HTTP(S) or URN source identity and keep acquisition locations in private bindings.")
         for reference in record.get("provenance", []) if kind in {"knowledge", "source"} else []:
             resolve(reference, location, "provenance")
         if kind == "knowledge":
+            if record["publication"] == "eligible":
+                from .publication import permits_publication
+
+                if not permits_publication(snapshot.manifest["publication"], kind=record["kind"],
+                                            domains=record["domains"], topics=record["topics"]):
+                    issue("PUBLICATION_POLICY", location, "Publication eligibility is outside the explicit garden allowlist",
+                          "Review the kind/domain/topic allowlists; empty lists grant no publication.")
             if record["visibility"] == "public" and record_id in snapshot.contents:
                 text = snapshot.contents[record_id].decode("utf8", errors="replace")
                 for match in re.finditer(r"!?\[[^\]]*\]\(([^\s)]+)", text):

@@ -53,6 +53,8 @@ is the default, and raw sources never become ordinary knowledge search results.
 - `mindgarden context --pack "default" --format "json"` renders bounded context.
 - `mindgarden llms` renders an authorized local entrypoint.
 - `mindgarden verify` independently rebuilds and compares authorized indexes.
+- `mindgarden evidence` resolves an exact `sources` selection returned by search,
+  with source identity, original selector, attribution and review authority.
 
 New gardens include a reviewed `default` context profile. Existing gardens can
 add a conforming `mindgarden.context-profile/v1` record through reviewed authoring;

@@ -124,3 +124,12 @@ class SourceAdapterTests(unittest.TestCase):
         with self.assertRaisesRegex(ContractError, "SOURCE_ENCODING"):
             self.plan()
         self.assertEqual(self.vault.audit()["objects"], [])
+
+    def test_physical_and_credential_origins_are_rejected_without_echo_or_writes(self):
+        for origin in ("file:///private/synthetic-secret.txt", "https://user:synthetic-secret@example.test/source",
+                       "https://example.test/source?api_key=synthetic-secret"):
+            self.metadata["origin"] = origin
+            with self.assertRaisesRegex(ContractError, "SOURCE_ORIGIN_UNSAFE") as raised:
+                self.plan()
+            self.assertNotIn("synthetic-secret", str(raised.exception))
+        self.assertEqual(self.vault.audit()["objects"], [])

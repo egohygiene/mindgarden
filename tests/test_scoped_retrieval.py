@@ -79,6 +79,58 @@ class ScopedRetrievalTests(unittest.TestCase):
         self.assertNotIn(b"denied-vault", before)
         self.assertEqual(len(json.loads(before)["inputs"]), 1)
 
+    def test_unknown_policy_and_unavailable_encryption_are_denied_before_root_probe(self):
+        configuration = json.loads(self.configuration.read_text())
+        unknown = local_scope(); unknown["policy"]["id"] = "unknown-policy"
+        configuration["gardens"] += [{"id": "unknown-policy-garden", "root": "/missing/denied-policy-root", "scope": unknown},
+                                      {"id": "restricted-garden", "root": "/missing/denied-restricted-root", "scope": local_scope("restricted")}]
+        write_json(self.configuration, configuration)
+        session = json.loads(self.session_path.read_text()); session["allowed_visibilities"].append("restricted")
+        session["readable"] += [{"garden": identity, "revision": "sha256:" + "0" * 64}
+                                for identity in ("unknown-policy-garden", "restricted-garden")]
+        from mindgarden.application.bindings import explicit_root
+
+        def guarded_root(value, **options):
+            if "denied-" in value:
+                raise AssertionError("Denied root probed before policy/capability authorization")
+            return explicit_root(value, **options)
+
+        with patch("mindgarden.application.bindings.explicit_root", side_effect=guarded_root):
+            write_json(self.session_path, bind_session_revisions(self.configuration, session))
+            context = QueryContext.load(self.configuration, self.session_path)
+            before = canonical_json(build_index(context))
+        configuration["gardens"][-2]["root"] = str(self.workspace)
+        write_json(self.configuration, configuration)
+        self.assertEqual(before, canonical_json(build_index(context)))
+        self.assertNotIn(b"unknown-policy-garden", before)
+        self.assertNotIn(b"restricted-garden", before)
+
+    def test_explicit_scope_never_falls_back_to_unscoped_v0_cli_or_library(self):
+        from mindgarden.application import agent
+
+        v0_root = Path(__file__).parent / "fixtures/public-garden"
+        legacy = agent.build_index(v0_root)
+        self.assertEqual(agent.build_index(v0_root, query_context=self.context)["schema"], "mindgarden.index/v1")
+        result = agent.search_payload(legacy, "prompt", limit=10, include_unreviewed=False, query_context=self.context)
+        self.assertEqual(result["schema"], "mindgarden.search-results/v1")
+        expected = search_payload(self.context, "prompt")
+        with redirect_stdout(io.StringIO()) as output:
+            self.assertEqual(main(["search", "--repository-root", str(v0_root), "--local-config", str(self.configuration),
+                                   "--scope", str(self.session_path), "--query", "prompt"]), 0)
+        self.assertEqual(json.loads(output.getvalue()), expected)
+        unbound = self.root / "denied-cli-root"
+        is_file = Path.is_file
+
+        def guarded_file(path):
+            if path == unbound / ".garden/garden.json":
+                raise AssertionError("Unbound root probed during scoped command dispatch")
+            return is_file(path)
+
+        with patch.object(Path, "is_file", guarded_file), redirect_stdout(io.StringIO()) as output:
+            self.assertEqual(main(["search", "--repository-root", str(unbound), "--local-config", str(self.configuration),
+                                   "--scope", str(self.session_path), "--query", "prompt"]), 0)
+        self.assertEqual(json.loads(output.getvalue()), expected)
+
     def test_denied_source_dependency_excludes_reviewed_derivation_before_body_read(self):
         before = canonical_json(build_index(self.context))
         source = add_source(self.workspace, b"restricted-source-canary", record_id="restricted-source")
@@ -220,6 +272,32 @@ class ScopedRetrievalTests(unittest.TestCase):
             write_projection(context, public_root, "index.json", canonical_json(index))
         manifest = json.loads((public_root / ".garden/garden.json").read_text())
         self.assertFalse((public_root / ".garden" / manifest["roots"]["generated"][0] / "scopes").exists())
+
+    def test_public_allowlist_denial_precedes_body_reads_and_candidate_metadata(self):
+        root = self.root / "public-policy"; create_garden(root, "public-policy", "public")
+        body = "publication-denied-canary\n"
+        note = add_knowledge(root, "public-note", body=body, visibility="public"); note["publication"] = "eligible"
+        write_json(root / ".garden/knowledge/public-note.json", note)
+        configuration = json.loads(self.configuration.read_text())
+        configuration["gardens"].append({"id": "public-policy", "root": str(root),
+                                          "scope": local_scope("public", publication="publishable")})
+        write_json(self.configuration, configuration)
+        session = write_session(self.session_path, self.configuration, visibility=["public"], readable_ids=["public-policy"], writable=None)
+        session.update(publication_authority="publishable", request_scope=local_scope("public", publication="publishable"))
+        write_json(self.session_path, bind_session_revisions(self.configuration, session))
+        context = QueryContext.load(self.configuration, self.session_path)
+        before = canonical_json(build_index(context))
+        self.assertEqual(json.loads(before)["records"], [])
+        (root / ".garden/knowledge/public-note.md").write_text("Modified denied body; must not be verified or exported.")
+        self.assertEqual(before, canonical_json(build_index(context)))
+        self.assertNotIn(b"publication-denied-canary", before)
+        (root / ".garden/knowledge/public-note.md").write_text(body)
+        manifest_path = root / ".garden/garden.json"; manifest = json.loads(manifest_path.read_text())
+        manifest["publication"]["allow"] = {"kinds": ["procedure"], "domains": ["knowledge-systems"], "topics": ["prompt-bank"]}
+        write_json(manifest_path, manifest)
+        write_json(self.session_path, bind_session_revisions(self.configuration, session))
+        allowed = build_index(QueryContext.load(self.configuration, self.session_path))
+        self.assertEqual(allowed["records"][0]["reference"]["id"], "public-note")
 
     def test_authorized_corruption_has_generic_diagnostics_and_no_partial_stdout(self):
         (self.workspace / ".garden/knowledge/synthetic-prompt.md").write_text("denied-body-canary")

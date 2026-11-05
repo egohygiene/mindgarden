@@ -1,0 +1,56 @@
+{
+  "archive_profile": "full-source",
+  "archive_sha256": "f3a68532baab877d62576769f5d2a2843e9eb3f33b8062545b62435ef40df6d3",
+  "archive_spec_version": "3.2.3",
+  "checks": [
+    "private-init-and-general-validation",
+    "archive-original-preserved",
+    "repeat-import-no-duplicates",
+    "authored-human-review",
+    "exact-source-search-and-evidence",
+    "bounded-json-and-markdown-context",
+    "deterministic-index",
+    "vault-export",
+    "relocation-same-reference",
+    "restore-clean-vault",
+    "rebuild-clean-garden-without-caches",
+    "original-vault-retained",
+    "no-physical-paths-in-records"
+  ],
+  "context_bytes": 2670,
+  "context_max_bytes": 16384,
+  "context_sha256": "ad4b35cf61e6e89209eb8e5e629e7aac3333a71708614f198426200e2411a2df",
+  "engine_version": "0.1.0",
+  "index_sha256": "d3523aba3283c72c05ee76932b353d098d23055dd69076f918d8388bc5c46cdf",
+  "integrations": {
+    "google": "unused",
+    "model": "unused",
+    "network": "blocked-in-process"
+  },
+  "knowledge": {
+    "epistemic_state": "proposed",
+    "id": "reviewed-prompt",
+    "review": "approved",
+    "topic": "prompt-bank"
+  },
+  "original_selector": {
+    "json_pointer": "/messages/1",
+    "member": "CONVERSATION.json",
+    "member_sha256": "53d78f86def28dda8c102e69d8bf51b606dd12df2e74de7ac17f1af394497fd1"
+  },
+  "schema": "mindgarden.synthetic-workflow-proof/v1",
+  "source_reference": {
+    "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+    "locator": "json:/content/0/text",
+    "source": {
+      "garden": "synthetic-garden",
+      "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+      "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+    }
+  },
+  "source_review": "unreviewed",
+  "speaker": "assistant",
+  "status": "passed",
+  "vault_backup_sha256": "c74e215fc9a035abc701ecab54a041ed840e3a6b8201314e151f6834ff0dba5d",
+  "vault_objects": 6
+}

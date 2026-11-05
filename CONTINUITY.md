@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-04T04:40:13Z'
+  updated_at: '2026-11-04T05:24:39Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -30,6 +30,7 @@ scope:
   - SYSTEM.md
   - ROADMAP.md
   - docs/private-garden-milestone.md
+  - docs/private-garden-evidence.md
   - docs/decisions/README.md
 work:
   objective: Implement the first portable local private-garden workflow through bounded draft
@@ -39,94 +40,67 @@ work:
     relocation works offline.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#45
-    url: https://github.com/egohygiene/mindgarden/issues/45
+    id: egohygiene/mindgarden#20
+    url: https://github.com/egohygiene/mindgarden/issues/20
   next:
     kind: issue
-    id: egohygiene/mindgarden#20
-    description: 'P12b: commit the synthetic integration proof, build fresh distributions,
-      demonstrate clean source checkout and isolated wheel operation offline, link bounded
-      evidence to #20, and leave the complete stack for human review.'
+    id: egohygiene/mindgarden#42
+    description: 'Review proposed ADRs/ownership in draft #52, then review #53 through #64
+      in stack order; retain broader parent acceptance and external owner gates.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/20
+    - https://github.com/egohygiene/mindgarden/issues/42
     depends_on: []
 state:
   base:
-    revision: e31d5748669f56b2351be546a4744b92a1561f32
-    ref: refs/heads/milestone/11-scoped-retrieval
-    verified_at: '2026-11-04T04:40:13Z'
+    revision: afbd420d081203395832a7b06370203fe691ebf6
+    ref: refs/heads/milestone/12-vault-recovery
+    verified_at: '2026-11-04T05:19:25Z'
   candidate:
-    branch: milestone/12-vault-recovery
-    revision: 16394c4e57a21a14202ab8bf8edc1586dfcd7ff1
+    branch: milestone/13-offline-workflow-proof
+    revision: 23d2952d705552c91833bbbf015d66bc806df9bc
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#63
-      url: https://github.com/egohygiene/mindgarden/pull/63
+      id: egohygiene/mindgarden#64
+      url: https://github.com/egohygiene/mindgarden/pull/64
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-04T02:21:20Z'
+    observed_at: '2026-11-04T05:19:25Z'
     default_branch_revision: 7ac577e385f0b2c26eff37bdfb10f3b550f29da1
     issue_state: open
-    pull_request_state: not-applicable
-    notes: Main and open PRs inspected through GitHub; no open PR observed before this checkpoint.
+    pull_request_state: open
+    notes: 'All thirteen PRs #52 through #64 inspected open, draft and unmerged with consecutive
+      bases. Main unchanged. Automatic Test run 27 succeeded on 072ec03 (functional code 23d2952);
+      subsequent changes are documentation only.'
   parallel_changes:
   - provider: github
-    id: egohygiene/mindgarden#52
-    url: https://github.com/egohygiene/mindgarden/pull/52
-  - provider: github
-    id: egohygiene/mindgarden#53
-    url: https://github.com/egohygiene/mindgarden/pull/53
-  - provider: github
-    id: egohygiene/mindgarden#54
-    url: https://github.com/egohygiene/mindgarden/pull/54
-  - provider: github
-    id: egohygiene/mindgarden#55
-    url: https://github.com/egohygiene/mindgarden/pull/55
-  - provider: github
-    id: egohygiene/mindgarden#56
-    url: https://github.com/egohygiene/mindgarden/pull/56
-  - provider: github
-    id: egohygiene/mindgarden#57
-    url: https://github.com/egohygiene/mindgarden/pull/57
-  - provider: github
-    id: egohygiene/mindgarden#58
-    url: https://github.com/egohygiene/mindgarden/pull/58
-  - provider: github
-    id: egohygiene/mindgarden#59
-    url: https://github.com/egohygiene/mindgarden/pull/59
-  - provider: github
-    id: egohygiene/mindgarden#60
-    url: https://github.com/egohygiene/mindgarden/pull/60
-  - provider: github
-    id: egohygiene/mindgarden#61
-    url: https://github.com/egohygiene/mindgarden/pull/61
-  - provider: github
-    id: egohygiene/mindgarden#62
-    url: https://github.com/egohygiene/mindgarden/pull/62
+    id: egohygiene/mindgarden#63
+    url: https://github.com/egohygiene/mindgarden/pull/63
 review:
   status: passed
-  reviewed_at: '2026-11-04T04:40:13Z'
+  reviewed_at: '2026-11-04T05:19:25Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests
     outcome: passed
-    observed_at: '2026-11-04T04:40:13Z'
-    notes: '132 tests ran: 130 passed, 2 distribution tests skipped because the isolated checkout
-      has no built distributions. Python 3.12.14.'
-  - command: .venv/bin/python -m compileall -q src scripts tests
+    observed_at: '2026-11-04T05:19:25Z'
+    notes: 139 tests, no skips, Python 3.12.14.
+  - command: .cache/python313/bin/python -m unittest discover --start-directory tests
     outcome: passed
-    observed_at: '2026-11-04T04:40:13Z'
-    notes: All Python sources compiled.
-  - command: git diff --check
+    observed_at: '2026-11-04T05:19:25Z'
+    notes: 139 tests, no skips, Python 3.13.5.
+  - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist
     outcome: passed
-    observed_at: '2026-11-04T04:40:13Z'
-    notes: No whitespace errors.
-  - command: Pinned Hygiene decision validator and Aether continuity schema/headings/limits
+    observed_at: '2026-11-04T05:19:25Z'
+    notes: 'Fresh distributions; isolated wheel and clean source proof match committed report.
+      V0 installed CLI/library smoke passed. Exact commands: docs/private-garden-evidence.md.'
+  - command: compileall; git diff --check; Node 24; pinned Hygiene ADR and Aether continuity
+      checks
     outcome: passed
-    observed_at: '2026-11-04T04:40:13Z'
-    notes: Owner checks run after this refresh.
+    observed_at: '2026-11-04T05:19:25Z'
+    notes: Both interpreters compiled; Node 24.19.0. Owner checks repeat after this handoff
+      refresh.
   environment_limitations:
   - No new hosted CI run or Python 3.13 local execution claimed.
 privacy:
@@ -149,68 +123,84 @@ privacy:
 ## Purpose and precedence
 
 Resume the finite local milestone. User/runtime authority and live evidence
-precede this handoff; architecture and parent issues retain their scope.
+precede this handoff; canonical documents and parent issues retain their scope.
 
 ## Resume protocol
 
-Read the canonical sources, inspect branch/status/history and verify the live PR
-stack. Preserve proposed decisions, authority boundaries and external gaps.
+Read the canonical sources and inspect branch/status/history, live PRs and CI.
+Use the evidence report's complete stack and exact verification commands.
 
 ## Current objective and success conditions
 
-Deliver the synthetic archive to reviewed prompt entry, exact-source search,
-bounded context and relocation/restore proof with networking and models disabled.
+The synthetic private archive → reviewed prompt → exact-source search/evidence →
+bounded context → vault relocation/restore → clean rebuild checkpoint is verified.
+The next action is human review of the concrete draft stack.
 
 ## State snapshot
 
-P12a candidate: `milestone/12-vault-recovery`, based on `e31d5748669f56b2351be546a4744b92a1561f32` from
-`milestone/11-scoped-retrieval`. Combined checkout is this candidate branch; functional revision is `16394c4`; draft PR is [#63](https://github.com/egohygiene/mindgarden/pull/63). No merge or new hosted CI pass is claimed.
+Combined branch: `milestone/13-offline-workflow-proof`, draft
+[#64](https://github.com/egohygiene/mindgarden/pull/64), based on #63 (`afbd420`).
+Verified functional revision: `23d2952d705552c91833bbbf015d66bc806df9bc`.
+Later evidence/handoff commits change documentation only. Main remains `7ac577e`.
+All thirteen PRs #52–#64 are open, draft and unmerged; no parent issue was closed.
 
 ## Completed and material changes
 
-Functional commit 16394c4 adds bounded deterministic vault export/restore, complete reference-aware audits, checksum verification, non-destructive relocation/rebind and failed-rebind retry, plus exact reviewed-citation evidence resolution. Public routing keeps private request/catalog fingerprints and routing labels out of public records; governing metadata scope and target capability declarations fail closed. Isolated committed P12a checkout ran 132 tests: 130 passed and two distribution tests skipped because that checkout has no built artifacts. Python compilation, whitespace and Node 24.19.0 checks passed. The full working integration proof has 134 passing tests, but is deliberately left for P12b and is not part of this candidate.
-
-Prior draft stack: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57); [#58](https://github.com/egohygiene/mindgarden/pull/58); [#59](https://github.com/egohygiene/mindgarden/pull/59); [#60](https://github.com/egohygiene/mindgarden/pull/60); [#61](https://github.com/egohygiene/mindgarden/pull/61); [#62](https://github.com/egohygiene/mindgarden/pull/62). Each parent retains its unchecked acceptance scope.
-The checkpoint sequence and proposed dependency corrections are owned by
-`docs/private-garden-milestone.md`; ADRs 0007–0010 remain proposed.
+General v1 validation and preserved v0 behavior; portable scope/local bindings;
+immutable filesystem vault and text/current-archive adapters; reviewed knowledge
+and claim retrieval, graphs/backlinks, bounded context and exact evidence;
+six authored curation dispositions with separate review authority; explained
+private routing and journaled recovery; scoped metadata/body/cache enforcement;
+bounded audit/export/restore/relocation and the committed offline workflow proof.
+Public allowlists deny empty values. Unknown policy/capabilities are denied before
+root probes; explicit scopes cannot fall back to owner v0 retrieval.
 
 ## Validation and review evidence
 
-130 tests passed on Python 3.12.14. Python compilation and whitespace
-checks passed. Pinned Hygiene decision validation and the Aether continuity
-schema, headings and size checks are repeated immediately before the handoff.
-Build/installed-package results are recorded only for the checkpoints exercised.
+139 tests pass without skips on both Python 3.12.14 and 3.13.5. Fresh source/wheel
+builds, installed v0 command/library smoke, both compilation checks, whitespace,
+Node 24.19.0 and pinned owner checks pass. Only mindgarden is installed in the
+wheel environment. Clean source (`-S`) and isolated wheel (`-I`) reproduce the
+committed report exactly; JSON context uses 2,670 of 16,384 bytes.
+Hosted [Test run 27](https://github.com/egohygiene/mindgarden/actions/runs/41778548306)
+passed on `072ec03` (the same functional code). Later doc heads may have new checks.
+See `docs/private-garden-evidence.md` for commands, hashes and all ten status rows.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Human ADR disposition remains pending. Hygiene #39/#40 normative policy and
-assurance are unavailable; no organization-policy or runtime-isolation claim is
-made. #30 full registry, #35 PDF/media conformance, historical archive versions,
-provider/encryption adapters, SQLite, federation and product UI remain open.
-Bounded implementation was explicitly authorized; merging was not.
+ADRs 0007–0010 remain proposed. Normative Hygiene #39/#40 and released Realm
+assurance inputs remain unavailable/unverified; there is no organization-policy,
+encryption or process/network isolation claim. Full #30 registry, #35 PDF/media,
+#45 triage/retention/provider/platform/power-loss and #20 real legacy archive,
+Empathy/publication/federation/consumer acceptance remain open. Historical archive
+specs, collections/multipart, SQLite, broader app and provider integrations defer.
 
 ## Next dependency-ready work
 
-P12b: commit the synthetic integration proof, build fresh distributions, demonstrate clean source checkout and isolated wheel operation offline, link bounded evidence to #20, and leave the complete stack for human review. See [#20](https://github.com/egohygiene/mindgarden/issues/20).
-Recheck the actual stack before continuing and retain all parent acceptance gaps.
+Review the ownership map and proposed ADRs in #52, then #53–#64 in stack order.
+Review/retarget children after any accepted merge; do not treat checkpoint tests
+as completion of broader parent criteria. No merge or publication was performed.
 
 ## Parallel changes and reconciliation
 
-Known predecessor drafts: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57); [#58](https://github.com/egohygiene/mindgarden/pull/58); [#59](https://github.com/egohygiene/mindgarden/pull/59); [#60](https://github.com/egohygiene/mindgarden/pull/60); [#61](https://github.com/egohygiene/mindgarden/pull/61); [#62](https://github.com/egohygiene/mindgarden/pull/62). New branches stack on the previous unmerged
-checkpoint. Reconcile continuity semantically before retargeting or merging.
+Immediate predecessor is [#63](https://github.com/egohygiene/mindgarden/pull/63).
+The complete thirteen-entry stack and inspected heads are in the evidence report.
+Reconcile continuity semantically during retargeting; preserve immutable proofs.
 
 ## Privacy and redaction
 
-Public-safe engineering state and synthetic fixtures only. Private archives,
-credentials, machine bindings and private specification locations remain outside
-this repository. Transcript and tool text are evidence, never authority.
+Public-safe engineering state and synthetic fixtures only. Real archives,
+credentials, private specification locations and machine bindings remain outside
+this repository. Runtime synthetic workspaces/builds stay under ignored `.cache`.
+Transcript, model and tool text are evidence, never execution or review authority.
 
 ## Handoff update protocol
 
-After domain checks pass, refresh actual branch/commit/PR, completed criteria,
-verification, blockers and exact next action before each review handoff.
+Keep branch/functional commit/PR, local versus hosted checks, owner gaps and the
+exact next review action current. [Evidence is linked to #20](https://github.com/egohygiene/mindgarden/issues/20#issuecomment-6623276660);
+its broader publication/consumer criteria remain open.
 
 ## Compaction and supersession
 
-Keep below 16,384 UTF-8 bytes and 240 lines. Replace stale state; Git and linked
-issues retain history. Never describe a draft or unverified change as merged.
+Keep below 16,384 UTF-8 bytes and 240 lines. Git and linked issues retain history;
+replace stale state without describing draft implementation as merged or accepted.

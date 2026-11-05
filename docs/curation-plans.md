@@ -50,7 +50,9 @@ mindgarden gardenize --local-config "/private/bindings.json" \
 The preview is a `mindgarden.change-plan/v1` with the complete authored proposal,
 output checksums, source/configuration digests and target revision. It contains
 private review material and belongs within the input scope. The canonical
-curation receipt's `plan_sha256` identifies the authored proposal file; the CLI
+curation receipt's `plan_sha256` identifies the authored proposal file; a routed
+public derivative instead binds a canonical public-only selection, with its raw
+private request digest retained in the personal controller. The CLI
 apply digest identifies the complete preview. Neither is a self-hash.
 
 Preview validates schemas, exact evidence, identities, human authority and target

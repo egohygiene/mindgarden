@@ -2,8 +2,24 @@
 
 from dataclasses import dataclass, field
 from typing import Protocol
+from urllib.parse import parse_qsl, urlsplit
 
 from .validation import ContractError
+
+
+def validate_origin(value: str) -> str:
+    """Portable logical origin; credentials and local acquisition paths stay local."""
+    try:
+        parsed = urlsplit(value)
+    except (TypeError, ValueError) as error:
+        raise ContractError("SOURCE_ORIGIN_UNSAFE: supply a durable credential-free source identity") from error
+    credentials = {"access_token", "api_key", "key", "token", "signature", "x-amz-signature",
+                   "x-goog-signature", "x-amz-credential", "x-goog-credential"}
+    if (parsed.scheme not in {"https", "http", "urn"} or parsed.username is not None
+            or parsed.password is not None or parsed.scheme in {"https", "http"} and not parsed.hostname
+            or any(key.lower() in credentials for key, _value in parse_qsl(parsed.query))):
+        raise ContractError("SOURCE_ORIGIN_UNSAFE: use a credential-free HTTP(S) or URN identity; keep physical locations in local bindings")
+    return value
 
 
 def normalize_text(value: str) -> str:

@@ -5,6 +5,7 @@ from copy import deepcopy
 
 from ..domain.contracts import canonical_json, digest_bytes
 from ..domain.garden import inspect_garden
+from ..domain.publication import permits_publication
 from ..domain.scope import inherit_scope
 from ..domain.validation import ContractError
 
@@ -54,6 +55,14 @@ def metadata_view(context):
         snapshots[garden] = snapshot
     records = {(garden, record_id): record for garden, snapshot in snapshots.items()
                for record_id, record in snapshot.records.items()}
+    public_output = (context.session.get("request_scope", {}).get("visibility") == "public"
+                     and context.session["publication_authority"] == "publishable")
+    if public_output:
+        for identity, record in list(records.items()):
+            if record["schema"] == "mindgarden.knowledge/v1" and (record["publication"] != "eligible"
+                    or not permits_publication(snapshots[identity[0]].manifest["publication"], kind=record["kind"],
+                                               domains=record["domains"], topics=record["topics"])):
+                del records[identity]
     required = {identity: dependencies(record) for identity, record in records.items()}
     dependents = defaultdict(set)
     denied = deque()

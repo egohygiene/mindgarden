@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-28
+updated: 2026-11-04
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -33,7 +33,7 @@ repository: egohygiene/mindgarden
 visibility: public
 publication: central
 route: /roadmap/mindgarden/
-updated: 2026-08-28
+updated: 2026-11-04
 -->
 ## 2026-08-28 execution snapshot
 
@@ -121,7 +121,7 @@ issues: [1, 9, 7, 10]
 - [x] Valid and invalid fixtures are tested in CI.
 - [x] Identity, provenance, privacy, and migration fields are explicit.
 - [x] Deterministic v1 initialization and migration are implemented.
-- [ ] Stable cross-record and privacy diagnostics validate complete v1 gardens.
+- [x] Bounded general v1 cross-record and privacy diagnostics are implemented on the milestone draft stack; full consumer/publication conformance remains open.
 
 **Current evidence:**
 
@@ -268,7 +268,8 @@ Optional managed services, enterprise controls, marketplaces, and the conversati
 
 - **Observed:** A provenance-linked v0 implementation, synthetic fixture, and standalone test workflow now exist in this repository.
 - **Decided:** Source ownership graduates before Empathy consumer cutover and before v1 contract expansion.
-- **Proposed:** Stable archive adapters, v1 schemas, initialization, release packaging, publication composition, and federation remain later steps.
+- **Implemented on draft stack:** General v1 validation, local source adapters, reviewed retrieval/context, authored curation, candidate routing, scope enforcement and bounded filesystem recovery have synthetic local evidence.
+- **Proposed/deferred:** Architecture ratification, full archive/document/media acceptance, released packaging, consumer publication and federation remain separate gates.
 - **Open question:** Which consumption format should Empathy pin first: a release archive, package, or immutable source checkout?
 
 ## Portable private-garden checkpoint sequence
@@ -292,3 +293,8 @@ product/publication work do not become blanket blockers for existing v1 work.
 
 SQLite #32, federation, web/API productization, provider integrations and broader
 retention remain deferred. New ADRs stay proposed and all partial PRs use Refs.
+
+The [finite evidence report](docs/private-garden-evidence.md) links the synthetic
+archive, reviewed prompt entry, exact source retrieval, bounded context and vault
+relocation/restore proof. This supports #20 without marking its real legacy archive,
+Empathy, publication, federation or final consumer acceptance criteria complete.

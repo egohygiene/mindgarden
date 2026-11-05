@@ -160,3 +160,8 @@ documents `--adapter conversation-archive --manifest-version 3.2.3`, the tested
 versions/profiles, bounded validation, and compatibility gaps. See also the
 [text adapter](source-adapters.md), [curation](curation-plans.md), and
 [retrieval/context](v1-retrieval.md) command examples.
+
+The [finite private-garden proof](private-garden-evidence.md) exercises the normal
+CLI end to end. `mindgarden evidence` resolves exact reviewed citations; `vault
+export`, `vault restore` and `vault relocate` use digest-bound plans. See
+[source-vault.md](source-vault.md) for bounds, failure states and recovery.

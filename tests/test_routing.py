@@ -136,6 +136,11 @@ class RoutingTests(unittest.TestCase):
         self.assertEqual(self.plan().decisions[0]["state"], "private-fallback")
         route["public_review"] = deepcopy(candidate["output"]["review"])
         write_json(self.request_path, self.request)
+        self.assertEqual(self.plan().decisions[0]["state"], "private-fallback")
+        public_manifest_path = self.bindings.garden("synthetic-public")["root"] / ".garden/garden.json"
+        manifest = json.loads(public_manifest_path.read_text())
+        manifest["publication"]["allow"] = {"kinds": ["procedure"], "domains": ["knowledge-systems"], "topics": ["prompt-bank"]}
+        write_json(public_manifest_path, manifest)
         plan = self.plan(); self.assertEqual(plan.decisions[0]["state"], "routed")
         plan.apply(plan.digest)
         output = json.loads((self.bindings.garden("synthetic-public")["root"] / ".garden/knowledge/routed-personal.json").read_text())

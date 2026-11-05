@@ -18,6 +18,13 @@ conflicting classification, unidentifiable/malformed metadata and ambiguous type
 identity are denials, not data-bearing diagnostics. Complete owner validation
 remains available independently; a scoped query is not a full garden audit.
 
+Binding policy, execution and available persistence capabilities are checked
+before probing a physical garden root, including when a visibility is explicitly
+listed. The scope-authoring tool uses the same selector. Explicit scope arguments
+take precedence over CLI/library version dispatch and cannot fall back to unscoped
+v0 results or cached input. V0 owner operations without scope arguments retain
+their existing compatibility behavior.
+
 The metadata pass removes dependencies on unavailable/denied evidence and
 propagates scope through source inputs, claims, endpoints and provenance, including
 cycles between an artifact and its provenance. Incompatible mixed derivations

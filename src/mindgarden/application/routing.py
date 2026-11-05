@@ -9,6 +9,7 @@ from pathlib import Path
 
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes, read_object, strict_json
 from ..domain.garden import inspect_garden
+from ..domain.publication import permits_publication
 from ..domain.scope import LEGACY_VISIBILITY, PERSISTENCE_ORDER, inherit_scope, record_scope
 from ..domain.validation import ContractError
 from .bindings import LocalBindings, garden_fingerprint
@@ -156,6 +157,9 @@ def build_routing_plan(bindings: LocalBindings, catalog_path: Path, request_path
                 if review is None or review["state"] != "approved" or inherited["publication"] == "never-exportable":
                     return "Public placement requires explicit human publication review."
                 require_review_authority(review, authority)
+                if not permits_publication(snapshots[garden].manifest["publication"], kind=output["kind"],
+                                           domains=output["domains"], topics=output["topics"]):
+                    return "The target publication allowlist denies this candidate; empty lists grant no publication."
                 for evidence in candidate["sources"]:
                     source = snapshots[evidence["source"]["garden"]].records[evidence["source"]["id"]]
                     if source.get("kind") == "captured" or source.get("publication") != "eligible":
