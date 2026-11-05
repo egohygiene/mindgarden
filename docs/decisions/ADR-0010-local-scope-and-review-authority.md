@@ -16,7 +16,7 @@ superseded_by: []
 affected_repositories:
 - egohygiene/mindgarden
 affected_contracts: []
-implementation_status: not_started
+implementation_status: in_progress
 evidence:
 - type: issue
   url: https://github.com/egohygiene/mindgarden/issues/13
@@ -33,6 +33,9 @@ evidence:
 - type: issue
   url: https://github.com/egohygiene/mindgarden/issues/42
   description: Owning requirements and remaining acceptance criteria.
+- type: implementation
+  url: https://github.com/egohygiene/mindgarden/pull/64
+  description: Merged bounded local checkpoint; broader parent acceptance remains open.
 exceptions: []
 approval: null
 ---
@@ -57,7 +60,7 @@ The local workflow needs explicit versioned contracts, safe plan/apply operation
 
 ## Implementation and evidence links
 
-See the linked owning issues and [milestone checkpoint specification](../private-garden-milestone.md). Implementation and verification are recorded per draft PR in the root continuity checkpoint. No implementation is claimed by this documentation checkpoint.
+See the linked owning issues and [milestone checkpoint specification](../private-garden-milestone.md). Implementation and verification are recorded per draft PR in the root continuity checkpoint. The original documentation checkpoint claimed no runtime implementation. The bounded local implementation is now merged through #55, #61, #62, #64. See [the merge/coverage ledger](../open-issue-coverage.md); remaining scope is in progress. Decision status and approval are unchanged.
 
 ## Replacement or exit strategy
 

@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-04
+updated: 2026-11-05
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -33,15 +33,35 @@ repository: egohygiene/mindgarden
 visibility: public
 publication: central
 route: /roadmap/mindgarden/
-updated: 2026-11-04
+updated: 2026-11-05
 -->
-## 2026-08-28 execution snapshot
+## 2026-11-05 execution snapshot
 
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate:** Complete standalone extraction, then move Empathy to an immutable consumption interface.
+**Current gate:** Establish the v1 public projection/federation contract, then prove publication and pinned Empathy consumption.
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
+
+### Complete open-issue coverage and next batches
+
+The [38-issue coverage ledger](docs/open-issue-coverage.md) records every current
+open issue's purpose, implementation/PR evidence, unmet acceptance, dependencies,
+status and proposed batch. It also records proposed dependency corrections and
+early retention requirements. This roadmap owns delivery order; the ledger makes
+its evidence and remaining scope inspectable.
+
+The authorized stack #52–#64 is merged at
+`9fae752b3cf7eb9c74033a72a12d125c42f8659e`, with exactly the tested combined
+tree. Both supported Python versions pass 139 tests. These bounded checkpoints
+do not close their parents or ratify ADR-0007–0010, which remain proposed.
+
+Next batches are B0 (post-merge reconciliation), B1 (#16 local descriptors and
+reviewed-public projections), and B2 (#30 non-destructive registry lifecycle).
+Public `/garden`/portal proofs (#17/#18) and the complete #20 consumer path follow
+their actual contracts. #27 release preparation and #38 design tokens can advance
+independently. #46 retention policy is considered early; full compaction, SQLite,
+broader API/web product work and optional evaluations retain their own gates.
 
 ### Visual roadmap publication
 
@@ -84,7 +104,7 @@ issues: [6, 8]
 -->
 #### MIG-Q02 — Extract the incubated implementation
 
-**State:** `active`  
+**State:** `active`
 **Depends on:** `MIG-Q01`
 
 **Outcome:** Mindgarden owns runnable code and fixtures rather than depending on Empathy cache composition.
@@ -121,7 +141,7 @@ issues: [1, 9, 7, 10]
 - [x] Valid and invalid fixtures are tested in CI.
 - [x] Identity, provenance, privacy, and migration fields are explicit.
 - [x] Deterministic v1 initialization and migration are implemented.
-- [x] Bounded general v1 cross-record and privacy diagnostics are implemented on the milestone draft stack; full consumer/publication conformance remains open.
+- [x] Bounded general v1 cross-record and privacy diagnostics are merged; full consumer/publication conformance remains open.
 
 **Current evidence:**
 
@@ -133,13 +153,13 @@ issues: [1, 9, 7, 10]
 
 <!-- roadmap-step
 id: MIG-Q04
-status: planned
+status: active
 depends_on: [MIG-Q03]
-issues: []
+issues: [11, 12, 13, 14, 15, 29, 31, 45]
 -->
 #### MIG-Q04 — Build adapters, index, and context packs
 
-**State:** `planned`  
+**State:** `active`
 **Depends on:** `MIG-Q03`
 
 **Outcome:** Captured records become searchable and can yield bounded context packs through stable interfaces.
@@ -148,17 +168,23 @@ issues: []
 
 - [ ] At least one Mindcap fixture indexes deterministically.
 - [ ] Context packs record selection and redaction provenance.
+- [x] A bounded current-profile synthetic archive produces reviewed knowledge,
+  exact-source search and context, surviving vault relocation and clean rebuild.
 
 **Current evidence:**
 
 - The extracted v0 engine implements supplied-file ingestion, hash-bound provenance, deterministic lexical indexing, explainable search, and bounded context packs.
-- Mindcap/archive interpretation and the stable adapter boundary remain unimplemented.
+- Merged #57–#64 add normalized-source adapters, authored curation, bounded
+  v3.2.2/v3.2.3 archive interpretation, private routing, scoped retrieval and vault
+  recovery. [Exact commands and limits](docs/private-garden-evidence.md) distinguish
+  the implemented checkpoint from full Mindcap producer/legacy compatibility,
+  media selection, redaction and parent conformance still open.
 
 <!-- roadmap-step
 id: MIG-Q05
 status: planned
 depends_on: [MIG-Q04]
-issues: [2]
+issues: [2, 16, 17, 18]
 -->
 #### MIG-Q05 — Publish privacy-safe projections
 
@@ -177,6 +203,9 @@ issues: [2]
 - Issue #2 tracks projections.
 - The v0 reviewed-public projector and immutable Quartz adapter are tested with a synthetic consumer fixture.
 - Consumer deployment workflows and an organization-level garden route remain unimplemented.
+- B1 selects #16's local versioned descriptor, reviewed-public artifacts and
+  synthetic catalog checkpoint next. A local build will not establish consumer
+  deployment, organization adoption or full federation acceptance.
 
 ### Roadmap-to-issue handoff
 
@@ -268,7 +297,7 @@ Optional managed services, enterprise controls, marketplaces, and the conversati
 
 - **Observed:** A provenance-linked v0 implementation, synthetic fixture, and standalone test workflow now exist in this repository.
 - **Decided:** Source ownership graduates before Empathy consumer cutover and before v1 contract expansion.
-- **Implemented on draft stack:** General v1 validation, local source adapters, reviewed retrieval/context, authored curation, candidate routing, scope enforcement and bounded filesystem recovery have synthetic local evidence.
+- **Merged local checkpoint:** General v1 validation, local source adapters, reviewed retrieval/context, authored curation, candidate routing, scope enforcement and bounded filesystem recovery have synthetic local evidence.
 - **Proposed/deferred:** Architecture ratification, full archive/document/media acceptance, released packaging, consumer publication and federation remain separate gates.
 - **Open question:** Which consumption format should Empathy pin first: a release archive, package, or immutable source checkout?
 
@@ -291,8 +320,10 @@ contributes only explicit safe local bindings; full registry composition and #35
 PDF/media ingestion remain integration work. #41 historical backfill and hosted
 product/publication work do not become blanket blockers for existing v1 work.
 
-SQLite #32, federation, web/API productization, provider integrations and broader
-retention remain deferred. New ADRs stay proposed and all partial PRs use Refs.
+SQLite #32, web/API productization, provider integrations and broader compaction
+remain deferred. The next B1 checkpoint covers local public federation contracts;
+full federation/consumer acceptance remains open. Retention policy is considered
+early without authorizing destructive operations. New ADRs stay proposed and all partial PRs use Refs.
 
 The [finite evidence report](docs/private-garden-evidence.md) links the synthetic
 archive, reviewed prompt entry, exact source retrieval, bounded context and vault

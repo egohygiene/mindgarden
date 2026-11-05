@@ -1,7 +1,10 @@
 # Portable private-garden checkpoint evidence
 
-This finite synthetic checkpoint provides bounded results for the ten requested work items on an
-unmerged draft stack. It does not complete the parent issues or ratify ADR-0007
+This finite synthetic checkpoint provides bounded results for the ten requested work items.
+The original draft stack #52–#64 was merged with maintainer authorization on
+2026-11-05 at `9fae752b3cf7eb9c74033a72a12d125c42f8659e`, with exactly the
+tested combined tree. [The merge and coverage ledger](open-issue-coverage.md)
+records all merge commits and remaining work. It does not complete the parent issues or ratify ADR-0007
 through ADR-0010. The Python engine and CLI remain dependency-free with supported
 v0 behavior. No release, deployment or consumer publication is claimed.
 
@@ -106,11 +109,11 @@ Both versions in the owner CI matrix passed locally. Automatic GitHub
 [Test run 27](https://github.com/egohygiene/mindgarden/actions/runs/41778548306)
 completed successfully on `072ec03229563daff09ce548f683becfca7e6d5d`, whose functional
 code is the revision above. Later documentation-only heads may have fresh checks;
-see draft PR #64 for current status. No workflow was manually launched.
+the 2026-11-05 merge receipts are in the coverage ledger. No workflow was manually launched.
 
 ## Stack and remaining acceptance
 
-P01–P11 are draft PRs [#52](https://github.com/egohygiene/mindgarden/pull/52)
+At the original pre-merge handoff, P01–P11 were draft PRs [#52](https://github.com/egohygiene/mindgarden/pull/52)
 through [#62](https://github.com/egohygiene/mindgarden/pull/62), each based on its
 predecessor. P12a is [#63](https://github.com/egohygiene/mindgarden/pull/63), with
 functional commit `16394c4` and handoff `afbd420`. P12b is the combined
