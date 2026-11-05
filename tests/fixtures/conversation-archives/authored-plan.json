@@ -1,0 +1,74 @@
+{
+  "candidates": [
+    {
+      "action": "keep",
+      "id": "candidate-keep",
+      "merge_inputs": [],
+      "output": {
+        "attribution": "assistant-suggestion",
+        "authors": [
+          {
+            "id": "synthetic-producer",
+            "kind": "agent",
+            "version": "fixture-1"
+          }
+        ],
+        "body": "Cite exact evidence; preserve uncertainty.\n",
+        "caveats": [
+          "Synthetic example; not an independently verified universal rule."
+        ],
+        "claims": [],
+        "confidence": "medium",
+        "contradictions": [],
+        "domains": [
+          "knowledge-systems"
+        ],
+        "epistemic_state": "proposed",
+        "id": "reviewed-prompt",
+        "kind": "procedure",
+        "review": {
+          "rationale": "Explicit synthetic human review of this candidate.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "status": "active",
+        "synapses": [],
+        "title": "Synthetic prompt-bank procedure",
+        "topics": [
+          "prompt-bank"
+        ],
+        "uncertainty": [
+          "Effectiveness remains unmeasured."
+        ]
+      },
+      "rationale": "Authored synthetic keep disposition.",
+      "sources": [
+        {
+          "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+          "locator": "json:/content/0/text",
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+            "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+          }
+        }
+      ]
+    }
+  ],
+  "created_at": "2026-11-04T00:00:00Z",
+  "garden": "synthetic-garden",
+  "id": "synthetic-archive-curation",
+  "producer": {
+    "id": "synthetic-producer",
+    "kind": "agent",
+    "version": "fixture-1"
+  },
+  "review_authority": {
+    "id": "synthetic-reviewer",
+    "kind": "human"
+  },
+  "schema": "mindgarden.curation-plan/v1"
+}

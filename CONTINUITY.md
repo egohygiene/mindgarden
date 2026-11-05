@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-04T03:21:17Z'
+  updated_at: '2026-11-04T03:36:43Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -39,24 +39,25 @@ work:
     relocation works offline.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#13
-    url: https://github.com/egohygiene/mindgarden/issues/13
+    id: egohygiene/mindgarden#15
+    url: https://github.com/egohygiene/mindgarden/issues/15
   next:
     kind: issue
-    id: egohygiene/mindgarden#15
-    description: 'P09: implement tested v3.2.2/v3.2.3 conversation archive adapters through
-      the shared source boundary.'
+    id: egohygiene/mindgarden#14
+    description: 'P10: implement portable routing catalogs, explained private fallback, canonical
+      references and journaled recovery; retain move/split and organization policy integration
+      gaps.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/15
+    - https://github.com/egohygiene/mindgarden/issues/14
     depends_on: []
 state:
   base:
-    revision: 8836fdd5da2acfff3f971a2b429af6c1e7bdfe83
-    ref: refs/heads/milestone/07-v1-retrieval
-    verified_at: '2026-11-04T03:21:17Z'
+    revision: 1a49992b5c6d2643aa58919aa6479756cee9c241
+    ref: refs/heads/milestone/08-curation
+    verified_at: '2026-11-04T03:36:43Z'
   candidate:
-    branch: milestone/08-curation
+    branch: milestone/09-conversation-archives
     revision: null
     pull_request: null
     handoff_state: ready-for-review
@@ -89,26 +90,29 @@ state:
   - provider: github
     id: egohygiene/mindgarden#58
     url: https://github.com/egohygiene/mindgarden/pull/58
+  - provider: github
+    id: egohygiene/mindgarden#59
+    url: https://github.com/egohygiene/mindgarden/pull/59
 review:
   status: passed
-  reviewed_at: '2026-11-04T03:21:17Z'
+  reviewed_at: '2026-11-04T03:36:43Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests
     outcome: passed
-    observed_at: '2026-11-04T03:21:17Z'
-    notes: 92 tests passed on Python 3.12.14.
+    observed_at: '2026-11-04T03:36:43Z'
+    notes: 99 tests passed on Python 3.12.14.
   - command: .venv/bin/python -m compileall -q src scripts tests
     outcome: passed
-    observed_at: '2026-11-04T03:21:17Z'
+    observed_at: '2026-11-04T03:36:43Z'
     notes: All Python sources compiled.
   - command: git diff --check
     outcome: passed
-    observed_at: '2026-11-04T03:21:17Z'
+    observed_at: '2026-11-04T03:36:43Z'
     notes: No whitespace errors.
   - command: Pinned Hygiene decision validator and Aether continuity schema/headings/limits
     outcome: passed
-    observed_at: '2026-11-04T03:21:17Z'
+    observed_at: '2026-11-04T03:36:43Z'
     notes: Owner checks run after this refresh.
   environment_limitations:
   - No new hosted CI run or Python 3.13 local execution claimed.
@@ -146,21 +150,21 @@ bounded context and relocation/restore proof with networking and models disabled
 
 ## State snapshot
 
-P08 candidate: `milestone/08-curation`, based on `8836fdd5da2acfff3f971a2b429af6c1e7bdfe83` from
-`milestone/07-v1-retrieval`. Combined checkout is this candidate branch; revision and
+P09 candidate: `milestone/09-conversation-archives`, based on `1a49992b5c6d2643aa58919aa6479756cee9c241` from
+`milestone/08-curation`. Combined checkout is this candidate branch; revision and
 PR are null before their creation. No merge or new hosted CI pass is claimed.
 
 ## Completed and material changes
 
-P08 adds authored curation schemas, readonly preview and deterministic non-overwriting application for keep, summarize, merge, reference, defer and exclude. Exact source hashes, attribution, caveats, uncertainty and typed contradictions remain explicit. Per-item review requires separate human authority; applying agent proposals leaves them proposed/unreviewed. Synthetic authored fixtures and source text are committed. Multi-garden routing and optional model producers remain later work.
+Implemented single-unit v3.2.2/v3.2.3 full-source and summary/journey archive evidence adapters, immutable package capture, exact message/journey selectors, attachments, branch/time metadata, overlap deduplication, hostile-package rejection and archive-to-reviewed-prompt proof. Producer validation is retained separately; historical versions and unspecified aggregate serialization remain explicit compatibility gaps.
 
-Prior draft stack: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57); [#58](https://github.com/egohygiene/mindgarden/pull/58). Each parent retains its unchecked acceptance scope.
+Prior draft stack: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57); [#58](https://github.com/egohygiene/mindgarden/pull/58); [#59](https://github.com/egohygiene/mindgarden/pull/59). Each parent retains its unchecked acceptance scope.
 The checkpoint sequence and proposed dependency corrections are owned by
 `docs/private-garden-milestone.md`; ADRs 0007–0010 remain proposed.
 
 ## Validation and review evidence
 
-92 tests passed on Python 3.12.14. Python compilation and whitespace
+99 tests passed on Python 3.12.14. Python compilation and whitespace
 checks passed. Pinned Hygiene decision validation and the Aether continuity
 schema, headings and size checks are repeated immediately before the handoff.
 Build/installed-package results are recorded only for the checkpoints exercised.
@@ -175,12 +179,12 @@ Bounded implementation was explicitly authorized; merging was not.
 
 ## Next dependency-ready work
 
-P09: implement tested v3.2.2/v3.2.3 conversation archive adapters through the shared source boundary. See [#15](https://github.com/egohygiene/mindgarden/issues/15).
+P10: implement portable routing catalogs, explained private fallback, canonical references and journaled recovery; retain move/split and organization policy integration gaps. See [#14](https://github.com/egohygiene/mindgarden/issues/14).
 Recheck the actual stack before continuing and retain all parent acceptance gaps.
 
 ## Parallel changes and reconciliation
 
-Known predecessor drafts: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57); [#58](https://github.com/egohygiene/mindgarden/pull/58). New branches stack on the previous unmerged
+Known predecessor drafts: [#52](https://github.com/egohygiene/mindgarden/pull/52); [#53](https://github.com/egohygiene/mindgarden/pull/53); [#54](https://github.com/egohygiene/mindgarden/pull/54); [#55](https://github.com/egohygiene/mindgarden/pull/55); [#56](https://github.com/egohygiene/mindgarden/pull/56); [#57](https://github.com/egohygiene/mindgarden/pull/57); [#58](https://github.com/egohygiene/mindgarden/pull/58); [#59](https://github.com/egohygiene/mindgarden/pull/59). New branches stack on the previous unmerged
 checkpoint. Reconcile continuity semantically before retargeting or merging.
 
 ## Privacy and redaction

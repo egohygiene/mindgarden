@@ -153,3 +153,10 @@ V1 checks the shipped schema vocabulary, unique identities, typed references,
 immutable revisions, content/evidence/provenance hashes and supersession cycles.
 Initialization and migration use the same general validator for their staged
 trees. The published runtime remains dependency-free.
+
+V1 source ingestion requires explicit local vault bindings and a reviewed plan
+digest. The [archive compatibility checkpoint](conversation-archive-compatibility.md)
+documents `--adapter conversation-archive --manifest-version 3.2.3`, the tested
+versions/profiles, bounded validation, and compatibility gaps. See also the
+[text adapter](source-adapters.md), [curation](curation-plans.md), and
+[retrieval/context](v1-retrieval.md) command examples.

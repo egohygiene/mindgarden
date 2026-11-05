@@ -1,0 +1,42 @@
+{
+  "archive_id": "synthetic-conversation",
+  "assets": [
+    {
+      "archive_path": "assets/attachment.txt",
+      "byte_fidelity": "original",
+      "bytes": 28,
+      "derived_from_asset_id": null,
+      "dimensions": null,
+      "duration_seconds": null,
+      "id": "asset-text",
+      "inspection_status": "not-inspected",
+      "kind": "file",
+      "mime_type": "text/plain",
+      "missing_reason": null,
+      "notes": [],
+      "original_names": [
+        "attachment.txt"
+      ],
+      "page_count": null,
+      "provenance": "user-supplied",
+      "recovery_action": null,
+      "retrieved_at": "2026-11-04T00:00:00Z",
+      "revision_label": null,
+      "rights_evidence": "Synthetic fixture authored for tests.",
+      "rights_status": "user-supplied",
+      "sensitivity": "personal",
+      "sha256": "bfa63e63d4de6bc532c39eabde790f9f717cf7eef49d12b6f05a25d8e411289a",
+      "source_locator": "urn:synthetic:attachment",
+      "source_refs": [
+        {
+          "id": "message-prompt",
+          "kind": "message",
+          "locator": null
+        }
+      ],
+      "status": "archived"
+    }
+  ],
+  "schema_version": "2.0",
+  "warnings": []
+}

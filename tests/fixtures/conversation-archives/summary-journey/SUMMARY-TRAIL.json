@@ -1,0 +1,35 @@
+{
+  "archive_id": "synthetic-conversation",
+  "checkpoints": [
+    {
+      "asset_ids": [],
+      "basis_refs": [],
+      "id": "journey-001",
+      "journey_ref": "JOURNEY.md#journey-001",
+      "limitations": [
+        "Summary-derived; no verbatim message attribution available."
+      ],
+      "order": 1,
+      "source_id": "synthetic-input",
+      "source_locator": null,
+      "source_range": null,
+      "source_time": null,
+      "summary_origin": "extractor-compaction",
+      "supersedes_ids": [],
+      "time_basis": "unknown"
+    }
+  ],
+  "journey_path": "JOURNEY.md",
+  "known_gaps": [
+    "No transcript is supplied."
+  ],
+  "omitted_categories": [],
+  "predecessor_refs": [],
+  "schema_version": "3.2",
+  "source_scope": {
+    "limitations": [
+      "Synthetic fixture only; producer scope serialization is not standardized by the available prose."
+    ]
+  },
+  "warnings": []
+}

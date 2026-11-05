@@ -7,6 +7,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from ..adapters.text_source import TextSourceAdapter
+from ..adapters.conversation_archive import ConversationArchiveAdapter
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes
 from ..domain.garden import evidence_bytes, inspect_garden
 from ..domain.scope import validate_scope
@@ -19,7 +20,7 @@ from .storage import content_resolver, open_vault
 
 
 def default_registry() -> AdapterRegistry:
-    return AdapterRegistry((TextSourceAdapter(),))
+    return AdapterRegistry((TextSourceAdapter(), ConversationArchiveAdapter()))
 
 
 def captured_bytes(path: Path, maximum: int = 100 * 1024 * 1024) -> bytes:
@@ -47,7 +48,7 @@ def build_ingestion_plan(bindings: LocalBindings, garden_id: str, vault_id: str,
     original = captured_bytes(input_path)
     original_digest = digest_bytes(original)
     adapter = (registry or default_registry()).select(metadata["media_type"], manifest_version, adapter_id)
-    bundle = adapter.normalize(original, deepcopy(metadata))
+    bundle = adapter.normalize(original, {**deepcopy(metadata), "manifest_version": manifest_version})
     files: dict[str, bytes] = {}
     blobs: dict[str, bytes] = {"sha256:" + original_digest: original}
     transforms = ({"name": "preserve-supplied-bytes", "version": "1.0.0", "parameters": {}},)
