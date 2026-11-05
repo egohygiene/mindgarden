@@ -117,6 +117,12 @@ class V1ContractTests(unittest.TestCase):
                 "session",
                 "vault",
                 "change-plan",
+                "index",
+                "search-results",
+                "graph",
+                "backlinks",
+                "context",
+                "context-profile",
             },
         )
         identifiers = set()

@@ -162,6 +162,9 @@
     "expires_at": {
       "type": "string",
       "format": "date-time"
+    },
+    "request_scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
     }
   },
   "additionalProperties": false

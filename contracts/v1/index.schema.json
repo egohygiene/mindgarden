@@ -1,0 +1,261 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:index:v1",
+  "title": "Mindgarden index projection v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "scope",
+    "policy",
+    "inputs",
+    "scope_sha256",
+    "records",
+    "edges",
+    "backlinks"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.index/v1"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "policy": {
+      "title": "Mindgarden policy-reference v1",
+      "type": "object",
+      "required": [
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "garden",
+          "revision"
+        ],
+        "properties": {
+          "garden": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "revision": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "scope_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "reference",
+          "id",
+          "garden",
+          "record_type",
+          "title",
+          "kind",
+          "status",
+          "review",
+          "confidence",
+          "scope",
+          "sources",
+          "content",
+          "domains",
+          "topics",
+          "tags",
+          "terms",
+          "titleTerms",
+          "headingTerms",
+          "tagTerms",
+          "domainTerms",
+          "topicTerms"
+        ],
+        "properties": {
+          "reference": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+          },
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "garden": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "record_type": {
+            "enum": [
+              "knowledge",
+              "claim"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/lifecycleStatus"
+          },
+          "review": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+          },
+          "confidence": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence"
+          },
+          "scope": {
+            "$ref": "urn:egohygiene:mindgarden:scope:v1"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+            }
+          },
+          "content": {
+            "type": "string"
+          },
+          "domains": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+            }
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "terms": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "titleTerms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "headingTerms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tagTerms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "domainTerms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "topicTerms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source",
+          "target",
+          "type",
+          "directed",
+          "review",
+          "scope"
+        ],
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "related",
+              "supports",
+              "contradicts",
+              "supersedes",
+              "derived-from",
+              "part-of",
+              "depends-on",
+              "references"
+            ]
+          },
+          "directed": {
+            "type": "boolean"
+          },
+          "review": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+          },
+          "scope": {
+            "$ref": "urn:egohygiene:mindgarden:scope:v1"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "backlinks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "from",
+            "type"
+          ],
+          "properties": {
+            "from": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -49,7 +49,8 @@ class LocalBindings:
     vaults: dict[str, dict]
 
     @classmethod
-    def load(cls, path: Path) -> LocalBindings:
+    def load(cls, path: Path, *, garden_ids: set[str] | None = None,
+             vault_ids: set[str] | None = None) -> LocalBindings:
         if path.is_symlink():
             raise ContractError("BINDING_SYMLINK: configuration must be a regular file")
         document = read_object(path)
@@ -60,6 +61,9 @@ class LocalBindings:
         roots: list[Path] = []
         for field, table in (("gardens", gardens), ("vaults", vaults)):
             for item in document[field]:
+                selected = garden_ids if field == "gardens" else vault_ids
+                if selected is not None and item["id"] not in selected:
+                    continue
                 if item["id"] in table:
                     raise ContractError("BINDING_DUPLICATE: logical identity is already registered")
                 root = explicit_root(item["root"], must_exist=field == "gardens")
@@ -90,5 +94,13 @@ class LocalBindings:
 
     def vault(self, vault_id: str) -> dict:
         if vault_id not in self.vaults:
-            raise ContractError("STORAGE_UNAVAILABLE: explicit vault binding is unavailable")
+            item = next((item for item in self.document["vaults"] if item["id"] == vault_id), None)
+            if item is None:
+                raise ContractError("STORAGE_UNAVAILABLE: explicit vault binding is unavailable")
+            root = explicit_root(item["root"], must_exist=False)
+            for garden in self.gardens.values():
+                existing = garden["root"]
+                if root == existing or root in existing.parents or existing in root.parents:
+                    raise ContractError("BINDING_OVERLAP: source storage overlaps canonical ownership")
+            return {**item, "root": root}
         return self.vaults[vault_id]

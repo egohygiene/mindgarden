@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:context-profile:v1",
+  "title": "Mindgarden bounded context profile v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "garden",
+    "title",
+    "description",
+    "query",
+    "include",
+    "exclude",
+    "kinds",
+    "max_items",
+    "max_bytes",
+    "max_candidates"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.context-profile/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "query": {
+      "type": "string"
+    },
+    "include": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+      }
+    },
+    "exclude": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+      }
+    },
+    "kinds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "max_items": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "max_bytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2000000
+    },
+    "max_candidates": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10000
+    }
+  },
+  "additionalProperties": false
+}

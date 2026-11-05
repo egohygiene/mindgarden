@@ -109,8 +109,14 @@ def metadata_list(metadata: dict[str, Any], field: str) -> list[str]:
     return value
 
 
-def build_index(repository_root: Path) -> dict[str, Any]:
+def build_index(repository_root: Path, *, query_context=None) -> dict[str, Any]:
     """Build the complete deterministic in-memory garden index."""
+    if (repository_root / ".garden/garden.json").is_file():
+        if query_context is None:
+            raise ContractError("SCOPE_REQUIRED: v1 indexing requires an explicit QueryContext")
+        from .retrieval import build_index as build_v1_index
+
+        return build_v1_index(query_context)
     validate_repository(repository_root)
     _, garden_root, manifest = garden_paths(repository_root)
     manifest_path = garden_root / "garden.yaml"
@@ -242,8 +248,15 @@ def search_payload(
     *,
     limit: int,
     include_unreviewed: bool,
+    query_context=None,
 ) -> dict[str, Any]:
     """Create a stable JSON search response."""
+    if index.get("schema") == "mindgarden.index/v1":
+        if query_context is None:
+            raise ContractError("SCOPE_REQUIRED: v1 search requires an explicit QueryContext")
+        from .retrieval import search_payload as search_v1
+
+        return search_v1(query_context, query, limit=limit, include_unreviewed=include_unreviewed)
     statuses = None if include_unreviewed else {"reviewed"}
     ranked = rank_notes(index, query, statuses=statuses)
     if not include_unreviewed:
@@ -724,6 +737,10 @@ def generated_index_path(repository_root: Path) -> Path:
 
 def run_index(arguments: Namespace) -> int:
     """Print, write, or check the deterministic catalog."""
+    if (arguments.repository_root / ".garden/garden.json").is_file():
+        from .retrieval import run_projection
+
+        return run_projection(arguments, "index")
     rendered = canonical_json(build_index(arguments.repository_root))
     path = generated_index_path(arguments.repository_root)
     if arguments.check:
@@ -741,6 +758,10 @@ def run_index(arguments: Namespace) -> int:
 
 def run_search(arguments: Namespace) -> int:
     """Search the current garden and emit stable JSON."""
+    if (arguments.repository_root / ".garden/garden.json").is_file():
+        from .retrieval import run_projection
+
+        return run_projection(arguments, "search")
     index = build_index(arguments.repository_root)
     payload = search_payload(
         index,
@@ -754,6 +775,10 @@ def run_search(arguments: Namespace) -> int:
 
 def run_context(arguments: Namespace) -> int:
     """Render one named context pack."""
+    if (arguments.repository_root / ".garden/garden.json").is_file():
+        from .retrieval import run_projection
+
+        return run_projection(arguments, "context")
     index = build_index(arguments.repository_root)
     _, profile = load_context_pack(arguments.repository_root, arguments.pack)
     if arguments.format == "json":
@@ -778,6 +803,10 @@ def run_context(arguments: Namespace) -> int:
 
 def run_llms(arguments: Namespace) -> int:
     """Print, write, or check the repository llms.txt entrypoint."""
+    if (arguments.repository_root / ".garden/garden.json").is_file():
+        from .retrieval import run_projection
+
+        return run_projection(arguments, "llms")
     rendered = render_llms_txt(
         arguments.repository_root,
         build_index(arguments.repository_root),
@@ -798,6 +827,10 @@ def run_llms(arguments: Namespace) -> int:
 
 def run_verify(arguments: Namespace) -> int:
     """Verify deterministic builds, packs, and the committed agent entrypoint."""
+    if (arguments.repository_root / ".garden/garden.json").is_file():
+        from .retrieval import run_projection
+
+        return run_projection(arguments, "verify")
     note_count = validate_repository(arguments.repository_root)
     first = canonical_json(build_index(arguments.repository_root))
     second = canonical_json(build_index(arguments.repository_root))

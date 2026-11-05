@@ -75,7 +75,8 @@ class GardenSnapshot:
 
 def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], bytes] | None = None,
                    authorized_gardens: dict[str, GardenSnapshot] | None = None,
-                   garden_root: Path | None = None) -> GardenSnapshot:
+                   garden_root: Path | None = None,
+                   allow_unavailable_references: bool = False) -> GardenSnapshot:
     """Read only the explicitly supplied garden; never discover private overlays."""
     root = garden_root or repository_root.absolute() / ".garden"
     snapshot = GardenSnapshot(root, {})
@@ -218,8 +219,9 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
         target_garden = reference["garden"]
         owner = snapshot if target_garden == snapshot.manifest["id"] else (authorized_gardens or {}).get(target_garden)
         if owner is None:
-            issue("REFERENCE_UNAVAILABLE", location, "Referenced target is unavailable in this validation scope",
-                  "Supply an explicitly authorized target or retain incomplete coverage.", "warning")
+            if not allow_unavailable_references:
+                issue("REFERENCE_UNAVAILABLE", location, "Referenced target is unavailable in this validation scope",
+                      "Supply an explicitly authorized target or retain incomplete coverage.", "warning")
             return None
         record = owner.records.get(reference["id"])
         if record is None:
