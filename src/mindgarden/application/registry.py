@@ -31,12 +31,13 @@ def state(path: Path) -> tuple[bytes | None, dict]:
 
 
 def protect_location(path: Path, document: dict) -> None:
+    directory = path.parent
     for item in document["gardens"] + document["vaults"]:
         root = Path(item["root"])
         if not root.is_absolute() or ".." in root.parts or item["root"].startswith("//"):
             raise ContractError("REGISTRY_PATH: declared bindings require absolute roots without traversal")
-        if path == root or root in path.parents:
-            raise ContractError("REGISTRY_LOCATION: machine-local control state belongs outside registered garden and vault roots")
+        if directory == root or root in directory.parents or directory in root.parents:
+            raise ContractError("REGISTRY_LOCATION: use a dedicated private control directory disjoint from garden and vault roots")
 
 
 def inspect_root(binding: dict, *, expected_owners: list | None = None) -> tuple[dict, dict]:

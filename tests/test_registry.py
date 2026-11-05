@@ -141,6 +141,10 @@ class RegistryTests(unittest.TestCase):
             build_registry_plan(repository / "registry.json", "init", {})
         with self.assertRaisesRegex(ContractError, "REGISTRY_PATH"):
             build_registry_plan(self.garden / ".garden/registry.json", "init", {})
+        unregistered_control = self.garden / "private-control/registry.json"
+        with self.assertRaisesRegex(ContractError, "REGISTRY_LOCATION"):
+            build_registry_plan(unregistered_control, "init", {})
+        self.assertFalse(unregistered_control.parent.exists())
         self.registry.chmod(0o644)
         with self.assertRaisesRegex(ContractError, "REGISTRY_PERMISSIONS"):
             registry_report(self.registry)
@@ -202,6 +206,24 @@ class RegistryTests(unittest.TestCase):
         self.assertFalse(output.parent.exists())
         self.assertIn("REGISTRY_LOCATION", errors.getvalue())
 
+    def test_registry_history_and_staging_cannot_overlap_canonical_ownership(self):
+        self.initialize()
+        nested = self.registry.parent / "nested-garden"
+        create_garden(nested, "nested-garden")
+        before = self.registry.read_bytes()
+        with self.assertRaisesRegex(ContractError, "REGISTRY_LOCATION"):
+            build_registry_plan(self.registry, "register", {"root": str(nested), "scope": local_scope(),
+                                                            "expected_garden": None, "expected_owners": []})
+        self.assertEqual(self.registry.read_bytes(), before)
+        self.assertFalse(history_directory(self.registry).exists())
+        document = self.document()
+        document["vaults"] = [{"id": "future-source-vault", "root": str(history_directory(self.registry)), "adapter": "filesystem"}]
+        self.registry.write_bytes(canonical_json(document))
+        before = self.registry.read_bytes()
+        with self.assertRaisesRegex(ContractError, "REGISTRY_LOCATION"):
+            build_registry_plan(self.registry, "init", {})
+        self.assertEqual(self.registry.read_bytes(), before)
+        self.assertFalse(history_directory(self.registry).exists())
     def test_missing_roots_doctor_and_unregister_never_discover_or_delete_content(self):
         self.initialize(); self.register()
         moved = self.root / "moved-garden"; self.garden.rename(moved)

@@ -46,6 +46,9 @@ def control_path(path: Path) -> Path:
                 if (not stat.S_ISDIR(info.st_mode) or (marker / "HEAD").exists()
                         or (marker / "HEAD").is_symlink()):
                     raise ContractError("REGISTRY_TRACKED: control state belongs outside version-control workspaces")
+            garden = parent / ".garden"
+            if garden.is_symlink() or (garden / "garden.json").exists() or (garden / "garden.yaml").exists():
+                raise ContractError("REGISTRY_LOCATION: control state belongs outside canonical garden roots, including unregistered ones")
         if path.parent.exists():
             info = path.parent.stat()
             if not stat.S_ISDIR(info.st_mode) or info.st_uid != os.getuid() or stat.S_IMODE(info.st_mode) & 0o077:
