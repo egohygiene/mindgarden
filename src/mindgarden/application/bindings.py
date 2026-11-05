@@ -23,8 +23,8 @@ def explicit_root(value: str, *, must_exist: bool = True) -> Path:
     return path
 
 
-def garden_fingerprint(root: Path) -> str:
-    garden = safe_path(explicit_root(str(root)), ".garden")
+def garden_fingerprint(root: Path, *, garden_root: Path | None = None) -> str:
+    garden = garden_root or safe_path(explicit_root(str(root)), ".garden")
     manifest = read_object(safe_path(garden, "garden.json"))
     generated = manifest["roots"]["generated"]
     records = []
@@ -50,7 +50,7 @@ class LocalBindings:
 
     @classmethod
     def load(cls, path: Path, *, garden_ids: set[str] | None = None,
-             vault_ids: set[str] | None = None) -> LocalBindings:
+             vault_ids: set[str] | None = None, allow_interrupted: bool = False) -> LocalBindings:
         if path.is_symlink():
             raise ContractError("BINDING_SYMLINK: configuration must be a regular file")
         document = read_object(path)
@@ -72,6 +72,11 @@ class LocalBindings:
                         raise ContractError("BINDING_OVERLAP: registered ownership roots must not overlap")
                 roots.append(root)
                 if field == "gardens":
+                    if (allow_interrupted and not (root / ".garden").exists()
+                            and safe_path(root, ".mindgarden-write.lock").is_file()):
+                        validate_scope(item["scope"])
+                        table[item["id"]] = {**item, "root": root}
+                        continue
                     manifest = read_object(safe_path(root, ".garden/garden.json"))
                     if manifest.get("id") != item["id"]:
                         raise ContractError("BINDING_IDENTITY: configured and observed garden identities differ")

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:garden-catalog:v1",
+  "title": "Mindgarden garden-catalog v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "private_fallback",
+    "gardens"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.garden-catalog/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "private_fallback": {
+      "anyOf": [
+        {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "gardens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "canonical_uri",
+          "owners",
+          "scope",
+          "domains",
+          "contracts"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "kind": {
+            "enum": [
+              "repository",
+              "organization",
+              "personal"
+            ]
+          },
+          "canonical_uri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "owners": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/owners"
+          },
+          "scope": {
+            "$ref": "urn:egohygiene:mindgarden:scope:v1"
+          },
+          "domains": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/domains"
+          },
+          "contracts": {
+            "type": "object",
+            "required": [
+              "reads",
+              "writes"
+            ],
+            "properties": {
+              "reads": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/stringSet"
+              },
+              "writes": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/stringSet"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "maxItems": 100
+    }
+  },
+  "additionalProperties": false
+}

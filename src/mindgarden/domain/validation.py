@@ -607,6 +607,8 @@ def validate_v0_repository(repository_root: Path) -> int:
 
 def validate_repository(repository_root: Path, *, content_resolver=None) -> int:
     """Validate an explicit garden using its declared contract version."""
+    if (repository_root / ".mindgarden-write.lock").exists():
+        raise ContractError("WRITE_LOCKED: complete or recover the owning operation before validation")
     garden = repository_root / ".garden"
     if (garden / "garden.json").exists():
         if (garden / "garden.yaml").exists():

@@ -8,7 +8,7 @@ from pathlib import Path
 
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes, read_object
 from ..domain.garden import evidence_bytes, inspect_garden
-from ..domain.scope import LEGACY_VISIBILITY, inherit_scope
+from ..domain.scope import LEGACY_VISIBILITY, inherit_scope, record_scope
 from ..domain.validation import ContractError
 from .bindings import LocalBindings, garden_fingerprint
 from .changes import ChangePlan
@@ -23,18 +23,23 @@ def require_review_authority(review: dict, authority: dict | None) -> None:
             raise ContractError("REVIEW_AUTHORITY: explicit human reviewer evidence is required")
 
 
-def build_curation_plan(bindings: LocalBindings, candidate_path: Path) -> ChangePlan:
+def build_curation_plan(bindings: LocalBindings, candidate_path: Path, *,
+                        supplied_proposal: dict | None = None,
+                        authorized_snapshots: dict | None = None,
+                        public_review: dict | None = None,
+                        canonical_routing: dict | None = None) -> ChangePlan:
     if candidate_path.is_symlink():
         raise ContractError("PLAN_PATH: proposal must be a regular private file")
-    proposal = read_object(candidate_path)
+    proposal = deepcopy(supplied_proposal) if supplied_proposal is not None else read_object(candidate_path)
     registry = ContractRegistry()
     if registry.errors(proposal, "curation-plan"):
         raise ContractError("CURATION_INVALID: proposal does not conform to the curation-plan contract")
     binding = bindings.garden(proposal["garden"])
     root = binding["root"]
-    if binding["scope"]["visibility"] == "public":
+    if binding["scope"]["visibility"] == "public" and public_review is None:
         raise ContractError("CURATION_BOUNDARY: source curation requires an explicitly private target")
-    snapshot = inspect_garden(root, content_resolver=content_resolver(bindings)).require_valid()
+    snapshot = ((authorized_snapshots or {}).get(proposal["garden"])
+                or inspect_garden(root, content_resolver=content_resolver(bindings)).require_valid())
     if binding["scope"]["persistence"] == "encrypted-vault":
         raise ContractError("RUNTIME_UNVERIFIED: encrypted curation assurance is unavailable")
     input_digest = digest_bytes(candidate_path.read_bytes())
@@ -45,18 +50,20 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path) -> Change
     output_ids: set[str] = set()
 
     def resolve(reference: dict, expected: str | None = None) -> dict:
-        if reference["garden"] != proposal["garden"]:
-            raise ContractError("CURATION_SCOPE: this checkpoint requires explicitly local source evidence")
-        record = snapshot.records.get(reference["id"])
+        owner = snapshot if reference["garden"] == proposal["garden"] else (authorized_snapshots or {}).get(reference["garden"])
+        if owner is None:
+            raise ContractError("CURATION_SCOPE: source evidence requires an explicitly authorized garden")
+        record = owner.records.get(reference["id"])
         if record is None or (expected and record["schema"] != "mindgarden." + expected + "/v1"):
             raise ContractError("CURATION_EVIDENCE: referenced artifact is unavailable")
-        if reference.get("revision") != "sha256:" + snapshot.hashes[reference["id"]]:
+        if reference.get("revision") != "sha256:" + owner.hashes[reference["id"]]:
             raise ContractError("PLAN_STALE: an exact represented source revision is required")
         return record
 
     def verify_evidence(locator: dict) -> dict:
         record = resolve(locator["source"], "source")
-        if digest_bytes(evidence_bytes(snapshot.contents[record["id"]], locator["locator"])) != locator["content_sha256"]:
+        owner = snapshot if record["garden"] == proposal["garden"] else authorized_snapshots[record["garden"]]
+        if digest_bytes(evidence_bytes(owner.contents[record["id"]], locator["locator"])) != locator["content_sha256"]:
             raise ContractError("PLAN_STALE: selected source evidence changed")
         return record
 
@@ -72,13 +79,26 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path) -> Change
         sources = list({canonical_json(item): item for item in sources}.values())
         for locator in sources:
             verify_evidence(locator)
-        scope = inherit_scope([binding["scope"], *[item.get("scope", binding["scope"]) for item in inputs + merged]])
+        scope = inherit_scope([binding["scope"], *[record_scope(item, bindings.garden(item["garden"])["scope"])
+                                                for item in inputs + merged]])
         if scope["persistence"] == "encrypted-vault":
             raise ContractError("OUTPUT_SCOPE: ordinary local storage cannot receive restricted derivations")
         all_scopes.append(scope)
         output_reference = None
         if candidate["action"] not in {"defer", "exclude"}:
             output = candidate["output"]
+            if binding["scope"]["visibility"] == "public":
+                require_review_authority(public_review, proposal["review_authority"])
+                policy = snapshot.manifest["publication"]
+                if (scope["visibility"] != "public" or scope["publication"] == "never-exportable"
+                        or public_review["state"] != "approved" or output["review"]["state"] != "approved"
+                        or "public" not in policy["allowed_visibilities"]):
+                    raise ContractError("ROUTE_PUBLIC: public destination lacks explicit publication authority")
+                for field, values in (("kinds", [output["kind"]]), ("domains", output["domains"]), ("topics", output["topics"])):
+                    if policy["allow"][field] and not set(values) <= set(policy["allow"][field]):
+                        raise ContractError("ROUTE_PUBLIC: proposed output is outside the target publication allowlist")
+                if any(item["schema"] == "mindgarden.source/v1" and item["kind"] == "captured" for item in inputs):
+                    raise ContractError("ROUTE_PUBLIC: raw captures never authorize a public route")
             if output["id"] in output_ids:
                 raise ContractError("CURATION_DUPLICATE: output identity is duplicated")
             output_ids.add(output["id"])
@@ -91,8 +111,10 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path) -> Change
             body_digest = digest_bytes(body)
             provenance = provenance_record(
                 proposal["garden"], "provenance-" + output["id"], output["id"], body_digest,
-                inputs=[{"artifact": artifact_reference(proposal["garden"], item["id"], snapshot.hashes[item["id"]]),
-                         "sha256": snapshot.hashes[item["id"]], "role": "evidence"} for item in inputs + merged],
+                inputs=[{"artifact": artifact_reference(item["garden"], item["id"],
+                            (snapshot if item["garden"] == proposal["garden"] else authorized_snapshots[item["garden"]]).hashes[item["id"]]),
+                         "sha256": (snapshot if item["garden"] == proposal["garden"] else authorized_snapshots[item["garden"]]).hashes[item["id"]],
+                         "role": "evidence"} for item in inputs + merged],
                 transformations=({"name": candidate["action"], "version": "1.0.0",
                                   "parameters": {"candidate_plan_sha256": input_digest,
                                                  "candidate": candidate["id"], "rationale": candidate["rationale"]}},),
@@ -145,12 +167,14 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path) -> Change
                          "provenance": [artifact_reference(proposal["garden"], provenance["id"],
                                                           digest_bytes(canonical_json(provenance)))],
                          "supersedes": output.get("supersedes", []),
-                         "publication": "excluded", "scope": scope,
+                         "publication": "eligible" if binding["scope"]["visibility"] == "public" else "excluded", "scope": scope,
                          "x-curation": {"candidate": candidate["id"], "action": candidate["action"],
                                         "rationale": candidate["rationale"], "attribution": output["attribution"],
                                         "epistemic_state": output["epistemic_state"], "caveats": output["caveats"],
                                         "uncertainty": output["uncertainty"], "contradictions": output["contradictions"]}}
             files[knowledge["content"]["path"]] = body
+            if canonical_routing is not None:
+                knowledge["x-routing"] = deepcopy(canonical_routing)
             files[f"knowledge/{output['id']}.json"] = canonical_json(knowledge)
             files[f"provenance/{provenance['id']}.json"] = canonical_json(provenance)
             output_reference = artifact_reference(proposal["garden"], output["id"], body_digest)

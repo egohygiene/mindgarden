@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:routing-plan:v1",
+  "title": "Mindgarden routing-plan v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "curation",
+    "routes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.routing-plan/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "curation": {
+      "$ref": "urn:egohygiene:mindgarden:curation-plan:v1"
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "candidate",
+          "preferred_gardens",
+          "relevant_gardens",
+          "confidence",
+          "rationale",
+          "public_review"
+        ],
+        "properties": {
+          "candidate": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "preferred_gardens": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifierSet"
+          },
+          "relevant_gardens": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifierSet"
+          },
+          "confidence": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence"
+          },
+          "rationale": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+          },
+          "public_review": {
+            "anyOf": [
+              {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "maxItems": 1000
+    }
+  },
+  "additionalProperties": false
+}

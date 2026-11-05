@@ -125,6 +125,9 @@ class V1ContractTests(unittest.TestCase):
                 "context-profile",
                 "curation-plan",
                 "curation-receipt",
+                "garden-catalog",
+                "routing-plan",
+                "routing-receipt",
             },
         )
         identifiers = set()
