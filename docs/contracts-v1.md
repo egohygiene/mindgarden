@@ -143,3 +143,15 @@ supersession cycles have stable diagnostics. Cross-garden targets require
 explicit authorization; unavailable coverage is incomplete, not successful.
 This is structural integrity and publication eligibility, not a repository-wide
 secret scanner, factual verification or completed public-consumer conformance.
+
+## Additive public discovery projections
+
+The #16 dependent draft adds `federation-descriptor`, `federation-index`,
+`federation-graph`, `federation-plan`, `federation-catalog-request` and
+`federation-catalog` schemas under the existing local v1 registry. They are
+projections/control inputs over the current garden/knowledge/claim/source/synapse
+model. The existing approved `projection` contract supplies selection authority;
+canonical records do not move into a catalog. [The contract](federation.md)
+defines represented revisions, exact logical citations, declared canonical routes,
+capabilities, checksums, private control state and retained integration gaps.
+Proposed ADR-0011 does not establish accepted organization policy.

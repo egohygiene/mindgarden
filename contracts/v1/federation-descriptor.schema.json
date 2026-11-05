@@ -1,0 +1,349 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:federation-descriptor:v1",
+  "title": "Mindgarden federation-descriptor v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "garden",
+    "canonical_uri",
+    "base_uri",
+    "scope",
+    "review_state",
+    "revision",
+    "trust",
+    "freshness",
+    "capabilities",
+    "artifacts",
+    "contracts"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.federation-descriptor/v1"
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "canonical_uri": {
+      "type": "string",
+      "format": "uri"
+    },
+    "base_uri": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "maxLength": 2000
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:federation-descriptor:v1#/$defs/public_scope"
+    },
+    "review_state": {
+      "const": "approved"
+    },
+    "revision": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "trust": {
+      "const": "untrusted-evidence"
+    },
+    "freshness": {
+      "const": "represented-revision"
+    },
+    "capabilities": {
+      "type": "object",
+      "required": [
+        "available",
+        "unavailable"
+      ],
+      "properties": {
+        "available": {
+          "const": [
+            "public-knowledge-index",
+            "typed-public-graph",
+            "agent-entrypoint"
+          ]
+        },
+        "unavailable": {
+          "const": [
+            "remote-fetch",
+            "remote-query",
+            "remote-write",
+            "private-federation",
+            "cryptographic-signatures"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "allOf": [
+          {
+            "$ref": "urn:egohygiene:mindgarden:federation-descriptor:v1#/$defs/file"
+          },
+          {
+            "properties": {
+              "path": {
+                "enum": [
+                  "index.json",
+                  "graph.json",
+                  "llms.txt"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "contracts": {
+      "const": {
+        "canonical": [
+          "mindgarden.garden/v1",
+          "mindgarden.knowledge/v1",
+          "mindgarden.claim/v1",
+          "mindgarden.source/v1",
+          "mindgarden.synapse/v1",
+          "mindgarden.provenance/v1"
+        ],
+        "projections": [
+          "mindgarden.federation-index/v1",
+          "mindgarden.federation-graph/v1"
+        ],
+        "scope": "mindgarden.scope/v1"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "required": [
+        "garden",
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "garden": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        },
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "citation": {
+      "type": "object",
+      "required": [
+        "source",
+        "locator",
+        "content_sha256"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "urn:egohygiene:mindgarden:federation-descriptor:v1#/$defs/artifact"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content_sha256": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "file": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256",
+        "size_bytes"
+      ],
+      "properties": {
+        "path": {
+          "enum": [
+            "garden.json",
+            "index.json",
+            "graph.json",
+            "llms.txt",
+            ".mindgarden-federation.json"
+          ]
+        },
+        "sha256": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000000
+        }
+      },
+      "additionalProperties": false
+    },
+    "public_scope": {
+      "allOf": [
+        {
+          "$ref": "urn:egohygiene:mindgarden:scope:v1"
+        },
+        {
+          "properties": {
+            "visibility": {
+              "const": "public"
+            },
+            "publication": {
+              "const": "publishable"
+            }
+          }
+        }
+      ]
+    },
+    "record": {
+      "type": "object",
+      "required": [
+        "reference",
+        "canonical_url",
+        "title",
+        "record_type",
+        "kind",
+        "subject",
+        "review_state",
+        "scope",
+        "confidence",
+        "content",
+        "sources",
+        "qualifications",
+        "domains",
+        "topics",
+        "tags",
+        "selection_reason"
+      ],
+      "properties": {
+        "reference": {
+          "$ref": "urn:egohygiene:mindgarden:federation-descriptor:v1#/$defs/artifact"
+        },
+        "canonical_url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://",
+          "maxLength": 2000
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record_type": {
+          "enum": [
+            "knowledge",
+            "claim"
+          ]
+        },
+        "kind": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        },
+        "subject": {
+          "anyOf": [
+            {
+              "$ref": "urn:egohygiene:mindgarden:federation-descriptor:v1#/$defs/artifact"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "review_state": {
+          "const": "approved"
+        },
+        "scope": {
+          "$ref": "urn:egohygiene:mindgarden:federation-descriptor:v1#/$defs/public_scope"
+        },
+        "confidence": {
+          "$ref": "urn:egohygiene:mindgarden:knowledge:v1#/properties/confidence"
+        },
+        "content": {
+          "type": "string"
+        },
+        "sources": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "urn:egohygiene:mindgarden:federation-descriptor:v1#/$defs/citation"
+          },
+          "uniqueItems": true
+        },
+        "qualifications": {
+          "type": "object",
+          "required": [
+            "epistemic_state",
+            "attribution",
+            "caveats",
+            "uncertainty",
+            "contradictions"
+          ],
+          "properties": {
+            "epistemic_state": {
+              "type": "string",
+              "minLength": 1
+            },
+            "attribution": {
+              "type": "string",
+              "minLength": 1
+            },
+            "caveats": {
+              "type": "array",
+              "maxItems": 10000,
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            },
+            "uncertainty": {
+              "type": "array",
+              "maxItems": 10000,
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            },
+            "contradictions": {
+              "type": "array",
+              "maxItems": 10000,
+              "items": {
+                "$ref": "urn:egohygiene:mindgarden:federation-descriptor:v1#/$defs/artifact"
+              },
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "domains": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "topics": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/topics"
+        },
+        "tags": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/stringSet"
+        },
+        "selection_reason": {
+          "const": "reviewed-profile-include"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

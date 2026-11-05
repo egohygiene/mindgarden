@@ -1,0 +1,67 @@
+{
+  "artifacts": [
+    {
+      "path": "graph.json",
+      "sha256": "bf6739f57a731c00baabd047f5af449bf1abfb2f454cfa120d09f9983adc85d3",
+      "size_bytes": 1464
+    },
+    {
+      "path": "index.json",
+      "sha256": "dd6951a0b9453f343223a0d4638bb8c8c2bc5338abeed52e01a2ef7149954909",
+      "size_bytes": 5821
+    },
+    {
+      "path": "llms.txt",
+      "sha256": "4baac7abd1b7055362b99481638295c4967b0ec3a6c4acd1bcfebd5efdb90909",
+      "size_bytes": 604
+    }
+  ],
+  "base_uri": "https://repository-garden.example.test/garden/",
+  "canonical_uri": "urn:mindgarden:garden:repository-garden",
+  "capabilities": {
+    "available": [
+      "public-knowledge-index",
+      "typed-public-graph",
+      "agent-entrypoint"
+    ],
+    "unavailable": [
+      "remote-fetch",
+      "remote-query",
+      "remote-write",
+      "private-federation",
+      "cryptographic-signatures"
+    ]
+  },
+  "contracts": {
+    "canonical": [
+      "mindgarden.garden/v1",
+      "mindgarden.knowledge/v1",
+      "mindgarden.claim/v1",
+      "mindgarden.source/v1",
+      "mindgarden.synapse/v1",
+      "mindgarden.provenance/v1"
+    ],
+    "projections": [
+      "mindgarden.federation-index/v1",
+      "mindgarden.federation-graph/v1"
+    ],
+    "scope": "mindgarden.scope/v1"
+  },
+  "freshness": "represented-revision",
+  "garden": "repository-garden",
+  "review_state": "approved",
+  "revision": "sha256:5ec1622bd2f1d2de2bcbf6d178033548824bbb444f9f763a6459bb01d6114ead",
+  "schema": "mindgarden.federation-descriptor/v1",
+  "scope": {
+    "execution": "offline",
+    "persistence": "machine-local",
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": "publishable",
+    "schema": "mindgarden.scope/v1",
+    "visibility": "public"
+  },
+  "trust": "untrusted-evidence"
+}

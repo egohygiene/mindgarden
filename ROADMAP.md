@@ -182,13 +182,13 @@ issues: [11, 12, 13, 14, 15, 29, 31, 45]
 
 <!-- roadmap-step
 id: MIG-Q05
-status: planned
+status: active
 depends_on: [MIG-Q04]
 issues: [2, 16, 17, 18]
 -->
 #### MIG-Q05 — Publish privacy-safe projections
 
-**State:** `planned`  
+**State:** `active`
 **Depends on:** `MIG-Q04`
 
 **Outcome:** Issue #2 produces an opt-in Pages or Quartz projection that cannot expose private records by default.
@@ -203,9 +203,11 @@ issues: [2, 16, 17, 18]
 - Issue #2 tracks projections.
 - The v0 reviewed-public projector and immutable Quartz adapter are tested with a synthetic consumer fixture.
 - Consumer deployment workflows and an organization-level garden route remain unimplemented.
-- B1 selects #16's local versioned descriptor, reviewed-public artifacts and
-  synthetic catalog checkpoint next. A local build will not establish consumer
-  deployment, organization adoption or full federation acceptance.
+- B1 implements #16's local versioned descriptor, reviewed-public artifacts and
+  supplied synthetic catalog on the dependent draft branch
+  `feature/16-local-federation-projections`, based on roadmap draft #65. See the
+  [contract and reproducer](docs/federation.md). A local build does not establish
+  consumer deployment, organization adoption or full federation acceptance.
 
 ### Roadmap-to-issue handoff
 
@@ -297,7 +299,7 @@ Optional managed services, enterprise controls, marketplaces, and the conversati
 
 - **Observed:** A provenance-linked v0 implementation, synthetic fixture, and standalone test workflow now exist in this repository.
 - **Decided:** Source ownership graduates before Empathy consumer cutover and before v1 contract expansion.
-- **Implemented on draft stack:** General v1 validation, local source adapters, reviewed retrieval/context, authored curation, candidate routing, scope enforcement and bounded filesystem recovery have synthetic local evidence.
+- **Merged local checkpoint:** General v1 validation, local source adapters, reviewed retrieval/context, authored curation, candidate routing, scope enforcement and bounded filesystem recovery have synthetic local evidence.
 - **Proposed/deferred:** Architecture ratification, full archive/document/media acceptance, released packaging, consumer publication and federation remain separate gates.
 - **Open question:** Which consumption format should Empathy pin first: a release archive, package, or immutable source checkout?
 
@@ -320,8 +322,10 @@ contributes only explicit safe local bindings; full registry composition and #35
 PDF/media ingestion remain integration work. #41 historical backfill and hosted
 product/publication work do not become blanket blockers for existing v1 work.
 
-SQLite #32, federation, web/API productization, provider integrations and broader
-retention remain deferred. New ADRs stay proposed and all partial PRs use Refs.
+SQLite #32, web/API productization, provider integrations and broader compaction
+remain deferred. The next B1 checkpoint covers local public federation contracts;
+full federation/consumer acceptance remains open. Retention policy is considered
+early without authorizing destructive operations. New ADRs stay proposed and all partial PRs use Refs.
 
 The [finite evidence report](docs/private-garden-evidence.md) links the synthetic
 archive, reviewed prompt entry, exact source retrieval, bounded context and vault

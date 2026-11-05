@@ -71,8 +71,14 @@ web interfaces and databases are optional integrations.
 
 The [open-issue ledger](docs/open-issue-coverage.md) reconciles the merged
 checkpoint with every remaining issue and its dependencies. Versioned public
-descriptors/projections are the next bounded implementation; full consumer,
-publication and architecture acceptance remain separate.
+descriptors/projections are implemented in the next dependent draft checkpoint;
+full consumer, publication and architecture acceptance remain separate.
+
+The [public discovery checkpoint](docs/federation.md) adds reviewed, digest-bound
+local exports and a catalog over explicitly supplied public bundles. It declares
+remote fetching/querying/writing, private federation and signatures unavailable.
+Run `python3 scripts/federation_demo.py --workspace ".cache/federation-demo"`
+to reproduce the synthetic two-garden proof without integrations.
 
 ```sh
 python3 scripts/private_garden_demo.py --workspace ".cache/private-garden-demo"

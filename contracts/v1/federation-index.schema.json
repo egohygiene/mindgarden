@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:federation-index:v1",
+  "title": "Mindgarden federation-index v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "garden",
+    "trust",
+    "scope",
+    "records"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.federation-index/v1"
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "trust": {
+      "const": "untrusted-evidence"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:federation-descriptor:v1#/$defs/public_scope"
+    },
+    "records": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:federation-descriptor:v1#/$defs/record"
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

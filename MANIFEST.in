@@ -10,3 +10,4 @@ recursive-include scripts *.py
 recursive-include templates *.md
 recursive-include tests *.json *.md *.py *.txt *.yaml
 include tests/fixtures/public-garden/.garden/provenance/.gitkeep
+include tests/fixtures/federation/expected/.mindgarden-federation.json

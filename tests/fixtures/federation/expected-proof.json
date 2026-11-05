@@ -1,0 +1,75 @@
+{
+  "artifacts": [
+    {
+      "path": ".mindgarden-federation.json",
+      "sha256": "bf22aa977bbdc1d020e6813e77db91ac79f8ddd993b92a3f412f40b149db3145"
+    },
+    {
+      "path": "garden.json",
+      "sha256": "5ecc961674e5f41f736922b451612b9a99e2ad0e2c20ccabf70e718bcc515532"
+    },
+    {
+      "path": "graph.json",
+      "sha256": "bf6739f57a731c00baabd047f5af449bf1abfb2f454cfa120d09f9983adc85d3"
+    },
+    {
+      "path": "index.json",
+      "sha256": "dd6951a0b9453f343223a0d4638bb8c8c2bc5338abeed52e01a2ef7149954909"
+    },
+    {
+      "path": "llms.txt",
+      "sha256": "4baac7abd1b7055362b99481638295c4967b0ec3a6c4acd1bcfebd5efdb90909"
+    }
+  ],
+  "catalog_sha256": "e5289ba7ac3efa92b54a10f3e51d678ae71b226d5b9aee0836813ff5424f5676",
+  "checks": [
+    "explicit-reviewed-profile-and-public-session",
+    "read-only-plan",
+    "digest-bound-create-and-repeat-verify",
+    "exact-source-reference",
+    "typed-public-graph",
+    "no-control-or-denied-metadata",
+    "order-independent-catalog",
+    "catalog-to-scoped-search-and-bounded-context",
+    "relocated-export-same-references",
+    "clean-garden-rebuild",
+    "canonical-inputs-unchanged"
+  ],
+  "context_bytes": 5691,
+  "context_max_bytes": 16384,
+  "context_sha256": "5ce3a02f798c0e93ba23765e4ccf14c661c60139053eaae6cc5f9e891db54643",
+  "descriptors": [
+    {
+      "garden": "organization-garden",
+      "revision": "sha256:26ab0de08f2107c2b688e78ec98fcdc34cd7264408f1064734b75351e5044e56"
+    },
+    {
+      "garden": "repository-garden",
+      "revision": "sha256:5ec1622bd2f1d2de2bcbf6d178033548824bbb444f9f763a6459bb01d6114ead"
+    }
+  ],
+  "engine_version": "0.1.0",
+  "integrations": {
+    "google": "unused",
+    "model": "unused",
+    "network": "blocked-in-process"
+  },
+  "public_gardens": 2,
+  "public_records": 6,
+  "schema": "mindgarden.synthetic-federation-proof/v1",
+  "search_reference": {
+    "garden": "repository-garden",
+    "id": "reviewed-prompt",
+    "revision": "sha256:e1ce2bc9126281033e190c9607bff98c9cd38534c09a9e7d48216c8e2ca13a02"
+  },
+  "source_reference": {
+    "content_sha256": "844d4581e4f19e74c4417bc1ecc32e5646f75a584c60505e7bfdc88b7ea2152e",
+    "locator": "lines:1-1",
+    "source": {
+      "garden": "repository-garden",
+      "id": "public-source",
+      "revision": "sha256:1581c5901aadd064d9077a519dbda5a903b5cb5ea9f9be7b4864ec95f3345d32"
+    }
+  },
+  "status": "passed"
+}

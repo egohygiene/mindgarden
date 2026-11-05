@@ -131,6 +131,12 @@ class V1ContractTests(unittest.TestCase):
                 "vault-export",
                 "vault-recovery-plan",
                 "evidence",
+                "federation-descriptor",
+                "federation-index",
+                "federation-graph",
+                "federation-catalog-request",
+                "federation-catalog",
+                "federation-plan",
             },
         )
         identifiers = set()

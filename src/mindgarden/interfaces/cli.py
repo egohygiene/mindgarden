@@ -361,6 +361,28 @@ def add_site_command(commands: ParserCollection) -> None:
     parser.set_defaults(handler=quartz.run)
 
 
+def add_federation_command(commands: ParserCollection) -> None:
+    """Register offline, reviewed public discovery projections."""
+    from ..application.federation import run_federation
+
+    federation = commands.add_parser("federation", help="Build reviewed public discovery artifacts from explicit inputs")
+    operations = federation.add_subparsers(dest="operation", required=True)
+    build = operations.add_parser("build", help="Plan, create or check an immutable public projection bundle")
+    build.add_argument("--local-config", type=Path, required=True)
+    build.add_argument("--scope", type=Path, required=True)
+    build.add_argument("--profile", type=Path, required=True, help="Approved v1 federation projection profile")
+    build.add_argument("--output-directory", type=Path, required=True, help="Existing export parent; profile output_root selects its bundle directory")
+    mode = build.add_mutually_exclusive_group()
+    mode.add_argument("--plan", action="store_true", help="Preview without writing (default)")
+    mode.add_argument("--apply", action="store_true", help="Create after checking the exact reviewed plan digest")
+    mode.add_argument("--check", action="store_true", help="Verify an existing bundle against current reviewed inputs")
+    build.add_argument("--plan-digest", help="Exact federation plan_sha256 required by --apply")
+    build.set_defaults(handler=run_federation)
+    catalog = operations.add_parser("catalog", help="Verify and combine explicitly supplied public bundles without fetching")
+    catalog.add_argument("--input", type=Path, required=True, help="Machine-local versioned catalog request with expected revisions")
+    catalog.set_defaults(handler=run_federation)
+
+
 def build_parser() -> ArgumentParser:
     """Build the stable package command contract."""
     parser = ArgumentParser(prog="mindgarden", description=__doc__)
@@ -383,6 +405,7 @@ def build_parser() -> ArgumentParser:
     add_agent_commands(commands)
     add_publish_command(commands)
     add_site_command(commands)
+    add_federation_command(commands)
     from ..application.curation import run_gardenize
 
     gardenize = commands.add_parser("gardenize", help="Preview or apply an authored curation proposal")

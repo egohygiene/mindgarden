@@ -1,0 +1,29 @@
+{
+  "schema": "mindgarden.projection/v1",
+  "id": "reviewed-public-discovery",
+  "garden": "repository-garden",
+  "kind": "federation",
+  "status": "planned",
+  "visibility": "public",
+  "review": {
+    "state": "approved",
+    "reviewers": ["synthetic-reviewer"],
+    "reviewed_at": "2026-11-04T00:00:00Z",
+    "rationale": "Synthetic publication approval; private-review-rationale-canary must stay in the control profile."
+  },
+  "source_revision": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "inputs": [],
+  "output_root": "federation",
+  "base_uri": "https://repository.example.test/garden/",
+  "policy": {
+    "default_action": "deny",
+    "allowed_visibilities": ["public"],
+    "required_review_states": ["approved"],
+    "exclude_raw_sources": true,
+    "allow": {
+      "kinds": ["procedure", "claim"],
+      "domains": ["knowledge-systems"],
+      "topics": ["prompt-bank"]
+    }
+  }
+}
