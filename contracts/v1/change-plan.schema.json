@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:change-plan:v1",
+  "title": "Mindgarden digest-bound canonical change plan v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "operation",
+    "garden",
+    "inputs",
+    "files",
+    "blobs",
+    "plan_sha256"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.change-plan/v1"
+    },
+    "operation": {
+      "enum": [
+        "ingest",
+        "gardenize"
+      ]
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "inputs": {
+      "type": "object",
+      "required": [
+        "garden_revision"
+      ],
+      "properties": {
+        "garden_revision": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "action",
+          "size_bytes",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/portablePath"
+          },
+          "action": {
+            "const": "create-or-verify"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "sha256": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "blobs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "content_id",
+          "size_bytes"
+        ],
+        "properties": {
+          "content_id": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "plan_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    }
+  },
+  "additionalProperties": false
+}

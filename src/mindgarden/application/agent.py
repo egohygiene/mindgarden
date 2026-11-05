@@ -21,6 +21,8 @@ import textwrap
 from typing import Any
 from urllib.parse import urlparse
 
+from ..domain.sources import normalize_text
+
 from ..domain.validation import (
     ContractError,
     discover_note_paths,
@@ -50,12 +52,6 @@ def canonical_json(value: object) -> str:
 def sha256_bytes(value: bytes) -> str:
     """Return a lowercase SHA-256 digest."""
     return hashlib.sha256(value).hexdigest()
-
-
-def normalize_text(value: str) -> str:
-    """Normalize a decoded text artifact without interpreting its content."""
-    normalized = value.removeprefix("\ufeff").replace("\r\n", "\n").replace("\r", "\n")
-    return normalized.rstrip("\n") + "\n"
 
 
 def tokenize(value: str) -> list[str]:
