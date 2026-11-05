@@ -1,0 +1,379 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:curation-plan:v1",
+  "title": "Mindgarden authored gardenization proposal v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "garden",
+    "created_at",
+    "producer",
+    "review_authority",
+    "candidates"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.curation-plan/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "producer": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/author"
+    },
+    "review_authority": {
+      "anyOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/author"
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "human"
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "action",
+          "sources",
+          "rationale",
+          "merge_inputs"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "action": {
+            "enum": [
+              "keep",
+              "summarize",
+              "merge",
+              "reference",
+              "defer",
+              "exclude"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+            },
+            "minItems": 1
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "merge_inputs": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+            },
+            "minItems": 0
+          },
+          "output": {
+            "type": "object",
+            "required": [
+              "id",
+              "title",
+              "kind",
+              "body",
+              "authors",
+              "review",
+              "status",
+              "confidence",
+              "epistemic_state",
+              "attribution",
+              "domains",
+              "topics",
+              "caveats",
+              "uncertainty",
+              "contradictions",
+              "claims",
+              "synapses"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": [
+                  "map",
+                  "concept",
+                  "decision",
+                  "project",
+                  "procedure",
+                  "insight",
+                  "reference",
+                  "note"
+                ]
+              },
+              "body": {
+                "type": "string",
+                "minLength": 1
+              },
+              "authors": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/authors"
+              },
+              "review": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+              },
+              "status": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/lifecycleStatus"
+              },
+              "confidence": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence"
+              },
+              "epistemic_state": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/epistemicState"
+              },
+              "attribution": {
+                "enum": [
+                  "user-report",
+                  "assistant-suggestion",
+                  "third-party",
+                  "quoted",
+                  "mixed",
+                  "inferred"
+                ]
+              },
+              "domains": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/domains"
+              },
+              "topics": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/topics"
+              },
+              "caveats": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "uncertainty": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "contradictions": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+                },
+                "minItems": 0
+              },
+              "claims": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "statement",
+                    "epistemic_state",
+                    "confidence",
+                    "review",
+                    "evidence"
+                  ],
+                  "properties": {
+                    "id": {
+                      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+                    },
+                    "statement": {
+                      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+                    },
+                    "epistemic_state": {
+                      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/epistemicState"
+                    },
+                    "confidence": {
+                      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence",
+                      "default": "unknown"
+                    },
+                    "review": {
+                      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+                    },
+                    "evidence": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "relationship",
+                          "target",
+                          "rationale"
+                        ],
+                        "properties": {
+                          "relationship": {
+                            "enum": [
+                              "supports",
+                              "contradicts",
+                              "uncertain",
+                              "supersedes"
+                            ]
+                          },
+                          "target": {
+                            "oneOf": [
+                              {
+                                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+                              },
+                              {
+                                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+                              }
+                            ]
+                          },
+                          "rationale": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "minLength": 1
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "synapses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "type",
+                    "target",
+                    "directed",
+                    "review",
+                    "rationale"
+                  ],
+                  "properties": {
+                    "id": {
+                      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+                    },
+                    "type": {
+                      "enum": [
+                        "related",
+                        "supports",
+                        "contradicts",
+                        "supersedes",
+                        "derived-from",
+                        "part-of",
+                        "depends-on",
+                        "references"
+                      ]
+                    },
+                    "target": {
+                      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+                    },
+                    "directed": {
+                      "type": "boolean"
+                    },
+                    "review": {
+                      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+                    },
+                    "rationale": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "supersedes": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReferences"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "enum": [
+                    "defer",
+                    "exclude"
+                  ]
+                }
+              },
+              "required": [
+                "action"
+              ]
+            },
+            "then": {
+              "not": {
+                "required": [
+                  "output"
+                ]
+              }
+            },
+            "else": {
+              "required": [
+                "output"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "merge"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            },
+            "then": {
+              "properties": {
+                "merge_inputs": {
+                  "minItems": 2
+                }
+              }
+            }
+          }
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

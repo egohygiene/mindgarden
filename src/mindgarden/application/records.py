@@ -16,7 +16,8 @@ def provenance_record(garden: str, record_id: str, artifact_id: str, artifact_di
                       created_at: str, rights: str, origin: str | None, scope: dict) -> dict:
     return {"schema": "mindgarden.provenance/v1", "id": record_id, "garden": garden,
             "artifact": artifact_reference(garden, artifact_id, artifact_digest),
-            "artifact_sha256": artifact_digest, "origin": origin, "inputs": inputs,
+            "artifact_sha256": artifact_digest, "origin": origin,
+            "inputs": list({canonical_json(item): item for item in inputs}.values()),
             "transformations": [{"order": order, **operation, "performed_by": dict(AUTHOR)}
                                 for order, operation in enumerate(transformations, 1)],
             "generator": {"name": "mindgarden", "version": "0.1.0"},

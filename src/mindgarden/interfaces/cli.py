@@ -369,6 +369,15 @@ def build_parser() -> ArgumentParser:
     add_agent_commands(commands)
     add_publish_command(commands)
     add_site_command(commands)
+    from ..application.curation import run_gardenize
+
+    gardenize = commands.add_parser("gardenize", help="Preview or apply an authored curation proposal")
+    gardenize.add_argument("--local-config", type=Path, required=True)
+    gardenize_mode = gardenize.add_mutually_exclusive_group(required=True)
+    gardenize_mode.add_argument("--plan", type=Path, help="Validate and preview the supplied proposal")
+    gardenize_mode.add_argument("--apply", type=Path, help="Apply the supplied proposal after review")
+    gardenize.add_argument("--plan-digest", help="Exact reviewed preview digest")
+    gardenize.set_defaults(handler=run_gardenize)
     from ..application.storage import run_vault
 
     vault = commands.add_parser("vault", help="Manage explicitly bound private source storage")

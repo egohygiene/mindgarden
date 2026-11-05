@@ -123,6 +123,8 @@ class V1ContractTests(unittest.TestCase):
                 "backlinks",
                 "context",
                 "context-profile",
+                "curation-plan",
+                "curation-receipt",
             },
         )
         identifiers = set()

@@ -75,12 +75,19 @@ def build_index(context: QueryContext, *, include_unreviewed: bool = False,
                 tags = record.get("tags", [])
                 reference = artifact_reference(garden_id, record_id, snapshot.hashes[record_id])
                 key = record_key(reference)
+                qualifications = record.get("x-curation", {})
                 records[key] = {"reference": reference, "id": record_id, "garden": garden_id,
                                 "record_type": "knowledge" if kind.endswith("knowledge/v1") else "claim",
                                 "title": title, "kind": record.get("kind", "claim"),
                                 "status": record["status"], "review": record["review"],
                                 "confidence": record["confidence"], "scope": scope,
                                 "sources": sorted(sources, key=lambda item: canonical_json(item)),
+                                "qualifications": {
+                                    "epistemic_state": record.get("epistemic_state", qualifications.get("epistemic_state", "unverified")),
+                                    "attribution": qualifications.get("attribution", "not-declared"),
+                                    "caveats": qualifications.get("caveats", []),
+                                    "uncertainty": qualifications.get("uncertainty", []),
+                                    "contradictions": qualifications.get("contradictions", [])},
                                 "content": body, "domains": domains, "topics": topics, "tags": tags,
                                 "terms": dict(sorted(Counter(tokenize(body)).items())),
                                 "titleTerms": sorted(set(tokenize(title))),
@@ -89,6 +96,9 @@ def build_index(context: QueryContext, *, include_unreviewed: bool = False,
                                 "domainTerms": sorted(set(tokenize(" ".join(domains)))),
                                 "topicTerms": sorted(set(tokenize(" ".join(topics))))}
                 scopes.append(scope)
+    for record in records.values():
+        record["qualifications"]["contradictions"] = [reference for reference in
+            record["qualifications"]["contradictions"] if record_key(reference) in records]
     edges = []
     for garden_id, snapshot in sorted(snapshots.items()):
         for record in snapshot.records.values():
@@ -149,6 +159,7 @@ def search_payload(context: QueryContext, query: str, *, limit: int = 10,
         record = item["record"]
         results.append({"reference": record["reference"], "title": record["title"], "kind": record["kind"],
                         "review": record["review"], "scope": record["scope"], "sources": record["sources"],
+                        "qualifications": record["qualifications"],
                         "score": item["score"], "selection_reasons": item["reasons"],
                         "snippet": record["content"][:160]})
     context.check_live()
@@ -248,6 +259,7 @@ def render_context(context: QueryContext, profile: dict, format: str) -> bytes:
         elif len(selected) >= min(profile["max_items"], context.session["budgets"]["max_results"]):
             reason = "item-budget"
         item = {"reference": record["reference"], "review": record["review"], "scope": record["scope"],
+                "qualifications": record["qualifications"],
                 "sources": record["sources"], "selection_reason": "explicit-include" if key in {
                     record_key(value) for value in profile["include"]} else "lexical-query",
                 "selection_score": ranked.get(key, {}).get("score", 0),

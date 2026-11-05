@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:curation-receipt:v1",
+  "title": "Mindgarden non-destructive curation dispositions v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "garden",
+    "plan_sha256",
+    "scope",
+    "decisions"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.curation-receipt/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "plan_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "candidate",
+          "action",
+          "rationale",
+          "sources",
+          "output"
+        ],
+        "properties": {
+          "candidate": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "action": {
+            "enum": [
+              "keep",
+              "summarize",
+              "merge",
+              "reference",
+              "defer",
+              "exclude"
+            ]
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+            },
+            "minItems": 1
+          },
+          "output": {
+            "anyOf": [
+              {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}
