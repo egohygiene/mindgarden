@@ -55,6 +55,11 @@ class LocalBindings:
             raise ContractError("BINDING_SYMLINK: configuration must be a regular file")
         document = read_object(path)
         checked = dict(document)
+        if garden_ids is not None or vault_ids is not None:
+            # Registry management metadata never grants query authority. Do not
+            # validate unrelated private views/labels while opening a selected
+            # authorized binding. Named sessions validate their own view first.
+            checked.pop("registry", None)
         for field, selected in (("gardens", garden_ids), ("vaults", vault_ids)):
             if selected is not None:
                 checked[field] = [item for item in document.get(field, [])

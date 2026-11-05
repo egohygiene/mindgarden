@@ -241,3 +241,14 @@ also matches its original report. Main Test run 41960090464 and B0 run
 41963994340 succeeded. B1 Test run 41965122996 also succeeded on `9149b2f`,
 containing functional `015f396`; later documentation-only heads may have fresh checks.
 No workflow was manually dispatched. Exact proof commands: [federation evidence](federation.md).
+
+## Registry checkpoint after the B0/B1 merge
+
+#65 merged at `38c4edf5740f0b05e279f3b1e3b98488d6f6ac4e`; #66 at
+`44cc1e876282928685b5f3dba83d413db37b83c0`, with the tested `5f39fc2` tree.
+Their earlier draft descriptions above are historical evidence. B2 (#30) now
+proceeds on `feature/30-local-registry` using synthetic gardens only. The initial
+lifecycle core and proposed ADR-0012 are review material; scoped named sessions
+and multi-garden projection isolation follow in the same bounded checkpoint.
+Full restricted/native-platform/cache-cleanup/organization-runtime acceptance
+remains open. See [the registry contract](local-registry.md) and CONTINUITY.md.

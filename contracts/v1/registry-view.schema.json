@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:registry-view:v1",
+  "title": "Mindgarden registry-view v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "gardens",
+    "generation"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.registry-view/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "gardens": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+      },
+      "uniqueItems": true
+    },
+    "generation": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,140 @@
+# Machine-local registry checkpoint
+
+This is the bounded #30 tool capability, based on merged main `44cc1e8` (#65/#66).
+It uses existing v1 gardens, scope policy, sessions and bindings. Implementation
+and synthetic testing do not configure the user's real gardens. Proposed
+[ADR-0012](decisions/ADR-0012-machine-local-registry.md) records the decision;
+acceptance and implementation status remain independent.
+
+## Contract and dependency boundary
+
+`local-bindings/v1` remains the runtime document. Its optional `registry` field
+contains versioned management metadata: manifest-derived owners/labels/revisions,
+named selections and view-generation high-water marks. It is not another source
+or knowledge store. Existing explicit bindings and supported v0 commands remain
+usable. Registry registration itself requires an existing v1 manifest; migrate a
+v0 garden through the existing reviewed migration flow first.
+
+#29 supplies the implemented local scope contract; full organization policy is
+still separate. #14 supplies stable ownership/routing semantics, without making
+all existing-item move/split proofs prerequisites for registration. #16's public
+identity/version contract is available on main; remote acquisition and full
+private federation are not registry prerequisites. The registry reads supplied
+canonical manifests rather than fetching catalog entries. Full restricted/runtime
+acceptance still depends on compatible Hygiene #39/#40 and Realm #25/#60 evidence.
+These are proposed bounded dependency corrections, not closure of those parents.
+
+The current filesystem adapter supports ordinary Linux single-user operation.
+Platform location fixtures cover Linux/XDG, macOS and Windows conventions; native
+macOS/Windows mutation and host-specific assurance are explicitly unsupported.
+Restricted/encrypted registration is rejected before any root probe. Registering
+a public garden does not supply publication authority or change its review policy.
+
+## Private control locations
+
+The default registry is `$XDG_CONFIG_HOME/mindgarden/registry.json`, falling back
+to `~/.config/mindgarden/registry.json` on Linux. The macOS convention is
+`~/Library/Application Support/mindgarden/registry.json`; Windows uses
+`LOCALAPPDATA` or `APPDATA` plus `Mindgarden/registry.json`. These are location
+conventions, not claims of native runtime support. An explicit `--registry` path
+avoids any use of real default configuration during tests.
+
+The registry and plan files use owner-only regular files (0600) in private
+directories (0700). Symlink/traversal paths, canonical garden/vault locations and
+actual Git workspaces are refused, including ignored folders inside a repository.
+No Git executable is required. A sandbox's empty protected `.git` policy stub is
+distinguished from an actual gitdir/HEAD. Registration roots are explicit and are
+never discovered by crawling home, cloud-sync or repository-parent folders.
+
+All registry plans/reports are **machine-local control data, never exportable**.
+Plans include concrete paths and changed metadata so the operator can review the
+actual effect. List/inspect hide the binding root unless `--include-local-paths`
+is supplied; their identifiers/metadata remain private control information.
+Diagnostics avoid copying paths or source text. Never publish a local plan or use
+its hash as public garden lineage.
+
+## Preview and apply
+
+Every mutation starts with a saved preview; `apply` consumes that exact plan and
+reviewed digest. The examples use an explicit private directory, not a repository.
+
+```sh
+mindgarden registry init --registry "/private/mindgarden/registry.json" \
+  --output "/private/mindgarden/plans/init.json"
+mindgarden registry apply --registry "/private/mindgarden/registry.json" \
+  --plan "/private/mindgarden/plans/init.json" --plan-digest "<reviewed-plan-sha256>"
+
+mindgarden registry register --registry "/private/mindgarden/registry.json" \
+  --root "/private/synthetic-personal-garden" --garden-id "synthetic-garden" \
+  --visibility "personal" --execution "offline" --publication "review-required" \
+  --output "/private/mindgarden/plans/register.json"
+```
+
+Inspect that preview, then call `registry apply` with its saved file/digest.
+Omitting `--output` prints a read-only preview. `--owner` asserts a canonical
+owner; registration never changes it. Scope visibility/persistence/execution/
+publication are independent. Duplicate identities, incompatible contracts,
+nested garden/vault roots, changed manifests/root identities and stale plans fail
+closed. Re-registering an identical binding verifies it; refreshing labels after
+a compatible manifest change requires a new reviewed plan. Rebinding a root/scope
+uses explicit unregister/register rather than an implicit move.
+
+`registry init` can adopt an existing explicit binding file at the supplied private
+location through the same review flow. Vault descriptors and revoked sessions are
+preserved. Supported roots are inspected only at their manifests; source content
+is not opened or changed. Ordinary registration does not claim a complete source
+integrity audit; use the existing validation/audit workflows for that purpose.
+
+## Inspect, diagnose and unregister
+
+```sh
+mindgarden registry list --registry "/private/mindgarden/registry.json"
+mindgarden registry inspect --registry "/private/mindgarden/registry.json" --garden-id "synthetic-garden"
+mindgarden registry doctor --registry "/private/mindgarden/registry.json"
+mindgarden registry unregister --registry "/private/mindgarden/registry.json" \
+  --garden-id "synthetic-garden" --output "/private/mindgarden/plans/unregister.json"
+```
+
+Unregister is a plan until explicitly applied. It removes the binding/management
+entry and prunes affected named selections. It works when the old folder is
+unavailable, without discovery or deletion. Canonical notes, sources, assets and
+vaults stay untouched. Query projections/caches are retained; this checkpoint
+performs no physical cache cleanup. Doctor reports missing/incompatible/stale
+registrations and explicitly labels content integrity `not-checked`. A degraded
+doctor exits `3`; healthy inspection exits `0` using stable JSON.
+
+## Named selections and configuration recovery
+
+`registry set-view --view-id "focus" --garden "project" --garden "personal"`
+and `registry remove-view --view-id "focus"` create reviewed control plans.
+Views select existing registered IDs; publication, allowed scopes, writable target,
+review, execution and budgets still belong to explicit sessions. The session
+integration is completed in the same draft checkpoint after the lifecycle core.
+
+Applies retain immutable private snapshots beneath `<registry-file>.history/`.
+`registry restore --revision "<snapshot-sha256>"` previews a restore; apply still
+requires the exact saved plan/digest. Restores preserve explicit revocations and
+advance view generations, rather than reviving old named sessions. History is
+owned, checksum-verified and retained; no automatic garbage collection occurs.
+The filesystem baseline bounds control files to 2,000,000 bytes, 100 gardens/views,
+1,000 view high-water marks and 1,000 configuration snapshots.
+
+Registry writes use atomic replacement under a kernel writer lease. A failed
+pre-commit write retains the previous complete configuration. After an uncertain
+I/O outcome, inspect/doctor and repeat the exact accepted plan: it either applies
+or verifies the already desired state. A crashed process releases its lease;
+the owned lock inode stays in place. Host power-loss/isolation and hostile
+concurrent filesystem mutation assurance remain separate runtime proof.
+
+## Verification and retained scope
+
+Initial lifecycle evidence: the 159-test merged baseline passes. Fifteen new
+registry tests plus five existing contract tests pass, including plan idempotence,
+canonical-file preservation, stale/root/owner/scope conflicts, unsafe locations,
+atomic failure/retry, kernel leases, unavailable roots, immutable snapshot restore,
+monotonic revocations/view generations and reference JSON Schema parity.
+
+Only synthetic fixtures and private temporary control directories are used. Full
+#30 restricted coexistence, native platforms, organization/runtime assurance,
+owned-query-cache cleanup and broad integration acceptance remain open. No parent
+issue or proposed ADR is declared accepted by this local checkpoint.

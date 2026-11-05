@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:registry:v1",
+  "title": "Mindgarden registry v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "registrations",
+    "views",
+    "view_epochs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.registry/v1"
+    },
+    "registrations": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "required": [
+          "garden",
+          "owners",
+          "title",
+          "canonical_uri",
+          "version",
+          "manifest_sha256"
+        ],
+        "properties": {
+          "garden": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "owners": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/owners"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "canonical_uri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "version": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/semanticVersion"
+          },
+          "manifest_sha256": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+          }
+        },
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "views": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:registry-view:v1"
+      },
+      "uniqueItems": true
+    },
+    "view_epochs": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "session_reference": {
+      "type": "object",
+      "required": [
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
