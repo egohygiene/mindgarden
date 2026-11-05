@@ -87,7 +87,10 @@ def selected_view(document: dict, view_id: str) -> dict:
         raise ContractError("REGISTRY_VIEW: requested view is unavailable or ambiguous")
     view = matches[0]
     epochs = metadata.get("view_epochs")
-    declared = {item.get("id") for item in document.get("gardens", []) if isinstance(item, dict) and isinstance(item.get("id"), str)}
+    bindings = document.get("gardens")
+    if not isinstance(bindings, list):
+        raise ContractError("REGISTRY_VIEW: declared garden membership is unavailable")
+    declared = {item.get("id") for item in bindings if isinstance(item, dict) and isinstance(item.get("id"), str)}
     if (not isinstance(epochs, dict) or epochs.get(view_id) != view["generation"]
             or not set(view["gardens"]) <= declared):
         raise ContractError("REGISTRY_VIEW: requested view has stale or unavailable membership")

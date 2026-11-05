@@ -153,6 +153,20 @@ class RegistryViewTests(unittest.TestCase):
             with self.assertRaisesRegex(ContractError, "SESSION_VIEW_STALE"):
                 QueryContext.load(self.registry, context.session_path)
 
+    def test_malformed_view_authority_fails_with_stable_diagnostics_before_probes(self):
+        original = json.loads(self.registry.read_text())
+        for malformed in (None, {}, "private-binding-canary"):
+            document = deepcopy(original)
+            document["gardens"] = malformed
+            self.registry.write_bytes(canonical_json(document))
+            with self.subTest(membership=malformed), patch("mindgarden.application.bindings.explicit_root", side_effect=AssertionError("Malformed authority probed roots")):
+                with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()) as errors:
+                    self.assertEqual(main(["scope", "--local-config", str(self.registry), "--registry-view", "private-view-canary",
+                                           "--session-id", "malformed-session", "--allowed-visibility", "public",
+                                           "--expires-at", "2099-01-01T00:00:00Z"]), 3)
+                self.assertIn("REGISTRY_VIEW", errors.getvalue())
+                self.assertNotIn("private-binding-canary", errors.getvalue())
+
     def test_views_do_not_grant_review_publication_or_writable_targets(self):
         mutate(self.registry, "set-view", {"id": "public-only", "gardens": ["repository-garden"]})
         path = self.registry.parent / "denied-write-session.json"
