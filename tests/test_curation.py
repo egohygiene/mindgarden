@@ -86,6 +86,15 @@ class CurationTests(unittest.TestCase):
         with self.assertRaisesRegex(ContractError, "REVIEW_AUTHORITY"):
             build_curation_plan(self.bindings, self.proposal_path)
 
+    def test_target_contract_upgrade_requires_explicit_manifest_declaration(self):
+        manifest_path = self.workspace / ".garden/garden.json"
+        manifest = json.loads(manifest_path.read_text())
+        manifest["contracts"]["writes"].remove("mindgarden.curation-receipt/v1")
+        write_json(manifest_path, manifest)
+        with self.assertRaisesRegex(ContractError, "CAPABILITY_UNDECLARED"):
+            build_curation_plan(self.bindings, self.proposal_path)
+        self.assertFalse((self.workspace / ".garden/knowledge/reviewed-prompt.json").exists())
+
     def test_stale_proposal_or_source_revision_and_conflicts_are_rejected(self):
         plan = build_curation_plan(self.bindings, self.proposal_path)
         before = garden_fingerprint(self.workspace)

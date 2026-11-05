@@ -81,3 +81,27 @@ restrictive legacy visibility wins. Already produced duplicate v1 edges require
 a reviewed repair; no validator silently rewrites them. The original v0 tree
 and note bytes remain unchanged. Migration provenance verifies its pinned v0
 configuration against the explicit rollback manifest, not the new v1 manifest.
+
+## Private-workflow draft capabilities
+
+The milestone extends the v1 drafts with explicit scope, vault-backed sources,
+context profiles, curation/routing receipts and scoped projections. Pin this
+combined implementation by immutable commit; the unchanged 0.1 package version
+does not identify an unmerged draft checkpoint. Earlier v1 readers may reject
+these additional contracts/fields, which is safer than silently interpreting them.
+V0 schemas, CLI and library behavior remain supported.
+
+New initialization/migration manifests declare the canonical context-profile and
+receipt contracts in both `contracts.reads` and `contracts.writes`. Older v1
+manifests remain valid for their existing supported records. Before new curation
+or routing, explicitly review and add the required named contracts to both lists;
+the application reports `CAPABILITY_UNDECLARED` or an explained rejected route
+instead of silently claiming target compatibility. Preserve all existing fields,
+records, identities and review state. Re-preview any write plan after that reviewed
+metadata change. This is capability declaration, not an in-place data migration.
+
+Earlier draft query sessions used whole-garden revisions. Regenerate them with
+`mindgarden scope` or `bind_session_revisions`; current pins represent only the
+authorized evidence closure. Existing garden-relative source paths continue to
+work beside the explicit vault-reference alternative. Machine paths, credentials
+and session authority never belong inside portable records.

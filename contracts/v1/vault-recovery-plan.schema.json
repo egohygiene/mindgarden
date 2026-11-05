@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:vault-recovery-plan:v1",
+  "title": "Mindgarden vault-recovery-plan v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "operation",
+    "vault",
+    "bindings_sha256",
+    "destination_binding_sha256",
+    "bundle_sha256",
+    "bundle_size_bytes",
+    "objects",
+    "garden_revisions",
+    "retains_original",
+    "plan_sha256"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.vault-recovery-plan/v1"
+    },
+    "operation": {
+      "enum": [
+        "export",
+        "restore",
+        "relocate"
+      ]
+    },
+    "vault": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "bindings_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "destination_binding_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "bundle_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "bundle_size_bytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 276824064
+    },
+    "objects": {
+      "type": "array",
+      "maxItems": 4093,
+      "items": {
+        "type": "object",
+        "required": [
+          "content_id",
+          "size_bytes"
+        ],
+        "properties": {
+          "content_id": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 104857600
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "garden_revisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "garden",
+          "revision"
+        ],
+        "properties": {
+          "garden": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "revision": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "retains_original": {
+      "const": true
+    },
+    "plan_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "applied": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

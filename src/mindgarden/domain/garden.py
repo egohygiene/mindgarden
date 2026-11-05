@@ -86,6 +86,12 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
     root = garden_root or repository_root.absolute() / ".garden"
     snapshot = GardenSnapshot(root, {}, metadata_only=metadata_only)
 
+    def visibility(record: dict, owner: GardenSnapshot) -> str:
+        from .scope import LEGACY_VISIBILITY
+
+        return record.get("visibility") or LEGACY_VISIBILITY.get(record.get("scope", {}).get("visibility"),
+                                                                  owner.manifest.get("visibility", "private"))
+
     def issue(code: str, location: str, message: str, remediation: str,
               severity: str = "error") -> None:
         snapshot.diagnostics.append(Diagnostic(code, location, message, remediation, severity))
@@ -173,7 +179,7 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                 if record.get("updated", "9999") < record.get("created", "0000"):
                     issue("DATE_ORDER", relative, "Updated date precedes creation",
                           "Preserve consistent observed creation/update dates.")
-                if manifest["visibility"] == "public" and record.get("visibility", "public") != "public":
+                if manifest["visibility"] == "public" and visibility(record, snapshot) != "public":
                     issue("PUBLIC_PRIVATE_CONTENT", relative, "Public garden contains non-public material",
                           "Move the record and its bytes to an explicitly private storage boundary.")
                 if record.get("schema") in {"mindgarden.knowledge/v1", "mindgarden.source/v1"}:
@@ -265,10 +271,14 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
             issue("REFERENCE_KIND", location, "Reference has the wrong artifact kind",
                   "Reference an artifact of the declared kind.")
         referring = records_by_location.get(location)
-        if (referring and referring.get("visibility") == "public"
-                and record.get("visibility", "public") != "public"):
+        if (referring and visibility(referring, snapshot) == "public"
+                and visibility(record, owner) != "public"):
             issue("PUBLIC_PRIVATE_REFERENCE", location, "Public record refers to non-public evidence",
                   "Keep the source mapping private and create a separately reviewed public derivative.")
+        if owner is not snapshot and owner.diagnostics:
+            issue("REFERENCE_UNVERIFIED", location, "Referenced garden has unverified integrity",
+                  "Validate the explicitly supplied target before relying on its records.",
+                  "error" if any(item.severity == "error" for item in owner.diagnostics) else "warning")
         revision = reference.get("revision")
         if revision and revision.startswith("sha256:") and owner.hashes.get(reference["id"]) != revision[7:]:
             issue("REFERENCE_REVISION", location, "Represented immutable revision does not match",
@@ -377,6 +387,18 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                 if target and target[0].hashes.get(target[1]["id"]) != item["sha256"]:
                     issue("PROVENANCE_INPUT_HASH", location, "Transformation input hash differs",
                           "Review a new plan against the changed input.")
+        elif kind in {"curation-receipt", "routing-receipt"}:
+            for decision in record["decisions"]:
+                if kind == "curation-receipt":
+                    for locator in decision["sources"]:
+                        evidence(locator, location)
+                    if decision["output"] is not None:
+                        resolve(decision["output"], location, "knowledge")
+                else:
+                    if decision["canonical_home"] is not None:
+                        resolve(decision["canonical_home"], location, "knowledge")
+                    for reference in decision["references"]:
+                        resolve(reference, location, "knowledge")
 
     # An iterative three-state walk is bounded even for long or adversarial
     # graphs; recursion and enumerating every path would not be.

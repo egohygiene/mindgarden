@@ -267,11 +267,17 @@ def run_validation(arguments: Namespace) -> int:
             return ExitCode.CONTRACT
         raise ContractError("WRITE_LOCKED: complete or recover the owning operation before validation")
     resolver = None
+    authorized = None
     if arguments.local_config:
         from ..application.bindings import LocalBindings
         from ..application.storage import content_resolver
 
-        resolver = content_resolver(LocalBindings.load(arguments.local_config))
+        bindings = LocalBindings.load(arguments.local_config)
+        resolver = content_resolver(bindings)
+        from ..domain.garden import inspect_garden
+
+        authorized = {identity: inspect_garden(item["root"], content_resolver=resolver, allow_unavailable_references=True)
+                      for identity, item in bindings.gardens.items()}
     if arguments.format == "json":
         from ..domain.garden import inspect_garden
 
@@ -282,7 +288,8 @@ def run_validation(arguments: Namespace) -> int:
                                             "location": "garden.json", "message": "Multiple garden manifests",
                                             "remediation": "Select one contract version."}]}
             else:
-                payload = inspect_garden(arguments.repository_root, content_resolver=resolver).report()
+                payload = inspect_garden(arguments.repository_root, content_resolver=resolver,
+                                          authorized_gardens=authorized).report()
         else:
             try:
                 count = validate_repository(arguments.repository_root)
@@ -296,7 +303,7 @@ def run_validation(arguments: Namespace) -> int:
                                "remediation": "Run text validation in the authorized local workspace."}]}
         print(json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2))
         return ExitCode.SUCCESS if payload["status"] == "valid" else ExitCode.CONTRACT
-    note_count = validate_repository(arguments.repository_root, content_resolver=resolver)
+    note_count = validate_repository(arguments.repository_root, content_resolver=resolver, authorized_gardens=authorized)
     print(f"mindgarden validation passed: {note_count} note(s)")
     return ExitCode.SUCCESS
 
@@ -417,19 +424,33 @@ def build_parser() -> ArgumentParser:
     scope.add_argument("--expires-at", required=True)
     scope.add_argument("--output", type=Path, help="Create a new private session file; omission previews JSON")
     scope.set_defaults(handler=run_scope)
+    from ..application.evidence import run_evidence
+
+    evidence = commands.add_parser("evidence", help="Resolve one exact citation authorized by reviewed knowledge")
+    evidence.add_argument("--local-config", type=Path, required=True)
+    evidence.add_argument("--scope", type=Path, required=True)
+    for field in ("garden-id", "source-id", "revision", "locator", "content-sha256"):
+        evidence.add_argument("--" + field, required=True)
+    evidence.set_defaults(handler=run_evidence)
     from ..application.storage import run_vault
 
     vault = commands.add_parser("vault", help="Manage explicitly bound private source storage")
     vault_commands = vault.add_subparsers(dest="operation", required=True)
-    for operation in ("init", "audit", "capabilities", "resolve"):
+    for operation in ("init", "audit", "capabilities", "resolve", "export", "restore", "relocate"):
         command = vault_commands.add_parser(operation)
         command.add_argument("--local-config", type=Path, required=True)
         command.add_argument("--vault-id", required=True)
-        if operation == "init":
+        if operation in {"init", "export", "restore", "relocate"}:
             mode = command.add_mutually_exclusive_group()
             mode.add_argument("--plan", action="store_true")
             mode.add_argument("--apply", action="store_true")
             command.add_argument("--plan-digest")
+        if operation == "export":
+            command.add_argument("--output", type=Path, required=True, help="Private backup file outside garden and vault roots")
+        if operation in {"restore", "relocate"}:
+            command.add_argument("--destination", type=Path, required=True, help="Explicit clean private filesystem vault root")
+        if operation == "restore":
+            command.add_argument("--input", type=Path, required=True, help="Captured portable vault backup")
         if operation == "resolve":
             command.add_argument("--content-id", required=True)
         command.set_defaults(handler=run_vault)

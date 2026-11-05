@@ -14,7 +14,7 @@ from ..domain.validation import ContractError
 from .bindings import LocalBindings, garden_fingerprint
 from .changes import ChangePlan
 from .curation import build_curation_plan, require_review_authority
-from .records import artifact_reference, provenance_record
+from .records import AUTHOR, artifact_reference, provenance_record
 from .storage import content_resolver
 from .transactions import apply_group, recover_routing
 
@@ -23,7 +23,8 @@ def snapshots_for(bindings: LocalBindings, staged: dict | None = None, *, allow_
     if not allow_locked and any((item["root"] / ".mindgarden-write.lock").exists() for item in bindings.gardens.values()):
         raise ContractError("WRITE_LOCKED: recover the interrupted operation before reading a combined garden state")
     resolver = content_resolver(bindings)
-    first = {key: inspect_garden(value["root"], garden_root=(staged or {}).get(key), content_resolver=resolver)
+    first = {key: inspect_garden(value["root"], garden_root=(staged or {}).get(key), content_resolver=resolver,
+                                allow_unavailable_references=True)
              for key, value in sorted(bindings.gardens.items())}
     return {key: inspect_garden(bindings.garden(key)["root"], garden_root=(staged or {}).get(key),
                                 content_resolver=resolver, authorized_gardens=first).require_valid()
@@ -142,9 +143,15 @@ def build_routing_plan(bindings: LocalBindings, catalog_path: Path, request_path
                 return "Contributing restrictions do not permit this storage boundary."
             if not relevant and not set(output["domains"]) <= set(target["domains"]):
                 return "Candidate domains are outside the target routing scope."
-            if "mindgarden.knowledge/v1" not in target["contracts"]["writes"]:
-                return "Target cannot write the selected knowledge contract."
+            required_contracts = {"mindgarden.knowledge/v1", "mindgarden.provenance/v1"}
+            required_contracts |= ({"mindgarden.synapse/v1"} if relevant else
+                                   {"mindgarden.curation-receipt/v1", "mindgarden.routing-receipt/v1"})
+            if any(not required_contracts <= set(target["contracts"][field]) for field in ("reads", "writes")):
+                return "Target does not declare every required read/write contract."
             if target["scope"]["visibility"] == "public":
+                controller = entries.get(curation["garden"])
+                if controller is None or controller["scope"]["visibility"] != "personal":
+                    return "Public placement requires an explicit personal controller for private routing audit metadata."
                 review = route["public_review"]
                 if review is None or review["state"] != "approved" or inherited["publication"] == "never-exportable":
                     return "Public placement requires explicit human publication review."
@@ -177,15 +184,33 @@ def build_routing_plan(bindings: LocalBindings, catalog_path: Path, request_path
         home_reference = artifact_reference(home, output["id"], digest_bytes(output["body"].encode()))
         unit = request["id"] + ":" + candidate_id
         for owner in snapshots.values():
+            prior_receipt = owner.records.get("routing-" + request["id"], {})
+            for previous in prior_receipt.get("decisions", []):
+                if previous["candidate"] == candidate_id and previous["canonical_home"] != home_reference:
+                    raise ContractError("ROUTE_TRANSFER_REQUIRED: the existing reviewed placement has another canonical home")
             for record in owner.records.values():
                 prior = record.get("x-routing", {})
                 if prior.get("unit") == unit and prior.get("role") == "canonical" and prior["canonical_home"] != home_reference:
                     raise ContractError("ROUTE_TRANSFER_REQUIRED: this unit already has another canonical home; explicit transfer is deferred")
         proposal = {**deepcopy(curation), "id": curation["id"] + "-" + candidate_id,
                     "garden": home, "candidates": [deepcopy(candidate)]}
+        public_digest = None
+        portable_unit = unit
+        if entries[home]["scope"]["visibility"] == "public":
+            # Public lineage represents the reviewed public selection. Private
+            # request/catalog hashes, labels and rejected routes stay private.
+            public_candidate = proposal["candidates"][0]
+            public_candidate.update(id="public-candidate", rationale="Explicitly reviewed public derivative.")
+            proposal.update(id="public-placement", producer=dict(AUTHOR), created_at=route["public_review"]["reviewed_at"])
+            selection = digest_bytes(canonical_json(proposal))
+            proposal["id"] += "-" + selection[:24]
+            public_candidate["id"] += "-" + selection[:24]
+            public_digest = digest_bytes(canonical_json(proposal))
+            portable_unit = "public-selection:" + public_digest
         curated = build_curation_plan(bindings, request_path, supplied_proposal=proposal,
                                       authorized_snapshots=snapshots, public_review=route["public_review"],
-                                      canonical_routing={"unit": unit, "role": "canonical", "canonical_home": home_reference})
+                                      canonical_routing={"unit": portable_unit, "role": "canonical", "canonical_home": home_reference},
+                                      portable_proposal_digest=public_digest)
         knowledge_path = f"knowledge/{output['id']}.json"
         knowledge = strict_json(curated.files[knowledge_path])
         add_files(home, curated.files)
@@ -202,7 +227,7 @@ def build_routing_plan(bindings: LocalBindings, catalog_path: Path, request_path
             provenance = provenance_record(garden, "provenance-" + reference_id, reference_id, digest_bytes(body),
                 inputs=[{"artifact": home_reference, "sha256": home_reference["revision"][7:], "role": "source"}],
                 transformations=({"name": "reference-canonical-home", "version": "1.0.0", "parameters": {}},),
-                created_at=curation["created_at"], rights="Reference only; canonical rights remain authoritative.", origin=None, scope=scope)
+                created_at=proposal["created_at"], rights="Reference only; canonical rights remain authoritative.", origin=None, scope=scope)
             edge_id = "synapse-" + reference_id
             edge = {"schema": "mindgarden.synapse/v1", "id": edge_id, "garden": garden, "type": "references",
                     "source": artifact_reference(garden, reference_id, digest_bytes(body)), "target": home_reference,
@@ -216,17 +241,18 @@ def build_routing_plan(bindings: LocalBindings, catalog_path: Path, request_path
                          "claims": [], "synapses": [artifact_reference(garden, edge_id, digest_bytes(canonical_json(edge)))],
                          "sources": [], "supersedes": [], "publication": "excluded",
                          "provenance": [artifact_reference(garden, provenance["id"], digest_bytes(canonical_json(provenance)))],
-                         "x-routing": {"unit": unit, "role": "reference", "canonical_home": home_reference}}
+                         "x-routing": {"unit": portable_unit, "role": "reference", "canonical_home": home_reference}}
             add_files(garden, {reference["content"]["path"]: body, "knowledge/" + reference_id + ".json": canonical_json(reference),
                                "synapses/" + edge_id + ".json": canonical_json(edge),
                                "provenance/" + provenance["id"] + ".json": canonical_json(provenance)})
             decision["references"].append(artifact_reference(garden, reference_id, digest_bytes(body)))
-        receipts.setdefault(home, []).append(decision)
+        audit_home = curation["garden"] if entries[home]["scope"]["visibility"] == "public" else home
+        receipts.setdefault(audit_home, []).append(decision)
     for home, placed in receipts.items():
         receipt = {"schema": "mindgarden.routing-receipt/v1", "id": "routing-" + request["id"], "garden": home,
                    "request_sha256": request_digest, "catalog_sha256": catalog_digest,
                    "scope": inherit_scope([entries[home]["scope"], *[
-                       strict_json(content)["scope"] for path, content in changes[home].files.items()
+                       strict_json(content)["scope"] for path, content in (changes[home].files if home in changes else {}).items()
                        if path.startswith("knowledge/") and path.endswith(".json")]]), "decisions": placed}
         # Rejected private alternatives belong to the private reviewed preview,
         # never to portable public metadata.
@@ -237,11 +263,15 @@ def build_routing_plan(bindings: LocalBindings, catalog_path: Path, request_path
                                   if entries[ref["garden"]]["scope"]["visibility"] in {"public", entries[home]["scope"]["visibility"]}]
         add_files(home, {"provenance/" + receipt["id"] + ".json": canonical_json(receipt)})
     for plan in changes.values():
+        written_contracts = set()
         for path, content in plan.files.items():
             if path.endswith(".json"):
                 record = strict_json(content)
                 if registry.errors(record, record["schema"]):
                     raise ContractError("ROUTE_OUTPUT: generated routing record does not conform")
+                written_contracts.add(record["schema"])
+        if any(not written_contracts <= set(snapshots[plan.garden_id].manifest["contracts"][field]) for field in ("reads", "writes")):
+            raise ContractError("CAPABILITY_UNDECLARED: every routing target must declare all generated record contracts")
         plan.verify(plan.digest)
     return RoutingPlan(bindings, {"request_sha256": request_digest, "catalog_sha256": catalog_digest,
                                   "bindings_sha256": digest_bytes(bindings.path.read_bytes()),

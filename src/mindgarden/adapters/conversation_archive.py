@@ -9,7 +9,7 @@ from urllib.parse import urlsplit
 from ..domain.contracts import canonical_json, digest_bytes, strict_json
 from ..domain.sources import NormalizedBundle, NormalizedUnit
 from ..domain.validation import ContractError
-from ..domain.zip_package import member_path, read_zip
+from ..domain.zip_package import member_path, read_zip, verify_inventory
 
 VERSIONS = {"3.2.2", "3.2.3"}
 BASE_FILES = {"README.md", "CHAT-SUMMARY.md", "ARCHIVE-MANIFEST.json", "ASSET-MANIFEST.json",
@@ -76,20 +76,7 @@ class ConversationArchiveAdapter:
         members = {name[len(prefix):]: content for name, content in packaged.items()}
         if not BASE_FILES <= members.keys() or any(not members[name] for name in BASE_FILES):
             raise ContractError("ARCHIVE_REQUIRED: required nonempty package controls are missing")
-        checksum_lines = members["MANIFEST.sha256"].decode("utf8").splitlines()
-        checksums = {}
-        for line in checksum_lines:
-            match = re.fullmatch(r"([0-9a-fA-F]{64})  (.+)", line)
-            if not match:
-                raise ContractError("ARCHIVE_CHECKSUM: malformed SHA-256 inventory")
-            path = member_path(match[2])
-            if path == "MANIFEST.sha256" or path in checksums:
-                raise ContractError("ARCHIVE_CHECKSUM: duplicate or self-referential checksum")
-            checksums[path] = match[1].lower()
-        if set(checksums) != set(members) - {"MANIFEST.sha256"}:
-            raise ContractError("ARCHIVE_MEMBERS: checksum inventory and actual payload members differ")
-        if any(digest_bytes(members[path]) != digest for path, digest in checksums.items()):
-            raise ContractError("ARCHIVE_CHECKSUM: payload bytes do not match the manifest")
+        checksums = verify_inventory(members)
         documents = {name: strict_json(content) for name, content in members.items() if name.endswith(".json")}
         manifest = require_object(documents["ARCHIVE-MANIFEST.json"], MANIFEST_FIELDS, "ARCHIVE_MANIFEST")
         version = manifest["spec_version"]
@@ -197,7 +184,8 @@ class ConversationArchiveAdapter:
                                                   "original_selector": original_selector,
                                                   "evidence_kind": "asset-bytes" if path else "asset-catalog"}))
         if manifest["content_mode"] == "full-source":
-            if not {"CONVERSATION.json", "routing/PLAN.json", "routing/PLAN.md"} <= members.keys():
+            required = {"CONVERSATION.json", "routing/PLAN.json", "routing/PLAN.md", "VISUAL-INSIGHTS.md"}
+            if not required <= members.keys() or any(not members[name] for name in required):
                 raise ContractError("ARCHIVE_REQUIRED: full-source conversation/routing controls are missing")
             conversation = require_object(documents["CONVERSATION.json"],
                                            {"schema_version", "archive_id", "provider", "coverage", "messages",
@@ -291,6 +279,7 @@ class ConversationArchiveAdapter:
             if compression["checkpoint_count"] is not None and compression["checkpoint_count"] != len(identities):
                 raise ContractError("ARCHIVE_TRAIL: declared checkpoint count and Markdown phases disagree")
             trail = documents.get("SUMMARY-TRAIL.json")
+            checkpoints = {}
             if trail is not None:
                 require_object(trail, {"schema_version", "archive_id", "source_scope", "journey_path", "checkpoints",
                                        "omitted_categories", "known_gaps", "predecessor_refs", "warnings"}, "ARCHIVE_TRAIL")
@@ -311,7 +300,7 @@ class ConversationArchiveAdapter:
                 units.append(NormalizedUnit("archive:" + archive_id + ":record:" + match[1],
                                             members["JOURNEY.md"][start:end], "text/markdown", metadata={
                                                 "record_id": match[1], "summary_derived": True, "speaker": None,
-                                                "timestamp": None, "original_selector": {
+                                                "timestamp": None, "checkpoint": checkpoints.get(match[1]), "original_selector": {
                                                     "member": prefix + "JOURNEY.md", "anchor": match[1],
                                                     "byte_start": start, "byte_end": end}}))
             messages, records = {}, dict.fromkeys(identities)

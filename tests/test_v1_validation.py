@@ -15,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
 from mindgarden.application.lifecycle import apply_migration, build_migration_plan
 from mindgarden.domain.contracts import ContractRegistry, strict_json
 from mindgarden.domain.garden import inspect_garden
+from mindgarden.domain.scope import local_scope
 from mindgarden.domain.validation import ContractError, validate_repository
 from mindgarden.interfaces.cli import main
 from tests.support_v1 import FIXTURES, add_knowledge, create_garden, reference, write_json
@@ -117,6 +118,16 @@ class V1ValidationTests(unittest.TestCase):
         write_json(self.garden / "garden.json", manifest)
         record = add_knowledge(self.root)
         self.assertIn("PUBLIC_PRIVATE_CONTENT", self.codes())
+
+    def test_governing_metadata_scope_is_enforced_without_legacy_visibility_field(self):
+        manifest = json.loads((self.garden / "garden.json").read_text()); manifest["visibility"] = "public"
+        write_json(self.garden / "garden.json", manifest)
+        add_knowledge(self.root, visibility="public")
+        provenance_path = self.garden / "provenance/provenance-synthetic-prompt.json"
+        provenance = json.loads(provenance_path.read_text()); provenance["scope"] = local_scope("personal")
+        write_json(provenance_path, provenance)
+        self.assertIn("PUBLIC_PRIVATE_CONTENT", self.codes())
+        self.assertIn("PUBLIC_PRIVATE_REFERENCE", self.codes())
 
     def test_unavailable_cross_garden_is_incomplete_not_valid(self):
         record = add_knowledge(self.root)

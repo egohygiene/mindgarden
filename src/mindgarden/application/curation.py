@@ -27,7 +27,8 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path, *,
                         supplied_proposal: dict | None = None,
                         authorized_snapshots: dict | None = None,
                         public_review: dict | None = None,
-                        canonical_routing: dict | None = None) -> ChangePlan:
+                        canonical_routing: dict | None = None,
+                        portable_proposal_digest: str | None = None) -> ChangePlan:
     if candidate_path.is_symlink():
         raise ContractError("PLAN_PATH: proposal must be a regular private file")
     proposal = deepcopy(supplied_proposal) if supplied_proposal is not None else read_object(candidate_path)
@@ -40,9 +41,19 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path, *,
         raise ContractError("CURATION_BOUNDARY: source curation requires an explicitly private target")
     snapshot = ((authorized_snapshots or {}).get(proposal["garden"])
                 or inspect_garden(root, content_resolver=content_resolver(bindings)).require_valid())
+    required = {"mindgarden.knowledge/v1", "mindgarden.provenance/v1", "mindgarden.curation-receipt/v1"}
+    for candidate in proposal["candidates"]:
+        for field, contract in (("claims", "mindgarden.claim/v1"), ("synapses", "mindgarden.synapse/v1")):
+            if candidate.get("output", {}).get(field):
+                required.add(contract)
+    if any(not required <= set(snapshot.manifest["contracts"][field]) for field in ("reads", "writes")):
+        raise ContractError("CAPABILITY_UNDECLARED: review the target manifest read/write declarations for the required curation contracts")
     if binding["scope"]["persistence"] == "encrypted-vault":
         raise ContractError("RUNTIME_UNVERIFIED: encrypted curation assurance is unavailable")
-    input_digest = digest_bytes(candidate_path.read_bytes())
+    file_digest = digest_bytes(candidate_path.read_bytes())
+    input_digest = portable_proposal_digest or file_digest
+    if portable_proposal_digest is not None and portable_proposal_digest != digest_bytes(canonical_json(proposal)):
+        raise ContractError("CURATION_DIGEST: portable proposal must represent the exact selected proposal")
     files: dict[str, bytes] = {}
     decisions = []
     all_scopes = [binding["scope"]]
@@ -118,7 +129,7 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path, *,
                 transformations=({"name": candidate["action"], "version": "1.0.0",
                                   "parameters": {"candidate_plan_sha256": input_digest,
                                                  "candidate": candidate["id"], "rationale": candidate["rationale"]}},),
-                created_at=proposal["created_at"], rights="Derived private knowledge; source rights remain authoritative.",
+                created_at=proposal["created_at"], rights="Derived knowledge; source rights remain authoritative.",
                 origin=None, scope=scope)
             claims = []
             for item in output["claims"]:
@@ -212,7 +223,7 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path, *,
                       {"garden_revision": garden_fingerprint(root), "proposal_sha256": input_digest,
                        "bindings_sha256": digest_bytes(bindings.path.read_bytes()),
                        "scope": receipt["scope"], "proposal": proposal}, files,
-                      source_checks=[(candidate_path.absolute(), input_digest),
+                      source_checks=[(candidate_path.absolute(), file_digest),
                                      (bindings.path, digest_bytes(bindings.path.read_bytes()))])
     plan.verify(plan.digest)
     return plan
