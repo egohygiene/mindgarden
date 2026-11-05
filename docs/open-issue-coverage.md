@@ -206,6 +206,8 @@ commits, commands/results, remaining acceptance and exact next action. Refresh
 open issue/PR state before selecting another batch. Use `Refs #…` for partial
 work and leave new work in draft PRs; do not silently close umbrella scope.
 
-Next: open the B0 roadmap reconciliation draft, then implement B1 (#16) in a
-dependent draft. Preserve a combined checkout and record the descriptor's tested
+B0 is draft [#65](https://github.com/egohygiene/mindgarden/pull/65), branch
+`roadmap/14-post-merge-coverage`, initial checkpoint `503153f`. Its coverage,
+pinned owner schemas/continuity and whitespace checks pass. Next: implement B1
+(#16) in a dependent draft. Preserve a combined checkout and record the descriptor's tested
 scope, privacy boundary, unavailable capabilities and next consumer proof.

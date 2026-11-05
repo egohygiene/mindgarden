@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-05T03:21:22Z'
+  updated_at: '2026-11-05T03:25:09Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -60,9 +60,12 @@ state:
     verified_at: '2026-11-05T03:21:22Z'
   candidate:
     branch: roadmap/14-post-merge-coverage
-    revision: 9fae752b3cf7eb9c74033a72a12d125c42f8659e
-    pull_request: null
-    handoff_state: in-progress
+    revision: 503153ff047ad127ca280413465d61fe3bda07c2
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#65
+      url: https://github.com/egohygiene/mindgarden/pull/65
+    handoff_state: ready-for-review
   live:
     status: verified
     observed_at: '2026-11-05T03:21:22Z'
@@ -134,7 +137,8 @@ models. Keep deployment and broader federation acceptance separate.
 Main is 9fae752b3cf7eb9c74033a72a12d125c42f8659e. PRs #52–#64 were merged in
 order with explicit maintainer authorization. Its tree equals tested b82520b.
 The post-merge observation has 38 open issues and no other open PRs. Current
-branch: roadmap/14-post-merge-coverage; open its reconciliation draft first.
+branch: roadmap/14-post-merge-coverage, draft #65 (503153f).
+Its coverage/owner-schema/continuity/whitespace checks pass; B1 follows it.
 
 ## Completed and material changes
 
@@ -163,15 +167,15 @@ own prerequisites. Unknown retention policy preserves originals.
 
 ## Next dependency-ready work
 
-Open the B0 roadmap draft, then branch B1 (#16) from it. Build a local descriptor,
+B0 draft #65 is open; branch B1 (#16) from it. Build a local descriptor,
 reviewed-public index/graph/agent entrypoint and deterministic supplied-artifact
 catalog with generic failure diagnostics. Do not fetch gardens or deploy a site.
 Record the proposed contract and its retained consumer/private-federation gaps.
 
 ## Parallel changes and reconciliation
 
-No unrelated PR was open in the immediate post-merge observation. B1 will depend
-on the B0 draft until it merges; record both PRs and a reproducible combined
+No unrelated PR was open in the immediate post-merge observation. B0 is #65; B1
+will depend on that draft until it merges; record both PRs and a reproducible combined
 checkout. Do not merge new drafts without separate authority.
 
 ## Privacy and redaction
