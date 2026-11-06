@@ -1,0 +1,27 @@
+{
+  "audited_sqlite_search_seconds": 0.050309,
+  "authorized_index_seconds": 1.814206,
+  "cache_build_seconds": 0.900269,
+  "capabilities": {
+    "adapter": "sqlite-fts5",
+    "backlinks": true,
+    "canonical_storage": false,
+    "encrypted_storage": false,
+    "incremental_update": false,
+    "lexical": true,
+    "rebuild": true,
+    "schema": "mindgarden.query-store/v1",
+    "sqlite_version": "3.53.1",
+    "typed_traversal": true,
+    "vectors": false
+  },
+  "claims": 1,
+  "database_bytes": 1261568,
+  "network": "blocked-in-process",
+  "notes": 256,
+  "parity": "exact",
+  "platform": "Linux",
+  "python": "3.12.14",
+  "reference_rank_seconds": 0.000487,
+  "schema": "example.query-store-benchmark/1"
+}
