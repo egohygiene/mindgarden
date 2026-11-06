@@ -168,7 +168,7 @@ def run_demo(workspace: Path) -> dict:
             patch("socket.socket", side_effect=AssertionError("Network attempted")), \
             patch("urllib.request.urlopen", side_effect=AssertionError("HTTP attempted")), \
             patch("subprocess.run", side_effect=AssertionError("External process attempted")):
-        return workflow(workspace, Path(directory))
+        return workflow(workspace, Path(directory).resolve())
 
 
 def main():

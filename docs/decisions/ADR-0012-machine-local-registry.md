@@ -101,6 +101,11 @@ See [the registry checkpoint](../local-registry.md), [coverage ledger](../open-i
 and CONTINUITY.md for the draft, functional commits, commands and exact next action.
 Fixtures use synthetic roots and private temporary configuration only.
 
+The [native macOS follow-up](../registry-native-platforms.md) adds an ordinary
+adapter candidate with native extended-ACL and physical-path checks. Its native
+CI status is separate from Linux fixtures and from restricted/host assurance.
+This extension does not change the proposed status or null approval of this ADR.
+
 ## Replacement or exit strategy
 
 Canonical gardens remain independently readable. Existing explicit bindings work

@@ -28,11 +28,11 @@ from tests import test_v1_contracts as contract_tests
 FIXTURES = Path(__file__).parent / "fixtures/registry"
 
 
-@unittest.skipUnless(sys.platform.startswith("linux"), "registry filesystem checkpoint supports Linux")
+@unittest.skipUnless(sys.platform.startswith("linux") or sys.platform == "darwin", "registry controls support Linux/macOS")
 class RegistryTests(unittest.TestCase):
     def setUp(self):
         temporary = TemporaryDirectory(); self.addCleanup(temporary.cleanup)
-        self.root = Path(temporary.name)
+        self.root = Path(temporary.name).resolve()
         self.registry = self.root / "private-config/registry.json"
         self.garden = self.root / "canonical"
         create_garden(self.garden)

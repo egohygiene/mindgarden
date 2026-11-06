@@ -78,3 +78,48 @@ jobs:
 
       - name: Verify Node.js major used by Quartz profiles
         run: node --version | grep --extended-regexp "^v24\\."
+
+  registry-macos:
+    name: macOS registry / Python ${{ matrix.python-version }}
+    runs-on: macos-15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - "3.12"
+          - "3.13"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install test tools
+        run: python -m pip install --disable-pip-version-check --requirement requirements/test.txt
+
+      - name: Record native host
+        run: |
+          sw_vers -productVersion
+          uname -m
+          python --version
+
+      - name: Verify native ACLs, registry lifecycle, private views and reversible caches
+        run: >-
+          python -m unittest tests.macos_registry_conformance tests.test_registry_acl
+          tests.test_registry tests.test_registry_views tests.test_registry_cache --verbose
+
+      - name: Build and install into a clean environment
+        run: |
+          python -m build --sdist --wheel --outdir .cache/dist
+          python -m venv .cache/macos-registry-wheel
+          .cache/macos-registry-wheel/bin/python -m pip install \
+            --disable-pip-version-check --no-index --find-links .cache/dist mindgarden==0.1.0
+
+      - name: Verify installed ordinary registry workflow without network or model calls
+        run: >-
+          .cache/macos-registry-wheel/bin/python -I scripts/registry_demo.py
+          --workspace "${{ runner.temp }}/mindgarden-registry-proof"
+          --require-installed

@@ -26,11 +26,13 @@ canonical manifests rather than fetching catalog entries. Full restricted/runtim
 acceptance still depends on compatible Hygiene #39/#40 and Realm #25/#60 evidence.
 These are proposed bounded dependency corrections, not closure of those parents.
 
-The current filesystem adapter supports ordinary Linux single-user operation.
-Platform location fixtures cover Linux/XDG, macOS and Windows conventions; native
-macOS/Windows mutation, Dev Container host/mount semantics and host-specific
-assurance are explicitly unsupported. The observed managed Linux test container
-proves the ordinary single-user filesystem baseline only.
+The original filesystem checkpoint supports ordinary Linux single-user operation.
+Platform location fixtures cover Linux/XDG, macOS and Windows conventions. The
+[native platform follow-up](registry-native-platforms.md) adds a bounded macOS
+candidate with actual ACL/path checks and native CI; consult its verification
+status before claiming native support. Windows mutation, Dev Container host/mount
+semantics and host-specific assurance remain explicitly unsupported. The managed
+Linux test container proves the ordinary single-user filesystem baseline only.
 Restricted/encrypted registration is rejected before any root probe. Registering
 a public garden does not supply publication authority or change its review policy.
 
@@ -269,7 +271,7 @@ unknown files, unmanifested legacy caches, symlinks, corrupt bytes and conflicti
 destinations fail closed and retain data. Cross-filesystem moves are unavailable.
 Restoring cache bytes never revives an expired or revoked query session.
 
-Linux single-user POSIX mutation is the verified baseline. macOS and Windows
+Linux single-user POSIX mutation is the verified baseline. At this cache checkpoint, macOS and Windows
 location conventions have fixtures; native mutation/ACL assurance is explicitly
 unsupported. Development containers require an explicit control root and Linux
 owner permissions; host mounts receive no implicit assurance. Native platforms,

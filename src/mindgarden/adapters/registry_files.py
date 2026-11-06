@@ -1,4 +1,4 @@
-"""Private Linux filesystem control state; garden content is never a write target."""
+"""Private POSIX registry controls; garden content is never a write target."""
 
 from __future__ import annotations
 
@@ -12,6 +12,8 @@ import tempfile
 
 from ..domain.contracts import canonical_json, digest_bytes
 from ..domain.validation import ContractError
+from .registry_acl import require_native_acl_support, require_no_extended_acl
+from .native_paths import require_canonical_path
 
 MAX_CONTROL_BYTES = 2_000_000
 MAX_SNAPSHOTS = 1000
@@ -19,8 +21,22 @@ HISTORY_MARKER = ".mindgarden-registry-history.json"
 
 
 def require_platform() -> None:
-    if not sys.platform.startswith("linux"):
-        raise ContractError("REGISTRY_PLATFORM: registry filesystem operations are supported on Linux only")
+    if not (sys.platform.startswith("linux") or sys.platform == "darwin"):
+        raise ContractError("REGISTRY_PLATFORM: registry filesystem operations require supported Linux or macOS controls")
+    require_native_acl_support()
+
+
+def check_directory_acl(path: Path) -> None:
+    if sys.platform != "darwin": return
+    descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK | os.O_DIRECTORY)
+    try:
+        info = os.fstat(descriptor)
+        if info.st_uid != os.getuid() or stat.S_IMODE(info.st_mode) & 0o077:
+            raise ContractError("REGISTRY_PERMISSIONS: control directories must be owner-only")
+        require_canonical_path(descriptor, path, code="REGISTRY_PATH")
+        require_no_extended_acl(descriptor)
+    finally:
+        os.close(descriptor)
 
 
 def control_path(path: Path) -> Path:
@@ -53,6 +69,7 @@ def control_path(path: Path) -> Path:
             info = path.parent.stat()
             if not stat.S_ISDIR(info.st_mode) or info.st_uid != os.getuid() or stat.S_IMODE(info.st_mode) & 0o077:
                 raise ContractError("REGISTRY_PERMISSIONS: use an owner-only configuration directory (0700)")
+            check_directory_acl(path.parent)
     except OSError as error:
         raise ContractError("REGISTRY_PATH: explicit control location cannot be verified") from error
     return path
@@ -71,6 +88,7 @@ def private_parent(path: Path) -> None:
                 directory.mkdir(mode=0o700)
             except FileExistsError:
                 pass
+            check_directory_acl(directory)
     except OSError as error:
         raise ContractError("REGISTRY_IO: private control directory cannot be created safely") from error
     control_path(path)
@@ -91,6 +109,8 @@ def read_control(path: Path, *, missing_ok: bool = False) -> bytes | None:
         if (not stat.S_ISREG(info.st_mode) or info.st_nlink != 1 or info.st_uid != os.getuid()
                 or stat.S_IMODE(info.st_mode) & 0o077):
             raise ContractError("REGISTRY_PERMISSIONS: control files must be owner-only regular files (0600)")
+        require_canonical_path(descriptor, path, code="REGISTRY_PATH")
+        require_no_extended_acl(descriptor)
         with os.fdopen(descriptor, "rb") as stream:
             descriptor = -1
             data = stream.read(MAX_CONTROL_BYTES + 1)
@@ -117,6 +137,7 @@ def create_control(path: Path, content: bytes) -> bool:
     try:
         descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
         with os.fdopen(descriptor, "wb") as stream:
+            require_no_extended_acl(stream.fileno())
             stream.write(content)
             stream.flush()
             os.fsync(stream.fileno())
@@ -141,6 +162,7 @@ def registry_writer(path: Path):
         if (not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid() or info.st_nlink != 1
                 or stat.S_IMODE(info.st_mode) & 0o077):
             raise ContractError("REGISTRY_PERMISSIONS: writer lease must be an owned private regular file")
+        require_no_extended_acl(descriptor)
         try:
             fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError as error:
@@ -211,6 +233,7 @@ def replace_registry(path: Path, content: bytes, *, expected_sha256: str | None,
             preserve_snapshot(path, current)
         descriptor, temporary = tempfile.mkstemp(prefix=".mindgarden-registry-", dir=path.parent)
         with os.fdopen(descriptor, "wb") as stream:
+            require_no_extended_acl(stream.fileno())
             stream.write(content)
             stream.flush()
             os.fsync(stream.fileno())

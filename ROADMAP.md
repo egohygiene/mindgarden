@@ -372,6 +372,12 @@ Hygiene/Realm policy and confidential-runtime contracts, native platforms, remot
 providers, approved copy and destructive/timed retention are explicit remaining
 gates. Review/merge of drafts is distinct from owner ADR or consumer acceptance.
 
+The next bounded #30 follow-up is [native macOS registry conformance](docs/registry-native-platforms.md):
+verify extended ACLs and exact ownership paths, run native lifecycle/cache and
+installed-wheel evidence, and leave Windows/confidential-host gaps explicit.
+This extends the merged checkpoints without repeating #80–#84. Actual native
+verification is recorded in that handoff; Linux doubles do not prove macOS.
+
 ## Deferred after the current queue and reconciliation
 
 The maintainer authorized filing #86–#91, grouped as native sub-issues under
