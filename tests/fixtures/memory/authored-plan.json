@@ -1,0 +1,360 @@
+{
+  "budgets": {
+    "category_quotas": {
+      "historical": 8,
+      "identity": 8,
+      "one-off": 8,
+      "preference": 8,
+      "project-direction": 8,
+      "sensitive": 8,
+      "temporary": 8,
+      "workflow": 8
+    },
+    "max_snippets": 8,
+    "max_tokens": null,
+    "max_total_bytes": 32768,
+    "minimum_priority": 50
+  },
+  "candidates": [
+    {
+      "action": "keep",
+      "id": "keep-example",
+      "outputs": [
+        {
+          "body": "Prefer short, cited answers.",
+          "category": "preference",
+          "confidence": "low",
+          "durability": "durable",
+          "half_life_days": 365,
+          "id": "keep-snippet",
+          "inclusion_reason": "Recurring reviewed preference.",
+          "last_reviewed": "2026-11-04T00:00:00Z",
+          "merges": [],
+          "priority": 80,
+          "scope": {
+            "execution": "offline",
+            "persistence": "machine-local",
+            "policy": {
+              "id": "mindgarden-local-single-user/v1",
+              "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+            },
+            "publication": "never-exportable",
+            "schema": "mindgarden.scope/v1",
+            "visibility": "personal"
+          },
+          "stale_after": null,
+          "supersedes": [],
+          "title": "Synthetic citation preference"
+        }
+      ],
+      "rationale": "Authored synthetic keep review; preserve the canonical detail.",
+      "sources": [
+        {
+          "garden": "synthetic-garden",
+          "id": "memory-0",
+          "revision": "sha256:56284bdf723a3f4c39b7c5407f9c350e375de3ae58e10b1fd8c6ee3ee6013311"
+        }
+      ]
+    },
+    {
+      "action": "merge",
+      "id": "merge-example",
+      "outputs": [
+        {
+          "body": "Prefer short, cited answers.",
+          "category": "preference",
+          "confidence": "low",
+          "durability": "durable",
+          "half_life_days": 365,
+          "id": "merged-snippet",
+          "inclusion_reason": "Recurring reviewed preference.",
+          "last_reviewed": "2026-11-04T00:00:00Z",
+          "merges": [
+            "prior-one",
+            "prior-two"
+          ],
+          "priority": 80,
+          "scope": {
+            "execution": "offline",
+            "persistence": "machine-local",
+            "policy": {
+              "id": "mindgarden-local-single-user/v1",
+              "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+            },
+            "publication": "never-exportable",
+            "schema": "mindgarden.scope/v1",
+            "visibility": "personal"
+          },
+          "stale_after": null,
+          "supersedes": [],
+          "title": "Synthetic citation preference"
+        }
+      ],
+      "rationale": "Authored synthetic merge review; preserve the canonical detail.",
+      "sources": [
+        {
+          "garden": "synthetic-garden",
+          "id": "memory-1",
+          "revision": "sha256:56284bdf723a3f4c39b7c5407f9c350e375de3ae58e10b1fd8c6ee3ee6013311"
+        },
+        {
+          "garden": "synthetic-garden",
+          "id": "memory-2",
+          "revision": "sha256:56284bdf723a3f4c39b7c5407f9c350e375de3ae58e10b1fd8c6ee3ee6013311"
+        }
+      ]
+    },
+    {
+      "action": "rewrite",
+      "id": "rewrite-example",
+      "outputs": [
+        {
+          "body": "Prefer short, cited answers.",
+          "category": "preference",
+          "confidence": "low",
+          "durability": "durable",
+          "half_life_days": 365,
+          "id": "rewritten-snippet",
+          "inclusion_reason": "Recurring reviewed preference.",
+          "last_reviewed": "2026-11-04T00:00:00Z",
+          "merges": [],
+          "priority": 80,
+          "scope": {
+            "execution": "offline",
+            "persistence": "machine-local",
+            "policy": {
+              "id": "mindgarden-local-single-user/v1",
+              "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+            },
+            "publication": "never-exportable",
+            "schema": "mindgarden.scope/v1",
+            "visibility": "personal"
+          },
+          "stale_after": null,
+          "supersedes": [
+            "prior-wording"
+          ],
+          "title": "Synthetic citation preference"
+        }
+      ],
+      "rationale": "Authored synthetic rewrite review; preserve the canonical detail.",
+      "sources": [
+        {
+          "garden": "synthetic-garden",
+          "id": "memory-3",
+          "revision": "sha256:56284bdf723a3f4c39b7c5407f9c350e375de3ae58e10b1fd8c6ee3ee6013311"
+        }
+      ]
+    },
+    {
+      "action": "demote",
+      "id": "demote-example",
+      "outputs": [],
+      "rationale": "Authored synthetic demote review; preserve the canonical detail.",
+      "sources": [
+        {
+          "garden": "synthetic-garden",
+          "id": "memory-4",
+          "revision": "sha256:56284bdf723a3f4c39b7c5407f9c350e375de3ae58e10b1fd8c6ee3ee6013311"
+        }
+      ]
+    },
+    {
+      "action": "expire",
+      "id": "expire-example",
+      "outputs": [],
+      "rationale": "Authored synthetic expire review; preserve the canonical detail.",
+      "sources": [
+        {
+          "garden": "synthetic-garden",
+          "id": "memory-5",
+          "revision": "sha256:56284bdf723a3f4c39b7c5407f9c350e375de3ae58e10b1fd8c6ee3ee6013311"
+        }
+      ]
+    },
+    {
+      "action": "split",
+      "id": "split-example",
+      "outputs": [
+        {
+          "body": "Prefer short, cited answers.",
+          "category": "preference",
+          "confidence": "low",
+          "durability": "durable",
+          "half_life_days": 365,
+          "id": "split-preference",
+          "inclusion_reason": "Recurring reviewed preference.",
+          "last_reviewed": "2026-11-04T00:00:00Z",
+          "merges": [],
+          "priority": 80,
+          "scope": {
+            "execution": "offline",
+            "persistence": "machine-local",
+            "policy": {
+              "id": "mindgarden-local-single-user/v1",
+              "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+            },
+            "publication": "never-exportable",
+            "schema": "mindgarden.scope/v1",
+            "visibility": "personal"
+          },
+          "stale_after": null,
+          "supersedes": [],
+          "title": "Synthetic citation preference"
+        },
+        {
+          "body": "Keep task inputs explicit.",
+          "category": "workflow",
+          "confidence": "low",
+          "durability": "durable",
+          "half_life_days": 365,
+          "id": "split-workflow",
+          "inclusion_reason": "Recurring reviewed preference.",
+          "last_reviewed": "2026-11-04T00:00:00Z",
+          "merges": [],
+          "priority": 80,
+          "scope": {
+            "execution": "offline",
+            "persistence": "machine-local",
+            "policy": {
+              "id": "mindgarden-local-single-user/v1",
+              "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+            },
+            "publication": "never-exportable",
+            "schema": "mindgarden.scope/v1",
+            "visibility": "personal"
+          },
+          "stale_after": null,
+          "supersedes": [],
+          "title": "Synthetic citation preference"
+        }
+      ],
+      "rationale": "Authored synthetic split review; preserve the canonical detail.",
+      "sources": [
+        {
+          "garden": "synthetic-garden",
+          "id": "memory-6",
+          "revision": "sha256:56284bdf723a3f4c39b7c5407f9c350e375de3ae58e10b1fd8c6ee3ee6013311"
+        }
+      ]
+    },
+    {
+      "action": "pin",
+      "id": "pin-example",
+      "outputs": [
+        {
+          "body": "An explicitly pinned synthetic historical detail.",
+          "category": "historical",
+          "confidence": "low",
+          "durability": "durable",
+          "half_life_days": 365,
+          "id": "pinned-history",
+          "inclusion_reason": "Recurring reviewed preference.",
+          "last_reviewed": "2026-11-04T00:00:00Z",
+          "merges": [],
+          "priority": 80,
+          "scope": {
+            "execution": "offline",
+            "persistence": "machine-local",
+            "policy": {
+              "id": "mindgarden-local-single-user/v1",
+              "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+            },
+            "publication": "never-exportable",
+            "schema": "mindgarden.scope/v1",
+            "visibility": "personal"
+          },
+          "stale_after": null,
+          "supersedes": [],
+          "title": "Synthetic citation preference"
+        }
+      ],
+      "rationale": "Authored synthetic pin review; preserve the canonical detail.",
+      "sources": [
+        {
+          "garden": "synthetic-garden",
+          "id": "memory-7",
+          "revision": "sha256:56284bdf723a3f4c39b7c5407f9c350e375de3ae58e10b1fd8c6ee3ee6013311"
+        }
+      ]
+    }
+  ],
+  "retention": {
+    "archival": {
+      "deletion": "unsupported",
+      "mode": "preserve-originals"
+    },
+    "destructive_changes": "unavailable",
+    "detail_budgets": {
+      "agent": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      },
+      "organization": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      },
+      "personal": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      },
+      "publishing": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      },
+      "repository": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      }
+    },
+    "id": "synthetic-preserve-first",
+    "knowledge": {
+      "mode": "review-required",
+      "superseded": "retain-with-lineage"
+    },
+    "model_context": {
+      "max_bytes": 32768,
+      "persistence": "ephemeral",
+      "ttl_seconds": 600
+    },
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": {
+      "mode": "separate-review",
+      "revocation": "invalidate-and-rebuild",
+      "ttl_seconds": 3600
+    },
+    "schema": "mindgarden.retention-policy/v1"
+  },
+  "review": {
+    "rationale": "Synthetic human review fixture.",
+    "reviewed_at": "2026-11-04T00:00:00Z",
+    "reviewers": [
+      "synthetic-reviewer"
+    ],
+    "state": "approved"
+  },
+  "review_authority": {
+    "id": "synthetic-reviewer",
+    "kind": "human"
+  },
+  "schema": "mindgarden.memory-plan/v1",
+  "scope": {
+    "execution": "offline",
+    "persistence": "machine-local",
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": "never-exportable",
+    "schema": "mindgarden.scope/v1",
+    "visibility": "personal"
+  },
+  "target": {
+    "id": "provider-neutral/v1",
+    "max_snippet_bytes": 1024,
+    "tokenizer": "unavailable"
+  }
+}

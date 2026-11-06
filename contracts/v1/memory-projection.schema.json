@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:memory-projection:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "canonical",
+    "scope",
+    "target",
+    "review",
+    "retention",
+    "snippets",
+    "decisions",
+    "consumer_revocation",
+    "trust"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.memory-projection/v1"
+    },
+    "canonical": {
+      "const": false
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "tokenizer",
+        "max_snippet_bytes"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+        },
+        "tokenizer": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+        },
+        "max_snippet_bytes": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 8192
+        }
+      }
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "retention": {
+      "$ref": "urn:egohygiene:mindgarden:retention-policy:v1"
+    },
+    "snippets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "body",
+          "category",
+          "scope",
+          "durability",
+          "half_life_days",
+          "confidence",
+          "priority",
+          "inclusion_reason",
+          "last_reviewed",
+          "stale_after",
+          "supersedes",
+          "merges",
+          "sources",
+          "action",
+          "transformation_rationale"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "title": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192
+          },
+          "category": {
+            "enum": [
+              "preference",
+              "identity",
+              "workflow",
+              "project-direction",
+              "temporary",
+              "historical",
+              "one-off",
+              "sensitive"
+            ]
+          },
+          "scope": {
+            "$ref": "urn:egohygiene:mindgarden:scope:v1"
+          },
+          "durability": {
+            "enum": [
+              "durable",
+              "temporary"
+            ]
+          },
+          "half_life_days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3650
+          },
+          "confidence": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "inclusion_reason": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+          },
+          "last_reviewed": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "stale_after": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "supersedes": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 256,
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+            }
+          },
+          "merges": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 256,
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+            }
+          },
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "reference",
+                "evidence",
+                "review",
+                "qualifications"
+              ],
+              "properties": {
+                "reference": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+                  }
+                },
+                "review": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+                },
+                "qualifications": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "action": {
+            "enum": [
+              "keep",
+              "merge",
+              "rewrite",
+              "demote",
+              "expire",
+              "split",
+              "pin"
+            ]
+          },
+          "transformation_rationale": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "action",
+          "sources",
+          "rationale",
+          "outputs"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "action": {
+            "enum": [
+              "keep",
+              "merge",
+              "rewrite",
+              "demote",
+              "expire",
+              "split",
+              "pin"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 256,
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+            }
+          },
+          "rationale": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "consumer_revocation": {
+      "const": "manual-copy-requires-consumer-refresh"
+    },
+    "trust": {
+      "const": "source-data-only"
+    }
+  }
+}
