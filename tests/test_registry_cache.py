@@ -103,7 +103,7 @@ class RegistryCacheTests(unittest.TestCase):
     def test_platform_capabilities_and_cli_are_explicit_private_control(self):
         platforms=registry_platforms()
         self.assertIn("unsupported",platforms["win32"]["mutation"])
-        self.assertIn("unsupported",platforms["darwin"]["mutation"])
+        self.assertEqual(platforms["darwin"]["mutation"],"native-acl-guarded-single-user-posix")
         self.assertEqual(platforms["dev-container"]["host_mount_assurance"],"not-claimed")
         with redirect_stdout(io.StringIO()) as output:
             self.assertEqual(main(["registry","cache-inspect","--registry",str(self.registry),"--garden-id","synthetic-garden","--scope-digest",self.context.scope_digest()]),0)

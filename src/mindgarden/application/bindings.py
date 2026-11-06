@@ -8,6 +8,7 @@ from pathlib import Path
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes, read_object, safe_path
 from ..domain.scope import validate_scope
 from ..domain.validation import ContractError
+from ..adapters.native_paths import require_canonical_directory
 
 
 def explicit_root(value: str, *, must_exist: bool = True) -> Path:
@@ -20,6 +21,8 @@ def explicit_root(value: str, *, must_exist: bool = True) -> Path:
         raise ContractError("BINDING_ROOT: root must be a directory")
     if must_exist and not path.is_dir():
         raise ContractError("BINDING_MISSING: explicit root is unavailable")
+    if path.is_dir():
+        require_canonical_directory(path, code="BINDING_PATH")
     return path
 
 

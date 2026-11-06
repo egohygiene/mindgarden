@@ -25,11 +25,11 @@ from tests.registry_fixture import create_roots, mutate, register_roots
 from tests.support_v1 import add_knowledge, create_garden
 
 
-@unittest.skipUnless(sys.platform.startswith("linux"), "registry filesystem checkpoint supports Linux")
+@unittest.skipUnless(sys.platform.startswith("linux") or sys.platform == "darwin", "registry controls support Linux/macOS")
 class RegistryViewTests(unittest.TestCase):
     def setUp(self):
         temporary = TemporaryDirectory(); self.addCleanup(temporary.cleanup)
-        self.root = Path(temporary.name)
+        self.root = Path(temporary.name).resolve()
         self.fixture = create_roots(self.root / "gardens")
         self.registry = self.root / "configuration/registry.json"
         register_roots(self.registry, self.fixture)

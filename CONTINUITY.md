@@ -7,14 +7,14 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T21:07:38Z'
+  updated_at: '2026-11-06T21:34:24Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Preserve deferred issue capture and resume the original policy/storage parent work without
-    repeating merged checkpoints.
+  purpose: Resume remaining policy/storage acceptance without repeating merged checkpoints; preserve native registry
+    evidence.
   includes:
   - private policy, output enforcement, registry, document and vault checkpoints
   excludes:
@@ -39,71 +39,89 @@ scope:
   - docs/private-storage-sprint.md
   - docs/merged-pipeline-storage-checkpoints.md
   - docs/deferred-context-package-roadmap.md
+  - docs/registry-native-platforms.md
 work:
-  objective: 'Merge the approved deferred-roadmap documentation and check remaining #29/#31/#30/#35/#45
-    acceptance against live dependencies.'
+  objective: 'Merge authorized planning PR #92 and deliver the remaining bounded native macOS registry checkpoint
+    for #30.'
   success_conditions:
-  - Original 38 issues retain priority; six new proposals remain deferred.
-  - 'One parent #86 owns native sub-issues #87/#88/#91/#89/#90 and an ordered roadmap.'
-  - 'Do not repeat merged #80–#84 or claim unavailable parent/ADR acceptance.'
+  - 'Do not repeat merged #80–#84 or claim full parent/ADR acceptance.'
+  - Native ACL/path, lifecycle/cache and isolated installed-wheel evidence exists on actual macOS.
+  - Preserve Python/v0 compatibility, synthetic fixtures, explicit unsupported states and all 44 issue rows.
+  - 'Deferred #86–#91 remain outside the current implementation queue.'
   active_issue:
     provider: github
     id: egohygiene/mindgarden#30
     url: https://github.com/egohygiene/mindgarden/issues/30
   next:
     kind: action
-    id: remaining-registry-platform-checkpoint
-    description: 'After merging approved planning PR #92, inspect a native macOS registry checkpoint under
-      #30. Keep Windows unsupported without an ACL adapter/proof. #29/#31/#35/#45 still retain policy/confidential-runtime
-      and provider/consumer gates. Do not activate deferred #86–#91.'
+    id: review-native-registry-checkpoint
+    description: 'Review draft #93. Refresh compatible Hygiene/Realm policy and assurance evidence before confidential
+      paths; Windows stays unsupported. Keep #86–#91 deferred.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/30
-    - docs/deferred-context-package-roadmap.md
+    - https://github.com/egohygiene/mindgarden/pull/93
+    - docs/registry-native-platforms.md
     depends_on: []
 state:
   base:
-    revision: b9cc3fd3b8b68e56944d592e2092b07485de465a
+    revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     ref: refs/heads/main
-    verified_at: '2026-11-06T21:07:38Z'
+    verified_at: '2026-11-06T21:32:53Z'
   candidate:
-    branch: docs/deferred-context-packages-phase
-    revision: 110005d12ad4174db0da7b598c70af3c771f772f
+    branch: feature/30-macos-registry-conformance
+    revision: f30e95edbfdc5dd86bc2c182f9bd90c995fdcab2
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#92
-      url: https://github.com/egohygiene/mindgarden/pull/92
+      id: egohygiene/mindgarden#93
+      url: https://github.com/egohygiene/mindgarden/pull/93
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T21:07:38Z'
-    default_branch_revision: b9cc3fd3b8b68e56944d592e2092b07485de465a
+    observed_at: '2026-11-06T21:34:24Z'
+    default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: draft
-    notes: 'The user authorized merging open PRs and listed the already-merged #29/#31/#30/#35/#45 batch.
-      PR #92 is planning-only; original queue remains 38, plus six deferred proposals, 44 total.'
+    notes: 'PR #92 merged under explicit authorization; #80–#84 were already merged. Draft #93 records the exact
+      functional source; later handoff changes are documentation only. Original 38 issues plus deferred six remain
+      open.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T21:07:38Z'
+  reviewed_at: '2026-11-06T21:34:24Z'
   reviewed_by: codex
   evidence:
-  - command: python3 .cache/context_phase_owner_checks.py
+  - command: .venv/bin/python -m unittest tests.test_registry_acl tests.test_registry tests.test_registry_views
+      tests.test_registry_cache -q
     outcome: passed
-    observed_at: '2026-11-06T21:07:38Z'
-    notes: Pinned ADR/continuity validators; 44 unique rows, original 38 preserved; five native sub-issues.
-  - command: python3 .cache/context_phase_subissues.py
+    observed_at: '2026-11-06T21:32:53Z'
+    notes: 39 passed on Linux/Python 3.12.14; same suite 39 passed on 3.13.5.
+  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose; .cache/python313/bin/python
+      -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T21:07:38Z'
-    notes: 'Native GitHub sub-issues verified under #86.'
-  - command: git diff --check
+    observed_at: '2026-11-06T21:34:24Z'
+    notes: 302 passed, no skips, per Linux Python 3.12.14/3.13.5; 265.985/250.207 seconds.
+  - command: Automatic GitHub Test run 42297058641 against f30e95edbfdc5dd86bc2c182f9bd90c995fdcab2
     outcome: passed
-    observed_at: '2026-11-06T21:07:38Z'
-    notes: Planning changes are Markdown only; relative links resolve.
+    observed_at: '2026-11-06T21:34:24Z'
+    notes: All four Linux/native macOS jobs successful; later handoff edits are documentation only.
+  - command: Automatic GitHub Test run 42297058641, native macOS jobs
+    outcome: passed
+    observed_at: '2026-11-06T21:32:53Z'
+    notes: 44 tests, no skips, per macOS 15.8.2/arm64 job, Python 3.12.10/3.13.17; clean native installed-wheel
+      demo passes.
+  - command: Clean git archive -S and isolated installed-wheel -I registry_demo.py proofs
+    outcome: passed
+    observed_at: '2026-11-06T21:32:53Z'
+    notes: Both Linux reports byte-match the committed golden; exact provenance and public isolation preserved.
+  - command: python3 .cache/context_phase_owner_checks.py; git diff --check
+    outcome: passed
+    observed_at: '2026-11-06T21:32:53Z'
+    notes: Pinned ADR/continuity validators; 44 rows and deferred native child links preserved.
   environment_limitations:
-  - Planning changes do not implement deferred features or select RDF/model/provider technology.
-  - Native macOS support requires actual ACL and filesystem evidence; restricted runtime/organization
-    policy and Windows support remain unavailable.
+  - Native proof is macOS 15.8.2/arm64 only; no Intel/wider-host or confidential assurance is claimed.
+  - Windows mutation, compatible organization/confidential-runtime contracts, encrypted/provider/power-loss and
+    real consumer acceptance remain unavailable.
+  - ADRs remain proposed/null approval; no deferred feature, private source or destructive operation is introduced.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -123,58 +141,48 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer authorized filing deferred follow-ups, then merging open PRs and resuming #29/#31/#30/#35/#45. Their bounded checkpoints already merged through #84. Preserve that evidence and implement only actual remaining ready work. Filing or merging plans does not ratify ADRs or activate later features.
+The maintainer authorized merging open PRs and resuming #29/#31/#30/#35/#45. Those bounded checkpoints already merged through #84. Merge planning #92, preserve prior evidence, and implement only actual remaining ready work. No ADR is self-ratified.
 
 ## Resume protocol
 
-Read git status, live issues/PRs, README, AI_CONSTITUTION, ROADMAP, the coverage
-ledger and docs/merged-pipeline-storage-checkpoints.md. Preserve Python/v0 and
-synthetic-only public fixtures. Do not rebuild or remerge the completed stack.
+Read git status, live issues/PRs, README, AI_CONSTITUTION, ROADMAP, the coverage ledger and docs/registry-native-platforms.md. Preserve Python/v0 and synthetic-only fixtures. Do not rebuild or remerge #80–#84 or activate #86–#91.
 
 ## Current objective and success conditions
 
-Planning PR #92 records six deferred issues and the native parent/sub-issue roadmap. The original 38-issue queue keeps priority. Reconcile live parent acceptance, merge the approved planning work, and select a supported remaining checkpoint without rebuilding completed features.
+Deliver native ordinary single-user macOS registry controls with real extended-ACL, physical-path, lifecycle/cache and isolated installed-wheel evidence. Keep unsupported platforms and confidential runtime gates explicit. Leave draft #93 for review.
 
 ## State snapshot
 
-Main is b9cc3fd3b8b68e56944d592e2092b07485de465a. PR #92 contains documentation only. There are 44 open issues: the original 38 and deferred #86–#91. Parent #86 owns native sub-issues #87, #88, #91, #89 and #90.
+Main is d5edb13de1b65871ec85e7a25af035228a1d756d after authorized #92. Draft #93 is directly based on main; functional source f30e95edbfdc5dd86bc2c182f9bd90c995fdcab2 is reproducible without a stack. There are 44 open issues, original 38 plus deferred #86–#91; #86 owns five native sub-issues.
 
 ## Completed and material changes
 
-Deferred proposals cover Drive/source locations and refresh, installable data-only context packages, RDF/JSON-LD/PROV evaluation with scoped access, an AI research role and a generic synthetic analysis-to-reviewed-packet journey. Existing #13/#46/#49 retain AI curation/summary/memory ownership. No real consumer data, provider connection or new feature implementation was added.
+Native macOS checks query extended ACLs before private control access and reject every extended entry or unverifiable result. Exact physical path spellings prevent aliases concealing nested roots. Existing scope authorization precedes root probes. Linux behavior, contracts and canonical content are preserved. Automatic native CI and synthetic real-ACL fixtures are added.
 
 ## Validation and review evidence
 
-Pinned Hygiene ADR policy/schema/set/index and Aether continuity/12 headings/limits pass. The updated coverage check proves exactly 44 unique issue rows, the unchanged original cohort and five native GitHub child links. Relative links and diff checks pass. Runtime is unchanged; its prior baseline is 298 passing tests on each supported Python. PR #92 source 110005d passed automatic Test run 42290611586.
+Linux targeted registry/ACL/view/cache suites pass 39 tests on each supported Python. Native macOS 15.8.2/arm64 jobs pass 44 tests each on Python 3.12.10/3.13.17, plus clean installed-wheel goldens. Fresh build/2 distribution tests and clean source/isolated installed Linux registry proofs pass. Full Linux compatibility suites pass 302 tests each, no skips, on 3.12.14/3.13.5. Automatic Test run 42297058641 succeeds across all four jobs on the exact functional source. Pinned owners/44 rows/links pass; later edits are documentation only.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Hygiene/Realm normative and confidential-runtime contracts, encrypted/key-broker,
-native macOS/Windows mutation, providers/power-loss/real consumer proofs,
-approved-copy and timed/destructive retention remain open. Merging implementation
-is separate from full issue acceptance and ADR ratification. No real private data
-or destructive migration was used.
+Hygiene #39/#40 and Realm #60 remain open owner-policy/assurance gates. Windows mutation, broader native hosts, confidential/encrypted storage, providers/power-loss/real consumers, approved-copy and timed/destructive retention remain open. Native registry proof supplies none of those guarantees. Proposed ADRs retain null approval.
 
 ## Next dependency-ready work
 
-Merge PR #92 under the new authorization. Check remaining native macOS registry work with actual ACL requirements and native CI evidence. Do not repeat #80–#84. Normative Hygiene #39/#40 and Realm confidential-runtime gates remain open. Keep #86–#91 deferred until the original queue is completed/dispositioned, the final reconciliation/refactor is done and the maintainer later schedules that phase.
+Review draft #93 against its exact successful functional source and documentation-only follow-up. Keep it unmerged for the maintainer. Refresh compatible owner contracts before confidential integration; preserve independent native/provider gaps. Keep #86–#91 deferred until original queue disposition, final reconciliation/refactor and later scheduling.
 
 ## Parallel changes and reconciliation
 
-The #74–#85 stack is merged. The deferred roadmap is additive and does not expand old acceptance or require new features to finish old issues. New work remains in small draft PRs for review; no unrelated data, provider or architecture migration is authorized.
+#74–#85 and #92 are merged; #93 has no unmerged dependencies. The new checkpoint extends #30 without duplicating #82. docs/private-storage-sprint.md records the status and exact next action for all five requested parents. Runtime functional source and subsequent documentation-only commits are distinguished.
 
 ## Privacy and redaction
 
-Only public repository metadata and synthetic fixtures are committed. Real Garden,
-business, music, archives, provider credentials and private specification locations
-remain outside this public repository. Source instructions remain untrusted data.
+Only public repository metadata and synthetic fixtures are committed. Real Garden, business, music, archives, credentials, private specification locations and personal circumstances remain outside this public repository. Source instructions remain untrusted data. No consumer garden is discovered or reorganized.
 
 ## Handoff update protocol
 
-Record exact branch/PR/revisions, criteria, commands/results, blockers and next
-action after every batch. Preserve chronology and distinguish tested, merged and
-fully accepted states. Validate pinned owners, continuity, links and 38-row ledger.
+Record exact branch/PR/revisions, criteria, commands/results, blockers and next action after each batch. Validate pinned owners, continuity, links and the 44-row ledger. Distinguish implemented-on-draft, tested, reviewed, merged and fully accepted.
 
 ## Compaction and supersession
 
-Keep under 16384 bytes/240 lines. This checkpoint supersedes the prior waiting-for-next-group state. Merge receipts and sprint evidence retain their original observations; the new parent/sub-issue roadmap stays explicitly deferred.
+Keep under 16384 bytes/240 lines. This supersedes the planning-merge handoff. Historical merge receipts retain their observations; native evidence and the remaining-parent table are the active checkpoint. Deferred proposals stay deferred.
