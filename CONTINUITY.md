@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T22:52:55Z'
+  updated_at: '2026-11-06T22:53:09Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -72,15 +72,15 @@ state:
   base:
     revision: f044db4bd5544a40fa011c1d6d385d8b3a352db6
     ref: refs/heads/feature/27-release-preparation
-    verified_at: '2026-11-06T22:52:55Z'
+    verified_at: '2026-11-06T22:53:09Z'
   candidate:
     branch: feature/20-consumer-journey-proof
-    revision: 5cb8359
+    revision: 5cb83590c6bcfe3974d4b0f890d4916d5b67a307
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-06T22:52:55Z'
+    observed_at: '2026-11-06T22:53:09Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: not-applicable
@@ -98,20 +98,20 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/95
 review:
   status: partial
-  reviewed_at: '2026-11-06T22:52:55Z'
+  reviewed_at: '2026-11-06T22:53:09Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest tests.test_private_pilot tests.test_release_journey -q
     outcome: passed
-    observed_at: '2026-11-06T22:52:55Z'
+    observed_at: '2026-11-06T22:53:09Z'
     notes: 7 tests in 11.418 s.
   - command: Fresh consumer wheel; -I release_journey_demo.py; cmp committed golden
     outcome: passed
-    observed_at: '2026-11-06T22:52:55Z'
+    observed_at: '2026-11-06T22:53:09Z'
     notes: Exact synthetic source/provenance, public-only projection and relocation evidence.
   - command: Empathy literal optional task commands and existing consumer integration tests
     outcome: passed
-    observed_at: '2026-11-06T22:52:55Z'
+    observed_at: '2026-11-06T22:53:09Z'
     notes: 12 tests; core commands pass; final strict verify exit 3 recorded separately.
   environment_limitations:
   - Real pilot inputs and owner review are unavailable; no private source processed.
