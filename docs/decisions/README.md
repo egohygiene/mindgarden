@@ -26,3 +26,4 @@ New decisions inherit [Hygiene policy v1.2.0](policy-reference.json). Decision s
 | [ADR-0020](ADR-0020-agent-interface-authority.md) | Expose bounded application services without letting agent interfaces grant authority | Proposed | 2026-11-05 |
 | [ADR-0022](ADR-0022-reviewed-canonical-transitions.md) | Preserve canonical home changes as reviewed append-only provenance | Proposed | 2026-11-06 |
 | [ADR-0021](ADR-0021-build-versus-integrate.md) | Keep optional product integrations behind evaluated replaceable boundaries | Proposed | 2026-11-05 |
+| [ADR-0023](ADR-0023-document-classification-and-local-reader.md) | Classify new document inputs before optional local parsing | Proposed | 2026-11-06 |

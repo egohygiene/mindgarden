@@ -523,6 +523,27 @@ def add_registry_command(commands: ParserCollection) -> None:
         command.set_defaults(handler=run_registry)
 
 
+def add_document_command(commands: ParserCollection) -> None:
+    """Select a local PDF integration explicitly; confidential is the default."""
+    from ..application.documents import run_document
+
+    command = commands.add_parser("document", help="Plan/apply a classified PDF through optional local tools")
+    command.add_argument("--local-config", type=Path, required=True)
+    command.add_argument("--garden-id", required=True)
+    command.add_argument("--vault-id", required=True)
+    command.add_argument("--input", type=Path, required=True)
+    for name in ("source-id", "title", "origin", "owner", "rights", "captured"):
+        command.add_argument("--" + name, required=True)
+    command.add_argument("--classification-review", type=Path, help="Approved initial classification bound to source bytes")
+    command.add_argument("--tool-directory", type=Path, help="Explicit directory containing pdfinfo and pdftotext")
+    mode = command.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--plan", action="store_true")
+    mode.add_argument("--apply", action="store_true")
+    command.add_argument("--plan-digest")
+    command.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
+    command.set_defaults(handler=run_document, scoped_output_command=True)
+
+
 def build_parser() -> ArgumentParser:
     """Build the stable package command contract."""
     parser = ArgumentParser(prog="mindgarden", description=__doc__)
@@ -542,6 +563,7 @@ def build_parser() -> ArgumentParser:
     version.set_defaults(handler=run_version)
     add_lifecycle_commands(commands)
     add_ingest_command(commands)
+    add_document_command(commands)
     add_agent_commands(commands)
     add_publish_command(commands)
     add_site_command(commands)

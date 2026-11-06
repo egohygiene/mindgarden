@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:document-classification:v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "kind",
+    "source_sha256",
+    "scope",
+    "authority",
+    "review"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.document-classification/v1"
+    },
+    "kind": {
+      "const": "initial-classification"
+    },
+    "source_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "human"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "review": {
+      "allOf": [
+        {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+        },
+        {
+          "properties": {
+            "state": {
+              "const": "approved"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}
