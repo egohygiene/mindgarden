@@ -32,7 +32,7 @@ ratify ADRs, invent missing contracts or authorize reading private consumer data
 
 | Issue | Bounded checkpoint / branch | State and evidence | Remaining / next action |
 | --- | --- | --- | --- |
-| #51 | `feature/51-provider-switch-proof` over #93 | Source demo matches the committed provider recovery golden; focused tests running | Finish compatibility/clean-engine evidence; open the first coherent draft |
+| #51 | Draft [#94](https://github.com/egohygiene/mindgarden/pull/94), `feature/51-provider-switch-proof` over #93; functional `1fac57d` | 308 tests per supported Python; clean source/wheel goldens; six reviewed records in 13,178/16,384 bytes | Maintainer review/merge of the bounded conformance scenario; live providers are not required |
 | #27 | Release declaration, authoritative version, reproducible artifacts and pinned shared tooling | Contract/owner inventory complete; no implementation in this checkpoint yet | Prepare a reviewable release flow; record external PyPI/signing states honestly |
 | #20 | Complete synthetic archive→review→private fallback/public projection composition | Earlier local/mixed source proofs exist | Extend the composition; prepare an explicitly scoped private pilot and pinned Empathy handoff |
 | #19 | Acceptance and release readiness | Blocked by actual acceptance and external delivery setup | Prepare precise checks/artifacts; publish 1.0 only when acceptance and authority are evidenced |
@@ -42,3 +42,38 @@ combined checkout. That checkout dependency is distinct from the contracts above
 Each checkpoint records its exact source, tests, blockers and subsequent branch.
 The new drafts are left for review; no existing draft is automatically merged by
 the request for this next batch.
+
+## Provider checkpoint verification
+
+Functional source: `1fac57d280322f0a5e835973e1c57eb4ade93135`.
+
+| Exact command | Observed result |
+| --- | --- |
+| `.venv/bin/python -m unittest tests.test_provider_continuity tests.test_v1_retrieval tests.test_scoped_retrieval tests.test_output_scope -q` | 30 passed; 26.305 s |
+| `.venv/bin/python -m unittest discover --start-directory tests --verbose` | 308 passed, no skips; Python 3.12.14; 240.746 s |
+| `.cache/python313/bin/python -m unittest discover --start-directory tests --verbose` | 308 passed, no skips; Python 3.13.5; 227.943 s |
+| `.venv/bin/python -m build --sdist --wheel --outdir .cache/dist` | Fresh source/wheel built with no runtime dependencies |
+| Clean `git archive` source under `-S`; isolated wheel under `-I` | Provider proof byte-matches committed golden in both; exact commands below |
+| `python3 .cache/context_phase_owner_checks.py`; compilation; `git diff --check` | Pinned owner validators, proposed/null-approval ADRs, continuity and 44-row inventory pass |
+
+```bash
+.venv/bin/python -m venv --without-pip .cache/provider-switch-wheel
+python3 -m pip --python .cache/provider-switch-wheel/bin/python install \
+  --no-cache-dir --no-index --find-links .cache/dist mindgarden==0.1.0
+.cache/provider-switch-wheel/bin/python -I scripts/provider_switch_demo.py \
+  --workspace .cache/provider-switch-installed --require-installed \
+  --report .cache/provider-switch-installed.json
+cmp tests/fixtures/provider-continuity/expected-proof.json .cache/provider-switch-installed.json
+mkdir .cache/provider-switch-clean-checkout
+git archive 1fac57d280322f0a5e835973e1c57eb4ade93135 | \
+  tar --extract --directory .cache/provider-switch-clean-checkout
+PYTHONPATH=.cache/provider-switch-clean-checkout/src .venv/bin/python -S \
+  .cache/provider-switch-clean-checkout/scripts/provider_switch_demo.py \
+  --workspace .cache/provider-switch-clean --require-source \
+  --report .cache/provider-switch-clean.json
+cmp tests/fixtures/provider-continuity/expected-proof.json .cache/provider-switch-clean.json
+```
+
+Hosted automatic [Test 42300245942](https://github.com/egohygiene/mindgarden/actions/runs/42300245942)
+represents this exact functional source; its result is recorded after observation.
+Documentation-only follow-ups have their own runs. No paid workflow is manually dispatched.

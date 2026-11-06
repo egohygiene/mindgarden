@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T21:51:25Z'
+  updated_at: '2026-11-06T21:56:10Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -57,8 +57,9 @@ work:
   next:
     kind: action
     id: release-convention-preparation
-    description: 'Finish full compatibility and isolated-wheel provider proof, record/open the #51 draft, then implement
-      #27''s pinned release declaration/version/artifact flow independently of the blocked full private pilot.'
+    description: 'Implement #27 release declaration, authoritative version and reproducible artifact preparation
+      on a branch over draft #94. Preserve the confirmed Relay root-pyproject schema/reference-validator mismatch
+      as an external parity gate; continue #20 synthetic/pilot handoff and conditional #19 acceptance.'
     readiness: ready
     references:
     - docs/release-checkpoints.md
@@ -67,49 +68,57 @@ state:
   base:
     revision: 7938f573100658908acc0a039974e60f8cf888aa
     ref: refs/heads/feature/30-macos-registry-conformance
-    verified_at: '2026-11-06T21:51:25Z'
+    verified_at: '2026-11-06T21:56:10Z'
   candidate:
     branch: feature/51-provider-switch-proof
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 1fac57d280322f0a5e835973e1c57eb4ade93135
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#94
+      url: https://github.com/egohygiene/mindgarden/pull/94
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T21:51:25Z'
+    observed_at: '2026-11-06T21:56:10Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
-    pull_request_state: not-applicable
-    notes: 'Main remains d5edb13. PR #93 is draft and its exact head passed automatic Test run 42297920995. The
-      requested #51/#27/#20/#19 parents are open; no releases exist. Current source changes have not yet been published
-      as a PR.'
+    pull_request_state: draft
+    notes: 'Main remains d5edb13. #93 is draft and its exact head passed Test 42297920995. #94 is draft at functional
+      source 1fac57d; Test 42300245942 was in progress when observed. The four requested parent issues remain open;
+      no release exists.'
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#93
     url: https://github.com/egohygiene/mindgarden/pull/93
 review:
   status: partial
-  reviewed_at: '2026-11-06T21:51:25Z'
+  reviewed_at: '2026-11-06T21:56:10Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest tests.test_provider_continuity tests.test_v1_retrieval tests.test_scoped_retrieval
       tests.test_output_scope -q
     outcome: passed
-    observed_at: '2026-11-06T21:51:25Z'
+    observed_at: '2026-11-06T21:56:10Z'
     notes: 30 passed in 26.305 seconds. Initial test-harness invocations with a nonexistent module/missing --pack
       were corrected; the final command passes.
   - command: .venv/bin/python -S scripts/provider_switch_demo.py --workspace .cache/provider-switch-second --require-source
       --report .cache/provider-switch-second.json
     outcome: passed
-    observed_at: '2026-11-06T21:51:25Z'
+    observed_at: '2026-11-06T21:56:10Z'
     notes: Committed golden matches; first provider and scoped index are absent before beta recovery.
   - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist
     outcome: passed
-    observed_at: '2026-11-06T21:51:25Z'
+    observed_at: '2026-11-06T21:56:10Z'
     notes: Fresh distributions built from current source; no runtime dependencies added.
-  - command: Full unittest suites on Python 3.12.14 and 3.13.5
-    outcome: not-run
-    observed_at: '2026-11-06T21:51:25Z'
-    notes: Running; record actual final results before completing the checkpoint.
+  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose; .cache/python313/bin/python
+      -m unittest discover --start-directory tests --verbose
+    outcome: passed
+    observed_at: '2026-11-06T21:56:10Z'
+    notes: 308 passed, no skips, per Python 3.12.14/3.13.5; 240.746/227.943 seconds.
+  - command: Clean git archive -S and isolated installed-wheel -I provider_switch_demo.py proofs
+    outcome: passed
+    observed_at: '2026-11-06T21:56:10Z'
+    notes: Both reports byte-match tests/fixtures/provider-continuity/expected-proof.json.
   environment_limitations:
   - Local fixture adapters prove structured context continuity, not live model behavior or proprietary history transfer.
   - 'Approved private pilot, actual Empathy consumption, protected OIDC/registry/signing evidence remain external;
@@ -146,7 +155,7 @@ Prove provider-switch recovery through two removable local adapter fixtures over
 
 ## State snapshot
 
-The candidate is feature/51-provider-switch-proof over draft #93 (7938f573100658908acc0a039974e60f8cf888aa), while main remains d5edb13de1b65871ec85e7a25af035228a1d756d. All 44 issues remain open. The next three release checkpoints are authorized but not yet implemented.
+Draft #94 (functional source 1fac57d280322f0a5e835973e1c57eb4ade93135) is stacked over draft #93 at 7938f573100658908acc0a039974e60f8cf888aa. Main remains d5edb13de1b65871ec85e7a25af035228a1d756d. All 44 issues remain open. Later handoff edits are documentation only.
 
 ## Completed and material changes
 
@@ -154,7 +163,7 @@ The provider fixture removes alpha code/state and the scoped index, then reconst
 
 ## Validation and review evidence
 
-The source demo matches the committed golden: 13178 bytes within 16384, six selected reviewed records, exact evidence and typed correction lineage preserved. Thirty focused provider/retrieval/scoped/output tests pass on Python 3.12. Fresh source/wheel builds pass. Full suites on both supported Pythons and the isolated installed-engine proof are in progress; no new CI pass is claimed before the draft exists.
+All 308 tests pass, no skips, on Linux/Python 3.12.14 and 3.13.5 (240.746/227.943 seconds). The clean git-archive source and isolated installed wheel reproduce the golden byte-for-byte. The context is 13178 bytes within 16384. Pinned owners, 44 issue rows, compilation and diff checks pass. Hosted #94 CI is recorded separately; no publication or ADR approval is inferred.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -162,7 +171,7 @@ An approved private archive/workspace, real Empathy #65 acceptance, compatible A
 
 ## Next dependency-ready work
 
-Finish full compatibility and isolated-wheel provider proof, record/open the #51 draft, then implement #27's pinned release declaration/version/artifact flow independently of the blocked full private pilot.
+Implement #27 release declaration, authoritative version and reproducible artifact preparation on a branch over draft #94. Preserve the confirmed Relay root-pyproject schema/reference-validator mismatch as an external parity gate; continue #20 synthetic/pilot handoff and conditional #19 acceptance.
 
 ## Parallel changes and reconciliation
 
