@@ -1,5 +1,9 @@
 # Portable private-garden checkpoint evidence
 
+Current follow-ups and exact updated proof hashes are recorded in the
+[source-workflow sprint](source-workflow-sprint.md) and the update below. Earlier
+numerical tables retain their explicitly recorded original functional revision.
+
 This finite synthetic checkpoint provides bounded results for the ten requested work items.
 The original draft stack #52–#64 was merged with maintainer authorization on
 2026-11-05 at `9fae752b3cf7eb9c74033a72a12d125c42f8659e`, with exactly the
@@ -166,3 +170,31 @@ proving a real legacy archive, optional AI producer, Empathy package consumption
 archives and unavailable historical specifications were not replaced with invented
 support. SQLite #32, federation and the broader application remain later work
 after their required contracts are ready.
+
+## Continued offline proof — source-workflow sprint
+
+The combined draft source `b88cc97` reproduces the archive → reviewed prompt-bank
+entry → exact search citation → bounded context → vault relocation/clean restore
+→ projection rebuild flow, independently from a clean source archive (`-S`) and
+an isolated dependency-free installed wheel (`-I`). Both match the complete
+committed report. No Google, network or model integration is used.
+
+The exact source remains `synthetic-garden/source-49101f6a41f4768b98734604-f03c4e39101deeb8`,
+revision `sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262`,
+selector `json:/content/0/text`, selected hash
+`d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f`.
+The original message pointer is `/messages/1`; speaker attribution remains assistant.
+The reviewed derivative does not approve the raw source or execute its text.
+
+Archive adapter 1.1.0 changes the new-import metadata view, so the current index
+hash is `5cad9f17875a68f0e88d36bf26fb65babaaee5bbb093c92b17a46050af6c1b7f` and
+context hash is `fd1448d50b3712b912c50d296413a922693eb1d77e6b5dda59c704bf50cb8310`.
+Context remains 2670/16384 bytes, and the six-object vault backup hash remains
+`c74e215fc9a035abc701ecab54a041ed840e3a6b8201314e151f6834ff0dba5d`.
+[The golden correction](archive-version-golden-note.md) preserves the failed-run
+history and confirms that evidence, review, original bytes and budgets did not change.
+
+This bounded evidence is linked to [#20](https://github.com/egohygiene/mindgarden/issues/20)
+through [draft #79](https://github.com/egohygiene/mindgarden/pull/79). It does not
+complete #20's broader publication, consumer or release acceptance. Full #45
+provider/platform/asset and owner-policy integration likewise remains open.

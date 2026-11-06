@@ -118,3 +118,13 @@ engine. Neither a tested draft nor its later merge accepts a proposed ADR.
 
 The [merge receipt](docs/merged-experience-checkpoints.md) records main `30a2966`
 and the exact tested-tree comparison. Broader parent acceptance remains separate.
+
+## Source-workflow draft checkpoint
+
+The [source-workflow sprint](docs/source-workflow-sprint.md) extends the same Python
+services with adapter conformance, authored curation transformations, selective
+archive attachments, private canonical-home transitions, projection coverage and
+pinned rendered discovery. Drafts #74–#79 are implemented/tested and unmerged.
+Original sources remain immutable private evidence; reviewed garden records own
+knowledge; catalogs, rendered artifacts and package references remain rebuildable
+data. Proposed ADR-0011's extension and ADR-0022 are not accepted by these tests.
