@@ -220,6 +220,27 @@
                 "items": {
                   "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
                 }
+              },
+              "redactions": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "source",
+                    "rationale"
+                  ],
+                  "properties": {
+                    "source": {
+                      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+                    },
+                    "rationale": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "additionalProperties": false
+                }
               }
             },
             "additionalProperties": false

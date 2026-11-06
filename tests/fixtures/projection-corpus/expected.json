@@ -1,0 +1,14 @@
+{
+  "notes": 32,
+  "schema": "example.synthetic-projection-goldens/1",
+  "sha256": {
+    "backlinks": "ccde945552c43acf7afd830733b659bd126fefe1bb15183a1b172a2ee740b594",
+    "context_json": "fc1cc93124584b255e0599d9d69028bad6a53c95c73c8de9e356dba45d2a2a14",
+    "context_markdown": "2c764adc3ea1fce8de6895fa14394a3bdccadc088ce57894333632011a16d0cf",
+    "graph": "3767e4f904eca5051da12fb40cc4c5e5e948a6969a1fde12e57f95cb67dad9a3",
+    "index": "1905919dbed5c3d1cf221a6370ecad5a83c402808bf11e88099f746716b21454",
+    "llms": "b60025df2bbd686eb3ca1b9ced10a75a3f42d63bae930c09f3dda0001a7ac7d9",
+    "outbound": "cdb9f280b2f527c97cd9c4b1305280c3f85945e1d73db460d47b3e0374d48da8",
+    "search": "4eab6b7030112c020a3562e778ec242b459e52d59c3051ec3c1b6216eee1efcf"
+  }
+}

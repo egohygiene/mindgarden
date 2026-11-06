@@ -122,6 +122,8 @@ class V1ContractTests(unittest.TestCase):
                 "search-results",
                 "graph",
                 "backlinks",
+                "outbound-links",
+                "agent-entrypoint",
                 "context",
                 "context-profile",
                 "curation-plan",

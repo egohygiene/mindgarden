@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T06:18:55Z'
+  updated_at: '2026-11-06T06:27:48Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -43,16 +43,17 @@ work:
   - Preserve Python/v0, private boundaries and proposed ADR status.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#14
-    url: https://github.com/egohygiene/mindgarden/issues/14
+    id: egohygiene/mindgarden#12
+    url: https://github.com/egohygiene/mindgarden/issues/12
   next:
     kind: action
-    id: projection-conformance-corpus
-    description: 'Implement #12 reproducible projection coverage and a measured larger synthetic corpus;
-      preserve live authorization and provenance checks while reducing context serialization work.'
+    id: rendered-federation-packages
+    description: 'Implement #16 a pinned rendered-site discovery adapter, portable data-only garden references
+      and explicit incremental catalog comparison. Preserve existing scoped canonical search/context;
+      defer executable installers, acquisition and authentication.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/14
+    - https://github.com/egohygiene/mindgarden/issues/12
     depends_on: []
 state:
   base:
@@ -60,16 +61,16 @@ state:
     ref: refs/heads/main
     verified_at: '2026-11-06T05:27:17Z'
   candidate:
-    branch: feature/14-private-routing-transitions
-    revision: 1a43002f9e0f689b7f5cb383b84a78cd206d050d
+    branch: feature/12-projection-conformance
+    revision: 83fe3aac18505c1e24792ed880bdb9c167d85333
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#77
-      url: https://github.com/egohygiene/mindgarden/pull/77
+      id: egohygiene/mindgarden#78
+      url: https://github.com/egohygiene/mindgarden/pull/78
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T06:18:55Z'
+    observed_at: '2026-11-06T06:27:48Z'
     default_branch_revision: 30a29668a02740a91e77aec22f670a8270ccddf4
     issue_state: open
     pull_request_state: draft
@@ -77,22 +78,27 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T06:18:55Z'
+  reviewed_at: '2026-11-06T06:27:48Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_routing_lifecycle tests.test_routing tests.test_curation
-      tests.test_v1_contracts -q
-    outcome: passed
-    observed_at: '2026-11-06T06:18:55Z'
-    notes: 24 tests passed
-  - command: .cache/python313/bin/python -m unittest tests.test_routing_lifecycle tests.test_scoped_retrieval
+  - command: .venv/bin/python -m unittest tests.test_projection_corpus tests.test_scoped_retrieval tests.test_v1_contracts
       -q
     outcome: passed
-    observed_at: '2026-11-06T06:18:55Z'
-    notes: 19 tests passed
-  - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/sprint14-private --require-source
+    observed_at: '2026-11-06T06:27:48Z'
+    notes: 23 tests passed
+  - command: .cache/python313/bin/python -m unittest tests.test_projection_corpus tests.test_v1_retrieval
+      -q
     outcome: passed
-    observed_at: '2026-11-06T06:18:55Z'
+    observed_at: '2026-11-06T06:27:48Z'
+    notes: 7 tests passed
+  - command: .venv/bin/python scripts/projection_benchmark.py --workspace .cache/projection-after --records
+      1024
+    outcome: passed
+    observed_at: '2026-11-06T06:27:48Z'
+    notes: six exact projections; <=60s per projection and <=256 MiB process RSS, verified against report
+  - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/sprint12-private --require-source
+    outcome: passed
+    observed_at: '2026-11-06T06:27:48Z'
     notes: offline golden proof passed
   environment_limitations:
   - Automatic PR CI is separate from local checks; no paid workflow dispatched.
@@ -132,23 +138,23 @@ with verification, honest retained parent scope and reproducible combined checko
 
 ## State snapshot
 
-Draft stack #74 → #75 → #76 → #77; branch feature/14-private-routing-transitions over feature/15-archive-selective-assets; functional source 1a43002. ADR-0022 is proposed/null approval.
+Draft stack #74 → #75 → #76 → #77 → #78; branch feature/12-projection-conformance over feature/14-private-routing-transitions; functional source 83fe3aa.
 
 ## Completed and material changes
 
-Reviewed append-only private move/merge transitions, exact aliases, one retrievable canonical home, preserved metadata/originals, and reuse of group rollback/recovery.
+Outbound links and agent ledger schemas, eight-projection golden matrix, selected redaction provenance, bounded context-fitting algorithm and measured 1024-note corpus with exact unchanged hashes.
 
 ## Validation and review evidence
 
-24 routing/lifecycle/curation/contracts tests passed on Python 3.12; 19 lifecycle/scoped tests passed on Python 3.13; 24 lifecycle/scoped/contracts tests passed on Python 3.12. Offline golden proof and compile/diff/owner checks passed.
+23 projection/scoped/contracts tests passed on Python 3.12; 7 projection/retrieval passed on Python 3.13. Six 1024-note benchmark outputs preserved pre-change hashes; 8–17 seconds/operation, 92,852,224-byte peak RSS. Offline private-workflow proof, compile/diff and owner checks passed.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Public/policy-changing transfers, attached graph migration and full filesystem/power-loss acceptance remain parent scope. ADR-0022 requires human disposition. V2.0.1 archive reader, Mindcap handoff and real pilots remain open.
+The 4096-note input bound is not a measured runtime envelope. Broader relationship/consumer and larger-corpus acceptance remain open. New public packages do not imply full installation, private federation or identity authentication.
 
 ## Next dependency-ready work
 
-Implement #12 reproducible projection coverage and a measured larger synthetic corpus; preserve live authorization and provenance checks while reducing context serialization work.
+Implement #16 a pinned rendered-site discovery adapter, portable data-only garden references and explicit incremental catalog comparison. Preserve existing scoped canonical search/context; defer executable installers, acquisition and authentication.
 
 ## Parallel changes and reconciliation
 

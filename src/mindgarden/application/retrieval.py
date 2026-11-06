@@ -80,6 +80,8 @@ def build_index(context: QueryContext, *, include_unreviewed: bool = False,
                 reference = artifact_reference(garden_id, record_id, snapshot.hashes[record_id])
                 key = record_key(reference)
                 qualifications = record.get("x-curation", {})
+                redactions = [item for item in qualifications.get("redactions", [])
+                              if isinstance(item, dict) and item.get("source") in sources]
                 records[key] = {"reference": reference, "id": record_id, "garden": garden_id,
                                 "record_type": "knowledge" if kind.endswith("knowledge/v1") else "claim",
                                 "title": title, "kind": record.get("kind", "claim"),
@@ -91,7 +93,8 @@ def build_index(context: QueryContext, *, include_unreviewed: bool = False,
                                     "attribution": qualifications.get("attribution", "not-declared"),
                                     "caveats": qualifications.get("caveats", []),
                                     "uncertainty": qualifications.get("uncertainty", []),
-                                    "contradictions": qualifications.get("contradictions", [])},
+                                    "contradictions": qualifications.get("contradictions", []),
+                                    **({"redactions": redactions} if redactions else {})},
                                 "content": body, "domains": domains, "topics": topics, "tags": tags,
                                 "terms": dict(sorted(Counter(tokenize(body)).items())),
                                 "titleTerms": sorted(set(tokenize(title))),
@@ -232,6 +235,22 @@ def backlinks_payload(context: QueryContext, target: str) -> dict:
                 :context.session["budgets"]["max_results"]]}
 
 
+def outbound_payload(context: QueryContext, source: str) -> dict:
+    index = build_index(context, projection="graph")
+    records = {record_key(record["reference"]): record for record in index["records"]}
+    links = []
+    for edge in index["edges"]:
+        target = (edge["target"] if edge["source"] == source else
+                  edge["source"] if not edge["directed"] and edge["target"] == source else None)
+        if target in records:
+            record = records[target]
+            links.append({"to":target, "type":edge["type"], "reference":record["reference"],
+                          "review":record["review"], "scope":edge["scope"], "sources":record["sources"]})
+    context.check_live()
+    return {"schema":"mindgarden.outbound-links/v1", "scope":index["scope"], "policy":index["policy"],
+            "inputs":index["inputs"], "links":links[:context.session["budgets"]["max_results"]]}
+
+
 def render_context(context: QueryContext, profile: dict, format: str) -> bytes:
     if format not in {"json", "markdown"} or ContractRegistry().errors(profile, "context-profile"):
         raise ContractError("CONTEXT_PROFILE: supply a supported bounded context profile and format")
@@ -274,12 +293,22 @@ def render_context(context: QueryContext, profile: dict, format: str) -> bytes:
 
     # Reserve the full exclusion ledger first. Candidates outside this bounded
     # window were never selected or exposed, and are not privately enumerated.
-    while ordered and len(serialize()) > maximum:
-        ordered.pop()
-        excluded.pop()
+    # The reserved exclusion ledger grows monotonically with its prefix.
+    # Find its fitting prefix in logarithmic serializations instead of removing
+    # and serializing every oversized candidate one at a time.
+    original_ordered, original_excluded = ordered, excluded
+    low, high = 0, len(ordered)
+    while low < high:
+        middle = (low + high + 1) // 2
+        ordered, excluded = original_ordered[:middle], original_excluded[:middle]
+        if len(serialize()) <= maximum:
+            low = middle
+        else:
+            high = middle - 1
+    ordered, excluded = original_ordered[:low], original_excluded[:low]
     if len(serialize()) > maximum:
         raise ContractError("CONTEXT_BUDGET: required provenance metadata does not fit the byte budget")
-    for key in ordered:
+    for ordinal, key in enumerate(ordered):
         record = records[key]
         reason = None
         if key in excludes:
@@ -293,13 +322,11 @@ def render_context(context: QueryContext, profile: dict, format: str) -> bytes:
             reason = "item-budget"
         item = {"reference": record["reference"], "review": record["review"], "scope": record["scope"],
                 "qualifications": record["qualifications"],
-                "sources": record["sources"], "selection_reason": "explicit-include" if key in {
-                    record_key(value) for value in profile["include"]} else "lexical-query",
+                "sources": record["sources"], "selection_reason": "explicit-include" if key in explicit else "lexical-query",
                 "selection_score": ranked.get(key, {}).get("score", 0),
                 "score_contributions": ranked.get(key, {}).get("reasons", []),
                 "content": record["content"]}
-        position = next(index for index, value in enumerate(excluded)
-                        if record_key(value["reference"]) == key)
+        position = ordinal - len(selected)
         reserved = excluded.pop(position)
         if reason is None:
             selected.append(item)
@@ -388,6 +415,8 @@ def run_projection(arguments: Namespace, operation: str) -> int:
                                               limit=arguments.limit))
     elif operation == "backlinks":
         content = canonical_json(backlinks_payload(context, arguments.artifact))
+    elif operation == "outbound":
+        content = canonical_json(outbound_payload(context, arguments.artifact))
     elif operation == "context":
         selected_binding(context, arguments.repository_root)
         snapshot = read_object(arguments.repository_root / ".garden/garden.json")
