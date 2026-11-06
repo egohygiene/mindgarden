@@ -243,6 +243,8 @@ def add_agent_commands(commands: ParserCollection) -> None:
     for command in (index_parser, search_parser, context_parser, llms_parser, verify_parser):
         command.add_argument("--local-config", type=Path, help="Explicit local garden and storage bindings")
         command.add_argument("--scope", type=Path, help="Explicit v1 scoped-query session")
+        command.add_argument("--diagnostic-format", choices=("text","json"), default="text")
+        command.set_defaults(scoped_output_command=True)
 
     from ..application.retrieval import run_projection
 
@@ -251,6 +253,8 @@ def add_agent_commands(commands: ParserCollection) -> None:
         add_repository_root(command)
         command.add_argument("--local-config", type=Path, required=True)
         command.add_argument("--scope", type=Path, required=True)
+        command.add_argument("--diagnostic-format", choices=("text","json"), default="text")
+        command.set_defaults(scoped_output_command=True)
         if name == "graph":
             command.add_argument("--start", help="Stable garden/artifact traversal start")
             command.add_argument("--max-depth", type=positive_integer, default=1)
@@ -570,6 +574,7 @@ def build_parser() -> ArgumentParser:
     scope.add_argument("--projection", action="append", choices=("index", "search", "graph", "backlinks", "context", "llms", "evidence"))
     scope.add_argument("--max-results", type=positive_integer, default=100)
     scope.add_argument("--max-context-bytes", type=positive_integer, default=16384)
+    scope.add_argument("--max-output-bytes", type=positive_integer, help="Serialized query-output ceiling; default 16 MiB")
     scope.add_argument("--max-depth", type=positive_integer, default=4)
     scope.add_argument("--max-candidates", type=positive_integer, default=1000)
     scope.add_argument("--expires-at", required=True)
@@ -580,9 +585,10 @@ def build_parser() -> ArgumentParser:
     evidence = commands.add_parser("evidence", help="Resolve one exact citation authorized by reviewed knowledge")
     evidence.add_argument("--local-config", type=Path, required=True)
     evidence.add_argument("--scope", type=Path, required=True)
+    evidence.add_argument("--diagnostic-format", choices=("text","json"), default="text")
     for field in ("garden-id", "source-id", "revision", "locator", "content-sha256"):
         evidence.add_argument("--" + field, required=True)
-    evidence.set_defaults(handler=run_evidence)
+    evidence.set_defaults(handler=run_evidence,scoped_output_command=True)
     from ..application.storage import run_vault
 
     vault = commands.add_parser("vault", help="Manage explicitly bound private source storage")
@@ -633,6 +639,20 @@ def main(arguments: Sequence[str] | None = None) -> int:
                 else:
                     item = report["diagnostics"][0]
                     print("mindgarden contract error: " + item["code"] + ": " + item["message"] + ". " + item["remediation"], file=sys.stderr)
+                return ExitCode.CONTRACT
+        elif (getattr(parsed,"scoped_output_command",False)
+              and (getattr(parsed,"scope",None) is not None or getattr(parsed,"local_config",None) is not None)):
+            try:
+                result = parsed.handler(parsed)
+            except (ContractError,OSError,UnicodeError,ValueError,subprocess.CalledProcessError) as error:
+                from ..domain.query_diagnostics import query_failure
+
+                report = query_failure(error)
+                if parsed.diagnostic_format == "json":
+                    print(json.dumps(report,sort_keys=True),file=sys.stderr)
+                else:
+                    diagnostic = report["diagnostics"][0]
+                    print("mindgarden contract error: " + diagnostic["code"] + ": " + diagnostic["message"],file=sys.stderr)
                 return ExitCode.CONTRACT
         else:
             result = parsed.handler(parsed)

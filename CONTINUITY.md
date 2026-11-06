@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T10:20:06Z'
+  updated_at: '2026-11-06T10:32:01Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -44,17 +44,17 @@ work:
   - Preserve Python/v0, private boundaries and proposed ADR status.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#29
-    url: https://github.com/egohygiene/mindgarden/issues/29
+    id: egohygiene/mindgarden#31
+    url: https://github.com/egohygiene/mindgarden/issues/31
   next:
     kind: action
-    id: all-output-scope-enforcement
-    description: 'Implement #31 shared serialized-output budgets, safe diagnostics and owned scope-cache
-      inventories; exercise every current output under denied/expired/revoked authority, then continue
-      #30 recovery/cache handling.'
+    id: registry-cache-recovery
+    description: 'Implement #30 explicit platform capability reporting and digest-bound reversible quarantine/restore
+      of owned scope caches. Preserve canonical files and old session revocations; unknown legacy cache
+      data stays untouched.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/29
+    - https://github.com/egohygiene/mindgarden/issues/31
     depends_on: []
 state:
   base:
@@ -62,16 +62,16 @@ state:
     ref: refs/heads/main
     verified_at: '2026-11-06T05:27:17Z'
   candidate:
-    branch: feature/29-policy-integration
-    revision: 9fc0c9b02ff40c0ce98de73f368b7774201557b8
+    branch: feature/31-output-scope-enforcement
+    revision: 1bbb38fc0ca02f72b7955d79570d9be41903c12d
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#80
-      url: https://github.com/egohygiene/mindgarden/pull/80
+      id: egohygiene/mindgarden#81
+      url: https://github.com/egohygiene/mindgarden/pull/81
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T10:20:06Z'
+    observed_at: '2026-11-06T10:32:01Z'
     default_branch_revision: 30a29668a02740a91e77aec22f670a8270ccddf4
     issue_state: open
     pull_request_state: draft
@@ -79,26 +79,27 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T10:20:06Z'
+  reviewed_at: '2026-11-06T10:32:01Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_scope_policy tests.test_scoped_retrieval tests.test_v1_contracts
+  - command: .venv/bin/python -m unittest tests.test_output_scope tests.test_scoped_retrieval tests.test_v1_contracts
       -q
     outcome: passed
-    observed_at: '2026-11-06T10:20:06Z'
+    observed_at: '2026-11-06T10:32:01Z'
     notes: 25 passed
-  - command: .cache/python313/bin/python -m unittest tests.test_scope_policy -q
+  - command: .cache/python313/bin/python -m unittest tests.test_output_scope -q
     outcome: passed
-    observed_at: '2026-11-06T10:20:06Z'
+    observed_at: '2026-11-06T10:32:01Z'
     notes: 5 passed
-  - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/policy-private-proof --require-source
+  - command: .venv/bin/python -m unittest tests.test_projection_corpus tests.test_federation tests.test_portal
+      -q
     outcome: passed
-    observed_at: '2026-11-06T10:20:06Z'
-    notes: complete report matched committed golden
-  - command: python3 .cache/six_owner_checks.py
+    observed_at: '2026-11-06T10:32:01Z'
+    notes: 34 passed
+  - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/output-private-proof --require-source
     outcome: passed
-    observed_at: '2026-11-06T10:20:06Z'
-    notes: pinned proposed ADRs, continuity and 38-row ledger passed
+    observed_at: '2026-11-06T10:32:01Z'
+    notes: complete golden matched
   environment_limitations:
   - Automatic PR CI is separate from local checks; no paid workflow dispatched.
 privacy:
@@ -137,15 +138,15 @@ with verification, honest retained parent scope and reproducible combined checko
 
 ## State snapshot
 
-Existing #74–#79 remain draft/unmerged; new draft #80 on feature/29-policy-integration is based on #79. Functional source 9fc0c9b. Main remains 30a2966.
+Draft #81 on feature/31-output-scope-enforcement is stacked over #80 over #79. Existing drafts remain unmerged; functional output source 1bbb38f.
 
 ## Completed and material changes
 
-Shared local policy request/decision schemas, read-only CLI inspection/evaluation, application query/destination integration, explicit owner-policy adoption gaps and dependency map. Existing policy revision and knowledge identities are unchanged.
+Final live-authority/serialized-byte output guard, safe scoped query diagnostics, optional session ceiling and exact private scope-cache ownership inventories. Shared services cover index/search/graph/backlinks/outbound/context/evidence/agent paths; public artifact compatibility remains intact.
 
 ## Validation and review evidence
 
-25 policy/scoped/contracts tests passed on Python 3.12 and 5 policy tests on 3.13. Private-workflow CLI report matches its committed golden. Compile/diff and pinned owner/continuity/38-row checks pass; new CI is not yet claimed.
+25 output/scoped/contracts tests pass on 3.12; 5 new output tests pass on 3.13; 34 projection/federation/portal compatibility tests pass. Private CLI golden and compile/diff/owner checks pass.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -153,7 +154,7 @@ Normative Hygiene #39/#40 and Realm confidential vault/runtime contracts remain 
 
 ## Next dependency-ready work
 
-Implement #31 shared serialized-output budgets, safe diagnostics and owned scope-cache inventories; exercise every current output under denied/expired/revoked authority, then continue #30 recovery/cache handling.
+Implement #30 explicit platform capability reporting and digest-bound reversible quarantine/restore of owned scope caches. Preserve canonical files and old session revocations; unknown legacy cache data stays untouched.
 
 ## Parallel changes and reconciliation
 

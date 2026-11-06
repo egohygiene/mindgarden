@@ -33,13 +33,14 @@ def resolve_evidence(context: QueryContext, source: dict, locator: str, content_
               "authorized_by": [{"reference": item["reference"], "review": item["review"]} for item in authorizers]}
     if len(canonical_json(result)) > context.session["budgets"]["max_context_bytes"]:
         raise ContractError("CONTEXT_BUDGET: exact evidence and provenance exceed the session byte budget")
-    context.check_live()
-    return result
+    return context.finalize(result)
 
 
 def run_evidence(arguments: Namespace) -> int:
     context = QueryContext.load(arguments.local_config, arguments.scope)
     result = resolve_evidence(context, {"garden": arguments.garden_id, "id": arguments.source_id,
                                         "revision": arguments.revision}, arguments.locator, arguments.content_sha256)
-    print(canonical_json(result).decode(), end="")
+    content = canonical_json(result)
+    context.ensure_output(content)
+    print(content.decode(), end="")
     return 0

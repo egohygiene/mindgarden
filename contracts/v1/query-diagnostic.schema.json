@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:query-diagnostic:v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "status",
+    "classification",
+    "diagnostics"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.query-diagnostic/v1"
+    },
+    "status": {
+      "const": "denied"
+    },
+    "classification": {
+      "const": "shareable-diagnostic"
+    },
+    "diagnostics": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "location",
+          "message",
+          "remediation",
+          "severity"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]+$"
+          },
+          "location": {
+            "const": "query"
+          },
+          "message": {
+            "const": "Scoped output was denied"
+          },
+          "remediation": {
+            "type": "string"
+          },
+          "severity": {
+            "const": "error"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

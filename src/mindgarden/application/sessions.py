@@ -52,6 +52,8 @@ def run_scope(arguments: Namespace) -> int:
                "budgets": {"max_results": arguments.max_results, "max_context_bytes": arguments.max_context_bytes,
                            "max_depth": arguments.max_depth, "max_candidates": arguments.max_candidates},
                "policy": dict(POLICY_REFERENCE), "expires_at": arguments.expires_at}
+    if getattr(arguments,"max_output_bytes",None) is not None:
+        session["budgets"]["max_output_bytes"] = arguments.max_output_bytes
     if getattr(arguments, "registry_view", None) is not None:
         view = selected_view(read_object(arguments.local_config), arguments.registry_view)
         session["readable"] = [{"garden": identity, "revision": "sha256:" + "0" * 64} for identity in view["gardens"]]
