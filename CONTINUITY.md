@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T23:20:06Z'
+  updated_at: '2026-11-06T23:27:20Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -53,44 +53,45 @@ scope:
   - docs/query-stores.md
   - docs/dependency-builds.md
   - docs/assistant-memory.md
+  - docs/bookmark-cleanup.md
 work:
-  objective: Export small reviewed assistant-memory views without losing sources or silently dropping over-budget
-    context.
+  objective: Deliver bounded private bookmark metadata cleanup while keeping unavailable capture/publication contracts
+    explicit.
   success_conditions:
   - Keep exact citations, reviewed routing, bounded output and relocation proof.
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#49
-    url: https://github.com/egohygiene/mindgarden/issues/49
+    id: egohygiene/mindgarden#48
+    url: https://github.com/egohygiene/mindgarden/issues/48
   next:
     kind: action
-    id: private-bookmark-cleanup
-    description: 'Implement #48 bounded offline cleanup over an explicitly provisional metadata fixture profile;
-      fail closed for unavailable Mindcap/Akashic handoffs, then checkpoint the gated #47 service proposal.'
+    id: shared-service-slice-proposal
+    description: 'Checkpoint #47 concrete shared service/parity proposal behind its accepted-ADR gate; finish full
+      combined Python/package verification and regroup with the maintainer.'
     readiness: ready
     references:
     - docs/product-checkpoints.md
-    - docs/assistant-memory.md
+    - docs/bookmark-cleanup.md
     depends_on: []
 state:
   base:
-    revision: f3187de3f147363bd479b751204e9a10d33bbcf0
-    ref: refs/heads/feature/37-projection-dependency-builds
-    verified_at: '2026-11-06T23:20:06Z'
+    revision: 4b4240d3a9fb5f54ccfed8e5c5d8f92facfd93d8
+    ref: refs/heads/feature/49-reviewed-memory-snippets
+    verified_at: '2026-11-06T23:27:20Z'
   candidate:
-    branch: feature/49-reviewed-memory-snippets
-    revision: fcef8ef3bb91b2d0b10f82c0de49341277453614
+    branch: feature/48-private-bookmark-cleanup
+    revision: 4816868dd357e665b065b065a8eb16d6a5f27bfc
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-06T23:20:06Z'
+    observed_at: '2026-11-06T23:27:20Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: not-applicable
-    notes: 'Combined stack extends draft #100; current #49 functional fcef8ef passes eight focused cases on each
-      Python. Six deferred proposals and release remain deferred.'
+    notes: 'Product stack extends draft #101; current #48 source 4816868 passes seven cases per Python. Both full
+      combined suites are running with loopback permission. Release remains deferred.'
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#93
@@ -116,19 +117,22 @@ state:
   - provider: github
     id: egohygiene/mindgarden#100
     url: https://github.com/egohygiene/mindgarden/pull/100
+  - provider: github
+    id: egohygiene/mindgarden#101
+    url: https://github.com/egohygiene/mindgarden/pull/101
 review:
   status: partial
-  reviewed_at: '2026-11-06T23:20:06Z'
+  reviewed_at: '2026-11-06T23:27:20Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_memory tests.test_v1_contracts -q
+  - command: .venv/bin/python -m unittest tests.test_bookmarks tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-06T23:20:06Z'
-    notes: 13 cases.
-  - command: .cache/python313/bin/python -m unittest tests.test_memory -q
+    observed_at: '2026-11-06T23:27:20Z'
+    notes: 12 cases.
+  - command: .cache/python313/bin/python -m unittest tests.test_bookmarks -q
     outcome: passed
-    observed_at: '2026-11-06T23:20:06Z'
-    notes: 8 cases.
+    observed_at: '2026-11-06T23:27:20Z'
+    notes: 7 cases.
   environment_limitations:
   - '#41 historical backfill remains behind shared operational/adoption readiness; current proposals are not ratified.'
   - Native Relay collector Rust toolchain is unavailable locally; hosted artifact/browser/publication evidence is
@@ -163,19 +167,19 @@ Read status, live issues/PRs, README, AI_CONSTITUTION, ROADMAP, the coverage and
 
 ## Current objective and success conditions
 
-Export small reviewed assistant-memory views without losing sources or silently dropping over-budget context. Keep exact citations, reviewed routing, bounded output and relocation proof. Park release work and preserve small reviewable drafts.
+Deliver bounded private bookmark metadata cleanup while keeping unavailable capture/publication contracts explicit. Keep exact citations, reviewed routing, bounded output and relocation proof. Park release work and preserve small reviewable drafts.
 
 ## State snapshot
 
-Combined stack extends draft #100; current #49 functional fcef8ef passes eight focused cases on each Python. Six deferred proposals and release remain deferred.
+Product stack extends draft #101; current #48 source 4816868 passes seven cases per Python. Both full combined suites are running with loopback permission. Release remains deferred.
 
 ## Completed and material changes
 
-Added provider-neutral memory plan/projection schemas, all seven authored actions, exact reviewed sources, inherited sensitivity, transparent byte/count/category/priority budgets, explicit tokenizer capability and staleness, immutable copyable JSON/Markdown and unpublished generic article/brief.
+Added private normalized v0.1 metadata inspection/review, exact source/catalog/policy/receipt digests, one disposition per bounded batch, cumulative resume, immutable source copies, cleaned JSON/HTML and quarantine. Public packet and observations are explicitly unavailable; no browser/network mutation.
 
 ## Validation and review evidence
 
-13 memory/schema cases pass; eight memory cases pass on Python 3.13. Synthetic body bytes shrink 11,416→187 while complete cited bundle is 20,699/32,768 bytes. Over-budget candidates remain visible and cannot be applied.
+Seven bookmark cases pass per Python plus schema checks. Resume reproduces complete reviewed exports; mixed approvals remain local, unsafe links stay out of HTML, source bytes remain unchanged and ordinary summaries expose no private fields. Full combined suites are running, not yet claimed passing.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -183,7 +187,7 @@ Added provider-neutral memory plan/projection schemas, all seven authored action
 
 ## Next dependency-ready work
 
-Implement #48 bounded offline cleanup over an explicitly provisional metadata fixture profile; fail closed for unavailable Mindcap/Akashic handoffs, then checkpoint the gated #47 service proposal.
+Checkpoint #47 concrete shared service/parity proposal behind its accepted-ADR gate; finish full combined Python/package verification and regroup with the maintainer.
 
 ## Parallel changes and reconciliation
 
