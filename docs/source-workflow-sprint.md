@@ -24,7 +24,7 @@ a separate bounded task. No cloud or model service becomes mandatory.
 | #11 | Versioned declarations, output limits, fixture conformance, immutable observations, reference extension | Mindcap #35 provider-neutral wire contract and real consumer proof | #74, `milestone/next-six-checkpoints`; `65b15fb` | 237 Python 3.12 tests; 18 targeted on 3.13; offline proof/build/distribution passed | Review #74; continue #13 |
 | #13 | Merge authors/qualifications, exact relationships, selected claim evidence and authored redactions | Optional extraction producers/model evaluations, real review | #75, `feature/13-curation-conformance` over #74; `05e6cd2` | 18 tests on both Pythons; 24 compatibility tests | Review #75; continue #15 |
 | #15 | V1.2.1 minimal reader, selected attachments/catalogs, opaque JSON evidence | V2.0.1 reader, multipart/collections, real producer pilot | #76, `feature/15-archive-selective-assets` over #75; `ec63d69` | 20 tests on both Pythons; offline golden proof | Review #76; continue #14 |
-| #14 | Non-destructive existing-knowledge lifecycle and recovery | Full multi-consumer workflow and owner acceptance | Pending, stacked on #15 | Pending | Reuse routing/transaction services |
+| #14 | Append-only private moves/merge retirement, exact aliases and recovery | Public/policy-changing and attached graph transfers; full owner/platform acceptance | #77, `feature/14-private-routing-transitions` over #76; `1a43002` | 24 tests on 3.12; 19 on 3.13; offline proof | Review #77 / proposed ADR-0022; continue #12 |
 | #12 | Projection coverage and measured larger synthetic corpus | Broader consumer corpus and optional query stores | Pending, stacked on #14 | Pending | Profile current deterministic projections |
 | #16 | Rendered routes and pinned modular public garden references | Live remote refresh, signatures/private federation and consumer pilots | Pending, stacked on #12 | Pending | Reuse descriptor verification and site manifests |
 
@@ -77,3 +77,10 @@ supported Python. `private_garden_demo.py --require-source` matched the offline
 golden proof after the versioned adapter change. Compile/diff and owner checks
 passed. Historical specifications are available; v2.0.1 reader implementation,
 not source availability, is the remaining compatibility gap.
+
+## #14 verification
+
+Routing/lifecycle/curation/contracts: 24 passed on Python 3.12; lifecycle/scoped
+retrieval: 19 passed on Python 3.13. Additional lifecycle/scoped/contracts: 24
+passed on 3.12. Offline golden proof, compile/diff and pinned owner checks passed.
+The transition design is proposed in ADR-0022, not accepted by these tests.
