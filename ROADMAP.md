@@ -379,6 +379,14 @@ macOS 15.8.2/arm64. Windows/confidential-host gaps remain explicit. This extends
 the merged checkpoints without repeating #80–#84; draft implementation and native
 tests do not imply merge, wider-host acceptance or ADR ratification.
 
+## Provider and release verification
+
+The current authorized batch is [provider, consumer and release checkpoints](docs/release-checkpoints.md):
+#51 local provider recovery, #27 release preparation, #20 synthetic/approved-private
+consumer proof, and conditional #19 publication. #27 can advance independently
+of the complete pilot. Actual private-pilot, consumer and protected publishing
+evidence gate 1.0; synthetic tests cannot stand in for them.
+
 ## Deferred after the current queue and reconciliation
 
 The maintainer authorized filing #86–#91, grouped as native sub-issues under
