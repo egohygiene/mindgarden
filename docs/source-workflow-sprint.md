@@ -22,7 +22,7 @@ a separate bounded task. No cloud or model service becomes mandatory.
 | Issue | Bounded checkpoint | Remaining parent scope | Draft / source | Verification | Exact next action |
 | --- | --- | --- | --- | --- | --- |
 | #11 | Versioned declarations, output limits, fixture conformance, immutable observations, reference extension | Mindcap #35 provider-neutral wire contract and real consumer proof | #74, `milestone/next-six-checkpoints`; `65b15fb` | 237 Python 3.12 tests; 18 targeted on 3.13; offline proof/build/distribution passed | Review #74; continue #13 |
-| #13 | Authored transformation/attribution negatives and remaining dispositions | Optional extraction producers/model evaluations, real review | Pending, stacked on #11 | Pending | Inspect existing curation contracts |
+| #13 | Merge authors/qualifications, exact relationships, selected claim evidence and authored redactions | Optional extraction producers/model evaluations, real review | #75, `feature/13-curation-conformance` over #74; `05e6cd2` | 18 tests on both Pythons; 24 compatibility tests | Review #75; continue #15 |
 | #15 | Verify historical specs; selective attachment normalization | Untested profiles, multipart/collections, real archive pilot | Pending, stacked on #13 | Pending | Read exact v1.2.1/v2.0.1 and current specifications |
 | #14 | Non-destructive existing-knowledge lifecycle and recovery | Full multi-consumer workflow and owner acceptance | Pending, stacked on #15 | Pending | Reuse routing/transaction services |
 | #12 | Projection coverage and measured larger synthetic corpus | Broader consumer corpus and optional query stores | Pending, stacked on #14 | Pending | Profile current deterministic projections |
@@ -60,3 +60,12 @@ blockers and next action here and in CONTINUITY.md. Dependent drafts stay stacke
 the last branch is the reproducible combined checkout. Do not close parent issues
 or merge new drafts automatically. Link usable private workflow proof to #20
 without claiming its publication/consumer acceptance criteria are complete.
+
+## #13 verification and #11 discovery correction
+
+Curation/transformation/contracts: 18 passed on Python 3.12 and 3.13. Routing,
+archive and compaction compatibility: 24 passed. Compile/diff and owner checks
+passed. The first #11 Python 3.13 full run failed to import the new test module
+without an installed engine. `33fe7cf` adds the repository-standard source path
+setup; standalone discovery then passed all 6 cases. Final combined full checks
+will supersede that failed attempt; it is not recorded as passing.
