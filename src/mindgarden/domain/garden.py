@@ -370,6 +370,14 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
             for locator in record["evidence"]:
                 evidence(locator, location)
         elif kind == "provenance":
+            if "x-routing-transition" in record:
+                from .routing_transitions import transition_event
+
+                try:
+                    transition_event(record)
+                except ContractError:
+                    issue("ROUTE_TRANSITION_INVALID", location, "Invalid reviewed canonical transition",
+                          "Restore the exact reviewed transition lineage or author a new private plan.")
             target = resolve(record["artifact"], location)
             if target and target[0].hashes.get(target[1]["id"]) != record["artifact_sha256"]:
                 issue("PROVENANCE_HASH", location, "Provenance output hash differs from its artifact",

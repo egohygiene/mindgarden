@@ -59,6 +59,7 @@ class QueryContext:
     session_digest: str
     last_view_revisions: dict = field(default_factory=dict)
     effective_scopes: dict = field(default_factory=dict)
+    retired: set = field(default_factory=set)
 
     @classmethod
     def load(cls, local_config: Path, session_path: Path, *,
@@ -133,6 +134,7 @@ class QueryContext:
         snapshots = {}
         revisions = {item["garden"]: item["revision"] for item in self.session["readable"]}
         views = metadata_view(self)
+        self.retired = set().union(*(view["retired"] for view in views.values()))
         self.effective_scopes = {(garden, record_id): scope for garden, view in views.items()
                                  for record_id, scope in view["scopes"].items()}
         for garden_id, binding in sorted(self.bindings.gardens.items()):

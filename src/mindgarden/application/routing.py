@@ -27,9 +27,13 @@ def snapshots_for(bindings: LocalBindings, staged: dict | None = None, *, allow_
     first = {key: inspect_garden(value["root"], garden_root=(staged or {}).get(key), content_resolver=resolver,
                                 allow_unavailable_references=True)
              for key, value in sorted(bindings.gardens.items())}
-    return {key: inspect_garden(bindings.garden(key)["root"], garden_root=(staged or {}).get(key),
+    result = {key: inspect_garden(bindings.garden(key)["root"], garden_root=(staged or {}).get(key),
                                 content_resolver=resolver, authorized_gardens=first).require_valid()
             for key in first}
+    from ..domain.routing_transitions import retired_references
+
+    retired_references(record for snapshot in result.values() for record in snapshot.records.values())
+    return result
 
 
 @dataclass
@@ -290,6 +294,17 @@ def run_route(arguments: Namespace) -> int:
             raise ContractError("RECOVERY_DIGEST: --plan-digest identifies the interrupted operation")
         result = recover_routing(bindings, arguments.plan_digest)
     else:
+        if arguments.transition:
+            from .routing_lifecycle import build_transition_plan
+
+            plan = build_transition_plan(bindings, arguments.transition)
+            result = plan.document()
+            if arguments.apply:
+                if not arguments.plan_digest:
+                    raise ContractError("PLAN_DIGEST: --plan-digest is required with --apply")
+                result["applied"] = plan.apply(arguments.plan_digest)
+            print(canonical_json(result).decode(), end="")
+            return 0
         if not arguments.catalog or not arguments.input:
             raise ContractError("ROUTE_INPUT: --catalog and --input are required")
         plan = build_routing_plan(bindings, arguments.catalog, arguments.input)
