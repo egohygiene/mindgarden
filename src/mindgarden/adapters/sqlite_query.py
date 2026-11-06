@@ -1,5 +1,5 @@
 """Optional SQLite FTS5 cache over an already authorized, versioned index."""
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 from copy import deepcopy
 import os
 from pathlib import Path
@@ -20,7 +20,7 @@ VERSION = "mindgarden.query-store/v1"
 
 def capabilities():
     try:
-        with sqlite3.connect(":memory:") as connection:
+        with closing(sqlite3.connect(":memory:")) as connection, connection:
             connection.execute("CREATE VIRTUAL TABLE probe USING fts5(tokens)")
         available = True
     except sqlite3.Error:
@@ -100,7 +100,7 @@ class SQLiteQueryStore:
             backup = None
             try:
                 database = stage / DATABASE
-                with sqlite3.connect(database) as connection:
+                with closing(sqlite3.connect(database)) as connection, connection:
                     connection.executescript("CREATE TABLE metadata (id TEXT PRIMARY KEY, value BLOB NOT NULL);"
                         "CREATE TABLE records (id TEXT PRIMARY KEY, value BLOB NOT NULL);"
                         "CREATE TABLE edges (source TEXT, target TEXT, type TEXT, value BLOB NOT NULL);"
@@ -147,7 +147,7 @@ class SQLiteQueryStore:
                 or marker.get("index_sha256") != digest_bytes(canonical_json(expected_index))):
             raise ContractError("QUERY_STORE_STALE: cache scope or represented inputs changed; review a rebuild")
         try:
-            with sqlite3.connect((self.directory / DATABASE).as_uri() + "?mode=ro&immutable=1", uri=True) as connection:
+            with closing(sqlite3.connect((self.directory / DATABASE).as_uri() + "?mode=ro&immutable=1", uri=True)) as connection, connection:
                 if connection.execute("PRAGMA user_version").fetchone() != (1,):
                     raise ContractError("QUERY_STORE_INCOMPATIBLE: unsupported store version; rebuild separately")
                 if connection.execute("PRAGMA quick_check").fetchone() != ("ok",):
@@ -170,7 +170,7 @@ class SQLiteQueryStore:
         terms = sorted(set(tokenize(query)))
         if terms:
             expression = " OR ".join('"t' + term.encode("utf8").hex() + '"' for term in terms)
-            with sqlite3.connect((self.directory / DATABASE).as_uri() + "?mode=ro&immutable=1", uri=True) as connection:
+            with closing(sqlite3.connect((self.directory / DATABASE).as_uri() + "?mode=ro&immutable=1", uri=True)) as connection, connection:
                 selected = {row[0] for row in connection.execute("SELECT id FROM lexical WHERE lexical MATCH ?", (expression,))}
             index["records"] = [r for r in index["records"] if record_key(r["reference"]) in selected]
         return rank(index, query)
