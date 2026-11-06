@@ -85,7 +85,7 @@ remote fetching/querying/writing, private federation and signatures unavailable.
 Run `python3 scripts/federation_demo.py --workspace ".cache/federation-demo"`
 to reproduce the synthetic two-garden proof without integrations.
 
-The [machine-local registry checkpoint](docs/local-registry.md), draft
+The [machine-local registry checkpoint](docs/local-registry.md), merged through
 [#67](https://github.com/egohygiene/mindgarden/pull/67), adds reviewed registration,
 named private selections, diagnosis, non-destructive unregister and configuration
 recovery over existing local bindings. It changes machine-local control state;
@@ -107,7 +107,8 @@ The [v1 garden preview](docs/v1-site.md) connects reviewed public records to the
 existing pinned Quartz adapter. `publish project` works offline; `site build`
 uses a separately prepared offline renderer cache, and `site serve` provides a
 loopback preview. The [six-checkpoint batch](docs/garden-experience-milestone.md)
-tracks this draft and its design, privacy, composition and contract follow-ups.
+records the merged preview, design, privacy, composition and contract checkpoints.
+See the [merge receipt](docs/merged-experience-checkpoints.md) for the current baseline.
 
 ## Implemented v0 surface
 

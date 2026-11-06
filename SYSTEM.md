@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-05
+updated: 2026-11-06
 governed_by:
   - architecture-system
 depends_on:
@@ -46,7 +46,7 @@ This document identifies Mindgarden's logical systems and responsibilities. It a
 | Source storage | Filesystem checkpoint merged | Preserves immutable content identities, verifies checksums and supports bounded audit/export/restore/relocation independently from location. |
 | Federation | Local public checkpoint merged through #66 (#16) | Builds reviewed checksum-bound descriptor/index/graph/agent artifacts and supplied-directory catalogs; hosting, private federation and external adoption remain open. |
 | Local registry | Bounded Linux checkpoint merged through #67 (#30) | Manages existing bindings through saved plans, manifest inspection, named scope selections, non-destructive unregister and private configuration restore; native/restricted assurance and cache cleanup remain open. |
-| V1 public preview | Draft #68, tested locally | Reuses scoped public selection for literal reviewed content, exact citations, typed links and pinned offline Quartz; broader UI/consumer acceptance remains open. |
+| V1 public preview | Merged #68; responsive correction #69 | Reuses scoped public selection for literal reviewed content, exact citations, typed links and pinned offline Quartz; broader UI/consumer acceptance remains open. |
 
 ## External systems
 
@@ -102,16 +102,19 @@ The [open-issue coverage ledger](docs/open-issue-coverage.md) records the
 2026-11-05 merge receipts, remaining parent scope and proposed delivery batches.
 
 
-## Current six-draft state
+## Merged six-checkpoint state
 
 | Capability | State | Evidence and remaining gate |
 | --- | --- | --- |
-| V1 preview, optional design consumer | Draft #68/#69; tested, unmerged | Actual pinned offline render and browser evidence; full UI/consumer acceptance open |
-| Publication/preview conformance | Draft #70; tested, unmerged | Reusable synthetic 80-test source/installed pack; normative runtime/consumer coverage open |
-| Portal composition | Draft #71; tested, unmerged | Pinned artifact/owned receipt, sibling preservation and recovery; Relay/deployment open |
-| Target-product architecture | Proposed #42 documentation checkpoint | [Ten-topic decision/ownership map](docs/target-architecture.md); human ratification and owner acceptance open |
-| Hierarchical compaction/retention | Bounded #46 draft checkpoint; tested locally | Read-only exact-evidence hierarchy, private invalidation manifests and authored curation proof; raw-only compaction, retention execution and approved pilot remain open |
+| V1 preview, optional design consumer | Merged #68/#69; tested | Actual pinned offline render and browser evidence; full UI/consumer acceptance open |
+| Publication/preview conformance | Merged #70; tested | Reusable synthetic 80-test source/installed pack; normative runtime/consumer coverage open |
+| Portal composition | Merged #71; tested | Pinned artifact/owned receipt, sibling preservation and recovery; Relay/deployment open |
+| Target-product architecture | Merged #72 documentation; decisions remain proposed | [Ten-topic decision/ownership map](docs/target-architecture.md); human ratification and owner acceptance open |
+| Hierarchical compaction/retention | Bounded #46 checkpoint merged through #73 | Read-only exact-evidence hierarchy, private invalidation manifests and authored curation proof; raw-only compaction, retention execution and approved pilot remain open |
 
 The target map expands the repository/runtime responsibility table without
 transferring canonical ownership. Shared services remain the existing Python
 engine. Neither a tested draft nor its later merge accepts a proposed ADR.
+
+The [merge receipt](docs/merged-experience-checkpoints.md) records main `30a2966`
+and the exact tested-tree comparison. Broader parent acceptance remains separate.
