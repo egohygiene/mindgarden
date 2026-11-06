@@ -11,7 +11,7 @@ from ..adapters.conversation_archive import ConversationArchiveAdapter
 from ..adapters.legacy_archive import LegacyConversationArchiveAdapter
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes
 from ..domain.garden import evidence_bytes, inspect_garden
-from ..domain.scope import validate_scope
+from ..domain.scope import inherit_scope, validate_scope
 from ..domain.sources import AdapterRegistry, describe_adapter, normalize_source, validate_origin
 from ..domain.validation import ContractError
 from .bindings import LocalBindings, garden_fingerprint
@@ -43,6 +43,10 @@ def build_ingestion_plan(bindings: LocalBindings, garden_id: str, vault_id: str,
     binding = bindings.garden(garden_id)
     validate_origin(metadata["origin"])
     root, scope = binding["root"], validate_scope(binding["scope"])
+    if "source_scope" in metadata:
+        scope = inherit_scope([scope, validate_scope(metadata["source_scope"])])
+        if scope["visibility"] != binding["scope"]["visibility"]:
+            raise ContractError("SOURCE_BOUNDARY: source classification does not fit the destination")
     if scope["visibility"] == "public" or scope["persistence"] == "encrypted-vault":
         raise ContractError("SOURCE_BOUNDARY: this adapter requires an ordinary explicitly private vault")
     resolver = content_resolver(bindings)
