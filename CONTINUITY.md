@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T23:27:20Z'
+  updated_at: '2026-11-06T23:32:13Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -54,44 +54,45 @@ scope:
   - docs/dependency-builds.md
   - docs/assistant-memory.md
   - docs/bookmark-cleanup.md
+  - docs/shared-service-slice-proposal.md
 work:
-  objective: Deliver bounded private bookmark metadata cleanup while keeping unavailable capture/publication contracts
-    explicit.
+  objective: Preserve a concrete shared application-service/parity proposal without bypassing accepted architecture
+    gates.
   success_conditions:
   - Keep exact citations, reviewed routing, bounded output and relocation proof.
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#48
-    url: https://github.com/egohygiene/mindgarden/issues/48
+    id: egohygiene/mindgarden#47
+    url: https://github.com/egohygiene/mindgarden/issues/47
   next:
     kind: action
-    id: shared-service-slice-proposal
-    description: 'Checkpoint #47 concrete shared service/parity proposal behind its accepted-ADR gate; finish full
-      combined Python/package verification and regroup with the maintainer.'
+    id: final-compatibility-and-regroup
+    description: 'Fix the optional SQLite import boundary, verify the combined checkout/package proofs, record final
+      draft stack/evidence and regroup. Full #41/#43/#47 acceptance remains gated.'
     readiness: ready
     references:
     - docs/product-checkpoints.md
-    - docs/bookmark-cleanup.md
+    - docs/shared-service-slice-proposal.md
     depends_on: []
 state:
   base:
-    revision: 4b4240d3a9fb5f54ccfed8e5c5d8f92facfd93d8
-    ref: refs/heads/feature/49-reviewed-memory-snippets
-    verified_at: '2026-11-06T23:27:20Z'
+    revision: 03191706a7ff9d3d7d67ce8848baaee729714703
+    ref: refs/heads/feature/48-private-bookmark-cleanup
+    verified_at: '2026-11-06T23:32:13Z'
   candidate:
-    branch: feature/48-private-bookmark-cleanup
-    revision: 4816868dd357e665b065b065a8eb16d6a5f27bfc
+    branch: proposal/47-shared-service-slice
+    revision: null
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-06T23:27:20Z'
+    observed_at: '2026-11-06T23:32:13Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: not-applicable
-    notes: 'Product stack extends draft #101; current #48 source 4816868 passes seven cases per Python. Both full
-      combined suites are running with loopback permission. Release remains deferred.'
+    notes: "Product checkpoints extend drafts #97\u2013#102. Both full combined suites pass 358 tests with no skips.\
+      \ The current #47 branch changes documentation only; no framework/API/web/worker is adopted."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#93
@@ -120,19 +121,22 @@ state:
   - provider: github
     id: egohygiene/mindgarden#101
     url: https://github.com/egohygiene/mindgarden/pull/101
+  - provider: github
+    id: egohygiene/mindgarden#102
+    url: https://github.com/egohygiene/mindgarden/pull/102
 review:
   status: partial
-  reviewed_at: '2026-11-06T23:27:20Z'
+  reviewed_at: '2026-11-06T23:32:13Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_bookmarks tests.test_v1_contracts -q
+  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T23:27:20Z'
-    notes: 12 cases.
-  - command: .cache/python313/bin/python -m unittest tests.test_bookmarks -q
+    observed_at: '2026-11-06T23:32:13Z'
+    notes: 358 tests, no skips; Python 3.12.14; 273.225 s.
+  - command: .cache/python313/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T23:27:20Z'
-    notes: 7 cases.
+    observed_at: '2026-11-06T23:32:13Z'
+    notes: 358 tests, no skips; Python 3.13.5; 258.766 s.
   environment_limitations:
   - '#41 historical backfill remains behind shared operational/adoption readiness; current proposals are not ratified.'
   - Native Relay collector Rust toolchain is unavailable locally; hosted artifact/browser/publication evidence is
@@ -167,19 +171,19 @@ Read status, live issues/PRs, README, AI_CONSTITUTION, ROADMAP, the coverage and
 
 ## Current objective and success conditions
 
-Deliver bounded private bookmark metadata cleanup while keeping unavailable capture/publication contracts explicit. Keep exact citations, reviewed routing, bounded output and relocation proof. Park release work and preserve small reviewable drafts.
+Preserve a concrete shared application-service/parity proposal without bypassing accepted architecture gates. Keep exact citations, reviewed routing, bounded output and relocation proof. Park release work and preserve small reviewable drafts.
 
 ## State snapshot
 
-Product stack extends draft #101; current #48 source 4816868 passes seven cases per Python. Both full combined suites are running with loopback permission. Release remains deferred.
+Product checkpoints extend drafts #97–#102. Both full combined suites pass 358 tests with no skips. The current #47 branch changes documentation only; no framework/API/web/worker is adopted.
 
 ## Completed and material changes
 
-Added private normalized v0.1 metadata inspection/review, exact source/catalog/policy/receipt digests, one disposition per bounded batch, cumulative resume, immutable source copies, cleaned JSON/HTML and quarantine. Public packet and observations are explicitly unavailable; no browser/network mutation.
+Mapped current application services, proposed request/response/review boundaries, parity/failure/lifecycle/accessibility checks, Realm/Relay/Aether ownership and two-consumer proof. Architecture/system/roadmap distinguish draft implementation from acceptance.
 
 ## Validation and review evidence
 
-Seven bookmark cases pass per Python plus schema checks. Resume reproduces complete reviewed exports; mixed approvals remain local, unsafe links stay out of HTML, source bytes remain unchanged and ordinary summaries expose no private fields. Full combined suites are running, not yet claimed passing.
+358 tests pass per supported Python; 273.225/258.766 seconds. #47 is a reviewable proposal only; no HTTP, UI, worker or Compose acceptance is claimed.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -187,7 +191,7 @@ Seven bookmark cases pass per Python plus schema checks. Resume reproduces compl
 
 ## Next dependency-ready work
 
-Checkpoint #47 concrete shared service/parity proposal behind its accepted-ADR gate; finish full combined Python/package verification and regroup with the maintainer.
+Fix the optional SQLite import boundary, verify the combined checkout/package proofs, record final draft stack/evidence and regroup. Full #41/#43/#47 acceptance remains gated.
 
 ## Parallel changes and reconciliation
 
