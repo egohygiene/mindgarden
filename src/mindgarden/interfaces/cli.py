@@ -99,6 +99,9 @@ def add_ingest_command(commands: ParserCollection) -> None:
     parser.add_argument("--vault-id", help="Logical private source vault for v1")
     parser.add_argument("--adapter", help="Explicit registered source adapter")
     parser.add_argument("--manifest-version", help="Declared captured-package contract version")
+    parser.add_argument("--attachment-mode", choices=("all", "catalog-only", "selected"),
+                        help="Normalize all attachment bytes, catalog metadata only, or selected asset identities")
+    parser.add_argument("--asset-id", action="append", default=[], help="Explicit attachment identity to normalize; repeatable")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--plan", action="store_true", help="Preview v1 normalization without writing")
     mode.add_argument("--apply", action="store_true", help="Apply a digest-bound v1 plan")
