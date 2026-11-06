@@ -42,6 +42,25 @@ employment, business and provider data are out of scope.
 
 ## Review and recovery
 
+### Remaining work after the merged checkpoints
+
+The maintainer re-authorized this five-issue batch after #80–#84 had merged.
+Planning #92 is now merged at `d5edb13de1b65871ec85e7a25af035228a1d756d`;
+#86–#91 remain deferred. Refreshed live issues and owner trackers leave a ready,
+bounded native #30 checkpoint, preserved in draft #93 directly over main. See
+[its native evidence and exact commands](registry-native-platforms.md).
+
+| Issue | Current checkpoint | Remaining parent scope / next action |
+| --- | --- | --- |
+| #29 | Merged #80 shared scope/policy decisions | Integrate compatible accepted Hygiene/Realm policy and reviewed declassification contracts when supplied |
+| #31 | Merged #81 enforcement across supported outputs | Prove broader runtime/provider/consumer boundaries against actual assurance evidence |
+| #30 | Merged #82 recovery; draft #93 native ACL/path controls, 44 tests per macOS job and installed-wheel golden | Review #93; keep Windows/wider-host and restricted/encrypted assurance explicitly unavailable |
+| #35 | Merged #83 ordinary local PDF checkpoint | Restricted-by-default processing remains blocked by confidential runtime/storage evidence; additional formats are separate follow-ups |
+| #45 | Merged #84 mixed archive/PDF/media relocation/restore proof | Approved-copy, retention, encrypted/provider/power-loss and real consumer proofs remain open |
+
+The five parent issues remain open. No consumer garden, private source or
+provider configuration is changed, and no proposed ADR is accepted by this work.
+
 Every checkpoint records the functional source, branch/base/PR, exact commands and
 results, blockers and next action here and in CONTINUITY.md. Each draft originally named its
 preceding branch as base. The maintainer then authorized the complete merge;

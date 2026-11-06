@@ -3,10 +3,12 @@
 This follow-up extends the merged [registry/cache checkpoint](local-registry.md)
 on `feature/30-macos-registry-conformance`, based on main
 `d5edb13de1b65871ec85e7a25af035228a1d756d` (merged #92). It implements a bounded
-ordinary single-user macOS adapter and native conformance job. The initial local
-checks run on Linux; native support remains a candidate until the macOS jobs
-actually pass. The draft PR and final verification are recorded below and in
-CONTINUITY.md. Refs #30; this does not complete its parent acceptance criteria.
+ordinary single-user macOS adapter and native conformance job. Draft
+[PR #93](https://github.com/egohygiene/mindgarden/pull/93) preserves the functional
+source `f30e95edbfdc5dd86bc2c182f9bd90c995fdcab2`. Native macOS 15.8.2/arm64
+execution passed on Python 3.12.10 and 3.13.17; wider hosts are not certified by
+this proof. Final verification is recorded below and in CONTINUITY.md.
+Refs #30; this does not complete its parent acceptance criteria.
 
 ## Dependency and ownership reconciliation
 
@@ -97,14 +99,45 @@ unavailability and cleanup. Doubles do not count as native platform evidence.
 | `python3 .cache/context_phase_owner_checks.py` | Pinned owner validators pass; proposed/null-approval ADRs, continuity and all 44 coverage rows retained |
 | `git diff --check`; compile sources | Pass |
 | `.venv/bin/python -m build --sdist --wheel --outdir .cache/dist`; `.venv/bin/python -m unittest tests.test_distribution -q` | Fresh source/wheel built; 2 packaging tests passed, including both new adapters |
-| Native macOS and full compatibility suite | Pending; do not claim verified support until recorded |
+| Native `python -m unittest tests.macos_registry_conformance tests.test_registry_acl tests.test_registry tests.test_registry_views tests.test_registry_cache --verbose` | **44 passed**, no skips, on each macOS 15.8.2/arm64 job; Python 3.12.10: 42.332 s; Python 3.13.17: 38.197 s |
+| Native clean build/install and `.cache/macos-registry-wheel/bin/python -I scripts/registry_demo.py --workspace "${{ runner.temp }}/mindgarden-registry-proof" --require-installed` | Both native jobs passed; unchanged golden, exact citations, bounded context, no Google/model calls |
+| `.venv/bin/python -m unittest discover --start-directory tests --verbose` | **302 passed**, no skips; Linux/Python 3.12.14; 265.985 s |
+| `.cache/python313/bin/python -m unittest discover --start-directory tests --verbose` | **302 passed**, no skips; Linux/Python 3.13.5; 250.207 s |
+
+The native jobs above are [3.12](https://github.com/egohygiene/mindgarden/actions/runs/42297058641/job/128164937754)
+and [3.13](https://github.com/egohygiene/mindgarden/actions/runs/42297058641/job/128164937449)
+of automatic [Test run `42297058641`](https://github.com/egohygiene/mindgarden/actions/runs/42297058641),
+against the exact functional source above. The complete run succeeded, including
+both Linux full-suite jobs. Subsequent checkpoint changes are documentation only;
+their automatic CI is a separate run, not the source of these observations.
+
+The clean Linux checkout and isolated installed engine also reproduce the same
+committed registry golden. These commands passed with new synthetic workspaces:
+
+```bash
+.venv/bin/python -m venv --without-pip .cache/registry-native-wheel
+python3 -m pip --python .cache/registry-native-wheel/bin/python install \
+  --no-cache-dir --no-index --find-links .cache/dist mindgarden==0.1.0
+.cache/registry-native-wheel/bin/python -I scripts/registry_demo.py \
+  --workspace .cache/registry-native-linux-installed --require-installed \
+  --report .cache/registry-native-linux-installed.json
+cmp tests/fixtures/registry/expected-proof.json .cache/registry-native-linux-installed.json
+mkdir .cache/registry-native-clean-checkout
+git archive f30e95edbfdc5dd86bc2c182f9bd90c995fdcab2 | \
+  tar --extract --directory .cache/registry-native-clean-checkout
+PYTHONPATH=.cache/registry-native-clean-checkout/src .venv/bin/python -S \
+  .cache/registry-native-clean-checkout/scripts/registry_demo.py \
+  --workspace .cache/registry-native-linux-clean --require-source \
+  --report .cache/registry-native-linux-clean.json
+cmp tests/fixtures/registry/expected-proof.json .cache/registry-native-linux-clean.json
+```
 
 Full #30 remains open for unsupported platforms, restricted/encrypted coexistence,
 organization/runtime assurance and real private consumer acceptance. Broader
 #29/#31 policy integration, #35 confidential/OCR/office ingestion, and #45
 provider/power-loss/approved-copy/destructive-retention proofs remain separate.
 
-The exact next action is to publish the coherent draft, inspect the automatic
-native jobs, correct observed failures, and record their actual result alongside
-the complete Linux compatibility and installed-wheel checks. Leave the new PR
-for maintainer review; do not self-ratify the proposed ADR or start #86–#91.
+The exact next action is maintainer review of draft #93. After that, refresh compatible owner
+policy/runtime contracts before implementing confidential paths; preserve explicit
+Windows/provider/consumer gaps. Do not self-ratify the proposed ADR or start
+#86–#91.

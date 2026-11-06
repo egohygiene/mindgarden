@@ -52,7 +52,7 @@ manifest, not notes, transcripts, attachments or arbitrarily discovered folders.
 
 Use separate saved preview and digest-bound apply operations. Bind the control
 location, previous/desired registry hashes, exact manifest bytes and root identity.
-Apply atomically replaces only the private registry, under a Linux kernel writer
+Apply atomically replaces only the private registry, under a POSIX kernel writer
 lease, and preserves checksum-bound private configuration snapshots. Re-applying
 an identical accepted plan verifies the desired state. Unregister removes the
 binding/labels and prunes named selections, preserving all canonical files and
@@ -87,8 +87,9 @@ revive old sessions. A default public fallback would weaken scope.
 Private metadata history is retained until a separately reviewed policy authorizes
 cleanup. Doctor verifies registration/manifest health, not every source hash or
 runtime assurance control. Platform location resolution has synthetic Linux,
-macOS and Windows fixtures; filesystem mutation is supported on Linux only until
-native evidence exists. Restricted/encrypted registration fails before root probes
+macOS and Windows fixtures. Linux was the initial mutation baseline; draft #93
+adds bounded native macOS evidence, while Windows remains unsupported.
+Restricted/encrypted registration fails before root probes
 because compatible Hygiene/Realm assurance evidence remains unavailable. This does
 not implement encryption, sync, acquisition, hosting or a confidential runtime.
 
@@ -102,8 +103,8 @@ and CONTINUITY.md for the draft, functional commits, commands and exact next act
 Fixtures use synthetic roots and private temporary configuration only.
 
 The [native macOS follow-up](../registry-native-platforms.md) adds an ordinary
-adapter candidate with native extended-ACL and physical-path checks. Its native
-CI status is separate from Linux fixtures and from restricted/host assurance.
+adapter with native extended-ACL and physical-path checks. Its successful native
+CI evidence is separate from Linux fixtures and from restricted/host assurance.
 This extension does not change the proposed status or null approval of this ADR.
 
 ## Replacement or exit strategy

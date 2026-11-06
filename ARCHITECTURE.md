@@ -180,12 +180,16 @@ Merged [#67](https://github.com/egohygiene/mindgarden/pull/67) implements the bo
 [#30 registry lifecycle](docs/local-registry.md), under proposed
 [ADR-0012](docs/decisions/ADR-0012-machine-local-registry.md). Existing portable
 manifests own garden IDs, owners and declared scope. Application services manage
-optional metadata in existing local bindings; a Linux filesystem adapter owns
+optional metadata in existing local bindings; a filesystem adapter owns
 private control files, kernel writer leases, atomic replacement and snapshots.
 Named selections constrain existing session grants without expanding authority.
 Originals and knowledge remain read-only inputs. Public projections exclude
-registry paths, labels, membership and control hashes. Restricted/encrypted
-runtime, native macOS/Windows mutation and owned-cache cleanup remain deferred.
+registry paths, labels, membership and control hashes. Merged #82 adds reversible
+owned-cache quarantine/restore. Draft [#93](docs/registry-native-platforms.md)
+adds native macOS ACL/path checks, with actual native lifecycle and installed-wheel
+evidence. Restricted/encrypted runtime, Windows mutation, wider host assurance
+and destructive cleanup remain open. The proposed ADR is not ratified by these
+implementation checkpoints.
 
 The [v1 preview checkpoint](docs/v1-site.md) reuses the same public selection
 service and existing Quartz adapter, with proposed [ADR-0013](docs/decisions/ADR-0013-reviewed-v1-site-projections.md).
