@@ -35,7 +35,7 @@ remaining integration acceptance.
 | #32 | [Opt-in SQLite](query-stores.md), `feature/32-sqlite-query-store` | Eight tests per Python; 256-note exact parity and measured costs | Incremental updates, broader performance/platform/confidential assurance and permanent adoption remain |
 | #37 | [Dependency builds](dependency-builds.md), `feature/37-projection-dependency-builds`; functional `4cd33ba` | Seven focused cases; committed authored request and lost-event reconciliation golden | Canonical observation integration, background targeted execution, Mindcap capture and private pilot remain |
 | #49 | [Reviewed memory](assistant-memory.md), `feature/49-reviewed-memory-snippets`; functional `fcef8ef` | Eight cases per Python; 11,416 source-body bytes → 187 snippet-body bytes; 20,699-byte cited bundle | Richer interactive review, provider tokenizers/adapters and automated consumer refresh remain |
-| #48 | Provisional local cleanup checkpoint; external publication unavailable | Pending | Exact contract gaps and non-destructive offline fixtures |
+| #48 | [Private cleanup/export](bookmark-cleanup.md), `feature/48-private-bookmark-cleanup`; functional `4816868` | Seven cases per Python; resume equals full review, originals preserved and CLI summaries redacted | Mindcap bundle/delta, raw capture verification, canonical URL/freshness and accepted Akashic packet remain unavailable |
 | #47 | Accepted-ADR gate remains closed | Source/service ownership inspected | Review service/parity proposal, then accepted architecture and Realm-owned clean-start proof |
 
 ## Decisions preview and source ownership

@@ -1,0 +1,6 @@
+{
+  "schema": "mindgarden.local-bookmark-catalog/v1",
+  "urls": [
+    "https://example.test/keep"
+  ]
+}
