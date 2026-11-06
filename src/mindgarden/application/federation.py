@@ -80,7 +80,7 @@ class FederationBundle:
 
 
 def build_federation(context: QueryContext, profile: dict, *, profile_sha256: str | None = None,
-                     profile_path: Path | None = None) -> FederationBundle:
+                     profile_path: Path | None = None, projection_kind: str = "federation") -> FederationBundle:
     try:
         if profile_path is not None:
             raw = authority_bytes(profile_path)
@@ -89,16 +89,17 @@ def build_federation(context: QueryContext, profile: dict, *, profile_sha256: st
                     or profile_sha256 not in {None, actual}):
                 raise ContractError("FEDERATION_PROFILE: supplied profile bytes differ from the reviewed control input")
             profile_sha256 = actual
-        return _build_federation(context, profile, profile_sha256=profile_sha256, profile_path=profile_path)
+        return _build_federation(context, profile, profile_sha256=profile_sha256, profile_path=profile_path,
+                                 projection_kind=projection_kind)
     except (OSError, UnicodeError) as error:
         raise ContractError("FEDERATION_UNAVAILABLE: authorized public inputs cannot be verified") from error
 
 
 def _build_federation(context: QueryContext, profile: dict, *, profile_sha256: str | None = None,
-                      profile_path: Path | None = None) -> FederationBundle:
+                      profile_path: Path | None = None, projection_kind: str = "federation") -> FederationBundle:
     """Reuse the existing reviewed projection profile and authorized index."""
     registry = ContractRegistry()
-    if (registry.errors(profile, "projection") or profile.get("kind") != "federation"
+    if (projection_kind not in {"federation", "site"} or registry.errors(profile, "projection") or profile.get("kind") != projection_kind
             or profile.get("status") != "planned" or profile.get("visibility") != "public"
             or profile.get("review", {}).get("state") != "approved"):
         raise ContractError("FEDERATION_PROFILE: supply an approved, planned public federation projection")

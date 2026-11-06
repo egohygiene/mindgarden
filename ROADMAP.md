@@ -40,7 +40,7 @@ updated: 2026-11-05
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate:** Review the bounded local registry checkpoint; full publication and pinned Empathy consumption retain separate gates.
+**Current gate:** Deliver the six authorized draft checkpoints (#17/#38/#10/#18/#42/#46); full publication and pinned Empathy consumption retain separate gates.
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
 
 ### Complete open-issue coverage and next batches
@@ -58,11 +58,14 @@ do not close their parents or ratify ADR-0007–0010, which remain proposed.
 
 B0 coverage (#65) and B1 local public descriptors/projections (#66) are merged
 at `44cc1e8`, with 159 baseline tests passing on both supported Python versions.
-B2 is draft [#67](https://github.com/egohygiene/mindgarden/pull/67), branch
-`feature/30-local-registry`: saved lifecycle plans, named scoped selections,
-non-destructive unregister, private snapshots/restore and synthetic public
-isolation evidence. See [the registry contract and proof](docs/local-registry.md).
-This is implemented/tested draft work; full #30 and ADR acceptance remain open.
+B2 [#67](https://github.com/egohygiene/mindgarden/pull/67) is merged at `8a9650e`:
+saved lifecycle plans, named scoped selections, non-destructive unregister,
+private snapshots/restore and synthetic public isolation evidence. Its tree is
+the tested `3463d46` tree; 188 tests pass on both supported Python versions.
+See [the registry proof](docs/local-registry.md). Full #30 and ADR acceptance
+remain open. The [six-draft checkpoint map](docs/garden-experience-milestone.md)
+records current #17 work and the following design/conformance/composition/
+architecture/compaction contracts, all awaiting maintainer sync before merge.
 Public `/garden`/portal proofs (#17/#18) and the complete #20 consumer path follow
 their actual contracts. #27 release preparation and #38 design tokens can advance
 independently. #46 retention policy is considered early; full compaction, SQLite,

@@ -98,6 +98,12 @@ it is not host isolation evidence. The [proof report](tests/fixtures/conversatio
 records exact source references and reproducible hashes. Real archives and
 credentials stay outside this public repository.
 
+The [v1 garden preview](docs/v1-site.md) connects reviewed public records to the
+existing pinned Quartz adapter. `publish project` works offline; `site build`
+uses a separately prepared offline renderer cache, and `site serve` provides a
+loopback preview. The [six-checkpoint batch](docs/garden-experience-milestone.md)
+tracks this draft and its design, privacy, composition and contract follow-ups.
+
 ## Implemented v0 surface
 
 The extracted v0 engine includes:

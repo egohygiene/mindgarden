@@ -34,6 +34,107 @@ DISTINCT_CACHE_DIRECTORY_COUNT = 3
 MAXIMUM_PORT = 65_535
 
 
+def render_public_site(projection, engine_root: Path) -> dict[str, bytes]:
+    """Render only generated reviewed content; keep subprocess logs private."""
+    from html import escape
+    import os
+    import re
+    import tempfile
+
+    from ..domain.contracts import canonical_json, strict_json
+    from ..domain.site import SITE_MARKER
+    from .site_files import read_site
+
+    settings = projection.settings
+    profile = {"quartz_repository": settings["repository"], "quartz_commit": settings["commit"]}
+    for executable in ("git", "node", "npm"):
+        require_executable(executable)
+    if node_major_version() != settings["node_major"]:
+        raise ContractError("SITE_RENDERER: selected renderer requires its declared Node major")
+    engine_root.parent.mkdir(parents=True, exist_ok=True)
+    log_path = engine_root.parent / ".mindgarden-renderer.log"
+    if log_path.is_symlink():
+        raise ContractError("SITE_PATH: renderer logs must not cross symlinks")
+
+    def quiet_command(arguments, *, cwd=None):
+        try:
+            descriptor = os.open(log_path, os.O_WRONLY | os.O_CREAT | os.O_APPEND | os.O_NOFOLLOW, 0o600)
+            with os.fdopen(descriptor, "ab") as log:
+                subprocess.run(arguments, cwd=cwd, stdout=log, stderr=subprocess.STDOUT, check=True,
+                               env={**os.environ, "npm_config_offline": "true", "npm_config_audit": "false"})
+        except (OSError, subprocess.CalledProcessError) as error:
+            raise ContractError("SITE_RENDERER: prepared offline renderer failed; inspect the private owned renderer log") from error
+
+    try:
+        observed = subprocess.run(["git", "rev-parse", "HEAD"], cwd=engine_root, check=True, capture_output=True, text=True).stdout.strip()
+        clean = subprocess.run(["git", "diff", "--quiet", "HEAD"], cwd=engine_root, capture_output=True).returncode == 0
+        tracked = subprocess.run(["git", "ls-files", "-z"], cwd=engine_root, check=True, capture_output=True).stdout.decode().split("\x00")
+        if observed != profile["quartz_commit"] or not clean:
+            raise ContractError("SITE_RENDERER: prepared renderer must match the exact clean reviewed commit")
+    except (OSError, subprocess.CalledProcessError) as error:
+        raise ContractError("SITE_RENDERER: prepare the pinned renderer and offline package cache separately") from error
+    # Quartz honors ancestor .gitignore files. Put its scratch inputs outside
+    # ignored repository caches so a valid projection is not silently empty.
+    with tempfile.TemporaryDirectory(prefix="mindgarden-render-") as temporary:
+        from ..domain.contracts import safe_path
+
+        root = Path(temporary)
+        engine = root / "engine"; engine.mkdir()
+        for name in tracked:
+            if not name:
+                continue
+            source = safe_path(engine_root, name)
+            if not source.is_file() or source.stat().st_nlink != 1:
+                raise ContractError("SITE_RENDERER: prepared renderer files must be ordinary immutable inputs")
+            target = safe_path(engine, name)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, target)
+        (engine / "quartz.config.yaml").write_bytes(projection.configuration)
+        content = root / "content"; content.mkdir()
+        for name, data in projection.files.items():
+            if name in {SITE_MARKER, "quartz.config.yaml"} or not name.endswith(".md"):
+                continue
+            target = content / name; target.parent.mkdir(parents=True, exist_ok=True); target.write_bytes(data)
+        output = root / "site"
+        quiet_command(["npm", "ci", "--offline", "--ignore-scripts", "--no-audit", "--no-fund", "--cache", str(engine_root.parent / "npm")], cwd=engine)
+        quiet_command(["node", "quartz/bootstrap-cli.mjs", "build", "--directory", str(content), "--output", str(output)], cwd=engine)
+        files = read_site(output)
+    from urllib.parse import urlsplit
+    base_path = urlsplit(projection.manifest["base_uri"]).path
+    for name, content in projection.files.items():
+        if name.startswith("static/mindgarden/"):
+            files[name] = content
+    for name in list(files):
+        if name.endswith(".html"):
+            html = files[name].decode("utf8")
+            html = html.replace('<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/>', "")
+            html = html.replace("</head>", '<link rel="stylesheet" href="' + base_path + 'static/mindgarden/site.css"/>'
+                '<script id="mindgarden-graph-script" defer src="' + base_path + 'static/mindgarden/graph.js"></script></head>')
+            files[name] = html.encode("utf8")
+    canonical = {"index.html": projection.manifest["base_uri"], "relationships.html": projection.manifest["base_uri"] + "relationships",
+                 **{item["path"]: item["url"] for item in projection.manifest["routes"]}}
+    for name, url in canonical.items():
+        if name not in files:
+            raise ContractError("SITE_RENDERER: renderer did not produce every selected canonical route")
+        html = files[name].decode("utf8")
+        html = re.sub(r'(<meta property="(?:og:url|twitter:url)" content=")[^"]*(")', lambda match: match[1] + escape(url, quote=True) + match[2], html)
+        html = html.replace("</head>", '<link rel="canonical" href="' + escape(url, quote=True) + '"/></head>')
+        files[name] = html.encode("utf8")
+    # Quartz's index supplies an invented current date when no date transformer
+    # exists. Omit that generated field instead of manufacturing source history.
+    index_path = "static/contentIndex.json"
+    if index_path in files:
+        index = strict_json(files[index_path])
+        for item in index.values():
+            item.pop("date", None)
+        files[index_path] = canonical_json(index)
+    urls = [canonical[name] for name in sorted(canonical)]
+    files["sitemap.xml"] = ('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "".join("<url><loc>" + escape(url) + "</loc></url>\n" for url in urls) + "</urlset>\n").encode()
+    files["robots.txt"] = ("User-agent: *\nAllow: /\nSitemap: " + projection.manifest["base_uri"] + "sitemap.xml\n").encode()
+    return files
+
+
 def run_command(arguments: list[str], *, cwd: Path | None = None) -> None:
     """Run one external command without a shell."""
     print("$ " + " ".join(arguments))

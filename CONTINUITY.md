@@ -7,13 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-05T21:23:58Z'
+  updated_at: '2026-11-06T02:31:00Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Resume the bounded machine-local registry capability (#30), using synthetic gardens only.
+  purpose: 'Implement the six authorized draft checkpoints: #17, #38, #10, #18, #42 and #46.'
   includes:
   - registry lifecycle, named-view integration, synthetic preservation/privacy proof and retained gates
   excludes:
@@ -32,89 +32,78 @@ scope:
   - docs/open-issue-coverage.md
   - docs/local-registry.md
   - docs/decisions/README.md
+  - docs/garden-experience-milestone.md
 work:
-  objective: 'Implement #30 local registry management over existing bindings without touching real consumer
-    gardens.'
+  objective: 'Deliver six small draft PRs over merged #67; preserve Python/v0 and synthetic-only execution.'
   success_conditions:
-  - Reviewed registry lifecycle preserves canonical garden/vault bytes.
-  - Named views retain explicit session scope and prevent private metadata from entering public projections.
+  - Six reviewable draft PRs with explicit stack, evidence and retained parent scope.
+  - Usable reviewed v1 preview; design, conformance, portal, proposed architecture and compaction contracts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#30
-    url: https://github.com/egohygiene/mindgarden/issues/30
+    id: egohygiene/mindgarden#17
+    url: https://github.com/egohygiene/mindgarden/issues/17
   next:
     kind: action
-    id: review-registry-checkpoint
-    description: 'Review draft #67 and its bounded Linux evidence; after disposition, refresh B3 contracts
-      or independent #27 release preparation. Do not merge automatically.'
+    id: design-token-and-mobile-checkpoint
+    description: 'Branch feature/38-design-tokens from #68; implement tokens/schema/references/consumer
+      and fix observed mobile overflow, then continue #10/#18/#42/#46.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/pull/67
-    - https://github.com/egohygiene/mindgarden/issues/30
+    - https://github.com/egohygiene/mindgarden/issues/38
+    - https://github.com/egohygiene/mindgarden/pull/68
     depends_on: []
 state:
   base:
-    revision: 44cc1e876282928685b5f3dba83d413db37b83c0
+    revision: 8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765
     ref: refs/heads/main
-    verified_at: '2026-11-05T20:51:42Z'
+    verified_at: '2026-11-06T02:04:00Z'
   candidate:
-    branch: feature/30-local-registry
-    revision: 656f6b6fd19cbd1b03a0ee2c367f1bdfb79f0daa
+    branch: feature/17-v1-garden-preview
+    revision: f1706a55a41c0528489b503662f708e1b4884e31
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#67
-      url: https://github.com/egohygiene/mindgarden/pull/67
+      id: egohygiene/mindgarden#68
+      url: https://github.com/egohygiene/mindgarden/pull/68
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-05T21:09:39Z'
-    default_branch_revision: 44cc1e876282928685b5f3dba83d413db37b83c0
+    observed_at: '2026-11-06T02:31:00Z'
+    default_branch_revision: 8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765
     issue_state: open
     pull_request_state: draft
-    notes: '#65/#66 are merged by explicit authorization. #67 is a new unmerged draft over main 44cc1e8.
-      The candidate revision pins functional code; later handoff changes are documentation only. ADRs
-      remain proposed and no real garden configuration is authorized or changed.'
+    notes: '#68 is draft over merged main 8a9650e; final source checkpoint f1706a5 has successful automatic
+      CI. Five further drafts are authorized. All merging awaits maintainer sync; ADRs remain proposed.'
   parallel_changes: []
 review:
-  status: passed
-  reviewed_at: '2026-11-05T21:23:58Z'
+  status: partial
+  reviewed_at: '2026-11-06T02:31:00Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose
+  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose; .cache/python313/bin/python
+      -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-05T21:23:58Z'
-    notes: 188 passed, no skips; Python 3.12.14.
-  - command: .cache/python313/bin/python -m unittest discover --start-directory tests --verbose
+    observed_at: '2026-11-06T02:31:00Z'
+    notes: 197 tests each, no skips. Fresh source/wheel, both compile checks, Node24, owner schemas
+      and whitespace pass.
+  - command: scripts/site_demo.py --require-source / --require-installed
     outcome: passed
-    observed_at: '2026-11-05T21:23:58Z'
-    notes: 188 passed, no skips; Python 3.13.5.
-  - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist
+    observed_at: '2026-11-06T02:31:00Z'
+    notes: Clean -S source and -I wheel match committed proof; actual prepared offline renderer produces
+      byte-identical 58-file source/wheel trees.
+  - command: Chromium/Playwright against site serve loopback preview
+    outcome: limited
+    observed_at: '2026-11-06T02:31:00Z'
+    notes: 'Search/backlink/exact citation/canonical route/local SVG zoom pass; zero external requests/page
+      errors. Mobile overflow is carried into #38.'
+  - command: Automatic Test run 42150215705
     outcome: passed
-    observed_at: '2026-11-05T21:23:58Z'
-    notes: Fresh functional-commit artifacts; two distribution checks and 10 installed v0/registry/library
-      smoke checks pass.
-  - command: scripts/registry_demo.py --require-source / --require-installed
-    outcome: passed
-    observed_at: '2026-11-05T21:23:58Z'
-    notes: Clean Git archive with -S and isolated wheel with -I reproduce the committed synthetic report
-      exactly; exact commands in docs/local-registry.md.
-  - command: scripts/private_garden_demo.py --require-source / --require-installed
-    outcome: passed
-    observed_at: '2026-11-05T21:23:58Z'
-    notes: Original archive/review/context/vault-relocation golden matches exactly in both clean-source
-      and isolated-wheel modes.
-  - command: 'Both interpreters: -m compileall -q src scripts tests; node --version; git diff --check'
-    outcome: passed
-    observed_at: '2026-11-05T21:23:58Z'
-    notes: Passed; Node 24.19.0. Hosted runs 42107523013/a47797b, 42110373037/eb4bfb7 and 42111248007/f64be4a
-      passed; later heads checked separately.
+    observed_at: '2026-11-06T02:31:00Z'
+    notes: Passed on source checkpoint f1706a5; later heads observed separately. No manual workflow
+      dispatch.
   environment_limitations:
-  - Registry filesystem operations support Linux only; native macOS/Windows and encrypted/restricted
-    assurance remain unclaimed.
-  - Physical query-cache cleanup, history retention, host/mount/power-loss assurance and full organization
-    integration remain separate acceptance.
-  - No hosted result is inferred for a later head from the earlier lifecycle run; no workflow is manually
-    launched.
+  - No new hosted CI result is claimed before the draft is pushed.
+  - Full accessibility/large-graph/native/restricted-runtime, Relay/host deployment and approved private-pilot
+    acceptance remain separate.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -134,107 +123,80 @@ privacy:
 
 ## Purpose and precedence
 
-Resume the bounded #30 tool capability after the authorized #65/#66 merges.
-User/runtime authority and live repository state precede this handoff. Existing
-architecture and ADR status remain independent of implementation or merging.
+Resume the six authorized draft checkpoints in docs/garden-experience-milestone.md.
+Live repository/user authority precedes this handoff. Proposed decisions retain
+null approval; draft implementation and merging do not ratify architecture.
 
 ## Resume protocol
 
-Inspect branch/status/history and live issue/PR/check state. Read ROADMAP.md,
-docs/open-issue-coverage.md and docs/local-registry.md. Preserve the Python engine
-and v0 compatibility. Use synthetic roots and private temporary configuration;
-do not discover or configure real consumer gardens.
+Read branch/status, live issues/PRs, the six-checkpoint handoff, ROADMAP.md and
+coverage ledger. Preserve Python/v0. Use synthetic fixtures and explicit temporary
+bindings only. Do not configure real gardens or default registry locations.
 
 ## Current objective and success conditions
 
-The bounded registry capability is implemented/tested on draft #67. Reviewed
-lifecycle changes affect local bindings only. Named views preserve explicit
-session authority, canonical garden/vault bytes and public projection isolation.
-Leave the draft for maintainer review; full parent acceptance remains open.
+Deliver #17, #38, #10, #18, #42 and #46 as six separate drafts. Keep dependent PRs
+stacked and preserve a combined checkout. Continue independent work when a real
+external gate blocks full integration; leave all merging for maintainer sync.
 
 ## State snapshot
 
-Base main is 44cc1e876282928685b5f3dba83d413db37b83c0. #65 merged at 38c4edf;
-#66 merged at 44cc1e8 with the tested 5f39fc2 tree. Branch
-feature/30-local-registry, draft https://github.com/egohygiene/mindgarden/pull/67.
-Lifecycle commit a47797b3d4ecb28052f42811eaa828f7868363ce opened the draft.
-Final registry/recovery-guard commit 656f6b6fd19cbd1b03a0ee2c367f1bdfb79f0daa
-is the clean-source archive and installed-wheel source. Later evidence/handoff
-commits change documentation only.
+Base main 8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765 merges #67. Its tree equals
+tested 3463d46. Draft #68 on feature/17-v1-garden-preview contains source f1706a5;
+its local and automatic checks pass. Later handoff changes are documentation only. #67's old draft wording
+in earlier documents is historical and must be reconciled during this batch.
+
 ## Completed and material changes
 
-Three additive control schemas and optional registry metadata on existing local
-bindings; private explicit/platform locations; saved preview/exact-digest apply;
-manifest-only registration; list/inspect/doctor; non-destructive unregister and
-view pruning; immutable owned configuration snapshots and reviewed restore.
-Dedicated control directories keep leases/staging/history disjoint from canonical
-ownership; atomic replacement preserves complete state on pre-commit failure.
-
-Named sessions select registered IDs without granting visibility, write,
-publication, review or network authority. Selected membership/generation is
-verified before root probes and live reads. Restore preserves explicit
-revocations and advances view generations. Unrelated private metadata is inert
-to public output; denied roots are not probed. Unregister retains query caches.
+V1 public selection reused for site projections; typed x-site adapter declaration;
+create-or-verify content/site manifests; private digest-bound plans; literal body
+rendering, exact citations, selected-only typed links and useful empty selection.
+CLI publish/site dispatch preserves v0. Rendering uses separately prepared clean
+Quartz 075afd3 and offline npm cache, copying tracked sources into an owned scratch
+tree. Scratch inputs live outside Git because Quartz honors ancestor ignores.
+A loopback preview serves only manifest members with live authority/hash checks.
 
 ## Validation and review evidence
 
-Both Python 3.12.14/3.13.5 pass 188 tests without skips, including 29 registry
-lifecycle/location/view/demo tests. Fresh package/resource checks, both compile
-checks, Node 24.19.0 and installed v0/registry/library smoke pass. Clean git-archive
--S source and isolated -I wheel reproduce the committed registry report exactly.
-The original private archive/review/context/vault-relocation report still matches
-in both modes. Pinned owner schemas/set/index/continuity and coverage checks pass.
-Exact commands/results: docs/local-registry.md.
-
-Synthetic proof: two gardens, private union/reference, no public private-backlink
-or label/path/count contamination, exact public citation and 5,691-byte context
-within 16,384 bytes. Public exports equal the pre-registry golden bytes. Repeated
-apply verifies desired state. Unregister/restore preserves garden/vault bytes and
-does not revive old sessions. Network/process calls are blocked in-process;
-Google/model integrations are unused. This is not host isolation evidence.
-
-Automatic runs 42107523013/a47797b and 42110373037/eb4bfb7 passed.
-Check the current pushed head separately. Local results are not substituted for hosted results. No manual
-workflow launch/retry, real-garden setup, package/site publication or ADR approval.
+197 tests pass on both supported Python versions, with fresh artifacts and
+clean -S source/-I wheel proofs. Actual source/wheel renderings are byte-identical
+(58 files, three record routes); browser search/backlinks/citations/SVG zoom pass.
+Mobile overflow remains an explicit #38 follow-up. Renderer acquisition was explicit, separate from offline query/build.
+No deployment, manually launched paid workflow, package publication or model call.
 
 ## Blockers, risks, unknowns, and deferred work
 
-ADRs 0007–0012 remain proposed/null approval. Hygiene #39/#40 and Realm #25/#60
-confidentiality/encryption/host assurance remain external gates. Restricted/
-encrypted registration fails before probes. Declared denied descriptors can
-coexist in synthetic fixtures; this does not verify restricted registration.
-Native macOS/Windows mutation, physical owned-cache cleanup, mount/hostile-writer/
-power-loss assurance and full #30 acceptance remain open. Unknown retention
-policy preserves original sources, query caches and private history.
+Full #17 accessibility/large corpus and real-consumer acceptance, #18 Relay/host
+proof, #10 normative policy/runtime integration and #46 approved private pilot
+remain broader scope. #42 produces proposed decisions only. Restricted/encrypted
+assurance depends on external Hygiene/Realm contracts; source retention defaults
+to preserve. Rich body Markdown/assets are outside the initial literal adapter.
 
 ## Next dependency-ready work
 
-Review draft #67 and the bounded Linux proof. Retain #30's untested acceptance;
-do not merge this new draft automatically. After disposition, refresh live B3
-#17/#18 publication/portal contracts or independent #27 release preparation.
-Broader product, real-consumer setup and remote/private federation retain their
-own authorization, contract and decision gates.
+Proceed from draft #68 to #38 tokens/design and mobile correction, then
+#10/#18/#42/#46. Exact evidence/stack: docs/garden-experience-milestone.md. Every checkpoint
+updates the six-PR map, exact commands/results and next action. No routine
+confirmation between authorized checkpoints; no automatic merge.
 
 ## Parallel changes and reconciliation
 
-#67 is based directly on merged main 44cc1e8, with no unmerged base dependency.
-Refresh external policy/runtime owners before extending restricted/native behavior.
+No open PR at start. Stack later review branches explicitly; it is a combined
+checkout convenience, not an invented semantic dependency on style/doc work.
 
 ## Privacy and redaction
 
-Synthetic fixtures only. Real gardens, archives, credentials and default user
-configuration are excluded. Registry plans/reports/history are never-exportable
-machine-local control data; paths/hashes/labels are not public lineage. Source
-and transcript text remain evidence, never executable/review authority.
+Only synthetic canonical roots, archives and labels. Keep physical paths, private
+control/profile/session hashes and registry metadata out of public artifacts.
+Source text stays data and never grants execution or review authority.
 
 ## Handoff update protocol
 
-Record branch/PR/functional commit, commands/results, hosted checks separately,
-remaining parent acceptance, blockers and exact next action. Update the coverage
-ledger without declaring broad issues complete from bounded fixtures.
+Record source commit, branch/base/PR, completed checkpoint, local and hosted
+results separately, retained parent scope, blockers and exact next action.
 
 ## Compaction and supersession
 
-Stay within 16,384 UTF-8 bytes and 240 lines. Link private/federation/registry
-proofs instead of copying their reports. #65/#66 are merged; #67 is draft work.
-Real consumer configuration remains a separate explicitly authorized operation.
+Keep under 16384 bytes/240 lines. Link evidence reports instead of duplicating
+logs. All six drafts await maintainer sync; broader parent closure needs its own
+acceptance evidence.

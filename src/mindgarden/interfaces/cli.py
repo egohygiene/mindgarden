@@ -329,7 +329,48 @@ def add_publish_command(commands: ParserCollection) -> None:
     )
     verify = actions.add_parser("verify", help="Reproduce the public tree twice")
     add_repository_root(verify, suppress_default=True)
-    parser.set_defaults(handler=publishing.run)
+    verify.add_argument("--output-directory", type=Path, default=publishing.DEFAULT_OUTPUT_PATH)
+    for command in (project, verify):
+        command.add_argument("--profile", type=Path, default=SUPPRESS)
+        add_site_authority(command)
+    parser.set_defaults(handler=run_publication)
+
+
+def add_site_authority(command) -> None:
+    command.add_argument("--local-config", type=Path, help="Explicit v1 local bindings")
+    command.add_argument("--scope", type=Path, help="Explicit reviewed-public publication session")
+    mode = command.add_mutually_exclusive_group()
+    mode.add_argument("--plan", action="store_true", help="Preview v1 inputs without writing (default)")
+    mode.add_argument("--apply", action="store_true", help="Create or verify v1 output after exact-digest review")
+    mode.add_argument("--check", action="store_true", help="Verify existing v1 output without renderer calls")
+    command.add_argument("--plan-digest", help="Exact reviewed v1 site-plan digest")
+
+
+def uses_v1_site(arguments) -> bool:
+    return (arguments.local_config is not None or arguments.scope is not None
+            or (arguments.repository_root / ".garden/garden.json").exists())
+
+
+def run_publication(arguments) -> int:
+    if uses_v1_site(arguments):
+        from ..application.site import run_site
+
+        if arguments.command == "verify":
+            arguments.check = True
+        return run_site(arguments, operation="project")
+    if arguments.plan or arguments.apply or arguments.check or arguments.plan_digest:
+        raise ContractError("SITE_VERSION: reviewed site plans require explicit v1 inputs")
+    return publishing.run(arguments)
+
+
+def run_site_adapter(arguments) -> int:
+    if uses_v1_site(arguments):
+        from ..application.site import run_site
+
+        return run_site(arguments, operation="build")
+    if arguments.plan or arguments.apply or arguments.check or arguments.plan_digest:
+        raise ContractError("SITE_VERSION: reviewed site plans require explicit v1 inputs")
+    return quartz.run(arguments)
 
 
 def add_site_command(commands: ParserCollection) -> None:
@@ -358,7 +399,11 @@ def add_site_command(commands: ParserCollection) -> None:
     serve = actions.add_parser("serve", help="Build and serve a local preview")
     add_repository_root(serve, suppress_default=True)
     serve.add_argument("--port", type=int, default=8080)
-    parser.set_defaults(handler=quartz.run)
+    for command in (build, serve):
+        for name in ("profile", "content-directory", "engine-directory", "output-directory"):
+            command.add_argument("--" + name, type=Path, default=SUPPRESS)
+        add_site_authority(command)
+    parser.set_defaults(handler=run_site_adapter)
 
 
 def add_federation_command(commands: ParserCollection) -> None:

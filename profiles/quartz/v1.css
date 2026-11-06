@@ -1,0 +1,15 @@
+/* Copyright 2026 Ego Hygiene. SPDX-License-Identifier: MIT. */
+article, .center, .sidebar { min-width: 0; }
+article { overflow-wrap: anywhere; }
+article pre { max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; }
+article pre code { white-space: pre-wrap; }
+.page-listing { display: none; }
+#mindgarden-graph { border: 1px solid var(--lightgray); padding: 1rem; border-radius: .5rem; }
+#mindgarden-graph svg { display: block; width: 100%; height: auto; max-height: 32rem; }
+#mindgarden-graph .mindgarden-controls { display: flex; gap: .5rem; flex-wrap: wrap; }
+#mindgarden-graph button { min-height: 44px; min-width: 44px; padding: .4rem .8rem; cursor: pointer; }
+.mindgarden-edge { stroke: var(--gray); stroke-width: 2; }
+.mindgarden-node { fill: var(--secondary); }
+.mindgarden-node-label { fill: var(--dark); font: 14px sans-serif; }
+:focus-visible { outline: 3px solid var(--secondary); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
