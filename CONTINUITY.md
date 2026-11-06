@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T06:05:46Z'
+  updated_at: '2026-11-06T06:11:31Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -43,16 +43,17 @@ work:
   - Preserve Python/v0, private boundaries and proposed ADR status.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#13
-    url: https://github.com/egohygiene/mindgarden/issues/13
+    id: egohygiene/mindgarden#15
+    url: https://github.com/egohygiene/mindgarden/issues/15
   next:
     kind: action
-    id: archive-selective-attachments
-    description: 'Implement #15 selective attachments and bounded historical archive compatibility after
-      reading v1.2.1, v2.0.0 plus v2.0.1 patch, and current v3.2.3 specs.'
+    id: private-routing-transition
+    description: 'Implement #14 non-destructive private move/merge transitions using reviewed lineage
+      and the existing multi-garden recovery journal. Keep public transfer and complex attached-claim
+      migration explicit remaining scope.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/13
+    - https://github.com/egohygiene/mindgarden/issues/15
     depends_on: []
 state:
   base:
@@ -60,16 +61,16 @@ state:
     ref: refs/heads/main
     verified_at: '2026-11-06T05:27:17Z'
   candidate:
-    branch: feature/13-curation-conformance
-    revision: 05e6cd2e7584c3c89d6d99ad74d9c601a4847a39
+    branch: feature/15-archive-selective-assets
+    revision: ec63d69d97d144d97eb1276f4fa3d63d54953087
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#75
-      url: https://github.com/egohygiene/mindgarden/pull/75
+      id: egohygiene/mindgarden#76
+      url: https://github.com/egohygiene/mindgarden/pull/76
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T06:05:46Z'
+    observed_at: '2026-11-06T06:11:31Z'
     default_branch_revision: 30a29668a02740a91e77aec22f670a8270ccddf4
     issue_state: open
     pull_request_state: draft
@@ -77,29 +78,23 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T06:05:46Z'
+  reviewed_at: '2026-11-06T06:11:31Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_curation tests.test_curation_transformations tests.test_v1_contracts
-      -q
+  - command: .venv/bin/python -m unittest tests.test_archive_selection tests.test_conversation_archives
+      tests.test_source_adapters -q
     outcome: passed
-    observed_at: '2026-11-06T06:05:46Z'
-    notes: 18 tests passed
-  - command: .cache/python313/bin/python -m unittest tests.test_curation tests.test_curation_transformations
-      tests.test_v1_contracts -q
+    observed_at: '2026-11-06T06:11:31Z'
+    notes: 20 tests passed
+  - command: .cache/python313/bin/python -m unittest tests.test_archive_selection tests.test_conversation_archives
+      tests.test_source_adapters -q
     outcome: passed
-    observed_at: '2026-11-06T06:05:46Z'
-    notes: 18 tests passed
-  - command: .venv/bin/python -m unittest tests.test_routing tests.test_conversation_archives tests.test_compaction
-      -q
+    observed_at: '2026-11-06T06:11:31Z'
+    notes: 20 tests passed
+  - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/sprint15-private --require-source
     outcome: passed
-    observed_at: '2026-11-06T06:05:46Z'
-    notes: 24 tests passed
-  - command: .cache/python313/bin/python -m unittest discover --start-directory tests --pattern test_adapter_conformance.py
-      -q
-    outcome: passed
-    observed_at: '2026-11-06T06:05:46Z'
-    notes: 6 tests passed after discovery correction
+    observed_at: '2026-11-06T06:11:31Z'
+    notes: offline golden proof passed
   environment_limitations:
   - Automatic PR CI is separate from local checks; no paid workflow dispatched.
 privacy:
@@ -138,23 +133,23 @@ with verification, honest retained parent scope and reproducible combined checko
 
 ## State snapshot
 
-Draft stack #74 → #75; branch feature/13-curation-conformance, base milestone/next-six-checkpoints. Functional #13 source 05e6cd2. Both drafts remain unmerged.
+Draft stack #74 → #75 → #76; branch feature/15-archive-selective-assets over feature/13-curation-conformance. Functional source ec63d69; drafts remain unmerged.
 
 ## Completed and material changes
 
-Curation merge authors/qualifications and attribution lineage, duplicate merge rejection, exact existing relationship revisions, selected claim evidence, authored evidence-bound redaction provenance. #11 standalone discovery fixed in 33fe7cf.
+Historical v1.2.1 minimal ZIP reader, snapshot-local fallback IDs, selected attachment bytes/catalogs and opaque JSON attachments. Refreshed authoritative v2.0.0 plus v2.0.1 patch; no v2 reader claim.
 
 ## Validation and review evidence
 
-18 curation/transformation/contract tests passed on Python 3.12 and 3.13. 24 routing/archive/compaction compatibility tests passed. Compile/diff and owner/continuity checks passed. Initial #11 Python 3.13 full discovery exposed missing test sys.path setup; fixed in 33fe7cf and standalone 6-test discovery passed. Full combined recheck follows later sprint changes.
+20 archive/selection/source tests passed on Python 3.12 and 3.13. Offline private-workflow golden proof passed after archive adapter 1.1.0 update. Compile/diff and pinned owner/continuity checks passed.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Mindcap #35 wire contract is not published at inspected main pin; synthetic reference extension claims no provider compatibility. Older archive specifications are now accessible and need structural assessment in #15. All ADRs remain proposed/null approval; broad consumer/model/installer work remains separate.
+V2.0.1 reader/fixtures remain unimplemented although full baseline and patch are now available. Collections/multipart and real producer pilots remain open. Mindcap #35 handoff and proposed ADR decisions remain external/owner scope.
 
 ## Next dependency-ready work
 
-Implement #15 selective attachments and bounded historical archive compatibility after reading v1.2.1, v2.0.0 plus v2.0.1 patch, and current v3.2.3 specs.
+Implement #14 non-destructive private move/merge transitions using reviewed lineage and the existing multi-garden recovery journal. Keep public transfer and complex attached-claim migration explicit remaining scope.
 
 ## Parallel changes and reconciliation
 

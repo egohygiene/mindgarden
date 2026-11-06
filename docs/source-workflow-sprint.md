@@ -23,7 +23,7 @@ a separate bounded task. No cloud or model service becomes mandatory.
 | --- | --- | --- | --- | --- | --- |
 | #11 | Versioned declarations, output limits, fixture conformance, immutable observations, reference extension | Mindcap #35 provider-neutral wire contract and real consumer proof | #74, `milestone/next-six-checkpoints`; `65b15fb` | 237 Python 3.12 tests; 18 targeted on 3.13; offline proof/build/distribution passed | Review #74; continue #13 |
 | #13 | Merge authors/qualifications, exact relationships, selected claim evidence and authored redactions | Optional extraction producers/model evaluations, real review | #75, `feature/13-curation-conformance` over #74; `05e6cd2` | 18 tests on both Pythons; 24 compatibility tests | Review #75; continue #15 |
-| #15 | Verify historical specs; selective attachment normalization | Untested profiles, multipart/collections, real archive pilot | Pending, stacked on #13 | Pending | Read exact v1.2.1/v2.0.1 and current specifications |
+| #15 | V1.2.1 minimal reader, selected attachments/catalogs, opaque JSON evidence | V2.0.1 reader, multipart/collections, real producer pilot | #76, `feature/15-archive-selective-assets` over #75; `ec63d69` | 20 tests on both Pythons; offline golden proof | Review #76; continue #14 |
 | #14 | Non-destructive existing-knowledge lifecycle and recovery | Full multi-consumer workflow and owner acceptance | Pending, stacked on #15 | Pending | Reuse routing/transaction services |
 | #12 | Projection coverage and measured larger synthetic corpus | Broader consumer corpus and optional query stores | Pending, stacked on #14 | Pending | Profile current deterministic projections |
 | #16 | Rendered routes and pinned modular public garden references | Live remote refresh, signatures/private federation and consumer pilots | Pending, stacked on #12 | Pending | Reuse descriptor verification and site manifests |
@@ -69,3 +69,11 @@ passed. The first #11 Python 3.13 full run failed to import the new test module
 without an installed engine. `33fe7cf` adds the repository-standard source path
 setup; standalone discovery then passed all 6 cases. Final combined full checks
 will supersede that failed attempt; it is not recorded as passing.
+
+## #15 verification
+
+Archive selection/current archive/source adapter suites passed 20 tests on each
+supported Python. `private_garden_demo.py --require-source` matched the offline
+golden proof after the versioned adapter change. Compile/diff and owner checks
+passed. Historical specifications are available; v2.0.1 reader implementation,
+not source availability, is the remaining compatibility gap.

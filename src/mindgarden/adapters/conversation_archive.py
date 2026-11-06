@@ -10,6 +10,7 @@ from ..domain.contracts import canonical_json, digest_bytes, strict_json
 from ..domain.sources import NormalizedBundle, NormalizedUnit
 from ..domain.validation import ContractError
 from ..domain.zip_package import member_path, read_zip, verify_inventory
+from .archive_selection import attachment_selection
 
 VERSIONS = {"3.2.2", "3.2.3"}
 BASE_FILES = {"README.md", "CHAT-SUMMARY.md", "ARCHIVE-MANIFEST.json", "ASSET-MANIFEST.json",
@@ -53,7 +54,7 @@ def unique_records(value: object, code: str) -> dict[str, dict]:
 
 class ConversationArchiveAdapter:
     adapter_id = "conversation-archive"
-    version = "1.0.0"
+    version = "1.1.0"
     supported_inputs = frozenset(("application/zip", version) for version in VERSIONS)
 
     def normalize(self, captured: bytes, metadata: dict) -> NormalizedBundle:
@@ -77,7 +78,10 @@ class ConversationArchiveAdapter:
         if not BASE_FILES <= members.keys() or any(not members[name] for name in BASE_FILES):
             raise ContractError("ARCHIVE_REQUIRED: required nonempty package controls are missing")
         checksums = verify_inventory(members)
-        documents = {name: strict_json(content) for name, content in members.items() if name.endswith(".json")}
+        controls = {"ARCHIVE-MANIFEST.json", "ASSET-MANIFEST.json", "VALIDATION.json", "CONVERSATION.json",
+                    "SUMMARY-TRAIL.json", "routing/PLAN.json", "creative/INDEX.json", "knowledge/KNOWLEDGE.json",
+                    "mindgarden/IMPORT.json"}
+        documents = {name: strict_json(content) for name, content in members.items() if name in controls}
         manifest = require_object(documents["ARCHIVE-MANIFEST.json"], MANIFEST_FIELDS, "ARCHIVE_MANIFEST")
         version = manifest["spec_version"]
         if manifest["schema_version"] != "3.2" or version not in VERSIONS:
@@ -156,6 +160,7 @@ class ConversationArchiveAdapter:
         asset_manifest = require_object(documents["ASSET-MANIFEST.json"],
                                         {"schema_version", "archive_id", "assets", "warnings"}, "ARCHIVE_ASSETS")
         assets = unique_records(asset_manifest["assets"], "ARCHIVE_ASSETS")
+        selection_mode, selected_assets = attachment_selection(metadata, set(assets))
         units: list[NormalizedUnit] = []
         for asset_id, asset in assets.items():
             require_object(asset, ASSET_FIELDS, "ARCHIVE_ASSETS")
@@ -178,11 +183,15 @@ class ConversationArchiveAdapter:
                     raise ContractError("ARCHIVE_ASSETS: attachment bytes, path or checksum differ")
                 content, media_type = members[path], asset["mime_type"]
                 original_selector = {"member": prefix + path, "sha256": digest_bytes(content)}
-            units.append(NormalizedUnit("archive:" + archive_id + ":asset:" + asset_id, content, media_type,
+            catalog_only = asset_id not in selected_assets and path is not None
+            if catalog_only:
+                content, media_type = canonical_json(asset), "application/json"
+                original_selector = {"member": prefix + "ASSET-MANIFEST.json", "asset_id": asset_id}
+            units.append(NormalizedUnit("archive:" + archive_id + (":asset-catalog:" if catalog_only else ":asset:") + asset_id, content, media_type,
                                         metadata={"archive_id": archive_id, "asset_id": asset_id,
                                                   "asset_status": asset["status"], "asset": asset,
                                                   "original_selector": original_selector,
-                                                  "evidence_kind": "asset-bytes" if path else "asset-catalog"}))
+                                                  "evidence_kind": "asset-bytes" if path and not catalog_only else "asset-catalog"}))
         if manifest["content_mode"] == "full-source":
             required = {"CONVERSATION.json", "routing/PLAN.json", "routing/PLAN.md", "VISUAL-INSIGHTS.md"}
             if not required <= members.keys() or any(not members[name] for name in required):
@@ -323,7 +332,9 @@ class ConversationArchiveAdapter:
             raise ContractError("ARCHIVE_LIMIT: normalized unit count exceeds the supported budget")
         return NormalizedBundle(tuple(units), ({"name": "normalize-conversation-archive", "version": self.version,
                                                 "parameters": {"spec_version": version, "envelope_schema": "3.2",
-                                                               "preservation_schema": "2.0", "profile": manifest["package_profile"]}},),
+                                                               "preservation_schema": "2.0", "profile": manifest["package_profile"],
+                                                               **({"attachment_selection": metadata["attachment_selection"]}
+                                                                  if "attachment_selection" in metadata else {})}},),
                                 {"archive_id": archive_id, "archive_revision": manifest["archive_revision"],
                                  "spec_version": version, "profile": manifest["package_profile"],
                                  "delivery": manifest["delivery"], "execution": manifest["execution"],
