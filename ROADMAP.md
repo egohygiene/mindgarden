@@ -394,7 +394,8 @@ The active batch is [the eight product checkpoints](docs/product-checkpoints.md)
 gates before ADR backfill and the framework-dependent web slice. Reuse Relay for
 Decisions; keep query stores and all generated views replaceable. Implement ready
 local projection, dependency-build, memory and bookmark contracts in bounded drafts,
-then regroup with the maintainer. Deferred #86–#91 are not activated.
+then regroup with the maintainer. [The #47 service/parity proposal](docs/shared-service-slice-proposal.md)
+preserves the accepted-ADR gate. Deferred #86–#91 are not activated.
 
 ## Deferred after the current queue and reconciliation
 

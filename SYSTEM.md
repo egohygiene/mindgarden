@@ -135,3 +135,14 @@ services. Capture still belongs to the supplying tool; immutable originals belon
 to the consumer vault; human review owns knowledge and triage decisions. Optional
 parser/provider factories do not acquire policy or runtime authority. Proposed
 ADRs remain unapproved; merged implementation is separate from full parent acceptance.
+
+## Product checkpoint status
+
+[The broader product stack](docs/product-checkpoints.md) contains tested draft
+checkpoints for ADR metadata, optional query storage, dependency-aware derived
+builds, reviewed assistant memory and private bookmark exports. These remain
+reviewable branches, not fully accepted parent issues. Canonical Gardens and
+immutable sources retain ownership; projections can be rebuilt. Shared Decisions
+preview currently retains a native source-validation finding. Historical backfill
+and the API/web/runtime slice remain behind their respective decision gates.
+Release work is deferred pending organization release conventions.

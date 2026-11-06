@@ -36,7 +36,7 @@ remaining integration acceptance.
 | #37 | [Dependency builds](dependency-builds.md), `feature/37-projection-dependency-builds`; functional `4cd33ba` | Seven focused cases; committed authored request and lost-event reconciliation golden | Canonical observation integration, background targeted execution, Mindcap capture and private pilot remain |
 | #49 | [Reviewed memory](assistant-memory.md), `feature/49-reviewed-memory-snippets`; functional `fcef8ef` | Eight cases per Python; 11,416 source-body bytes → 187 snippet-body bytes; 20,699-byte cited bundle | Richer interactive review, provider tokenizers/adapters and automated consumer refresh remain |
 | #48 | [Private cleanup/export](bookmark-cleanup.md), `feature/48-private-bookmark-cleanup`; functional `4816868` | Seven cases per Python; resume equals full review, originals preserved and CLI summaries redacted | Mindcap bundle/delta, raw capture verification, canonical URL/freshness and accepted Akashic packet remain unavailable |
-| #47 | Accepted-ADR gate remains closed | Source/service ownership inspected | Review service/parity proposal, then accepted architecture and Realm-owned clean-start proof |
+| #47 | [Concrete shared-service/parity proposal](shared-service-slice-proposal.md); accepted-ADR gate remains closed | Current callables, transport/review boundaries, two-consumer and lifecycle acceptance mapped | Review/dispose framework/auth/runtime ADRs; then one accepted transport slice and Realm-owned clean-start proof |
 
 ## Decisions preview and source ownership
 
@@ -58,3 +58,15 @@ Do not substitute an agent-authored snapshot to bypass a native validation error
 ADR impact: this checkpoint applies existing owner boundaries and preserves all
 proposed statuses. ADR not required for a read-only consumer workflow declaration;
 no new decision authority, renderer, hosting or product framework is selected.
+
+## Combined local verification
+
+At source `4816868` with documentation-only follow-up `0319170`, both full suites
+pass with no skips: 358 tests on Python 3.12.14 (273.225 s) and 3.13.5 (258.766 s).
+Commands: `.venv/bin/python -m unittest discover --start-directory tests --verbose`
+and `.cache/python313/bin/python -m unittest discover --start-directory tests
+--verbose`. The local-network permission is needed for the existing loopback
+preview test; no external model or Google integration is used. Hosted CI remains
+separate. Shared Decisions preview run 42308318062 fails native source validation
+and retains its sanitized report; that finding is not replaced by passing engine
+tests. Final compatibility follow-ups are recorded separately below.
