@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T06:11:31Z'
+  updated_at: '2026-11-06T06:18:55Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -43,17 +43,16 @@ work:
   - Preserve Python/v0, private boundaries and proposed ADR status.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#15
-    url: https://github.com/egohygiene/mindgarden/issues/15
+    id: egohygiene/mindgarden#14
+    url: https://github.com/egohygiene/mindgarden/issues/14
   next:
     kind: action
-    id: private-routing-transition
-    description: 'Implement #14 non-destructive private move/merge transitions using reviewed lineage
-      and the existing multi-garden recovery journal. Keep public transfer and complex attached-claim
-      migration explicit remaining scope.'
+    id: projection-conformance-corpus
+    description: 'Implement #12 reproducible projection coverage and a measured larger synthetic corpus;
+      preserve live authorization and provenance checks while reducing context serialization work.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/15
+    - https://github.com/egohygiene/mindgarden/issues/14
     depends_on: []
 state:
   base:
@@ -61,16 +60,16 @@ state:
     ref: refs/heads/main
     verified_at: '2026-11-06T05:27:17Z'
   candidate:
-    branch: feature/15-archive-selective-assets
-    revision: ec63d69d97d144d97eb1276f4fa3d63d54953087
+    branch: feature/14-private-routing-transitions
+    revision: 1a43002f9e0f689b7f5cb383b84a78cd206d050d
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#76
-      url: https://github.com/egohygiene/mindgarden/pull/76
+      id: egohygiene/mindgarden#77
+      url: https://github.com/egohygiene/mindgarden/pull/77
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T06:11:31Z'
+    observed_at: '2026-11-06T06:18:55Z'
     default_branch_revision: 30a29668a02740a91e77aec22f670a8270ccddf4
     issue_state: open
     pull_request_state: draft
@@ -78,22 +77,22 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T06:11:31Z'
+  reviewed_at: '2026-11-06T06:18:55Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_archive_selection tests.test_conversation_archives
-      tests.test_source_adapters -q
+  - command: .venv/bin/python -m unittest tests.test_routing_lifecycle tests.test_routing tests.test_curation
+      tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-06T06:11:31Z'
-    notes: 20 tests passed
-  - command: .cache/python313/bin/python -m unittest tests.test_archive_selection tests.test_conversation_archives
-      tests.test_source_adapters -q
+    observed_at: '2026-11-06T06:18:55Z'
+    notes: 24 tests passed
+  - command: .cache/python313/bin/python -m unittest tests.test_routing_lifecycle tests.test_scoped_retrieval
+      -q
     outcome: passed
-    observed_at: '2026-11-06T06:11:31Z'
-    notes: 20 tests passed
-  - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/sprint15-private --require-source
+    observed_at: '2026-11-06T06:18:55Z'
+    notes: 19 tests passed
+  - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/sprint14-private --require-source
     outcome: passed
-    observed_at: '2026-11-06T06:11:31Z'
+    observed_at: '2026-11-06T06:18:55Z'
     notes: offline golden proof passed
   environment_limitations:
   - Automatic PR CI is separate from local checks; no paid workflow dispatched.
@@ -133,23 +132,23 @@ with verification, honest retained parent scope and reproducible combined checko
 
 ## State snapshot
 
-Draft stack #74 → #75 → #76; branch feature/15-archive-selective-assets over feature/13-curation-conformance. Functional source ec63d69; drafts remain unmerged.
+Draft stack #74 → #75 → #76 → #77; branch feature/14-private-routing-transitions over feature/15-archive-selective-assets; functional source 1a43002. ADR-0022 is proposed/null approval.
 
 ## Completed and material changes
 
-Historical v1.2.1 minimal ZIP reader, snapshot-local fallback IDs, selected attachment bytes/catalogs and opaque JSON attachments. Refreshed authoritative v2.0.0 plus v2.0.1 patch; no v2 reader claim.
+Reviewed append-only private move/merge transitions, exact aliases, one retrievable canonical home, preserved metadata/originals, and reuse of group rollback/recovery.
 
 ## Validation and review evidence
 
-20 archive/selection/source tests passed on Python 3.12 and 3.13. Offline private-workflow golden proof passed after archive adapter 1.1.0 update. Compile/diff and pinned owner/continuity checks passed.
+24 routing/lifecycle/curation/contracts tests passed on Python 3.12; 19 lifecycle/scoped tests passed on Python 3.13; 24 lifecycle/scoped/contracts tests passed on Python 3.12. Offline golden proof and compile/diff/owner checks passed.
 
 ## Blockers, risks, unknowns, and deferred work
 
-V2.0.1 reader/fixtures remain unimplemented although full baseline and patch are now available. Collections/multipart and real producer pilots remain open. Mindcap #35 handoff and proposed ADR decisions remain external/owner scope.
+Public/policy-changing transfers, attached graph migration and full filesystem/power-loss acceptance remain parent scope. ADR-0022 requires human disposition. V2.0.1 archive reader, Mindcap handoff and real pilots remain open.
 
 ## Next dependency-ready work
 
-Implement #14 non-destructive private move/merge transitions using reviewed lineage and the existing multi-garden recovery journal. Keep public transfer and complex attached-claim migration explicit remaining scope.
+Implement #12 reproducible projection coverage and a measured larger synthetic corpus; preserve live authorization and provenance checks while reducing context serialization work.
 
 ## Parallel changes and reconciliation
 

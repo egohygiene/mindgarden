@@ -338,6 +338,17 @@
                   },
                   "additionalProperties": false
                 }
+              },
+              "aliases": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "tags": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifierSet"
               }
             },
             "additionalProperties": false

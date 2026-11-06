@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:routing-transition-event:v1",
+  "type": "object",
+  "required": [
+    "request_sha256",
+    "from",
+    "to",
+    "operation",
+    "review",
+    "authority",
+    "rationale"
+  ],
+  "properties": {
+    "request_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "from": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    },
+    "to": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    },
+    "operation": {
+      "enum": [
+        "move",
+        "merge"
+      ]
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "human"
+        },
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

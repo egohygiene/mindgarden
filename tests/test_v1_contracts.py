@@ -128,6 +128,8 @@ class V1ContractTests(unittest.TestCase):
                 "curation-receipt",
                 "garden-catalog",
                 "routing-plan",
+                "routing-transition",
+                "routing-transition-event",
                 "routing-receipt",
                 "vault-export",
                 "vault-recovery-plan",

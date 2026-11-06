@@ -8,6 +8,7 @@ from ..domain.garden import inspect_garden
 from ..domain.publication import permits_publication
 from ..domain.scope import inherit_scope
 from ..domain.validation import ContractError
+from ..domain.routing_transitions import retired_references
 
 
 def key(reference: dict) -> tuple[str, str]:
@@ -61,6 +62,11 @@ def metadata_view(context):
         snapshots[garden] = snapshot
     records = {(garden, record_id): record for garden, snapshot in snapshots.items()
                for record_id, record in snapshot.records.items()}
+    retired = retired_references(records.values())
+    for identity, event in retired.items():
+        original = records.get(identity)
+        if original is not None and event["from"]["revision"] != "sha256:" + original["content"]["sha256"]:
+            raise ContractError("QUERY_INTEGRITY: canonical transition original revision differs")
     if public_output:
         for identity, record in list(records.items()):
             if record["schema"] == "mindgarden.knowledge/v1" and (record["publication"] != "eligible"
@@ -99,7 +105,9 @@ def metadata_view(context):
             denied.extend(dependents[identity])
     # Apply budgets after both authorization and sensitivity inheritance.
     candidates = sorted(identity for identity, record in records.items()
-                        if record["schema"] in {"mindgarden.knowledge/v1", "mindgarden.claim/v1"})
+                        if record["schema"] in {"mindgarden.knowledge/v1", "mindgarden.claim/v1"}
+                        and identity not in retired
+                        and (record["schema"] != "mindgarden.claim/v1" or key(record["subject"]) not in retired))
     permitted_candidates = set(candidates[:context.session["budgets"]["max_candidates"]])
     denied.extend(set(candidates) - permitted_candidates)
     while denied:
@@ -138,7 +146,10 @@ def metadata_view(context):
         revision = "sha256:" + digest_bytes(canonical_json({
             "schema": "mindgarden.authorized-view/v1", "garden": garden, "version": manifest["version"],
             "contracts": manifest["contracts"], "scope": context.bindings.garden(garden)["scope"],
-            "publication": manifest["publication"], "records": representations}))
+            "publication": manifest["publication"], "records": representations,
+            **({"transitions": [record for record in snapshot.records.values() if "x-routing-transition" in record]}
+               if any("x-routing-transition" in record for record in snapshot.records.values()) else {})}))
         views[garden] = {"records": retained, "revision": revision,
+                         "retired": {identity for identity in retired if identity[0] == garden},
                          "scopes": {record_id: effective[(garden, record_id)] for record_id in retained}}
     return views

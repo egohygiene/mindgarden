@@ -85,3 +85,34 @@ also loads bindings when a locked garden is temporarily between tree selections.
 public gardens and exercises explained fallback, no fallback, stable references,
 public review, reruns, conflict refusal, partial selection failure and failed
 rollback followed by CLI recovery. Full #14 and #30 integration remains open.
+
+## Private move and merge checkpoint
+
+`mindgarden route --local-config BINDINGS --transition REQUEST --plan` previews
+`mindgarden.routing-transition/v1`. Apply with `--apply --plan-digest SHA256`;
+`route --recover --plan-digest SHA256` uses the existing multi-garden journal.
+A request names exact `from` revisions, `to`, operation (`move` or `merge`),
+creation time, rationale and a separate human authority/approved review.
+
+A move creates a reviewed derivative with the same body, source evidence,
+authors, classifications, aliases, tags and qualifications. It preserves the
+original record and bytes. Attached claims/relationships/contradictions need an
+explicit curation proposal and currently fail with `ROUTE_TRANSITION_COMPLEX`.
+A merge first needs an existing reviewed authored merge with exact lineage to
+every input, then records retirement of those inputs. No source is deleted.
+
+Append-only `x-routing-transition` events use existing provenance records, with
+versioned event validation. `canonical_reference` follows the reviewed alias
+chain; the caller must separately authorize target access. Retrieval excludes
+retired homes and their claims before ranking, even if only the old garden is
+selected. Original bodies may still be read as authorized provenance of a new
+derivative. Transition metadata participates in session revisions, expiration
+and revocation checks; it never grants additional access.
+
+This bounded implementation requires matching ordinary personal policies. Public
+moves, policy-changing transfers, attached-graph migration and wider filesystem/
+power-loss behavior remain parent scope. A missing permitted target is an error,
+never an implicit public destination. Tests preserve every old file, prove one
+searchable home, exact aliases and authored merge lineage, reject stale authority,
+and recover both gardens after a simulated second cutover failure. New plan/event
+semantics remain a proposed decision, separate from implementation evidence.

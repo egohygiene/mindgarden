@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:routing-transition:v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "created_at",
+    "from",
+    "to",
+    "operation",
+    "review",
+    "authority",
+    "rationale"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.routing-transition/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "from": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+      }
+    },
+    "to": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    },
+    "operation": {
+      "enum": [
+        "move",
+        "merge"
+      ]
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "human"
+        },
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

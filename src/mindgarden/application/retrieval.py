@@ -34,6 +34,10 @@ def build_index(context: QueryContext, *, include_unreviewed: bool = False,
             kind = record["schema"]
             if kind not in {"mindgarden.knowledge/v1", "mindgarden.claim/v1"}:
                 continue
+            if ((garden_id, record_id) in context.retired
+                    or kind == "mindgarden.claim/v1" and
+                    (record["subject"]["garden"], record["subject"]["id"]) in context.retired):
+                continue
             if not context.allowed(garden_id, record) or record["status"] != "active":
                 if not (include_unreviewed and context.allowed(garden_id, record)
                         and record["status"] == "proposed"):

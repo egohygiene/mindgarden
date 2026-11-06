@@ -19,7 +19,8 @@
     "operation": {
       "enum": [
         "ingest",
-        "gardenize"
+        "gardenize",
+        "route"
       ]
     },
     "garden": {
