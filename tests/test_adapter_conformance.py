@@ -3,8 +3,11 @@
 from dataclasses import replace
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
+import sys
 import unittest
 from unittest.mock import patch
+
+sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
 
 from mindgarden.adapters.text_source import TextSourceAdapter
 from mindgarden.application.ingestion import apply_ingestion
