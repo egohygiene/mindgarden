@@ -79,6 +79,8 @@ def main():
     if arguments.require_installed and (engine.is_relative_to(ROOT / "src") or not engine.is_relative_to(Path(sys.prefix).resolve())):
         parser.error("Installed engine in the interpreter prefix is required")
     report = run_demo(arguments.workspace.absolute())
+    if report != json.loads((ROOT / "tests/fixtures/compaction/expected-proof.json").read_text()):
+        raise AssertionError("Synthetic compaction golden differs")
     if arguments.report:
         with arguments.report.open("xb") as stream: stream.write(canonical_json(report))
     print(canonical_json(report).decode(), end="")
