@@ -109,3 +109,11 @@ consumer-owned extension with a committed synthetic fixture and plan/apply proof
 It retains titles, URLs and notes, including inert bookmarklets, while marking
 page content `not-captured`. It claims only `example.reference-capture/1`, not
 Mindcap's still-unpublished provider-neutral snapshot/delta wire contract.
+
+## Document and opaque media follow-ups
+
+[PDF ingestion](document-ingestion.md) uses an explicitly selected optional local
+reader after initial classification; default restricted processing is unavailable.
+[Opaque media](mixed-source-vault.md) is registered as the fourth default adapter,
+preserving supplied PNG/JPEG/WAV/MP4/octet-stream bytes without decoding or model
+calls. Captured observations and canonical normalized identities remain separate.

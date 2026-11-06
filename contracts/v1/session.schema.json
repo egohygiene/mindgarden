@@ -103,7 +103,8 @@
           "backlinks",
           "context",
           "llms",
-          "evidence"
+          "evidence",
+          "assets"
         ]
       },
       "uniqueItems": true

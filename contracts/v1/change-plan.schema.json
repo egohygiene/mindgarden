@@ -20,7 +20,8 @@
       "enum": [
         "ingest",
         "gardenize",
-        "route"
+        "route",
+        "asset-review"
       ]
     },
     "garden": {

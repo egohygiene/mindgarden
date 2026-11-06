@@ -96,6 +96,7 @@ class DocumentTests(unittest.TestCase):
 
     def test_classification_authority_and_hash_are_bound_to_application(self):
         for key, value in (("kind", "declassification"), ("authority", {"kind": "agent", "id": "synthetic-agent"}),
+                           ("authority", {"kind": "human", "id": "different-human"}),
                            ("source_sha256", "0" * 64)):
             bad = deepcopy(self.classification); bad[key] = value; write_json(self.review, bad)
             with self.assertRaisesRegex(ContractError, "DOCUMENT_CLASSIFICATION|DOCUMENT_CHANGED"): self.plan()

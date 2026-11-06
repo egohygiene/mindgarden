@@ -1,0 +1,48 @@
+{
+  "asset_states": {
+    "sha256:0924472858641246bcb3fcc26fd03488d0dc81e918b0035e8d08dbd7293ccfd5": "unreviewed",
+    "sha256:60c0b6c740c791f5d9c1b7d688aa4e6719b93c8f4e7c4b7919ab86ad78b74068": "discard-proposed",
+    "sha256:dee4b975389e75fef6d0f2979530d79f3f7d322b63740c368bcd7ab3e4f447a1": "keep",
+    "sha256:f3a68532baab877d62576769f5d2a2843e9eb3f33b8062545b62435ef40df6d3": "unreviewed"
+  },
+  "assets": 4,
+  "backup_sha256": "6df48130f166ae02611e35d414194d08e753908cbe8c1a0909b62f1e2bf94453",
+  "context_bytes": 4486,
+  "context_max_bytes": 16384,
+  "context_sha256": "597eabe22583c7a5358d8c35df83c513c3b585f334c90ee50444852434f61799",
+  "destructive_gc": "unavailable",
+  "google": "unused",
+  "index_sha256": "d13f71bdec1aa78aad8a7a5dc1f0c3da992eaebfe75b3143590264a86266c277",
+  "inventory_sha256": "94943afdcf956406f0e4ee1fd3637569a38245cd647a1bc2b1ddb2d3940510af",
+  "model": "unused",
+  "network": "blocked-in-process",
+  "originals": "retained",
+  "pdf_reader_mode": "recorded-synthetic-reader-port",
+  "projections": "rebuilt-with-identical-index-context-inventory",
+  "rebind_interruption": "exact-retry-recovered",
+  "restore": "clean-location-verified",
+  "restricted_runtime": "unavailable",
+  "schema": "mindgarden.mixed-vault-proof/v1",
+  "source_references": {
+    "reviewed-pdf-prompt": {
+      "content_sha256": "6ec92a60fc9180c5f7713d722f84b8f345acf0d8f4c92c291098e46bc64e0762",
+      "locator": "json:/text",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-4fe058a878cfcf0d3fb36011-fc7a4baf2b84982a",
+        "revision": "sha256:fc7a4baf2b84982a3bd7474053cba758b3ae0de8806dea9f34fd1ff1c0a7a1f0"
+      }
+    },
+    "reviewed-prompt": {
+      "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+      "locator": "json:/content/0/text",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+        "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+      }
+    }
+  },
+  "status": "passed",
+  "vault_objects": 12
+}

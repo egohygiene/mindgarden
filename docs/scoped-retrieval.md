@@ -122,3 +122,8 @@ expiry/revocation, response-budget isolation, sanitized failures and unowned-cac
 preservation. Existing public federation/site/portal privacy fixtures continue to
 cover their own explicit public-input contracts. Host egress, confidentiality,
 ACL and provider certification remain the owning Hygiene/Realm acceptance gap.
+
+The [asset inventory](mixed-source-vault.md) extends this matrix through an
+explicit `assets` projection/source review grant. Its private manifest, counts,
+review lineage and metadata receive the same pre-body scope filtering, budgets,
+expiry/revocation and sanitized denial contract. Public inventory is unavailable.

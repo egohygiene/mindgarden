@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:storage-capabilities:v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "adapter",
+    "immutable_put",
+    "read",
+    "checksum_verification",
+    "audit",
+    "export",
+    "restore",
+    "relocate",
+    "encryption",
+    "remote",
+    "destructive_delete"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.storage-capabilities/v1"
+    },
+    "adapter": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,79}$"
+    },
+    "immutable_put": {
+      "type": "boolean"
+    },
+    "read": {
+      "type": "boolean"
+    },
+    "checksum_verification": {
+      "type": "boolean"
+    },
+    "audit": {
+      "type": "boolean"
+    },
+    "export": {
+      "type": "boolean"
+    },
+    "restore": {
+      "type": "boolean"
+    },
+    "relocate": {
+      "type": "boolean"
+    },
+    "encryption": {
+      "type": "boolean"
+    },
+    "remote": {
+      "type": "boolean"
+    },
+    "destructive_delete": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}

@@ -21,7 +21,8 @@ def classification_review(path: Path | None, garden_scope: dict) -> tuple[dict, 
     from ..domain.contracts import strict_json
 
     review = strict_json(content)
-    if ContractRegistry().errors(review, "document-classification"):
+    if (ContractRegistry().errors(review, "document-classification")
+            or review["authority"]["id"] not in review["review"]["reviewers"]):
         raise ContractError("DOCUMENT_CLASSIFICATION: supply an approved human initial-classification record")
     scope = inherit_scope([validate_scope(garden_scope), validate_scope(review["scope"])])
     if scope["visibility"] in {"public", "restricted"} or scope["persistence"] == "encrypted-vault":

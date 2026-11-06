@@ -111,3 +111,22 @@ class RegistryCacheTests(unittest.TestCase):
         self.assertEqual(report["classification"],"machine-local-control")
         self.assertEqual(report["publication"],"never-exportable")
         self.assertNotIn(str(self.root),output.getvalue())
+
+    def test_old_quarantine_cannot_undo_an_interrupted_reviewed_restore(self):
+        plan=build_cache_plan(self.registry,self.request)
+        apply_cache_plan(self.registry,plan,plan["plan_sha256"])
+        restore=build_cache_plan(self.registry,{**self.request,"id":"synthetic-restore","action":"restore","recovery_id":plan["recovery_id"]})
+        from mindgarden.application.registry_cache import atomic_journal
+        calls=0
+        def fail(path,document):
+            nonlocal calls
+            calls+=1
+            if calls==2:raise OSError("Synthetic restore receipt failure")
+            return atomic_journal(path,document)
+        with patch("mindgarden.application.registry_cache.atomic_journal",side_effect=fail):
+            with self.assertRaisesRegex(ContractError,"CACHE_RECOVERY_REQUIRED"):
+                apply_cache_plan(self.registry,restore,restore["plan_sha256"])
+        with self.assertRaisesRegex(ContractError,"CACHE_PLAN_STALE"):
+            apply_cache_plan(self.registry,plan,plan["plan_sha256"])
+        self.assertFalse(apply_cache_plan(self.registry,restore,restore["plan_sha256"]))
+        self.assertEqual((self.cache/"index.json").read_bytes(),self.content)

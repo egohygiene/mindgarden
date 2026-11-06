@@ -136,7 +136,8 @@ def apply_cache_plan(registry: Path,document: dict,reviewed_digest: str) -> bool
                 or previous.get("garden")!=request["garden"] or previous.get("scope_sha256")!=request["scope_sha256"]):
             raise ContractError("CACHE_CONFLICT: recovery state belongs to another reviewed operation")
         final_state="quarantined" if request["action"]=="quarantine" else "restored"
-        if request["action"]=="quarantine" and previous is not None and previous.get("state")=="restored":
+        if (request["action"]=="quarantine" and previous is not None
+                and previous.get("state") in {"prepared-restore","restored"}):
             raise ContractError("CACHE_PLAN_STALE: a restored cache needs a new reviewed operation identity")
         if source.exists() and destination.exists():
             raise ContractError("CACHE_CONFLICT: both locations exist; retain both for inspection")

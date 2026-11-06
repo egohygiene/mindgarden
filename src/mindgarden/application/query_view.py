@@ -106,7 +106,10 @@ def metadata_view(context):
             denied.extend(dependents[identity])
     # Apply budgets after both authorization and sensitivity inheritance.
     candidates = sorted(identity for identity, record in records.items()
-                        if record["schema"] in {"mindgarden.knowledge/v1", "mindgarden.claim/v1"}
+                        if (record["schema"] in {"mindgarden.knowledge/v1", "mindgarden.claim/v1"}
+                            or "assets" in context.session["projections"] and not public_output
+                            and record["schema"] == "mindgarden.source/v1" and record["kind"] == "captured"
+                            and context.allowed(identity[0], record))
                         and identity not in retired
                         and (record["schema"] != "mindgarden.claim/v1" or key(record["subject"]) not in retired))
     permitted_candidates = set(candidates[:context.session["budgets"]["max_candidates"]])
@@ -117,6 +120,9 @@ def metadata_view(context):
             del records[identity]
             denied.extend(dependents[identity])
     roots = {identity for identity in permitted_candidates if identity in records}
+    if "assets" in context.session["projections"] and not public_output:
+        roots.update(identity for identity, record in records.items() if "x-asset-review" in record
+                     and key(record["artifact"]) in roots)
     edges = sorted(identity for identity, record in records.items() if record["schema"] == "mindgarden.synapse/v1"
                    and key(record["source"]) in roots and key(record["target"]) in roots)
     roots.update(edges[:context.session["budgets"]["max_candidates"]])

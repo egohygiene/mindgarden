@@ -87,3 +87,16 @@ and dependency correction. Local policy ID/revision is unchanged: this exposes
 and shares the existing semantics rather than silently adopting an upstream
 policy or rewriting existing v1 classifications. Existing binding/session and
 v0 compatibility guidance above still applies.
+
+## Private assets and extension storage
+
+The optional `assets` session projection and explicit source review-state grants
+authorize [private inventory](mixed-source-vault.md). It inherits sensitivity and
+all live-authority/output budgets; public requests are denied. Existing default
+session grants and hashes stay unchanged unless this projection is requested.
+
+Local vault bindings accept an explicit adapter identifier. The default runtime
+installs only filesystem; callers must explicitly register other factories. A
+control root is machine-local, and unsupported/removed adapters never fall back.
+Capability booleans cannot authorize encryption, restricted execution or network
+access. Provider credentials remain outside portable records.

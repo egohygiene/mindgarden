@@ -198,3 +198,13 @@ This bounded evidence is linked to [#20](https://github.com/egohygiene/mindgarde
 through [draft #79](https://github.com/egohygiene/mindgarden/pull/79). It does not
 complete #20's broader publication, consumer or release acceptance. Full #45
 provider/platform/asset and owner-policy integration likewise remains open.
+
+## Mixed source and private storage continuation (#20 evidence)
+
+The [mixed-vault proof](mixed-source-vault.md) extends the original archive
+journey with reviewed PDF knowledge, opaque image/audio inventory, retained
+originals after triage, interrupted-rebind recovery, restore/relocation and clean
+projection rebuild. Four synthetic assets, twelve vault objects and exact archive
+and PDF citations survive the round trip. Its bounded context is 4,486 bytes.
+This is additional #20 evidence only; broader publication/consumer acceptance
+remains open. The proposed decisions are not ratified by passing the proof.
