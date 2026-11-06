@@ -96,3 +96,8 @@ curation approvals. Tests prove v1.2.1 → authored review → exact-source sear
 overlap identity limitations, selection and malformed-package rejection with
 network/process execution blocked. Real provider archives and full producer
 workflow conformance remain separate acceptance work.
+
+The adapter 1.1.0 metadata revision required an explicit
+[golden reconciliation](archive-version-golden-note.md). Evidence identities and
+vault bytes remain exact; the authorized metadata-view hashes change for new
+imports. Initial CI failures and their correction are recorded separately.

@@ -205,6 +205,8 @@ def main():
     if arguments.require_source and not engine_path.is_relative_to(REPOSITORY_ROOT / "src"):
         parser.error("This verification requires the engine from this exact source checkout")
     report = run_demo(arguments.workspace)
+    if report != read_object(REPOSITORY_ROOT / "tests/fixtures/conversation-archives/expected-proof.json"):
+        raise AssertionError("Synthetic private-workflow golden differs")
     if arguments.report:
         with arguments.report.open("xb") as output:
             output.write(canonical_json(report))
