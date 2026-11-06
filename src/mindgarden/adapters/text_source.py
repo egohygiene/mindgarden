@@ -8,6 +8,7 @@ class TextSourceAdapter:
     adapter_id = "plain-text"
     version = "1.0.0"
     supported_inputs = frozenset({("text/plain", None), ("text/markdown", None)})
+    limits = {"capture_bytes": 2_000_000, "unit_bytes": 2_000_001}
 
     def normalize(self, captured: bytes, metadata: dict) -> NormalizedBundle:
         if len(captured) > 2_000_000:

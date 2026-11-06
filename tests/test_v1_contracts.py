@@ -111,6 +111,7 @@ class V1ContractTests(unittest.TestCase):
                 "projection",
                 "provenance",
                 "source",
+                "source-adapter",
                 "synapse",
                 "scope",
                 "local-bindings",

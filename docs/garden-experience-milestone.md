@@ -1,5 +1,11 @@
 # Six-checkpoint garden experience batch
 
+**Current state:** all six PRs are merged at `30a2966` after explicit maintainer
+authorization. The [merge receipt](merged-experience-checkpoints.md) supersedes
+the draft-era authorization/status statements below. Those sections preserve the
+original checkpoint evidence and remaining acceptance scope. ADRs remain proposed.
+
+
 The maintainer authorized six separate draft PRs: #17, #38, #10, #18, #42 and
 #46. The base is merged main `8a9650e` (#67); its tree matches tested `3463d46`.
 No PR in this batch is authorized for automatic merge. Use synthetic fixtures,

@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-05
+updated: 2026-11-06
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -33,14 +33,14 @@ repository: egohygiene/mindgarden
 visibility: public
 publication: central
 route: /roadmap/mindgarden/
-updated: 2026-11-05
+updated: 2026-11-06
 -->
-## 2026-11-05 execution snapshot
+## 2026-11-06 execution snapshot
 
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate:** Deliver the six authorized draft checkpoints (#17/#38/#10/#18/#42/#46); full publication and pinned Empathy consumption retain separate gates.
+**Current gate:** Complete remaining publication and pinned-consumer criteria over merged #68–#73; broader product choices retain their ADR gates.
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
 
 ### Complete open-issue coverage and next batches
@@ -63,10 +63,12 @@ saved lifecycle plans, named scoped selections, non-destructive unregister,
 private snapshots/restore and synthetic public isolation evidence. Its tree is
 the tested `3463d46` tree; 188 tests pass on both supported Python versions.
 See [the registry proof](docs/local-registry.md). Full #30 and ADR acceptance
-remain open. The [six-draft checkpoint map](docs/garden-experience-milestone.md)
-records tested drafts #68/#69/#70/#71 for preview, design, conformance and
-composition, plus proposed architecture #72 and #46 compaction contracts/proof. All
-await maintainer sync before merge.
+remain open. The [six-checkpoint map](docs/garden-experience-milestone.md)
+records #68–#73, now merged at `30a2966`. The
+[merge receipt](docs/merged-experience-checkpoints.md) verifies the unchanged tested
+tree and separates proposal, implementation, test and acceptance state. ADRs remain
+proposed. The confirmed next sprint is #11 → #13 → #15 → #14 → #12 → #16; see
+[the checkpoint map](docs/source-workflow-sprint.md).
 Public `/garden`/portal proofs (#17/#18) and the complete #20 consumer path follow
 their actual contracts. #27 release preparation and #38 design tokens can advance
 independently. #46 retention policy is considered early; full compaction, SQLite,
