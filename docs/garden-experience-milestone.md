@@ -54,7 +54,7 @@ plan. A conflicting or incomplete output is retained for inspection.
 | Issue | Branch/base | Draft | Functional checkpoint |
 | --- | --- | --- | --- |
 | #17 | `feature/17-v1-garden-preview` / main `8a9650e` | [#68](https://github.com/egohygiene/mindgarden/pull/68) | `f1706a55a41c0528489b503662f708e1b4884e31` |
-| #38 | `feature/38-design-tokens` / #68 | Pending | Tokens/schema/references, validated CSS/Quartz consumer and mobile correction; verification below |
+| #38 | `feature/38-design-tokens` / #68 | [#69](https://github.com/egohygiene/mindgarden/pull/69) | `5b59d8e3c6b8b0fbdb1acdcf25a76ebf99968f18` |
 | #10 | `feature/10-public-conformance` / #38 checkpoint | Pending | Reusable publication/preview negatives and diagnostics |
 | #18 | `feature/18-portal-composition` / #10 checkpoint | Pending | Caller-owned composition and recovery |
 | #42 | `docs/42-architecture-decisions` / #18 checkpoint | Pending | Proposed decisions and disposition map |

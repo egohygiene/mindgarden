@@ -9,7 +9,7 @@ visibility: public
 owners:
 - egohygiene/mindgarden
 issue: https://github.com/egohygiene/mindgarden/issues/38
-pull_request: null
+pull_request: https://github.com/egohygiene/mindgarden/pull/69
 related:
 - ADR-0013
 supersedes: []
