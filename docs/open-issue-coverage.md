@@ -136,7 +136,7 @@ not one serial gate over all work.
 | [#30](https://github.com/egohygiene/mindgarden/issues/30) — local registry/private overlays | partial | #55/#62 bindings/scoped queries; merged #67 Linux lifecycle, named views, atomic private recovery and CLI public-isolation proof; draft #82 adds owned cache recovery/platform matrix | Native macOS/Windows mutation, verified restricted/encrypted coexistence, organization/host assurance; draft cache quarantine/restore proof is supplied by #82 | #29/#14/#16 contracts available; Hygiene #39/#40 and Realm #25/#60 gate assurance; preserve content on unregister |
 | [#31](https://github.com/egohygiene/mindgarden/issues/31) — scoped retrieval/sensitivity | partial | #62/#64 filter before bodies/ranking; draft #81 output byte ceilings, live authority, sanitized diagnostics and owned caches; private asset output follows the same contract | Full federation/consumer projections, normative assurance/declassification and runtime integration | #29/#10/#12/#14, Hygiene #40 and Realm #25/#60; carry invariants into B1/B2/Q |
 | [#35](https://github.com/egohygiene/mindgarden/issues/35) — confidential document/PDF ingestion | partial | Draft #83 ordinary synthetic PDF checkpoint: versioned bundles/page spans, explicit initial classification, optional Poppler 25.03.0 and six real parser states | Confidential encrypted runtime/temp assurance, OCR/office/complex layout and real consumer proof | #29/#10/#11 local boundary usable; Hygiene #39/#40 and Realm #25/#60 still gate restricted processing |
-| [#45](https://github.com/egohygiene/mindgarden/issues/45) — portable private source/media vault | partial | #56/#63/#64 immutable vault/recovery; new mixed-vault draft adds versioned asset manifests, opaque media, retained-original review, explicit storage factories and archive/PDF/media recovery golden | Approved-copy rights policy, timed/destructive retention, encrypted/provider/platform/power-loss acceptance and real private consumer integration | #11/#15/#30/#31/#35/#40/#42; R0 early, later local/media checkpoints and independent adapter proofs |
+| [#45](https://github.com/egohygiene/mindgarden/issues/45) — portable private source/media vault | partial | #56/#63/#64 immutable vault/recovery; draft #84 adds versioned asset manifests, opaque media, retained-original review, explicit storage factories and archive/PDF/media recovery golden | Approved-copy rights policy, timed/destructive retention, encrypted/provider/platform/power-loss acceptance and real private consumer integration | #11/#15/#30/#31/#35/#40/#42; R0 early, later local/media checkpoints and independent adapter proofs |
 
 ## Ingestion, curation, routing and retrieval
 
@@ -293,7 +293,7 @@ The [checkpoint/dependency map](private-storage-sprint.md) records shared policy
 decisions and the external Hygiene/Realm gaps before runtime coupling. No existing
 draft is merged or parent closed by this continuation.
 
-The private-storage continuation adds drafts #80–#83 and the mixed-vault checkpoint
+The private-storage continuation adds drafts #80–#84
 on top of #79. [Its evidence](private-storage-sprint.md) records exact sources,
 commands, remaining owner gates and the combined checkout. #20 gains bounded
 archive/PDF/media evidence without broader publication or consumer acceptance.

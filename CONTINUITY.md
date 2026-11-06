@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T10:57:04Z'
+  updated_at: '2026-11-06T11:27:23Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -44,17 +44,18 @@ work:
   - Preserve Python/v0, private boundaries and proposed ADR status.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#35
-    url: https://github.com/egohygiene/mindgarden/issues/35
+    id: egohygiene/mindgarden#45
+    url: https://github.com/egohygiene/mindgarden/issues/45
   next:
     kind: action
-    id: mixed-source-vault-checkpoint
-    description: 'Implement #45 mixed archive/PDF/media asset manifests, append-only non-destructive triage
-      and explicit storage adapter registration. Prove restore/relocation with exact references and no
-      Google/model services; retain external encrypted/provider/platform gates.'
+    id: review-private-storage-stack
+    description: 'Review drafts #74 through #84 in dependency order. All five local checkpoints are implemented;
+      keep parent issues and proposed ADRs open. Check final #84 automatic CI separately, then await maintainer
+      review/merge authority. External policy, confidential runtime, native-platform/provider and approved-copy/retention
+      proofs remain separate gates.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/35
+    - https://github.com/egohygiene/mindgarden/issues/45
     depends_on: []
 state:
   base:
@@ -62,16 +63,16 @@ state:
     ref: refs/heads/main
     verified_at: '2026-11-06T05:27:17Z'
   candidate:
-    branch: feature/35-local-document-adapter
-    revision: e966e3e10d9279cbb4ef7c518a35ab01f2d610e5
+    branch: feature/45-mixed-source-vault-proof
+    revision: 79e39f072c249760e20fd567f679395f37931816
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#83
-      url: https://github.com/egohygiene/mindgarden/pull/83
+      id: egohygiene/mindgarden#84
+      url: https://github.com/egohygiene/mindgarden/pull/84
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T10:57:04Z'
+    observed_at: '2026-11-06T11:27:23Z'
     default_branch_revision: 30a29668a02740a91e77aec22f670a8270ccddf4
     issue_state: open
     pull_request_state: draft
@@ -79,30 +80,49 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T10:57:04Z'
+  reviewed_at: '2026-11-06T11:27:23Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_documents tests.test_source_adapters tests.test_v1_contracts
-      -q
+  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T10:57:04Z'
-    notes: 20 passed
-  - command: .cache/python313/bin/python -m unittest tests.test_documents -q
+    observed_at: '2026-11-06T11:27:23Z'
+    notes: 298 passed; no skips; Python 3.12.14
+  - command: .cache/python313/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T10:57:04Z'
-    notes: 8 passed
-  - command: .venv/bin/python scripts/document_demo.py --workspace .cache/pdf-final-proof --tool-directory
-      /usr/bin --require-source --report .cache/pdf-final-proof.json
+    observed_at: '2026-11-06T11:27:23Z'
+    notes: 298 passed; no skips; Python 3.13.5
+  - command: .venv/bin/python scripts/mixed_vault_demo.py --workspace .cache/mixed-real-proof --tool-directory
+      /usr/bin --require-source --report .cache/mixed-real-proof.json
     outcome: passed
-    observed_at: '2026-11-06T10:57:04Z'
-    notes: real Poppler 25.03.0 six states, page golden, repeat import, scratch cleanup pass
-  - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/pdf-private-compatibility
-      --require-source
+    observed_at: '2026-11-06T11:27:23Z'
+    notes: actual Poppler 25.03.0 mixed golden passed
+  - command: cmp tests/fixtures/assets/expected-proof.json .cache/storage-clean-source-proof.json
     outcome: passed
-    observed_at: '2026-11-06T10:57:04Z'
-    notes: full existing golden matched
+    observed_at: '2026-11-06T11:27:23Z'
+    notes: clean functional git archive / -S source exact golden
+  - command: cmp tests/fixtures/assets/expected-proof.json .cache/storage-clean-installed-proof.json
+    outcome: passed
+    observed_at: '2026-11-06T11:27:23Z'
+    notes: isolated -I installed wheel exact golden; zero dependencies
+  - command: .cache/storage-clean-wheel/bin/python -I .cache/storage-clean-checkout/scripts/document_demo.py
+      --workspace .cache/storage-installed-pdf-proof --tool-directory /usr/bin --require-installed --report
+      .cache/storage-installed-pdf-proof.json
+    outcome: passed
+    observed_at: '2026-11-06T11:27:23Z'
+    notes: installed actual six-state PDF proof passed
+  - command: python3 .cache/six_owner_checks.py
+    outcome: passed
+    observed_at: '2026-11-06T11:27:23Z'
+    notes: pinned owners/continuity/38-row ledger pass
+  - command: GitHub Test run 42209496631 on 79e39f072c249760e20fd567f679395f37931816
+    outcome: passed
+    observed_at: '2026-11-06T11:27:23Z'
+    notes: passed; Python 3.12/3.13 with Node 24
   environment_limitations:
-  - Automatic PR CI is separate from local checks; no paid workflow dispatched.
+  - 'Hosted functional CI #80–#84 passed; documentation-head CI remains a separately observed run. No
+    paid workflow dispatched.'
+  - Only Linux ordinary filesystem/resource containment is evidenced; no confidential host/network-isolation
+    or native provider/platform assurance.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -139,23 +159,23 @@ with verification, honest retained parent scope and reproducible combined checko
 
 ## State snapshot
 
-Draft #83 on feature/35-local-document-adapter is stacked over #82/#81/#80/#79. Functional source e966e3e; all drafts remain unmerged.
+Combined functional checkout 79e39f0 on feature/45-mixed-source-vault-proof; draft #84 over #83/#82/#81/#80/#79. Eleven drafts #74–#84 are open/unmerged. Live inventory still has 38 open parents.
 
 ## Completed and material changes
 
-Optional local PDF reader and versioned bundle/page contracts with original hashes, parser provenance, page geometry and exact UTF-8 word spans. Explicit digest-bound initial human classification for new ordinary synthetic inputs; default restricted processing unavailable before input/parser/temp access. Six incomplete/error states fail without partial ingestion. Proposed ADR-0023 is unapproved.
+Five bounded policy/storage checkpoints: shared local decisions, scoped output guards and safe diagnostics, reversible owned-cache recovery, optional classified PDF/page evidence, opaque media/private asset inventory and append-only human triage. Mixed archive/PDF/PNG/WAV proof preserves exact references through interrupted rebind, restore/relocation and clean rebuild. Original bytes remain intact; ADR-0023/0024 proposed/null approval.
 
 ## Validation and review evidence
 
-20 document/adapter/contracts tests pass on 3.12; 8 document tests pass on 3.13. Real Poppler 25.03.0 six-state/page-golden/idempotence/cleanup proof passes. Existing private CLI golden and owner/compile/diff checks pass.
+298 tests pass with no skips on each Python 3.12.14 and 3.13.5. Real Poppler 25.03.0 mixed proof passes; 4 assets/12 objects/4486-byte context. Clean git-archive source (-S) and isolated zero-dependency wheel (-I) reports equal the committed golden; installed real PDF and v0 CLI proofs pass. Hosted Test passed for all five functional draft checkpoints; #84 run 42209496631 passed both Python/Node jobs on 79e39f0. Documentation-head CI is separate.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Normative Hygiene #39/#40, Realm #25/#60, encrypted storage/key broker and confidential runtime are unavailable here. OCR/office/semantic layout/attachment extraction and real private consumer acceptance remain parent scope. Initial classification is not declassification or publication approval.
+No unavailable integration was invented: Hygiene #39/#40 and Realm #25/#60 normative/confidential contracts remain external; encrypted/key-broker/runtime, native macOS/Windows mutation, provider/power-loss/real consumer proofs remain open. Approved-copy, timed/destructive retention and restricted triage unavailable. No parent closure, merges, publication, real private data or ADR ratification.
 
 ## Next dependency-ready work
 
-Implement #45 mixed archive/PDF/media asset manifests, append-only non-destructive triage and explicit storage adapter registration. Prove restore/relocation with exact references and no Google/model services; retain external encrypted/provider/platform gates.
+Review drafts #74 through #84 in dependency order. All five local checkpoints are implemented; keep parent issues and proposed ADRs open. Check final #84 automatic CI separately, then await maintainer review/merge authority. External policy, confidential runtime, native-platform/provider and approved-copy/retention proofs remain separate gates.
 
 ## Parallel changes and reconciliation
 
