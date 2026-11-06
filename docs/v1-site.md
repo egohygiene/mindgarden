@@ -90,6 +90,33 @@ does not disclose omitted records or private counts.
 
 ## Scope still open
 
+Draft [#68](https://github.com/egohygiene/mindgarden/pull/68), functional
+`f1706a55a41c0528489b503662f708e1b4884e31`, passes 197 tests on both supported
+Python versions. Actual pinned rendering and installed-wheel rendering are
+byte-identical (58 files/three selected note routes). Browser search, backlinks,
+exact citation/canonical route and local SVG zoom pass with no external requests
+or uncaught page errors. The initial mobile viewport has overflow; #38 carries
+its correction. These are bounded checkpoint results, not complete #17 acceptance.
+
+Exact clean-source/default-content proof commands, using fresh paths:
+
+```sh
+mkdir .cache/six17-clean
+git archive --format=tar f1706a55a41c0528489b503662f708e1b4884e31 | \
+  tar --extract --directory .cache/six17-clean
+PYTHONPATH=.cache/six17-clean/src .venv/bin/python -S \
+  .cache/six17-clean/scripts/site_demo.py --require-source \
+  --workspace .cache/six17-source-proof --report .cache/six17-source-report.json
+cmp tests/fixtures/site/expected-proof.json .cache/six17-source-report.json
+.venv/bin/python -m build --sdist --wheel --outdir .cache/dist
+.venv/bin/python -m venv --without-pip .cache/six17-wheel
+python3 -m pip --python .cache/six17-wheel/bin/python install --no-cache-dir \
+  --no-index --find-links .cache/dist mindgarden==0.1.0
+.cache/six17-wheel/bin/python -I scripts/site_demo.py --require-installed \
+  --workspace .cache/six17-installed-proof --report .cache/six17-installed-report.json
+cmp tests/fixtures/site/expected-proof.json .cache/six17-installed-report.json
+```
+
 Full #17 WCAG 2.2 AA, extensive mobile/large-corpus evidence and real-consumer
 acceptance remain open. #38 supplies reusable design tokens; #10 expands the
 negative matrix; #18 proves portal composition. Hostile-writer, process/network

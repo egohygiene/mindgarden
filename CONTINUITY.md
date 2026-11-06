@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T02:04:00Z'
+  updated_at: '2026-11-06T02:31:00Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -44,12 +44,13 @@ work:
     url: https://github.com/egohygiene/mindgarden/issues/17
   next:
     kind: action
-    id: finish-public-preview-checkpoint
-    description: 'Finish actual Quartz/browser/package proof, push draft #17 checkpoint, then continue
-      #38/#10/#18/#42/#46 without routine confirmation.'
+    id: design-token-and-mobile-checkpoint
+    description: 'Branch feature/38-design-tokens from #68; implement tokens/schema/references/consumer
+      and fix observed mobile overflow, then continue #10/#18/#42/#46.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/17
+    - https://github.com/egohygiene/mindgarden/issues/38
+    - https://github.com/egohygiene/mindgarden/pull/68
     depends_on: []
 state:
   base:
@@ -58,32 +59,47 @@ state:
     verified_at: '2026-11-06T02:04:00Z'
   candidate:
     branch: feature/17-v1-garden-preview
-    revision: 8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765
-    pull_request: null
-    handoff_state: in-progress
+    revision: f1706a55a41c0528489b503662f708e1b4884e31
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#68
+      url: https://github.com/egohygiene/mindgarden/pull/68
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T02:04:00Z'
+    observed_at: '2026-11-06T02:31:00Z'
     default_branch_revision: 8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765
     issue_state: open
-    pull_request_state: not-applicable
-    notes: '#67 is merged, with the exact tested 3463d46 tree. 38 issues and no open PRs at start. Six
-      new drafts are authorized; merging and ADR ratification await maintainer sync.'
+    pull_request_state: draft
+    notes: '#68 is draft over merged main 8a9650e; final source checkpoint f1706a5 has successful automatic
+      CI. Five further drafts are authorized. All merging awaits maintainer sync; ADRs remain proposed.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T02:04:00Z'
+  reviewed_at: '2026-11-06T02:31:00Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest discover --start-directory tests
+  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose; .cache/python313/bin/python
+      -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T02:04:00Z'
-    notes: 188-test merged baseline, no skips.
-  - command: .venv/bin/python -m unittest tests.test_site tests.test_v1_contracts tests.test_publish_garden
-      --verbose
+    observed_at: '2026-11-06T02:31:00Z'
+    notes: 197 tests each, no skips. Fresh source/wheel, both compile checks, Node24, owner schemas
+      and whitespace pass.
+  - command: scripts/site_demo.py --require-source / --require-installed
     outcome: passed
-    observed_at: '2026-11-06T02:04:00Z'
-    notes: 20 targeted site/schema/v0-publishing tests; actual rendering/browser/package proof in progress.
+    observed_at: '2026-11-06T02:31:00Z'
+    notes: Clean -S source and -I wheel match committed proof; actual prepared offline renderer produces
+      byte-identical 58-file source/wheel trees.
+  - command: Chromium/Playwright against site serve loopback preview
+    outcome: limited
+    observed_at: '2026-11-06T02:31:00Z'
+    notes: 'Search/backlink/exact citation/canonical route/local SVG zoom pass; zero external requests/page
+      errors. Mobile overflow is carried into #38.'
+  - command: Automatic Test run 42150215705
+    outcome: passed
+    observed_at: '2026-11-06T02:31:00Z'
+    notes: Passed on source checkpoint f1706a5; later heads observed separately. No manual workflow
+      dispatch.
   environment_limitations:
   - No new hosted CI result is claimed before the draft is pushed.
   - Full accessibility/large-graph/native/restricted-runtime, Relay/host deployment and approved private-pilot
@@ -126,8 +142,8 @@ external gate blocks full integration; leave all merging for maintainer sync.
 ## State snapshot
 
 Base main 8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765 merges #67. Its tree equals
-tested 3463d46. Current branch feature/17-v1-garden-preview has the initial v1
-public-site implementation locally; first draft pending. #67's old draft wording
+tested 3463d46. Draft #68 on feature/17-v1-garden-preview contains source f1706a5;
+its local and automatic checks pass. Later handoff changes are documentation only. #67's old draft wording
 in earlier documents is historical and must be reconciled during this batch.
 
 ## Completed and material changes
@@ -142,9 +158,10 @@ A loopback preview serves only manifest members with live authority/hash checks.
 
 ## Validation and review evidence
 
-188-test merged baseline passes. 20 targeted site/schema/v0 publication checks
-pass. Actual renderer/browser and fresh package/clean-install proof are in
-progress. Renderer acquisition was explicit, separate from offline query/build.
+197 tests pass on both supported Python versions, with fresh artifacts and
+clean -S source/-I wheel proofs. Actual source/wheel renderings are byte-identical
+(58 files, three record routes); browser search/backlinks/citations/SVG zoom pass.
+Mobile overflow remains an explicit #38 follow-up. Renderer acquisition was explicit, separate from offline query/build.
 No deployment, manually launched paid workflow, package publication or model call.
 
 ## Blockers, risks, unknowns, and deferred work
@@ -157,8 +174,8 @@ to preserve. Rich body Markdown/assets are outside the initial literal adapter.
 
 ## Next dependency-ready work
 
-Finish #17 rendering/browser/resource evidence, open its coherent draft, update
-branch/PR/commits here, then proceed through #38/#10/#18/#42/#46. Every checkpoint
+Proceed from draft #68 to #38 tokens/design and mobile correction, then
+#10/#18/#42/#46. Exact evidence/stack: docs/garden-experience-milestone.md. Every checkpoint
 updates the six-PR map, exact commands/results and next action. No routine
 confirmation between authorized checkpoints; no automatic merge.
 

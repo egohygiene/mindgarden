@@ -51,8 +51,26 @@ plan. A conflicting or incomplete output is retained for inspection.
 
 ## State and recovery
 
-Current branch: `feature/17-v1-garden-preview`; first draft pending. The 188-test
-merged baseline passes. Targeted site/schema/v0-publishing checks pass; actual
-rendering, browser checks and packaging evidence are being completed in the same
-draft checkpoint. Later rows will record branch/PR, functional commits, exact
-commands, CI separately from local checks, blockers and the next action.
+| Issue | Branch/base | Draft | Functional checkpoint |
+| --- | --- | --- | --- |
+| #17 | `feature/17-v1-garden-preview` / main `8a9650e` | [#68](https://github.com/egohygiene/mindgarden/pull/68) | `f1706a55a41c0528489b503662f708e1b4884e31` |
+| #38 | `feature/38-design-tokens` / #68 | Pending | Next action: tokens/consumer and mobile-overflow correction |
+| #10 | `feature/10-public-conformance` / #38 checkpoint | Pending | Reusable publication/preview negatives and diagnostics |
+| #18 | `feature/18-portal-composition` / #10 checkpoint | Pending | Caller-owned composition and recovery |
+| #42 | `docs/42-architecture-decisions` / #18 checkpoint | Pending | Proposed decisions and disposition map |
+| #46 | `feature/46-compaction-contracts` / #42 checkpoint | Pending | Contracts and authored synthetic proof |
+
+#17 verification at `f1706a5`: 197 tests pass without skips on Python 3.12.14 and
+3.13.5. Fresh source/wheel resources, both compile checks, Node 24.19.0, whitespace
+and pinned Hygiene/Aether metadata checks pass. Clean `git archive` source with
+`-S` and isolated installed wheel with `-I` both reproduce
+`tests/fixtures/site/expected-proof.json` exactly. An actual offline Quartz build
+produces 58 files/three canonical note routes; source and installed wheel render
+byte-identical trees. Chromium verifies exact source hash/locator, canonical URL,
+search (six public results), one selected backlink, three SVG nodes/one typed
+edge and zoom. No external browser request or uncaught page error was observed.
+
+Mobile overflow was observed and is an explicit #38 follow-up; full WCAG/large-
+corpus/consumer acceptance remains open. The [automatic Test run](https://github.com/egohygiene/mindgarden/actions/runs/42150215705)
+passed on `f1706a5`; later heads receive separate checks. No workflow was manually
+launched. Exact CLI and optional preparation commands: [v1 preview](v1-site.md).
