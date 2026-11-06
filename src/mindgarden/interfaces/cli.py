@@ -592,6 +592,20 @@ def build_parser() -> ArgumentParser:
     add_federation_command(commands)
     add_compaction_command(commands)
     add_registry_command(commands)
+    from ..application.query_store import run_query_store
+
+    query_store = commands.add_parser("query-store", help="Use an explicit optional private SQLite query cache")
+    query_store.add_argument("--local-config", type=Path, required=True)
+    query_store.add_argument("--scope", type=Path, required=True)
+    query_store.add_argument("--cache-directory", type=Path, required=True)
+    query_store.add_argument("--operation", choices=("capabilities", "plan", "build", "audit", "search", "graph", "backlinks", "backup", "restore", "reset-plan", "reset"), required=True)
+    query_store.add_argument("--plan-digest")
+    query_store.add_argument("--backup-file", type=Path)
+    query_store.add_argument("--query", default="")
+    query_store.add_argument("--target", default="")
+    query_store.add_argument("--limit", type=positive_integer, default=10)
+    query_store.add_argument("--depth", type=positive_integer, default=1)
+    query_store.set_defaults(handler=run_query_store)
     from ..application.decisions import run_decisions
 
     decisions = commands.add_parser("decisions", help="Project explicit public ADR read-model metadata")
