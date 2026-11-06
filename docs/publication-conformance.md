@@ -48,6 +48,10 @@ complete manifest checks are mandatory. Preview GET/HEAD responses and errors
 use `no-store`; only original manifest members may be served. Checksums establish
 integrity, not producer authenticity. Authority remains an explicit local session.
 
+Final stack verification also rejects malformed unused storage declarations with
+relative roots or traversal. These declarations cannot evade export/cache overlap
+checks, and validating their lexical form does not probe denied locations.
+
 Remaining #10 work includes external normative policy/runtime assurance, approved
 consumer conformance and media-specific adapters. No secret-scanning, source-rights
 adjudication or sensitivity-classification claim is made by this pack.

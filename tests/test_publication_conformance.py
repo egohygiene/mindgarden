@@ -97,15 +97,20 @@ class PublicationConformanceTests(unittest.TestCase):
         self.assertIn(b"lines:1-1", projection.files["notes/reviewed-prompt/index.md"])
 
     def test_engine_sibling_cache_never_overlaps_declared_denied_vault(self):
-        for suffix in ("npm", "archive/nested"):
-            with self.subTest(suffix=suffix):
+        (self.fixture["workspace"] / "unrelated").mkdir()
+        roots = (self.fixture["engine"].parent / "npm", self.fixture["engine"].parent / "archive/nested",
+                 self.fixture["workspace"] / "unrelated/../.cache/mindgarden/npm", Path("relative-vault"))
+        for root in roots:
+            with self.subTest(root=str(root)):
                 document = json.loads(self.fixture["configuration"].read_text())
-                document["vaults"][0]["root"] = str(self.fixture["engine"].parent / suffix)
+                document["vaults"][0]["root"] = str(root)
                 write_json(self.fixture["configuration"], document)
                 self.context = QueryContext.load(self.fixture["configuration"], self.fixture["session_path"])
                 with self.assertRaisesRegex(ContractError, "SITE_ENGINE"):
                     self.projection().plan(self.context, self.fixture["export"], operation="build", engine_directory=self.fixture["engine"])
                 self.assertFalse(self.fixture["engine"].parent.exists())
+        with self.assertRaisesRegex(ContractError, "FEDERATION_OUTPUT"):
+            self.projection().plan(self.context, self.fixture["export"])
 
     def test_manifest_unknown_version_duplicate_routes_and_unsafe_paths_fail(self):
         projection = self.projection()
