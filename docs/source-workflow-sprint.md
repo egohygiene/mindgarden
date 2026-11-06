@@ -21,7 +21,7 @@ a separate bounded task. No cloud or model service becomes mandatory.
 
 | Issue | Bounded checkpoint | Remaining parent scope | Draft / source | Verification | Exact next action |
 | --- | --- | --- | --- | --- | --- |
-| #11 | Versioned declarations, output limits, fixture conformance, immutable observations, reference extension | Mindcap #35 provider-neutral wire contract and real consumer proof | #74, `milestone/next-six-checkpoints`; functional commit recorded below | 237 Python 3.12 tests; 18 targeted on 3.13; offline proof/build/distribution passed | Review #74; continue #13 |
+| #11 | Versioned declarations, output limits, fixture conformance, immutable observations, reference extension | Mindcap #35 provider-neutral wire contract and real consumer proof | #74, `milestone/next-six-checkpoints`; `65b15fb` | 237 Python 3.12 tests; 18 targeted on 3.13; offline proof/build/distribution passed | Review #74; continue #13 |
 | #13 | Authored transformation/attribution negatives and remaining dispositions | Optional extraction producers/model evaluations, real review | Pending, stacked on #11 | Pending | Inspect existing curation contracts |
 | #15 | Verify historical specs; selective attachment normalization | Untested profiles, multipart/collections, real archive pilot | Pending, stacked on #13 | Pending | Read exact v1.2.1/v2.0.1 and current specifications |
 | #14 | Non-destructive existing-knowledge lifecycle and recovery | Full multi-consumer workflow and owner acceptance | Pending, stacked on #15 | Pending | Reuse routing/transaction services |

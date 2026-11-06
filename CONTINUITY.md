@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T06:01:43Z'
+  updated_at: '2026-11-06T06:02:03Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -47,9 +47,9 @@ work:
     url: https://github.com/egohygiene/mindgarden/issues/11
   next:
     kind: action
-    id: source-adapter-verification
-    description: 'Finish #11 conformance verification, push draft #74, then inspect remaining authored
-      curation cases for #13.'
+    id: curation-transformation-conformance
+    description: 'Implement #13 merge attribution/qualification preservation, exact relationship and selected-evidence
+      validation, and authored redaction fixtures on a branch stacked over #74.'
     readiness: ready
     references:
     - https://github.com/egohygiene/mindgarden/issues/11
@@ -61,7 +61,7 @@ state:
     verified_at: '2026-11-06T05:27:17Z'
   candidate:
     branch: milestone/next-six-checkpoints
-    revision: ddda08607e18737f9a5e4d23f72a439ca072d38c
+    revision: 65b15fb79f68b84b40f364fefedf3e85f87ab174
     pull_request:
       provider: github
       id: egohygiene/mindgarden#74
@@ -69,7 +69,7 @@ state:
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T06:01:43Z'
+    observed_at: '2026-11-06T06:02:03Z'
     default_branch_revision: 30a29668a02740a91e77aec22f670a8270ccddf4
     issue_state: open
     pull_request_state: draft
@@ -77,38 +77,38 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T06:01:43Z'
+  reviewed_at: '2026-11-06T06:02:03Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest tests.test_source_adapters tests.test_adapter_conformance tests.test_v1_contracts
       -q
     outcome: passed
-    observed_at: '2026-11-06T06:01:43Z'
+    observed_at: '2026-11-06T06:02:03Z'
     notes: 18 tests passed
   - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist
     outcome: passed
-    observed_at: '2026-11-06T06:01:43Z'
+    observed_at: '2026-11-06T06:02:03Z'
     notes: source and wheel built
   - command: .venv/bin/python -m unittest discover --start-directory tests -q
     outcome: passed
-    observed_at: '2026-11-06T06:01:43Z'
+    observed_at: '2026-11-06T06:02:03Z'
     notes: 237 tests passed, 131.975 seconds
   - command: .cache/python313/bin/python -m unittest tests.test_source_adapters tests.test_adapter_conformance
       tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-06T06:01:43Z'
+    observed_at: '2026-11-06T06:02:03Z'
     notes: 18 tests passed
   - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/sprint11-private --require-source
     outcome: passed
-    observed_at: '2026-11-06T06:01:43Z'
+    observed_at: '2026-11-06T06:02:03Z'
     notes: offline exact-reference/search/context/relocation golden proof passed
   - command: .venv/bin/python -m unittest tests.test_distribution -q
     outcome: passed
-    observed_at: '2026-11-06T06:01:43Z'
+    observed_at: '2026-11-06T06:02:03Z'
     notes: 2 tests passed
   - command: python3 .cache/six_owner_checks.py
     outcome: passed
-    observed_at: '2026-11-06T06:01:43Z'
+    observed_at: '2026-11-06T06:02:03Z'
     notes: proposed ADRs, continuity and 38 issue ledger passed
   environment_limitations:
   - Automatic PR CI is separate from local checks; no paid workflow dispatched.
@@ -148,7 +148,7 @@ with verification, honest retained parent scope and reproducible combined checko
 
 ## State snapshot
 
-Current branch milestone/next-six-checkpoints, draft #74 over main. #11 implementation is under local verification; later five checkpoints have not started.
+Draft #74 on milestone/next-six-checkpoints over main, functional source 65b15fb79f68b84b40f364fefedf3e85f87ab174. First bounded checkpoint is locally verified; no new parent acceptance or ADR approval.
 
 ## Completed and material changes
 
@@ -164,7 +164,7 @@ Mindcap #35 wire contract is not published at inspected main pin; synthetic refe
 
 ## Next dependency-ready work
 
-Finish #11 conformance verification, push draft #74, then inspect remaining authored curation cases for #13.
+Implement #13 merge attribution/qualification preservation, exact relationship and selected-evidence validation, and authored redaction fixtures on a branch stacked over #74.
 
 ## Parallel changes and reconciliation
 
