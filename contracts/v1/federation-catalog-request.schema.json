@@ -28,10 +28,58 @@
           "expected_revision": {
             "type": "string",
             "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "format": {
+            "enum": [
+              "federation-bundle",
+              "rendered-site"
+            ]
+          },
+          "expected_manifest_sha256": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "format"
+              ],
+              "properties": {
+                "format": {
+                  "const": "rendered-site"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "expected_manifest_sha256"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "expected_manifest_sha256"
+              ]
+            },
+            "then": {
+              "required": [
+                "format"
+              ],
+              "properties": {
+                "format": {
+                  "const": "rendered-site"
+                }
+              }
+            }
+          }
+        ]
       }
+    },
+    "previous": {
+      "$ref": "urn:egohygiene:mindgarden:federation-catalog:v1"
     }
   },
   "additionalProperties": false

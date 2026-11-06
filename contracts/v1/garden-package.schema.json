@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:garden-package:v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "format",
+    "publisher",
+    "revision",
+    "descriptor_sha256",
+    "rendering",
+    "trust",
+    "authority",
+    "execution",
+    "capabilities"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.garden-package/v1"
+    },
+    "format": {
+      "const": "rendered-public-site/v1"
+    },
+    "publisher": {
+      "type": "object",
+      "required": [
+        "garden",
+        "canonical_uri"
+      ],
+      "properties": {
+        "garden": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        },
+        "canonical_uri": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false
+    },
+    "revision": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+    },
+    "descriptor_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "rendering": {
+      "type": "object",
+      "required": [
+        "revision",
+        "manifest_sha256"
+      ],
+      "properties": {
+        "revision": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+        },
+        "manifest_sha256": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "trust": {
+      "const": "untrusted-evidence"
+    },
+    "authority": {
+      "const": "read-only"
+    },
+    "execution": {
+      "const": "data-only"
+    },
+    "capabilities": {
+      "const": [
+        "discovery",
+        "canonical-links"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

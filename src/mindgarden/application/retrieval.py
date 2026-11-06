@@ -80,8 +80,10 @@ def build_index(context: QueryContext, *, include_unreviewed: bool = False,
                 reference = artifact_reference(garden_id, record_id, snapshot.hashes[record_id])
                 key = record_key(reference)
                 qualifications = record.get("x-curation", {})
-                redactions = [item for item in qualifications.get("redactions", [])
-                              if isinstance(item, dict) and item.get("source") in sources]
+                redactions = [{"source":item["source"], "rationale":item["rationale"]}
+                              for item in qualifications.get("redactions", [])
+                              if isinstance(item, dict) and item.get("source") in sources
+                              and isinstance(item.get("rationale"), str) and item["rationale"]]
                 records[key] = {"reference": reference, "id": record_id, "garden": garden_id,
                                 "record_type": "knowledge" if kind.endswith("knowledge/v1") else "claim",
                                 "title": title, "kind": record.get("kind", "claim"),

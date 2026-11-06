@@ -141,6 +141,7 @@ class V1ContractTests(unittest.TestCase):
                 "federation-graph",
                 "federation-catalog-request",
                 "federation-catalog",
+                "garden-package",
                 "federation-plan",
                 "registry",
                 "registry-view",

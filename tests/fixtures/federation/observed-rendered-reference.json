@@ -1,0 +1,29 @@
+{
+  "files": 60,
+  "package": {
+    "authority": "read-only",
+    "capabilities": [
+      "discovery",
+      "canonical-links"
+    ],
+    "descriptor_sha256": "5ecc961674e5f41f736922b451612b9a99e2ad0e2c20ccabf70e718bcc515532",
+    "execution": "data-only",
+    "format": "rendered-public-site/v1",
+    "publisher": {
+      "canonical_uri": "urn:mindgarden:garden:repository-garden",
+      "garden": "repository-garden"
+    },
+    "rendering": {
+      "manifest_sha256": "c6e7b74c84acc25e235f728989a6b860616b27cdbbfdcdcdb7d9bd87a6c0549d",
+      "revision": "sha256:7fc2290477125d7d82dcdaa8fc8133ea7489229ee3ed494d0656a63a4e21b6c2"
+    },
+    "revision": "sha256:5ec1622bd2f1d2de2bcbf6d178033548824bbb444f9f763a6459bb01d6114ead",
+    "schema": "mindgarden.garden-package/v1",
+    "trust": "untrusted-evidence"
+  },
+  "rendered_manifest_sha256": "c6e7b74c84acc25e235f728989a6b860616b27cdbbfdcdcdb7d9bd87a6c0549d",
+  "renderer": "actual-pinned-offline-quartz-artifact-from-previous-checkpoint",
+  "revision": "sha256:5ec1622bd2f1d2de2bcbf6d178033548824bbb444f9f763a6459bb01d6114ead",
+  "routes": 3,
+  "status": "passed"
+}

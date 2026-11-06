@@ -195,12 +195,20 @@ def build_catalog(request: dict) -> dict:
     if ContractRegistry().errors(request, "federation-catalog-request"):
         raise ContractError("FEDERATION_REQUEST: supply a bounded list of explicit public bundles and expected revisions")
     verified = []
+    packages = {}
     diagnostics = set()
     allowed_codes = {"FEDERATION_UNAVAILABLE", "FEDERATION_INVALID", "FEDERATION_VERSION",
                      "FEDERATION_INTEGRITY", "FEDERATION_STALE", "FEDERATION_BUDGET"}
     for item in request["bundles"]:
         try:
-            files = read_bundle(Path(item["directory"]))
+            if item.get("format", "federation-bundle") == "rendered-site":
+                from ..adapters.rendered_federation import read_rendered_bundle
+
+                files, package = read_rendered_bundle(Path(item["directory"]), item["expected_manifest_sha256"],
+                                                      item["expected_revision"])
+                packages[digest_bytes(files["garden.json"])] = package
+            else:
+                files = read_bundle(Path(item["directory"]))
             descriptor, index, _graph = verify_bundle(files, item["expected_revision"])
             verified.append((descriptor, index, digest_bytes(files["garden.json"])))
         except ContractError as error:
@@ -229,6 +237,8 @@ def build_catalog(request: dict) -> dict:
             continue
         gardens.append({key: descriptor[key] for key in ("garden", "canonical_uri", "base_uri", "revision")}
                        | {"descriptor_sha256": digest})
+        if digest in packages:
+            gardens[-1]["package"] = packages[digest]
         scopes.append(descriptor["scope"])
         records += [{key: record[key] for key in ("reference", "canonical_url", "title", "kind", "review_state")}
                     for record in index["records"]]
@@ -238,6 +248,18 @@ def build_catalog(request: dict) -> dict:
               "trust": "untrusted-evidence", "scope": inherit_scope(scopes) if scopes else local_scope("public", publication="publishable"),
               "gardens": gardens, "records": sorted(records, key=lambda record: record_key(record["reference"])),
               "diagnostics": sorted(diagnostics)}
+    if "previous" in request:
+        previous = request["previous"]
+        old = {item["garden"]:item for item in previous["gardens"]}
+        if len(old) != len(previous["gardens"]):
+            raise ContractError("FEDERATION_REQUEST: prior catalog has ambiguous garden identities")
+        current = {item["garden"]:item for item in gardens}
+        result["refresh"] = [{"garden":garden,
+            "state":("not-retained" if garden not in current else "added" if garden not in old else
+                      "unchanged" if old[garden] == current[garden] else "updated"),
+            "previous_revision":old[garden]["revision"] if garden in old else None,
+            "current_revision":current[garden]["revision"] if garden in current else None}
+            for garden in sorted(old.keys() | current.keys())]
     if ContractRegistry().errors(result, "federation-catalog"):
         raise ContractError("FEDERATION_INVALID: supplied catalog cannot preserve the supported public contract")
     return result

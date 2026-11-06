@@ -60,6 +60,9 @@
           },
           "descriptor_sha256": {
             "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+          },
+          "package": {
+            "$ref": "urn:egohygiene:mindgarden:garden-package:v1"
           }
         },
         "additionalProperties": false
@@ -119,6 +122,47 @@
         ]
       },
       "uniqueItems": true
+    },
+    "refresh": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "required": [
+          "garden",
+          "state",
+          "previous_revision",
+          "current_revision"
+        ],
+        "properties": {
+          "garden": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "state": {
+            "enum": [
+              "added",
+              "unchanged",
+              "updated",
+              "not-retained"
+            ]
+          },
+          "previous_revision": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "current_revision": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        },
+        "additionalProperties": false
+      }
     }
   },
   "additionalProperties": false

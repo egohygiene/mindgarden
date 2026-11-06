@@ -12,6 +12,12 @@ repository's `.garden/` directory. Obsidian vaults, agent context, search
 indexes, and published sites are projections of that committed knowledge, not
 competing sources of truth.
 
+The next six source-workflow checkpoints are available on draft stack
+[#74–#79](https://github.com/egohygiene/mindgarden/pull/79), with the combined
+checkout on `feature/16-rendered-garden-references`. See the
+[sprint evidence and remaining scope](docs/source-workflow-sprint.md). They are
+implemented and tested on those branches, pending maintainer review and merge.
+
 ## System at a glance
 
 <p align="center">

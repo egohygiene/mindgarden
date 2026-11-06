@@ -40,7 +40,7 @@ updated: 2026-11-06
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate:** Complete remaining publication and pinned-consumer criteria over merged #68–#73; broader product choices retain their ADR gates.
+**Current gate:** Review draft source-workflow checkpoints #74–#79 over merged main `30a2966`; parent publication/consumer criteria and proposed ADR decisions remain open.
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
 
 ### Complete open-issue coverage and next batches
@@ -67,7 +67,7 @@ remain open. The [six-checkpoint map](docs/garden-experience-milestone.md)
 records #68–#73, now merged at `30a2966`. The
 [merge receipt](docs/merged-experience-checkpoints.md) verifies the unchanged tested
 tree and separates proposal, implementation, test and acceptance state. ADRs remain
-proposed. The confirmed next sprint is #11 → #13 → #15 → #14 → #12 → #16; see
+proposed. The confirmed sprint #11 → #13 → #15 → #14 → #12 → #16 is implemented and tested on draft stack #74–#79 (not merged); see
 [the checkpoint map](docs/source-workflow-sprint.md).
 Public `/garden`/portal proofs (#17/#18) and the complete #20 consumer path follow
 their actual contracts. #27 release preparation and #38 design tokens can advance
