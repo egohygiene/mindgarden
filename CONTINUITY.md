@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T03:44:46Z'
+  updated_at: '2026-11-06T03:55:44Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -59,7 +59,7 @@ state:
     verified_at: '2026-11-06T02:04:00Z'
   candidate:
     branch: feature/46-compaction-contracts
-    revision: 293edbb2e60e568e247809a3b99037f09cba2792
+    revision: dc80cddd77108994907d74c4ae9217149e3b1a98
     pull_request:
       provider: github
       id: egohygiene/mindgarden#73
@@ -67,39 +67,46 @@ state:
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T03:44:46Z'
+    observed_at: '2026-11-06T03:55:44Z'
     default_branch_revision: 8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765
     issue_state: open
     pull_request_state: draft
-    notes: "All six authorized drafts #68\u2013#73 are pushed, unmerged, with a reproducible combined\
-      \ checkout. First five exact-head automatic Test runs passed; final #73 CI is observed separately.\
-      \ All 38 parent issues remain open; ADRs remain proposed/null approval."
+    notes: 'All six drafts remain pushed/unmerged. Final conformance follow-up 9e134e9 is carried through
+      #71/#72/#73 with local branch merges. Main remains 8a9650e; all 38 parents remain open. New exact-head
+      automatic checks follow the final push.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T03:44:46Z'
+  reviewed_at: '2026-11-06T03:55:44Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests --verbose; .cache/python313/bin/python
       -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T03:44:46Z'
+    observed_at: '2026-11-06T03:55:44Z'
     notes: 231 tests each without skips; final compaction reader tightening additionally passes 10 tests
       on each version.
   - command: Clean git-archive -S scripts/compaction_demo.py / isolated installed-wheel -I scripts/compaction_demo.py
     outcome: passed
-    observed_at: '2026-11-06T03:44:46Z'
+    observed_at: '2026-11-06T03:55:44Z'
     notes: 'Both match committed expected proof: 2 exact citations, 4001/8192-byte context, preserved
       originals and explicit review.'
   - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist; both compile checks; pinned
       owner schemas; relative links; git diff --check
     outcome: passed
-    observed_at: '2026-11-06T03:44:46Z'
+    observed_at: '2026-11-06T03:55:44Z'
     notes: Fresh code/resources and checks pass. CI results remain separate; no workflow manually launched.
+  - command: .venv/bin/python -m unittest tests.test_publication_conformance tests.test_federation tests.test_site
+      --verbose; same with .cache/python313/bin/python
+    outcome: passed
+    observed_at: '2026-11-06T03:55:44Z'
+    notes: 38 tests each after final storage-root correction. Initial socket-restricted attempt was rerun
+      with loopback permission.
   environment_limitations:
-  - No new hosted CI result is claimed before the draft is pushed.
-  - Full accessibility/large-graph/native/restricted-runtime, Relay/host deployment and approved private-pilot
-    acceptance remain separate.
+  - New exact-head CI after the final follow-up is recorded on the PRs; previous successful heads remain
+    historical receipts.
+  - Full accessibility/consumer/runtime, Relay deployment, raw-only compaction, retention execution and
+    approved private-pilot gates remain open.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -144,11 +151,11 @@ change documentation only. All batch PRs remain drafts and parents remain open.
 
 ## Completed and material changes
 
-#68 adds scoped v1 public projection, pinned offline Quartz rendering, exact citations, selected-only search/backlinks/graph, immutable outputs and a loopback preview. #69 adds versioned design tokens/schema/references, offline exports, an optional revision-bound Quartz/CSS consumer and mobile navigation/resize correction. #70 adds bounded complete public-output inspection, cache/log isolation, exact unique routes, live preview integrity/authority and shareable diagnostics; its reusable synthetic conformance pack covers eight leak surfaces. #71 adds pinned public site composition, portable ownership receipts, sibling preservation and partial-failure recovery. Relay action/deployment acceptance is explicitly retained. #72 documents all ten #42 topics with focused proposals, source/control/projection and full repository/runtime ownership, independent bookmark approvals, migration costs and conditional follow-ups. No runtime changes under #42. #73 adds v1 compaction/retention/private manifest contracts, scoped read-only preview, qualification-preserving curation handoff and authored archive→reviewed prompt→exact search→bounded context proof. No retention jobs, deletion, raw-only expansion or approved private pilot.
+#68 adds scoped v1 public projection, pinned offline Quartz rendering, exact citations, selected-only search/backlinks/graph, immutable outputs and a loopback preview. #69 adds versioned design tokens/schema/references, offline exports, an optional revision-bound Quartz/CSS consumer and mobile navigation/resize correction. #70 adds bounded complete public-output inspection, cache/log isolation, exact unique routes, live preview integrity/authority and shareable diagnostics; its reusable synthetic conformance pack covers eight leak surfaces. #71 adds pinned public site composition, portable ownership receipts, sibling preservation and partial-failure recovery. Relay action/deployment acceptance is explicitly retained. #72 documents all ten #42 topics with focused proposals, source/control/projection and full repository/runtime ownership, independent bookmark approvals, migration costs and conditional follow-ups. No runtime changes under #42. #73 adds v1 compaction/retention/private manifest contracts, scoped read-only preview, qualification-preserving curation handoff and authored archive→reviewed prompt→exact search→bounded context proof. No retention jobs, deletion, raw-only expansion or approved private pilot. Final audit follow-up 9e134e9 in #70 rejects malformed unselected storage-root aliases before output/cache planning; local branch merges propagate it through #71/#72/#73 without merging any PR.
 
 ## Validation and review evidence
 
-231 tests pass without skips on Python 3.12.14 and 3.13.5; final validation tightening passes all 10 compaction tests on both. Fresh source/wheel, clean -S source and isolated -I wheel proofs, both compile checks, 68 relative links, owner metadata and whitespace pass. The compacted prompt carries two exact citations and occupies 4001/8192 context bytes. First five exact-head automatic Test checks pass; final #73 is checked separately.
+Full 231-test suites pass on Python 3.12.14/3.13.5, with final compaction checks and 38 publication/federation/site checks on each version after the storage-boundary correction. Clean -S source and isolated -I wheel site/portal/compaction proofs match committed results. Fresh resources, compilation, owner metadata and whitespace pass. Earlier head CI passed; new follow-up heads are checked separately.
 
 ## Blockers, risks, unknowns, and deferred work
 

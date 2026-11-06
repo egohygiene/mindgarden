@@ -261,3 +261,35 @@ production deployment, package publication and destructive retention were unused
 Exact next action: maintainer sync/review of the six drafts, followed by explicit
 merge instructions and separate decision disposition. Refresh live state before
 selecting the next bounded batch.
+
+
+## Final conformance follow-up
+
+Read-only stack audit reproduced a malformed unused vault declaration that could
+evade lexical overlap checks. Commit
+`9e134e9c78104fa711208628a2017a27986fe5bf` on #70 rejects relative/traversal root
+declarations before output planning without probing denied roots. The corrected
+publication/federation/site suites pass **38 tests on each Python version**:
+
+```sh
+.venv/bin/python -m unittest tests.test_publication_conformance tests.test_federation tests.test_site --verbose
+.cache/python313/bin/python -m unittest tests.test_publication_conformance tests.test_federation tests.test_site --verbose
+```
+
+The initial targeted attempt lacked sandbox socket permission; rerunning with
+permission for the synthetic loopback fixture passed. No external service is used.
+The fix is carried through local branch merges, preserving the dependency stack
+and all earlier source checkpoints. **No GitHub PR was merged.**
+
+| Draft | Follow-up source/head before final documentation receipt |
+| --- | --- |
+| #70 | `9e134e9c78104fa711208628a2017a27986fe5bf` |
+| #71 | `2899b298ede1788faf9e426ee4e21708f1b4a9c0` |
+| #72 | `267e0f18d85b3b760dffc536210ac12b83615cb7` |
+| #73 combined runtime | `dc80cddd77108994907d74c4ae9217149e3b1a98` |
+
+Earlier CI rows above remain dated receipts. These new exact heads receive fresh
+automatic checks; PR bodies record their later results. Fresh clean-source and
+installed-wheel site/portal/compaction proofs reproduce all committed results
+after the correction. Main, review authority, parent acceptance and the exact
+next action (maintainer sync/review of #68–#73) are unchanged.
