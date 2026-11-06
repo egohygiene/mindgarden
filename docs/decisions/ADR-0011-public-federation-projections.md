@@ -116,3 +116,15 @@ Human disposition; #16 private/local federation, incremental refresh and actual
 consumer proofs; #17 rendered route/accessibility proof; #18 portal composition;
 #20 golden consumer; #30 registry integration; #32 query-store import; #46
 retention. Akashic #176 and Aether #69 retain their own compatibility/acceptance.
+
+## Proposed rendered-reference extension — 2026-11-06
+
+The earlier #66 implementation is merged. The current sprint adds a bounded
+rendered-site adapter and `garden-package/v1` reference over the same public
+selection, preserving publisher ownership and exact descriptor/manifest pins.
+Catalog refresh never silently substitutes old records for unavailable inputs.
+This supports modular garden data without installing executable content or
+creating a second session model. A full installer, provider acquisition, private
+federation and real Akashic/Aether acceptance remain independent work. This
+extension and the original ADR remain proposed with null approval; tests or
+implementation merges do not accept either decision.

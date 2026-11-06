@@ -65,7 +65,8 @@ def metadata_view(context):
     retired = retired_references(records.values())
     for identity, event in retired.items():
         original = records.get(identity)
-        if original is not None and event["from"]["revision"] != "sha256:" + original["content"]["sha256"]:
+        if original is not None and (original["schema"] != "mindgarden.knowledge/v1"
+                or event["from"]["revision"] != "sha256:" + original["content"]["sha256"]):
             raise ContractError("QUERY_INTEGRITY: canonical transition original revision differs")
     if public_output:
         for identity, record in list(records.items()):

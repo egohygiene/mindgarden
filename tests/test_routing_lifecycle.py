@@ -20,6 +20,8 @@ from mindgarden.application.retrieval import search_payload
 from mindgarden.domain.contracts import canonical_json
 from mindgarden.domain.routing_transitions import canonical_reference, retired_references
 from mindgarden.domain.validation import ContractError
+from mindgarden.domain.garden import inspect_garden
+from mindgarden.application.storage import content_resolver
 from tests import test_source_adapters as fixtures
 from tests.support_v1 import TIME, add_knowledge, create_garden, reference, write_json, write_session
 
@@ -116,3 +118,20 @@ class RoutingLifecycleTests(unittest.TestCase):
         records = [r for s in snapshots_for(self.bindings).values() for r in s.records.values()]
         self.assertEqual(len(retired_references(records)), 2)
         self.assertTrue(all(canonical_reference(ref, records) == self.request["to"] for ref in self.request["from"]))
+
+    def test_transition_cannot_retire_a_source_as_knowledge(self):
+        plan = self.plan(); plan.apply(plan.digest)
+        snapshots = snapshots_for(self.bindings)
+        session = self.root / "session.json"; write_session(session, self.configuration)
+        context = QueryContext.load(self.configuration, session)
+        path = next((self.workspace / ".garden/provenance").glob("transition-*.json"))
+        receipt = json.loads(path.read_text()); source = self.evidence[0]["source"]
+        receipt["artifact"] = source
+        receipt["artifact_sha256"] = source["revision"][7:]
+        receipt["x-routing-transition"]["from"] = source
+        write_json(path, receipt)
+        report = inspect_garden(self.workspace, authorized_gardens=snapshots,
+                                content_resolver=content_resolver(self.bindings)).report()
+        self.assertIn("REFERENCE_KIND", {item["code"] for item in report["diagnostics"]})
+        with self.assertRaisesRegex(ContractError, "QUERY_INTEGRITY"):
+            search_payload(context, "evidence")

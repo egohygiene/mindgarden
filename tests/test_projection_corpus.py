@@ -80,7 +80,8 @@ class ProjectionCorpusTests(unittest.TestCase):
             context, profile = create_corpus(Path(temporary), 2)
             path = context.bindings.garden("synthetic-garden")["root"] / ".garden/knowledge/corpus-00000.json"
             record = json.loads(path.read_text())
-            record["x-curation"] = {"redactions":[{"source":record["sources"][0], "rationale":"Authored synthetic omission."},
+            record["x-curation"] = {"redactions":[{"source":record["sources"][0], "rationale":"Authored synthetic omission.",
+                "unowned-extra":"private-extra-canary"},
                 {"source":{"source":{"garden":"denied-garden","id":"denied-marker","revision":None},
                            "locator":"artifact","content_sha256":"0" * 64},"rationale":"Denied marker."}]}
             write_json(path, record)
@@ -89,6 +90,7 @@ class ProjectionCorpusTests(unittest.TestCase):
             result = search_payload(context,"needle00000")
             self.assertEqual(len(result["results"][0]["qualifications"]["redactions"]),1)
             self.assertNotIn("denied-marker",json.dumps(result))
+            self.assertNotIn("private-extra-canary",json.dumps(result))
             self.assertEqual(ContractRegistry().errors(result,"search-results"),[])
             profile.update(query="needle00000",max_bytes=8192)
             pack = json.loads(render_context(context,profile,"json"))

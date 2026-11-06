@@ -192,3 +192,48 @@ succeeded. B1 [Test run 41965122996](https://github.com/egohygiene/mindgarden/ac
 also succeeded on `9149b2f8421936f0c5723fb068812f82acd27e38`, containing the
 verified functional code. Later documentation-only heads may have fresh checks;
 see the draft's current checks. No workflow was manually dispatched.
+
+## Rendered discovery and reusable public garden references
+
+The follow-up adapter accepts a completed local rendered site with an exact
+public descriptor revision **and** the SHA-256 of its complete site manifest.
+It verifies all site bytes, reconstructs the standalone federation ownership
+marker in memory, and proves that rendered routes exactly cover the selected
+public index. It consumes machine artifacts; it does not scrape page HTML.
+
+A catalog input can declare `format: "rendered-site"` and
+`expected_manifest_sha256`. The default remains the existing standalone bundle.
+A manifest pin cannot be silently ignored for a standalone input. Every source
+remains explicitly supplied; no URL, provider, local garden or registry is fetched
+or discovered automatically.
+
+Verified rendered sources expose `mindgarden.garden-package/v1`: publisher garden
+and canonical URI, public represented revision, descriptor hash, rendered revision
+and manifest hash, with `read-only`, `data-only` authority. It is a portable
+reference to public reviewed data. It preserves publisher ownership and does not
+approve the content as the consumer's own knowledge. Local paths and project
+selection remain outside this reference. Installing executable skills, remote
+acquisition, automatic updates, dependency resolution and project lockfiles are
+separate future work. Existing scoped canonical search/context is unchanged;
+this checkpoint does not introduce a competing package-session authority model.
+
+An optional `previous` catalog produces deterministic `added`, `unchanged`,
+`updated` and `not-retained` states. A changed rendered-manifest pin is an update
+even when the selected knowledge revision is identical. Missing, stale, invalid
+or conflicting current inputs contribute **no** previous records as fallback.
+Diagnostics contain stable codes and no acquisition paths or payload text.
+
+`garden_reference_demo.py --workspace /tmp/new-reference-proof --require-source`
+reproduces committed authored-renderer fixtures with networking and process calls
+blocked, and proves relocation and refresh behavior. This is a contract fixture,
+not a real renderer invocation. Separately, the adapter verified the previous
+actual pinned offline Quartz artifact: 60 complete files and 3 canonical routes,
+manifest SHA-256 `c6e7b74c84acc25e235f728989a6b860616b27cdbbfdcdcdb7d9bd87a6c0549d`.
+
+Akashic #176 and Aether #69 were refreshed: both are open, with no comments.
+Akashic owns a provisional projection preserving its catalog/Atlas IDs and review
+versus observation semantics; no generic Markdown/site fixture proves that
+integration. Aether owns the broader session capability contract. Private/internal
+federation, signatures/authentication, remote acquisition/serving and their real
+consumer proofs remain unavailable or unproven; the descriptor advertises those
+limits. The reusable-package direction remains a proposed decision.
