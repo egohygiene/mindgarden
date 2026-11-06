@@ -62,6 +62,8 @@ class SQLiteQueryStore:
     def plan(self, index, scope_sha256):
         if index.get("schema") != "mindgarden.index/v1" or index.get("scope_sha256") != scope_sha256:
             raise ContractError("QUERY_STORE_INPUT: require the exact authorized v1 index and scope")
+        if index.get("scope", {}).get("persistence") == "encrypted-vault" or index.get("scope", {}).get("visibility") == "restricted":
+            raise ContractError("QUERY_STORE_UNAVAILABLE: verified encrypted processing is not supported")
         if not capabilities()["lexical"]:
             raise ContractError("QUERY_STORE_UNAVAILABLE: this SQLite build lacks FTS5")
         before = self.inventory()
@@ -166,8 +168,12 @@ class SQLiteQueryStore:
         return deepcopy(expected_index)
 
     def search(self, expected_index, scope_sha256, query):
+        if not isinstance(query, str) or len(query.encode("utf8")) > 4096:
+            raise ContractError("QUERY_STORE_BUDGET: query exceeds the explicit adapter bound")
         index = self.load(expected_index, scope_sha256)
         terms = sorted(set(tokenize(query)))
+        if len(terms) > 64:
+            raise ContractError("QUERY_STORE_BUDGET: too many distinct lexical terms")
         if terms:
             expression = " OR ".join('"t' + term.encode("utf8").hex() + '"' for term in terms)
             with closing(sqlite3.connect((self.directory / DATABASE).as_uri() + "?mode=ro&immutable=1", uri=True)) as connection, connection:
