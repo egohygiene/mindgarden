@@ -69,3 +69,16 @@ Retain portable records, immutable evidence references and existing v0/v1 reader
 ## Follow-up work
 
 [#11](https://github.com/egohygiene/mindgarden/issues/11), [#15](https://github.com/egohygiene/mindgarden/issues/15), [#30](https://github.com/egohygiene/mindgarden/issues/30), [#35](https://github.com/egohygiene/mindgarden/issues/35), [#45](https://github.com/egohygiene/mindgarden/issues/45). Full parent acceptance remains open.
+
+## Capture ownership and migration cost
+
+Mindcap owns faithful capture/package contracts. Consumers own original bytes in
+an explicit private vault; Mindgarden's adapter stores/verifies supplied captures
+and records logical identity, exact content hashes and locators. Athena archival
+retention is a separate integration. No public Git, Drive provider or model
+service becomes mandatory. Existing local-path source records remain supported.
+
+Migration cost is verified copy/inventory and location rebinding, with originals
+retained until separately authorized cleanup. The finite relocation proof does
+not establish provider encryption, complete backup retention or media triage.
+Mindgarden #35/#45 and the relevant capture/runtime owners retain those follow-ups.

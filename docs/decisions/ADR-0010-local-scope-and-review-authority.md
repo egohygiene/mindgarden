@@ -69,3 +69,16 @@ Retain portable records, immutable evidence references and existing v0/v1 reader
 ## Follow-up work
 
 [#13](https://github.com/egohygiene/mindgarden/issues/13), [#14](https://github.com/egohygiene/mindgarden/issues/14), [#29](https://github.com/egohygiene/mindgarden/issues/29), [#31](https://github.com/egohygiene/mindgarden/issues/31), [#42](https://github.com/egohygiene/mindgarden/issues/42). Full parent acceptance remains open.
+
+## Cross-owner authority and migration cost
+
+Visibility, persistence, execution/network, publication ceiling and review remain
+independent. Public/repository, organization, personal and restricted views use
+the existing Garden/scope contracts. Local policy IDs are not an accepted
+organization-wide declassification or confidential-runtime contract. Hygiene #39,
+Aether #69 and Realm own those normative/runtime integrations.
+
+A private cleanup approval cannot approve an Akashic publication candidate; each
+requires its own exact-input human decision. Migration cost is explicit policy
+version mapping, fixture parity, reauthorization and rebuild of affected outputs.
+Never reinterpret an unsupported policy or old grant as permission to proceed.

@@ -46,7 +46,7 @@ This document identifies Mindgarden's logical systems and responsibilities. It a
 | Source storage | Filesystem checkpoint merged | Preserves immutable content identities, verifies checksums and supports bounded audit/export/restore/relocation independently from location. |
 | Federation | Local public checkpoint merged through #66 (#16) | Builds reviewed checksum-bound descriptor/index/graph/agent artifacts and supplied-directory catalogs; hosting, private federation and external adoption remain open. |
 | Local registry | Bounded Linux checkpoint merged through #67 (#30) | Manages existing bindings through saved plans, manifest inspection, named scope selections, non-destructive unregister and private configuration restore; native/restricted assurance and cache cleanup remain open. |
-| V1 public preview | Initial #17 review branch | Reuses scoped public selection for literal reviewed content, exact citations, typed links and pinned offline Quartz; broader UI/consumer acceptance remains open. |
+| V1 public preview | Draft #68, tested locally | Reuses scoped public selection for literal reviewed content, exact citations, typed links and pinned offline Quartz; broader UI/consumer acceptance remains open. |
 
 ## External systems
 
@@ -100,3 +100,18 @@ verification commands and remaining consumer/publication boundaries.
 
 The [open-issue coverage ledger](docs/open-issue-coverage.md) records the
 2026-11-05 merge receipts, remaining parent scope and proposed delivery batches.
+
+
+## Current six-draft state
+
+| Capability | State | Evidence and remaining gate |
+| --- | --- | --- |
+| V1 preview, optional design consumer | Draft #68/#69; tested, unmerged | Actual pinned offline render and browser evidence; full UI/consumer acceptance open |
+| Publication/preview conformance | Draft #70; tested, unmerged | Reusable synthetic 80-test source/installed pack; normative runtime/consumer coverage open |
+| Portal composition | Draft #71; tested, unmerged | Pinned artifact/owned receipt, sibling preservation and recovery; Relay/deployment open |
+| Target-product architecture | Proposed #42 documentation checkpoint | [Ten-topic decision/ownership map](docs/target-architecture.md); human ratification and owner acceptance open |
+| Hierarchical compaction/retention | Next authorized #46 contract checkpoint | Originals preserved; no deletion or approved private pilot claimed |
+
+The target map expands the repository/runtime responsibility table without
+transferring canonical ownership. Shared services remain the existing Python
+engine. Neither a tested draft nor its later merge accepts a proposed ADR.

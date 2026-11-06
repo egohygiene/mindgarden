@@ -57,7 +57,7 @@ plan. A conflicting or incomplete output is retained for inspection.
 | #38 | `feature/38-design-tokens` / #68 | [#69](https://github.com/egohygiene/mindgarden/pull/69) | `5b59d8e3c6b8b0fbdb1acdcf25a76ebf99968f18` |
 | #10 | `feature/10-public-conformance` / #69 | [#70](https://github.com/egohygiene/mindgarden/pull/70) | `49e394a176436562e9eeab319829372127cd3961` |
 | #18 | `feature/18-portal-composition` / #70 | [#71](https://github.com/egohygiene/mindgarden/pull/71) | `6df72c4cd18d23b0740d57e6ddd25b8e8f24172e` |
-| #42 | `docs/42-architecture-decisions` / #18 checkpoint | Pending | Proposed decisions and disposition map |
+| #42 | `docs/42-architecture-decisions` / #71 | [#72](https://github.com/egohygiene/mindgarden/pull/72) | `d17f01c4cfa01145090d14aff97624f636fe7f92` |
 | #46 | `feature/46-compaction-contracts` / #42 checkpoint | Pending | Contracts and authored synthetic proof |
 
 #17 verification at `f1706a5`: 197 tests pass without skips on Python 3.12.14 and
@@ -176,3 +176,20 @@ also pass. The inspected Relay commit, unavailable Mindgarden action and exact
 handoff requirements are pinned in the contract document. No deployment or
 workflow dispatch occurs. Full #18 integration/production criteria remain open;
 ADR-0015 remains proposed/null approval.
+
+
+## #42 architecture proposal checkpoint
+
+The [decision/ownership map](target-architecture.md) covers all ten issue topics.
+Six new focused ADRs (0016–0021) address stores, user/tenancy boundary, runtime,
+operations/retention, agent interfaces and integrations. Existing ownership/source/
+service/scope proposals gain explicit migration costs and follow-up owners.
+ARCHITECTURE.md, SYSTEM.md and ROADMAP.md distinguish implemented main, tested
+drafts, proposals and deferred work. This branch changes documentation only.
+
+The pinned Hygiene metadata/policy/decision-set/index checks and Aether continuity
+checks pass; relative links and whitespace are checked. Runtime remains the exact
+#71 implementation that passed 221 tests on both supported Python versions. No
+redundant local full-suite run is claimed for this documentation-only checkpoint.
+All new ADRs remain proposed/null approval. #40/#41, owner policy/contracts,
+bookmark proof and human ratification remain open gates.

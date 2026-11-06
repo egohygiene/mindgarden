@@ -64,8 +64,9 @@ private snapshots/restore and synthetic public isolation evidence. Its tree is
 the tested `3463d46` tree; 188 tests pass on both supported Python versions.
 See [the registry proof](docs/local-registry.md). Full #30 and ADR acceptance
 remain open. The [six-draft checkpoint map](docs/garden-experience-milestone.md)
-records current #17 work and the following design/conformance/composition/
-architecture/compaction contracts, all awaiting maintainer sync before merge.
+records tested drafts #68/#69/#70/#71 for preview, design, conformance and
+composition, followed by proposed architecture and compaction contracts. All
+await maintainer sync before merge.
 Public `/garden`/portal proofs (#17/#18) and the complete #20 consumer path follow
 their actual contracts. #27 release preparation and #38 design tokens can advance
 independently. #46 retention policy is considered early; full compaction, SQLite,
@@ -338,3 +339,22 @@ The [finite evidence report](docs/private-garden-evidence.md) links the syntheti
 archive, reviewed prompt entry, exact source retrieval, bounded context and vault
 relocation/restore proof. This supports #20 without marking its real legacy archive,
 Empathy, publication, federation or final consumer acceptance criteria complete.
+
+
+## Proposed architecture disposition and conditional follow-ups
+
+[The #42 map](docs/target-architecture.md) links focused ADRs for all ten required
+topics, canonical/generated/control ownership, every named repository/runtime
+owner, independent bookmark approvals and deferred choices. ADR-0007–0021 remain
+proposed/null approval. #41's legacy authority migration and human/cross-owner
+disposition remain gates on consequential broader product choices under #40.
+
+The proposed order is: dispose the relevant decisions; deliver #46's bounded
+non-destructive contracts/proof; then #32 scoped adapter parity after its store
+decision, #37 dependency manifests and selected downstream outputs, and #47's
+minimal shared CLI/API/web slice after its audience/auth/runtime decisions.
+#48 retains actual capture/intake contracts and independent private/public
+approvals. #20/#19 retain consumer/release acceptance. Optional experiments are
+not blanket gates. No framework, new store, worker, provider or topology is
+implemented under #42. Deferred choices trigger evidence review by 2027-01-01 or
+earlier stated events, never automatic adoption.

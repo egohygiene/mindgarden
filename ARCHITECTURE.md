@@ -189,3 +189,20 @@ The [v1 preview checkpoint](docs/v1-site.md) reuses the same public selection
 service and existing Quartz adapter, with proposed [ADR-0013](docs/decisions/ADR-0013-reviewed-v1-site-projections.md).
 Prepared software acquisition is separate from offline rendering; canonical
 records remain read-only and output manifests contain public lineage only.
+
+
+## Proposed target-product decision sequence
+
+The [target decision/ownership map](docs/target-architecture.md) covers all ten
+#42 topics and links #40's product/ADR gate. ADR-0007–0021 remain proposed with
+null approval; implementation, verification, review and merge state are separate.
+The additional query, tenancy, topology, lifecycle, agent-interface and
+build-versus-integrate proposals introduce no runtime implementation here.
+
+Portable consumer records, private originals, canonical public catalogs, machine-
+local authority and disposable query/rendered outputs have distinct owners. The
+map assigns capture/normalization/storage/curation and all named repository/runtime
+boundaries, plus independent bookmark cleanup and publication approvals.
+Conditional follow-ups become executable only after the relevant human and owner
+dispositions. Authentication, collaboration, specialized stores, jobs, MCP and
+new product integrations retain evidence requirements and revisit triggers.

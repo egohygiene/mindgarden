@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T03:07:29Z'
+  updated_at: '2026-11-06T03:17:31Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -40,16 +40,16 @@ work:
   - Usable reviewed v1 preview; design, conformance, portal, proposed architecture and compaction contracts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#18
-    url: https://github.com/egohygiene/mindgarden/issues/18
+    id: egohygiene/mindgarden#42
+    url: https://github.com/egohygiene/mindgarden/issues/42
   next:
     kind: action
-    id: architecture-proposal-checkpoint
-    description: 'Branch docs/42-architecture-decisions from #71; complete focused proposed decision sequence,
-      ownership/disposition map and deferred triggers; then deliver #46 contracts/proof.'
+    id: compaction-retention-contract-checkpoint
+    description: 'Branch feature/46-compaction-contracts from #72; deliver versioned non-destructive compaction/retention
+      contracts and authored synthetic evidence, preserving review authority and originals.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/42
+    - https://github.com/egohygiene/mindgarden/issues/46
     depends_on: []
 state:
   base:
@@ -57,42 +57,40 @@ state:
     ref: refs/heads/main
     verified_at: '2026-11-06T02:04:00Z'
   candidate:
-    branch: feature/18-portal-composition
-    revision: 6df72c4cd18d23b0740d57e6ddd25b8e8f24172e
+    branch: docs/42-architecture-decisions
+    revision: d17f01c4cfa01145090d14aff97624f636fe7f92
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#71
-      url: https://github.com/egohygiene/mindgarden/pull/71
+      id: egohygiene/mindgarden#72
+      url: https://github.com/egohygiene/mindgarden/pull/72
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T03:07:29Z'
+    observed_at: '2026-11-06T03:17:31Z'
     default_branch_revision: 8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765
     issue_state: open
     pull_request_state: draft
-    notes: 'Drafts #68 through #71 are pushed. #42 and #46 remain authorized. No merges before maintainer
-      sync; proposed ADRs are not ratified.'
+    notes: 'Drafts #68 through #72 are pushed. #46 is the final authorized checkpoint. All merging awaits
+      maintainer sync; all new ADRs remain proposed/null approval.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T03:07:29Z'
+  reviewed_at: '2026-11-06T03:17:31Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose; .cache/python313/bin/python
-      -m unittest discover --start-directory tests --verbose
+  - command: python3 .cache/six_owner_checks.py
     outcome: passed
-    observed_at: '2026-11-06T03:07:29Z'
-    notes: 221 tests each, no skips.
-  - command: scripts/portal_demo.py --require-source in clean git archive with -S / isolated -I --require-installed
+    observed_at: '2026-11-06T03:17:31Z'
+    notes: "15 indexed ADR-0007\u20130021 all proposed/null approval; pinned Hygiene/Aether schemas, continuity\
+      \ bounds and 38 issue rows."
+  - command: python3 .cache/six_doc_links.py; git diff --check
     outcome: passed
-    observed_at: '2026-11-06T03:07:29Z'
-    notes: Both match committed expected proof; actual Quartz 60-file/three-route composition also verifies/repeats
-      with unchanged siblings.
-  - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist; both compile checks; python3
-      .cache/six_owner_checks.py; git diff --check
+    observed_at: '2026-11-06T03:17:31Z'
+    notes: 17 documentation files and 96 relative links; no runtime changes.
+  - command: git diff 0d34a6b -- src tests scripts contracts profiles pyproject.toml MANIFEST.in --exit-code
     outcome: passed
-    observed_at: '2026-11-06T03:07:29Z'
-    notes: Fresh artifacts and owner metadata pass. No deployment/workflow dispatch.
+    observed_at: '2026-11-06T03:17:31Z'
+    notes: 'Exact tested #71 runtime retained; 221-test source evidence unchanged.'
   environment_limitations:
   - No new hosted CI result is claimed before the draft is pushed.
   - Full accessibility/large-graph/native/restricted-runtime, Relay/host deployment and approved private-pilot
@@ -141,11 +139,11 @@ change documentation only. All batch PRs remain drafts and parents remain open.
 
 ## Completed and material changes
 
-#68 adds scoped v1 public projection, pinned offline Quartz rendering, exact citations, selected-only search/backlinks/graph, immutable outputs and a loopback preview. #69 adds versioned design tokens/schema/references, offline exports, an optional revision-bound Quartz/CSS consumer and mobile navigation/resize correction. #70 adds bounded complete public-output inspection, cache/log isolation, exact unique routes, live preview integrity/authority and shareable diagnostics; its reusable synthetic conformance pack covers eight leak surfaces. #71 adds pinned public site composition, portable ownership receipts, sibling preservation and partial-failure recovery. Relay action/deployment acceptance is explicitly retained.
+#68 adds scoped v1 public projection, pinned offline Quartz rendering, exact citations, selected-only search/backlinks/graph, immutable outputs and a loopback preview. #69 adds versioned design tokens/schema/references, offline exports, an optional revision-bound Quartz/CSS consumer and mobile navigation/resize correction. #70 adds bounded complete public-output inspection, cache/log isolation, exact unique routes, live preview integrity/authority and shareable diagnostics; its reusable synthetic conformance pack covers eight leak surfaces. #71 adds pinned public site composition, portable ownership receipts, sibling preservation and partial-failure recovery. Relay action/deployment acceptance is explicitly retained. #72 documents all ten #42 topics with focused proposals, source/control/projection and full repository/runtime ownership, independent bookmark approvals, migration costs and conditional follow-ups. No runtime changes under #42.
 
 ## Validation and review evidence
 
-221 tests pass on both supported Python versions without skips. Eleven portal fixtures pass; clean git-archive source with -S and isolated installed wheel with -I match the committed proof. Actual offline Quartz composition preserves 60 files/three note routes and sibling bytes. Fresh artifacts, both compile checks, pinned owner metadata and whitespace pass.
+Documentation-only #72 passes pinned Hygiene ADR/policy/set/index, Aether continuity, 96 relative links and whitespace checks. Runtime is unchanged from #71, whose 221 tests pass on both supported Python versions. No redundant full local test run is claimed for #72.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -157,7 +155,7 @@ site adapter. Source retention defaults to preserve.
 
 ## Next dependency-ready work
 
-Branch docs/42-architecture-decisions from #71; complete focused proposed decision sequence, ownership/disposition map and deferred triggers; then deliver #46 contracts/proof.
+Branch feature/46-compaction-contracts from #72; deliver versioned non-destructive compaction/retention contracts and authored synthetic evidence, preserving review authority and originals.
 
 ## Parallel changes and reconciliation
 
