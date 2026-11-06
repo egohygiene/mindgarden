@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T02:58:04Z'
+  updated_at: '2026-11-06T03:07:29Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -40,17 +40,16 @@ work:
   - Usable reviewed v1 preview; design, conformance, portal, proposed architecture and compaction contracts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#10
-    url: https://github.com/egohygiene/mindgarden/issues/10
+    id: egohygiene/mindgarden#18
+    url: https://github.com/egohygiene/mindgarden/issues/18
   next:
     kind: action
-    id: portal-composition-checkpoint
-    description: 'Branch feature/18-portal-composition from #70; implement caller-owned public output
-      composition, manifest pins, sibling preservation and recovery fixtures; retain Relay integration
-      gates.'
+    id: architecture-proposal-checkpoint
+    description: 'Branch docs/42-architecture-decisions from #71; complete focused proposed decision sequence,
+      ownership/disposition map and deferred triggers; then deliver #46 contracts/proof.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/18
+    - https://github.com/egohygiene/mindgarden/issues/42
     depends_on: []
 state:
   base:
@@ -58,41 +57,42 @@ state:
     ref: refs/heads/main
     verified_at: '2026-11-06T02:04:00Z'
   candidate:
-    branch: feature/10-public-conformance
-    revision: 49e394a176436562e9eeab319829372127cd3961
+    branch: feature/18-portal-composition
+    revision: 6df72c4cd18d23b0740d57e6ddd25b8e8f24172e
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#70
-      url: https://github.com/egohygiene/mindgarden/pull/70
+      id: egohygiene/mindgarden#71
+      url: https://github.com/egohygiene/mindgarden/pull/71
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T02:58:04Z'
+    observed_at: '2026-11-06T03:07:29Z'
     default_branch_revision: 8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765
     issue_state: open
     pull_request_state: draft
-    notes: 'Drafts #68/#69/#70 are pushed. Three further drafts are authorized. Automatic CI remains separate
-      from local evidence; no merges before sync.'
+    notes: 'Drafts #68 through #71 are pushed. #42 and #46 remain authorized. No merges before maintainer
+      sync; proposed ADRs are not ratified.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T02:58:04Z'
+  reviewed_at: '2026-11-06T03:07:29Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests --verbose; .cache/python313/bin/python
       -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T02:58:04Z'
-    notes: 210 tests each, no skips.
-  - command: scripts/publication_conformance.py --require-source / isolated -I --require-installed
+    observed_at: '2026-11-06T03:07:29Z'
+    notes: 221 tests each, no skips.
+  - command: scripts/portal_demo.py --require-source in clean git archive with -S / isolated -I --require-installed
     outcome: passed
-    observed_at: '2026-11-06T02:58:04Z'
-    notes: 80 tests each, no skips; byte-identical shareable reports.
-  - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist; both compileall checks; python3
+    observed_at: '2026-11-06T03:07:29Z'
+    notes: Both match committed expected proof; actual Quartz 60-file/three-route composition also verifies/repeats
+      with unchanged siblings.
+  - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist; both compile checks; python3
       .cache/six_owner_checks.py; git diff --check
     outcome: passed
-    observed_at: '2026-11-06T02:58:04Z'
-    notes: Fresh artifacts and pinned owner metadata pass. No manually launched workflow.
+    observed_at: '2026-11-06T03:07:29Z'
+    notes: Fresh artifacts and owner metadata pass. No deployment/workflow dispatch.
   environment_limitations:
   - No new hosted CI result is claimed before the draft is pushed.
   - Full accessibility/large-graph/native/restricted-runtime, Relay/host deployment and approved private-pilot
@@ -141,11 +141,11 @@ change documentation only. All batch PRs remain drafts and parents remain open.
 
 ## Completed and material changes
 
-#68 adds scoped v1 public projection, pinned offline Quartz rendering, exact citations, selected-only search/backlinks/graph, immutable outputs and a loopback preview. #69 adds versioned design tokens/schema/references, offline exports, an optional revision-bound Quartz/CSS consumer and mobile navigation/resize correction. #70 adds bounded complete public-output inspection, cache/log isolation, exact unique routes, live preview integrity/authority and shareable diagnostics; its reusable synthetic conformance pack covers eight leak surfaces.
+#68 adds scoped v1 public projection, pinned offline Quartz rendering, exact citations, selected-only search/backlinks/graph, immutable outputs and a loopback preview. #69 adds versioned design tokens/schema/references, offline exports, an optional revision-bound Quartz/CSS consumer and mobile navigation/resize correction. #70 adds bounded complete public-output inspection, cache/log isolation, exact unique routes, live preview integrity/authority and shareable diagnostics; its reusable synthetic conformance pack covers eight leak surfaces. #71 adds pinned public site composition, portable ownership receipts, sibling preservation and partial-failure recovery. Relay action/deployment acceptance is explicitly retained.
 
 ## Validation and review evidence
 
-210 tests pass without skips on both supported Python versions. The 80-test synthetic publication pack passes source and isolated installed engine with identical reports. Fresh source/wheel resources, both compile checks, owner metadata and whitespace pass. Prior render/browser evidence remains linked in the batch map.
+221 tests pass on both supported Python versions without skips. Eleven portal fixtures pass; clean git-archive source with -S and isolated installed wheel with -I match the committed proof. Actual offline Quartz composition preserves 60 files/three note routes and sibling bytes. Fresh artifacts, both compile checks, pinned owner metadata and whitespace pass.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -157,7 +157,7 @@ site adapter. Source retention defaults to preserve.
 
 ## Next dependency-ready work
 
-Branch feature/18-portal-composition from #70; implement caller-owned public output composition, manifest pins, sibling preservation and recovery fixtures; retain Relay integration gates.
+Branch docs/42-architecture-decisions from #71; complete focused proposed decision sequence, ownership/disposition map and deferred triggers; then deliver #46 contracts/proof.
 
 ## Parallel changes and reconciliation
 
