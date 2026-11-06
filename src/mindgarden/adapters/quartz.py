@@ -39,6 +39,7 @@ def render_public_site(projection, engine_root: Path) -> dict[str, bytes]:
     from html import escape
     import os
     import re
+    import stat
     import tempfile
 
     from ..domain.contracts import canonical_json, strict_json
@@ -53,13 +54,20 @@ def render_public_site(projection, engine_root: Path) -> dict[str, bytes]:
         raise ContractError("SITE_RENDERER: selected renderer requires its declared Node major")
     engine_root.parent.mkdir(parents=True, exist_ok=True)
     log_path = engine_root.parent / ".mindgarden-renderer.log"
+    from ..domain.contracts import safe_path
+    safe_path(engine_root.parent, "npm")
     if log_path.is_symlink():
         raise ContractError("SITE_PATH: renderer logs must not cross symlinks")
+    if log_path.exists() and (not stat.S_ISREG(log_path.stat().st_mode) or log_path.stat().st_nlink != 1):
+        raise ContractError("SITE_PATH: renderer logs must be ordinary owned files")
 
     def quiet_command(arguments, *, cwd=None):
         try:
             descriptor = os.open(log_path, os.O_WRONLY | os.O_CREAT | os.O_APPEND | os.O_NOFOLLOW, 0o600)
             with os.fdopen(descriptor, "ab") as log:
+                info = os.fstat(log.fileno())
+                if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
+                    raise ContractError("SITE_PATH: renderer logs must be ordinary owned files")
                 subprocess.run(arguments, cwd=cwd, stdout=log, stderr=subprocess.STDOUT, check=True,
                                env={**os.environ, "npm_config_offline": "true", "npm_config_audit": "false"})
         except (OSError, subprocess.CalledProcessError) as error:

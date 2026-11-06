@@ -48,6 +48,8 @@ class SiteProjection:
 
     def plan(self, context, parent, *, operation="project", engine_directory=None):
         self.check_live(context)
+        if operation not in {"project", "build"} or (operation == "build" and engine_directory is None):
+            raise ContractError("SITE_OPERATION: select project or build with an explicit prepared engine")
         if engine_directory is not None:
             from ..adapters.federation_files import explicit_directory
 
@@ -60,6 +62,18 @@ class SiteProjection:
                 engine_directory.relative_to(cache)
                 if engine_directory == cache:
                     raise ValueError()
+                # npm and private renderer logs live beside the renderer. Guard
+                # that whole owned subtree, including declared but denied roots,
+                # without opening those roots to discover their contents.
+                owned = engine_directory.parent
+                for field in ("gardens", "vaults"):
+                    for item in context.bindings.document.get(field, []):
+                        if not isinstance(item, dict) or not isinstance(item.get("root"), str):
+                            continue
+                        declared = Path(item["root"]).absolute()
+                        protected = declared / ".garden" if field == "gardens" else declared
+                        if owned == protected or owned in protected.parents or protected in owned.parents:
+                            raise ValueError()
                 engine_directory = export_destination(context, engine_directory.parent, engine_directory.name)
             except (ContractError, ValueError) as error:
                 raise ContractError("SITE_ENGINE: use the selected garden's owned .cache/mindgarden directory") from error

@@ -191,3 +191,6 @@ generator ignore rules are never treated as a privacy boundary.
 
 See [`ROADMAP.md`](ROADMAP.md) for the path from this preserved v0 engine to the
 first independently versioned release.
+
+The [publication conformance pack](docs/publication-conformance.md) can test a
+source or installed engine with synthetic fixtures and shareable diagnostics.
