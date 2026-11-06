@@ -174,7 +174,7 @@ explicit unavailable capabilities rather than hidden integrations.
 
 ## Machine-local registry checkpoint
 
-Draft [#67](https://github.com/egohygiene/mindgarden/pull/67) implements the bounded
+Merged [#67](https://github.com/egohygiene/mindgarden/pull/67) implements the bounded
 [#30 registry lifecycle](docs/local-registry.md), under proposed
 [ADR-0012](docs/decisions/ADR-0012-machine-local-registry.md). Existing portable
 manifests own garden IDs, owners and declared scope. Application services manage
@@ -184,3 +184,8 @@ Named selections constrain existing session grants without expanding authority.
 Originals and knowledge remain read-only inputs. Public projections exclude
 registry paths, labels, membership and control hashes. Restricted/encrypted
 runtime, native macOS/Windows mutation and owned-cache cleanup remain deferred.
+
+The [v1 preview checkpoint](docs/v1-site.md) reuses the same public selection
+service and existing Quartz adapter, with proposed [ADR-0013](docs/decisions/ADR-0013-reviewed-v1-site-projections.md).
+Prepared software acquisition is separate from offline rendering; canonical
+records remain read-only and output manifests contain public lineage only.

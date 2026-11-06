@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:site-adapter:v1",
+  "title": "Mindgarden site-adapter v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "renderer",
+    "repository",
+    "commit",
+    "node_major",
+    "title",
+    "description"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.site-adapter/v1"
+    },
+    "renderer": {
+      "const": "quartz-v5"
+    },
+    "repository": {
+      "const": "https://github.com/jackyzha0/quartz.git"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "node_major": {
+      "const": 24
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    }
+  },
+  "additionalProperties": false
+}

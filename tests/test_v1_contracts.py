@@ -140,6 +140,9 @@ class V1ContractTests(unittest.TestCase):
                 "registry",
                 "registry-view",
                 "registry-plan",
+                "site-adapter",
+                "site-manifest",
+                "site-plan",
             },
         )
         identifiers = set()

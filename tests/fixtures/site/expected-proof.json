@@ -1,0 +1,66 @@
+{
+  "checks": [
+    "explicit-reviewed-public-session-and-profile",
+    "read-only-plan",
+    "digest-bound-create-and-repeat-verify",
+    "selected-only-typed-links",
+    "exact-source-evidence",
+    "no-private-metadata-or-paths",
+    "canonical-inputs-unchanged"
+  ],
+  "engine_version": "0.1.0",
+  "files": 14,
+  "integrations": {
+    "google": "unused",
+    "model": "unused",
+    "network": "blocked-in-process",
+    "subprocess": "blocked-in-process"
+  },
+  "kind": "content",
+  "prompt_page_sha256": "24f86d1f3da0fef3d9c4bd9765cd32f333365c272c70b14d64dc4987ef467886",
+  "renderer": {
+    "adapter": "quartz-v5",
+    "commit": "075afd3f712da0088a07f5284a7b3aba37dd61b6"
+  },
+  "revision": "sha256:e1faa061b5bb245793c2289c42adae525629f118de29efc418dbce43084045cb",
+  "routes": [
+    {
+      "path": "notes/reviewed-claim/index.html",
+      "reference": {
+        "garden": "repository-garden",
+        "id": "reviewed-claim",
+        "revision": "sha256:9041afa5aeb9f972a62717e7dca71524b79dd73c1c0a357266f6971a10d38b18"
+      },
+      "url": "https://repository-garden.example.test/garden/notes/reviewed-claim/"
+    },
+    {
+      "path": "notes/reviewed-prompt/index.html",
+      "reference": {
+        "garden": "repository-garden",
+        "id": "reviewed-prompt",
+        "revision": "sha256:e1ce2bc9126281033e190c9607bff98c9cd38534c09a9e7d48216c8e2ca13a02"
+      },
+      "url": "https://repository-garden.example.test/garden/notes/reviewed-prompt/"
+    },
+    {
+      "path": "notes/reviewed-reference/index.html",
+      "reference": {
+        "garden": "repository-garden",
+        "id": "reviewed-reference",
+        "revision": "sha256:108c4cd4985f2149128df1478b61582798253bac06c6dfe369446f88c763d4d7"
+      },
+      "url": "https://repository-garden.example.test/garden/notes/reviewed-reference/"
+    }
+  ],
+  "schema": "mindgarden.synthetic-site-proof/v1",
+  "source_reference": {
+    "content_sha256": "844d4581e4f19e74c4417bc1ecc32e5646f75a584c60505e7bfdc88b7ea2152e",
+    "locator": "lines:1-1",
+    "source": {
+      "garden": "repository-garden",
+      "id": "public-source",
+      "revision": "sha256:1581c5901aadd064d9077a519dbda5a903b5cb5ea9f9be7b4864ec95f3345d32"
+    }
+  },
+  "status": "passed"
+}

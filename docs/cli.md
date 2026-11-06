@@ -171,6 +171,12 @@ independent implementation and will not become a second public API.
 
 ## General v1 validation
 
+V1 `publish project`/`verify` and `site build`/`serve` accept explicit
+`--local-config`, `--scope` and `--profile` inputs. Site operations preview by
+default; `--apply` requires the exact `--plan-digest`, and `--check` verifies
+existing immutable output. See [the v1 preview contract](v1-site.md). Legacy v0
+commands retain their established behavior.
+
 `mindgarden validate --repository-root "/path/to/workspace"` detects the selected
 v0 or v1 manifest. `--format "json"` emits stable diagnostic codes, severity,
 portable locations and remediation. `invalid` and `incomplete` both return the
