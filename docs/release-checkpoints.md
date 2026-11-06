@@ -33,7 +33,7 @@ ratify ADRs, invent missing contracts or authorize reading private consumer data
 | Issue | Bounded checkpoint / branch | State and evidence | Remaining / next action |
 | --- | --- | --- | --- |
 | #51 | Draft [#94](https://github.com/egohygiene/mindgarden/pull/94), `feature/51-provider-switch-proof` over #93; functional `1fac57d` | 308 tests per supported Python; clean source/wheel goldens; six reviewed records in 13,178/16,384 bytes | Maintainer review/merge of the bounded conformance scenario; live providers are not required |
-| #27 | `feature/27-release-preparation` over draft #94; [release guidance](releases.md) | Declaration/version/Taskfile/manual workflow and source-bound artifact builder implemented; exact candidate verification follows the source commit | Preserve root-authority schema mismatch, advisory owner policy and unavailable signing/PyPI; validate reproducible candidate before draft |
+| #27 | Draft [#95](https://github.com/egohygiene/mindgarden/pull/95), `feature/27-release-preparation` over #94; functional `a3cbac9` | 315 tests per Python, two builds with identical source/wheel hashes, Relay artifact checks and clean installed compatibility pass | Strict handoff is blocked by exact root-authority schema parity; signing/PyPI remain unavailable; review and qualify owner fixes |
 | #20 | Complete synthetic archive→review→private fallback/public projection composition | Earlier local/mixed source proofs exist | Extend the composition; prepare an explicitly scoped private pilot and pinned Empathy handoff |
 | #19 | Acceptance and release readiness | Blocked by actual acceptance and external delivery setup | Prepare precise checks/artifacts; publish 1.0 only when acceptance and authority are evidenced |
 
@@ -94,3 +94,29 @@ Proposed release staging correction: #19 prepublication checks use a reviewed
 immutable candidate and consumer pin. The clean PyPI install and final released
 Empathy pin are postpublication verification, rather than a circular prerequisite
 for the first release. No acceptance is removed or inferred from local artifacts.
+
+## Release artifact checkpoint verification
+
+Functional source: `a3cbac93d2a68e99e7955ddb18302e0358f53247`. Both independent local builds produced:
+
+| Artifact | SHA-256 |
+| --- | --- |
+| `mindgarden-0.1.0.tar.gz` | `5464543f4e30ff8bc42533153fc26a522a30a812109c04e02e8195011e3e406c` |
+| `mindgarden-0.1.0-py3-none-any.whl` | `35330646d97aeabdf3583cd296bee1487ae543b6b4a07db2a31811865bffc420` |
+| `SHA256SUMS` | `fe290b51b01431b0942ee93310ec0a851a83e7ad276e7e9b41b23577f1c5c520` |
+
+| Exact command/check | Observed result |
+| --- | --- |
+| `.venv/bin/python scripts/release.py bootstrap`; `plan --release-version v0.1.0` | Exact public owner sources and declaration/input checks pass |
+| `.venv/bin/python scripts/release.py prepare --release-version v0.1.0 --output-directory .cache/release-candidate-first` | Two independent builds match; complete Relay Python profile passes; publication not performed |
+| Strict `verify --release-version v0.1.0 --output-directory .cache/release-candidate-first` | Expected exit 2: `RELEASE_UPSTREAM_SCHEMA_PARITY`, exactly `/component/version_authority/path` |
+| `verify ... --artifact-only` | Artifact checks pass; schema invalid and handoff/releasable false are retained, not treated as release acceptance |
+| `.venv/bin/python -m unittest tests.test_release_preparation tests.test_package -q` | 13 passed; 0.268 s |
+| `.venv/bin/python -m unittest discover --start-directory tests --verbose` | 315 passed, no skips; Python 3.12.14; 224.594 s |
+| `.cache/python313/bin/python -m unittest discover --start-directory tests --verbose` | 315 passed, no skips; Python 3.13.5; 207.984 s |
+| Fresh distribution tests and isolated candidate-wheel CLI/version/v0 publication/provider proof | 2 distribution tests pass; installed compatibility and exact provider golden pass |
+
+The candidate lives only in ignored local output, not a GitHub/PyPI release.
+The automatic preparation workflow checks supported artifacts and retains blocked
+external states; it is not the manual publication workflow and does not attest
+full 1.0 readiness. No paid workflow is manually dispatched.

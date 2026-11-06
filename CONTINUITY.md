@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T22:08:11Z'
+  updated_at: '2026-11-06T22:18:36Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -63,9 +63,10 @@ work:
   next:
     kind: action
     id: synthetic-consumer-and-private-pilot-handoff
-    description: 'Verify the candidate from this exact committed source, open the #27 draft, then implement #20
-      synthetic composition and a safe private-pilot/Empathy handoff. Keep Relay root-authority schema parity and
-      actual owner/consumer acceptance explicit; do not publish 1.0.'
+    description: 'Implement #20 synthetic archive→review/routing→public projection and pinned Empathy consumer evidence
+      on a branch over draft #95. Prepare a private pilot with explicit input/workspace/classification; do not run
+      real data until the pending user input arrives. Then deliver conditional #19 pre/postpublication acceptance
+      checks.'
     readiness: ready
     references:
     - docs/release-checkpoints.md
@@ -74,20 +75,24 @@ state:
   base:
     revision: 62cbead700679e6b12984f1fc502d27c427fd6bb
     ref: refs/heads/feature/51-provider-switch-proof
-    verified_at: '2026-11-06T22:08:11Z'
+    verified_at: '2026-11-06T22:18:36Z'
   candidate:
     branch: feature/27-release-preparation
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: a3cbac93d2a68e99e7955ddb18302e0358f53247
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#95
+      url: https://github.com/egohygiene/mindgarden/pull/95
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T22:08:11Z'
+    observed_at: '2026-11-06T22:18:36Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
-    pull_request_state: not-applicable
-    notes: 'Main remains d5edb13. #93/#94 are open drafts. #94 functional-source CI was cancelled by its documentation
-      follow-up; local 308-test suites passed and its newer automatic run is separate. No releases exist.'
+    pull_request_state: draft
+    notes: 'Main remains d5edb13. #93/#94/#95 are open drafts. #94 exact head passed Test 42300786846. #95 exact
+      source produced local artifacts and retains the owner schema blocker. No release exists; real-pilot inputs
+      are pending.'
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#93
@@ -97,22 +102,35 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/94
 review:
   status: partial
-  reviewed_at: '2026-11-06T22:08:11Z'
+  reviewed_at: '2026-11-06T22:18:36Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest tests.test_release_preparation tests.test_package -q
     outcome: passed
-    observed_at: '2026-11-06T22:08:11Z'
+    observed_at: '2026-11-06T22:18:36Z'
     notes: 13 passed in 0.268 seconds.
   - command: .venv/bin/python scripts/release.py bootstrap; .venv/bin/python scripts/release.py plan --release-version
       v0.1.0
     outcome: passed
-    observed_at: '2026-11-06T22:08:11Z'
+    observed_at: '2026-11-06T22:18:36Z'
     notes: Exact owner revisions fetched/qualified; policy remains proposed; no publication performed.
-  - command: Source-bound duplicate-build release candidate
-    outcome: not-run
-    observed_at: '2026-11-06T22:08:11Z'
-    notes: Prepare after committing this exact source, then record actual artifact and strict-gate results.
+  - command: .venv/bin/python scripts/release.py prepare --release-version v0.1.0 --output-directory .cache/release-candidate-first
+    outcome: passed
+    observed_at: '2026-11-06T22:18:36Z'
+    notes: Two independent builds match; Relay profile passes; report preserves schema/owner/PyPI gates.
+  - command: .venv/bin/python scripts/release.py verify --release-version v0.1.0 --output-directory .cache/release-candidate-first
+    outcome: passed
+    observed_at: '2026-11-06T22:18:36Z'
+    notes: 'Negative check: exits 2 with RELEASE_UPSTREAM_SCHEMA_PARITY; publication remains impossible.'
+  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose; .cache/python313/bin/python
+      -m unittest discover --start-directory tests --verbose
+    outcome: passed
+    observed_at: '2026-11-06T22:18:36Z'
+    notes: 315 passed, no skips, each; 224.594/207.984 seconds.
+  - command: Installed candidate CLI/version/v0 validate/publication and provider_switch_demo.py under -I
+    outcome: passed
+    observed_at: '2026-11-06T22:18:36Z'
+    notes: Source-bound candidate wheel preserves compatibility and the exact provider golden.
   environment_limitations:
   - Relay Python package JSON Schema rejects the root authority path accepted by its reference validator; strict
     handoff remains blocked.
@@ -150,7 +168,7 @@ Prepare reproducible Python release evidence through pinned owner contracts with
 
 ## State snapshot
 
-The candidate feature/27-release-preparation is stacked over draft #94 at 62cbead700679e6b12984f1fc502d27c427fd6bb, over #93. Main remains d5edb13de1b65871ec85e7a25af035228a1d756d. All 44 parent/deferred issues remain open.
+Draft #95 source a3cbac93d2a68e99e7955ddb18302e0358f53247 is stacked over #94 (62cbead), over #93. Main remains d5edb13. Later checkpoint edits are documentation only. All 44 issues remain open.
 
 ## Completed and material changes
 
@@ -158,7 +176,7 @@ Aether/Hygiene declaration, changelog, agent release pointer, Taskfile handoffs 
 
 ## Validation and review evidence
 
-Thirteen version/package/archive/destination tests pass. Exact public owner bootstrap, Aether declaration validation and EgoLint immutable-input qualification pass. Source-bound candidate construction awaits this first source commit; no reproducibility, final CI or publication result is yet claimed. The prior #51 source/wheel proofs and 308 tests per Python remain linked.
+All 315 tests pass, no skips, on Python 3.12.14/3.13.5 (224.594/207.984 s). Duplicate builds match; Relay reference artifact checks pass. Strict verification returns code 2 for the exact root-authority schema mismatch. Fresh distribution tests, clean installed CLI/v0 public projection and provider recovery golden pass. No publication was attempted.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -166,7 +184,7 @@ An approved private archive/workspace, real Empathy #65 acceptance, compatible A
 
 ## Next dependency-ready work
 
-Verify the candidate from this exact committed source, open the #27 draft, then implement #20 synthetic composition and a safe private-pilot/Empathy handoff. Keep Relay root-authority schema parity and actual owner/consumer acceptance explicit; do not publish 1.0.
+Implement #20 synthetic archive→review/routing→public projection and pinned Empathy consumer evidence on a branch over draft #95. Prepare a private pilot with explicit input/workspace/classification; do not run real data until the pending user input arrives. Then deliver conditional #19 pre/postpublication acceptance checks.
 
 ## Parallel changes and reconciliation
 
