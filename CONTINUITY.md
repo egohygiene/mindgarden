@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T10:19:45Z'
+  updated_at: '2026-11-06T10:20:06Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -63,7 +63,7 @@ state:
     verified_at: '2026-11-06T05:27:17Z'
   candidate:
     branch: feature/29-policy-integration
-    revision: 9fc0c9b
+    revision: 9fc0c9b02ff40c0ce98de73f368b7774201557b8
     pull_request:
       provider: github
       id: egohygiene/mindgarden#80
@@ -71,7 +71,7 @@ state:
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T10:19:45Z'
+    observed_at: '2026-11-06T10:20:06Z'
     default_branch_revision: 30a29668a02740a91e77aec22f670a8270ccddf4
     issue_state: open
     pull_request_state: draft
@@ -79,25 +79,25 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T10:19:45Z'
+  reviewed_at: '2026-11-06T10:20:06Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest tests.test_scope_policy tests.test_scoped_retrieval tests.test_v1_contracts
       -q
     outcome: passed
-    observed_at: '2026-11-06T10:19:45Z'
+    observed_at: '2026-11-06T10:20:06Z'
     notes: 25 passed
   - command: .cache/python313/bin/python -m unittest tests.test_scope_policy -q
     outcome: passed
-    observed_at: '2026-11-06T10:19:45Z'
+    observed_at: '2026-11-06T10:20:06Z'
     notes: 5 passed
   - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/policy-private-proof --require-source
     outcome: passed
-    observed_at: '2026-11-06T10:19:45Z'
+    observed_at: '2026-11-06T10:20:06Z'
     notes: complete report matched committed golden
   - command: python3 .cache/six_owner_checks.py
     outcome: passed
-    observed_at: '2026-11-06T10:19:45Z'
+    observed_at: '2026-11-06T10:20:06Z'
     notes: pinned proposed ADRs, continuity and 38-row ledger passed
   environment_limitations:
   - Automatic PR CI is separate from local checks; no paid workflow dispatched.
