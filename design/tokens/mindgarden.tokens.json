@@ -1,0 +1,89 @@
+{
+  "schema": "mindgarden.design-tokens/v1",
+  "id": "mindgarden-v1",
+  "brand": {
+    "name": "Mindgarden",
+    "mood": [
+      "calm",
+      "botanical",
+      "technical",
+      "spacious"
+    ],
+    "motifs": [
+      "seedling",
+      "orbital geometry",
+      "thin architectural panels",
+      "restrained luminous linework"
+    ]
+  },
+  "colors": {
+    "light": {
+      "background": "#f5f8f3",
+      "surface": "#ffffff",
+      "text": "#18281e",
+      "muted": "#4c6553",
+      "accent": "#285e38",
+      "border": "#6d8874",
+      "focus": "#285e38"
+    },
+    "dark": {
+      "background": "#07100e",
+      "surface": "#101e18",
+      "text": "#e7f1e8",
+      "muted": "#acbfae",
+      "accent": "#c7e56a",
+      "border": "#71917b",
+      "focus": "#c7e56a"
+    }
+  },
+  "typography": {
+    "body_family": [
+      "system-ui",
+      "Segoe UI",
+      "sans-serif"
+    ],
+    "heading_family": [
+      "system-ui",
+      "Segoe UI",
+      "sans-serif"
+    ],
+    "code_family": [
+      "ui-monospace",
+      "monospace"
+    ],
+    "body_px": 16,
+    "small_px": 14,
+    "heading_px": 28,
+    "display_tracking_em": 0.08
+  },
+  "spacing": {
+    "xs": 4,
+    "sm": 8,
+    "md": 16,
+    "lg": 24,
+    "xl": 32,
+    "xxl": 48
+  },
+  "borders": {
+    "thin_px": 1,
+    "strong_px": 2,
+    "focus_px": 3,
+    "radius_px": 10
+  },
+  "effects": {
+    "glow_blur_px": 16,
+    "glow_opacity": 0.12,
+    "shadow_blur_px": 24,
+    "shadow_opacity": 0.16
+  },
+  "iconography": {
+    "stroke_px": 1.5,
+    "labels_required": true
+  },
+  "layout": {
+    "reading_width_px": 760,
+    "touch_target_px": 44,
+    "mobile_breakpoint_px": 800,
+    "panel_gap_px": 16
+  }
+}
