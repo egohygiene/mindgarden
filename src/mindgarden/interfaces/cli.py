@@ -592,6 +592,21 @@ def build_parser() -> ArgumentParser:
     add_federation_command(commands)
     add_compaction_command(commands)
     add_registry_command(commands)
+    from ..application.bookmarks import run_bookmarks
+
+    bookmarks = commands.add_parser("bookmarks", help="Inspect or review captured normalized bookmarks privately without browser mutation")
+    bookmarks.add_argument("--input", type=Path, required=True)
+    bookmarks.add_argument("--catalog", type=Path, required=True)
+    bookmarks.add_argument("--classification", choices=("personal", "restricted"), default="restricted")
+    bookmark_mode = bookmarks.add_mutually_exclusive_group()
+    bookmark_mode.add_argument("--inspect", action="store_true")
+    bookmarks.add_argument("--request", type=Path)
+    bookmarks.add_argument("--previous-receipt", type=Path)
+    bookmarks.add_argument("--plan-file", type=Path, required=True)
+    bookmark_mode.add_argument("--apply", action="store_true")
+    bookmarks.add_argument("--plan-digest")
+    bookmarks.add_argument("--output-directory", type=Path)
+    bookmarks.set_defaults(handler=run_bookmarks)
     from ..application.memory import run_memory
 
     memory = commands.add_parser("memory", help="Review bounded provider-neutral assistant-memory snippets")
@@ -608,8 +623,9 @@ def build_parser() -> ArgumentParser:
     dependency_build.add_argument("--local-config", type=Path, required=True)
     dependency_build.add_argument("--scope", type=Path, required=True)
     dependency_build.add_argument("--input", type=Path, required=True)
-    dependency_build.add_argument("--previous-manifest", type=Path)
-    dependency_build.add_argument("--apply", action="store_true")
+    dependency_mode = dependency_build.add_mutually_exclusive_group()
+    dependency_mode.add_argument("--previous-manifest", type=Path)
+    dependency_mode.add_argument("--apply", action="store_true")
     dependency_build.add_argument("--plan-digest")
     dependency_build.add_argument("--output-directory", type=Path)
     dependency_build.set_defaults(handler=run_dependency_build)

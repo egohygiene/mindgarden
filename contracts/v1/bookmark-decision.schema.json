@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:bookmark-decision:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "action",
+    "rationale",
+    "new_title",
+    "new_folders",
+    "merge_into",
+    "public_approval"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "action": {
+      "enum": [
+        "keep",
+        "merge",
+        "move",
+        "rename",
+        "observed-redirect",
+        "quarantine",
+        "defer",
+        "private-route",
+        "publish-proposal",
+        "omit"
+      ]
+    },
+    "rationale": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+    },
+    "new_title": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "new_folders": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "maxItems": 16,
+      "items": {
+        "type": "string",
+        "maxLength": 1000
+      }
+    },
+    "merge_into": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "public_approval": {
+      "type": "boolean"
+    }
+  }
+}
