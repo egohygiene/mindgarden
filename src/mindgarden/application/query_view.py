@@ -49,8 +49,11 @@ def metadata_view(context):
                 return False
             reviewed = schema in {"mindgarden.knowledge/v1", "mindgarden.claim/v1", "mindgarden.synapse/v1"}
             if not (context.allowed(garden, record, review=reviewed)
-                    and (not reviewed or record.get("status") in {"active", "proposed"})):
+                    and (not reviewed or record.get("status") in {"active", "proposed", "deprecated", "archived"})):
                 return False
+            # Approved historical records may be dependencies of a current
+            # correction. Authorization and sensitivity still apply; retrieval
+            # filters lifecycle state before ranking or exposing records.
             if public_output and context.declared_scope_for(garden, record)["publication"] != "publishable":
                 return False
             return True
