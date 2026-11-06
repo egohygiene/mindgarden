@@ -11,7 +11,7 @@ from ..adapters.conversation_archive import ConversationArchiveAdapter
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes
 from ..domain.garden import evidence_bytes, inspect_garden
 from ..domain.scope import validate_scope
-from ..domain.sources import AdapterRegistry, validate_origin
+from ..domain.sources import AdapterRegistry, describe_adapter, normalize_source, validate_origin
 from ..domain.validation import ContractError
 from .bindings import LocalBindings, garden_fingerprint
 from .changes import ChangePlan
@@ -46,10 +46,11 @@ def build_ingestion_plan(bindings: LocalBindings, garden_id: str, vault_id: str,
         raise ContractError("SOURCE_BOUNDARY: this adapter requires an ordinary explicitly private vault")
     resolver = content_resolver(bindings)
     snapshot = inspect_garden(root, content_resolver=resolver).require_valid()
-    original = captured_bytes(input_path)
-    original_digest = digest_bytes(original)
     adapter = (registry or default_registry()).select(metadata["media_type"], manifest_version, adapter_id)
-    bundle = adapter.normalize(original, {**deepcopy(metadata), "manifest_version": manifest_version})
+    declaration = describe_adapter(adapter)
+    original = captured_bytes(input_path, declaration["limits"]["capture_bytes"])
+    original_digest = digest_bytes(original)
+    bundle = normalize_source(adapter, original, {**deepcopy(metadata), "manifest_version": manifest_version})
     files: dict[str, bytes] = {}
     blobs: dict[str, bytes] = {"sha256:" + original_digest: original}
     transforms = ({"name": "preserve-supplied-bytes", "version": "1.0.0", "parameters": {}},)
@@ -65,7 +66,17 @@ def build_ingestion_plan(bindings: LocalBindings, garden_id: str, vault_id: str,
     captured["x-adapter"] = {"id": adapter.adapter_id, "version": adapter.version,
                             "manifest_version": manifest_version, "metadata": bundle.metadata}
     captured["x-capture-tags"] = metadata.get("tags", [])
-    files[f"sources/{capture_id}.json"] = canonical_json(captured)
+    def observation(record: dict) -> dict:
+        existing = snapshot.records.get(record["id"])
+        if existing is not None and existing != record:
+            record["id"] += "-" + digest_bytes(canonical_json(record))[:24]
+        return record
+
+    provenance = observation(provenance)
+    if capture_id not in snapshot.records:
+        captured["provenance"] = [artifact_reference(garden_id, provenance["id"],
+                                                    digest_bytes(canonical_json(provenance)))]
+        files[f"sources/{capture_id}.json"] = canonical_json(captured)
     files[f"provenance/{provenance['id']}.json"] = canonical_json(provenance)
     normalized_sources = []
     seen: set[str] = set()
@@ -83,6 +94,7 @@ def build_ingestion_plan(bindings: LocalBindings, garden_id: str, vault_id: str,
             inputs=[{"artifact": input_reference, "sha256": original_digest, "role": "source"}],
             transformations=bundle.transformations, created_at=metadata["captured_at"],
             rights=metadata["rights"], origin=metadata["origin"], scope=scope)
+        normalized_provenance = observation(normalized_provenance)
         normalized = source_record(
             garden_id, normalized_id, unit.content, vault_id=vault_id, kind="normalized",
             metadata={**metadata, "media_type": unit.media_type}, scope=scope,
@@ -122,7 +134,8 @@ def build_ingestion_plan(bindings: LocalBindings, garden_id: str, vault_id: str,
               "bindings_sha256": digest_bytes(bindings.path.read_bytes()),
               "original_sha256": original_digest, "metadata": metadata,
               "adapter": {"id": adapter.adapter_id, "version": adapter.version,
-                          "manifest_version": manifest_version},
+                          "manifest_version": manifest_version,
+                          "declaration_sha256": digest_bytes(canonical_json(declaration))},
               "normalized_sources": normalized_sources}
     return ChangePlan("ingest", garden_id, root, inputs, files, blobs,
                       [(input_path.absolute(), original_digest),

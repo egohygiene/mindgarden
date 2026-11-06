@@ -14,9 +14,8 @@ boundary checks and clean-source/installed-wheel proofs recorded separately.
 See the [merge receipt](merged-experience-checkpoints.md) and
 [checkpoint map](garden-experience-milestone.md). The original stack receipts and
 B1/B2 draft evidence below are historical. All 38 parent issues remain open;
-ADR-0007–0021 remain proposed/null approval. The maintainer authorized numbered
-items 7–12 next; their original issue-ID mapping was requested because the
-checked-in sources do not retain that numbering.
+ADR-0007–0021 remain proposed/null approval. The maintainer confirmed the next sprint as #11 → #13 → #15 → #14 → #12 → #16.
+See [the dependency and checkpoint map](source-workflow-sprint.md).
 
 Merged main: `9fae752b3cf7eb9c74033a72a12d125c42f8659e`. Its tree is exactly
 `a381b8bea2270b6ebd41a8bbe205d5f0a6f3e188`, the tree of the tested combined
@@ -143,7 +142,7 @@ not one serial gate over all work.
 
 | Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
 | --- | --- | --- | --- | --- |
-| [#11](https://github.com/egohygiene/mindgarden/issues/11) — normalized-source extension boundary | partial | #57 text adapter/registry; #60 archives; stale-plan, duplicate, hash/locator and extension fixtures | Provider-neutral bookmark handoff through same boundary and full evolving-adapter conformance | #8/#9/#10; Mindcap #35/#48 for bookmark proof; J; capture/model producer stays separate |
+| [#11](https://github.com/egohygiene/mindgarden/issues/11) — normalized-source extension boundary | partial | #57/#60 plus draft #74 versioned adapter declarations, bounded conformance harness, immutable observation and reference extension fixtures | Provider-neutral Mindcap #35 wire contract, real producer handoff and wider adapter corpus | #8/#9/#10; Mindcap #35/#48 for bookmark proof; J; capture/model producer stays separate |
 | [#12](https://github.com/egohygiene/mindgarden/issues/12) — graph/search/bounded context | partial | #58/#62/#64 reviewed knowledge/claim indexes, typed links, explainable search, exact evidence and reproducible context | Complete projection golden/schema matrix and honest large-corpus runtime/memory bounds | #8/#9/#10; B1 public output, Q performance; no database needed for current workflow |
 | [#13](https://github.com/egohygiene/mindgarden/issues/13) — reviewable curation/extraction plans | partial | #59/#64 six authored dispositions, exact evidence, attribution/caveats/contradictions and separate human authority | Wider independent media/redaction/multi-route proofs; optional versioned entity/triple producer with failure/resume/evaluation fixtures | #9/#10/#11; J and optional producer checkpoint; no model prerequisite for authored plans |
 | [#14](https://github.com/egohygiene/mindgarden/issues/14) — canonical routing/private fallback | partial | #61 explained plans, explicit public review, one home/typed references; #63/#64 recovery | Existing-item move/rename/split/merge/transfer reconciliation, full registry and organization contracts | #9/#10/#12/#13; B1 descriptors then B2 registry; no public default from missing fallback |

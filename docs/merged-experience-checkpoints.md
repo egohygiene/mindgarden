@@ -40,9 +40,7 @@ checkpoints, renderer/browser evidence and retained acceptance gates.
 
 ## Continuation
 
-The maintainer authorized continuing numbered items 7–12. The checked-in roadmap
-preserves the completed six (#17/#38/#10/#18/#42/#46) and coverage groups, but does
-not preserve the remaining numbered list. The issue IDs were requested from the
-maintainer while the merges proceeded. No replacement numbering or implementation
-sequence is inferred here. Record the mapping before starting the dependent work.
-Preserve Python/v0 and synthetic-only fixtures; leave new work in small draft PRs.
+The maintainer confirmed items 7–12 as #11, #13, #15, #14, #12 and #16, then
+authorized implementation. The [sprint map](source-workflow-sprint.md) records
+bounded scope and dependency corrections. New checkpoints stay in draft PRs;
+merge authority for #68–#73 does not authorize merging this new sprint.

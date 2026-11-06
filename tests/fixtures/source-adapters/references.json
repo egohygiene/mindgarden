@@ -1,0 +1,18 @@
+{
+  "schema": "example.reference-capture/1",
+  "id": "synthetic-project-references",
+  "records": [
+    {
+      "id": "reference-one",
+      "title": "Synthetic reference",
+      "url": "https://example.invalid/guide",
+      "notes": "Reusable synthetic project guidance."
+    },
+    {
+      "id": "reference-two",
+      "title": "Inert bookmarklet",
+      "url": "javascript:alert('synthetic')",
+      "notes": "A reference alone does not prove page contents."
+    }
+  ]
+}

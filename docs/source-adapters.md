@@ -80,3 +80,32 @@ all existing source records and exact represented revisions remain resolvable.
 Mindcap #35/#48 bookmark integration and the #15 archive adapter remain separate
 proofs over this contract. No support for their formats is implied by the text
 adapter or extension example.
+
+## Versioned declarations and conformance checkpoint
+
+`describe_adapter` emits `mindgarden.source-adapter/v1`: software identity and
+version, exact media/manifest pairs, captured-bytes protocol and explicit limits
+for captured bytes, normalized units/bytes and portable metadata. Legacy explicit
+adapters receive the documented bounded defaults. Registration validates the
+declaration; later declaration mutation requires a fresh explicit registry.
+The private ingestion plan binds its declaration digest. No executable plugin
+is discovered or installed from data records.
+
+`normalize_source` enforces limits, unique portable unit identities, strict JSON
+metadata, ordered transformations and valid evidence selectors before writing
+records or blobs. Adapter exceptions produce a failed result, while an empty
+successful bundle remains explicit. `check_adapter_conformance` runs trusted
+adapter code twice against identical explicit inputs and rejects different
+results or input mutation. This is a fixture harness, not an OS sandbox; consumer
+adapters are trusted application code and must supply their own unsafe fixtures.
+
+The source tests include unchanged bytes imported under a newer adapter version
+and a later capture observation. Old source and provenance bytes remain exact;
+additional observations receive digest-derived immutable IDs only on conflict.
+A new adapter version never rewrites the first attribution of unchanged evidence.
+
+[The reference-capture example](../examples/adapters/reference_capture.py) is a
+consumer-owned extension with a committed synthetic fixture and plan/apply proof.
+It retains titles, URLs and notes, including inert bookmarklets, while marking
+page content `not-captured`. It claims only `example.reference-capture/1`, not
+Mindcap's still-unpublished provider-neutral snapshot/delta wire contract.

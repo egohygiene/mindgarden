@@ -67,7 +67,8 @@ remain open. The [six-checkpoint map](docs/garden-experience-milestone.md)
 records #68–#73, now merged at `30a2966`. The
 [merge receipt](docs/merged-experience-checkpoints.md) verifies the unchanged tested
 tree and separates proposal, implementation, test and acceptance state. ADRs remain
-proposed; numbering beyond the completed six awaits the original issue-ID mapping.
+proposed. The confirmed next sprint is #11 → #13 → #15 → #14 → #12 → #16; see
+[the checkpoint map](docs/source-workflow-sprint.md).
 Public `/garden`/portal proofs (#17/#18) and the complete #20 consumer path follow
 their actual contracts. #27 release preparation and #38 design tokens can advance
 independently. #46 retention policy is considered early; full compaction, SQLite,
