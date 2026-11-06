@@ -36,7 +36,9 @@ def export_destination(context: QueryContext, output_directory: Path, relative: 
         for item in context.bindings.document.get(field, []):
             if not isinstance(item, dict) or not isinstance(item.get("root"), str):
                 continue
-            root = Path(item["root"]).absolute()
+            root = Path(item["root"])
+            if not root.is_absolute() or ".." in root.parts:
+                raise ContractError("FEDERATION_OUTPUT: declared storage boundaries require absolute roots without traversal")
             protected = root / ".garden" if field == "gardens" else root
             if target == root or target in root.parents or target == protected or protected in target.parents:
                 raise ContractError("FEDERATION_OUTPUT: select an export outside canonical records and private vaults")
