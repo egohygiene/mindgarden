@@ -143,6 +143,9 @@ class V1ContractTests(unittest.TestCase):
                 "site-adapter",
                 "site-manifest",
                 "site-plan",
+                "portal-request",
+                "portal-manifest",
+                "portal-plan",
             },
         )
         identifiers = set()

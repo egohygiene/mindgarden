@@ -1,0 +1,95 @@
+{
+  "checks": [
+    "read-only-plan",
+    "exact-source-manifest-pin",
+    "owned-garden-only",
+    "siblings-unchanged",
+    "idempotent-repeat",
+    "final-receipt-required"
+  ],
+  "deployment": "not-invoked",
+  "manifest": {
+    "base_uri": "https://repository-garden.example.test/",
+    "commit_marker": ".mindgarden-portal.json",
+    "contracts": [
+      "mindgarden.portal-manifest/v1",
+      "mindgarden.site-manifest/v1",
+      "mindgarden.federation-descriptor/v1",
+      "mindgarden.federation-index/v1",
+      "mindgarden.federation-graph/v1"
+    ],
+    "engine_version": "0.1.0",
+    "mount": "garden",
+    "owned": [
+      {
+        "path": "garden/.mindgarden-site.json",
+        "sha256": "d78d41e19a0112b887b8d3a804a62e2c4a1c55eb2f84db7acb324128b1a9029f",
+        "size_bytes": 2905
+      },
+      {
+        "path": "garden/garden.json",
+        "sha256": "5ecc961674e5f41f736922b451612b9a99e2ad0e2c20ccabf70e718bcc515532",
+        "size_bytes": 1880
+      },
+      {
+        "path": "garden/graph.json",
+        "sha256": "bf6739f57a731c00baabd047f5af449bf1abfb2f454cfa120d09f9983adc85d3",
+        "size_bytes": 1464
+      },
+      {
+        "path": "garden/index.html",
+        "sha256": "aeb741c1f0f49156972aad1e03d5f5784990c23e0160a6f486ee068997eb233b",
+        "size_bytes": 46
+      },
+      {
+        "path": "garden/index.json",
+        "sha256": "dd6951a0b9453f343223a0d4638bb8c8c2bc5338abeed52e01a2ef7149954909",
+        "size_bytes": 5821
+      },
+      {
+        "path": "garden/llms.txt",
+        "sha256": "4baac7abd1b7055362b99481638295c4967b0ec3a6c4acd1bcfebd5efdb90909",
+        "size_bytes": 604
+      },
+      {
+        "path": "garden/notes/reviewed-claim/index.html",
+        "sha256": "595033dbae009153ba5f17ba9133c112ddde8085b06c7b38c2c81c9a5dd60824",
+        "size_bytes": 50
+      },
+      {
+        "path": "garden/notes/reviewed-prompt/index.html",
+        "sha256": "595033dbae009153ba5f17ba9133c112ddde8085b06c7b38c2c81c9a5dd60824",
+        "size_bytes": 50
+      },
+      {
+        "path": "garden/notes/reviewed-reference/index.html",
+        "sha256": "595033dbae009153ba5f17ba9133c112ddde8085b06c7b38c2c81c9a5dd60824",
+        "size_bytes": 50
+      }
+    ],
+    "revision": "sha256:f13a35bde21e43e14c7434a31b3d51a82e540be7eb9426a49bb607312c8a56b0",
+    "schema": "mindgarden.portal-manifest/v1",
+    "site": {
+      "base_uri": "https://repository-garden.example.test/garden/",
+      "manifest_sha256": "d78d41e19a0112b887b8d3a804a62e2c4a1c55eb2f84db7acb324128b1a9029f",
+      "renderer": {
+        "commit": "075afd3f712da0088a07f5284a7b3aba37dd61b6",
+        "description": "Reviewed prompts with exact evidence and typed relationships.",
+        "node_major": 24,
+        "renderer": "quartz-v5",
+        "repository": "https://github.com/jackyzha0/quartz.git",
+        "schema": "mindgarden.site-adapter/v1",
+        "title": "Synthetic prompt bank"
+      },
+      "revision": "sha256:e1faa061b5bb245793c2289c42adae525629f118de29efc418dbce43084045cb"
+    }
+  },
+  "renderer": "authored-contract-fixture-no-renderer-invocation",
+  "schema": "mindgarden.synthetic-portal-proof/v1",
+  "siblings": {
+    "decisions/index.html": "ace1f28b70938a1860955c167c673a8caddd8a6a95752607b589816dc2d9034b",
+    "history/index.html": "edef72c6d5ae16a3fb9e1475788d9f2634d528d2bc89d4b4c093e24e376def51",
+    "intelligence/index.html": "e1e1969dcd242d426637ea4bc95b04e6008d1b0b60ea160420662b253dddfda5"
+  },
+  "status": "passed"
+}

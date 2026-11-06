@@ -140,3 +140,39 @@ optional separately prepared adapter; mocked failure output contains synthetic
 canaries so subprocess strings cannot leak through shareable diagnostics.
 Consumer media coverage and normative policy/restricted-runtime assurance remain
 open parent criteria. This is not source-rights or sensitivity adjudication.
+
+
+## #18 local portal-composition checkpoint
+
+[The local contract](portal-composition.md) extends #17's manifest with a private
+request/plan and portable last-written ownership receipt. It requires both the
+represented revision and exact rendered manifest SHA-256, complete site and
+public-discovery validation, canonical base/mount agreement, and create-or-verify
+output. Existing sibling surfaces and conflicts remain untouched. Receipt-write
+failure leaves a complete copy that unchanged-plan retry can finish; incomplete
+pre-existing trees are retained instead of silently repaired.
+
+Eleven targeted fixtures cover schemas, project/subdomain/non-Pages bases,
+changed inputs, symlinks, conflicts, exact pins, sibling preservation,
+receipt failure/retry and relocated rebuilds. The complete suite runs 221 tests
+on each supported Python version. The authored synthetic demo and isolated wheel
+match `tests/fixtures/portal-composition-expected.json`; they do not invoke a
+renderer. Separately, composing the actual pinned offline Quartz artifact
+preserves 60 files/three note routes and all sibling bytes, with idempotent repeat.
+That public receipt revision is
+`sha256:30870e3b4bf0c401bfcd69cd82630f274d501213d64bf00a4e8abea4bfcb6305`.
+
+```sh
+.venv/bin/python -m unittest tests.test_portal --verbose
+.venv/bin/python -m unittest discover --start-directory tests --verbose
+.cache/python313/bin/python -m unittest discover --start-directory tests --verbose
+.venv/bin/python -m build --sdist --wheel --outdir .cache/dist
+python -S scripts/portal_demo.py --require-source --workspace new-proof --report proof.json
+.cache/six18-wheel/bin/python -I scripts/portal_demo.py --require-installed --workspace new-wheel-proof --report wheel-proof.json
+```
+
+Both compile checks, fresh distribution resources, owner metadata and whitespace
+also pass. The inspected Relay commit, unavailable Mindgarden action and exact
+handoff requirements are pinned in the contract document. No deployment or
+workflow dispatch occurs. Full #18 integration/production criteria remain open;
+ADR-0015 remains proposed/null approval.

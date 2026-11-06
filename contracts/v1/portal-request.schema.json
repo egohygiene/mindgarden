@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:portal-request:v1",
+  "title": "Mindgarden portal-request v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "classification",
+    "publication",
+    "source",
+    "portal"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.portal-request/v1"
+    },
+    "classification": {
+      "const": "machine-local-control"
+    },
+    "publication": {
+      "const": "never-exportable"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "directory",
+        "expected_revision",
+        "expected_manifest_sha256"
+      ],
+      "properties": {
+        "directory": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "expected_revision": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+        },
+        "expected_manifest_sha256": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "portal": {
+      "type": "object",
+      "required": [
+        "directory",
+        "base_uri",
+        "mount"
+      ],
+      "properties": {
+        "directory": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "base_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "mount": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:[-/][a-z0-9]+)*$",
+          "maxLength": 128
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

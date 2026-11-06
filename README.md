@@ -194,3 +194,6 @@ first independently versioned release.
 
 The [publication conformance pack](docs/publication-conformance.md) can test a
 source or installed engine with synthetic fixtures and shareable diagnostics.
+
+[Local portal composition](docs/portal-composition.md) preserves sibling surfaces
+and emits an exact ownership receipt without deploying.
