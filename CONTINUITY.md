@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T03:17:31Z'
+  updated_at: '2026-11-06T03:44:46Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -40,16 +40,17 @@ work:
   - Usable reviewed v1 preview; design, conformance, portal, proposed architecture and compaction contracts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#42
-    url: https://github.com/egohygiene/mindgarden/issues/42
+    id: egohygiene/mindgarden#46
+    url: https://github.com/egohygiene/mindgarden/issues/46
   next:
     kind: action
-    id: compaction-retention-contract-checkpoint
-    description: 'Branch feature/46-compaction-contracts from #72; deliver versioned non-destructive compaction/retention
-      contracts and authored synthetic evidence, preserving review authority and originals.'
+    id: maintainer-stack-sync
+    description: "Sync with the maintainer and review #68 \u2192 #69 \u2192 #70 \u2192 #71 \u2192 #72\
+      \ \u2192 #73 in order. Merge only after that sync; record separate human ADR disposition before\
+      \ consequential #32/#47 choices. Combined checkout: feature/46-compaction-contracts."
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/46
+    - https://github.com/egohygiene/mindgarden/issues/42
     depends_on: []
 state:
   base:
@@ -57,40 +58,44 @@ state:
     ref: refs/heads/main
     verified_at: '2026-11-06T02:04:00Z'
   candidate:
-    branch: docs/42-architecture-decisions
-    revision: d17f01c4cfa01145090d14aff97624f636fe7f92
+    branch: feature/46-compaction-contracts
+    revision: 293edbb2e60e568e247809a3b99037f09cba2792
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#72
-      url: https://github.com/egohygiene/mindgarden/pull/72
+      id: egohygiene/mindgarden#73
+      url: https://github.com/egohygiene/mindgarden/pull/73
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T03:17:31Z'
+    observed_at: '2026-11-06T03:44:46Z'
     default_branch_revision: 8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765
     issue_state: open
     pull_request_state: draft
-    notes: 'Drafts #68 through #72 are pushed. #46 is the final authorized checkpoint. All merging awaits
-      maintainer sync; all new ADRs remain proposed/null approval.'
+    notes: "All six authorized drafts #68\u2013#73 are pushed, unmerged, with a reproducible combined\
+      \ checkout. First five exact-head automatic Test runs passed; final #73 CI is observed separately.\
+      \ All 38 parent issues remain open; ADRs remain proposed/null approval."
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T03:17:31Z'
+  reviewed_at: '2026-11-06T03:44:46Z'
   reviewed_by: codex
   evidence:
-  - command: python3 .cache/six_owner_checks.py
+  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose; .cache/python313/bin/python
+      -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T03:17:31Z'
-    notes: "15 indexed ADR-0007\u20130021 all proposed/null approval; pinned Hygiene/Aether schemas, continuity\
-      \ bounds and 38 issue rows."
-  - command: python3 .cache/six_doc_links.py; git diff --check
+    observed_at: '2026-11-06T03:44:46Z'
+    notes: 231 tests each without skips; final compaction reader tightening additionally passes 10 tests
+      on each version.
+  - command: Clean git-archive -S scripts/compaction_demo.py / isolated installed-wheel -I scripts/compaction_demo.py
     outcome: passed
-    observed_at: '2026-11-06T03:17:31Z'
-    notes: 17 documentation files and 96 relative links; no runtime changes.
-  - command: git diff 0d34a6b -- src tests scripts contracts profiles pyproject.toml MANIFEST.in --exit-code
+    observed_at: '2026-11-06T03:44:46Z'
+    notes: 'Both match committed expected proof: 2 exact citations, 4001/8192-byte context, preserved
+      originals and explicit review.'
+  - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist; both compile checks; pinned
+      owner schemas; relative links; git diff --check
     outcome: passed
-    observed_at: '2026-11-06T03:17:31Z'
-    notes: 'Exact tested #71 runtime retained; 221-test source evidence unchanged.'
+    observed_at: '2026-11-06T03:44:46Z'
+    notes: Fresh code/resources and checks pass. CI results remain separate; no workflow manually launched.
   environment_limitations:
   - No new hosted CI result is claimed before the draft is pushed.
   - Full accessibility/large-graph/native/restricted-runtime, Relay/host deployment and approved private-pilot
@@ -139,11 +144,11 @@ change documentation only. All batch PRs remain drafts and parents remain open.
 
 ## Completed and material changes
 
-#68 adds scoped v1 public projection, pinned offline Quartz rendering, exact citations, selected-only search/backlinks/graph, immutable outputs and a loopback preview. #69 adds versioned design tokens/schema/references, offline exports, an optional revision-bound Quartz/CSS consumer and mobile navigation/resize correction. #70 adds bounded complete public-output inspection, cache/log isolation, exact unique routes, live preview integrity/authority and shareable diagnostics; its reusable synthetic conformance pack covers eight leak surfaces. #71 adds pinned public site composition, portable ownership receipts, sibling preservation and partial-failure recovery. Relay action/deployment acceptance is explicitly retained. #72 documents all ten #42 topics with focused proposals, source/control/projection and full repository/runtime ownership, independent bookmark approvals, migration costs and conditional follow-ups. No runtime changes under #42.
+#68 adds scoped v1 public projection, pinned offline Quartz rendering, exact citations, selected-only search/backlinks/graph, immutable outputs and a loopback preview. #69 adds versioned design tokens/schema/references, offline exports, an optional revision-bound Quartz/CSS consumer and mobile navigation/resize correction. #70 adds bounded complete public-output inspection, cache/log isolation, exact unique routes, live preview integrity/authority and shareable diagnostics; its reusable synthetic conformance pack covers eight leak surfaces. #71 adds pinned public site composition, portable ownership receipts, sibling preservation and partial-failure recovery. Relay action/deployment acceptance is explicitly retained. #72 documents all ten #42 topics with focused proposals, source/control/projection and full repository/runtime ownership, independent bookmark approvals, migration costs and conditional follow-ups. No runtime changes under #42. #73 adds v1 compaction/retention/private manifest contracts, scoped read-only preview, qualification-preserving curation handoff and authored archive→reviewed prompt→exact search→bounded context proof. No retention jobs, deletion, raw-only expansion or approved private pilot.
 
 ## Validation and review evidence
 
-Documentation-only #72 passes pinned Hygiene ADR/policy/set/index, Aether continuity, 96 relative links and whitespace checks. Runtime is unchanged from #71, whose 221 tests pass on both supported Python versions. No redundant full local test run is claimed for #72.
+231 tests pass without skips on Python 3.12.14 and 3.13.5; final validation tightening passes all 10 compaction tests on both. Fresh source/wheel, clean -S source and isolated -I wheel proofs, both compile checks, 68 relative links, owner metadata and whitespace pass. The compacted prompt carries two exact citations and occupies 4001/8192 context bytes. First five exact-head automatic Test checks pass; final #73 is checked separately.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -155,7 +160,7 @@ site adapter. Source retention defaults to preserve.
 
 ## Next dependency-ready work
 
-Branch feature/46-compaction-contracts from #72; deliver versioned non-destructive compaction/retention contracts and authored synthetic evidence, preserving review authority and originals.
+Sync with the maintainer and review #68 → #69 → #70 → #71 → #72 → #73 in order. Merge only after that sync; record separate human ADR disposition before consequential #32/#47 choices. Combined checkout: feature/46-compaction-contracts.
 
 ## Parallel changes and reconciliation
 

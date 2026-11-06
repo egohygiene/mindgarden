@@ -11,8 +11,9 @@ Current main is `8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765`: #65/#66/#67 are
 merged after explicit maintainer authorization. #67's tree matches tested
 `3463d46`, with 188 tests passing on both supported Python versions. The new
 authorized six-draft batch is #17/#38/#10/#18/#42/#46; see
-[its checkpoint map](garden-experience-milestone.md). Drafts #68–#72 cover preview, design, conformance, composition and proposed
-architecture; the final #46 contract/proof branch preserves their combined checkout.
+[its checkpoint map](garden-experience-milestone.md). Drafts #68–#73 cover preview, design, conformance, composition, proposed
+architecture and compaction contracts/proof. The final #46 branch preserves their
+combined checkout; all await maintainer sync/review before merge.
 The original stack receipt and B1 draft evidence that follow are historical.
 All 38 parent issues remain open; ADR-0007–0021 remain proposed/null approval.
 
