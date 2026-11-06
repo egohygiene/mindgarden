@@ -1,0 +1,11 @@
+{
+  "akashic_public_handoff": "unavailable",
+  "clock": "synthetic-2026-11-06",
+  "dependency_reconciliation": "passed",
+  "memory": "passed",
+  "network": "blocked-in-process",
+  "private_bookmarks": "passed",
+  "query_store": "passed",
+  "schema": "mindgarden.synthetic-product-checkpoint/v1",
+  "unexpected_source_fallback": false
+}

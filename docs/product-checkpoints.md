@@ -114,3 +114,30 @@ native preview/architecture gates, and select the next authorized ready work.
 The #20 real-pilot inputs and consumer cutover remain open; #19 and additional
 release work and #86–#91 remain deferred. No real archive, Drive, model, private
 consumer, package publication or Pages deployment was used or modified.
+
+## Repeatable source and installed product probe
+
+The final receipt adds a portable verification script; engine code remains the
+qualified `e100aae` source. From the current combined checkout, run:
+
+```bash
+.venv/bin/python -S scripts/product_checkpoint_demo.py --require-source
+.cache/product-final-wheel/bin/python -I scripts/product_checkpoint_demo.py --require-installed
+```
+
+The installed command requires a fresh environment containing the built wheel;
+the engine loads from that interpreter's prefix, while explicitly supplied
+synthetic fixtures come from this checkout. Both runs match
+[`expected-proof.json`](../tests/fixtures/product-checkpoint/expected-proof.json).
+The script creates and cleans only its own temporary synthetic gardens. It accepts
+no real session/archive/workspace input, uses the declared synthetic 2026-11-06
+review clock, blocks sockets in parent/CLI processes, and verifies memory export,
+SQLite build/search/audit, dependency reconciliation and private bookmark export.
+It needs FTS5 for its explicitly optional-store proof. No accepted Akashic packet
+is claimed; unavailable handoff is part of the golden.
+
+The separate installed archive/routing/federation/relocation journey also matches
+its golden with `sys.modules["sqlite3"] = None` before loading the CLI. The ordinary
+workflow therefore works without the optional database extension, as well as
+without model/Google calls. This is an in-process disabled-capability proof,
+not operating-system isolation certification.

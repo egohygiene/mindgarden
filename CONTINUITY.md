@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T23:43:19Z'
+  updated_at: '2026-11-06T23:48:24Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -79,7 +79,7 @@ state:
   base:
     revision: 2867d1003e9e34a26095396439c8382e14dd3f00
     ref: refs/heads/proposal/47-shared-service-slice
-    verified_at: '2026-11-06T23:43:19Z'
+    verified_at: '2026-11-06T23:48:24Z'
   candidate:
     branch: fix/32-optional-sqlite-boundary
     revision: e100aaea9f9a9a1c744b9a5607065d1b3bb6ae53
@@ -90,7 +90,7 @@ state:
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T23:43:19Z'
+    observed_at: '2026-11-06T23:48:24Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: draft
@@ -133,29 +133,34 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/103
 review:
   status: partial
-  reviewed_at: '2026-11-06T23:43:19Z'
+  reviewed_at: '2026-11-06T23:48:24Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T23:43:19Z'
+    observed_at: '2026-11-06T23:48:24Z'
     notes: 360 tests; Python 3.12.14; 278.834 s; no skips.
   - command: .cache/python313/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T23:43:19Z'
+    observed_at: '2026-11-06T23:48:24Z'
     notes: 360 tests; Python 3.13.5; 267.789 s; no skips.
   - command: .cache/python313/bin/python -W error::ResourceWarning -m unittest tests.test_query_store -q
     outcome: passed
-    observed_at: '2026-11-06T23:43:19Z'
+    observed_at: '2026-11-06T23:48:24Z'
     notes: 10 tests; 4.048 s.
   - command: Fresh build; clean git-archive -S and installed-wheel -I synthetic journey/provider proofs
     outcome: passed
-    observed_at: '2026-11-06T23:43:19Z'
+    observed_at: '2026-11-06T23:48:24Z'
     notes: Exact committed goldens; Google/model unused, in-process network guards.
   - command: Installed memory/dependency-build/SQLite CLI probes
     outcome: passed
-    observed_at: '2026-11-06T23:43:19Z'
+    observed_at: '2026-11-06T23:48:24Z'
     notes: Exact metrics, affected outputs and audited queries; modules under interpreter prefix.
+  - command: python -S/-I scripts/product_checkpoint_demo.py --require-source/--require-installed
+    outcome: passed
+    observed_at: '2026-11-06T23:48:24Z'
+    notes: Portable committed fixture probe matches in source and installed modes; sockets blocked in both parent
+      and CLI processes.
   environment_limitations:
   - '#41 historical migration and #47 full web/runtime implementation remain behind their explicit shared/accepted-ADR
     gates.'
@@ -200,7 +205,7 @@ Main remains d5edb13. Drafts #93→#104 preserve a reproducible combined checkou
 
 ## Completed and material changes
 
-Checkpointed #41/#43 gates and shared preview, #44 public ADR metadata, #32 optional SQLite, #37 dependency reconciliation, #49 reviewed memory, #48 private bookmark exports and #47 shared-service proposal. Final fix keeps SQLite optional and qualifies extension injection; proposed ADR statuses/approvals remain unchanged.
+Checkpointed #41/#43 gates and shared preview, #44 public ADR metadata, #32 optional SQLite, #37 dependency reconciliation, #49 reviewed memory, #48 private bookmark exports and #47 shared-service proposal. Final fix keeps SQLite optional and qualifies extension injection; proposed ADR statuses/approvals remain unchanged. A portable committed product probe makes new-flow verification reproducible from a clean checkout; only synthetic temporary data is accepted.
 
 ## Validation and review evidence
 
