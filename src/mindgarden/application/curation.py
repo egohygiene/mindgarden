@@ -85,6 +85,8 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path, *,
         candidate_ids.add(candidate["id"])
         inputs = [verify_evidence(locator) for locator in candidate["sources"]]
         merged = [resolve(reference, "knowledge") for reference in candidate["merge_inputs"]]
+        if len({canonical_json(reference) for reference in candidate["merge_inputs"]}) != len(merged):
+            raise ContractError("CURATION_DUPLICATE: merge inputs must identify distinct knowledge revisions")
         sources = list(candidate["sources"])
         for previous in merged:
             sources += previous["sources"]
@@ -99,6 +101,29 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path, *,
         output_reference = None
         if candidate["action"] not in {"defer", "exclude"}:
             output = candidate["output"]
+            inherited_attribution = []
+            for previous in merged:
+                qualifications = previous.get("x-curation", {})
+                for field in ("caveats", "uncertainty", "contradictions"):
+                    values = output[field] + qualifications.get(field, [])
+                    output[field] = list({canonical_json(value): value for value in values}.values())
+                if qualifications.get("attribution"):
+                    inherited_attribution.append({"source": artifact_reference(previous["garden"], previous["id"],
+                        (snapshot if previous["garden"] == proposal["garden"] else authorized_snapshots[previous["garden"]]).hashes[previous["id"]]),
+                        "attribution": qualifications["attribution"],
+                        "epistemic_state": qualifications.get("epistemic_state", "unknown")})
+                output["authors"] = list({canonical_json(author): author
+                                          for author in output["authors"] + previous["authors"]}.values())
+            if any(item["attribution"] != output["attribution"] for item in inherited_attribution):
+                output["attribution"] = "mixed"
+            selected_evidence = {canonical_json(locator) for locator in sources}
+            for redaction in output.get("redactions", []):
+                if canonical_json(redaction["source"]) not in selected_evidence:
+                    raise ContractError("CURATION_EVIDENCE_SELECTION: redactions must name exact selected evidence")
+            for claim in output["claims"]:
+                for evidence in claim["evidence"]:
+                    if "source" in evidence["target"] and canonical_json(evidence["target"]) not in selected_evidence:
+                        raise ContractError("CURATION_EVIDENCE_SELECTION: claim evidence must be retained in candidate sources")
             if binding["scope"]["visibility"] == "public":
                 require_review_authority(public_review, proposal["review_authority"])
                 policy = snapshot.manifest["publication"]
@@ -128,7 +153,8 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path, *,
                          "role": "evidence"} for item in inputs + merged],
                 transformations=({"name": candidate["action"], "version": "1.0.0",
                                   "parameters": {"candidate_plan_sha256": input_digest,
-                                                 "candidate": candidate["id"], "rationale": candidate["rationale"]}},),
+                                                 "candidate": candidate["id"], "rationale": candidate["rationale"],
+                                                 **({"redactions": output["redactions"]} if output.get("redactions") else {})}},),
                 created_at=proposal["created_at"], rights="Derived knowledge; source rights remain authoritative.",
                 origin=None, scope=scope)
             claims = []
@@ -184,6 +210,10 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path, *,
                                         "epistemic_state": output["epistemic_state"], "caveats": output["caveats"],
                                         "uncertainty": output["uncertainty"], "contradictions": output["contradictions"]}}
             files[knowledge["content"]["path"]] = body
+            if inherited_attribution:
+                knowledge["x-curation"]["inherited_attribution"] = inherited_attribution
+            if output.get("redactions"):
+                knowledge["x-curation"]["redactions"] = output["redactions"]
             if canonical_routing is not None:
                 knowledge["x-routing"] = deepcopy(canonical_routing)
             files[f"knowledge/{output['id']}.json"] = canonical_json(knowledge)
@@ -219,6 +249,15 @@ def build_curation_plan(bindings: LocalBindings, candidate_path: Path, *,
         for reference in references:
             if reference["garden"] != proposal["garden"] or reference["id"] not in prospective:
                 raise ContractError("CURATION_RELATIONSHIP: proposed relationship has no authorized target")
+            target = prospective[reference["id"]]
+            represented = (target.get("content", {}).get("sha256")
+                           or target.get("artifact", {}).get("sha256")
+                           or digest_bytes(canonical_json(target)))
+            # A target created in this same digest-bound plan may use a logical
+            # reference. Existing targets must pin the represented revision.
+            if (reference.get("revision") != "sha256:" + represented
+                    and not (reference.get("revision") is None and reference["id"] not in snapshot.records)):
+                raise ContractError("PLAN_STALE: relationship requires the exact represented target revision")
     plan = ChangePlan("gardenize", proposal["garden"], root,
                       {"garden_revision": garden_fingerprint(root), "proposal_sha256": input_digest,
                        "bindings_sha256": digest_bytes(bindings.path.read_bytes()),
