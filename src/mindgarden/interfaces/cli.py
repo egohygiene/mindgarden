@@ -592,6 +592,15 @@ def build_parser() -> ArgumentParser:
     add_federation_command(commands)
     add_compaction_command(commands)
     add_registry_command(commands)
+    from ..application.decisions import run_decisions
+
+    decisions = commands.add_parser("decisions", help="Project explicit public ADR read-model metadata")
+    decisions.add_argument("--input", type=Path, required=True)
+    decisions.add_argument("--input-sha256", required=True)
+    decisions.add_argument("--represented-commit", required=True)
+    decisions.add_argument("--include-proposed", action="store_true")
+    decisions.add_argument("--max-bytes", type=positive_integer, default=65536)
+    decisions.set_defaults(handler=run_decisions)
     design = commands.add_parser("design", help="Validate and export stack-neutral design tokens")
     design.add_argument("--tokens", type=Path, help="Explicit token file; omission selects the installed design source")
     design.add_argument("--format", choices=("json", "css", "quartz"), default="json")

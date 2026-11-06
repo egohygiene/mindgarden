@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:adr-projection:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "visibility",
+    "represented_commit",
+    "source_contract",
+    "authority",
+    "nodes",
+    "edges",
+    "backlinks",
+    "context"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.adr-projection/v1"
+    },
+    "visibility": {
+      "const": "public"
+    },
+    "represented_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "source_contract": {
+      "const": "egohygiene.observatory.repository-intelligence-read-model/v1"
+    },
+    "authority": {
+      "const": "upstream-assertions-only"
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "key",
+          "title",
+          "source",
+          "represented_commit",
+          "status",
+          "decision_scope",
+          "implementation_status",
+          "assertion",
+          "visibility",
+          "review",
+          "narrative",
+          "approval",
+          "owners",
+          "date"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "represented_commit": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "decision_scope": {
+            "type": "string"
+          },
+          "implementation_status": {
+            "type": "string"
+          },
+          "assertion": {
+            "type": "string"
+          },
+          "visibility": {
+            "type": "string"
+          },
+          "review": {
+            "type": "string"
+          },
+          "narrative": {
+            "type": "string"
+          },
+          "approval": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "by",
+                  "date",
+                  "evidence"
+                ],
+                "properties": {
+                  "by": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "evidence": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            ]
+          },
+          "owners": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source",
+          "target",
+          "type",
+          "assertion"
+        ],
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "supersedes",
+              "superseded-by",
+              "amends",
+              "depends-on",
+              "conflicts-with",
+              "related-to"
+            ]
+          },
+          "assertion": {
+            "enum": [
+              "authoritative",
+              "inferred"
+            ]
+          }
+        }
+      }
+    },
+    "backlinks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source",
+            "target",
+            "type",
+            "assertion"
+          ],
+          "properties": {
+            "source": {
+              "type": "string"
+            },
+            "target": {
+              "type": "string"
+            },
+            "type": {
+              "enum": [
+                "supersedes",
+                "superseded-by",
+                "amends",
+                "depends-on",
+                "conflicts-with",
+                "related-to"
+              ]
+            },
+            "assertion": {
+              "enum": [
+                "authoritative",
+                "inferred"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "context": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "reference",
+          "title",
+          "status",
+          "reason",
+          "untrusted"
+        ],
+        "properties": {
+          "reference": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "untrusted": {
+            "const": true
+          }
+        }
+      }
+    }
+  }
+}
