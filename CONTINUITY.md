@@ -7,13 +7,14 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T16:39:29Z'
+  updated_at: '2026-11-06T21:07:38Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: 'Preserve the authorized #74–#84 merge receipts and a clean next-sprint baseline.'
+  purpose: Preserve deferred issue capture and resume the original policy/storage parent work without
+    repeating merged checkpoints.
   includes:
   - private policy, output enforcement, registry, document and vault checkpoints
   excludes:
@@ -37,76 +38,72 @@ scope:
   - docs/source-workflow-sprint.md
   - docs/private-storage-sprint.md
   - docs/merged-pipeline-storage-checkpoints.md
+  - docs/deferred-context-package-roadmap.md
 work:
-  objective: Merge the authorized pipeline/storage stack in dependency order and reconcile its handoff.
+  objective: 'Merge the approved deferred-roadmap documentation and check remaining #29/#31/#30/#35/#45
+    acceptance against live dependencies.'
   success_conditions:
-  - All eleven approved heads merged in dependency order.
-  - Merged tree exactly equals tested combined checkout; post-merge golden passes.
-  - Parent issues remain open and proposed ADRs unratified.
-  active_issue: null
+  - Original 38 issues retain priority; six new proposals remain deferred.
+  - 'One parent #86 owns native sub-issues #87/#88/#91/#89/#90 and an ordered roadmap.'
+  - 'Do not repeat merged #80–#84 or claim unavailable parent/ADR acceptance.'
+  active_issue:
+    provider: github
+    id: egohygiene/mindgarden#30
+    url: https://github.com/egohygiene/mindgarden/issues/30
   next:
     kind: action
-    id: next-maintainer-issue-group
-    description: 'Await the maintainer''s next issue group, then refresh live issues/PRs/dependencies
-      against merged main. The #74–#84 stack is complete; do not repeat it or infer parent/ADR acceptance.'
+    id: remaining-registry-platform-checkpoint
+    description: 'After merging approved planning PR #92, inspect a native macOS registry checkpoint under
+      #30. Keep Windows unsupported without an ACL adapter/proof. #29/#31/#35/#45 still retain policy/confidential-runtime
+      and provider/consumer gates. Do not activate deferred #86–#91.'
     readiness: ready
     references:
-    - docs/merged-pipeline-storage-checkpoints.md
+    - https://github.com/egohygiene/mindgarden/issues/30
+    - docs/deferred-context-package-roadmap.md
     depends_on: []
 state:
   base:
-    revision: eb0018e3312f85f7b00818cb483ef4bce1863233
+    revision: b9cc3fd3b8b68e56944d592e2092b07485de465a
     ref: refs/heads/main
-    verified_at: '2026-11-06T16:39:29Z'
+    verified_at: '2026-11-06T21:07:38Z'
   candidate:
-    branch: null
-    revision: null
-    pull_request: null
-    handoff_state: no-active-change
+    branch: docs/deferred-context-packages-phase
+    revision: 110005d12ad4174db0da7b598c70af3c771f772f
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#92
+      url: https://github.com/egohygiene/mindgarden/pull/92
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T16:39:29Z'
-    default_branch_revision: eb0018e3312f85f7b00818cb483ef4bce1863233
-    issue_state: not-applicable
-    pull_request_state: merged
-    notes: 'All #74–#84 merged; 38 parent issues remain open. Documentation receipt reconciles current
-      state without functional changes or ADR ratification.'
+    observed_at: '2026-11-06T21:07:38Z'
+    default_branch_revision: b9cc3fd3b8b68e56944d592e2092b07485de465a
+    issue_state: open
+    pull_request_state: draft
+    notes: 'The user authorized merging open PRs and listed the already-merged #29/#31/#30/#35/#45 batch.
+      PR #92 is planning-only; original queue remains 38, plus six deferred proposals, 44 total.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T16:39:29Z'
+  reviewed_at: '2026-11-06T21:07:38Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose
+  - command: python3 .cache/context_phase_owner_checks.py
     outcome: passed
-    observed_at: '2026-11-06T11:27:23Z'
-    notes: 298 passed; no skips; Python 3.12.14
-  - command: .cache/python313/bin/python -m unittest discover --start-directory tests --verbose
+    observed_at: '2026-11-06T21:07:38Z'
+    notes: Pinned ADR/continuity validators; 44 unique rows, original 38 preserved; five native sub-issues.
+  - command: python3 .cache/context_phase_subissues.py
     outcome: passed
-    observed_at: '2026-11-06T11:27:23Z'
-    notes: 298 passed; no skips; Python 3.13.5
-  - command: git diff --exit-code 44635f2d7901ab5d7674b9f6759934afcb21e651 eb0018e3312f85f7b00818cb483ef4bce1863233
+    observed_at: '2026-11-06T21:07:38Z'
+    notes: 'Native GitHub sub-issues verified under #86.'
+  - command: git diff --check
     outcome: passed
-    observed_at: '2026-11-06T16:39:29Z'
-    notes: Complete merged tree equals the tested combined leaf.
-  - command: .venv/bin/python scripts/mixed_vault_demo.py --workspace .cache/merged-74-84-proof --recorded-synthetic-pdf
-      --require-source --report .cache/merged-74-84-proof.json
-    outcome: passed
-    observed_at: '2026-11-06T16:39:29Z'
-    notes: Post-merge main golden passed; retained originals, exact references and clean rebuild.
-  - command: cmp tests/fixtures/assets/expected-proof.json .cache/merged-74-84-proof.json
-    outcome: passed
-    observed_at: '2026-11-06T16:39:29Z'
-    notes: Byte-identical complete golden.
-  - command: python3 .cache/six_owner_checks.py
-    outcome: passed
-    observed_at: '2026-11-06T16:39:29Z'
-    notes: Pinned owners/continuity/38-row ledger pass; ADRs proposed/null approval.
+    observed_at: '2026-11-06T21:07:38Z'
+    notes: Planning changes are Markdown only; relative links resolve.
   environment_limitations:
-  - All eleven exact pre-merge heads passed hosted CI; later main/documentation CI is separate. No paid
-    workflow manually dispatched.
-  - Confidential/provider/native-platform and full parent consumer acceptance remain outside this bounded
-    evidence.
+  - Planning changes do not implement deferred features or select RDF/model/provider technology.
+  - Native macOS support requires actual ACL and filesystem evidence; restricted runtime/organization
+    policy and Windows support remain unavailable.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -126,9 +123,7 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer explicitly authorized merging #74–#84 in order. All eleven are
-merged. This permission does not ratify proposed ADRs or close parent acceptance.
-User/runtime instructions and current live repository state take precedence.
+The maintainer authorized filing deferred follow-ups, then merging open PRs and resuming #29/#31/#30/#35/#45. Their bounded checkpoints already merged through #84. Preserve that evidence and implement only actual remaining ready work. Filing or merging plans does not ratify ADRs or activate later features.
 
 ## Resume protocol
 
@@ -138,29 +133,19 @@ synthetic-only public fixtures. Do not rebuild or remerge the completed stack.
 
 ## Current objective and success conditions
 
-Merge work is complete. Preserve exact receipts, tested-tree identity, retained
-parent scope and a clean baseline for the maintainer's next issue group.
+Planning PR #92 records six deferred issues and the native parent/sub-issue roadmap. The original 38-issue queue keeps priority. Reconcile live parent acceptance, merge the approved planning work, and select a supported remaining checkpoint without rebuilding completed features.
 
 ## State snapshot
 
-All #74–#84 merged into main in order. Functional merged main is `eb0018e3312f85f7b00818cb483ef4bce1863233`,
-identical to tested leaf `44635f2d7901ab5d7674b9f6759934afcb21e651`.
-A documentation-only receipt may advance main. All 38 parent issues remain open.
+Main is b9cc3fd3b8b68e56944d592e2092b07485de465a. PR #92 contains documentation only. There are 44 open issues: the original 38 and deferred #86–#91. Parent #86 owns native sub-issues #87, #88, #91, #89 and #90.
 
 ## Completed and material changes
 
-Source/curation/archive/routing/projection/federation checkpoints and local policy,
-output enforcement, reversible caches, optional PDF/page evidence, private asset
-triage and mixed-vault recovery are merged. Originals, Python/v0 compatibility,
-private boundaries and proposed/null-approval ADR status remain intact.
+Deferred proposals cover Drive/source locations and refresh, installable data-only context packages, RDF/JSON-LD/PROV evaluation with scoped access, an AI research role and a generic synthetic analysis-to-reviewed-packet journey. Existing #13/#46/#49 retain AI curation/summary/memory ownership. No real consumer data, provider connection or new feature implementation was added.
 
 ## Validation and review evidence
 
-Each exact pre-merge head passed hosted CI. The identical combined functional
-suite passed 298 tests without skips on each Python 3.12.14 and 3.13.5. Post-merge
-main reran the complete mixed golden successfully: 4 assets, 12 objects, exact
-archive/PDF citations, 4486-byte context, interrupted rebind, restore/relocation
-and clean rebuild. Exact receipts and earlier clean source/wheel proofs are linked.
+Pinned Hygiene ADR policy/schema/set/index and Aether continuity/12 headings/limits pass. The updated coverage check proves exactly 44 unique issue rows, the unchanged original cohort and five native GitHub child links. Relative links and diff checks pass. Runtime is unchanged; its prior baseline is 298 passing tests on each supported Python. PR #92 source 110005d passed automatic Test run 42290611586.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -172,15 +157,11 @@ or destructive migration was used.
 
 ## Next dependency-ready work
 
-Await the maintainer's next issue group. Refresh live state and reconcile its
-dependencies against merged main before implementation; preserve the existing
-coverage ledger and proceed with bounded ready work when the group arrives.
+Merge PR #92 under the new authorization. Check remaining native macOS registry work with actual ACL requirements and native CI evidence. Do not repeat #80–#84. Normative Hygiene #39/#40 and Realm confidential-runtime gates remain open. Keep #86–#91 deferred until the original queue is completed/dispositioned, the final reconciliation/refactor is done and the maintainer later schedules that phase.
 
 ## Parallel changes and reconciliation
 
-Every approved head remains an ancestor; each PR was retargeted to main after its
-prerequisite merged. No source branch was deleted. A documentation receipt records
-this state; it adds no engine/schema/fixture changes or decision approvals.
+The #74–#85 stack is merged. The deferred roadmap is additive and does not expand old acceptance or require new features to finish old issues. New work remains in small draft PRs for review; no unrelated data, provider or architecture migration is authorized.
 
 ## Privacy and redaction
 
@@ -196,5 +177,4 @@ fully accepted states. Validate pinned owners, continuity, links and 38-row ledg
 
 ## Compaction and supersession
 
-Keep under 16384 bytes/240 lines. The merge receipt supersedes the prior draft
-review/merge next action; linked sprint evidence retains its original observations.
+Keep under 16384 bytes/240 lines. This checkpoint supersedes the prior waiting-for-next-group state. Merge receipts and sprint evidence retain their original observations; the new parent/sub-issue roadmap stays explicitly deferred.
