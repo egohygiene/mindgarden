@@ -5,7 +5,7 @@ import os
 import stat
 
 from ..domain.contracts import digest_bytes, safe_path
-from ..domain.site import MAX_SITE_BYTES, MAX_SITE_FILE_BYTES, MAX_SITE_FILES, SITE_MARKER, verify_site
+from ..domain.site import MAX_SITE_BYTES, MAX_SITE_ENTRIES, MAX_SITE_FILE_BYTES, MAX_SITE_FILES, SITE_MARKER, verify_site
 from ..domain.validation import ContractError
 from .federation_files import explicit_directory
 
@@ -18,10 +18,17 @@ def preview_server(directory, base_uri, port, *, check_live):
 
     files = read_site(directory)
     manifest = verify_site(files)
+    if manifest["kind"] != "site" or manifest["base_uri"] != base_uri:
+        raise ContractError("SITE_ROUTE: preview requires the exact rendered public site base")
     allowed = {item["path"]: item for item in manifest["artifacts"]}
     prefix = urlsplit(base_uri).path
 
     class Handler(BaseHTTPRequestHandler):
+        def end_headers(self):
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("X-Content-Type-Options", "nosniff")
+            super().end_headers()
+
         def do_GET(self):
             self.respond(True)
 
@@ -45,15 +52,12 @@ def preview_server(directory, base_uri, port, *, check_live):
                 if name is None:
                     self.send_error(404, "Unavailable"); return
                 expected = allowed[name]
-                with safe_path(directory, name).open("rb") as stream:
-                    content = stream.read(expected["size_bytes"] + 1)
+                content = read_artifact(safe_path(directory, name))
                 if len(content) != expected["size_bytes"] or digest_bytes(content) != expected["sha256"]:
                     raise ContractError("SITE_INTEGRITY: preview artifact changed")
                 self.send_response(200)
                 self.send_header("Content-Type", mimetypes.guess_type(name)[0] or "application/octet-stream")
                 self.send_header("Content-Length", str(len(content)))
-                self.send_header("Cache-Control", "no-store")
-                self.send_header("X-Content-Type-Options", "nosniff")
                 self.end_headers()
                 if body:
                     self.wfile.write(content)
@@ -63,21 +67,45 @@ def preview_server(directory, base_uri, port, *, check_live):
     return ThreadingHTTPServer(("127.0.0.1", port), Handler)
 
 
+def read_artifact(path: Path) -> bytes:
+    """Bound every read and reject links, including preview-time replacements."""
+    descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_NONBLOCK", 0))
+    with os.fdopen(descriptor, "rb") as stream:
+        info = os.fstat(stream.fileno())
+        if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1 or info.st_size > MAX_SITE_FILE_BYTES:
+            raise ContractError("SITE_PATH: output members must be bounded ordinary files")
+        content = stream.read(MAX_SITE_FILE_BYTES + 1)
+        if len(content) > MAX_SITE_FILE_BYTES:
+            raise ContractError("SITE_BUDGET: output member exceeds the byte limit")
+        return content
+
+
 def read_site(directory: Path) -> dict[str, bytes]:
+    if ".." in directory.parts:
+        raise ContractError("SITE_PATH: use an explicit directory without traversal")
     directory = explicit_directory(directory)
     result = {}
     try:
-        for path in sorted(directory.rglob("*")):
-            info = path.lstat()
-            if path.is_symlink():
-                raise ContractError("SITE_PATH: output must not contain symlinks")
-            if path.is_dir():
-                continue
-            if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1 or info.st_size > MAX_SITE_FILE_BYTES:
-                raise ContractError("SITE_PATH: output members must be bounded ordinary files")
-            result[path.relative_to(directory).as_posix()] = path.read_bytes()
-            if len(result) > MAX_SITE_FILES or sum(map(len, result.values())) > MAX_SITE_BYTES:
-                raise ContractError("SITE_BUDGET: output exceeds the supported site budget")
+        if not directory.is_dir():
+            raise ContractError("SITE_UNAVAILABLE: explicit output directory is unavailable")
+        entries = total_bytes = 0
+        def unavailable(_error):
+            raise ContractError("SITE_UNAVAILABLE: complete output coverage is required")
+        for root, directories, names in os.walk(directory, onerror=unavailable, followlinks=False):
+            entries += len(directories) + len(names)
+            if entries > MAX_SITE_ENTRIES:
+                raise ContractError("SITE_BUDGET: output exceeds the directory-entry budget")
+            for name in directories + names:
+                path = Path(root) / name
+                if path.is_symlink():
+                    raise ContractError("SITE_PATH: output must not contain symlinks")
+            for name in sorted(names):
+                path = Path(root) / name
+                content = read_artifact(path)
+                result[path.relative_to(directory).as_posix()] = content
+                total_bytes += len(content)
+                if len(result) > MAX_SITE_FILES or total_bytes > MAX_SITE_BYTES:
+                    raise ContractError("SITE_BUDGET: output exceeds the supported site budget")
         return result
     except OSError as error:
         raise ContractError("SITE_UNAVAILABLE: explicit output cannot be inspected safely") from error

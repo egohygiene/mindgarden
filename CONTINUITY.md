@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T02:48:25Z'
+  updated_at: '2026-11-06T02:58:04Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -40,16 +40,17 @@ work:
   - Usable reviewed v1 preview; design, conformance, portal, proposed architecture and compaction contracts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#38
-    url: https://github.com/egohygiene/mindgarden/issues/38
+    id: egohygiene/mindgarden#10
+    url: https://github.com/egohygiene/mindgarden/issues/10
   next:
     kind: action
-    id: public-conformance-checkpoint
-    description: 'Branch feature/10-public-conformance from #69; deliver reusable publication/preview
-      negatives and stable diagnostics, then #18/#42/#46.'
+    id: portal-composition-checkpoint
+    description: 'Branch feature/18-portal-composition from #70; implement caller-owned public output
+      composition, manifest pins, sibling preservation and recovery fixtures; retain Relay integration
+      gates.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/10
+    - https://github.com/egohygiene/mindgarden/issues/18
     depends_on: []
 state:
   base:
@@ -57,43 +58,41 @@ state:
     ref: refs/heads/main
     verified_at: '2026-11-06T02:04:00Z'
   candidate:
-    branch: feature/38-design-tokens
-    revision: 5b59d8e3c6b8b0fbdb1acdcf25a76ebf99968f18
+    branch: feature/10-public-conformance
+    revision: 49e394a176436562e9eeab319829372127cd3961
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#69
-      url: https://github.com/egohygiene/mindgarden/pull/69
+      id: egohygiene/mindgarden#70
+      url: https://github.com/egohygiene/mindgarden/pull/70
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T02:48:25Z'
+    observed_at: '2026-11-06T02:58:04Z'
     default_branch_revision: 8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765
     issue_state: open
     pull_request_state: draft
-    notes: 'Drafts #68/#69 are pushed; automatic CI observed separately from local tests. Four more drafts
-      remain authorized. No merges before sync.'
+    notes: 'Drafts #68/#69/#70 are pushed. Three further drafts are authorized. Automatic CI remains separate
+      from local evidence; no merges before sync.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T02:48:25Z'
+  reviewed_at: '2026-11-06T02:58:04Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests --verbose; .cache/python313/bin/python
       -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T02:48:25Z'
-    notes: 201 tests each without skips; final CSS changes additionally pass 13 targeted tests and 3.13
-      design tests.
-  - command: .venv/bin/python -m build --sdist --wheel; isolated wheel design export; both compileall
-      checks; python3 .cache/six_owner_checks.py; git diff --check
+    observed_at: '2026-11-06T02:58:04Z'
+    notes: 210 tests each, no skips.
+  - command: scripts/publication_conformance.py --require-source / isolated -I --require-installed
     outcome: passed
-    observed_at: '2026-11-06T02:48:25Z'
-    notes: Fresh source/wheel, token identity, pinned owner schemas and whitespace pass.
-  - command: Prepared offline Quartz render and Chromium/Playwright loopback checks
+    observed_at: '2026-11-06T02:58:04Z'
+    notes: 80 tests each, no skips; byte-identical shareable reports.
+  - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist; both compileall checks; python3
+      .cache/six_owner_checks.py; git diff --check
     outcome: passed
-    observed_at: '2026-11-06T02:48:25Z'
-    notes: 60 files; search/backlinks/3 nodes/1 edge/zoom; no mobile overflow, external requests or page
-      errors. Bounded layout/color evidence, not full WCAG acceptance.
+    observed_at: '2026-11-06T02:58:04Z'
+    notes: Fresh artifacts and pinned owner metadata pass. No manually launched workflow.
   environment_limitations:
   - No new hosted CI result is claimed before the draft is pushed.
   - Full accessibility/large-graph/native/restricted-runtime, Relay/host deployment and approved private-pilot
@@ -142,11 +141,11 @@ change documentation only. All batch PRs remain drafts and parents remain open.
 
 ## Completed and material changes
 
-#68 adds scoped v1 public projection, pinned offline Quartz rendering, exact citations, selected-only search/backlinks/graph, immutable outputs and a loopback preview. #69 adds versioned design tokens/schema/references, offline exports, an optional revision-bound Quartz/CSS consumer and mobile navigation/resize correction.
+#68 adds scoped v1 public projection, pinned offline Quartz rendering, exact citations, selected-only search/backlinks/graph, immutable outputs and a loopback preview. #69 adds versioned design tokens/schema/references, offline exports, an optional revision-bound Quartz/CSS consumer and mobile navigation/resize correction. #70 adds bounded complete public-output inspection, cache/log isolation, exact unique routes, live preview integrity/authority and shareable diagnostics; its reusable synthetic conformance pack covers eight leak surfaces.
 
 ## Validation and review evidence
 
-201 tests pass on Python 3.12.14 and 3.13.5 without skips; final style changes pass targeted tests. Fresh source/wheel, isolated installed token export, both compile checks and owner metadata pass. Actual themed Quartz render: 60 files; Chromium search/backlinks/SVG zoom and 1360-to-390px resize pass, with zero external requests/page errors. Exact commands and prior #68 clean-source/wheel evidence are in the batch map.
+210 tests pass without skips on both supported Python versions. The 80-test synthetic publication pack passes source and isolated installed engine with identical reports. Fresh source/wheel resources, both compile checks, owner metadata and whitespace pass. Prior render/browser evidence remains linked in the batch map.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -158,7 +157,7 @@ site adapter. Source retention defaults to preserve.
 
 ## Next dependency-ready work
 
-Branch feature/10-public-conformance from #69; deliver reusable publication/preview negatives and stable diagnostics, then #18/#42/#46.
+Branch feature/18-portal-composition from #70; implement caller-owned public output composition, manifest pins, sibling preservation and recovery fixtures; retain Relay integration gates.
 
 ## Parallel changes and reconciliation
 

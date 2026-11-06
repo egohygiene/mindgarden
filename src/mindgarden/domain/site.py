@@ -16,6 +16,7 @@ QUARTZ_REPOSITORY = "https://github.com/jackyzha0/quartz.git"
 MAX_SITE_BYTES = 64_000_000
 MAX_SITE_FILE_BYTES = 16_000_000
 MAX_SITE_FILES = 3000
+MAX_SITE_ENTRIES = 6000
 
 
 def literal(value: str) -> str:
@@ -107,13 +108,16 @@ def artifact_manifest(kind: str, revision: str, base_uri: str, renderer: dict, r
 
 def verify_site(files: dict[str, bytes], *, expected: dict | None = None) -> dict:
     try:
-        if SITE_MARKER not in files or len(files) > MAX_SITE_FILES or sum(map(len, files.values())) > MAX_SITE_BYTES:
+        if SITE_MARKER not in files:
+            raise ContractError("SITE_INCOMPLETE: complete site manifest is required")
+        if len(files) > MAX_SITE_FILES or sum(map(len, files.values())) > MAX_SITE_BYTES:
             raise ContractError("SITE_BUDGET: site membership or total bytes exceed the supported budget")
         for name, content in files.items():
             path = PurePosixPath(name)
             if (not name or path.is_absolute() or str(path) != name or ".." in path.parts
                     or any(part in {".garden", ".git"} for part in path.parts)
-                    or ":" in name or "\\" in name or len(content) > MAX_SITE_FILE_BYTES):
+                    or any(ord(character) < 32 or character in ':\\?*<>"|' for character in name)
+                    or len(content) > MAX_SITE_FILE_BYTES):
                 raise ContractError("SITE_PATH: artifact paths and sizes must be portable and bounded")
         manifest = strict_json(files[SITE_MARKER])
         if ContractRegistry().errors(manifest, "site-manifest"):
@@ -124,7 +128,15 @@ def verify_site(files: dict[str, bytes], *, expected: dict | None = None) -> dic
             raise ContractError("SITE_INTEGRITY: complete site membership or checksums differ")
         if public_url(manifest["base_uri"], base=True) != manifest["base_uri"]:
             raise ContractError("SITE_ROUTE: canonical public base URL required")
+        identities, paths = set(), set()
         for route in manifest["routes"]:
+            reference = route["reference"]
+            identity = (reference["garden"], reference["id"])
+            if identity in identities or route["path"] in paths or reference["revision"] is None:
+                raise ContractError("SITE_ROUTE: routes require unique exact represented references")
+            identities.add(identity); paths.add(route["path"])
+            if route["path"] != "notes/" + reference["id"] + "/index.html":
+                raise ContractError("SITE_ROUTE: portable canonical note path required")
             if route["url"] != manifest["base_uri"] + "notes/" + route["reference"]["id"] + "/":
                 raise ContractError("SITE_ROUTE: canonical note route differs")
             target = route["path"].removesuffix(".html") + ".md" if manifest["kind"] == "content" else route["path"]

@@ -1,0 +1,14 @@
+{
+  "schema": "mindgarden.synthetic-publication-cases/v1",
+  "canaries": {
+    "frontmatter": "denied-frontmatter-canary",
+    "body": "denied-markdown-body-canary",
+    "attachment": "denied-attachment-canary",
+    "link": "denied-link-canary",
+    "index": "denied-index-canary",
+    "error": "denied-error-path-canary",
+    "build_log": "denied-renderer-log-canary",
+    "metadata": "denied-generated-metadata-canary"
+  },
+  "retained_gates": ["real-consumer-acceptance", "normative-restricted-runtime-assurance", "full-media-adapter-coverage"]
+}

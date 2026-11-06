@@ -354,6 +354,7 @@ def add_site_authority(command) -> None:
     mode.add_argument("--apply", action="store_true", help="Create or verify v1 output after exact-digest review")
     mode.add_argument("--check", action="store_true", help="Verify existing v1 output without renderer calls")
     command.add_argument("--plan-digest", help="Exact reviewed v1 site-plan digest")
+    command.add_argument("--diagnostic-format", choices=("text", "json"), default="text", help="Shareable v1 failure diagnostics")
 
 
 def uses_v1_site(arguments) -> bool:
@@ -581,7 +582,21 @@ def main(arguments: Sequence[str] | None = None) -> int:
     """Run the CLI with stable failures for human and machine callers."""
     parsed = build_parser().parse_args(arguments)
     try:
-        result = parsed.handler(parsed)
+        if parsed.handler in (run_publication, run_site_adapter) and uses_v1_site(parsed):
+            try:
+                result = parsed.handler(parsed)
+            except (ContractError, OSError, UnicodeError, ValueError, subprocess.CalledProcessError) as error:
+                from ..domain.public_diagnostics import publication_failure
+
+                report = publication_failure(error)
+                if parsed.diagnostic_format == "json":
+                    print(json.dumps(report, sort_keys=True), file=sys.stderr)
+                else:
+                    item = report["diagnostics"][0]
+                    print("mindgarden contract error: " + item["code"] + ": " + item["message"] + ". " + item["remediation"], file=sys.stderr)
+                return ExitCode.CONTRACT
+        else:
+            result = parsed.handler(parsed)
     except ContractError as error:
         print(f"mindgarden contract error: {error}", file=sys.stderr)
         return ExitCode.CONTRACT

@@ -55,7 +55,7 @@ plan. A conflicting or incomplete output is retained for inspection.
 | --- | --- | --- | --- |
 | #17 | `feature/17-v1-garden-preview` / main `8a9650e` | [#68](https://github.com/egohygiene/mindgarden/pull/68) | `f1706a55a41c0528489b503662f708e1b4884e31` |
 | #38 | `feature/38-design-tokens` / #68 | [#69](https://github.com/egohygiene/mindgarden/pull/69) | `5b59d8e3c6b8b0fbdb1acdcf25a76ebf99968f18` |
-| #10 | `feature/10-public-conformance` / #38 checkpoint | Pending | Reusable publication/preview negatives and diagnostics |
+| #10 | `feature/10-public-conformance` / #69 | [#70](https://github.com/egohygiene/mindgarden/pull/70) | `49e394a176436562e9eeab319829372127cd3961` |
 | #18 | `feature/18-portal-composition` / #10 checkpoint | Pending | Caller-owned composition and recovery |
 | #42 | `docs/42-architecture-decisions` / #18 checkpoint | Pending | Proposed decisions and disposition map |
 | #46 | `feature/46-compaction-contracts` / #42 checkpoint | Pending | Contracts and authored synthetic proof |
@@ -110,3 +110,33 @@ git diff --check
 The owner check uses the pinned Hygiene/Aether schemas documented in the
 [decision policy reference](decisions/policy-reference.json). ADR-0014 is proposed
 with null approval. Full component/consumer/accessibility acceptance remains open.
+
+
+## #10 publication/preview conformance checkpoint
+
+The [reusable pack](publication-conformance.md) extends the existing validator,
+v0 publication, scoped retrieval and exact-evidence suites with committed
+adversarial surface canaries. It adds complete bounded output-tree inspection,
+unique exact canonical routes, ordinary-file/link checks, per-request preview
+integrity/authority and shareable JSON/human failures. The renderer's sibling
+npm/log subtree cannot overlap declared vaults or canonical records. No denied
+root is probed to establish that boundary.
+
+The synthetic pack runs 80 tests without skips against source and an isolated
+installed engine. The complete compatibility suite runs 210 tests on Python
+3.12.14 and 3.13.5. Fresh source/wheel resources, both compile checks, pinned
+owner metadata and whitespace are checked separately. Exact commands:
+
+```sh
+.venv/bin/python -m build --sdist --wheel --outdir .cache/dist
+.venv/bin/python -m unittest discover --start-directory tests --verbose
+.cache/python313/bin/python -m unittest discover --start-directory tests --verbose
+.venv/bin/python scripts/publication_conformance.py --require-source --report proof-source.json
+.cache/six10-wheel/bin/python -I scripts/publication_conformance.py --require-installed --report proof-wheel.json
+```
+
+Loopback HTTP is used only for synthetic preview checks. Rendering remains an
+optional separately prepared adapter; mocked failure output contains synthetic
+canaries so subprocess strings cannot leak through shareable diagnostics.
+Consumer media coverage and normative policy/restricted-runtime assurance remain
+open parent criteria. This is not source-rights or sensitivity adjudication.
