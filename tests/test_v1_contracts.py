@@ -167,6 +167,7 @@ class V1ContractTests(unittest.TestCase):
                 "retention-policy",
                 "compaction-plan",
                 "compaction-manifest",
+                "adr-projection",
             },
         )
         identifiers = set()
