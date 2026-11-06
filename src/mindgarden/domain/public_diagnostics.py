@@ -16,6 +16,8 @@ def publication_failure(error):
         remediation = "Choose separate ordinary output/cache directories outside canonical records and all declared vaults."
     elif code in {"SITE_INTEGRITY", "SITE_OUTPUT_CONFLICT", "SITE_STALE", "SITE_INCOMPLETE"}:
         remediation = "Preserve the conflicting output for inspection; verify complete checksums or select a fresh destination."
+    elif code.startswith("COMPACTION"):
+        remediation = "Refresh the authored hierarchy, exact permitted evidence and curation pin; preserve qualifications and explicit review."
     diagnostic = Diagnostic(code, "publication", "Public output verification is incomplete" if incomplete
                             else "Public output was denied", remediation)
     return {"schema": "mindgarden.publication-validation/v1", "status": "incomplete" if incomplete else "failed",

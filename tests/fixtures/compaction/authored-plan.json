@@ -1,0 +1,736 @@
+{
+  "budget_profile": "personal",
+  "created_at": "2026-11-04T00:00:00Z",
+  "curation_plan_sha256": "16622a1e59553ec7e8c5c3487826c249683009e839f214161feeeb026b609361",
+  "garden": "synthetic-garden",
+  "id": "synthetic-hierarchy",
+  "nodes": [
+    {
+      "action": "keep",
+      "curation_candidate": null,
+      "id": "segment-prompt",
+      "inputs": [],
+      "layer": "normalized-segment",
+      "rationale": "Authored synthetic keep at normalized-segment.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+                "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+              }
+            }
+          ],
+          "id": "segment-prompt-prompt",
+          "text": "Cite exact evidence; preserve uncertainty.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "unknown",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    },
+    {
+      "action": "keep",
+      "curation_candidate": null,
+      "id": "segment-prompt-copy",
+      "inputs": [],
+      "layer": "normalized-segment",
+      "rationale": "Authored synthetic keep at normalized-segment.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+                "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+              }
+            }
+          ],
+          "id": "segment-prompt-copy-prompt",
+          "text": "Cite exact evidence; preserve uncertainty.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "unknown",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    },
+    {
+      "action": "keep",
+      "curation_candidate": null,
+      "id": "segment-alternative",
+      "inputs": [],
+      "layer": "normalized-segment",
+      "rationale": "Authored synthetic keep at normalized-segment.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [
+            "The alternative branch has not been reconciled."
+          ],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "b1c9e4360a3515f7852bbb6cde7f9a1b92c6e01718b07f5f8cdb7363dc56a3dd",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-15599af188a23eecf9982dad-e4b31699fcc29357",
+                "revision": "sha256:e4b31699fcc293574c0c2765fdfef2d4c28d81248815d912f084ebaf37272269"
+              }
+            }
+          ],
+          "id": "segment-alternative-alternative",
+          "text": "Alternative suggestion remains unverified.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "conflicting",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    },
+    {
+      "action": "summarize",
+      "curation_candidate": null,
+      "id": "summary-prompt",
+      "inputs": [
+        "segment-prompt"
+      ],
+      "layer": "source-summary",
+      "rationale": "Authored synthetic summarize at source-summary.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+                "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+              }
+            }
+          ],
+          "id": "summary-prompt-prompt",
+          "text": "Use exact evidence; preserve uncertainty.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "unknown",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    },
+    {
+      "action": "summarize",
+      "curation_candidate": null,
+      "id": "summary-alternative",
+      "inputs": [
+        "segment-alternative"
+      ],
+      "layer": "source-summary",
+      "rationale": "Authored synthetic summarize at source-summary.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [
+            "The alternative branch has not been reconciled."
+          ],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "b1c9e4360a3515f7852bbb6cde7f9a1b92c6e01718b07f5f8cdb7363dc56a3dd",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-15599af188a23eecf9982dad-e4b31699fcc29357",
+                "revision": "sha256:e4b31699fcc293574c0c2765fdfef2d4c28d81248815d912f084ebaf37272269"
+              }
+            }
+          ],
+          "id": "summary-alternative-alternative",
+          "text": "Alternative remains unverified.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "conflicting",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    },
+    {
+      "action": "summarize",
+      "curation_candidate": null,
+      "id": "summary-near",
+      "inputs": [
+        "segment-prompt"
+      ],
+      "layer": "source-summary",
+      "rationale": "Authored synthetic summarize at source-summary.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+                "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+              }
+            }
+          ],
+          "id": "summary-near-prompt",
+          "text": "Use exact evidence and preserve uncertainty.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "unknown",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    },
+    {
+      "action": "defer",
+      "curation_candidate": null,
+      "id": "deferred-alternative",
+      "inputs": [
+        "segment-alternative"
+      ],
+      "layer": "source-summary",
+      "rationale": "Authored synthetic defer at source-summary.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [
+            "The alternative branch has not been reconciled."
+          ],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "b1c9e4360a3515f7852bbb6cde7f9a1b92c6e01718b07f5f8cdb7363dc56a3dd",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-15599af188a23eecf9982dad-e4b31699fcc29357",
+                "revision": "sha256:e4b31699fcc293574c0c2765fdfef2d4c28d81248815d912f084ebaf37272269"
+              }
+            }
+          ],
+          "id": "deferred-alternative-alternative",
+          "text": "Alternative remains unverified.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "conflicting",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    },
+    {
+      "action": "discard-proposed",
+      "curation_candidate": null,
+      "id": "discarded-proposal",
+      "inputs": [
+        "segment-alternative"
+      ],
+      "layer": "source-summary",
+      "rationale": "Authored synthetic discard-proposed at source-summary.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [
+            "The alternative branch has not been reconciled."
+          ],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "b1c9e4360a3515f7852bbb6cde7f9a1b92c6e01718b07f5f8cdb7363dc56a3dd",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-15599af188a23eecf9982dad-e4b31699fcc29357",
+                "revision": "sha256:e4b31699fcc293574c0c2765fdfef2d4c28d81248815d912f084ebaf37272269"
+              }
+            }
+          ],
+          "id": "discarded-proposal-alternative",
+          "text": "Alternative remains unverified.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "conflicting",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    },
+    {
+      "action": "reference",
+      "curation_candidate": null,
+      "id": "reference-prompt",
+      "inputs": [
+        "summary-prompt"
+      ],
+      "layer": "durable-knowledge",
+      "rationale": "Authored synthetic reference at durable-knowledge.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+                "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+              }
+            }
+          ],
+          "id": "reference-prompt-prompt",
+          "text": "Use exact evidence; preserve uncertainty.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "unknown",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    },
+    {
+      "action": "supersede",
+      "curation_candidate": "candidate-compacted",
+      "id": "durable-prompt",
+      "inputs": [
+        "summary-prompt",
+        "summary-alternative"
+      ],
+      "layer": "durable-knowledge",
+      "rationale": "Authored synthetic supersede at durable-knowledge.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+                "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+              }
+            }
+          ],
+          "id": "durable-prompt-prompt",
+          "text": "Use exact evidence; preserve uncertainty.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "unknown",
+            "valid_from": null,
+            "valid_until": null
+          }
+        },
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [
+            "The alternative branch has not been reconciled."
+          ],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "b1c9e4360a3515f7852bbb6cde7f9a1b92c6e01718b07f5f8cdb7363dc56a3dd",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-15599af188a23eecf9982dad-e4b31699fcc29357",
+                "revision": "sha256:e4b31699fcc293574c0c2765fdfef2d4c28d81248815d912f084ebaf37272269"
+              }
+            }
+          ],
+          "id": "durable-prompt-alternative",
+          "text": "Alternative remains unverified.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "conflicting",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": [
+        {
+          "garden": "synthetic-garden",
+          "id": "reviewed-prompt",
+          "revision": "sha256:9054bfeaeecafc7517be91c4c1f9741bbb4f546188fc6b88b24d86640fcd370f"
+        }
+      ]
+    },
+    {
+      "action": "merge",
+      "curation_candidate": null,
+      "id": "synthesis",
+      "inputs": [
+        "durable-prompt",
+        "summary-alternative"
+      ],
+      "layer": "cross-source-synthesis",
+      "rationale": "Authored synthetic merge at cross-source-synthesis.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+                "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+              }
+            }
+          ],
+          "id": "synthesis-prompt",
+          "text": "Use exact evidence; preserve uncertainty.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "unknown",
+            "valid_from": null,
+            "valid_until": null
+          }
+        },
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [
+            "The alternative branch has not been reconciled."
+          ],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "b1c9e4360a3515f7852bbb6cde7f9a1b92c6e01718b07f5f8cdb7363dc56a3dd",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-15599af188a23eecf9982dad-e4b31699fcc29357",
+                "revision": "sha256:e4b31699fcc293574c0c2765fdfef2d4c28d81248815d912f084ebaf37272269"
+              }
+            }
+          ],
+          "id": "synthesis-alternative",
+          "text": "Alternative remains unverified.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "conflicting",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    },
+    {
+      "action": "summarize",
+      "curation_candidate": null,
+      "id": "bounded-context",
+      "inputs": [
+        "synthesis"
+      ],
+      "layer": "context",
+      "rationale": "Authored synthetic summarize at context.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+                "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+              }
+            }
+          ],
+          "id": "bounded-context-prompt",
+          "text": "Use exact evidence; preserve uncertainty.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "unknown",
+            "valid_from": null,
+            "valid_until": null
+          }
+        },
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [
+            "The alternative branch has not been reconciled."
+          ],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "b1c9e4360a3515f7852bbb6cde7f9a1b92c6e01718b07f5f8cdb7363dc56a3dd",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-15599af188a23eecf9982dad-e4b31699fcc29357",
+                "revision": "sha256:e4b31699fcc293574c0c2765fdfef2d4c28d81248815d912f084ebaf37272269"
+              }
+            }
+          ],
+          "id": "bounded-context-alternative",
+          "text": "Alternative remains unverified.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "conflicting",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    },
+    {
+      "action": "keep",
+      "curation_candidate": null,
+      "id": "publication-proposal",
+      "inputs": [
+        "bounded-context"
+      ],
+      "layer": "publication-candidate",
+      "rationale": "Authored synthetic keep at publication-candidate.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+                "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+              }
+            }
+          ],
+          "id": "publication-proposal-prompt",
+          "text": "Use exact evidence; preserve uncertainty.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "unknown",
+            "valid_from": null,
+            "valid_until": null
+          }
+        },
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [
+            "The alternative branch has not been reconciled."
+          ],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "b1c9e4360a3515f7852bbb6cde7f9a1b92c6e01718b07f5f8cdb7363dc56a3dd",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-15599af188a23eecf9982dad-e4b31699fcc29357",
+                "revision": "sha256:e4b31699fcc293574c0c2765fdfef2d4c28d81248815d912f084ebaf37272269"
+              }
+            }
+          ],
+          "id": "publication-proposal-alternative",
+          "text": "Alternative remains unverified.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "conflicting",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    }
+  ],
+  "outputs": [
+    "bounded-context"
+  ],
+  "retention": {
+    "archival": {
+      "deletion": "unsupported",
+      "mode": "preserve-originals"
+    },
+    "destructive_changes": "unavailable",
+    "detail_budgets": {
+      "agent": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      },
+      "organization": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      },
+      "personal": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      },
+      "publishing": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      },
+      "repository": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      }
+    },
+    "id": "synthetic-preserve-first",
+    "knowledge": {
+      "mode": "review-required",
+      "superseded": "retain-with-lineage"
+    },
+    "model_context": {
+      "max_bytes": 32768,
+      "persistence": "ephemeral",
+      "ttl_seconds": 600
+    },
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": {
+      "mode": "separate-review",
+      "revocation": "invalidate-and-rebuild",
+      "ttl_seconds": 3600
+    },
+    "schema": "mindgarden.retention-policy/v1"
+  },
+  "schema": "mindgarden.compaction-plan/v1",
+  "scope": {
+    "execution": "offline",
+    "persistence": "machine-local",
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": "never-exportable",
+    "schema": "mindgarden.scope/v1",
+    "visibility": "personal"
+  }
+}

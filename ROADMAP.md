@@ -65,7 +65,7 @@ the tested `3463d46` tree; 188 tests pass on both supported Python versions.
 See [the registry proof](docs/local-registry.md). Full #30 and ADR acceptance
 remain open. The [six-draft checkpoint map](docs/garden-experience-milestone.md)
 records tested drafts #68/#69/#70/#71 for preview, design, conformance and
-composition, followed by proposed architecture and compaction contracts. All
+composition, plus proposed architecture #72 and #46 compaction contracts/proof. All
 await maintainer sync before merge.
 Public `/garden`/portal proofs (#17/#18) and the complete #20 consumer path follow
 their actual contracts. #27 release preparation and #38 design tokens can advance

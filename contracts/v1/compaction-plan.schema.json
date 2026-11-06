@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:compaction-plan:v1",
+  "title": "Mindgarden compaction-plan v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "garden",
+    "created_at",
+    "scope",
+    "retention",
+    "budget_profile",
+    "nodes",
+    "outputs",
+    "curation_plan_sha256"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.compaction-plan/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "retention": {
+      "$ref": "urn:egohygiene:mindgarden:retention-policy:v1"
+    },
+    "budget_profile": {
+      "enum": [
+        "repository",
+        "organization",
+        "personal",
+        "agent",
+        "publishing"
+      ]
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "layer",
+          "action",
+          "inputs",
+          "rationale",
+          "statements",
+          "supersedes",
+          "curation_candidate"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "layer": {
+            "enum": [
+              "normalized-segment",
+              "source-summary",
+              "durable-knowledge",
+              "cross-source-synthesis",
+              "context",
+              "publication-candidate"
+            ]
+          },
+          "action": {
+            "enum": [
+              "keep",
+              "merge",
+              "summarize",
+              "reference",
+              "defer",
+              "discard-proposed",
+              "supersede"
+            ]
+          },
+          "inputs": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifierSet"
+          },
+          "rationale": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+          },
+          "statements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "text",
+                "evidence",
+                "attribution",
+                "epistemic_state",
+                "uncertainty",
+                "contradictions",
+                "validity"
+              ],
+              "properties": {
+                "id": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 16384
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+                  },
+                  "minItems": 1,
+                  "maxItems": 8
+                },
+                "attribution": {
+                  "enum": [
+                    "user-report",
+                    "assistant-suggestion",
+                    "third-party",
+                    "quoted",
+                    "mixed",
+                    "inferred"
+                  ]
+                },
+                "epistemic_state": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/epistemicState"
+                },
+                "uncertainty": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/stringSet"
+                },
+                "contradictions": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/stringSet"
+                },
+                "validity": {
+                  "type": "object",
+                  "required": [
+                    "state",
+                    "valid_from",
+                    "valid_until",
+                    "reason"
+                  ],
+                  "properties": {
+                    "state": {
+                      "enum": [
+                        "current",
+                        "outdated",
+                        "unknown",
+                        "conflicting"
+                      ]
+                    },
+                    "valid_from": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "format": "date"
+                    },
+                    "valid_until": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "format": "date"
+                    },
+                    "reason": {
+                      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 64
+          },
+          "supersedes": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReferences"
+          },
+          "curation_candidate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 128
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+      },
+      "minItems": 1,
+      "maxItems": 128,
+      "uniqueItems": true
+    },
+    "curation_plan_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

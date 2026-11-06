@@ -58,7 +58,7 @@ plan. A conflicting or incomplete output is retained for inspection.
 | #10 | `feature/10-public-conformance` / #69 | [#70](https://github.com/egohygiene/mindgarden/pull/70) | `49e394a176436562e9eeab319829372127cd3961` |
 | #18 | `feature/18-portal-composition` / #70 | [#71](https://github.com/egohygiene/mindgarden/pull/71) | `6df72c4cd18d23b0740d57e6ddd25b8e8f24172e` |
 | #42 | `docs/42-architecture-decisions` / #71 | [#72](https://github.com/egohygiene/mindgarden/pull/72) | `d17f01c4cfa01145090d14aff97624f636fe7f92` |
-| #46 | `feature/46-compaction-contracts` / #42 checkpoint | Pending | Contracts and authored synthetic proof |
+| #46 | `feature/46-compaction-contracts` / #72 | [#73](https://github.com/egohygiene/mindgarden/pull/73) | `293edbb2e60e568e247809a3b99037f09cba2792` |
 
 #17 verification at `f1706a5`: 197 tests pass without skips on Python 3.12.14 and
 3.13.5. Fresh source/wheel resources, both compile checks, Node 24.19.0, whitespace
@@ -193,3 +193,103 @@ checks pass; relative links and whitespace are checked. Runtime remains the exac
 redundant local full-suite run is claimed for this documentation-only checkpoint.
 All new ADRs remain proposed/null approval. #40/#41, owner policy/contracts,
 bookmark proof and human ratification remain open gates.
+
+
+## #46 compaction/retention contract checkpoint
+
+[The versioned specification](compaction-retention.md) and committed authored
+fixtures add a read-only scoped hierarchy, separate retention classes, exact
+evidence/qualification validation, private dependency manifests and a validated
+existing-curation handoff. The synthetic archive produces a reviewed compacted
+prompt, search returns two exact message citations, and an 8192-byte-bounded
+context contains it in 4001 bytes. Originals and superseded knowledge remain.
+
+Ten targeted tests cover contract parity, forbidden deletion/public downgrade,
+budgets, denied/stale/corrupted evidence, lost qualifications, review authority,
+unchanged reruns and selective invalidation. Full suites run 231 tests on each
+supported Python version. Final policy-reader tightening passes targeted tests
+on both versions. Source/wheel resources, both compile checks, owner metadata and
+whitespace are checked; isolated installed-wheel proof matches the committed
+expected result. Clean source proof is recorded with the functional commit.
+
+```sh
+.venv/bin/python -m unittest discover --start-directory tests --verbose
+.cache/python313/bin/python -m unittest discover --start-directory tests --verbose
+.venv/bin/python -m unittest tests.test_compaction --verbose
+.cache/python313/bin/python -m unittest tests.test_compaction --verbose
+.venv/bin/python -m build --sdist --wheel --outdir .cache/dist
+python -S scripts/compaction_demo.py --require-source --workspace new-proof --report proof.json
+.cache/six46-wheel/bin/python -I scripts/compaction_demo.py --require-installed --workspace new-wheel-proof --report wheel-proof.json
+```
+
+TTL/retention fields are validated declarations; no scheduler, deletion, deployed
+expiry or approved private pilot is claimed. The evaluator consumes already-
+authorized reviewed evidence; first-pass raw-only compaction remains a contract
+follow-up. Structural coverage/byte ratios and authored facts do not establish
+model summary quality. #20 gates full private-pilot acceptance. ADR-0019 and all
+other new decisions remain proposed/null approval.
+
+
+## Final review and resumption
+
+All six authorized checkpoints are draft PRs, unmerged. Review/merge order after
+maintainer sync is **#68 → #69 → #70 → #71 → #72 → #73**. The combined checkout is
+`feature/46-compaction-contracts`; main remains `8a9650e`. Functional source hashes
+are in the table above; later handoff-only commits do not change runtime.
+
+| Draft | Exact checked head | Automatic Test result at this checkpoint |
+| --- | --- | --- |
+| #68 | `d6d290d0c5d405e469dfccf837ceab9b3d54fbe0` | [Passed](https://github.com/egohygiene/mindgarden/actions/runs/42150832254) |
+| #69 | `85beb8dadd3cdc883156f32d7379b9fe9a5edac7` | [Passed](https://github.com/egohygiene/mindgarden/actions/runs/42152659549) |
+| #70 | `a0038adc6833069300ddefccb70b00eb9d9e5403` | [Passed](https://github.com/egohygiene/mindgarden/actions/runs/42153624969) |
+| #71 | `0d34a6ba3f5ca91be5e88c264a44bc5290eb0cf0` | [Passed](https://github.com/egohygiene/mindgarden/actions/runs/42154601755) |
+| #72 | `88f83cd05fc9d4b1a2a36c18fa13c2d26261dc57` | [Passed](https://github.com/egohygiene/mindgarden/actions/runs/42155655814) |
+| #73 | Functional `293edbb`; final handoff head follows | Pending at handoff; inspect exact head check on PR |
+
+No workflow was manually launched. PR bodies can record newer exact-head CI
+evidence without rewriting this dated receipt. Local checks and hosted checks
+remain distinct. The clean-source and installed compaction proofs match the
+committed result; full 231-test runs plus final 10-test reader checks pass on both
+Python versions. Earlier sections retain renderer/browser/portal evidence.
+
+Every parent issue remains open for its listed acceptance gates. ADR-0007–0021
+remain proposed/null approval; testing or merging does not ratify them. The
+additional compaction proof links to #20 through #73 without completing #20's
+publication/consumer acceptance. Real gardens/default registry, models/Google,
+production deployment, package publication and destructive retention were unused.
+
+Exact next action: maintainer sync/review of the six drafts, followed by explicit
+merge instructions and separate decision disposition. Refresh live state before
+selecting the next bounded batch.
+
+
+## Final conformance follow-up
+
+Read-only stack audit reproduced a malformed unused vault declaration that could
+evade lexical overlap checks. Commit
+`9e134e9c78104fa711208628a2017a27986fe5bf` on #70 rejects relative/traversal root
+declarations before output planning without probing denied roots. The corrected
+publication/federation/site suites pass **38 tests on each Python version**:
+
+```sh
+.venv/bin/python -m unittest tests.test_publication_conformance tests.test_federation tests.test_site --verbose
+.cache/python313/bin/python -m unittest tests.test_publication_conformance tests.test_federation tests.test_site --verbose
+```
+
+The initial targeted attempt lacked sandbox socket permission; rerunning with
+permission for the synthetic loopback fixture passed. No external service is used.
+The fix is carried through local branch merges, preserving the dependency stack
+and all earlier source checkpoints. **No GitHub PR was merged.**
+
+| Draft | Follow-up source/head before final documentation receipt |
+| --- | --- |
+| #70 | `9e134e9c78104fa711208628a2017a27986fe5bf` |
+| #71 | `2899b298ede1788faf9e426ee4e21708f1b4a9c0` |
+| #72 | `267e0f18d85b3b760dffc536210ac12b83615cb7` |
+| #73 combined runtime | `dc80cddd77108994907d74c4ae9217149e3b1a98` |
+
+Earlier CI rows above remain dated receipts. These new exact heads receive fresh
+automatic checks; PR bodies record their later results. Fresh clean-source and
+installed-wheel site/portal/compaction proofs reproduce all committed results
+after the correction. Main, review authority, parent acceptance and the exact
+next action (maintainer sync/review of #68–#73) are unchanged.

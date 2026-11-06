@@ -1,0 +1,49 @@
+{
+  "archival": {
+    "deletion": "unsupported",
+    "mode": "preserve-originals"
+  },
+  "destructive_changes": "unavailable",
+  "detail_budgets": {
+    "agent": {
+      "max_bytes": 32768,
+      "max_statements": 8
+    },
+    "organization": {
+      "max_bytes": 32768,
+      "max_statements": 8
+    },
+    "personal": {
+      "max_bytes": 32768,
+      "max_statements": 8
+    },
+    "publishing": {
+      "max_bytes": 32768,
+      "max_statements": 8
+    },
+    "repository": {
+      "max_bytes": 32768,
+      "max_statements": 8
+    }
+  },
+  "id": "synthetic-preserve-first",
+  "knowledge": {
+    "mode": "review-required",
+    "superseded": "retain-with-lineage"
+  },
+  "model_context": {
+    "max_bytes": 32768,
+    "persistence": "ephemeral",
+    "ttl_seconds": 600
+  },
+  "policy": {
+    "id": "mindgarden-local-single-user/v1",
+    "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+  },
+  "publication": {
+    "mode": "separate-review",
+    "revocation": "invalidate-and-rebuild",
+    "ttl_seconds": 3600
+  },
+  "schema": "mindgarden.retention-policy/v1"
+}
