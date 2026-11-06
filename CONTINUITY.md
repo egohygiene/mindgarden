@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T23:13:15Z'
+  updated_at: '2026-11-06T23:20:06Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -52,44 +52,45 @@ scope:
   - docs/adr-projections.md
   - docs/query-stores.md
   - docs/dependency-builds.md
+  - docs/assistant-memory.md
 work:
-  objective: Build disposable views from exact reviewed dependencies and recover correct targeted invalidation without
-    event delivery.
+  objective: Export small reviewed assistant-memory views without losing sources or silently dropping over-budget
+    context.
   success_conditions:
   - Keep exact citations, reviewed routing, bounded output and relocation proof.
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#37
-    url: https://github.com/egohygiene/mindgarden/issues/37
+    id: egohygiene/mindgarden#49
+    url: https://github.com/egohygiene/mindgarden/issues/49
   next:
     kind: action
-    id: reviewed-memory-snippets
-    description: 'Implement #49 provider-neutral reviewed snippet plans, explicit budgets, staleness and copyable
-      private exports over current canonical knowledge.'
+    id: private-bookmark-cleanup
+    description: 'Implement #48 bounded offline cleanup over an explicitly provisional metadata fixture profile;
+      fail closed for unavailable Mindcap/Akashic handoffs, then checkpoint the gated #47 service proposal.'
     readiness: ready
     references:
     - docs/product-checkpoints.md
-    - docs/dependency-builds.md
+    - docs/assistant-memory.md
     depends_on: []
 state:
   base:
-    revision: f1f2a4e947fd40ba11ccd9651d9a5869351151ee
-    ref: refs/heads/feature/32-sqlite-query-store
-    verified_at: '2026-11-06T23:13:15Z'
+    revision: f3187de3f147363bd479b751204e9a10d33bbcf0
+    ref: refs/heads/feature/37-projection-dependency-builds
+    verified_at: '2026-11-06T23:20:06Z'
   candidate:
-    branch: feature/37-projection-dependency-builds
-    revision: 4cd33ba47a4224cd2f9b003c8d07e70f0c44882e
+    branch: feature/49-reviewed-memory-snippets
+    revision: fcef8ef3bb91b2d0b10f82c0de49341277453614
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-06T23:13:15Z'
+    observed_at: '2026-11-06T23:20:06Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: not-applicable
-    notes: 'Combined product stack extends draft #99. Current #37 source is 4cd33ba; seven cases and the authored
-      reconciliation golden are committed. Release remains deferred.'
+    notes: 'Combined stack extends draft #100; current #49 functional fcef8ef passes eight focused cases on each
+      Python. Six deferred proposals and release remain deferred.'
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#93
@@ -112,19 +113,22 @@ state:
   - provider: github
     id: egohygiene/mindgarden#99
     url: https://github.com/egohygiene/mindgarden/pull/99
+  - provider: github
+    id: egohygiene/mindgarden#100
+    url: https://github.com/egohygiene/mindgarden/pull/100
 review:
   status: partial
-  reviewed_at: '2026-11-06T23:13:15Z'
+  reviewed_at: '2026-11-06T23:20:06Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_dependency_builds tests.test_v1_contracts -q
+  - command: .venv/bin/python -m unittest tests.test_memory tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-06T23:13:15Z'
-    notes: 12 cases, including unchanged unrelated view and preserved immutable source objects.
-  - command: .cache/python313/bin/python -m unittest tests.test_dependency_builds -q
+    observed_at: '2026-11-06T23:20:06Z'
+    notes: 13 cases.
+  - command: .cache/python313/bin/python -m unittest tests.test_memory -q
     outcome: passed
-    observed_at: '2026-11-06T23:13:15Z'
-    notes: Initial 6 cases; final golden is included in subsequent combined verification.
+    observed_at: '2026-11-06T23:20:06Z'
+    notes: 8 cases.
   environment_limitations:
   - '#41 historical backfill remains behind shared operational/adoption readiness; current proposals are not ratified.'
   - Native Relay collector Rust toolchain is unavailable locally; hosted artifact/browser/publication evidence is
@@ -159,19 +163,19 @@ Read status, live issues/PRs, README, AI_CONSTITUTION, ROADMAP, the coverage and
 
 ## Current objective and success conditions
 
-Build disposable views from exact reviewed dependencies and recover correct targeted invalidation without event delivery. Keep exact citations, reviewed routing, bounded output and relocation proof. Park release work and preserve small reviewable drafts.
+Export small reviewed assistant-memory views without losing sources or silently dropping over-budget context. Keep exact citations, reviewed routing, bounded output and relocation proof. Park release work and preserve small reviewable drafts.
 
 ## State snapshot
 
-Combined product stack extends draft #99. Current #37 source is 4cd33ba; seven cases and the authored reconciliation golden are committed. Release remains deferred.
+Combined stack extends draft #100; current #49 functional fcef8ef passes eight focused cases on each Python. Six deferred proposals and release remain deferred.
 
 ## Completed and material changes
 
-Added versioned observation inputs and projection dependency request/manifest contracts, generic replaceable renderers, exact selected-record fingerprints, full lost-event reconciliation and private immutable output application.
+Added provider-neutral memory plan/projection schemas, all seven authored actions, exact reviewed sources, inherited sensitivity, transparent byte/count/category/priority budgets, explicit tokenizer capability and staleness, immutable copyable JSON/Markdown and unpublished generic article/brief.
 
 ## Validation and review evidence
 
-Twelve combined dependency/schema tests pass (seven dependency cases plus five schema cases). Initial six dependency cases also passed on Python 3.13; final combined verification follows the runtime batch.
+13 memory/schema cases pass; eight memory cases pass on Python 3.13. Synthetic body bytes shrink 11,416→187 while complete cited bundle is 20,699/32,768 bytes. Over-budget candidates remain visible and cannot be applied.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -179,7 +183,7 @@ Twelve combined dependency/schema tests pass (seven dependency cases plus five s
 
 ## Next dependency-ready work
 
-Implement #49 provider-neutral reviewed snippet plans, explicit budgets, staleness and copyable private exports over current canonical knowledge.
+Implement #48 bounded offline cleanup over an explicitly provisional metadata fixture profile; fail closed for unavailable Mindcap/Akashic handoffs, then checkpoint the gated #47 service proposal.
 
 ## Parallel changes and reconciliation
 
