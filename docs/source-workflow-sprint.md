@@ -25,7 +25,7 @@ a separate bounded task. No cloud or model service becomes mandatory.
 | #13 | Merge authors/qualifications, exact relationships, selected claim evidence and authored redactions | Optional extraction producers/model evaluations, real review | #75, `feature/13-curation-conformance` over #74; `05e6cd2` | 18 tests on both Pythons; 24 compatibility tests | Review #75; continue #15 |
 | #15 | V1.2.1 minimal reader, selected attachments/catalogs, opaque JSON evidence | V2.0.1 reader, multipart/collections, real producer pilot | #76, `feature/15-archive-selective-assets` over #75; `ec63d69` | 20 tests on both Pythons; offline golden proof | Review #76; continue #14 |
 | #14 | Append-only private moves/merge retirement, exact aliases and recovery | Public/policy-changing and attached graph transfers; full owner/platform acceptance | #77, `feature/14-private-routing-transitions` over #76; `1a43002` | 24 tests on 3.12; 19 on 3.13; offline proof | Review #77 / proposed ADR-0022; continue #12 |
-| #12 | Projection coverage and measured larger synthetic corpus | Broader consumer corpus and optional query stores | Pending, stacked on #14 | Pending | Profile current deterministic projections |
+| #12 | Outbound links, eight-projection goldens, selected redactions and measured corpus | Wider graph/consumer/corpus envelopes; optional query stores | #78, `feature/12-projection-conformance` over #77; `83fe3aa` | 23 tests on 3.12; 7 on 3.13; 1024-note benchmark and offline proof | Review #78; continue #16 |
 | #16 | Rendered routes and pinned modular public garden references | Live remote refresh, signatures/private federation and consumer pilots | Pending, stacked on #12 | Pending | Reuse descriptor verification and site manifests |
 
 ## External contracts inspected
@@ -84,3 +84,10 @@ Routing/lifecycle/curation/contracts: 24 passed on Python 3.12; lifecycle/scoped
 retrieval: 19 passed on Python 3.13. Additional lifecycle/scoped/contracts: 24
 passed on 3.12. Offline golden proof, compile/diff and pinned owner checks passed.
 The transition design is proposed in ADR-0022, not accepted by these tests.
+
+## #12 verification
+
+Projection/scoped/contracts: 23 passed on 3.12; projection/retrieval: 7 passed on
+3.13. [Projection evidence](projection-conformance.md) records exact benchmark
+commands/hashes, observed runtime/memory, reference ceilings and retained limits.
+Offline private-workflow proof, compile/diff and owner checks passed.
