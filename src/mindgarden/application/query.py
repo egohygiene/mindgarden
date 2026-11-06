@@ -61,12 +61,13 @@ class QueryContext:
     last_view_revisions: dict = field(default_factory=dict)
     effective_scopes: dict = field(default_factory=dict)
     retired: set = field(default_factory=set)
+    storage_adapters: object = None
 
     @classmethod
     def load(cls, local_config: Path, session_path: Path, *,
-             clock: Callable[[], datetime] | None = None) -> QueryContext:
+             clock: Callable[[], datetime] | None = None, storage_adapters=None) -> QueryContext:
         try:
-            return cls._load(local_config, session_path, clock=clock)
+            return cls._load(local_config, session_path, clock=clock, storage_adapters=storage_adapters)
         except ContractError:
             raise
         except (OSError, UnicodeError, KeyError, TypeError, ValueError) as error:
@@ -74,7 +75,7 @@ class QueryContext:
 
     @classmethod
     def _load(cls, local_config: Path, session_path: Path, *,
-              clock: Callable[[], datetime] | None = None) -> QueryContext:
+              clock: Callable[[], datetime] | None = None, storage_adapters=None) -> QueryContext:
         if session_path.is_symlink():
             raise ContractError("SESSION_INVALID: session must be an explicit regular file")
         session = read_object(session_path)
@@ -93,7 +94,7 @@ class QueryContext:
         selected = selected_garden_ids(raw_bindings, session)
         bindings = LocalBindings.load(local_config, garden_ids=selected, vault_ids=set())
         context = cls(session_path.absolute(), session, bindings,
-                      selected_clock, digest_bytes(session_path.read_bytes()))
+                      selected_clock, digest_bytes(session_path.read_bytes()), storage_adapters=storage_adapters)
         context.check_live()
         return context
 
@@ -131,7 +132,7 @@ class QueryContext:
 
     def snapshots(self) -> dict[str, GardenSnapshot]:
         self.check_live()
-        resolver = content_resolver(self.bindings)
+        resolver = content_resolver(self.bindings, adapters=self.storage_adapters)
         snapshots = {}
         revisions = {item["garden"]: item["revision"] for item in self.session["readable"]}
         views = metadata_view(self)

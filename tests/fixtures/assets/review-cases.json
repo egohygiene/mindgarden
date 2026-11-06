@@ -1,0 +1,16 @@
+{
+  "supported": [
+    "keep",
+    "useful-reference",
+    "duplicate",
+    "low-quality",
+    "discard-proposed",
+    "archived",
+    "unreviewed"
+  ],
+  "unavailable": [
+    "restricted"
+  ],
+  "copy_policy": "reference-only",
+  "deletion": "unavailable"
+}

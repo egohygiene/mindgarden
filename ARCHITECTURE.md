@@ -154,8 +154,10 @@ reviewed-citation resolution. [The finite proof](docs/private-garden-evidence.md
 records the archive-to-context and relocation boundary. Portable records, immutable
 content and explicit location bindings remain separate; ordinary application
 services require no hosting, model provider, web framework or specialized store.
-Full media triage, organization policy/assurance and consumer publication remain
-unverified integration scope. Proposed ADRs remain proposed after implementation.
+The unmerged [private-storage sprint](docs/private-storage-sprint.md) adds bounded
+ordinary PDF/media preservation, private inventory and append-only asset triage.
+Confidential/provider/platform assurance, destructive retention and consumer
+publication remain unverified integration scope. Proposed ADRs remain proposed after implementation.
 
 The [open-issue coverage ledger](docs/open-issue-coverage.md) records the
 2026-11-05 merge receipts, remaining parent scope and proposed delivery batches.

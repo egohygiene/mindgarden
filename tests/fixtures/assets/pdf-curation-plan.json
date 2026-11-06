@@ -1,0 +1,74 @@
+{
+  "candidates": [
+    {
+      "action": "keep",
+      "id": "candidate-pdf-keep",
+      "merge_inputs": [],
+      "output": {
+        "attribution": "assistant-suggestion",
+        "authors": [
+          {
+            "id": "synthetic-producer",
+            "kind": "agent",
+            "version": "fixture-1"
+          }
+        ],
+        "body": "Synthetic design prompt.\nKeep assumptions explicit; cite exact evidence.\n",
+        "caveats": [
+          "Synthetic example; not an independently verified universal rule."
+        ],
+        "claims": [],
+        "confidence": "medium",
+        "contradictions": [],
+        "domains": [
+          "knowledge-systems"
+        ],
+        "epistemic_state": "proposed",
+        "id": "reviewed-pdf-prompt",
+        "kind": "procedure",
+        "review": {
+          "rationale": "Explicit human review of the new wholly synthetic PDF page.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "status": "active",
+        "synapses": [],
+        "title": "Synthetic document prompt-bank procedure",
+        "topics": [
+          "prompt-bank"
+        ],
+        "uncertainty": [
+          "Effectiveness remains unmeasured."
+        ]
+      },
+      "rationale": "Keep the exact synthetic PDF page with explicit source attribution and human review.",
+      "sources": [
+        {
+          "content_sha256": "6ec92a60fc9180c5f7713d722f84b8f345acf0d8f4c92c291098e46bc64e0762",
+          "locator": "json:/text",
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-4fe058a878cfcf0d3fb36011-fc7a4baf2b84982a",
+            "revision": "sha256:fc7a4baf2b84982a3bd7474053cba758b3ae0de8806dea9f34fd1ff1c0a7a1f0"
+          }
+        }
+      ]
+    }
+  ],
+  "created_at": "2026-11-04T00:00:00Z",
+  "garden": "synthetic-garden",
+  "id": "synthetic-pdf-curation",
+  "producer": {
+    "id": "synthetic-producer",
+    "kind": "agent",
+    "version": "fixture-1"
+  },
+  "review_authority": {
+    "id": "synthetic-reviewer",
+    "kind": "human"
+  },
+  "schema": "mindgarden.curation-plan/v1"
+}

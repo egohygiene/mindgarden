@@ -7,23 +7,33 @@ import json
 
 from ..adapters.filesystem import FilesystemVault
 from ..domain.contracts import digest_bytes
+from ..domain.storage import BlobStorage, StorageAdapters
 from ..domain.validation import ContractError
 from .bindings import LocalBindings
 
 
-def open_vault(bindings: LocalBindings, vault_id: str) -> FilesystemVault:
+def default_storage_adapters() -> StorageAdapters:
+    adapters = StorageAdapters()
+    adapters.register("filesystem", lambda binding, vault_id: FilesystemVault(binding["root"], vault_id))
+    return adapters
+
+
+def open_vault(bindings: LocalBindings, vault_id: str, *, adapters: StorageAdapters | None = None) -> BlobStorage:
     binding = bindings.vault(vault_id)
-    if binding["adapter"] != "filesystem":
-        raise ContractError("STORAGE_UNSUPPORTED: storage adapter is not installed")
-    return FilesystemVault(binding["root"], vault_id)
+    return (adapters or default_storage_adapters()).open(binding, vault_id)
 
 
-def content_resolver(bindings: LocalBindings):
+def content_resolver(bindings: LocalBindings, *, adapters: StorageAdapters | None = None):
     def resolve(artifact: dict) -> bytes:
         reference = artifact["vault"]
         if reference["content_id"] != "sha256:" + artifact["sha256"]:
             raise ContractError("CONTENT_ID: content identity and artifact checksum disagree")
-        content = open_vault(bindings, reference["id"]).get(reference["content_id"])
+        storage = open_vault(bindings, reference["id"], adapters=adapters)
+        if not storage.capabilities()["read"]:
+            raise ContractError("STORAGE_UNSUPPORTED: selected adapter cannot read immutable content")
+        content = storage.get(reference["content_id"])
+        if not isinstance(content, bytes) or digest_bytes(content) != artifact["sha256"]:
+            raise ContractError("CONTENT_HASH: stored bytes differ from immutable content identity")
         if len(content) != artifact["size_bytes"]:
             raise ContractError("CONTENT_SIZE: stored content length differs")
         return content

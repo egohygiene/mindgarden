@@ -156,6 +156,8 @@ def build_vault_recovery_plan(bindings: LocalBindings, vault_id: str, operation:
     if operation not in {"export", "restore", "relocate"}:
         raise ContractError("VAULT_UNSUPPORTED: unsupported recovery operation")
     vault = open_vault(bindings, vault_id)
+    if not isinstance(vault, FilesystemVault):
+        raise ContractError("VAULT_UNSUPPORTED: this recovery checkpoint requires the filesystem adapter")
     destination = destination_path(bindings, vault_id, destination, operation)
     if any((item["root"] / ".mindgarden-write.lock").exists() for item in bindings.gardens.values()):
         raise ContractError("VAULT_BUSY: complete garden writes before planning vault recovery")

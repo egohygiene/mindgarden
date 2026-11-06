@@ -360,3 +360,14 @@ approvals. #20/#19 retain consumer/release acceptance. Optional experiments are
 not blanket gates. No framework, new store, worker, provider or topology is
 implemented under #42. Deferred choices trigger evidence review by 2027-01-01 or
 earlier stated events, never automatic adoption.
+
+## Private policy and storage continuation — draft implementation
+
+The authorized #29 → #31 → #30 → #35 → #45 follow-ups are recorded in the
+[private-storage sprint](docs/private-storage-sprint.md). They extend the unmerged
+#74–#79 stack with local policy decisions, output enforcement, reversible cache
+recovery, optional ordinary PDF extraction, private assets and mixed-vault proofs.
+The [coverage ledger](docs/open-issue-coverage.md) retains every parent criterion.
+Hygiene/Realm policy and confidential-runtime contracts, native platforms, remote
+providers, approved copy and destructive/timed retention are explicit remaining
+gates. Review/merge of drafts is distinct from owner ADR or consumer acceptance.

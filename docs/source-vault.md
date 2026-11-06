@@ -125,3 +125,11 @@ restore, missing/corrupt states, stale plans, unsafe/occupied targets, writer
 contention and failed-rebind retry. The full #45 asset/triage, retention,
 encryption/provider migration and runtime assurance criteria remain open, together
 with #30 registry lifecycle and #35 confidential PDF/document conformance.
+
+## Mixed source/media follow-up
+
+The [mixed-vault checkpoint](mixed-source-vault.md) adds versioned asset inventory,
+opaque PNG/JPEG/WAV/MP4/octet-stream preservation, append-only human triage and
+explicit removable storage factories. It proves combined archive/PDF/media
+restore/relocation and interrupted-rebind recovery. Retention remains retain-only;
+confidential/provider/native-platform and real consumer acceptance stay open.

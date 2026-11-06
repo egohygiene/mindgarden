@@ -370,6 +370,17 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
             for locator in record["evidence"]:
                 evidence(locator, location)
         elif kind == "provenance":
+            if "x-asset-review" in record:
+                from .assets import asset_review
+
+                try:
+                    event = asset_review(record)
+                    if event is not None:
+                        resolve(event["source"], location, "source")
+                        if event["previous"] is not None: resolve(event["previous"], location, "provenance")
+                except ContractError:
+                    issue("ASSET_REVIEW_INVALID", location, "Invalid reviewed asset lineage",
+                          "Retain originals and restore the exact human review event.")
             if "x-routing-transition" in record:
                 from .routing_transitions import transition_event
 
@@ -425,6 +436,14 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                         resolve(decision["canonical_home"], location, "knowledge")
                     for reference in decision["references"]:
                         resolve(reference, location, "knowledge")
+
+    try:
+        from .assets import asset_review_heads
+
+        asset_review_heads(snapshot.records.values())
+    except ContractError:
+        issue("ASSET_REVIEW_CONFLICT", "garden.json", "Asset review history is invalid or ambiguous",
+              "Retain every original and review event; reconcile the explicit lineage before retrying.")
 
     # An iterative three-state walk is bounded even for long or adversarial
     # graphs; recursion and enumerating every path would not be.

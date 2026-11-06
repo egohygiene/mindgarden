@@ -9,6 +9,7 @@ from pathlib import Path
 from ..adapters.text_source import TextSourceAdapter
 from ..adapters.conversation_archive import ConversationArchiveAdapter
 from ..adapters.legacy_archive import LegacyConversationArchiveAdapter
+from ..adapters.media_source import OpaqueMediaAdapter
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes
 from ..domain.garden import evidence_bytes, inspect_garden
 from ..domain.scope import inherit_scope, validate_scope
@@ -21,7 +22,7 @@ from .storage import content_resolver, open_vault
 
 
 def default_registry() -> AdapterRegistry:
-    return AdapterRegistry((TextSourceAdapter(), ConversationArchiveAdapter(), LegacyConversationArchiveAdapter()))
+    return AdapterRegistry((TextSourceAdapter(), ConversationArchiveAdapter(), LegacyConversationArchiveAdapter(), OpaqueMediaAdapter()))
 
 
 def captured_bytes(path: Path, maximum: int = 100 * 1024 * 1024) -> bytes:
@@ -39,7 +40,8 @@ def captured_bytes(path: Path, maximum: int = 100 * 1024 * 1024) -> bytes:
 
 def build_ingestion_plan(bindings: LocalBindings, garden_id: str, vault_id: str,
                          input_path: Path, metadata: dict, *, registry: AdapterRegistry | None = None,
-                         adapter_id: str | None = None, manifest_version: str | None = None) -> ChangePlan:
+                         adapter_id: str | None = None, manifest_version: str | None = None,
+                         storage_adapters=None) -> ChangePlan:
     binding = bindings.garden(garden_id)
     validate_origin(metadata["origin"])
     root, scope = binding["root"], validate_scope(binding["scope"])
@@ -49,7 +51,7 @@ def build_ingestion_plan(bindings: LocalBindings, garden_id: str, vault_id: str,
             raise ContractError("SOURCE_BOUNDARY: source classification does not fit the destination")
     if scope["visibility"] == "public" or scope["persistence"] == "encrypted-vault":
         raise ContractError("SOURCE_BOUNDARY: this adapter requires an ordinary explicitly private vault")
-    resolver = content_resolver(bindings)
+    resolver = content_resolver(bindings, adapters=storage_adapters)
     snapshot = inspect_garden(root, content_resolver=resolver).require_valid()
     adapter = (registry or default_registry()).select(metadata["media_type"], manifest_version, adapter_id)
     declaration = describe_adapter(adapter)
@@ -147,9 +149,11 @@ def build_ingestion_plan(bindings: LocalBindings, garden_id: str, vault_id: str,
                        (bindings.path, digest_bytes(bindings.path.read_bytes()))])
 
 
-def apply_ingestion(plan: ChangePlan, reviewed_digest: str, bindings: LocalBindings, vault_id: str) -> bool:
-    vault = open_vault(bindings, vault_id)
-    resolver = content_resolver(bindings)
+def apply_ingestion(plan: ChangePlan, reviewed_digest: str, bindings: LocalBindings, vault_id: str, *, storage_adapters=None) -> bool:
+    vault = open_vault(bindings, vault_id, adapters=storage_adapters)
+    if not vault.capabilities()["immutable_put"]:
+        raise ContractError("STORAGE_UNSUPPORTED: selected adapter cannot preserve immutable originals")
+    resolver = content_resolver(bindings, adapters=storage_adapters)
     return plan.apply(reviewed_digest,
                       validate=lambda stage: inspect_garden(plan.root, garden_root=stage,
                                                            content_resolver=resolver).require_valid(),

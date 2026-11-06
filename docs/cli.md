@@ -200,3 +200,15 @@ The [finite private-garden proof](private-garden-evidence.md) exercises the norm
 CLI end to end. `mindgarden evidence` resolves exact reviewed citations; `vault
 export`, `vault restore` and `vault relocate` use digest-bound plans. See
 [source-vault.md](source-vault.md) for bounds, failure states and recovery.
+
+## Private policy/storage sprint commands
+
+- `policy inspect|evaluate`: proposed local decision contract and capabilities.
+- `registry cache-inspect|cache-plan|cache-apply`: private reversible generated-cache recovery.
+- `document --plan|--apply`: explicitly classified PDF through selected optional local tools.
+- `asset inventory`: explicitly scoped, never-exportable raw-asset manifest.
+- `asset review --plan|--apply`: authored human triage that retains originals.
+
+See [the sprint](private-storage-sprint.md), [documents](document-ingestion.md),
+[registry recovery](local-registry.md) and [mixed vault](mixed-source-vault.md) for
+complete arguments and unavailable integrations. Existing commands/v0 stay supported.

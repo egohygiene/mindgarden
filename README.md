@@ -18,6 +18,13 @@ checkout on `feature/16-rendered-garden-references`. See the
 [sprint evidence and remaining scope](docs/source-workflow-sprint.md). They are
 implemented and tested on those branches, pending maintainer review and merge.
 
+The [private policy/storage continuation](docs/private-storage-sprint.md) adds
+draft PRs #80–#84 on `feature/45-mixed-source-vault-proof`: shared local policy,
+output enforcement, reversible cache recovery, optional ordinary PDF ingestion
+and private asset triage. The [mixed-vault proof](docs/mixed-source-vault.md)
+rebuilds archive/PDF/media projections after restore and relocation. These drafts
+remain unmerged; confidential-runtime and broader integration criteria stay open.
+
 ## System at a glance
 
 <p align="center">

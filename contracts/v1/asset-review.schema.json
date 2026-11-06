@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:asset-review:v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "source",
+    "state",
+    "authority",
+    "review",
+    "previous",
+    "retention",
+    "copy_policy",
+    "content_id"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.asset-review/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "source": {
+      "allOf": [
+        {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+        },
+        {
+          "properties": {
+            "revision": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          }
+        }
+      ]
+    },
+    "state": {
+      "enum": [
+        "unreviewed",
+        "keep",
+        "useful-reference",
+        "duplicate",
+        "low-quality",
+        "discard-proposed",
+        "restricted",
+        "archived"
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "human"
+        },
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "review": {
+      "allOf": [
+        {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+        },
+        {
+          "properties": {
+            "state": {
+              "const": "approved"
+            }
+          }
+        }
+      ]
+    },
+    "previous": {
+      "anyOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+            },
+            {
+              "properties": {
+                "revision": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "retention": {
+      "type": "object",
+      "required": [
+        "policy",
+        "legal_hold",
+        "delete_authority"
+      ],
+      "properties": {
+        "policy": {
+          "const": "retain-originals"
+        },
+        "legal_hold": {
+          "type": "boolean"
+        },
+        "delete_authority": {
+          "const": "none"
+        }
+      },
+      "additionalProperties": false
+    },
+    "copy_policy": {
+      "enum": [
+        "reference-only",
+        "approved-copy"
+      ]
+    },
+    "content_id": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

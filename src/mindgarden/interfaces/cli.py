@@ -523,6 +523,27 @@ def add_registry_command(commands: ParserCollection) -> None:
         command.set_defaults(handler=run_registry)
 
 
+def add_asset_command(commands: ParserCollection) -> None:
+    """Keep private inventory and human triage separate from publication/deletion."""
+    from ..application.assets import run_asset
+
+    command = commands.add_parser("asset", help="Inspect scoped assets or review non-destructive triage")
+    operations = command.add_subparsers(dest="operation", required=True)
+    for operation in ("inventory", "review"):
+        selected = operations.add_parser(operation)
+        selected.add_argument("--local-config", type=Path, required=True)
+        selected.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
+        if operation == "inventory":
+            selected.add_argument("--scope", type=Path, required=True)
+        else:
+            selected.add_argument("--garden-id", required=True)
+            selected.add_argument("--input", type=Path, required=True)
+            mode = selected.add_mutually_exclusive_group(required=True)
+            mode.add_argument("--plan", action="store_true"); mode.add_argument("--apply", action="store_true")
+            selected.add_argument("--plan-digest")
+        selected.set_defaults(handler=run_asset, scoped_output_command=True)
+
+
 def add_document_command(commands: ParserCollection) -> None:
     """Select a local PDF integration explicitly; confidential is the default."""
     from ..application.documents import run_document
@@ -564,6 +585,7 @@ def build_parser() -> ArgumentParser:
     add_lifecycle_commands(commands)
     add_ingest_command(commands)
     add_document_command(commands)
+    add_asset_command(commands)
     add_agent_commands(commands)
     add_publish_command(commands)
     add_site_command(commands)
@@ -610,7 +632,7 @@ def build_parser() -> ArgumentParser:
     scope.add_argument("--execution", choices=("offline", "controlled-import", "networked"), default="offline")
     scope.add_argument("--publication-authority", choices=("never-exportable", "review-required", "publishable"), default="never-exportable")
     scope.add_argument("--request-visibility", choices=("public", "organization", "personal", "restricted"), default="personal")
-    scope.add_argument("--projection", action="append", choices=("index", "search", "graph", "backlinks", "context", "llms", "evidence"))
+    scope.add_argument("--projection", action="append", choices=("index", "search", "graph", "backlinks", "context", "llms", "evidence", "assets"))
     scope.add_argument("--max-results", type=positive_integer, default=100)
     scope.add_argument("--max-context-bytes", type=positive_integer, default=16384)
     scope.add_argument("--max-output-bytes", type=positive_integer, help="Serialized query-output ceiling; default 16 MiB")
