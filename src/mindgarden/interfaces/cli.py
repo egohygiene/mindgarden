@@ -592,6 +592,17 @@ def build_parser() -> ArgumentParser:
     add_federation_command(commands)
     add_compaction_command(commands)
     add_registry_command(commands)
+    from ..application.dependency_builds import run_dependency_build
+
+    dependency_build = commands.add_parser("build-projections", help="Plan selected-record dependency builds or reconcile prior outputs")
+    dependency_build.add_argument("--local-config", type=Path, required=True)
+    dependency_build.add_argument("--scope", type=Path, required=True)
+    dependency_build.add_argument("--input", type=Path, required=True)
+    dependency_build.add_argument("--previous-manifest", type=Path)
+    dependency_build.add_argument("--apply", action="store_true")
+    dependency_build.add_argument("--plan-digest")
+    dependency_build.add_argument("--output-directory", type=Path)
+    dependency_build.set_defaults(handler=run_dependency_build)
     from ..application.query_store import run_query_store
 
     query_store = commands.add_parser("query-store", help="Use an explicit optional private SQLite query cache")

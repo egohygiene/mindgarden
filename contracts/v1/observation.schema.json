@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:observation:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "id",
+    "state",
+    "kind",
+    "interpretation",
+    "claim",
+    "evidence",
+    "scope",
+    "confidence",
+    "review",
+    "uncertainty",
+    "first_supported_at",
+    "last_supported_at",
+    "stale_after",
+    "relationships"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.observation/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "state": {
+      "enum": [
+        "proposed",
+        "reviewed"
+      ]
+    },
+    "kind": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+    },
+    "interpretation": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+    },
+    "claim": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+      },
+      "minItems": 1,
+      "maxItems": 256
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "confidence": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence"
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "uncertainty": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+      },
+      "minItems": 0,
+      "maxItems": 256
+    },
+    "first_supported_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "last_supported_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "stale_after": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "target",
+          "rationale"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "contradicts",
+              "refines",
+              "supersedes",
+              "uncertain"
+            ]
+          },
+          "target": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+          },
+          "rationale": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+          }
+        }
+      },
+      "minItems": 0,
+      "maxItems": 256
+    }
+  }
+}
