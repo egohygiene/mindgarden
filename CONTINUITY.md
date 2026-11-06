@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T05:27:17Z'
+  updated_at: '2026-11-06T05:29:48Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -62,18 +62,21 @@ state:
     verified_at: '2026-11-06T05:27:17Z'
   candidate:
     branch: milestone/next-six-checkpoints
-    revision: 30a29668a02740a91e77aec22f670a8270ccddf4
-    pull_request: null
-    handoff_state: post-merge-reconciliation
+    revision: 91f0058cbe6ff7cb1751af835acc3d40ea5f5814
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#74
+      url: https://github.com/egohygiene/mindgarden/pull/74
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T05:27:17Z'
+    observed_at: '2026-11-06T05:29:48Z'
     default_branch_revision: 30a29668a02740a91e77aec22f670a8270ccddf4
     issue_state: open
-    pull_request_state: not-applicable
-    notes: All six PRs are merged after current-session authorization. The complete main tree equals tested
-      eb3eebe. All 38 parents remain open. Numbered continuation IDs are pending; no architecture approval
-      state changed.
+    pull_request_state: draft
+    notes: "All six implementation PRs are merged at main 30a2966. Draft #74 records the unchanged tested\
+      \ baseline and successful main CI. Numbered issue IDs for 7\u201312 remain pending; no next-six\
+      \ implementation or ADR ratification is claimed."
   parallel_changes: []
 review:
   status: partial
@@ -93,7 +96,7 @@ review:
       No redundant full test run claimed.
   - command: Automatic main Test run 42168063685
     outcome: passed
-    observed_at: '2026-11-06T05:27:17Z'
+    observed_at: '2026-11-06T05:29:48Z'
     notes: Succeeded on exact merged main 30a29668a02740a91e77aec22f670a8270ccddf4; both supported Python
       jobs. No workflow manually dispatched.
   environment_limitations:
@@ -146,7 +149,8 @@ Merged preview, design tokens/consumer, publication conformance, portal composit
 proposed architecture/ownership map and authored compaction/retention contracts.
 The final malformed-storage-root guard is included. Full merge/head receipts:
 docs/merged-experience-checkpoints.md. Documentation reconciliation is on
-milestone/next-six-checkpoints; no new runtime has been selected or implemented.
+milestone/next-six-checkpoints, draft PR #74 (source 91f0058). No new runtime
+has been selected or implemented.
 
 ## Validation and review evidence
 
