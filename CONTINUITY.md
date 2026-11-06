@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T10:32:01Z'
+  updated_at: '2026-11-06T10:45:36Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -44,17 +44,17 @@ work:
   - Preserve Python/v0, private boundaries and proposed ADR status.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#31
-    url: https://github.com/egohygiene/mindgarden/issues/31
+    id: egohygiene/mindgarden#30
+    url: https://github.com/egohygiene/mindgarden/issues/30
   next:
     kind: action
-    id: registry-cache-recovery
-    description: 'Implement #30 explicit platform capability reporting and digest-bound reversible quarantine/restore
-      of owned scope caches. Preserve canonical files and old session revocations; unknown legacy cache
-      data stays untouched.'
+    id: document-pdf-checkpoint
+    description: 'Implement #35 optional local PDF bundle/page extraction and explicit digest-bound initial
+      classification for ordinary synthetic proof. Restricted runtime remains unavailable; never parse
+      default restricted documents in ordinary storage.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/31
+    - https://github.com/egohygiene/mindgarden/issues/30
     depends_on: []
 state:
   base:
@@ -62,16 +62,16 @@ state:
     ref: refs/heads/main
     verified_at: '2026-11-06T05:27:17Z'
   candidate:
-    branch: feature/31-output-scope-enforcement
-    revision: 1bbb38fc0ca02f72b7955d79570d9be41903c12d
+    branch: feature/30-registry-cache-recovery
+    revision: 9b8e008c6485baabfd761d9f97c7894285f24e5c
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#81
-      url: https://github.com/egohygiene/mindgarden/pull/81
+      id: egohygiene/mindgarden#82
+      url: https://github.com/egohygiene/mindgarden/pull/82
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T10:32:01Z'
+    observed_at: '2026-11-06T10:45:36Z'
     default_branch_revision: 30a29668a02740a91e77aec22f670a8270ccddf4
     issue_state: open
     pull_request_state: draft
@@ -79,27 +79,22 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T10:32:01Z'
+  reviewed_at: '2026-11-06T10:45:36Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_output_scope tests.test_scoped_retrieval tests.test_v1_contracts
-      -q
+  - command: .venv/bin/python -m unittest tests.test_registry_cache tests.test_registry tests.test_registry_views
+      tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-06T10:32:01Z'
-    notes: 25 passed
-  - command: .cache/python313/bin/python -m unittest tests.test_output_scope -q
+    observed_at: '2026-11-06T10:45:36Z'
+    notes: 39 passed
+  - command: .cache/python313/bin/python -m unittest tests.test_registry_cache -q
     outcome: passed
-    observed_at: '2026-11-06T10:32:01Z'
+    observed_at: '2026-11-06T10:45:36Z'
     notes: 5 passed
-  - command: .venv/bin/python -m unittest tests.test_projection_corpus tests.test_federation tests.test_portal
-      -q
+  - command: python3 .cache/six_owner_checks.py
     outcome: passed
-    observed_at: '2026-11-06T10:32:01Z'
-    notes: 34 passed
-  - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/output-private-proof --require-source
-    outcome: passed
-    observed_at: '2026-11-06T10:32:01Z'
-    notes: complete golden matched
+    observed_at: '2026-11-06T10:45:36Z'
+    notes: pinned owners/continuity and 38-row ledger pass
   environment_limitations:
   - Automatic PR CI is separate from local checks; no paid workflow dispatched.
 privacy:
@@ -138,23 +133,23 @@ with verification, honest retained parent scope and reproducible combined checko
 
 ## State snapshot
 
-Draft #81 on feature/31-output-scope-enforcement is stacked over #80 over #79. Existing drafts remain unmerged; functional output source 1bbb38f.
+Draft #82 on feature/30-registry-cache-recovery is stacked over #81/#80/#79. Functional source 9b8e008; all drafts remain unmerged.
 
 ## Completed and material changes
 
-Final live-authority/serialized-byte output guard, safe scoped query diagnostics, optional session ceiling and exact private scope-cache ownership inventories. Shared services cover index/search/graph/backlinks/outbound/context/evidence/agent paths; public artifact compatibility remains intact.
+Registry platform capability matrix and private cache inspect/plan/apply. Exact owned generated caches can be quarantined and restored under the writer lease without deletion; interrupted receipt commits reconcile by exact retry. Unknown/corrupt/legacy/symlink state is retained. Revocations remain effective.
 
 ## Validation and review evidence
 
-25 output/scoped/contracts tests pass on 3.12; 5 new output tests pass on 3.13; 34 projection/federation/portal compatibility tests pass. Private CLI golden and compile/diff/owner checks pass.
+39 registry/cache/contracts tests pass on 3.12; 5 cache tests pass on 3.13. Compile, diff and pinned owner checks pass.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Normative Hygiene #39/#40 and Realm confidential vault/runtime contracts remain open/unavailable. Declassification, encryption and host assurance are not inferred from policy labels. Continue independent local enforcement, registry, synthetic ordinary PDF and vault proofs; no parent closure or ADR ratification.
+Native macOS/Windows mutation/ACL assurance, cross-filesystem cache moves, restricted encrypted runtime and normative Hygiene/Realm policy contracts remain unavailable. Local Linux baseline is bounded; no parent closure or ADR ratification.
 
 ## Next dependency-ready work
 
-Implement #30 explicit platform capability reporting and digest-bound reversible quarantine/restore of owned scope caches. Preserve canonical files and old session revocations; unknown legacy cache data stays untouched.
+Implement #35 optional local PDF bundle/page extraction and explicit digest-bound initial classification for ordinary synthetic proof. Restricted runtime remains unavailable; never parse default restricted documents in ordinary storage.
 
 ## Parallel changes and reconciliation
 
