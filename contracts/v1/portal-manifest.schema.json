@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:portal-manifest:v1",
+  "title": "Mindgarden portal-manifest v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "revision",
+    "engine_version",
+    "base_uri",
+    "mount",
+    "commit_marker",
+    "site",
+    "contracts",
+    "owned"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.portal-manifest/v1"
+    },
+    "revision": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+    },
+    "engine_version": {
+      "type": "string",
+      "pattern": "^[0-9]+[.][0-9]+[.][0-9]+$"
+    },
+    "base_uri": {
+      "type": "string",
+      "format": "uri"
+    },
+    "mount": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[-/][a-z0-9]+)*$",
+      "maxLength": 128
+    },
+    "commit_marker": {
+      "const": ".mindgarden-portal.json"
+    },
+    "site": {
+      "type": "object",
+      "required": [
+        "revision",
+        "manifest_sha256",
+        "base_uri",
+        "renderer"
+      ],
+      "properties": {
+        "revision": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+        },
+        "manifest_sha256": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+        },
+        "base_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "renderer": {
+          "$ref": "urn:egohygiene:mindgarden:site-adapter:v1"
+        }
+      },
+      "additionalProperties": false
+    },
+    "contracts": {
+      "const": [
+        "mindgarden.portal-manifest/v1",
+        "mindgarden.site-manifest/v1",
+        "mindgarden.federation-descriptor/v1",
+        "mindgarden.federation-index/v1",
+        "mindgarden.federation-graph/v1"
+      ]
+    },
+    "owned": {
+      "$ref": "urn:egohygiene:mindgarden:site-manifest:v1#/properties/artifacts"
+    }
+  },
+  "additionalProperties": false
+}

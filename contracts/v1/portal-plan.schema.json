@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:portal-plan:v1",
+  "title": "Mindgarden portal-plan v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "classification",
+    "publication",
+    "request_sha256",
+    "source_directory_sha256",
+    "destination_sha256",
+    "manifest",
+    "plan_sha256"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.portal-plan/v1"
+    },
+    "classification": {
+      "const": "machine-local-control"
+    },
+    "publication": {
+      "const": "never-exportable"
+    },
+    "request_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "source_directory_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "destination_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "manifest": {
+      "$ref": "urn:egohygiene:mindgarden:portal-manifest:v1"
+    },
+    "plan_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    }
+  },
+  "additionalProperties": false
+}

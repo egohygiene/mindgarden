@@ -9,6 +9,6 @@ recursive-include profiles *.json *.md *.yaml *.js *.css
 recursive-include requirements *.txt
 recursive-include scripts *.py
 recursive-include templates *.md
-recursive-include tests *.json *.md *.py *.txt *.yaml
+recursive-include tests *.json *.md *.py *.txt *.yaml *.html
 include tests/fixtures/public-garden/.garden/provenance/.gitkeep
 include tests/fixtures/federation/expected/.mindgarden-federation.json

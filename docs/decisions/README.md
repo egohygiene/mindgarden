@@ -18,3 +18,4 @@ New decisions inherit [Hygiene policy v1.2.0](policy-reference.json). Decision s
 | [ADR-0012](ADR-0012-machine-local-registry.md) | Manage local registrations without changing canonical gardens | Proposed | 2026-11-05 |
 | [ADR-0013](ADR-0013-reviewed-v1-site-projections.md) | Render reviewed v1 knowledge through the existing pinned Quartz adapter | Proposed | 2026-11-05 |
 | [ADR-0014](ADR-0014-design-source-and-consumers.md) | Keep stack-neutral design tokens separate from derived consumers | Proposed | 2026-11-05 |
+| [ADR-0015](ADR-0015-caller-owned-portal-composition.md) | Compose pinned public artifacts into caller-owned portal mounts | Proposed | 2026-11-05 |

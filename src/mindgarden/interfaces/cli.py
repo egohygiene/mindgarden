@@ -415,6 +415,17 @@ def add_site_command(commands: ParserCollection) -> None:
             command.add_argument("--" + name, type=Path, default=SUPPRESS)
         add_site_authority(command)
     parser.set_defaults(handler=run_site_adapter)
+    from ..application.portal import run_portal
+
+    compose = actions.add_parser("compose", help="Compose a pinned public garden without changing sibling portal surfaces")
+    compose.add_argument("--input", type=Path, required=True, help="Explicit private portal-request/v1 control file")
+    mode = compose.add_mutually_exclusive_group()
+    mode.add_argument("--plan", action="store_true", help="Inspect the exact composition plan (default)")
+    mode.add_argument("--apply", action="store_true", help="Create or verify after exact-digest review")
+    mode.add_argument("--check", action="store_true", help="Require a complete checked garden and final portal receipt")
+    compose.add_argument("--plan-digest", help="Exact reviewed portal-plan digest")
+    compose.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
+    compose.set_defaults(handler=run_portal, public_artifact_command=True)
 
 
 def add_federation_command(commands: ParserCollection) -> None:
@@ -582,7 +593,8 @@ def main(arguments: Sequence[str] | None = None) -> int:
     """Run the CLI with stable failures for human and machine callers."""
     parsed = build_parser().parse_args(arguments)
     try:
-        if parsed.handler in (run_publication, run_site_adapter) and uses_v1_site(parsed):
+        if (getattr(parsed, "public_artifact_command", False)
+                or (parsed.handler in (run_publication, run_site_adapter) and uses_v1_site(parsed))):
             try:
                 result = parsed.handler(parsed)
             except (ContractError, OSError, UnicodeError, ValueError, subprocess.CalledProcessError) as error:
