@@ -1,0 +1,304 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:memory-plan:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "scope",
+    "retention",
+    "review",
+    "review_authority",
+    "target",
+    "budgets",
+    "candidates"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.memory-plan/v1"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "retention": {
+      "$ref": "urn:egohygiene:mindgarden:retention-policy:v1"
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "review_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "human"
+        },
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "tokenizer",
+        "max_snippet_bytes"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+        },
+        "tokenizer": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+        },
+        "max_snippet_bytes": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 8192
+        }
+      }
+    },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_total_bytes",
+        "max_tokens",
+        "max_snippets",
+        "minimum_priority",
+        "category_quotas"
+      ],
+      "properties": {
+        "max_total_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "max_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "max_snippets": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "minimum_priority": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "category_quotas": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "preference",
+            "identity",
+            "workflow",
+            "project-direction",
+            "temporary",
+            "historical",
+            "one-off",
+            "sensitive"
+          ],
+          "properties": {
+            "preference": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 256
+            },
+            "identity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 256
+            },
+            "workflow": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 256
+            },
+            "project-direction": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 256
+            },
+            "temporary": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 256
+            },
+            "historical": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 256
+            },
+            "one-off": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 256
+            },
+            "sensitive": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 256
+            }
+          }
+        }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 256,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "action",
+          "sources",
+          "rationale",
+          "outputs"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "action": {
+            "enum": [
+              "keep",
+              "merge",
+              "rewrite",
+              "demote",
+              "expire",
+              "split",
+              "pin"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 256,
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+            }
+          },
+          "rationale": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+          },
+          "outputs": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 256,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "title",
+                "body",
+                "category",
+                "scope",
+                "durability",
+                "half_life_days",
+                "confidence",
+                "priority",
+                "inclusion_reason",
+                "last_reviewed",
+                "stale_after",
+                "supersedes",
+                "merges"
+              ],
+              "properties": {
+                "id": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+                },
+                "title": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+                },
+                "body": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 8192
+                },
+                "category": {
+                  "enum": [
+                    "preference",
+                    "identity",
+                    "workflow",
+                    "project-direction",
+                    "temporary",
+                    "historical",
+                    "one-off",
+                    "sensitive"
+                  ]
+                },
+                "scope": {
+                  "$ref": "urn:egohygiene:mindgarden:scope:v1"
+                },
+                "durability": {
+                  "enum": [
+                    "durable",
+                    "temporary"
+                  ]
+                },
+                "half_life_days": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 3650
+                },
+                "confidence": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence"
+                },
+                "priority": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "inclusion_reason": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+                },
+                "last_reviewed": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "stale_after": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date-time"
+                },
+                "supersedes": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 256,
+                  "items": {
+                    "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+                  }
+                },
+                "merges": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 256,
+                  "items": {
+                    "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

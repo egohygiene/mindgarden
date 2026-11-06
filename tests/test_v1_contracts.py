@@ -168,6 +168,8 @@ class V1ContractTests(unittest.TestCase):
                 "compaction-plan",
                 "compaction-manifest",
                 "adr-projection",
+                "memory-plan",
+                "memory-projection",
                 "observation",
                 "dependency-build-request",
                 "projection-dependencies",
