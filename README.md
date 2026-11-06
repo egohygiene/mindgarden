@@ -209,3 +209,13 @@ and emits an exact ownership receipt without deploying.
 
 [Authored compaction and retention](docs/compaction-retention.md) adds a read-only
 exact-evidence preview and synthetic curation handoff; originals are preserved.
+
+## Product checkpoints in review
+
+The [broader product stack](docs/product-checkpoints.md) adds draft ADR metadata,
+optional SQLite, dependency-build, reviewed memory and private bookmark workflows.
+The final combined local suite passes 360 tests per supported Python. These are
+tested checkpoints on review branches; parent acceptance, historical ADR migration
+and the framework-dependent API/web slice remain separate. The existing Python
+CLI and dependency-free reference engine are preserved; no model or Google
+integration is required. Release work is deferred.

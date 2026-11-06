@@ -2,7 +2,8 @@
 
 This batch covers #41, #43, #44, #32, #37, #49, #48 and #47. Every parent remains
 open until its complete acceptance criteria are evidenced. The combined checkout
-extends #93 → #94 → #95 → #96; release #19 and additional release work are deferred.
+extends #93 → #94 → #95 → #96 → #97 → #98 → #99 → #100 → #101 →
+#102 → #103 → #104. Release #19 and additional release work are deferred.
 The six deferred proposals #86–#91 remain outside this batch.
 
 ## Refreshed dependencies
@@ -17,7 +18,7 @@ These are bounded dependency corrections proposed for review, not accepted ADRs.
 | #32 | #12/#16/#31 already provide authorized input and reference ranking. An optional SQLite conformance candidate is independent of confidential runtime and full framework adoption | ADR-0016 remains proposed. Keep the reference default; measure an opt-in adapter without selecting it as the permanent product store |
 | #37 | Existing sources, reviewed knowledge and claims can seed dependency fingerprints now | Do not invent a competing claim model; observation semantics, Mindcap #33 and a real private pilot retain their owning gates |
 | #49 | #46 already distinguishes canonical knowledge, archival retention and context retention | Implement a disposable, reviewed memory projection over that boundary; no source deletion or new model dependency |
-| #48 | Mindcap #35 is open; no delivered provider-neutral bundle/delta contract. Akashic #175 is open and has no delivered sanitized candidate-packet schema | Local authored metadata cleanup can advance through an explicit provisional fixture profile. Do not claim Mindcap compatibility or emit an invented Akashic packet; report unavailable handoffs |
+| #48 | Mindcap #35 is open; no delivered provider-neutral bundle/delta contract. Akashic #175 is open and has no delivered sanitized candidate-packet schema | The tested normalized v0.1 metadata subset can advance local cleanup. Do not claim source-bundle/raw capture verification or emit an invented Akashic packet; report unavailable handoffs |
 | #47 | Shared Python application services exist; Realm #20/#34, Relay #40 and Aether #69 remain open | Accepted framework/runtime ADRs are absent. Prepare a concrete service/parity proposal; no implicit framework selection, HTTP server or Compose architecture adoption |
 
 Hygiene's ratification is evidence of its policy approval, not approval of
@@ -29,14 +30,14 @@ remaining integration acceptance.
 
 | Issue | Checkpoint | Verification | Remaining parent scope / next action |
 | --- | --- | --- | --- |
-| #41 | Scheduling-gate reconciliation; no backfill | Read live owner issues, policy and ratification evidence; preserve legacy bytes and all proposed approvals | Shared operational readiness, then human-reviewed historical migration |
-| #43 | Read-only shared Relay preview caller | Pinned reusable-workflow input contract inspected; YAML parsed locally | Hosted preview failed native source validation in run 42308318062; sanitized failure report retained. Local renderer/browser checks, composed route and deployment remain unverified |
-| #44 | [Public metadata projection](adr-projections.md), `feature/44-adr-projections`; functional `6666038` plus CLI test | Six focused tests; schema/compatibility checks | Narrative extraction, inherited/private federation and UI integration remain; canonical bodies are not copied |
-| #32 | [Opt-in SQLite](query-stores.md), `feature/32-sqlite-query-store` | Eight tests per Python; 256-note exact parity and measured costs | Incremental updates, broader performance/platform/confidential assurance and permanent adoption remain |
-| #37 | [Dependency builds](dependency-builds.md), `feature/37-projection-dependency-builds`; functional `4cd33ba` | Seven focused cases; committed authored request and lost-event reconciliation golden | Canonical observation integration, background targeted execution, Mindcap capture and private pilot remain |
-| #49 | [Reviewed memory](assistant-memory.md), `feature/49-reviewed-memory-snippets`; functional `fcef8ef` | Eight cases per Python; 11,416 source-body bytes → 187 snippet-body bytes; 20,699-byte cited bundle | Richer interactive review, provider tokenizers/adapters and automated consumer refresh remain |
-| #48 | [Private cleanup/export](bookmark-cleanup.md), `feature/48-private-bookmark-cleanup`; functional `4816868` | Seven cases per Python; resume equals full review, originals preserved and CLI summaries redacted | Mindcap bundle/delta, raw capture verification, canonical URL/freshness and accepted Akashic packet remain unavailable |
-| #47 | [Concrete shared-service/parity proposal](shared-service-slice-proposal.md); accepted-ADR gate remains closed | Current callables, transport/review boundaries, two-consumer and lifecycle acceptance mapped | Review/dispose framework/auth/runtime ADRs; then one accepted transport slice and Realm-owned clean-start proof |
+| #41 | Gate reconciliation in [#97](https://github.com/egohygiene/mindgarden/pull/97), `feature/43-decisions-contract-checkpoint`; `6ba1c2d` | Live owner/policy/ratification evidence inspected; legacy bytes and proposed approvals preserved | Blocked: shared operational/adoption readiness, then human-reviewed historical migration |
+| #43 | Shared read-only preview caller in [#97](https://github.com/egohygiene/mindgarden/pull/97) | Engine Test 42308317027 passes; Decisions preview 42308318062 fails native source validation and preserves its sanitized report | Diagnose the exact native findings with the pinned runtime; qualify current corpus, then local/browser/artifact/composed-route proof; no deployed view claimed |
+| #44 | [Public ADR adapter](adr-projections.md), [#98](https://github.com/egohygiene/mindgarden/pull/98), `feature/44-adr-projections`; `6666038` | Six focused cases and final full suites; exact source/revision, lifecycle/private/lineage/budget fixtures | Full narrative, inherited/private federation and UI integration remain; no canonical body copy |
+| #32 | [Optional SQLite](query-stores.md), [#99](https://github.com/egohygiene/mindgarden/pull/99) plus [#104](https://github.com/egohygiene/mindgarden/pull/104), `fix/32-optional-sqlite-boundary`; `2d3e589` / `e100aae` | Ten cases including missing optional module/factory extension; 256-note measured parity; full final suites | Incremental updates, broader workloads/resources/platform/confidential assurance and permanent store disposition remain |
+| #37 | [Dependency builds](dependency-builds.md), [#100](https://github.com/egohygiene/mindgarden/pull/100), `feature/37-projection-dependency-builds`; `4cd33ba` | Seven cases, authored request and lost-event golden: two affected views stale, unrelated bytes unchanged | Broader canonical observations/validity, targeted execution/events, Mindcap capture and approved private pilot remain |
+| #49 | [Reviewed memory](assistant-memory.md), [#101](https://github.com/egohygiene/mindgarden/pull/101), `feature/49-reviewed-memory-snippets`; `fcef8ef` | Eight cases; 11,416 source-body → 187 snippet-body bytes; full cited bundle 20,699/32,768 bytes | Richer interactive review, provider tokenizers/adapters and automatic consumer refresh/revocation remain |
+| #48 | [Private cleanup](bookmark-cleanup.md), [#102](https://github.com/egohygiene/mindgarden/pull/102), `feature/48-private-bookmark-cleanup`; `4816868` | Seven cases; resume equals full review, exact normalized input retained and summaries redacted | Mindcap bundle/delta/raw capture verification, canonical URL/freshness and accepted Akashic packet remain unavailable |
+| #47 | [Shared-service/parity proposal](shared-service-slice-proposal.md), [#103](https://github.com/egohygiene/mindgarden/pull/103), `proposal/47-shared-service-slice`; `2867d10` | Current callables, transport/review/lifecycle/accessibility and two-consumer acceptance mapped; no server implemented | Blocked: review/dispose framework/auth/runtime ADRs, then one accepted transport slice and Realm-owned clean-start proof |
 
 ## Decisions preview and source ownership
 
@@ -70,3 +71,46 @@ preview test; no external model or Google integration is used. Hosted CI remains
 separate. Shared Decisions preview run 42308318062 fails native source validation
 and retains its sanitized report; that finding is not replaced by passing engine
 tests. Final compatibility follow-ups are recorded separately below.
+
+## Final compatibility receipt and regroup
+
+Functional combined source: `e100aaea9f9a9a1c744b9a5607065d1b3bb6ae53`.
+Draft #104 contains the optional-extension fix, replaceable factory qualification
+and formatting of only the new modules/fixtures with Ruff 0.11.13. Later receipt
+edits are documentation only. All 44 parent/deferred issues remain open.
+
+| Exact command / probe | Result |
+| --- | --- |
+| `.venv/bin/python -m unittest discover --start-directory tests --verbose` | 360 passed, no skips; Python 3.12.14; 278.834 s |
+| `.cache/python313/bin/python -m unittest discover --start-directory tests --verbose` | 360 passed, no skips; Python 3.13.5; 267.789 s |
+| `.cache/python313/bin/python -W error::ResourceWarning -m unittest tests.test_query_store -q` | 10 passed; 4.048 s; missing SQLite preserves ordinary CLI; no connection leaks |
+| `.venv/bin/python -m build --sdist --wheel --outdir .cache/product-final-dist` | Fresh distributions built, no runtime dependencies |
+| Clean `git archive` source; `python -S scripts/release_journey_demo.py --workspace <new-synthetic-root> --require-source --report <report>`; compare committed golden | Exact match; archive→review→routing→public-only projection/federation→vault restore/relocation without model/Google calls |
+| Clean wheel environment; `python -I scripts/release_journey_demo.py --workspace <new-synthetic-root> --require-installed --report <report>`; compare golden | Exact match; no source fallback |
+| Installed `python -I scripts/provider_switch_demo.py --workspace <new-synthetic-root> --require-installed --report <report>`; compare golden | Exact provider recovery match |
+| Installed CLI `memory` preview/apply, `build-projections` preview/apply/reconciliation, `query-store` plan/build/search/audit against authored fixtures | Pass; loaded modules confirmed inside interpreter prefix; exact memory metrics and affected-output states |
+| `python3 .cache/context_phase_owner_checks.py`, compilation, focused `ruff check --select F,E9`, `git diff --check` | Pass; pinned schema/approval invariants and 44 unique ledger rows |
+
+Fresh distribution SHA-256: sdist
+`c3e968544c1628aca7176e0528810866dcbae4225c977d721249cdc7791540b2`;
+wheel `a7a6de5e14409e4cf1eb4ad9a281cb8601bf20834628a6ace877a10455c95417`.
+These are development compatibility artifacts, not a published release or a
+claim of reproducible release-bundle acceptance.
+
+At the final hosted refresh, engine Test runs for #96–#102 pass. #103 was still
+running; final #104 is checked separately. Shared Decisions preview
+[42308318062](https://github.com/egohygiene/mindgarden/actions/runs/42308318062)
+fails at `collection-validation-normalization: source-validation`; its failure
+report was retained. Local engine success does not satisfy that gate. The exact
+native cause must be inspected through the pinned owner runtime; it is not
+inferred from a closed delivery issue or replaced by an authored snapshot.
+
+Reproduce all functional changes with `git fetch origin` followed by
+`git switch --detach e100aaea9f9a9a1c744b9a5607065d1b3bb6ae53`; use the current
+`fix/32-optional-sqlite-boundary` tip for the final receipt. Review/merge only after
+the maintainer sync, in the explicit stack order above. No PR is automatically
+merged. The exact next action is **regroup and review the bounded stack**, resolve
+native preview/architecture gates, and select the next authorized ready work.
+The #20 real-pilot inputs and consumer cutover remain open; #19 and additional
+release work and #86–#91 remain deferred. No real archive, Drive, model, private
+consumer, package publication or Pages deployment was used or modified.

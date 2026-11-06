@@ -19,7 +19,7 @@ superseded_by: []
 affected_repositories:
 - egohygiene/mindgarden
 affected_contracts: []
-implementation_status: not_started
+implementation_status: in_progress
 evidence:
 - type: issue
   url: https://github.com/egohygiene/mindgarden/issues/32
@@ -91,3 +91,14 @@ experiments. Revisit before #32 implementation, on a measured resource/relevance
 failure, on the #478 contract release, or by 2027-01-01. Human disposition precedes
 consequential store adoption.
 
+
+## Optional conformance evidence — 2026-11-06
+
+The maintainer authorized #32's opt-in conformance checkpoint. Drafts
+[#99](https://github.com/egohygiene/mindgarden/pull/99) and
+[#104](https://github.com/egohygiene/mindgarden/pull/104) add a replaceable
+SQLite candidate, scoped reference parity, failure/recovery tests and a synthetic
+measurement. The reference remains the default; fully audited SQLite is slower
+on that bounded workload. This is experimental implementation evidence, not
+consequential default-store adoption or disposition of this proposal. Status
+remains proposed and approval remains null. See [the query-store checkpoint](../query-stores.md).

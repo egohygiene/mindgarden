@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T23:32:13Z'
+  updated_at: '2026-11-06T23:43:19Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -56,20 +56,20 @@ scope:
   - docs/bookmark-cleanup.md
   - docs/shared-service-slice-proposal.md
 work:
-  objective: Preserve a concrete shared application-service/parity proposal without bypassing accepted architecture
-    gates.
+  objective: Hand off the tested broader product stack and regroup without claiming gated parent acceptance.
   success_conditions:
   - Keep exact citations, reviewed routing, bounded output and relocation proof.
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#47
-    url: https://github.com/egohygiene/mindgarden/issues/47
+    id: egohygiene/mindgarden#32
+    url: https://github.com/egohygiene/mindgarden/issues/32
   next:
     kind: action
-    id: final-compatibility-and-regroup
-    description: 'Fix the optional SQLite import boundary, verify the combined checkout/package proofs, record final
-      draft stack/evidence and regroup. Full #41/#43/#47 acceptance remains gated.'
+    id: maintainer-review-and-regroup
+    description: "Regroup with the maintainer and review drafts #93\u2192#104 in order. Diagnose #97 native source\
+      \ validation; preserve #41 historical and #47 accepted-ADR gates. Select next ready work after sync; do not\
+      \ merge, publish, process a real pilot or resume deferred release work automatically."
     readiness: ready
     references:
     - docs/product-checkpoints.md
@@ -77,22 +77,26 @@ work:
     depends_on: []
 state:
   base:
-    revision: 03191706a7ff9d3d7d67ce8848baaee729714703
-    ref: refs/heads/feature/48-private-bookmark-cleanup
-    verified_at: '2026-11-06T23:32:13Z'
+    revision: 2867d1003e9e34a26095396439c8382e14dd3f00
+    ref: refs/heads/proposal/47-shared-service-slice
+    verified_at: '2026-11-06T23:43:19Z'
   candidate:
-    branch: proposal/47-shared-service-slice
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    branch: fix/32-optional-sqlite-boundary
+    revision: e100aaea9f9a9a1c744b9a5607065d1b3bb6ae53
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#104
+      url: https://github.com/egohygiene/mindgarden/pull/104
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T23:32:13Z'
+    observed_at: '2026-11-06T23:43:19Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
-    pull_request_state: not-applicable
-    notes: "Product checkpoints extend drafts #97\u2013#102. Both full combined suites pass 358 tests with no skips.\
-      \ The current #47 branch changes documentation only; no framework/API/web/worker is adopted."
+    pull_request_state: draft
+    notes: "Main remains d5edb13. Drafts #93\u2192#104 preserve a reproducible combined checkout; #20 consumer draft\
+      \ #96 and Empathy #120 remain partial. Functional e100aae passes both 360-test suites and clean source/wheel\
+      \ proofs. All 44 issues remain open."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#93
@@ -124,26 +128,43 @@ state:
   - provider: github
     id: egohygiene/mindgarden#102
     url: https://github.com/egohygiene/mindgarden/pull/102
+  - provider: github
+    id: egohygiene/mindgarden#103
+    url: https://github.com/egohygiene/mindgarden/pull/103
 review:
   status: partial
-  reviewed_at: '2026-11-06T23:32:13Z'
+  reviewed_at: '2026-11-06T23:43:19Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T23:32:13Z'
-    notes: 358 tests, no skips; Python 3.12.14; 273.225 s.
+    observed_at: '2026-11-06T23:43:19Z'
+    notes: 360 tests; Python 3.12.14; 278.834 s; no skips.
   - command: .cache/python313/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T23:32:13Z'
-    notes: 358 tests, no skips; Python 3.13.5; 258.766 s.
+    observed_at: '2026-11-06T23:43:19Z'
+    notes: 360 tests; Python 3.13.5; 267.789 s; no skips.
+  - command: .cache/python313/bin/python -W error::ResourceWarning -m unittest tests.test_query_store -q
+    outcome: passed
+    observed_at: '2026-11-06T23:43:19Z'
+    notes: 10 tests; 4.048 s.
+  - command: Fresh build; clean git-archive -S and installed-wheel -I synthetic journey/provider proofs
+    outcome: passed
+    observed_at: '2026-11-06T23:43:19Z'
+    notes: Exact committed goldens; Google/model unused, in-process network guards.
+  - command: Installed memory/dependency-build/SQLite CLI probes
+    outcome: passed
+    observed_at: '2026-11-06T23:43:19Z'
+    notes: Exact metrics, affected outputs and audited queries; modules under interpreter prefix.
   environment_limitations:
-  - '#41 historical backfill remains behind shared operational/adoption readiness; current proposals are not ratified.'
-  - Native Relay collector Rust toolchain is unavailable locally; hosted artifact/browser/publication evidence is
-    pending.
-  - '#47 accepted framework/runtime ADRs are absent; prepare a proposal only.'
-  - 'Real #20 pilot/consumer cutover and #48 external bundle/intake contracts remain unavailable.'
-  - '#19 and additional release work remain explicitly deferred.'
+  - '#41 historical migration and #47 full web/runtime implementation remain behind their explicit shared/accepted-ADR
+    gates.'
+  - '#43 shared preview run 42308318062 failed native source validation; local engine tests do not replace it.'
+  - '#48 normalized metadata subset is tested; raw capture/bundle/delta/freshness and accepted Akashic packet remain
+    unavailable.'
+  - 'Real #20 pilot inputs/review, Empathy strict entrypoint cutover/holistic/deployment and broader parent acceptance
+    remain open.'
+  - "#19 and additional release work, plus #86\u2013#91, remain explicitly deferred; no auto-merge or publication."
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -171,27 +192,27 @@ Read status, live issues/PRs, README, AI_CONSTITUTION, ROADMAP, the coverage and
 
 ## Current objective and success conditions
 
-Preserve a concrete shared application-service/parity proposal without bypassing accepted architecture gates. Keep exact citations, reviewed routing, bounded output and relocation proof. Park release work and preserve small reviewable drafts.
+Hand off the tested broader product stack and regroup without claiming gated parent acceptance. Keep exact citations, reviewed routing, bounded output and relocation proof. Park release work and preserve small reviewable drafts.
 
 ## State snapshot
 
-Product checkpoints extend drafts #97–#102. Both full combined suites pass 358 tests with no skips. The current #47 branch changes documentation only; no framework/API/web/worker is adopted.
+Main remains d5edb13. Drafts #93→#104 preserve a reproducible combined checkout; #20 consumer draft #96 and Empathy #120 remain partial. Functional e100aae passes both 360-test suites and clean source/wheel proofs. All 44 issues remain open.
 
 ## Completed and material changes
 
-Mapped current application services, proposed request/response/review boundaries, parity/failure/lifecycle/accessibility checks, Realm/Relay/Aether ownership and two-consumer proof. Architecture/system/roadmap distinguish draft implementation from acceptance.
+Checkpointed #41/#43 gates and shared preview, #44 public ADR metadata, #32 optional SQLite, #37 dependency reconciliation, #49 reviewed memory, #48 private bookmark exports and #47 shared-service proposal. Final fix keeps SQLite optional and qualifies extension injection; proposed ADR statuses/approvals remain unchanged.
 
 ## Validation and review evidence
 
-358 tests pass per supported Python; 273.225/258.766 seconds. #47 is a reviewable proposal only; no HTTP, UI, worker or Compose acceptance is claimed.
+360 tests pass, no skips, per Python (278.834/267.789 s); ten SQLite cases pass with ResourceWarnings-as-errors. Fresh archive/source and installed-wheel golden proofs plus installed new memory/dependency/query flows pass without source fallback. Engine CI #96–#102 passes; #97 Decisions preview fails native source validation; final hosted head is recorded separately.
 
 ## Blockers, risks, unknowns, and deferred work
 
-#41 historical backfill remains behind shared operational/adoption readiness; current proposals are not ratified. Native Relay collector Rust toolchain is unavailable locally; hosted artifact/browser/publication evidence is pending. #47 accepted framework/runtime ADRs are absent; prepare a proposal only. Real #20 pilot/consumer cutover and #48 external bundle/intake contracts remain unavailable. #19 and additional release work remain explicitly deferred.
+#41 historical migration and #47 full web/runtime implementation remain behind their explicit shared/accepted-ADR gates. #43 shared preview run 42308318062 failed native source validation; local engine tests do not replace it. #48 normalized metadata subset is tested; raw capture/bundle/delta/freshness and accepted Akashic packet remain unavailable. Real #20 pilot inputs/review, Empathy strict entrypoint cutover/holistic/deployment and broader parent acceptance remain open. #19 and additional release work, plus #86–#91, remain explicitly deferred; no auto-merge or publication.
 
 ## Next dependency-ready work
 
-Fix the optional SQLite import boundary, verify the combined checkout/package proofs, record final draft stack/evidence and regroup. Full #41/#43/#47 acceptance remains gated.
+Regroup with the maintainer and review drafts #93→#104 in order. Diagnose #97 native source validation; preserve #41 historical and #47 accepted-ADR gates. Select next ready work after sync; do not merge, publish, process a real pilot or resume deferred release work automatically.
 
 ## Parallel changes and reconciliation
 
