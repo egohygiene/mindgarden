@@ -12,18 +12,13 @@ repository's `.garden/` directory. Obsidian vaults, agent context, search
 indexes, and published sites are projections of that committed knowledge, not
 competing sources of truth.
 
-The next six source-workflow checkpoints are available on draft stack
-[#74–#79](https://github.com/egohygiene/mindgarden/pull/79), with the combined
-checkout on `feature/16-rendered-garden-references`. See the
-[sprint evidence and remaining scope](docs/source-workflow-sprint.md). They are
-implemented and tested on those branches, pending maintainer review and merge.
-
-The [private policy/storage continuation](docs/private-storage-sprint.md) adds
-draft PRs #80–#84 on `feature/45-mixed-source-vault-proof`: shared local policy,
-output enforcement, reversible cache recovery, optional ordinary PDF ingestion
-and private asset triage. The [mixed-vault proof](docs/mixed-source-vault.md)
-rebuilds archive/PDF/media projections after restore and relocation. These drafts
-remain unmerged; confidential-runtime and broader integration criteria stay open.
+The source-workflow and private policy/storage checkpoints are merged through
+[#74–#84](docs/merged-pipeline-storage-checkpoints.md). The combined local suite
+passes 298 tests on each supported Python; the mixed archive/PDF/media proof
+preserves exact references through restore, relocation and a clean rebuild.
+See the [source sprint](docs/source-workflow-sprint.md) and
+[storage sprint](docs/private-storage-sprint.md) for bounded evidence and remaining
+parent acceptance. Proposed ADRs and confidential/provider integration remain open.
 
 ## System at a glance
 

@@ -1,9 +1,12 @@
 # Private policy and storage sprint — 2026-11-06
 
-The maintainer authorized #29 → #31 → #30 → #35 → #45 as additional small draft
-checkpoints on top of #79. Main remains `30a2966`; #74–#79 remain draft/unmerged.
-The previous combined base is `8e15314cb3419b1defaf1866aa6450d6703abb09`, whose
-final automatic Test run 42177086645 passed. No merge or ADR approval is inferred.
+The maintainer authorized #29 → #31 → #30 → #35 → #45 as small checkpoints
+above #79, then authorized merging the full #74–#84 stack. All eleven PRs are
+merged in order at `eb0018e3312f85f7b00818cb483ef4bce1863233`. The
+[merge receipt](merged-pipeline-storage-checkpoints.md) verifies the complete tree
+against tested leaf `44635f2d7901ab5d7674b9f6759934afcb21e651`.
+Original branch/base references and test observations below retain their lineage.
+Implementation merging does not ratify proposed ADRs or close parent scope.
 
 ## Dependencies and bounded scope
 
@@ -29,21 +32,21 @@ reclassified. Default confidential processing must remain unavailable until its
 external contracts and actual runtime/storage evidence exist. Real personal,
 employment, business and provider data are out of scope.
 
-| Issue | Checkpoint | Remaining acceptance | Draft / branch | Verification | Next action |
+| Issue | Checkpoint | Remaining acceptance | Merged PR / original branch | Verification | Next action |
 | --- | --- | --- | --- | --- | --- |
-| #29 | Shared decision schema/API/CLI over existing scope model; policy adoption gaps explicit | Accepted Hygiene/Realm integration and declassification protocol | [#80](https://github.com/egohygiene/mindgarden/pull/80); `feature/29-policy-integration` over #79; `9fc0c9b` | 25 policy/scoped/contracts on 3.12; 5 policy on 3.13 | Review #80; #31 follows |
-| #31 | Output-wide authorization/budgets/diagnostics and owned cache inventories | External assurance and broader runtime/provider matrices | [#81](https://github.com/egohygiene/mindgarden/pull/81); `feature/31-output-scope-enforcement` over #80; `1bbb38f` | 25 output/scoped/contracts on 3.12; 5 output on 3.13 | Review #81; #30 follows |
-| #30 | Platform capability matrix, registry recovery and reversible owned cache handling | Native platform/ACL and encrypted host acceptance | [#82](https://github.com/egohygiene/mindgarden/pull/82); `feature/30-registry-cache-recovery` over #81; `9b8e008` | 39 registry/cache/contracts on 3.12; 5 cache recovery on 3.13 | Review #82; #35 follows |
-| #35 | Versioned document bundle, optional local PDF reader and exact page/span evidence | Restricted runtime, OCR/office adapters and real consumer proof | [#83](https://github.com/egohygiene/mindgarden/pull/83); `feature/35-local-document-adapter` over #82; `e966e3e` | 20 PDF/adapter/contracts on 3.12; 8 PDF on 3.13; real Poppler 25.03.0 six-state proof | Review #83; #45 follows |
-| #45 | Mixed archive/document/media inventory, triage and recovery proof | Encrypted/provider/platform integration and destructive GC | [#84](https://github.com/egohygiene/mindgarden/pull/84); `feature/45-mixed-source-vault-proof` over #83; `79e39f0` | Real/recorded mixed golden; clean source/wheel; 298 tests on each supported Python; exact verification below | Review #74–#84 in order; disposition external contracts separately |
+| #29 | Shared decision schema/API/CLI over existing scope model; policy adoption gaps explicit | Accepted Hygiene/Realm integration and declassification protocol | [#80](https://github.com/egohygiene/mindgarden/pull/80); `feature/29-policy-integration` over #79; `9fc0c9b` | 25 policy/scoped/contracts on 3.12; 5 policy on 3.13 | Integrate accepted owner policy |
+| #31 | Output-wide authorization/budgets/diagnostics and owned cache inventories | External assurance and broader runtime/provider matrices | [#81](https://github.com/egohygiene/mindgarden/pull/81); `feature/31-output-scope-enforcement` over #80; `1bbb38f` | 25 output/scoped/contracts on 3.12; 5 output on 3.13 | Prove external runtime/consumer integration |
+| #30 | Platform capability matrix, registry recovery and reversible owned cache handling | Native platform/ACL and encrypted host acceptance | [#82](https://github.com/egohygiene/mindgarden/pull/82); `feature/30-registry-cache-recovery` over #81; `9b8e008` | 39 registry/cache/contracts on 3.12; 5 cache recovery on 3.13 | Implement/prove native platforms and confidential host |
+| #35 | Versioned document bundle, optional local PDF reader and exact page/span evidence | Restricted runtime, OCR/office adapters and real consumer proof | [#83](https://github.com/egohygiene/mindgarden/pull/83); `feature/35-local-document-adapter` over #82; `e966e3e` | 20 PDF/adapter/contracts on 3.12; 8 PDF on 3.13; real Poppler 25.03.0 six-state proof | Prove confidential runtime and broader formats |
+| #45 | Mixed archive/document/media inventory, triage and recovery proof | Encrypted/provider/platform integration and destructive GC | [#84](https://github.com/egohygiene/mindgarden/pull/84); `feature/45-mixed-source-vault-proof` over #83; `79e39f0` | Real/recorded mixed golden; clean source/wheel; 298 tests on each supported Python; exact verification below | Await next maintainer batch; external parent gates stay open |
 
 ## Review and recovery
 
 Every checkpoint records the functional source, branch/base/PR, exact commands and
-results, blockers and next action here and in CONTINUITY.md. Later drafts name the
-preceding branch as their base. Keep all drafts unmerged for maintainer review,
-retain every parent criterion, and distinguish implementation, testing and owner
-acceptance. The final branch will preserve the complete combined checkout.
+results, blockers and next action here and in CONTINUITY.md. Each draft originally named its
+preceding branch as base. The maintainer then authorized the complete merge;
+retain every parent criterion and distinguish implementation, testing and owner
+acceptance. Main now preserves the complete combined checkout.
 
 ## Combined functional source and exact verification
 
@@ -51,8 +54,9 @@ The reproducible combined functional checkout is
 `79e39f072c249760e20fd567f679395f37931816` on
 `feature/45-mixed-source-vault-proof`. It contains #74–#84, with each draft based
 on the preceding branch. The follow-up documentation/handoff commit does not
-change engine, schemas or fixtures. A refreshed live inventory still has 38 open
-parent issues and eleven open drafts (#74–#84); nothing was merged or closed.
+change engine, schemas or fixtures. The refreshed post-merge inventory has 38 open
+parent issues and no open implementation PRs; #74–#84 merged after the maintainer
+authorized them. No parent issue was closed.
 
 | Command | Observed result |
 | --- | --- |
@@ -115,7 +119,7 @@ proof records Poppler 25.03.0. Neither proves confidential host isolation.
 
 ### Automatic CI, separately observed
 
-| Draft / exact observed head | Automatic Test run | Status |
+| PR / exact observed head | Automatic Test run | Status |
 | --- | --- | --- |
 | #80 / `15cf5713a318225bb3977cf4ff38e2e1f6a59899` | [42201877954](https://github.com/egohygiene/mindgarden/actions/runs/42201877954) | Passed |
 | #81 / `603f82620c5e3eaf07e768901e5fe4ea74b77d9c` | [42203405026](https://github.com/egohygiene/mindgarden/actions/runs/42203405026) | Passed |
@@ -123,7 +127,8 @@ proof records Poppler 25.03.0. Neither proves confidential host isolation.
 | #83 / `f94d0980bf0c429fe0e103d788ad46102bdfe41c` | [42206546302](https://github.com/egohygiene/mindgarden/actions/runs/42206546302) | Passed |
 | #84 / `79e39f072c249760e20fd567f679395f37931816` | [42209496631](https://github.com/egohygiene/mindgarden/actions/runs/42209496631) | Passed; both Python/Node matrix jobs succeeded |
 
-Later documentation-head CI is separate; see the live PR for its exact SHA/run.
-Local checks are never represented as passing hosted CI. The exact next action
-is maintainer review of #74 → #84 in dependency order, with proposed ADR and
-external contract disposition kept separate from merging implementation drafts.
+The final #84 documentation head passed run 42210390897 before merging.
+[Merge receipts](merged-pipeline-storage-checkpoints.md) record every exact head
+and result. Local checks are never represented as hosted CI. The next action is
+the maintainer's next issue group; proposed ADR and external contract disposition
+remain separate from merged implementation.

@@ -80,7 +80,7 @@ Systems fail closed at destructive, publication, privacy, and security boundarie
 | --- | --- | --- |
 | Faithful capture and captured bundles | Mindcap or supplying capture tool | External input; no capture implementation here |
 | Source normalization and exact evidence selectors | Mindgarden adapters/application | Text and bounded v3.2.2/v3.2.3 archive adapters implemented in the merged checkpoint; full producer conformance unclaimed |
-| Immutable original bytes | Explicit private vault, owned by consumer | Bounded filesystem identity/checksum/audit/export/restore/relocation implemented in the merged checkpoint; draft ordinary PDF/media inventory/triage follow-up supplied; encrypted/provider acceptance open |
+| Immutable original bytes | Explicit private vault, owned by consumer | Bounded filesystem identity/checksum/audit/export/restore/relocation implemented in the merged checkpoint; merged ordinary PDF/media inventory/triage follow-up supplied; encrypted/provider acceptance open |
 | Reviewed knowledge and typed relationships | Consumer garden; Mindgarden contracts/services | General v1 validation and reviewed projections implemented in the merged checkpoint |
 | Review, curation, routing and context selection | Mindgarden services; human authority | Authored curation, bounded context, candidate routing/recovery and local scope adversaries implemented in the merged checkpoint; external policy/assurance integration open |
 | Archival reservoir | Athena | Separate integration, deferred |
@@ -129,9 +129,9 @@ Original sources remain immutable private evidence; reviewed garden records own
 knowledge; catalogs, rendered artifacts and package references remain rebuildable
 data. Proposed ADR-0011's extension and ADR-0022 are not accepted by these tests.
 
-The [private-storage drafts](docs/private-storage-sprint.md) extend Mindgarden's
+The [private-storage checkpoints](docs/private-storage-sprint.md) extend Mindgarden's
 normalization, policy, scoped output, registry-cache recovery and asset review
 services. Capture still belongs to the supplying tool; immutable originals belong
 to the consumer vault; human review owns knowledge and triage decisions. Optional
 parser/provider factories do not acquire policy or runtime authority. Proposed
-ADRs remain unapproved; the draft stack is separate from merged capabilities.
+ADRs remain unapproved; merged implementation is separate from full parent acceptance.

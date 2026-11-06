@@ -40,7 +40,7 @@ updated: 2026-11-06
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate:** Review draft source-workflow checkpoints #74–#79 over merged main `30a2966`; parent publication/consumer criteria and proposed ADR decisions remain open.
+**Current gate:** Source-workflow/private-storage checkpoints #74–#84 are merged at `eb0018e`; await the next maintainer issue group. Parent consumer/integration criteria and proposed ADR decisions remain open.
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
 
 ### Complete open-issue coverage and next batches
@@ -67,8 +67,8 @@ remain open. The [six-checkpoint map](docs/garden-experience-milestone.md)
 records #68–#73, now merged at `30a2966`. The
 [merge receipt](docs/merged-experience-checkpoints.md) verifies the unchanged tested
 tree and separates proposal, implementation, test and acceptance state. ADRs remain
-proposed. The confirmed sprint #11 → #13 → #15 → #14 → #12 → #16 is implemented and tested on draft stack #74–#79 (not merged); see
-[the checkpoint map](docs/source-workflow-sprint.md).
+proposed. The confirmed sprint #11 → #13 → #15 → #14 → #12 → #16 is merged through #74–#79, followed by policy/storage #80–#84; see
+[the merge receipt](docs/merged-pipeline-storage-checkpoints.md).
 Public `/garden`/portal proofs (#17/#18) and the complete #20 consumer path follow
 their actual contracts. #27 release preparation and #38 design tokens can advance
 independently. #46 retention policy is considered early; full compaction, SQLite,
@@ -361,10 +361,10 @@ not blanket gates. No framework, new store, worker, provider or topology is
 implemented under #42. Deferred choices trigger evidence review by 2027-01-01 or
 earlier stated events, never automatic adoption.
 
-## Private policy and storage continuation — draft implementation
+## Private policy and storage continuation — merged checkpoints
 
 The authorized #29 → #31 → #30 → #35 → #45 follow-ups are recorded in the
-[private-storage sprint](docs/private-storage-sprint.md). They extend the unmerged
+[private-storage sprint](docs/private-storage-sprint.md). They extend the merged
 #74–#79 stack with local policy decisions, output enforcement, reversible cache
 recovery, optional ordinary PDF extraction, private assets and mixed-vault proofs.
 The [coverage ledger](docs/open-issue-coverage.md) retains every parent criterion.

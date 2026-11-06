@@ -1,6 +1,6 @@
 # Source workflow sprint — 2026-11-06
 
-All six bounded checkpoints are implemented and locally tested in **drafts**
+All six bounded checkpoints are implemented and locally tested and now **merged** through
 [#74](https://github.com/egohygiene/mindgarden/pull/74) →
 [#75](https://github.com/egohygiene/mindgarden/pull/75) →
 [#76](https://github.com/egohygiene/mindgarden/pull/76) →
@@ -8,11 +8,12 @@ All six bounded checkpoints are implemented and locally tested in **drafts**
 [#78](https://github.com/egohygiene/mindgarden/pull/78) →
 [#79](https://github.com/egohygiene/mindgarden/pull/79).
 
-Main remains `30a29668a02740a91e77aec22f670a8270ccddf4`. The reproducible combined
-checkout is `feature/16-rendered-garden-references`, tested functional source
-`b88cc97c62cb855a029d30f00f23a9042166e1ac`. No new draft is merged or fully
-accepted; all 38 parent issues remain open. ADR-0007–0022 remain proposed with
-null approval. Only synthetic gardens, archives and provider fixtures were used.
+The six checkpoints were merged in order as part of #74–#84 at
+`eb0018e3312f85f7b00818cb483ef4bce1863233`. The [merge receipt](merged-pipeline-storage-checkpoints.md)
+verifies the unchanged tested combined tree. Branch/base references and numerical
+verification below preserve their original checkpoint observations. Parent issues
+remain open; ADRs remain proposed with null approval. Only synthetic fixtures
+were used. The later combined storage suite passes 298 tests on each Python.
 
 ## Dependency corrections and scope
 
