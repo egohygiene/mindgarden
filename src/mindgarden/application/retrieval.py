@@ -11,6 +11,7 @@ import tempfile
 
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes, read_object, safe_path
 from ..domain.scope import inherit_scope
+from ..domain.scope_policy import require_destination
 from ..domain.validation import ContractError
 from .agent import markdown_body, markdown_headings, score_note, tokenize
 from .query import QueryContext
@@ -369,10 +370,7 @@ def write_projection(context: QueryContext, root: Path, relative: str, content: 
     context.snapshots()
     output_scope = context.output_scope([*[item["scope"] for item in context.bindings.gardens.values()],
                                          *context.effective_scopes.values()])
-    if binding["scope"]["visibility"] != output_scope["visibility"]:
-        raise ContractError("OUTPUT_SCOPE: destination cannot receive the derived output")
-    if binding["scope"]["visibility"] == "public" and output_scope["publication"] != "publishable":
-        raise ContractError("PUBLICATION_DENIED: public output requires explicit publication authority")
+    require_destination([output_scope], binding["scope"])
     generated = safe_path(root / ".garden", manifest["roots"]["generated"][0])
     marker = safe_path(generated, ".mindgarden-owned.json")
     owner = {"schema": "mindgarden.generated-owner/v1", "garden": manifest["id"]}

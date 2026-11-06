@@ -34,7 +34,7 @@ def validate_scope(scope: dict, visibility: str | None = None) -> dict:
     if errors:
         raise ContractError("SCOPE_INVALID: supply a complete supported scope contract")
     if scope["policy"] != POLICY_REFERENCE:
-        raise ContractError("POLICY_UNSUPPORTED: no accepted local implementation for this policy revision")
+        raise ContractError("POLICY_UNSUPPORTED: no supported local implementation for this policy revision")
     if visibility is not None and LEGACY_VISIBILITY[scope["visibility"]] != visibility:
         raise ContractError("SCOPE_CONFLICT: legacy visibility and explicit scope disagree")
     if scope["visibility"] == "restricted" and (

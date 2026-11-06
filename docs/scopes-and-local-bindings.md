@@ -65,3 +65,25 @@ limits, projections, budgets, a policy revision and expiration. Revocations live
 in machine-local state. Session syntax is defined here; complete query-path,
 expiry and revocation enforcement is the separate #31 checkpoint. No session
 can grant authority beyond the caller's explicitly supplied configuration.
+
+## Shared policy integration checkpoint
+
+`mindgarden policy inspect` describes the supported local policy and explicitly
+unavailable organization/runtime/declassification integration. `policy evaluate
+--input REQUEST` validates `scope-request/v1` and emits `scope-decision/v1` with
+stable reason codes, joined scope requirements, an input digest and
+`assurance: not-asserted`. It is read-only control data, not a new garden/session
+model or a grant of runtime authority.
+
+Query output joins and projection destinations consume the same decision service.
+Visibility, persistence, execution, publication and knowledge review remain
+independent. Ordinary private storage can retain stricter publication restrictions;
+public output requires an independent publishable ceiling. Human review alone
+cannot declassify a source. A reviewed declassification request remains explicitly
+unavailable until the owning policy/runtime contract exists.
+
+The [storage sprint](private-storage-sprint.md) records the inspected owner state
+and dependency correction. Local policy ID/revision is unchanged: this exposes
+and shares the existing semantics rather than silently adopting an upstream
+policy or rewriting existing v1 classifications. Existing binding/session and
+v0 compatibility guidance above still applies.
