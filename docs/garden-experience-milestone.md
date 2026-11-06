@@ -57,7 +57,7 @@ plan. A conflicting or incomplete output is retained for inspection.
 | #38 | `feature/38-design-tokens` / #68 | [#69](https://github.com/egohygiene/mindgarden/pull/69) | `5b59d8e3c6b8b0fbdb1acdcf25a76ebf99968f18` |
 | #10 | `feature/10-public-conformance` / #69 | [#70](https://github.com/egohygiene/mindgarden/pull/70) | `49e394a176436562e9eeab319829372127cd3961` |
 | #18 | `feature/18-portal-composition` / #70 | [#71](https://github.com/egohygiene/mindgarden/pull/71) | `6df72c4cd18d23b0740d57e6ddd25b8e8f24172e` |
-| #42 | `docs/42-architecture-decisions` / #18 checkpoint | Pending | Proposed decisions and disposition map |
+| #42 | `docs/42-architecture-decisions` / #71 | [#72](https://github.com/egohygiene/mindgarden/pull/72) | `d17f01c4cfa01145090d14aff97624f636fe7f92` |
 | #46 | `feature/46-compaction-contracts` / #42 checkpoint | Pending | Contracts and authored synthetic proof |
 
 #17 verification at `f1706a5`: 197 tests pass without skips on Python 3.12.14 and

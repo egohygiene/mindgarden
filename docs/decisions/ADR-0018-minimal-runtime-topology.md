@@ -9,7 +9,7 @@ visibility: public
 owners:
 - egohygiene/mindgarden
 issue: https://github.com/egohygiene/mindgarden/issues/42
-pull_request: null
+pull_request: https://github.com/egohygiene/mindgarden/pull/72
 related:
 - ADR-0009
 - ADR-0013
