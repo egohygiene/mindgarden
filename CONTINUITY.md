@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T10:45:36Z'
+  updated_at: '2026-11-06T10:57:04Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -44,17 +44,17 @@ work:
   - Preserve Python/v0, private boundaries and proposed ADR status.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#30
-    url: https://github.com/egohygiene/mindgarden/issues/30
+    id: egohygiene/mindgarden#35
+    url: https://github.com/egohygiene/mindgarden/issues/35
   next:
     kind: action
-    id: document-pdf-checkpoint
-    description: 'Implement #35 optional local PDF bundle/page extraction and explicit digest-bound initial
-      classification for ordinary synthetic proof. Restricted runtime remains unavailable; never parse
-      default restricted documents in ordinary storage.'
+    id: mixed-source-vault-checkpoint
+    description: 'Implement #45 mixed archive/PDF/media asset manifests, append-only non-destructive triage
+      and explicit storage adapter registration. Prove restore/relocation with exact references and no
+      Google/model services; retain external encrypted/provider/platform gates.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/30
+    - https://github.com/egohygiene/mindgarden/issues/35
     depends_on: []
 state:
   base:
@@ -62,16 +62,16 @@ state:
     ref: refs/heads/main
     verified_at: '2026-11-06T05:27:17Z'
   candidate:
-    branch: feature/30-registry-cache-recovery
-    revision: 9b8e008c6485baabfd761d9f97c7894285f24e5c
+    branch: feature/35-local-document-adapter
+    revision: e966e3e10d9279cbb4ef7c518a35ab01f2d610e5
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#82
-      url: https://github.com/egohygiene/mindgarden/pull/82
+      id: egohygiene/mindgarden#83
+      url: https://github.com/egohygiene/mindgarden/pull/83
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T10:45:36Z'
+    observed_at: '2026-11-06T10:57:04Z'
     default_branch_revision: 30a29668a02740a91e77aec22f670a8270ccddf4
     issue_state: open
     pull_request_state: draft
@@ -79,22 +79,28 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T10:45:36Z'
+  reviewed_at: '2026-11-06T10:57:04Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_registry_cache tests.test_registry tests.test_registry_views
-      tests.test_v1_contracts -q
+  - command: .venv/bin/python -m unittest tests.test_documents tests.test_source_adapters tests.test_v1_contracts
+      -q
     outcome: passed
-    observed_at: '2026-11-06T10:45:36Z'
-    notes: 39 passed
-  - command: .cache/python313/bin/python -m unittest tests.test_registry_cache -q
+    observed_at: '2026-11-06T10:57:04Z'
+    notes: 20 passed
+  - command: .cache/python313/bin/python -m unittest tests.test_documents -q
     outcome: passed
-    observed_at: '2026-11-06T10:45:36Z'
-    notes: 5 passed
-  - command: python3 .cache/six_owner_checks.py
+    observed_at: '2026-11-06T10:57:04Z'
+    notes: 8 passed
+  - command: .venv/bin/python scripts/document_demo.py --workspace .cache/pdf-final-proof --tool-directory
+      /usr/bin --require-source --report .cache/pdf-final-proof.json
     outcome: passed
-    observed_at: '2026-11-06T10:45:36Z'
-    notes: pinned owners/continuity and 38-row ledger pass
+    observed_at: '2026-11-06T10:57:04Z'
+    notes: real Poppler 25.03.0 six states, page golden, repeat import, scratch cleanup pass
+  - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/pdf-private-compatibility
+      --require-source
+    outcome: passed
+    observed_at: '2026-11-06T10:57:04Z'
+    notes: full existing golden matched
   environment_limitations:
   - Automatic PR CI is separate from local checks; no paid workflow dispatched.
 privacy:
@@ -133,23 +139,23 @@ with verification, honest retained parent scope and reproducible combined checko
 
 ## State snapshot
 
-Draft #82 on feature/30-registry-cache-recovery is stacked over #81/#80/#79. Functional source 9b8e008; all drafts remain unmerged.
+Draft #83 on feature/35-local-document-adapter is stacked over #82/#81/#80/#79. Functional source e966e3e; all drafts remain unmerged.
 
 ## Completed and material changes
 
-Registry platform capability matrix and private cache inspect/plan/apply. Exact owned generated caches can be quarantined and restored under the writer lease without deletion; interrupted receipt commits reconcile by exact retry. Unknown/corrupt/legacy/symlink state is retained. Revocations remain effective.
+Optional local PDF reader and versioned bundle/page contracts with original hashes, parser provenance, page geometry and exact UTF-8 word spans. Explicit digest-bound initial human classification for new ordinary synthetic inputs; default restricted processing unavailable before input/parser/temp access. Six incomplete/error states fail without partial ingestion. Proposed ADR-0023 is unapproved.
 
 ## Validation and review evidence
 
-39 registry/cache/contracts tests pass on 3.12; 5 cache tests pass on 3.13. Compile, diff and pinned owner checks pass.
+20 document/adapter/contracts tests pass on 3.12; 8 document tests pass on 3.13. Real Poppler 25.03.0 six-state/page-golden/idempotence/cleanup proof passes. Existing private CLI golden and owner/compile/diff checks pass.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Native macOS/Windows mutation/ACL assurance, cross-filesystem cache moves, restricted encrypted runtime and normative Hygiene/Realm policy contracts remain unavailable. Local Linux baseline is bounded; no parent closure or ADR ratification.
+Normative Hygiene #39/#40, Realm #25/#60, encrypted storage/key broker and confidential runtime are unavailable here. OCR/office/semantic layout/attachment extraction and real private consumer acceptance remain parent scope. Initial classification is not declassification or publication approval.
 
 ## Next dependency-ready work
 
-Implement #35 optional local PDF bundle/page extraction and explicit digest-bound initial classification for ordinary synthetic proof. Restricted runtime remains unavailable; never parse default restricted documents in ordinary storage.
+Implement #45 mixed archive/PDF/media asset manifests, append-only non-destructive triage and explicit storage adapter registration. Prove restore/relocation with exact references and no Google/model services; retain external encrypted/provider/platform gates.
 
 ## Parallel changes and reconciliation
 
