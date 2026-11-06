@@ -45,7 +45,7 @@ updated: 2026-11-06
 
 ### Complete open-issue coverage and next batches
 
-The [38-issue coverage ledger](docs/open-issue-coverage.md) records every current
+The [open-issue coverage ledger](docs/open-issue-coverage.md) records every current
 open issue's purpose, implementation/PR evidence, unmet acceptance, dependencies,
 status and proposed batch. It also records proposed dependency corrections and
 early retention requirements. This roadmap owns delivery order; the ledger makes
@@ -371,3 +371,18 @@ The [coverage ledger](docs/open-issue-coverage.md) retains every parent criterio
 Hygiene/Realm policy and confidential-runtime contracts, native platforms, remote
 providers, approved copy and destructive/timed retention are explicit remaining
 gates. Review/merge of drafts is distinct from owner ADR or consumer acceptance.
+
+## Deferred after the current queue and reconciliation
+
+The maintainer authorized filing #86–#91, grouped as native sub-issues under
+[#86](https://github.com/egohygiene/mindgarden/issues/86). They remain deferred
+until the original 38-issue queue is completed/dispositioned and its final
+reconciliation/refactor is finished, followed by explicit later scheduling.
+See [the proposed sub-issue roadmap](docs/deferred-context-package-roadmap.md).
+
+The proposed sequence is source/location integration (#87), data-only packages
+and semantic/provenance evaluation (#88/#91), optional scoped AI research (#89),
+and a synthetic analysis-to-reviewed-packet composition (#90). Actual dependencies
+and independent fixtures are documented there. Existing #13/#46/#49 already own
+AI curation, refreshed summaries and memory views; do not duplicate or delay those
+current requirements. No new feature, provider or ADR is adopted by this capture.

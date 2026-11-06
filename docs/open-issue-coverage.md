@@ -1,21 +1,23 @@
 # Open-issue coverage — 2026-11-06
 
 This is the detailed coverage ledger for [ROADMAP.md](../ROADMAP.md). It records
-all **38 open issues**, refreshed through GitHub issue bodies/comments and open
-PRs after the authorized merge of #52–#64. It preserves each issue's acceptance
+all **44 open issues**: the original 38-issue queue and six newly deferred
+items #86–#91. Live bodies/comments and the merged #74–#85 baseline were refreshed
+for the new phase; earlier merge receipts preserve their original observations. It preserves each issue's acceptance
 criteria; a batch is a bounded checkpoint, not automatic parent completion.
 
 ## Observed baseline and authority
 
-Current main is `30a29668a02740a91e77aec22f670a8270ccddf4`: #68–#73 are
-merged after explicit maintainer authorization. Their combined tree exactly matches
-tested `eb3eebe`; 231 tests pass on both supported Python versions, with final
-boundary checks and clean-source/installed-wheel proofs recorded separately.
-See the [merge receipt](merged-experience-checkpoints.md) and
-[checkpoint map](garden-experience-milestone.md). The original stack receipts and
-B1/B2 draft evidence below are historical. All 38 parent issues remain open;
-ADR-0007–0022 remain proposed/null approval. The maintainer confirmed the next sprint as #11 → #13 → #15 → #14 → #12 → #16.
-See [the dependency and checkpoint map](source-workflow-sprint.md).
+Current main is `b9cc3fd3b8b68e56944d592e2092b07485de465a`, after the
+[authorized #74–#85 merges](merged-pipeline-storage-checkpoints.md). The engine's
+combined suite passes 298 tests on each supported Python; exact-source/installed
+proofs and passing pre-merge CI remain linked in those receipts. The original 38
+issues remain open and retain their acceptance. All ADRs remain proposed/null
+approval. New #86–#91 are a **deferred post-queue cohort**, not the next active
+batch. [Their roadmap](deferred-context-package-roadmap.md) records scope,
+existing owners and the end-of-roadmap reconciliation/scheduling gate.
+
+The older baseline and draft observations below are historical evidence.
 
 Merged main: `9fae752b3cf7eb9c74033a72a12d125c42f8659e`. Its tree is exactly
 `a381b8bea2270b6ebd41a8bbe205d5f0a6f3e188`, the tree of the tested combined
@@ -195,6 +197,17 @@ not one serial gate over all work.
 | [#21](https://github.com/egohygiene/mindgarden/issues/21) — reviewed infographic candidates | deferred | Canonical claims/sources and authored review available; no rendering/publication adapter | Renderer-neutral candidate schema, claim-level privacy/rights, deterministic batches, downstream artifact feedback and negative fixtures | #13/#14/#16/#19; explicitly post-1.0 E; private `szmyty/garden` consumer remains separate |
 | [#28](https://github.com/egohygiene/mindgarden/issues/28) — learning cards/summaries/review schedules | deferred | Reviewed source/context primitives; no learning-specific schema | Candidate/card/event/schedule contracts, authored no-model export/roundtrip, contradiction/privacy/refresh and accessible review proof | #9/#10/#12/#13; #17 for web rendering, Realm #20 for runtime; R1 contract/export can precede full UI if selected |
 | [#46](https://github.com/egohygiene/mindgarden/issues/46) — hierarchical compaction/retention | partial | Merged #73 v1 plan/retention/manifest contracts, read-only scoped evaluator, authored archive→curation→retrieval/context proof and selective invalidation | First-pass raw-only compaction, large-corpus/semantic quality, persistence/expiry/deletion execution and approved private pilot; no destructive implementation | Existing #11/#13/#14/#15/#31/#45; #20 gates full pilot, not early contract checkpoint; R0 |
+
+## Deferred context-package phase after the current queue
+
+| Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and proposed later batch |
+| --- | --- | --- | --- | --- |
+| [#86](https://github.com/egohygiene/mindgarden/issues/86) — reconcile composed AI/context-package phase | deferred umbrella | Filed proposal with five native sub-issues and a documented roadmap; no new runtime | End-of-current-queue reconciliation, overlap disposition, owner decisions and later activation | Existing 38 retain priority; D0, then choose bounded work only after maintainer scheduling |
+| [#87](https://github.com/egohygiene/mindgarden/issues/87) — Drive capture/refresh and chosen garden locations | deferred | Source/vault/registry boundaries exist; connector and convenience orchestration are proposals | Provider contract, stable source revisions, duplicate-safe refresh/recovery and private storage profiles | #11/#13/#30/#35/#45/#47 and Mindcap capture; D1 after #86 gate |
+| [#88](https://github.com/egohygiene/mindgarden/issues/88) — installable data-only context packages | deferred | #16 supplies pinned package/reference primitives; lifecycle not implemented | Versioned selection/lock, reviewed update/remove, conflict/permission and two-project proof | #14/#16/#29/#30/#31/#45/#51; D2a; Drive/RDF/model not mandatory |
+| [#89](https://github.com/egohygiene/mindgarden/issues/89) — scoped AI research broker | deferred | Shared retrieval/evidence services exist; iterative research role not implemented | Bounded planner/tool interface, evidence/uncertainty, revocation, provider removal and measured quality | #12/#13/#31/#47/#51, Aether/Realm owner contracts; D3; local fixtures independent of Drive/packages |
+| [#90](https://github.com/egohygiene/mindgarden/issues/90) — synthetic structured analysis and reviewed preparation packet | deferred | Generic context/recovery primitives only; no financial analysis or consumer data used | Exact ledger normalization, verified calculations, coverage, selected export and clean recovery | #11/#13/#29/#31/#35/#45; #32 only if justified; D4 local/model-disabled first |
+| [#91](https://github.com/egohygiene/mindgarden/issues/91) — RDF/JSON-LD and PROV scoped packet evaluation | deferred | Captured standards/mapping proposal; current canonical formats unchanged | Versioned loss-aware mapping, offline contexts, scoped overview, denied graph/provenance and adopt/adapt/reject evidence | #12/#13/#16/#29/#31/#42/#45/#46/#49/#88; D2b; no automatic replacement or clearance certification |
 
 ## Retention requirements carried forward now
 
