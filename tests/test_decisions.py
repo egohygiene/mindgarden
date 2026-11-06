@@ -64,3 +64,19 @@ class DecisionProjectionTests(unittest.TestCase):
         result = self.project()
         self.assertEqual(result["edges"][0]["assertion"], "inferred")
         self.assertEqual(result["backlinks"][first["id"]][0]["type"], "depends-on")
+
+    def test_cli_requires_exact_input_digest(self):
+        from contextlib import redirect_stdout, redirect_stderr
+        import io
+        from mindgarden.domain.contracts import digest_bytes
+        from mindgarden.interfaces.cli import main
+        path = Path(__file__).parent / "fixtures/decisions/snapshot.json"
+        args = ["decisions", "--input", str(path), "--input-sha256", digest_bytes(path.read_bytes()),
+                "--represented-commit", self.commit]
+        with redirect_stdout(io.StringIO()) as output:
+            self.assertEqual(main(args), 0)
+        self.assertEqual(json.loads(output.getvalue()), self.project())
+        args[4] = "0" * 64
+        with redirect_stderr(io.StringIO()) as diagnostic:
+            self.assertEqual(main(args), 3)
+        self.assertIn("DECISIONS_STALE", diagnostic.getvalue())

@@ -31,7 +31,7 @@ remaining integration acceptance.
 | --- | --- | --- | --- |
 | #41 | Scheduling-gate reconciliation; no backfill | Read live owner issues, policy and ratification evidence; preserve legacy bytes and all proposed approvals | Shared operational readiness, then human-reviewed historical migration |
 | #43 | Read-only shared Relay preview caller | Pinned reusable-workflow input contract inspected; YAML parsed locally | Hosted artifact, native validation, local renderer/browser checks, composed route and deployment remain unverified |
-| #44 | Next ready metadata-projection checkpoint | Pending | Consume normalized read model; preserve exact canonical identity and represented revision |
+| #44 | [Public metadata projection](adr-projections.md), `feature/44-adr-projections`; functional `6666038` plus CLI test | Six focused tests; schema/compatibility checks | Narrative extraction, inherited/private federation and UI integration remain; canonical bodies are not copied |
 | #32 | Next ready optional query-store checkpoint | Pending | SQLite/reference parity, recovery and workload evidence |
 | #37 | Next ready dependency-build checkpoint | Pending | Fingerprints, affected-output reconciliation and generic renderer boundary |
 | #49 | Next ready memory-projection checkpoint | Pending | Authored review actions, transparent budgets, copyable exports and refresh |
