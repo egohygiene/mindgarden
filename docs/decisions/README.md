@@ -19,3 +19,9 @@ New decisions inherit [Hygiene policy v1.2.0](policy-reference.json). Decision s
 | [ADR-0013](ADR-0013-reviewed-v1-site-projections.md) | Render reviewed v1 knowledge through the existing pinned Quartz adapter | Proposed | 2026-11-05 |
 | [ADR-0014](ADR-0014-design-source-and-consumers.md) | Keep stack-neutral design tokens separate from derived consumers | Proposed | 2026-11-05 |
 | [ADR-0015](ADR-0015-caller-owned-portal-composition.md) | Compose pinned public artifacts into caller-owned portal mounts | Proposed | 2026-11-05 |
+| [ADR-0016](ADR-0016-query-store-baseline.md) | Keep portable records canonical and measure query adapters before adoption | Proposed | 2026-11-05 |
+| [ADR-0017](ADR-0017-local-user-and-tenancy-boundary.md) | Keep the first workflow single-user and require a separate collaboration model | Proposed | 2026-11-05 |
+| [ADR-0018](ADR-0018-minimal-runtime-topology.md) | Keep the local runtime minimal and let Realm own optional service composition | Proposed | 2026-11-05 |
+| [ADR-0019](ADR-0019-bounded-operations-and-retention.md) | Keep background operations and retention reviewable and recoverable | Proposed | 2026-11-05 |
+| [ADR-0020](ADR-0020-agent-interface-authority.md) | Expose bounded application services without letting agent interfaces grant authority | Proposed | 2026-11-05 |
+| [ADR-0021](ADR-0021-build-versus-integrate.md) | Keep optional product integrations behind evaluated replaceable boundaries | Proposed | 2026-11-05 |

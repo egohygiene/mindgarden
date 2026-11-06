@@ -72,3 +72,15 @@ Retain portable records, immutable evidence references and existing v0/v1 reader
 ## Follow-up work
 
 [#8](https://github.com/egohygiene/mindgarden/issues/8), [#10](https://github.com/egohygiene/mindgarden/issues/10), [#11](https://github.com/egohygiene/mindgarden/issues/11), [#13](https://github.com/egohygiene/mindgarden/issues/13), [#42](https://github.com/egohygiene/mindgarden/issues/42), [#47](https://github.com/egohygiene/mindgarden/issues/47). Full parent acceptance remains open.
+
+## Interface parity and migration cost
+
+CLI, future API/web, workers and agent tools call the same application services.
+Authentication and transport adapters supply authority; source/model adapters
+cannot grant it. Proposed ADR-0020 separates MCP resources, prompts and tools.
+No web framework, API server, queue or provider protocol is selected here.
+
+Migration cost is interface serialization/exit-code mapping plus equivalent domain
+outcome fixtures. Preserve existing v0/v1 compatibility and roll out one interface
+slice before deprecation. Mindgarden #47 owns this proof; Aether/Realm retain
+capability/runtime contracts.

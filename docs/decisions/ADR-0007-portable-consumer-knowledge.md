@@ -66,3 +66,18 @@ Retain portable records, immutable evidence references and existing v0/v1 reader
 ## Follow-up work
 
 [#9](https://github.com/egohygiene/mindgarden/issues/9), [#12](https://github.com/egohygiene/mindgarden/issues/12), [#40](https://github.com/egohygiene/mindgarden/issues/40), [#42](https://github.com/egohygiene/mindgarden/issues/42). Full parent acceptance remains open.
+
+## Ownership clarification and migration cost
+
+Repository, organization, personal and restricted Gardens retain their consumer
+owners. Captured evidence establishes original bytes; reviewed records establish
+an attributed interpretation, with uncertainty and contradictions preserved.
+Akashic remains canonical for its public resource IDs/Markdown/Atlas; Athena is a
+separate archival reservoir. Discovery references these owners without transferring
+their authority. See the [full ownership map](../target-architecture.md).
+
+The bookmark journey requires independent private-cleanup and per-item public
+approval. Neither path authorizes changes in the other. Cross-owner disposition
+remains with Hygiene #61/Akashic #174 and Mindgarden #48; no pilot is claimed.
+Migration cost is explicit identity/taxonomy mapping and verified side-by-side
+export; a projection rebuild alone cannot migrate canonical ownership.

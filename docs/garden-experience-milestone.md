@@ -176,3 +176,20 @@ also pass. The inspected Relay commit, unavailable Mindgarden action and exact
 handoff requirements are pinned in the contract document. No deployment or
 workflow dispatch occurs. Full #18 integration/production criteria remain open;
 ADR-0015 remains proposed/null approval.
+
+
+## #42 architecture proposal checkpoint
+
+The [decision/ownership map](target-architecture.md) covers all ten issue topics.
+Six new focused ADRs (0016–0021) address stores, user/tenancy boundary, runtime,
+operations/retention, agent interfaces and integrations. Existing ownership/source/
+service/scope proposals gain explicit migration costs and follow-up owners.
+ARCHITECTURE.md, SYSTEM.md and ROADMAP.md distinguish implemented main, tested
+drafts, proposals and deferred work. This branch changes documentation only.
+
+The pinned Hygiene metadata/policy/decision-set/index checks and Aether continuity
+checks pass; relative links and whitespace are checked. Runtime remains the exact
+#71 implementation that passed 221 tests on both supported Python versions. No
+redundant local full-suite run is claimed for this documentation-only checkpoint.
+All new ADRs remain proposed/null approval. #40/#41, owner policy/contracts,
+bookmark proof and human ratification remain open gates.
