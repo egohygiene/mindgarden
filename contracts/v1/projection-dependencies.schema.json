@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:projection-dependencies:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "projections",
+    "canonical_evidence",
+    "publication"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.projection-dependencies/v1"
+    },
+    "projections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version",
+          "renderer",
+          "output_schema",
+          "scope",
+          "redaction",
+          "minimum_review",
+          "minimum_confidence",
+          "fingerprint",
+          "dependencies",
+          "observations",
+          "artifact"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "version": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/semanticVersion"
+          },
+          "renderer": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+          },
+          "output_schema": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+          },
+          "scope": {
+            "$ref": "urn:egohygiene:mindgarden:scope:v1"
+          },
+          "redaction": {
+            "const": "none"
+          },
+          "minimum_review": {
+            "const": "approved"
+          },
+          "minimum_confidence": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence"
+          },
+          "fingerprint": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "reference",
+                "sha256",
+                "evidence"
+              ],
+              "properties": {
+                "reference": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+                },
+                "sha256": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+                  },
+                  "minItems": 0,
+                  "maxItems": 256
+                }
+              }
+            },
+            "minItems": 1,
+            "maxItems": 256
+          },
+          "observations": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:observation:v1"
+            },
+            "minItems": 0,
+            "maxItems": 256
+          },
+          "artifact": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256",
+              "size_bytes"
+            ],
+            "properties": {
+              "path": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/portablePath"
+              },
+              "sha256": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+              },
+              "size_bytes": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        }
+      },
+      "minItems": 1,
+      "maxItems": 256
+    },
+    "canonical_evidence": {
+      "const": false
+    },
+    "publication": {
+      "const": "separate-reviewed-handoff-required"
+    }
+  }
+}
