@@ -31,8 +31,8 @@ employment, business and provider data are out of scope.
 
 | Issue | Checkpoint | Remaining acceptance | Draft / branch | Verification | Next action |
 | --- | --- | --- | --- | --- | --- |
-| #29 | Shared decision schema/API/CLI over existing scope model; policy adoption gaps explicit | Accepted Hygiene/Realm integration and declassification protocol | Pending; `feature/29-policy-integration` over #79 | 25 policy/scoped/contracts on 3.12; 5 policy on 3.13 | Push first draft, then #31 |
-| #31 | Output-wide authorization/budgets/diagnostics and owned cache inventories | External assurance and broader runtime/provider matrices | Pending | Pending | Extend the shared QueryContext and exercise every output |
+| #29 | Shared decision schema/API/CLI over existing scope model; policy adoption gaps explicit | Accepted Hygiene/Realm integration and declassification protocol | [#80](https://github.com/egohygiene/mindgarden/pull/80); `feature/29-policy-integration` over #79; `9fc0c9b` | 25 policy/scoped/contracts on 3.12; 5 policy on 3.13 | Review #80; #31 follows |
+| #31 | Output-wide authorization/budgets/diagnostics and owned cache inventories | External assurance and broader runtime/provider matrices | Pending; `feature/31-output-scope-enforcement` over #80 | 25 output/scoped/contracts on 3.12; 5 output on 3.13 | Finish compatibility checks and push draft |
 | #30 | Platform capability matrix, registry recovery and reversible owned cache handling | Native platform/ACL and encrypted host acceptance | Pending | Pending | Reuse owned cache manifests and preserve originals |
 | #35 | Versioned document bundle, optional local PDF reader and exact page/span evidence | Restricted runtime, OCR/office adapters and real consumer proof | Pending | Pending | Prove a synthetic PDF with explicit ordinary classification |
 | #45 | Mixed archive/document/media inventory, triage and recovery proof | Encrypted/provider/platform integration and destructive GC | Pending | Pending | Restore/relocate mixed synthetic sources and resolve exact evidence |

@@ -83,3 +83,42 @@ The committed adversaries in `tests/fixtures/scoped-retrieval/cases.json` and
 inheritance, hidden backlinks, explicit includes, cache poisoning/isolation,
 budgets, expiry, mid-query revocation, unknown policy, corruption and partial
 write locks. All evidence is synthetic. No paid or model workflow is required.
+
+## Output-wide integration checkpoint
+
+The shared `QueryContext` performs a final live-authority check after serializing
+query output. Optional session budget `max_output_bytes` bounds serialized index,
+search, graph, backlinks, outbound links, context, evidence and agent CLI output;
+legacy v1 sessions retain a 16 MiB ceiling. Context/evidence still use their
+smaller context ceiling. Internal indexes needed for a small search response do
+not consume the response's byte budget. `scope --max-output-bytes` makes a tighter
+ceiling explicit without changing existing default session/golden identities.
+
+| Output | Authority and bounds |
+| --- | --- |
+| Index, lexical search, claims | Shared authorized metadata/evidence closure; review/candidate/result/byte limits |
+| Graph, backlinks, outbound links | Same closure before traversal; graph authority for outbound; depth/result/byte limits |
+| JSON/Markdown context and `llms.txt` | Same reviewed selection, exact citations, item/context/serialized-byte ceilings |
+| Exact evidence and compaction | Authorized reviewed citations, inherited scope, exact spans and context/output bounds |
+| Federation/site artifacts and portal composition | Existing explicit reviewed-public selections and manifest pins; independent bundle/site/catalog budgets, no new authority from supplied data |
+| Registry/vault/ingestion/review plans | Explicit owner control operations, private local state; never portable publication grants |
+| Design/software capability exports | Software configuration only; no garden content or session grant |
+
+Scoped CLI commands accept `--diagnostic-format json`; failures use a closed
+reason-code vocabulary and constant remediation, without supplied exception,
+parser, path or payload strings. They emit no partial stdout. V0 owner commands
+without scope/binding arguments retain their compatibility behavior.
+
+Each newly written scoped cache has `scope-cache/v1` ownership metadata binding
+its garden/session digest, exact member set and checksums. It is private control
+state and never query authority. Unknown, corrupt or legacy unmanifested caches
+are retained, with a stable refusal; use a fresh session or explicit owner
+inspection rather than silently adopting human files. A failed marker commit
+leaves an invalid disposable cache, not a valid projection or canonical change.
+This inventory enables #30's separate reviewed reversible cache handling.
+
+Synthetic fixtures exercise every query API, agent CLI output, denied metadata,
+expiry/revocation, response-budget isolation, sanitized failures and unowned-cache
+preservation. Existing public federation/site/portal privacy fixtures continue to
+cover their own explicit public-input contracts. Host egress, confidentiality,
+ACL and provider certification remain the owning Hygiene/Realm acceptance gap.

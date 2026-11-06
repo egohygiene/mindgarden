@@ -73,8 +73,7 @@ def preview_compaction(context, plan, *, curation=None):
                   plan["retention"]["detail_budgets"][plan["budget_profile"]]["max_bytes"])
     if len(canonical_json(report)) > maximum:
         raise ContractError("COMPACTION_BUDGET: complete proof and provenance exceed the authorized byte budget")
-    context.check_live()
-    return report
+    return context.finalize(report)
 
 
 def run_compaction(arguments):

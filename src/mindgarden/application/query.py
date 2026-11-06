@@ -202,3 +202,17 @@ class QueryContext:
 
     def scope_digest(self) -> str:
         return digest_bytes(canonical_json(self.session))
+
+    def ensure_output(self, content: bytes) -> None:
+        """Recheck live authority after serialization and before returning bytes."""
+        maximum = self.session["budgets"].get("max_output_bytes", 16 * 1024 * 1024)
+        if len(content) > maximum:
+            raise ContractError("QUERY_BUDGET: serialized output exceeds the explicit session byte ceiling")
+        self.check_live()
+
+    def finalize(self, payload: dict, *, enforce_bytes: bool = True) -> dict:
+        if enforce_bytes:
+            self.ensure_output(canonical_json(payload))
+        else:
+            self.check_live()
+        return payload

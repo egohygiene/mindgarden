@@ -16,6 +16,7 @@ from ..domain.validation import ContractError
 from .agent import markdown_body, markdown_headings, score_note, tokenize
 from .query import QueryContext
 from .records import artifact_reference
+from .scope_cache import CACHE_MARKER, cache_files, cache_manifest, verify_cache
 
 
 def record_key(reference: dict) -> str:
@@ -157,8 +158,7 @@ def build_index(context: QueryContext, *, include_unreviewed: bool = False,
                          if key in snapshots],
               "records": [records[key] for key in sorted(records)], "edges": edges,
               "backlinks": backlinks}
-    context.check_live()
-    return result
+    return context.finalize(result, enforce_bytes=projection == "index")
 
 
 def rank(index: dict, query: str) -> list[dict]:
@@ -192,9 +192,8 @@ def search_payload(context: QueryContext, query: str, *, limit: int = 10,
                         "qualifications": record["qualifications"],
                         "score": item["score"], "selection_reasons": item["reasons"],
                         "snippet": record["content"][:160]})
-    context.check_live()
-    return {"schema": "mindgarden.search-results/v1", "scope": index["scope"],
-            "policy": index["policy"], "inputs": index["inputs"], "results": results}
+    return context.finalize({"schema": "mindgarden.search-results/v1", "scope": index["scope"],
+            "policy": index["policy"], "inputs": index["inputs"], "results": results})
 
 
 def graph_payload(context: QueryContext, *, start: str | None = None,
@@ -223,19 +222,17 @@ def graph_payload(context: QueryContext, *, start: str | None = None,
     nodes = [{"reference": by_key[key]["reference"], "title": by_key[key]["title"],
               "scope": by_key[key]["scope"], "review": by_key[key]["review"],
               "sources": by_key[key]["sources"]} for key in sorted(selected)]
-    context.check_live()
-    return {"schema": "mindgarden.graph/v1", "scope": index["scope"], "policy": index["policy"],
+    return context.finalize({"schema": "mindgarden.graph/v1", "scope": index["scope"], "policy": index["policy"],
             "inputs": index["inputs"], "nodes": nodes,
             "edges": [edge for edge in index["edges"]
-                      if edge["source"] in selected and edge["target"] in selected]}
+                      if edge["source"] in selected and edge["target"] in selected]})
 
 
 def backlinks_payload(context: QueryContext, target: str) -> dict:
     index = build_index(context, projection="backlinks")
-    context.check_live()
-    return {"schema": "mindgarden.backlinks/v1", "scope": index["scope"], "policy": index["policy"],
+    return context.finalize({"schema": "mindgarden.backlinks/v1", "scope": index["scope"], "policy": index["policy"],
             "inputs": index["inputs"], "links": index["backlinks"].get(target, [])[
-                :context.session["budgets"]["max_results"]]}
+                :context.session["budgets"]["max_results"]]})
 
 
 def outbound_payload(context: QueryContext, source: str) -> dict:
@@ -249,9 +246,8 @@ def outbound_payload(context: QueryContext, source: str) -> dict:
             record = records[target]
             links.append({"to":target, "type":edge["type"], "reference":record["reference"],
                           "review":record["review"], "scope":edge["scope"], "sources":record["sources"]})
-    context.check_live()
-    return {"schema":"mindgarden.outbound-links/v1", "scope":index["scope"], "policy":index["policy"],
-            "inputs":index["inputs"], "links":links[:context.session["budgets"]["max_results"]]}
+    return context.finalize({"schema":"mindgarden.outbound-links/v1", "scope":index["scope"], "policy":index["policy"],
+            "inputs":index["inputs"], "links":links[:context.session["budgets"]["max_results"]]})
 
 
 def render_context(context: QueryContext, profile: dict, format: str) -> bytes:
@@ -338,8 +334,9 @@ def render_context(context: QueryContext, profile: dict, format: str) -> bytes:
             selected.pop()
             reason = "byte-budget"
         excluded.insert(position, {**reserved, "reason": reason})
-    context.check_live()
-    return serialize()
+    content = serialize()
+    context.ensure_output(content)
+    return content
 
 
 def context_from_arguments(arguments: Namespace) -> QueryContext:
@@ -362,7 +359,7 @@ def projection_directory(context: QueryContext, root: Path) -> Path:
 
 
 def write_projection(context: QueryContext, root: Path, relative: str, content: bytes) -> None:
-    context.check_live()
+    context.ensure_output(content)
     binding = selected_binding(context, root)
     if context.session["writable"] != binding["id"]:
         raise ContractError("WRITE_DENIED: session has no writable projection target")
@@ -383,9 +380,12 @@ def write_projection(context: QueryContext, root: Path, relative: str, content: 
         marker.write_bytes(canonical_json(owner))
     os.chmod(generated, 0o700)
     scoped = projection_directory(context, root)
+    verify_cache(scoped, binding["id"], context.scope_digest())
     scoped.mkdir(mode=0o700, parents=True, exist_ok=True)
     os.chmod(scoped, 0o700)
     target = safe_path(scoped, relative)
+    if target.name == CACHE_MARKER:
+        raise ContractError("CACHE_PATH: output cannot replace its ownership manifest")
     target.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary = tempfile.mkstemp(dir=target.parent, prefix=".projection-")
     try:
@@ -393,6 +393,17 @@ def write_projection(context: QueryContext, root: Path, relative: str, content: 
             output.write(content)
         context.check_live()
         os.replace(temporary, target)
+        inventory = cache_manifest(binding["id"], context.scope_digest(), cache_files(scoped))
+        descriptor, manifest_temporary = tempfile.mkstemp(dir=scoped, prefix=".cache-owner-")
+        try:
+            with os.fdopen(descriptor, "wb") as output:
+                output.write(canonical_json(inventory))
+                output.flush()
+                os.fsync(output.fileno())
+            context.check_live()
+            os.replace(manifest_temporary, safe_path(scoped, CACHE_MARKER))
+        finally:
+            Path(manifest_temporary).unlink(missing_ok=True)
     finally:
         Path(temporary).unlink(missing_ok=True)
 
@@ -460,6 +471,6 @@ def run_projection(arguments: Namespace, operation: str) -> int:
                                   "scope": context.output_scope([]), "index_sha256": digest_bytes(first)})
     else:
         raise ContractError("PROJECTION_UNSUPPORTED: requested projection is not implemented")
-    context.check_live()
+    context.ensure_output(content)
     print(content.decode(), end="" if content.endswith(b"\n") else "\n")
     return 0
