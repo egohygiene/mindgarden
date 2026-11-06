@@ -102,7 +102,7 @@ class SiteProjection:
 
 
 def build_site(context: QueryContext, profile: dict, *, profile_path: Path | None = None) -> SiteProjection:
-    settings = profile.get("x-site")
+    settings = deepcopy(profile.get("x-site"))
     if ContractRegistry().errors(settings, "site-adapter"):
         raise ContractError("SITE_PROFILE: supply a supported explicit pinned site adapter")
     raw = authority_bytes(profile_path) if profile_path is not None else canonical_json(profile)
@@ -113,6 +113,20 @@ def build_site(context: QueryContext, profile: dict, *, profile_path: Path | Non
     files, routes = content_files(descriptor, index, graph, settings)
     configuration = configuration_template()
     configuration["configuration"].update(pageTitle=settings["title"], baseUrl=descriptor["base_uri"].removeprefix("https://").rstrip("/"))
+    if settings.get("theme"):
+        from ..domain.design import load_tokens, quartz_styles, quartz_theme
+
+        tokens = load_tokens()
+        if settings["theme"] != tokens["id"]:
+            raise ContractError("DESIGN_VERSION: selected theme is unavailable")
+        revision = "sha256:" + digest_bytes(canonical_json(tokens))
+        if settings.get("theme_revision") not in {None, revision}:
+            raise ContractError("DESIGN_STALE: selected theme revision differs")
+        settings["theme_revision"] = revision
+        configuration["configuration"]["theme"]["colors"] = quartz_theme(tokens)
+        files["static/mindgarden/theme.css"] = quartz_styles(tokens).encode("utf8")
+    elif settings.get("theme_revision") is not None:
+        raise ContractError("DESIGN_VERSION: select a theme before pinning its revision")
     configuration = canonical_json(configuration)
     files.update({name: content for name, content in bundle.files.items() if not name.startswith(".")})
     files["quartz.config.yaml"] = configuration

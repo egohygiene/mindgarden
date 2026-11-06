@@ -314,6 +314,16 @@ def run_version(_arguments: Namespace) -> int:
     return ExitCode.SUCCESS
 
 
+def run_design(arguments) -> int:
+    from ..domain.design import css_variables, load_tokens, quartz_theme
+    from ..domain.contracts import canonical_json
+
+    tokens = load_tokens(arguments.tokens)
+    value = css_variables(tokens) if arguments.format == "css" else canonical_json(quartz_theme(tokens) if arguments.format == "quartz" else tokens).decode()
+    print(value, end="")
+    return 0
+
+
 def add_publish_command(commands: ParserCollection) -> None:
     """Register privacy-safe projection commands."""
     parser = commands.add_parser("publish", help="Project reviewed public knowledge")
@@ -487,6 +497,10 @@ def build_parser() -> ArgumentParser:
     add_site_command(commands)
     add_federation_command(commands)
     add_registry_command(commands)
+    design = commands.add_parser("design", help="Validate and export stack-neutral design tokens")
+    design.add_argument("--tokens", type=Path, help="Explicit token file; omission selects the installed design source")
+    design.add_argument("--format", choices=("json", "css", "quartz"), default="json")
+    design.set_defaults(handler=run_design)
     from ..application.curation import run_gardenize
 
     gardenize = commands.add_parser("gardenize", help="Preview or apply an authored curation proposal")

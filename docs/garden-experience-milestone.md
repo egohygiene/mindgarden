@@ -54,7 +54,7 @@ plan. A conflicting or incomplete output is retained for inspection.
 | Issue | Branch/base | Draft | Functional checkpoint |
 | --- | --- | --- | --- |
 | #17 | `feature/17-v1-garden-preview` / main `8a9650e` | [#68](https://github.com/egohygiene/mindgarden/pull/68) | `f1706a55a41c0528489b503662f708e1b4884e31` |
-| #38 | `feature/38-design-tokens` / #68 | Pending | Next action: tokens/consumer and mobile-overflow correction |
+| #38 | `feature/38-design-tokens` / #68 | Pending | Tokens/schema/references, validated CSS/Quartz consumer and mobile correction; verification below |
 | #10 | `feature/10-public-conformance` / #38 checkpoint | Pending | Reusable publication/preview negatives and diagnostics |
 | #18 | `feature/18-portal-composition` / #10 checkpoint | Pending | Caller-owned composition and recovery |
 | #42 | `docs/42-architecture-decisions` / #18 checkpoint | Pending | Proposed decisions and disposition map |
@@ -74,3 +74,39 @@ Mobile overflow was observed and is an explicit #38 follow-up; full WCAG/large-
 corpus/consumer acceptance remains open. The [automatic Test run](https://github.com/egohygiene/mindgarden/actions/runs/42150215705)
 passed on `f1706a5`; later heads receive separate checks. No workflow was manually
 launched. Exact CLI and optional preparation commands: [v1 preview](v1-site.md).
+
+
+## #38 design checkpoint
+
+The public `design/` source derives its botanical palette, thin linework and
+spacing from the existing banner/architecture illustration. Versioned JSON,
+strict schema and visual/image/diagram references remain independent of any web
+framework. `mindgarden design --format json|css|quartz` validates and exports
+without a network service. Optional `x-site.theme` selects the derived consumer;
+the actual immutable token revision participates in the site plan.
+
+All 201 tests pass on Python 3.12.14 and 3.13.5 without skips. Normal text/link
+pairs meet 4.5:1 and focus/control pairs meet 3:1 on both surfaces/modes. Negative
+fixtures reject unknown fields, font injection and insufficient contrast. Fresh
+source/wheel packaging, both compile checks, owner metadata and whitespace pass.
+An actual offline Quartz render produces 60 files. Chromium verifies search,
+backlinks, three SVG nodes/one typed edge and zoom, with no horizontal overflow
+after resizing from 1360px to 390px. Zero external requests or page errors were
+observed. The isolated installed wheel exports the same validated tokens.
+Responsive navigation is exercised; this remains a bounded color/layout check, not full WCAG acceptance.
+Exact local checks:
+
+```sh
+.venv/bin/python -m unittest discover --start-directory tests --verbose
+.cache/python313/bin/python -m unittest discover --start-directory tests --verbose
+.venv/bin/python -m unittest tests.test_design tests.test_site --verbose
+.venv/bin/python -m build --sdist --wheel
+.venv/bin/python -m compileall -q src tests
+.cache/python313/bin/python -m compileall -q src tests
+python3 .cache/six_owner_checks.py
+git diff --check
+```
+
+The owner check uses the pinned Hygiene/Aether schemas documented in the
+[decision policy reference](decisions/policy-reference.json). ADR-0014 is proposed
+with null approval. Full component/consumer/accessibility acceptance remains open.

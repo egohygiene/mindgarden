@@ -109,7 +109,8 @@ def render_public_site(projection, engine_root: Path) -> dict[str, bytes]:
             html = files[name].decode("utf8")
             html = html.replace('<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/>', "")
             html = html.replace("</head>", '<link rel="stylesheet" href="' + base_path + 'static/mindgarden/site.css"/>'
-                '<script id="mindgarden-graph-script" defer src="' + base_path + 'static/mindgarden/graph.js"></script></head>')
+                + ('<link rel="stylesheet" href="' + base_path + 'static/mindgarden/theme.css"/>' if "static/mindgarden/theme.css" in files else '')
+                + '<script id="mindgarden-graph-script" defer src="' + base_path + 'static/mindgarden/graph.js"></script></head>')
             files[name] = html.encode("utf8")
     canonical = {"index.html": projection.manifest["base_uri"], "relationships.html": projection.manifest["base_uri"] + "relationships",
                  **{item["path"]: item["url"] for item in projection.manifest["routes"]}}

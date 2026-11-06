@@ -1,5 +1,11 @@
 # Quartz publishing profile
 
+The [reviewed v1 preview](../../docs/v1-site.md) uses the same pinned renderer
+with a typed site adapter. Select `"theme": "mindgarden-v1"` inside `x-site` for
+the optional [Mindgarden design tokens](../../design/README.md); omit it for the
+existing neutral profile. Theme colors/CSS are generated from the public token
+source, and the reviewed plan records its exact `theme_revision`.
+
 This profile turns a validated Mindgarden into a disposable Quartz v5 site
 without making Quartz a knowledge source. The consumer's `.garden/` remains
 canonical; the projector admits only notes that are both `reviewed` and

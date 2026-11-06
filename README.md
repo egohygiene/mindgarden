@@ -22,6 +22,11 @@ The diagram captures the product vision. The repository documents below remain
 the authoritative source for implemented boundaries and contract status as the
 v1 roadmap advances.
 
+The optional [design source](design/README.md) captures this visual identity as
+validated stack-neutral tokens, visual references and reusable prompt guidance.
+`mindgarden design --format css` and `--format quartz` export derived views;
+design tooling is optional for other contributors.
+
 ## Responsibilities
 
 Mindgarden owns:
