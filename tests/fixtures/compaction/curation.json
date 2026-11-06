@@ -1,0 +1,93 @@
+{
+  "candidates": [
+    {
+      "action": "keep",
+      "id": "candidate-compacted",
+      "merge_inputs": [],
+      "output": {
+        "attribution": "assistant-suggestion",
+        "authors": [
+          {
+            "id": "synthetic-producer",
+            "kind": "agent",
+            "version": "fixture-1"
+          }
+        ],
+        "body": "Use exact evidence; preserve uncertainty.\n\nAlternative remains unverified.\n",
+        "caveats": [
+          "Contradiction: The alternative branch has not been reconciled.",
+          "Validity: conflicting. Authored annotation; no factual adjudication.",
+          "Validity: unknown. Authored annotation; no factual adjudication."
+        ],
+        "claims": [],
+        "confidence": "medium",
+        "contradictions": [],
+        "domains": [
+          "knowledge-systems"
+        ],
+        "epistemic_state": "proposed",
+        "id": "compacted-prompt",
+        "kind": "procedure",
+        "review": {
+          "rationale": "Explicit synthetic human review of this candidate.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "status": "active",
+        "supersedes": [
+          {
+            "garden": "synthetic-garden",
+            "id": "reviewed-prompt",
+            "revision": "sha256:9054bfeaeecafc7517be91c4c1f9741bbb4f546188fc6b88b24d86640fcd370f"
+          }
+        ],
+        "synapses": [],
+        "title": "Synthetic compacted prompt-bank procedure",
+        "topics": [
+          "prompt-bank"
+        ],
+        "uncertainty": [
+          "Alternative branch remains unresolved.",
+          "Effectiveness remains unmeasured."
+        ]
+      },
+      "rationale": "Authored synthetic supersede at durable-knowledge.",
+      "sources": [
+        {
+          "content_sha256": "b1c9e4360a3515f7852bbb6cde7f9a1b92c6e01718b07f5f8cdb7363dc56a3dd",
+          "locator": "json:/content/0/text",
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-15599af188a23eecf9982dad-e4b31699fcc29357",
+            "revision": "sha256:e4b31699fcc293574c0c2765fdfef2d4c28d81248815d912f084ebaf37272269"
+          }
+        },
+        {
+          "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+          "locator": "json:/content/0/text",
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+            "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+          }
+        }
+      ]
+    }
+  ],
+  "created_at": "2026-11-04T00:00:00Z",
+  "garden": "synthetic-garden",
+  "id": "synthetic-compaction-curation",
+  "producer": {
+    "id": "synthetic-producer",
+    "kind": "agent",
+    "version": "fixture-1"
+  },
+  "review_authority": {
+    "id": "synthetic-reviewer",
+    "kind": "human"
+  },
+  "schema": "mindgarden.curation-plan/v1"
+}

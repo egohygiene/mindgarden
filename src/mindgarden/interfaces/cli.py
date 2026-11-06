@@ -450,6 +450,20 @@ def add_federation_command(commands: ParserCollection) -> None:
     catalog.set_defaults(handler=run_federation)
 
 
+def add_compaction_command(commands: ParserCollection) -> None:
+    from ..application.compaction import run_compaction
+
+    parser = commands.add_parser("compaction", help="Inspect authored compaction without changing originals or review state")
+    operations = parser.add_subparsers(dest="operation", required=True)
+    preview = operations.add_parser("preview", help="Verify exact scoped evidence, hierarchy, retention and an optional curation handoff")
+    preview.add_argument("--input", type=Path, required=True)
+    preview.add_argument("--local-config", type=Path, required=True)
+    preview.add_argument("--scope", type=Path, required=True)
+    preview.add_argument("--curation-plan", type=Path, help="Exact existing curation-plan/v1 proposal pinned by the hierarchy")
+    preview.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
+    preview.set_defaults(handler=run_compaction, public_artifact_command=True)
+
+
 def add_registry_command(commands: ParserCollection) -> None:
     """Register machine-local control flows without changing canonical gardens."""
     from ..application.registry import run_registry
@@ -508,6 +522,7 @@ def build_parser() -> ArgumentParser:
     add_publish_command(commands)
     add_site_command(commands)
     add_federation_command(commands)
+    add_compaction_command(commands)
     add_registry_command(commands)
     design = commands.add_parser("design", help="Validate and export stack-neutral design tokens")
     design.add_argument("--tokens", type=Path, help="Explicit token file; omission selects the installed design source")

@@ -193,3 +193,38 @@ checks pass; relative links and whitespace are checked. Runtime remains the exac
 redundant local full-suite run is claimed for this documentation-only checkpoint.
 All new ADRs remain proposed/null approval. #40/#41, owner policy/contracts,
 bookmark proof and human ratification remain open gates.
+
+
+## #46 compaction/retention contract checkpoint
+
+[The versioned specification](compaction-retention.md) and committed authored
+fixtures add a read-only scoped hierarchy, separate retention classes, exact
+evidence/qualification validation, private dependency manifests and a validated
+existing-curation handoff. The synthetic archive produces a reviewed compacted
+prompt, search returns two exact message citations, and an 8192-byte-bounded
+context contains it in 4001 bytes. Originals and superseded knowledge remain.
+
+Ten targeted tests cover contract parity, forbidden deletion/public downgrade,
+budgets, denied/stale/corrupted evidence, lost qualifications, review authority,
+unchanged reruns and selective invalidation. Full suites run 231 tests on each
+supported Python version. Final policy-reader tightening passes targeted tests
+on both versions. Source/wheel resources, both compile checks, owner metadata and
+whitespace are checked; isolated installed-wheel proof matches the committed
+expected result. Clean source proof is recorded with the functional commit.
+
+```sh
+.venv/bin/python -m unittest discover --start-directory tests --verbose
+.cache/python313/bin/python -m unittest discover --start-directory tests --verbose
+.venv/bin/python -m unittest tests.test_compaction --verbose
+.cache/python313/bin/python -m unittest tests.test_compaction --verbose
+.venv/bin/python -m build --sdist --wheel --outdir .cache/dist
+python -S scripts/compaction_demo.py --require-source --workspace new-proof --report proof.json
+.cache/six46-wheel/bin/python -I scripts/compaction_demo.py --require-installed --workspace new-wheel-proof --report wheel-proof.json
+```
+
+TTL/retention fields are validated declarations; no scheduler, deletion, deployed
+expiry or approved private pilot is claimed. The evaluator consumes already-
+authorized reviewed evidence; first-pass raw-only compaction remains a contract
+follow-up. Structural coverage/byte ratios and authored facts do not establish
+model summary quality. #20 gates full private-pilot acceptance. ADR-0019 and all
+other new decisions remain proposed/null approval.

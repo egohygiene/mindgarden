@@ -1,0 +1,72 @@
+{
+  "authored_fixture_facts": {
+    "expected": 2,
+    "method": "exact-authored-statement-and-source-bindings",
+    "represented": 2
+  },
+  "checks": [
+    "scoped-exact-message-evidence",
+    "uncertainty-contradiction-and-validity-preserved",
+    "deterministic-read-only-preview",
+    "separate-explicit-human-curation",
+    "digest-bound-idempotent-application",
+    "superseded-knowledge-retained",
+    "search-and-bounded-context",
+    "no-source-instruction-execution"
+  ],
+  "context_bytes": 4001,
+  "context_max_bytes": 8192,
+  "context_sha256": "aea608bc39e3b0180ef8f96b6a2eea76764f6aa265124642a530bf815ba287f2",
+  "engine_version": "0.1.0",
+  "integrations": {
+    "google": "unused",
+    "model": "unused",
+    "network": "blocked-in-process",
+    "subprocess": "blocked-in-process"
+  },
+  "manifest_sha256": "edfef9233de4d0cd97c82318160da7b4da9bccb503881629021745e5faea0403",
+  "metrics": {
+    "exact_citations_verified": 2,
+    "selected_text_bytes": 75,
+    "selected_text_ratio": 0.893,
+    "source_selection_bytes": 84,
+    "statements_with_verified_evidence": 17
+  },
+  "original_vault_sha256": "c74e215fc9a035abc701ecab54a041ed840e3a6b8201314e151f6834ff0dba5d",
+  "originals": "unchanged",
+  "retention": {
+    "archival": "preserve-originals",
+    "context_ttl_seconds": 600,
+    "destructive_changes": "unavailable",
+    "enforcement": "preview-contract-only-no-retention-jobs",
+    "publication": "separate-review"
+  },
+  "retrieved": {
+    "garden": "synthetic-garden",
+    "id": "compacted-prompt",
+    "revision": "sha256:4d321438185d395a130a9068e01fa20766d4f7dba353bfa0c0b48266be84bef4"
+  },
+  "review_state": "approved",
+  "schema": "mindgarden.synthetic-compaction-proof/v1",
+  "sources": [
+    {
+      "content_sha256": "b1c9e4360a3515f7852bbb6cde7f9a1b92c6e01718b07f5f8cdb7363dc56a3dd",
+      "locator": "json:/content/0/text",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-15599af188a23eecf9982dad-e4b31699fcc29357",
+        "revision": "sha256:e4b31699fcc293574c0c2765fdfef2d4c28d81248815d912f084ebaf37272269"
+      }
+    },
+    {
+      "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+      "locator": "json:/content/0/text",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+        "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+      }
+    }
+  ],
+  "status": "passed"
+}

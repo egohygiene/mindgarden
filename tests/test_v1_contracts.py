@@ -146,6 +146,9 @@ class V1ContractTests(unittest.TestCase):
                 "portal-request",
                 "portal-manifest",
                 "portal-plan",
+                "retention-policy",
+                "compaction-plan",
+                "compaction-manifest",
             },
         )
         identifiers = set()

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:compaction-manifest:v1",
+  "title": "Mindgarden compaction-manifest v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "classification",
+    "publication",
+    "scope",
+    "policy_revision",
+    "nodes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.compaction-manifest/v1"
+    },
+    "classification": {
+      "const": "machine-local-control"
+    },
+    "publication": {
+      "const": "never-exportable"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "policy_revision": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "layer",
+          "action",
+          "inputs",
+          "revision",
+          "scope"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "layer": {
+            "enum": [
+              "normalized-segment",
+              "source-summary",
+              "durable-knowledge",
+              "cross-source-synthesis",
+              "context",
+              "publication-candidate"
+            ]
+          },
+          "action": {
+            "enum": [
+              "keep",
+              "merge",
+              "summarize",
+              "reference",
+              "defer",
+              "discard-proposed",
+              "supersede"
+            ]
+          },
+          "inputs": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifierSet"
+          },
+          "revision": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+          },
+          "scope": {
+            "$ref": "urn:egohygiene:mindgarden:scope:v1"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 128
+    }
+  },
+  "additionalProperties": false
+}

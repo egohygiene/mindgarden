@@ -22,7 +22,7 @@ affected_repositories:
 - egohygiene/realm
 - egohygiene/aether
 affected_contracts: []
-implementation_status: not_started
+implementation_status: in_progress
 evidence:
 - type: issue
   url: https://github.com/egohygiene/mindgarden/issues/37
@@ -95,3 +95,11 @@ Realm owns scheduling/runtime; Aether owns agent cancellation/continuity.
 Revisit before any destructive retention, automatic recurring job or shared
 worker, on policy changes, or by 2027-01-01.
 
+
+
+## Bounded #46 contract evidence
+
+The [read-only evaluator and authored proof](../compaction-retention.md) implement
+a local contract checkpoint using existing scoped evidence and curation services.
+There is no queue, deletion, retention scheduler, raw-only authorization expansion
+or private-pilot claim. This partial implementation does not accept this proposal.

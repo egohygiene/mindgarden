@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:retention-policy:v1",
+  "title": "Mindgarden retention-policy v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "policy",
+    "archival",
+    "knowledge",
+    "model_context",
+    "publication",
+    "detail_budgets",
+    "destructive_changes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.retention-policy/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "policy": {
+      "type": "object",
+      "required": [
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+        }
+      },
+      "additionalProperties": false
+    },
+    "archival": {
+      "type": "object",
+      "required": [
+        "mode",
+        "deletion"
+      ],
+      "properties": {
+        "mode": {
+          "const": "preserve-originals"
+        },
+        "deletion": {
+          "const": "unsupported"
+        }
+      },
+      "additionalProperties": false
+    },
+    "knowledge": {
+      "type": "object",
+      "required": [
+        "mode",
+        "superseded"
+      ],
+      "properties": {
+        "mode": {
+          "const": "review-required"
+        },
+        "superseded": {
+          "const": "retain-with-lineage"
+        }
+      },
+      "additionalProperties": false
+    },
+    "model_context": {
+      "type": "object",
+      "required": [
+        "persistence",
+        "ttl_seconds",
+        "max_bytes"
+      ],
+      "properties": {
+        "persistence": {
+          "const": "ephemeral"
+        },
+        "ttl_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400
+        },
+        "max_bytes": {
+          "type": "integer",
+          "minimum": 256,
+          "maximum": 1000000
+        }
+      },
+      "additionalProperties": false
+    },
+    "publication": {
+      "type": "object",
+      "required": [
+        "mode",
+        "revocation",
+        "ttl_seconds"
+      ],
+      "properties": {
+        "mode": {
+          "const": "separate-review"
+        },
+        "revocation": {
+          "const": "invalidate-and-rebuild"
+        },
+        "ttl_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400
+        }
+      },
+      "additionalProperties": false
+    },
+    "detail_budgets": {
+      "type": "object",
+      "required": [
+        "repository",
+        "organization",
+        "personal",
+        "agent",
+        "publishing"
+      ],
+      "properties": {
+        "repository": {
+          "type": "object",
+          "required": [
+            "max_statements",
+            "max_bytes"
+          ],
+          "properties": {
+            "max_statements": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1024
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 1000000
+            }
+          },
+          "additionalProperties": false
+        },
+        "organization": {
+          "type": "object",
+          "required": [
+            "max_statements",
+            "max_bytes"
+          ],
+          "properties": {
+            "max_statements": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1024
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 1000000
+            }
+          },
+          "additionalProperties": false
+        },
+        "personal": {
+          "type": "object",
+          "required": [
+            "max_statements",
+            "max_bytes"
+          ],
+          "properties": {
+            "max_statements": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1024
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 1000000
+            }
+          },
+          "additionalProperties": false
+        },
+        "agent": {
+          "type": "object",
+          "required": [
+            "max_statements",
+            "max_bytes"
+          ],
+          "properties": {
+            "max_statements": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1024
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 1000000
+            }
+          },
+          "additionalProperties": false
+        },
+        "publishing": {
+          "type": "object",
+          "required": [
+            "max_statements",
+            "max_bytes"
+          ],
+          "properties": {
+            "max_statements": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1024
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 1000000
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "destructive_changes": {
+      "const": "unavailable"
+    }
+  },
+  "additionalProperties": false
+}

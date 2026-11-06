@@ -11,10 +11,10 @@ Current main is `8a9650eca6c71f361a1bb4a81e3f9ce4a0e34765`: #65/#66/#67 are
 merged after explicit maintainer authorization. #67's tree matches tested
 `3463d46`, with 188 tests passing on both supported Python versions. The new
 authorized six-draft batch is #17/#38/#10/#18/#42/#46; see
-[its checkpoint map](garden-experience-milestone.md). Initial branch is
-`feature/17-v1-garden-preview`, with scoped v1 site projection/rendering in progress.
+[its checkpoint map](garden-experience-milestone.md). Drafts #68–#72 cover preview, design, conformance, composition and proposed
+architecture; the final #46 contract/proof branch preserves their combined checkout.
 The original stack receipt and B1 draft evidence that follow are historical.
-All 38 parent issues remain open; ADR-0007–0012 remain proposed/null approval.
+All 38 parent issues remain open; ADR-0007–0021 remain proposed/null approval.
 
 Merged main: `9fae752b3cf7eb9c74033a72a12d125c42f8659e`. Its tree is exactly
 `a381b8bea2270b6ebd41a8bbe205d5f0a6f3e188`, the tree of the tested combined
@@ -161,7 +161,7 @@ not one serial gate over all work.
 | Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
 | --- | --- | --- | --- | --- |
 | [#38](https://github.com/egohygiene/mindgarden/issues/38) — stack-neutral design tokens | partial | Versioned token/schema source, visual/image/diagram references, offline CLI exports and optional revision-bound Quartz/CSS consumer in the six-draft stack | Human design disposition, additional consumers and complete accessibility evidence | Independent P/design checkpoint after #68 for review convenience; selects no frontend framework |
-| [#17](https://github.com/egohygiene/mindgarden/issues/17) — public Obsidian-like `/garden` | partial | Initial review branch reuses v1 public selection, immutable manifests, literal content, typed links/exact citations, pinned offline Quartz and loopback preview; synthetic render/browser evidence in progress | Full mobile/WCAG 2.2 AA, large-corpus and real-consumer acceptance; rich Markdown/assets beyond the literal adapter | #10/#12/#16 contracts on main; B3a draft then #38/#10/#18; distinct from #47 authenticated editing/application |
+| [#17](https://github.com/egohygiene/mindgarden/issues/17) — public Obsidian-like /garden | partial | Draft #68 scoped literal v1 output, exact citations, selected links/search/graph and pinned offline Quartz/loopback preview; #69 mobile correction | Full WCAG 2.2 AA, large-corpus/real-consumer acceptance and richer content/assets | Existing #10/#12/#16 contracts; #38/#10/#18 draft checkpoints; distinct from #47 authenticated application |
 | [#47](https://github.com/egohygiene/mindgarden/issues/47) — shared CLI/API/web product slice | blocked | Python application-service boundaries and offline CLI workflow | Accepted runtime/framework/identity ADRs, API/web/worker parity, editing/media, Compose lifecycle/accessibility and two-organization canaries | #40/#42/#43/#44/#45/#46/#10–#15/#29–#32; Realm #20/#34, Relay #40, Aether #69; P in bounded slices after actual contracts |
 
 ## Bookmark/reference journey
@@ -193,7 +193,7 @@ not one serial gate over all work.
 | --- | --- | --- | --- | --- |
 | [#21](https://github.com/egohygiene/mindgarden/issues/21) — reviewed infographic candidates | deferred | Canonical claims/sources and authored review available; no rendering/publication adapter | Renderer-neutral candidate schema, claim-level privacy/rights, deterministic batches, downstream artifact feedback and negative fixtures | #13/#14/#16/#19; explicitly post-1.0 E; private `szmyty/garden` consumer remains separate |
 | [#28](https://github.com/egohygiene/mindgarden/issues/28) — learning cards/summaries/review schedules | deferred | Reviewed source/context primitives; no learning-specific schema | Candidate/card/event/schedule contracts, authored no-model export/roundtrip, contradiction/privacy/refresh and accessible review proof | #9/#10/#12/#13; #17 for web rendering, Realm #20 for runtime; R1 contract/export can precede full UI if selected |
-| [#46](https://github.com/egohygiene/mindgarden/issues/46) — hierarchical compaction/retention | ready | #59 dispositions and #64 evidence-backed context support the proposal; no complete compaction schema | Hierarchy/retention schemas, temporal contradiction/supersession and invalidation, quality budgets/evaluation, reviewed synthetic and approved private pilot | #11/#13/#14/#15/#20/#31/#45; R0 policy early, full proof after owning contracts/pilot; destructive actions remain separately reviewed |
+| [#46](https://github.com/egohygiene/mindgarden/issues/46) — hierarchical compaction/retention | partial | Six-draft v1 plan/retention/manifest contracts, read-only scoped evaluator, authored archive→curation→retrieval/context proof and selective invalidation | First-pass raw-only compaction, large-corpus/semantic quality, persistence/expiry/deletion execution and approved private pilot; no destructive implementation | Existing #11/#13/#14/#15/#31/#45; #20 gates full pilot, not early contract checkpoint; R0 |
 
 ## Retention requirements carried forward now
 

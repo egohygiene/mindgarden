@@ -197,3 +197,6 @@ source or installed engine with synthetic fixtures and shareable diagnostics.
 
 [Local portal composition](docs/portal-composition.md) preserves sibling surfaces
 and emits an exact ownership receipt without deploying.
+
+[Authored compaction and retention](docs/compaction-retention.md) adds a read-only
+exact-evidence preview and synthetic curation handoff; originals are preserved.

@@ -110,7 +110,7 @@ The [open-issue coverage ledger](docs/open-issue-coverage.md) records the
 | Publication/preview conformance | Draft #70; tested, unmerged | Reusable synthetic 80-test source/installed pack; normative runtime/consumer coverage open |
 | Portal composition | Draft #71; tested, unmerged | Pinned artifact/owned receipt, sibling preservation and recovery; Relay/deployment open |
 | Target-product architecture | Proposed #42 documentation checkpoint | [Ten-topic decision/ownership map](docs/target-architecture.md); human ratification and owner acceptance open |
-| Hierarchical compaction/retention | Next authorized #46 contract checkpoint | Originals preserved; no deletion or approved private pilot claimed |
+| Hierarchical compaction/retention | Bounded #46 draft checkpoint; tested locally | Read-only exact-evidence hierarchy, private invalidation manifests and authored curation proof; raw-only compaction, retention execution and approved pilot remain open |
 
 The target map expands the repository/runtime responsibility table without
 transferring canonical ownership. Shared services remain the existing Python
