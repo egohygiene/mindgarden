@@ -306,10 +306,15 @@ def registry_report(path: Path, *, garden_id: str | None = None, doctor: bool = 
 
 def run_registry(arguments) -> int:
     if arguments.operation == "capabilities":
+        from ..domain.registry import registry_platforms
+
         value = {"schema": "mindgarden.registry-capabilities/v1", "filesystem": "linux-single-user",
                  "available": sys.platform.startswith("linux"), "restricted_registration": False,
                  "verified_encryption": False, "automatic_discovery": False, "cloud_sync": False,
-                 "canonical_writes": False, "query_cache_cleanup": False, "history_restore": True}
+                 "canonical_writes": False, "query_cache_cleanup": True,
+                 "cache_cleanup_mode": "reviewed-reversible-quarantine",
+                 "cache_cross_filesystem": False, "cache_deletion": False, "history_restore": True,
+                 "platforms": registry_platforms()}
         print(canonical_json(value).decode(), end="")
         return 0
     path = arguments.registry or default_registry_path()

@@ -477,6 +477,23 @@ def add_registry_command(commands: ParserCollection) -> None:
 
     registry = commands.add_parser("registry", help="Manage explicit machine-local garden registrations")
     operations = registry.add_subparsers(dest="operation", required=True)
+    from ..application.registry_cache import run_cache
+
+    for name in ("cache-inspect","cache-plan","cache-apply"):
+        command = operations.add_parser(name,help="Inspect or reversibly quarantine an explicitly owned scope cache")
+        command.add_argument("--registry",type=Path)
+        if name != "cache-apply":
+            command.add_argument("--garden-id",required=True)
+            command.add_argument("--scope-digest",required=True)
+        if name == "cache-plan":
+            command.add_argument("--operation-id",required=True)
+            command.add_argument("--action",choices=("quarantine","restore"),required=True)
+            command.add_argument("--recovery-id")
+            command.add_argument("--output",type=Path)
+        if name == "cache-apply":
+            command.add_argument("--plan",type=Path,required=True)
+            command.add_argument("--plan-digest",required=True)
+        command.set_defaults(handler=run_cache)
     for name in ("init", "register", "unregister", "set-view", "remove-view", "restore", "apply", "list", "inspect", "doctor", "capabilities"):
         command = operations.add_parser(name)
         command.add_argument("--registry", type=Path, help="Absolute private registry path; defaults to platform user configuration")

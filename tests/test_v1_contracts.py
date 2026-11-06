@@ -150,6 +150,7 @@ class V1ContractTests(unittest.TestCase):
                 "registry",
                 "registry-view",
                 "registry-plan",
+                "registry-cache-plan",
                 "site-adapter",
                 "site-manifest",
                 "site-plan",

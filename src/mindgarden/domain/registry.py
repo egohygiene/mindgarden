@@ -40,6 +40,14 @@ def default_registry_path() -> Path:
     return Path(registry_location(sys.platform, str(Path.home()), os.environ))
 
 
+def registry_platforms() -> dict:
+    return {"linux":{"location":"tested","mutation":"verified-single-user-posix"},
+            "darwin":{"location":"tested-convention","mutation":"unsupported-native-acl-evidence"},
+            "win32":{"location":"tested-convention","mutation":"unsupported-native-acl-adapter"},
+            "dev-container":{"location":"explicit-control-root","mutation":"linux-owner-permissions-required",
+                             "host_mount_assurance":"not-claimed"}}
+
+
 def empty_bindings() -> dict:
     return {"schema": "mindgarden.local-bindings/v1", "gardens": [], "vaults": [], "revoked_sessions": []}
 

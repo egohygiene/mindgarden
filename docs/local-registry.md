@@ -250,3 +250,29 @@ local checks of final functional `656f6b6`; later pushed heads receive their own
 automatic checks.
 No paid workflow was manually launched or retried. The checkpoint is draft,
 unmerged and not fully accepted; ADR-0012 remains proposed/null approval.
+
+## Reviewed cache recovery follow-up (#30)
+
+The scope-cache inventory introduced in #31 is the only authority for generated
+cache membership. `registry cache-inspect` reports counts without host paths.
+`registry cache-plan` takes `--garden-id`, `--scope-digest`, `--operation-id` and
+`--action quarantine|restore`; restore also requires `--recovery-id`. Save its
+private JSON with `--output`, inspect it, then use `registry cache-apply --plan`
+and `--plan-digest`. All commands accept the explicit `--registry` control file.
+Plans contain local paths and are marked never-exportable.
+
+Quarantine moves the complete verified cache into an owned sibling recovery
+directory under the registry writer lease. It deletes nothing. Restore uses
+the same exact inventory and a fresh digest-bound plan. An interrupted receipt
+commit is reconciled by repeating the exact plan. Registry/manifest changes,
+unknown files, unmanifested legacy caches, symlinks, corrupt bytes and conflicting
+destinations fail closed and retain data. Cross-filesystem moves are unavailable.
+Restoring cache bytes never revives an expired or revoked query session.
+
+Linux single-user POSIX mutation is the verified baseline. macOS and Windows
+location conventions have fixtures; native mutation/ACL assurance is explicitly
+unsupported. Development containers require an explicit control root and Linux
+owner permissions; host mounts receive no implicit assurance. Native platforms,
+restricted/encrypted coexistence and organization runtime contracts remain parent
+acceptance. These capabilities operate on Mindgarden's generated state; they do
+not discover or reorganize the user's gardens.
