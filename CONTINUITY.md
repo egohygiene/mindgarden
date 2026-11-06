@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T22:59:06Z'
+  updated_at: '2026-11-06T23:05:20Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -50,43 +50,44 @@ scope:
   - docs/consumer-journey.md
   - docs/product-checkpoints.md
   - docs/adr-projections.md
+  - docs/query-stores.md
 work:
-  objective: Project public owner ADR metadata without copying canonical bodies or inventing disposition authority.
+  objective: Prove a replaceable optional scoped SQLite query cache while preserving the reference default.
   success_conditions:
   - Keep exact citations, reviewed routing, bounded output and relocation proof.
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#44
-    url: https://github.com/egohygiene/mindgarden/issues/44
+    id: egohygiene/mindgarden#32
+    url: https://github.com/egohygiene/mindgarden/issues/32
   next:
     kind: action
-    id: sqlite-query-store-conformance
-    description: 'Implement the opt-in #32 query-store contract and SQLite/reference conformance, keeping the reference
-      engine default.'
+    id: targeted-projection-dependencies
+    description: 'Implement #37 versioned dependency plans and targeted full reconciliation using the existing reviewed
+      record/source model.'
     readiness: ready
     references:
     - docs/product-checkpoints.md
-    - docs/adr-projections.md
+    - docs/query-stores.md
     depends_on: []
 state:
   base:
-    revision: 6ba1c2db04d36c81f4474639f30b60fc2a3a645b
-    ref: refs/heads/feature/43-decisions-contract-checkpoint
-    verified_at: '2026-11-06T22:59:06Z'
+    revision: dbfdda097598f6c3cb9b78fbd49dc5e33ae42ed2
+    ref: refs/heads/feature/44-adr-projections
+    verified_at: '2026-11-06T23:05:20Z'
   candidate:
-    branch: feature/44-adr-projections
-    revision: 6666038ac626b46123239247b7ea22093417cc98
+    branch: feature/32-sqlite-query-store
+    revision: 2d3e589dcc39fabb0ecf67243c5313060e41ca65
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-06T22:59:06Z'
+    observed_at: '2026-11-06T23:05:20Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: not-applicable
-    notes: 'Draft #97 follows #96; current #44 projection extends that combined stack. All ADRs remain proposed.
-      Release stays deferred.'
+    notes: "Drafts #93\u2192#94\u2192#95\u2192#96\u2192#97\u2192#98 plus the current optional store. Decisions preview\
+      \ 42308318062 failed native source validation and retained sanitized evidence; no preview success is claimed."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#93
@@ -103,19 +104,26 @@ state:
   - provider: github
     id: egohygiene/mindgarden#97
     url: https://github.com/egohygiene/mindgarden/pull/97
+  - provider: github
+    id: egohygiene/mindgarden#98
+    url: https://github.com/egohygiene/mindgarden/pull/98
 review:
   status: partial
-  reviewed_at: '2026-11-06T22:59:06Z'
+  reviewed_at: '2026-11-06T23:05:20Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_decisions -q
+  - command: .venv/bin/python -m unittest tests.test_query_store -q
     outcome: passed
-    observed_at: '2026-11-06T22:59:06Z'
-    notes: 6 cases, including CLI digest binding and denied metadata canaries.
-  - command: .venv/bin/python -m unittest tests.test_decisions tests.test_v1_contracts -q
+    observed_at: '2026-11-06T23:05:20Z'
+    notes: 8 cases.
+  - command: .cache/python313/bin/python -W error::ResourceWarning -m unittest tests.test_query_store -q
     outcome: passed
-    observed_at: '2026-11-06T22:59:06Z'
-    notes: 10 initial cases; final added CLI case also passes.
+    observed_at: '2026-11-06T23:05:20Z'
+    notes: 8 cases, no leaked SQLite connections.
+  - command: scripts/query_store_benchmark.py --workspace <new-private-synthetic-root> --notes 256
+    outcome: passed
+    observed_at: '2026-11-06T23:05:20Z'
+    notes: Exact parity; costs recorded in committed synthetic observation.
   environment_limitations:
   - '#41 historical backfill remains behind shared operational/adoption readiness; current proposals are not ratified.'
   - Native Relay collector Rust toolchain is unavailable locally; hosted artifact/browser/publication evidence is
@@ -150,19 +158,19 @@ Read status, live issues/PRs, README, AI_CONSTITUTION, ROADMAP, the coverage and
 
 ## Current objective and success conditions
 
-Project public owner ADR metadata without copying canonical bodies or inventing disposition authority. Keep exact citations, reviewed routing, bounded output and relocation proof. Park release work and preserve small reviewable drafts.
+Prove a replaceable optional scoped SQLite query cache while preserving the reference default. Keep exact citations, reviewed routing, bounded output and relocation proof. Park release work and preserve small reviewable drafts.
 
 ## State snapshot
 
-Draft #97 follows #96; current #44 projection extends that combined stack. All ADRs remain proposed. Release stays deferred.
+Drafts #93→#94→#95→#96→#97→#98 plus the current optional store. Decisions preview 42308318062 failed native source validation and retained sanitized evidence; no preview success is claimed.
 
 ## Completed and material changes
 
-Added versioned public ADR metadata output, exact input/revision binding, lifecycle/approval separation, typed authoritative/inferred relationships, backlinks and bounded context. Canonical bodies and private ADRs are never copied.
+Added a versioned query-store Protocol, explicit optional SQLite/FTS5 adapter and CLI, scope/input/digest-bound rebuild, parity ranking, typed view/backlinks, corruption audit, logical backup/restore and owned quarantine/reset.
 
 ## Validation and review evidence
 
-Six focused tests pass; ten combined initial projection/schema tests pass and five initial cases pass on Python 3.13. Full combined suite follows the runtime batch.
+Eight focused tests pass on both Pythons. 256-note + one claim workload has exact reference parity. Fully audited SQLite is slower than in-memory ranking; metrics are committed, with no adoption claim. Connections are closed explicitly; Python 3.13 ResourceWarnings-as-errors pass.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -170,7 +178,7 @@ Six focused tests pass; ten combined initial projection/schema tests pass and fi
 
 ## Next dependency-ready work
 
-Implement the opt-in #32 query-store contract and SQLite/reference conformance, keeping the reference engine default.
+Implement #37 versioned dependency plans and targeted full reconciliation using the existing reviewed record/source model.
 
 ## Parallel changes and reconciliation
 
