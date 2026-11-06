@@ -71,3 +71,23 @@ The checkpoint has one explicit local target. Cross-garden routing is #14;
 optional extraction producers, broader attachment/infographic selection and the
 full multi-route acceptance scope of #13 remain open. Publication is excluded
 for these derived private records and requires an independent reviewed handoff.
+
+## Transformation follow-up checkpoint
+
+Merges retain prior authors, caveats, uncertainty and contradiction references.
+The derivative records each prior attribution and epistemic state; differing
+attributions become `mixed`. Duplicate references to one merge input do not count
+as two knowledge inputs. Existing relationship and supersession targets require
+an exact represented revision. Logical references between outputs created in the
+same digest-bound plan remain supported.
+
+Claims may use only source selectors retained in the candidate's evidence set.
+Optional authored `redactions` identify an exact selected source and rationale;
+they are recorded in derivative qualifications and transformation provenance.
+The service applies the supplied derivative text, without rewriting originals or
+claiming to detect or perform automatic redaction. Sensitivity inheritance still
+applies after redaction; it does not grant public-release authority.
+
+`tests/test_curation_transformations.py` covers these cases alongside the six
+existing dispositions. Optional entity/triple producers, batch resumption and
+model evaluation remain separate parent scope.

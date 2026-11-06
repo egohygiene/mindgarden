@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T06:02:03Z'
+  updated_at: '2026-11-06T06:05:46Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -43,16 +43,16 @@ work:
   - Preserve Python/v0, private boundaries and proposed ADR status.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#11
-    url: https://github.com/egohygiene/mindgarden/issues/11
+    id: egohygiene/mindgarden#13
+    url: https://github.com/egohygiene/mindgarden/issues/13
   next:
     kind: action
-    id: curation-transformation-conformance
-    description: 'Implement #13 merge attribution/qualification preservation, exact relationship and selected-evidence
-      validation, and authored redaction fixtures on a branch stacked over #74.'
+    id: archive-selective-attachments
+    description: 'Implement #15 selective attachments and bounded historical archive compatibility after
+      reading v1.2.1, v2.0.0 plus v2.0.1 patch, and current v3.2.3 specs.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/issues/11
+    - https://github.com/egohygiene/mindgarden/issues/13
     depends_on: []
 state:
   base:
@@ -60,16 +60,16 @@ state:
     ref: refs/heads/main
     verified_at: '2026-11-06T05:27:17Z'
   candidate:
-    branch: milestone/next-six-checkpoints
-    revision: 65b15fb79f68b84b40f364fefedf3e85f87ab174
+    branch: feature/13-curation-conformance
+    revision: 05e6cd2e7584c3c89d6d99ad74d9c601a4847a39
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#74
-      url: https://github.com/egohygiene/mindgarden/pull/74
+      id: egohygiene/mindgarden#75
+      url: https://github.com/egohygiene/mindgarden/pull/75
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T06:02:03Z'
+    observed_at: '2026-11-06T06:05:46Z'
     default_branch_revision: 30a29668a02740a91e77aec22f670a8270ccddf4
     issue_state: open
     pull_request_state: draft
@@ -77,39 +77,29 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-06T06:02:03Z'
+  reviewed_at: '2026-11-06T06:05:46Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_source_adapters tests.test_adapter_conformance tests.test_v1_contracts
+  - command: .venv/bin/python -m unittest tests.test_curation tests.test_curation_transformations tests.test_v1_contracts
       -q
     outcome: passed
-    observed_at: '2026-11-06T06:02:03Z'
+    observed_at: '2026-11-06T06:05:46Z'
     notes: 18 tests passed
-  - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist
-    outcome: passed
-    observed_at: '2026-11-06T06:02:03Z'
-    notes: source and wheel built
-  - command: .venv/bin/python -m unittest discover --start-directory tests -q
-    outcome: passed
-    observed_at: '2026-11-06T06:02:03Z'
-    notes: 237 tests passed, 131.975 seconds
-  - command: .cache/python313/bin/python -m unittest tests.test_source_adapters tests.test_adapter_conformance
+  - command: .cache/python313/bin/python -m unittest tests.test_curation tests.test_curation_transformations
       tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-06T06:02:03Z'
+    observed_at: '2026-11-06T06:05:46Z'
     notes: 18 tests passed
-  - command: .venv/bin/python scripts/private_garden_demo.py --workspace .cache/sprint11-private --require-source
+  - command: .venv/bin/python -m unittest tests.test_routing tests.test_conversation_archives tests.test_compaction
+      -q
     outcome: passed
-    observed_at: '2026-11-06T06:02:03Z'
-    notes: offline exact-reference/search/context/relocation golden proof passed
-  - command: .venv/bin/python -m unittest tests.test_distribution -q
+    observed_at: '2026-11-06T06:05:46Z'
+    notes: 24 tests passed
+  - command: .cache/python313/bin/python -m unittest discover --start-directory tests --pattern test_adapter_conformance.py
+      -q
     outcome: passed
-    observed_at: '2026-11-06T06:02:03Z'
-    notes: 2 tests passed
-  - command: python3 .cache/six_owner_checks.py
-    outcome: passed
-    observed_at: '2026-11-06T06:02:03Z'
-    notes: proposed ADRs, continuity and 38 issue ledger passed
+    observed_at: '2026-11-06T06:05:46Z'
+    notes: 6 tests passed after discovery correction
   environment_limitations:
   - Automatic PR CI is separate from local checks; no paid workflow dispatched.
 privacy:
@@ -148,15 +138,15 @@ with verification, honest retained parent scope and reproducible combined checko
 
 ## State snapshot
 
-Draft #74 on milestone/next-six-checkpoints over main, functional source 65b15fb79f68b84b40f364fefedf3e85f87ab174. First bounded checkpoint is locally verified; no new parent acceptance or ADR approval.
+Draft stack #74 → #75; branch feature/13-curation-conformance, base milestone/next-six-checkpoints. Functional #13 source 05e6cd2. Both drafts remain unmerged.
 
 ## Completed and material changes
 
-Versioned source-adapter declarations, bounded normalization/output checks, reusable deterministic fixture harness, synthetic reference extension and immutable observation compatibility. Confirmed sprint/dependency map replaces stale missing-numbering text.
+Curation merge authors/qualifications and attribution lineage, duplicate merge rejection, exact existing relationship revisions, selected claim evidence, authored evidence-bound redaction provenance. #11 standalone discovery fixed in 33fe7cf.
 
 ## Validation and review evidence
 
-Fresh source/wheel build passed. Python 3.12 full suite: 237 tests passed (131.975s). 18 targeted tests passed on Python 3.13; its full suite is running. Offline private-workflow golden proof and 2 distribution tests passed. Pinned owner/continuity/coverage checks, compileall and diff checks passed.
+18 curation/transformation/contract tests passed on Python 3.12 and 3.13. 24 routing/archive/compaction compatibility tests passed. Compile/diff and owner/continuity checks passed. Initial #11 Python 3.13 full discovery exposed missing test sys.path setup; fixed in 33fe7cf and standalone 6-test discovery passed. Full combined recheck follows later sprint changes.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -164,7 +154,7 @@ Mindcap #35 wire contract is not published at inspected main pin; synthetic refe
 
 ## Next dependency-ready work
 
-Implement #13 merge attribution/qualification preservation, exact relationship and selected-evidence validation, and authored redaction fixtures on a branch stacked over #74.
+Implement #15 selective attachments and bounded historical archive compatibility after reading v1.2.1, v2.0.0 plus v2.0.1 patch, and current v3.2.3 specs.
 
 ## Parallel changes and reconciliation
 
