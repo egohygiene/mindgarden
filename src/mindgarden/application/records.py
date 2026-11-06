@@ -1,9 +1,10 @@
 """Deterministic record constructors shared by ingestion and authored curation."""
 
+from .._version import __version__
 from ..domain.contracts import canonical_json, digest_bytes
 from ..domain.scope import LEGACY_VISIBILITY
 
-AUTHOR = {"kind": "agent", "id": "mindgarden", "version": "0.1.0"}
+AUTHOR = {"kind": "agent", "id": "mindgarden", "version": __version__}
 UNREVIEWED = {"state": "unreviewed", "reviewers": [], "reviewed_at": None, "rationale": None}
 
 
@@ -20,7 +21,7 @@ def provenance_record(garden: str, record_id: str, artifact_id: str, artifact_di
             "inputs": list({canonical_json(item): item for item in inputs}.values()),
             "transformations": [{"order": order, **operation, "performed_by": dict(AUTHOR)}
                                 for order, operation in enumerate(transformations, 1)],
-            "generator": {"name": "mindgarden", "version": "0.1.0"},
+            "generator": {"name": "mindgarden", "version": __version__},
             "created_at": created_at, "rights": rights, "scope": scope}
 
 

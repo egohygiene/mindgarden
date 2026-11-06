@@ -33,7 +33,7 @@ ratify ADRs, invent missing contracts or authorize reading private consumer data
 | Issue | Bounded checkpoint / branch | State and evidence | Remaining / next action |
 | --- | --- | --- | --- |
 | #51 | Draft [#94](https://github.com/egohygiene/mindgarden/pull/94), `feature/51-provider-switch-proof` over #93; functional `1fac57d` | 308 tests per supported Python; clean source/wheel goldens; six reviewed records in 13,178/16,384 bytes | Maintainer review/merge of the bounded conformance scenario; live providers are not required |
-| #27 | Release declaration, authoritative version, reproducible artifacts and pinned shared tooling | Contract/owner inventory complete; no implementation in this checkpoint yet | Prepare a reviewable release flow; record external PyPI/signing states honestly |
+| #27 | `feature/27-release-preparation` over draft #94; [release guidance](releases.md) | Declaration/version/Taskfile/manual workflow and source-bound artifact builder implemented; exact candidate verification follows the source commit | Preserve root-authority schema mismatch, advisory owner policy and unavailable signing/PyPI; validate reproducible candidate before draft |
 | #20 | Complete synthetic archive→review→private fallback/public projection composition | Earlier local/mixed source proofs exist | Extend the composition; prepare an explicitly scoped private pilot and pinned Empathy handoff |
 | #19 | Acceptance and release readiness | Blocked by actual acceptance and external delivery setup | Prepare precise checks/artifacts; publish 1.0 only when acceptance and authority are evidenced |
 
@@ -77,3 +77,20 @@ cmp tests/fixtures/provider-continuity/expected-proof.json .cache/provider-switc
 Hosted automatic [Test 42300245942](https://github.com/egohygiene/mindgarden/actions/runs/42300245942)
 represents this exact functional source; its result is recorded after observation.
 Documentation-only follow-ups have their own runs. No paid workflow is manually dispatched.
+
+## Release convention source inventory
+
+Aether `8a2a3d08f3aa9da3847bd5277843506ab855192e`, Hygiene
+`92195e49b50778517ef670a7ec97c922dbdf9cec`, Relay
+`b4a88db20bc26f9ddefbee174baa8162cbe94ff2` and EgoLint
+`f14f7fd3ab0ce9e87c367352fcb3af11a32eda59` are the exact preparation pins.
+The declaration and EgoLint immutable-input checks pass. The native EgoLint
+Python consumer rule/final fixture-dogfood acceptance is separate; its current
+source planner supports Cargo only and is not used to claim Python conformance.
+Relay reference verification and its normative JSON Schema must both agree before
+publication; the root `pyproject.toml` parity defect remains an explicit gate.
+
+Proposed release staging correction: #19 prepublication checks use a reviewed
+immutable candidate and consumer pin. The clean PyPI install and final released
+Empathy pin are postpublication verification, rather than a circular prerequisite
+for the first release. No acceptance is removed or inferred from local artifacts.

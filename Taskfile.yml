@@ -1,0 +1,21 @@
+version: "3"
+
+tasks:
+  release:plan:
+    desc: Inspect the declared version and pinned owner release plan without mutation
+    cmds:
+      - python3 scripts/release.py plan {{.CLI_ARGS}}
+  release:prepare:
+    desc: Build a source-bound reproducible candidate bundle without publishing
+    cmds:
+      - python3 scripts/release.py prepare {{.CLI_ARGS}}
+  release:verify:
+    desc: Verify the candidate and preserve every external acceptance gate
+    cmds:
+      - python3 scripts/release.py verify {{.CLI_ARGS}}
+  release:publish:
+    desc: Hand a reviewed current-main candidate to the manual GitHub release workflow
+    requires:
+      vars: [VERSION, REVISION]
+    cmds:
+      - gh workflow run .github/workflows/release.yml --ref main --field "release-version={{.VERSION}}" --field "expected-source-revision={{.REVISION}}"

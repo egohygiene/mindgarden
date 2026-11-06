@@ -1,0 +1,6 @@
+{
+  "aether": {"repository": "egohygiene/aether", "revision": "8a2a3d08f3aa9da3847bd5277843506ab855192e"},
+  "hygiene": {"repository": "egohygiene/hygiene", "revision": "92195e49b50778517ef670a7ec97c922dbdf9cec"},
+  "relay": {"repository": "egohygiene/relay", "revision": "b4a88db20bc26f9ddefbee174baa8162cbe94ff2"},
+  "egolint": {"repository": "egohygiene/egolint", "revision": "f14f7fd3ab0ce9e87c367352fcb3af11a32eda59"}
+}
