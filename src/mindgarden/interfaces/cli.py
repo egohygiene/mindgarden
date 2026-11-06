@@ -605,6 +605,14 @@ def build_parser() -> ArgumentParser:
         if operation == "resolve":
             command.add_argument("--content-id", required=True)
         command.set_defaults(handler=run_vault)
+    from ..application.policy import run_policy
+
+    policy = commands.add_parser("policy", help="Inspect the local reference policy and deterministic information-flow decisions")
+    policy_operations = policy.add_subparsers(dest="operation", required=True)
+    policy_operations.add_parser("inspect").set_defaults(handler=run_policy)
+    evaluate = policy_operations.add_parser("evaluate")
+    evaluate.add_argument("--input", type=Path, required=True)
+    evaluate.set_defaults(handler=run_policy)
     return parser
 
 

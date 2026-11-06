@@ -114,6 +114,8 @@ class V1ContractTests(unittest.TestCase):
                 "source-adapter",
                 "synapse",
                 "scope",
+                "scope-request",
+                "scope-decision",
                 "local-bindings",
                 "session",
                 "vault",

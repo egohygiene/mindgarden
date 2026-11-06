@@ -1,0 +1,13 @@
+{
+  "schema": "example.scope-policy-cases/1",
+  "cases": [
+    {"id":"public-join","operation":"query","sources":["public"],"outcome":"allow","visibility":"public","code":"SCOPE_JOIN"},
+    {"id":"personal-derived","operation":"query","sources":["public","personal"],"outcome":"allow","visibility":"personal","code":"SCOPE_JOIN"},
+    {"id":"organization-derived","operation":"query","sources":["public","organization"],"outcome":"allow","visibility":"organization","code":"SCOPE_JOIN"},
+    {"id":"mixed-domains","operation":"query","sources":["personal","organization"],"outcome":"allow","visibility":"restricted","code":"SCOPE_JOIN"},
+    {"id":"private-write","operation":"write","sources":["personal"],"destination":"personal","outcome":"allow","visibility":"personal","code":"SCOPE_DESTINATION"},
+    {"id":"private-to-public","operation":"export","sources":["personal"],"destination":"public","outcome":"deny","visibility":"personal","code":"OUTPUT_SCOPE"},
+    {"id":"restricted-runtime","operation":"write","sources":["restricted"],"destination":"restricted","outcome":"unavailable","visibility":"restricted","code":"RUNTIME_UNVERIFIED"},
+    {"id":"declassification-review","operation":"declassify","sources":["personal"],"destination":"public","outcome":"review-required","visibility":"personal","code":"REVIEW_AUTHORITY"}
+  ]
+}

@@ -285,3 +285,10 @@ both supported Pythons, clean-source/isolated-wheel golden proofs and automatic 
 The map records exact commits, stack bases, commands, failed-run corrections,
 remaining parent criteria and the next review action. No parent was closed and
 ADR-0007–0022 remain proposed/null approval.
+
+## Private policy and storage continuation
+
+The maintainer authorized #29 → #31 → #30 → #35 → #45 on top of draft #79.
+The [checkpoint/dependency map](private-storage-sprint.md) records shared policy
+decisions and the external Hygiene/Realm gaps before runtime coupling. No existing
+draft is merged or parent closed by this continuation.

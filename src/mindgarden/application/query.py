@@ -11,6 +11,7 @@ from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes, r
 from ..domain.garden import GardenSnapshot, inspect_garden
 from ..domain.scope import POLICY_REFERENCE, inherit_scope, local_scope, record_scope, validate_scope
 from ..domain.registry import verify_session_view
+from ..domain.scope_policy import decide_scope
 from ..domain.validation import ContractError
 from .bindings import LocalBindings
 from .query_view import metadata_view
@@ -194,7 +195,10 @@ class QueryContext:
         authority = local_scope(request["visibility"], persistence=request["persistence"],
                                 execution=self.session["execution"],
                                 publication=self.session["publication_authority"])
-        return inherit_scope([request, authority, *contributing])
+        decision = decide_scope("query", [request, authority, *contributing])
+        if decision["outcome"] != "allow":
+            raise ContractError(decision["code"] + ": output policy is unavailable")
+        return decision["scope"]
 
     def scope_digest(self) -> str:
         return digest_bytes(canonical_json(self.session))

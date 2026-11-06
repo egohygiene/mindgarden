@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:scope-decision:v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "operation",
+    "policy",
+    "outcome",
+    "code",
+    "scope",
+    "assurance",
+    "inputs_sha256"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.scope-decision/v1"
+    },
+    "operation": {
+      "type": "string"
+    },
+    "policy": {
+      "title": "Mindgarden policy-reference v1",
+      "type": "object",
+      "required": [
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "outcome": {
+      "enum": [
+        "allow",
+        "deny",
+        "review-required",
+        "unavailable"
+      ]
+    },
+    "code": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]+$"
+    },
+    "scope": {
+      "oneOf": [
+        {
+          "$ref": "urn:egohygiene:mindgarden:scope:v1"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "assurance": {
+      "const": "not-asserted"
+    },
+    "inputs_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    }
+  },
+  "additionalProperties": false
+}
