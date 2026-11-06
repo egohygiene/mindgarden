@@ -1,0 +1,10 @@
+{
+  "schema": "example.synthetic-projection-corpus/1",
+  "default_notes": 1024,
+  "maximum_notes": 4096,
+  "claims": 1,
+  "typed_relationships": 1,
+  "context_max_bytes": 4096,
+  "generator": "tests/projection_corpus.py",
+  "content": "Synthetic identifiers and text only; no archives or provider calls."
+}

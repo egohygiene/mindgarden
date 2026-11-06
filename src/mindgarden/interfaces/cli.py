@@ -246,7 +246,7 @@ def add_agent_commands(commands: ParserCollection) -> None:
 
     from ..application.retrieval import run_projection
 
-    for name in ("graph", "backlinks"):
+    for name in ("graph", "backlinks", "outbound"):
         command = commands.add_parser(name, help="Retrieve an authorized typed relationship projection")
         add_repository_root(command)
         command.add_argument("--local-config", type=Path, required=True)

@@ -14,7 +14,7 @@ boundary checks and clean-source/installed-wheel proofs recorded separately.
 See the [merge receipt](merged-experience-checkpoints.md) and
 [checkpoint map](garden-experience-milestone.md). The original stack receipts and
 B1/B2 draft evidence below are historical. All 38 parent issues remain open;
-ADR-0007–0021 remain proposed/null approval. The maintainer confirmed the next sprint as #11 → #13 → #15 → #14 → #12 → #16.
+ADR-0007–0022 remain proposed/null approval. The maintainer confirmed the next sprint as #11 → #13 → #15 → #14 → #12 → #16.
 See [the dependency and checkpoint map](source-workflow-sprint.md).
 
 Merged main: `9fae752b3cf7eb9c74033a72a12d125c42f8659e`. Its tree is exactly
@@ -143,9 +143,9 @@ not one serial gate over all work.
 | Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
 | --- | --- | --- | --- | --- |
 | [#11](https://github.com/egohygiene/mindgarden/issues/11) — normalized-source extension boundary | partial | #57/#60 plus draft #74 versioned adapter declarations, bounded conformance harness, immutable observation and reference extension fixtures | Provider-neutral Mindcap #35 wire contract, real producer handoff and wider adapter corpus | #8/#9/#10; Mindcap #35/#48 for bookmark proof; J; capture/model producer stays separate |
-| [#12](https://github.com/egohygiene/mindgarden/issues/12) — graph/search/bounded context | partial | #58/#62/#64 reviewed knowledge/claim indexes, typed links, explainable search, exact evidence and reproducible context | Complete projection golden/schema matrix and honest large-corpus runtime/memory bounds | #8/#9/#10; B1 public output, Q performance; no database needed for current workflow |
+| [#12](https://github.com/egohygiene/mindgarden/issues/12) — graph/search/bounded context | partial | #58/#62/#64 plus sprint outbound links, eight-projection golden/schema matrix, selected redaction provenance and measured 1024-note corpus | Wider graph-type/cross-garden consumer matrix; larger corpus/runtime envelopes beyond the measured local reference | #8/#9/#10; B1 public output, Q performance; no database needed for current workflow |
 | [#13](https://github.com/egohygiene/mindgarden/issues/13) — reviewable curation/extraction plans | partial | #59/#64 plus sprint draft: merge qualification/author inheritance, exact relationships, selected claim evidence and authored redactions | Wider independent media/multi-route proofs; optional versioned entity/triple producer with failure/resume/evaluation fixtures | #9/#10/#11; J and optional producer checkpoint; no model prerequisite for authored plans |
-| [#14](https://github.com/egohygiene/mindgarden/issues/14) — canonical routing/private fallback | partial | #61 explained plans, explicit public review, one home/typed references; #63/#64 recovery | Existing-item move/rename/split/merge/transfer reconciliation, full registry and organization contracts | #9/#10/#12/#13; B1 descriptors then B2 registry; no public default from missing fallback |
+| [#14](https://github.com/egohygiene/mindgarden/issues/14) — canonical routing/private fallback | partial | #61/#63/#64 plus draft #77 append-only private move/merge transitions, aliases, one retrievable home and recovery | Public/policy-changing and attached graph transfers, split reconciliation, full registry/organization acceptance | #9/#10/#12/#13; B1 descriptors then B2 registry; no public default from missing fallback |
 | [#15](https://github.com/egohygiene/mindgarden/issues/15) — conversation archives/selective assets | partial | #60/#64 plus sprint: v1.2.1 minimal reader, v3.2.2/v3.2.3 profiles, selective attachment catalogs/bytes, opaque JSON attachment proof | v2.0.1 reader/fixtures over inspected v2.0.0 baseline; collections/multipart, wider media and full producer conformance | #11/#13, Mindcap #31; B4 historical compatibility only after authoritative specs; do not infer old-version support |
 
 ## Projections, federation and portability
