@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:insight-artifact-event:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "id",
+    "candidate",
+    "candidate_revision",
+    "state",
+    "review",
+    "artifacts",
+    "rationale"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.insight-artifact-event/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "candidate": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "candidate_revision": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "state": {
+      "enum": [
+        "rendered",
+        "failed",
+        "rejected",
+        "published"
+      ]
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "uri",
+          "sha256",
+          "media_type",
+          "role"
+        ],
+        "properties": {
+          "uri": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://",
+            "maxLength": 2048
+          },
+          "sha256": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+          },
+          "media_type": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "role": {
+            "enum": [
+              "image",
+              "caption",
+              "alt-text",
+              "packet"
+            ]
+          }
+        }
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    }
+  }
+}

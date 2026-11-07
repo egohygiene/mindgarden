@@ -168,6 +168,10 @@ class V1ContractTests(unittest.TestCase):
                 "compaction-plan",
                 "compaction-manifest",
                 "adr-projection",
+                "insight-candidate",
+                "insight-plan",
+                "insight-projection",
+                "insight-artifact-event",
                 "learning-answer",
                 "learning-card",
                 "learning-summary",
@@ -178,7 +182,6 @@ class V1ContractTests(unittest.TestCase):
                 "learning-plan",
                 "learning-schedule",
                 "learning-projection",
-
                 "memory-plan",
                 "bookmark-decision",
                 "bookmark-review-request",
@@ -203,9 +206,7 @@ class V1ContractTests(unittest.TestCase):
             with self.subTest(fixture=fixture_path.name):
                 instance = load_json(fixture_path)
                 contract = (
-                    str(instance["schema"])
-                    .removeprefix("mindgarden.")
-                    .split("/")[0]
+                    str(instance["schema"]).removeprefix("mindgarden.").split("/")[0]
                 )
                 self.validator(contract).validate(instance)
 

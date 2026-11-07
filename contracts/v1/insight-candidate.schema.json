@@ -1,0 +1,255 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:insight-candidate:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "id",
+    "garden",
+    "objective",
+    "audience",
+    "intended_use",
+    "claims",
+    "uncertainty",
+    "review",
+    "publication",
+    "rights",
+    "visual",
+    "caption",
+    "alt_text",
+    "channel",
+    "lifecycle",
+    "supersedes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.insight-candidate/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "audience": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "intended_use": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text",
+          "representation",
+          "certainty",
+          "references",
+          "rights"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192
+          },
+          "representation": {
+            "enum": [
+              "quoted",
+              "paraphrase",
+              "inference"
+            ]
+          },
+          "certainty": {
+            "enum": [
+              "supported",
+              "qualified"
+            ]
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+            },
+            "minItems": 1,
+            "maxItems": 100
+          },
+          "rights": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "status",
+              "license",
+              "attribution",
+              "review"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "approved",
+                  "unknown",
+                  "denied"
+                ]
+              },
+              "license": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "attribution": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 8192
+              },
+              "review": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+              }
+            }
+          }
+        }
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "uncertainty": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 8192
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "publication": {
+      "const": "eligible-for-reviewed-handoff"
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "license",
+        "attribution",
+        "review"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "approved",
+            "unknown",
+            "denied"
+          ]
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "attribution": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8192
+        },
+        "review": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+        }
+      }
+    },
+    "visual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "form",
+        "hierarchy"
+      ],
+      "properties": {
+        "form": {
+          "enum": [
+            "comparison",
+            "sequence",
+            "relationship",
+            "timeline",
+            "single-insight"
+          ]
+        },
+        "hierarchy": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192
+          },
+          "minItems": 1,
+          "maxItems": 100
+        }
+      }
+    },
+    "caption": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "alt_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "channel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "format"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "format": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        }
+      }
+    },
+    "lifecycle": {
+      "enum": [
+        "proposed",
+        "approved",
+        "rejected",
+        "superseded",
+        "published"
+      ]
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+      },
+      "minItems": 0,
+      "maxItems": 100
+    }
+  }
+}

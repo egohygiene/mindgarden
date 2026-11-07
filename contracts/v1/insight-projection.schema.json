@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:insight-projection:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "canonical",
+    "scope",
+    "trust",
+    "candidates",
+    "series",
+    "duplicates",
+    "artifact_verification"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.insight-projection/v1"
+    },
+    "canonical": {
+      "const": false
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "trust": {
+      "const": "source-data-only"
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate",
+          "revision",
+          "sources",
+          "qualification_reasons",
+          "source_digest",
+          "artifact_events"
+        ],
+        "properties": {
+          "candidate": {
+            "$ref": "urn:egohygiene:mindgarden:insight-candidate:v1"
+          },
+          "revision": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "reference",
+                "scope",
+                "review",
+                "confidence",
+                "evidence",
+                "qualifications",
+                "claim_relationships"
+              ],
+              "properties": {
+                "reference": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+                },
+                "scope": {
+                  "$ref": "urn:egohygiene:mindgarden:scope:v1"
+                },
+                "review": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+                },
+                "confidence": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence"
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+                  },
+                  "minItems": 1,
+                  "maxItems": 100
+                },
+                "qualifications": {
+                  "type": "object"
+                },
+                "claim_relationships": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 8192
+                  },
+                  "minItems": 0,
+                  "maxItems": 100
+                }
+              }
+            },
+            "minItems": 1,
+            "maxItems": 100
+          },
+          "qualification_reasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 8192
+            },
+            "minItems": 0,
+            "maxItems": 100
+          },
+          "source_digest": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+          },
+          "artifact_events": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:insight-artifact-event:v1"
+            },
+            "minItems": 0,
+            "maxItems": 100
+          }
+        }
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "series": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "candidates",
+          "review"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192
+          },
+          "candidates": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+            },
+            "minItems": 1,
+            "maxItems": 100
+          },
+          "review": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+          }
+        }
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "duplicates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate",
+          "canonical_candidate"
+        ],
+        "properties": {
+          "candidate": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "canonical_candidate": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          }
+        }
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "artifact_verification": {
+      "const": "declared-not-fetched"
+    }
+  }
+}
