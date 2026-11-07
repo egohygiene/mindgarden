@@ -1,0 +1,207 @@
+{
+  "files": {
+    "learning-digest.json": "69e85eec095246a40ed53282c395f9b25e2d0db9f6146741403b698eed0f3cdc",
+    "learning-projection.json": "ee610d4ee8ad94769548d3c500da5058afecd0f3a744aa519ed6ac6f207cf976",
+    "learning-review-history.json": "3e022a91d9b3c07cd3d537f522b69a05941ea774ef248667ba78c414c849580d",
+    "study.html": "4f528901cc167c88a13faa14ccc7f412cdb4e6c57f3b1d4f2959d66fd1ed0c75",
+    "study.md": "6927d5897bf23f0fe4af999ca11e92f4da44ed85fa054e72b59c7e1299281a03"
+  },
+  "items": [
+    {
+      "id": "boundary-summary",
+      "revision": "sha256:0a66e06a4448176ad68525fe3c01b251d95b12f2a59fb35b5632e9883c5d0ef7",
+      "sources": [
+        {
+          "claim_relationships": [],
+          "confidence": "high",
+          "evidence": [
+            {
+              "content_sha256": "6ef50ddbb15db9b2fd291ee55831ef2e7ffa40a60dde7e5f7e455b8dfa200d3c",
+              "locator": "artifact",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-18d6ccee3b2e335585edd932-6ef50ddbb15db9b2",
+                "revision": "sha256:6ef50ddbb15db9b2fd291ee55831ef2e7ffa40a60dde7e5f7e455b8dfa200d3c"
+              }
+            }
+          ],
+          "qualifications": {
+            "attribution": "authored-synthetic-fixture",
+            "caveats": [],
+            "contradictions": [],
+            "epistemic_state": "observed",
+            "uncertainty": []
+          },
+          "reference": {
+            "garden": "synthetic-garden",
+            "id": "learning-facts",
+            "revision": "sha256:7dd54869929c3d5bb38ee759f534887303f24747ba4a6cef7a2c814d3633c270"
+          },
+          "review": {
+            "rationale": "Synthetic human review fixture.",
+            "reviewed_at": "2026-11-04T00:00:00Z",
+            "reviewers": [
+              "synthetic-reviewer"
+            ],
+            "state": "approved"
+          },
+          "scope": {
+            "execution": "offline",
+            "persistence": "machine-local",
+            "policy": {
+              "id": "mindgarden-local-single-user/v1",
+              "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+            },
+            "publication": "review-required",
+            "schema": "mindgarden.scope/v1",
+            "visibility": "personal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "portable-card",
+      "revision": "sha256:04db4c3d1616bd1347b88374dd5a74cf60657ca2773f5feeabfe52bfca104db5",
+      "sources": [
+        {
+          "claim_relationships": [],
+          "confidence": "high",
+          "evidence": [
+            {
+              "content_sha256": "6ef50ddbb15db9b2fd291ee55831ef2e7ffa40a60dde7e5f7e455b8dfa200d3c",
+              "locator": "artifact",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-18d6ccee3b2e335585edd932-6ef50ddbb15db9b2",
+                "revision": "sha256:6ef50ddbb15db9b2fd291ee55831ef2e7ffa40a60dde7e5f7e455b8dfa200d3c"
+              }
+            }
+          ],
+          "qualifications": {
+            "attribution": "authored-synthetic-fixture",
+            "caveats": [],
+            "contradictions": [],
+            "epistemic_state": "observed",
+            "uncertainty": []
+          },
+          "reference": {
+            "garden": "synthetic-garden",
+            "id": "learning-facts",
+            "revision": "sha256:7dd54869929c3d5bb38ee759f534887303f24747ba4a6cef7a2c814d3633c270"
+          },
+          "review": {
+            "rationale": "Synthetic human review fixture.",
+            "reviewed_at": "2026-11-04T00:00:00Z",
+            "reviewers": [
+              "synthetic-reviewer"
+            ],
+            "state": "approved"
+          },
+          "scope": {
+            "execution": "offline",
+            "persistence": "machine-local",
+            "policy": {
+              "id": "mindgarden-local-single-user/v1",
+              "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+            },
+            "publication": "review-required",
+            "schema": "mindgarden.scope/v1",
+            "visibility": "personal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "source-card",
+      "revision": "sha256:f8631524a382e058c05719bdb9cc09f7ab25904aa3c4a7b7407b7651a0195ce6",
+      "sources": [
+        {
+          "claim_relationships": [
+            "supports"
+          ],
+          "confidence": "high",
+          "evidence": [
+            {
+              "content_sha256": "6ef50ddbb15db9b2fd291ee55831ef2e7ffa40a60dde7e5f7e455b8dfa200d3c",
+              "locator": "artifact",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-18d6ccee3b2e335585edd932-6ef50ddbb15db9b2",
+                "revision": "sha256:6ef50ddbb15db9b2fd291ee55831ef2e7ffa40a60dde7e5f7e455b8dfa200d3c"
+              }
+            }
+          ],
+          "qualifications": {
+            "attribution": "not-declared",
+            "caveats": [],
+            "contradictions": [],
+            "epistemic_state": "observed",
+            "uncertainty": []
+          },
+          "reference": {
+            "garden": "synthetic-garden",
+            "id": "learning-claim",
+            "revision": "sha256:bf0f502971cf1cc3bc2f25f9dcc2e6892f404e0b75d4cd4093f68a474d2b78ba"
+          },
+          "review": {
+            "rationale": "Synthetic human review fixture.",
+            "reviewed_at": "2026-11-04T00:00:00Z",
+            "reviewers": [
+              "synthetic-reviewer"
+            ],
+            "state": "approved"
+          },
+          "scope": {
+            "execution": "offline",
+            "persistence": "machine-local",
+            "policy": {
+              "id": "mindgarden-local-single-user/v1",
+              "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+            },
+            "publication": "review-required",
+            "schema": "mindgarden.scope/v1",
+            "visibility": "personal"
+          }
+        }
+      ]
+    }
+  ],
+  "model": "unused",
+  "review_history": "private",
+  "schedules": [
+    {
+      "algorithm": {
+        "id": "fixed-intervals",
+        "version": "1.0.0"
+      },
+      "due": true,
+      "due_at": "2026-11-05T00:00:00Z",
+      "interval_days": 1,
+      "item": "portable-card",
+      "item_revision": "sha256:04db4c3d1616bd1347b88374dd5a74cf60657ca2773f5feeabfe52bfca104db5",
+      "last_event": null,
+      "reason": "initial-or-edited-item",
+      "schema": "mindgarden.learning-schedule/v1",
+      "stage": 0,
+      "view_as_of": "2026-11-07T00:00:00Z"
+    },
+    {
+      "algorithm": {
+        "id": "fixed-intervals",
+        "version": "1.0.0"
+      },
+      "due": true,
+      "due_at": "2026-11-05T00:00:00Z",
+      "interval_days": 1,
+      "item": "source-card",
+      "item_revision": "sha256:f8631524a382e058c05719bdb9cc09f7ab25904aa3c4a7b7407b7651a0195ce6",
+      "last_event": null,
+      "reason": "initial-or-edited-item",
+      "schema": "mindgarden.learning-schedule/v1",
+      "stage": 0,
+      "view_as_of": "2026-11-07T00:00:00Z"
+    }
+  ],
+  "schema": "mindgarden.synthetic-learning-proof/v1",
+  "total_bytes": 30648
+}

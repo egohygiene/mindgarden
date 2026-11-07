@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:learning-review-history:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "deck",
+    "scope",
+    "events",
+    "publication"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.learning-review-history/v1"
+    },
+    "deck": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:learning-review-event:v1"
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "publication": {
+      "const": "never-exportable"
+    }
+  }
+}

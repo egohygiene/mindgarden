@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:learning-answer:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "text",
+    "rubric",
+    "certainty"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.learning-answer/v1"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "rubric": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "certainty": {
+      "enum": [
+        "supported",
+        "qualified"
+      ]
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:learning-card:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "id",
+    "title",
+    "objective",
+    "difficulty",
+    "representation",
+    "uncertainty",
+    "review",
+    "lifecycle",
+    "supersedes",
+    "type",
+    "prompt",
+    "answer"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.learning-card/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "difficulty": {
+      "enum": [
+        "introductory",
+        "intermediate",
+        "advanced"
+      ]
+    },
+    "representation": {
+      "enum": [
+        "quoted",
+        "paraphrase",
+        "inference",
+        "model-suggestion"
+      ]
+    },
+    "uncertainty": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 8192
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "lifecycle": {
+      "enum": [
+        "proposed",
+        "approved",
+        "rejected",
+        "suspended",
+        "superseded"
+      ]
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "type": {
+      "enum": [
+        "factual",
+        "cloze"
+      ]
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "answer": {
+      "$ref": "urn:egohygiene:mindgarden:learning-answer:v1"
+    }
+  }
+}

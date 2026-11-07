@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:learning-candidate:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "references",
+    "rationale",
+    "output"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.learning-candidate/v1"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "output": {
+      "oneOf": [
+        {
+          "$ref": "urn:egohygiene:mindgarden:learning-card:v1"
+        },
+        {
+          "$ref": "urn:egohygiene:mindgarden:learning-summary:v1"
+        }
+      ]
+    }
+  }
+}
