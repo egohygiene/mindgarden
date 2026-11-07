@@ -36,7 +36,7 @@ new default store, framework, model provider or product.
 
 | Issue | Branch / PR and implemented checkpoint | Verification | Remaining / exact next action |
 | --- | --- | --- | --- |
-| #28 | `feature/28-learning-projections` over #104; authored cards/summaries/private grading/versioned schedules/export round trip | 12 focused tests on Python 3.12/3.13 + 5 schema tests; Chromium static accessibility proof | Authored cards/summaries, exact provenance, private events, schedule versions and export round trip; full hosted UI remains separate |
+| #28 | [draft #105](https://github.com/egohygiene/mindgarden/pull/105), `3510b22`, over #104; authored cards/summaries/private grading/versioned schedules/export round trip | 12 focused tests on Python 3.12/3.13 + 5 schema tests; Chromium static accessibility proof | Authored cards/summaries, exact provenance, private events, schedule versions and export round trip; full hosted UI remains separate |
 | #21 | Planned next draft over #28 | Pending | Reviewed renderer-independent insight/series candidates, public-safe provenance, duplicate/lifecycle/privacy fixtures; no rendering or posting |
 | #26 | Planned evaluation draft | Pending | Pin OpenAleph evidence; architectural/privacy/license/cost matrix and removable synthetic export experiment |
 | #33 | Planned optional CozoDB experiment | Pending | Exact native version/adapter, multi-garden parity, resource/recovery/exit proof; no canonical store change |

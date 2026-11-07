@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-07T07:18:53Z'
+  updated_at: '2026-11-07T07:19:44Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -80,15 +80,18 @@ state:
   base:
     revision: 0d436f49af1a8593676f7c77451c93dbc34b543f
     ref: refs/heads/fix/32-optional-sqlite-boundary
-    verified_at: '2026-11-07T07:18:53Z'
+    verified_at: '2026-11-07T07:19:44Z'
   candidate:
     branch: feature/28-learning-projections
-    revision: 0d436f49af1a8593676f7c77451c93dbc34b543f
-    pull_request: null
+    revision: 3510b22bff23e47e8aaf3dcc6dee39e3baca3850
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#105
+      url: https://github.com/egohygiene/mindgarden/pull/105
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-07T07:18:53Z'
+    observed_at: '2026-11-07T07:19:44Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: draft
@@ -100,20 +103,20 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/104
 review:
   status: partial
-  reviewed_at: '2026-11-07T07:18:53Z'
+  reviewed_at: '2026-11-07T07:19:44Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest tests.test_learning tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-07T07:18:53Z'
+    observed_at: '2026-11-07T07:19:44Z'
     notes: 17 tests pass; Python 3.12.14
   - command: .cache/python313/bin/python -m unittest tests.test_learning -q
     outcome: passed
-    observed_at: '2026-11-07T07:18:53Z'
+    observed_at: '2026-11-07T07:19:44Z'
     notes: 12 tests pass; Python 3.13.5
   - command: python3 scripts/learning_browser_check.py --report tests/fixtures/learning/observed-browser.json
     outcome: passed
-    observed_at: '2026-11-07T07:18:53Z'
+    observed_at: '2026-11-07T07:19:44Z'
     notes: Chromium 151; keyboard, 320/1280 px, 200% zoom, reduced motion; static adapter only
   environment_limitations:
   - '#28 full hosted study UI, notification/sync and Realm runtime acceptance remain parent scope.'
