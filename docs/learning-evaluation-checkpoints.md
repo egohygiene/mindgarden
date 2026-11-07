@@ -36,11 +36,11 @@ new default store, framework, model provider or product.
 
 | Issue | Branch / PR and implemented checkpoint | Verification | Remaining / exact next action |
 | --- | --- | --- | --- |
-| #28 | [draft #105](https://github.com/egohygiene/mindgarden/pull/105), `3510b22`, over #104; authored cards/summaries/private grading/versioned schedules/export round trip | 12 focused tests on Python 3.12/3.13 + 5 schema tests; Chromium static accessibility proof | Authored cards/summaries, exact provenance, private events, schedule versions and export round trip; full hosted UI remains separate |
-| #21 | [draft #106](https://github.com/egohygiene/mindgarden/pull/106), `4e12dcd`, over #105; public reviewed candidates/series, rights, duplicates and artifact-feedback projections | 9 focused tests on Python 3.12/3.13 + 5 schema cases | Reviewed renderer-independent insight/series candidates, public-safe provenance, duplicate/lifecycle/privacy fixtures; no rendering or posting |
-| #26 | [draft #107](https://github.com/egohygiene/mindgarden/pull/107), `c5b1f52`, over #106; [pinned architecture/privacy/cost/ownership matrix](evaluations/openaleph.md), proposed adapt/defer recommendation | Official 5.3.2 source/license/docs reviewed; native FtM binary probe blocked, not passed | Pin OpenAleph evidence; architectural/privacy/license/cost matrix and removable synthetic export experiment |
-| #33 | [draft #108](https://github.com/egohygiene/mindgarden/pull/108), `7c75d12`, over #107; [native adapter/measurements/recovery/exit](evaluations/cozodb.md), proposed defer adoption | Five native cases; 262-record exact parity; native FTS/HNSW smoke; no-Cozo exit probe | Exact native version/adapter, multi-garden parity, resource/recovery/exit proof; no canonical store change |
-| #34 | Planned optional OpenViking experiment | Pending | Exact version/license, synthetic provenance adapter, network/model/storage behavior, baseline comparison or explicit blockers and removal |
+| #28 | [draft #105](https://github.com/egohygiene/mindgarden/pull/105), `3510b22`, over #104; authored cards/summaries/private grading/versioned schedules/export round trip | 12 focused tests on Python 3.12/3.13 + 5 schema tests; Chromium static accessibility proof | Full hosted #17 study UI, reminders/sync and runtime assurance; optional automatic proposals; review #105 |
+| #21 | [draft #106](https://github.com/egohygiene/mindgarden/pull/106), `4e12dcd`, over #105; public reviewed candidates/series, rights, duplicates and artifact-feedback projections | 9 focused tests on Python 3.12/3.13 + 5 schema cases | Approved private redaction and accepted downstream intake/publication remain open; review #106 |
+| #26 | [draft #107](https://github.com/egohygiene/mindgarden/pull/107), `c5b1f52`, over #106; [pinned architecture/privacy/cost/ownership matrix](evaluations/openaleph.md), proposed adapt/defer recommendation | Official 5.3.2 source/license/docs reviewed; native FtM binary probe blocked, not passed | Maintainer disposition; optional native FtM export blocked by PyICU/ICU; no service adoption |
+| #33 | [draft #108](https://github.com/egohygiene/mindgarden/pull/108), `7c75d12`, over #107; [native adapter/measurements/recovery/exit](evaluations/cozodb.md), proposed defer adoption | Five native cases; 262-record exact parity; native FTS/HNSW smoke; no-Cozo exit probe | Maintainer disposition, other platforms, actual upgrades, installed restore dispatch and confidential runtime remain open |
+| #34 | `experiment/34-openviking-projection` over #108; [producer/native blocked-runtime evaluation](evaluations/openviking.md), proposed adapt/defer | Four producer cases on Python 3.12/3.13; native 0.5.3/SDK 0.1.18 config/model/network/startup observations, explicitly blocked | Native quality/retrieval/memory/backup/upgrade/encrypted-runtime proofs blocked; review proposed defer disposition |
 
 ## Existing gates retained
 
@@ -51,6 +51,17 @@ full framework/runtime work remain gated. Real #20 pilot/consumer cutover,
 restricted runtime assurance and #48 external handoffs remain unverified.
 Release #19, further release work and deferred #86–#91 are not activated.
 
-The exact next action is #34 OpenViking compatibility/runtime evaluation and honest blocker recording. Every
+The exact next action is final combined validation, then morning maintainer review of #105 → #106 → #107 → #108 → the OpenViking draft. No automatic merge. Every
 checkpoint will record source/PR, commands/results, supported interfaces, genuine
 blockers and the following action. Leave all new drafts for the morning sync.
+
+## Reproducible validation of the combined stack
+
+`python -S scripts/learning_insight_demo.py --require-source` proves exact
+committed learning/insight goldens through CLI preview/apply and learning import.
+Run with an isolated installed wheel using `python -I ... --require-installed`
+for the packaging proof. Parent/CLI Python sockets are blocked; only temporary
+synthetic fixtures are accepted. Optional native experiment commands, limits
+and blocked steps are recorded in their linked evaluations. Baseline full-suite
+results and exact functional revisions are added after final verification;
+unavailable checks must remain explicit.

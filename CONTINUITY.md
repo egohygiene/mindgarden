@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-07T07:36:21Z'
+  updated_at: '2026-11-07T07:47:29Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -65,70 +65,86 @@ work:
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#33
-    url: https://github.com/egohygiene/mindgarden/issues/33
+    id: egohygiene/mindgarden#34
+    url: https://github.com/egohygiene/mindgarden/issues/34
   next:
     kind: action
-    id: 34-openviking-evaluation
-    description: Evaluate pinned OpenViking 0.5.3 with a removable scoped provenance export and an explicit offline/native
-      config/startup probe. Compare against baseline only where actual behavior is measured; record missing models/runtime/lifecycle
-      evidence as blockers.
+    id: morning-review-and-regroup
+    description: "Regroup with the maintainer; review drafts #105 \u2192 #106 \u2192 #107 \u2192 #108 \u2192 the\
+      \ OpenViking draft over #104. Decide optional evaluation dispositions and next ready parent gaps. Do not merge,\
+      \ publish, resume releases or activate #86\u2013#91 automatically."
     readiness: ready
     references:
     - docs/learning-evaluation-checkpoints.md
     depends_on: []
 state:
   base:
-    revision: c0a0cd71d351b3185fa44d478d3f48f7ab1d46af
-    ref: refs/heads/docs/26-openaleph-evaluation
-    verified_at: '2026-11-07T07:36:21Z'
+    revision: 169ded072c9b519413cd4919d4a1eadbf9331ffc
+    ref: refs/heads/experiment/33-cozo-query-store
+    verified_at: '2026-11-07T07:47:29Z'
   candidate:
-    branch: experiment/33-cozo-query-store
-    revision: 7c75d12f9249b08ce4ac10ad003bc33d448bd8af
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#108
-      url: https://github.com/egohygiene/mindgarden/pull/108
+    branch: experiment/34-openviking-projection
+    revision: 169ded072c9b519413cd4919d4a1eadbf9331ffc
+    pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-07T07:36:21Z'
+    observed_at: '2026-11-07T07:47:29Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: draft
-    notes: "Main d5edb13; drafts #93\u2013#107 unmerged. Cozo experiment extends #107 (c0a0cd7); all 44 issues remain\
-      \ open. Default dependency set stays empty; no canonical store migration."
+    notes: "Main d5edb13; #93\u2013#108 remain unmerged. Combined OpenViking branch extends #108 at 169ded0. All\
+      \ 44 issues remain open. Four producer cases pass both Pythons; core full-suite rerun with loopback permission\
+      \ is still running. New source/installed wheel CLI proofs pass."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#104
     url: https://github.com/egohygiene/mindgarden/pull/104
 review:
   status: partial
-  reviewed_at: '2026-11-07T07:36:21Z'
+  reviewed_at: '2026-11-07T07:47:29Z'
   reviewed_by: codex
   evidence:
-  - command: .cache/evaluations/cozo-python/bin/python -m unittest experiments.cozo.test_adapter -q
+  - command: .venv/bin/python -m unittest experiments.openviking.test_adapter -q
     outcome: passed
-    observed_at: '2026-11-07T07:36:21Z'
-    notes: five native cases pass; Python 3.12.14
-  - command: 'Python 3.13 with the same isolated abi3 wheel: unittest experiments.cozo.test_adapter'
+    observed_at: '2026-11-07T07:47:29Z'
+    notes: four dependency-free producer cases pass; Python 3.12.14
+  - command: .cache/python313/bin/python -m unittest experiments.openviking.test_adapter -q
     outcome: passed
-    observed_at: '2026-11-07T07:36:21Z'
-    notes: five cases pass (before added denied-input/staged-failure assertions; rerun at final validation)
-  - command: .cache/evaluations/cozo-python/bin/python -m experiments.cozo.benchmark --records-per-garden 128 --report
-      experiments/cozo/observed-baseline.json
+    observed_at: '2026-11-07T07:47:29Z'
+    notes: four producer cases pass; Python 3.13.5
+  - command: OpenViking 0.5.3 supervised native probe (explicit owned config, missing model, HTTP guards)
+    outcome: limited
+    observed_at: '2026-11-07T07:47:29Z'
+    notes: observation recorded; initialization/partial close BLOCKED by timeout, not native acceptance
+  - command: python3 -m pip --python .cache/evaluations/openviking-python/bin/python check
     outcome: passed
-    observed_at: '2026-11-07T07:36:21Z'
-    notes: 262 reviewed public records, two gardens/two edges; 30 queries per isolated adapter; exact fingerprints
-  - command: .cache/evaluations/cozo-python/bin/python -m experiments.cozo.native_probe --report experiments/cozo/observed-native.json
+    observed_at: '2026-11-07T07:47:29Z'
+    notes: no broken requirements in isolated 320-distribution environment
+  - command: .venv/bin/python -S -m experiments.openviking.exit_probe
     outcome: passed
-    observed_at: '2026-11-07T07:36:21Z'
-    notes: native FTS and authored 2D HNSW smoke pass; no semantic quality claim
-  - command: .venv/bin/python -S -m experiments.cozo.exit_probe
+    observed_at: '2026-11-07T07:47:29Z'
+    notes: core/producer work with OpenViking and SDK unavailable
+  - command: '.cache/python313/bin/python with isolated Cozo abi3 wheel: unittest experiments.cozo.test_adapter'
     outcome: passed
-    observed_at: '2026-11-07T07:36:21Z'
-    notes: reference/SQLite rebuild/search passes with Cozo unavailable and adapter unloaded
+    observed_at: '2026-11-07T07:47:29Z'
+    notes: five native cases pass; 9.862 s, including final denied-input/staged-failure assertions
+  - command: .venv/bin/python -m build --no-isolation --outdir .cache/evaluations/dist
+    outcome: passed
+    observed_at: '2026-11-07T07:47:29Z'
+    notes: sdist/wheel build pass; all 14 new schemas included, no optional experiments in wheel
+  - command: Source -S and isolated installed-wheel -I scripts/learning_insight_demo.py
+    outcome: passed
+    observed_at: '2026-11-07T07:47:29Z'
+    notes: exact learning/insight CLI goldens + apply/import pass; no source fallback, models or Python sockets
+  - command: Isolated installed-wheel -I scripts/product_checkpoint_demo.py --require-installed
+    outcome: passed
+    observed_at: '2026-11-07T07:47:29Z'
+    notes: memory/dependency/SQLite/private-bookmark proof passes; external Akashic handoff explicitly unavailable
   environment_limitations:
+  - 'OpenViking: missing model, blocked import HTTP metadata request and timed-out service initialization/partial
+    close; no live retrieval/quality/memory/native backup/upgrade/confidential promise. Producer-only recovery is
+    distinct.'
   - 'Cozo native syscall trace unavailable: ptrace denied. Linux x86_64 only; confidential processing, actual cross-release
     migration and installed generic restore remain unverified.'
   - 'Optional FollowTheMoney 4.10.1 binary install failed: PyICU unavailable and ICU development metadata missing;
@@ -170,23 +186,23 @@ Complete five bounded learning/infographic/evaluation drafts and regroup with th
 
 ## State snapshot
 
-Main d5edb13; drafts #93–#107 unmerged. Cozo experiment extends #107 (c0a0cd7); all 44 issues remain open. Default dependency set stays empty; no canonical store migration.
+Main d5edb13; #93–#108 remain unmerged. Combined OpenViking branch extends #108 at 169ded0. All 44 issues remain open. Four producer cases pass both Pythons; core full-suite rerun with loopback permission is still running. New source/installed wheel CLI proofs pass.
 
 ## Completed and material changes
 
-#28 authored factual/cloze cards, summaries, exact claim/source provenance, qualified answers, private history, source-bound item revisions, versioned schedules, deterministic JSON/Markdown/static HTML, digest-bound apply and import/grade round trips. Static keyboard/narrow-screen/zoom checks pass. #21 adds reviewed public-only insight/series producer contracts, claim-level citations/rights, deterministic duplicates/lifecycles, version-bound artifact feedback and digest-bound private staging. Private redaction/downstream adoption remain explicit gaps. #26 pins OpenAleph 5.3.2, compares twelve architectural dimensions, documents personal-archive threats, qualitative costs, existing ownership and a proposed adapt-patterns/defer-service recommendation. Optional FtM export is explicitly blocked by missing PyICU/ICU build inputs. #33 adds optional Cozo 0.7.6 QueryStore/factory experiment, native lexical/typed graph/backlink parity, scoped two-garden/personal-overlay fixtures, backup/rebuild/native restore, corruption/version/staged-failure/quarantine/exit proofs and measured 262-record baseline. Proposed recommendation: retain experiment, defer adoption.
+#28 authored factual/cloze cards, summaries, exact claim/source provenance, qualified answers, private history, source-bound item revisions, versioned schedules, deterministic JSON/Markdown/static HTML, digest-bound apply and import/grade round trips. Static keyboard/narrow-screen/zoom checks pass. #21 adds reviewed public-only insight/series producer contracts, claim-level citations/rights, deterministic duplicates/lifecycles, version-bound artifact feedback and digest-bound private staging. Private redaction/downstream adoption remain explicit gaps. #26 pins OpenAleph 5.3.2, compares twelve architectural dimensions, documents personal-archive threats, qualitative costs, existing ownership and a proposed adapt-patterns/defer-service recommendation. Optional FtM export is explicitly blocked by missing PyICU/ICU build inputs. #33 adds optional Cozo 0.7.6 QueryStore/factory experiment, native lexical/typed graph/backlink parity, scoped two-garden/personal-overlay fixtures, backup/rebuild/native restore, corruption/version/staged-failure/quarantine/exit proofs and measured 262-record baseline. Proposed recommendation: retain experiment, defer adoption. #34 pins OpenViking 0.5.3/SDK 0.1.18 and 320 observed dependencies; a removable public producer/verified-leaf map preserves provenance and passes recovery/relocation/exit tests. Native missing-model preflight blocks, LiteLLM import HTTP attempt is denied, constructor passes but initialization/close time out. Native retrieval/memory/confidential and lifecycle outcomes remain explicitly blocked. A new source/installed demo verifies learning and insight goldens through the actual CLI.
 
 ## Validation and review evidence
 
-.cache/evaluations/cozo-python/bin/python -m unittest experiments.cozo.test_adapter -q — five native cases pass; Python 3.12.14. Python 3.13 with the same isolated abi3 wheel: unittest experiments.cozo.test_adapter — five cases pass (before added denied-input/staged-failure assertions; rerun at final validation). .cache/evaluations/cozo-python/bin/python -m experiments.cozo.benchmark --records-per-garden 128 --report experiments/cozo/observed-baseline.json — 262 reviewed public records, two gardens/two edges; 30 queries per isolated adapter; exact fingerprints. .cache/evaluations/cozo-python/bin/python -m experiments.cozo.native_probe --report experiments/cozo/observed-native.json — native FTS and authored 2D HNSW smoke pass; no semantic quality claim. .venv/bin/python -S -m experiments.cozo.exit_probe — reference/SQLite rebuild/search passes with Cozo unavailable and adapter unloaded.
+.venv/bin/python -m unittest experiments.openviking.test_adapter -q — four dependency-free producer cases pass; Python 3.12.14. .cache/python313/bin/python -m unittest experiments.openviking.test_adapter -q — four producer cases pass; Python 3.13.5. OpenViking 0.5.3 supervised native probe (explicit owned config, missing model, HTTP guards) — observation recorded; initialization/partial close BLOCKED by timeout, not native acceptance. python3 -m pip --python .cache/evaluations/openviking-python/bin/python check — no broken requirements in isolated 320-distribution environment. .venv/bin/python -S -m experiments.openviking.exit_probe — core/producer work with OpenViking and SDK unavailable. .cache/python313/bin/python with isolated Cozo abi3 wheel: unittest experiments.cozo.test_adapter — five native cases pass; 9.862 s, including final denied-input/staged-failure assertions. .venv/bin/python -m build --no-isolation --outdir .cache/evaluations/dist — sdist/wheel build pass; all 14 new schemas included, no optional experiments in wheel. Source -S and isolated installed-wheel -I scripts/learning_insight_demo.py — exact learning/insight CLI goldens + apply/import pass; no source fallback, models or Python sockets. Isolated installed-wheel -I scripts/product_checkpoint_demo.py --require-installed — memory/dependency/SQLite/private-bookmark proof passes; external Akashic handoff explicitly unavailable.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Cozo native syscall trace unavailable: ptrace denied. Linux x86_64 only; confidential processing, actual cross-release migration and installed generic restore remain unverified. Optional FollowTheMoney 4.10.1 binary install failed: PyICU unavailable and ICU development metadata missing; no native export compatibility or service test claimed. #28 full hosted study UI, notification/sync and Realm runtime acceptance remain parent scope. #21 downstream renderer/private redaction contracts and #33/#34 confidential runtime assurance require separate evidence. #43 Decisions preview 42314281186 fails native source validation; #41 history/#47 accepted-ADR gates remain. Real #20 pilot/Empathy cutover and #48 external capture/handoff remain partial. #19 release and #86–#91 remain deferred. No auto-merges or publication.
+OpenViking: missing model, blocked import HTTP metadata request and timed-out service initialization/partial close; no live retrieval/quality/memory/native backup/upgrade/confidential promise. Producer-only recovery is distinct. Cozo native syscall trace unavailable: ptrace denied. Linux x86_64 only; confidential processing, actual cross-release migration and installed generic restore remain unverified. Optional FollowTheMoney 4.10.1 binary install failed: PyICU unavailable and ICU development metadata missing; no native export compatibility or service test claimed. #28 full hosted study UI, notification/sync and Realm runtime acceptance remain parent scope. #21 downstream renderer/private redaction contracts and #33/#34 confidential runtime assurance require separate evidence. #43 Decisions preview 42314281186 fails native source validation; #41 history/#47 accepted-ADR gates remain. Real #20 pilot/Empathy cutover and #48 external capture/handoff remain partial. #19 release and #86–#91 remain deferred. No auto-merges or publication.
 
 ## Next dependency-ready work
 
-Evaluate pinned OpenViking 0.5.3 with a removable scoped provenance export and an explicit offline/native config/startup probe. Compare against baseline only where actual behavior is measured; record missing models/runtime/lifecycle evidence as blockers.
+Regroup with the maintainer; review drafts #105 → #106 → #107 → #108 → the OpenViking draft over #104. Decide optional evaluation dispositions and next ready parent gaps. Do not merge, publish, resume releases or activate #86–#91 automatically.
 
 ## Parallel changes and reconciliation
 
