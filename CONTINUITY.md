@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-07T07:47:29Z'
+  updated_at: '2026-11-07T07:54:38Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -70,9 +70,9 @@ work:
   next:
     kind: action
     id: morning-review-and-regroup
-    description: "Regroup with the maintainer; review drafts #105 \u2192 #106 \u2192 #107 \u2192 #108 \u2192 the\
-      \ OpenViking draft over #104. Decide optional evaluation dispositions and next ready parent gaps. Do not merge,\
-      \ publish, resume releases or activate #86\u2013#91 automatically."
+    description: "Regroup with the maintainer; review drafts #105 \u2192 #106 \u2192 #107 \u2192 #108 \u2192 #109\
+      \ over #104. Decide optional evaluation dispositions and next ready parent gaps. Do not merge, publish, resume\
+      \ releases or activate #86\u2013#91 automatically."
     readiness: ready
     references:
     - docs/learning-evaluation-checkpoints.md
@@ -81,66 +81,75 @@ state:
   base:
     revision: 169ded072c9b519413cd4919d4a1eadbf9331ffc
     ref: refs/heads/experiment/33-cozo-query-store
-    verified_at: '2026-11-07T07:47:29Z'
+    verified_at: '2026-11-07T07:54:38Z'
   candidate:
     branch: experiment/34-openviking-projection
-    revision: 169ded072c9b519413cd4919d4a1eadbf9331ffc
-    pull_request: null
+    revision: e410be7bebc865d3b7d0b684ec65b470d14940a9
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#109
+      url: https://github.com/egohygiene/mindgarden/pull/109
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-07T07:47:29Z'
+    observed_at: '2026-11-07T07:54:38Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: draft
-    notes: "Main d5edb13; #93\u2013#108 remain unmerged. Combined OpenViking branch extends #108 at 169ded0. All\
-      \ 44 issues remain open. Four producer cases pass both Pythons; core full-suite rerun with loopback permission\
-      \ is still running. New source/installed wheel CLI proofs pass."
+    notes: "Main d5edb13; #93\u2013#109 unmerged. Combined functional source e410be7 extends #108 (169ded0). All\
+      \ 44 issues remain open. Both complete local suites pass 381 tests without skips; clean archive and isolated\
+      \ wheel match authored CLI goldens."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#104
     url: https://github.com/egohygiene/mindgarden/pull/104
+  - provider: github
+    id: egohygiene/mindgarden#105
+    url: https://github.com/egohygiene/mindgarden/pull/105
+  - provider: github
+    id: egohygiene/mindgarden#106
+    url: https://github.com/egohygiene/mindgarden/pull/106
+  - provider: github
+    id: egohygiene/mindgarden#107
+    url: https://github.com/egohygiene/mindgarden/pull/107
+  - provider: github
+    id: egohygiene/mindgarden#108
+    url: https://github.com/egohygiene/mindgarden/pull/108
 review:
   status: partial
-  reviewed_at: '2026-11-07T07:47:29Z'
+  reviewed_at: '2026-11-07T07:54:38Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest experiments.openviking.test_adapter -q
+  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-07T07:47:29Z'
-    notes: four dependency-free producer cases pass; Python 3.12.14
-  - command: .cache/python313/bin/python -m unittest experiments.openviking.test_adapter -q
+    observed_at: '2026-11-07T07:54:38Z'
+    notes: 381 pass, no skips; Python 3.12.14; 321.205 s; network permission for the existing loopback test
+  - command: .cache/python313/bin/python -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-07T07:47:29Z'
-    notes: four producer cases pass; Python 3.13.5
-  - command: OpenViking 0.5.3 supervised native probe (explicit owned config, missing model, HTTP guards)
+    observed_at: '2026-11-07T07:54:38Z'
+    notes: 381 pass, no skips; Python 3.13.5; 301.556 s; same loopback permission
+  - command: Cozo native suite on Python 3.12/3.13; OpenViking producer suite on both
+    outcome: passed
+    observed_at: '2026-11-07T07:54:38Z'
+    notes: 5 native + 4 producer cases pass per Python; separate from core suite
+  - command: OpenViking 0.5.3 supervised native probe
     outcome: limited
-    observed_at: '2026-11-07T07:47:29Z'
-    notes: observation recorded; initialization/partial close BLOCKED by timeout, not native acceptance
-  - command: python3 -m pip --python .cache/evaluations/openviking-python/bin/python check
+    observed_at: '2026-11-07T07:54:38Z'
+    notes: Observation recorded; native model/startup/partial close BLOCKED; no live retrieval acceptance
+  - command: Clean git archive source -S and clean-built installed wheel -I learning_insight_demo.py
     outcome: passed
-    observed_at: '2026-11-07T07:47:29Z'
-    notes: no broken requirements in isolated 320-distribution environment
-  - command: .venv/bin/python -S -m experiments.openviking.exit_probe
+    observed_at: '2026-11-07T07:54:38Z'
+    notes: Exact learning/insight CLI goldens, apply/import and module origin pass; no models/Google; Python sockets
+      blocked
+  - command: Clean-source and installed product_checkpoint_demo.py; no-package exit probes
     outcome: passed
-    observed_at: '2026-11-07T07:47:29Z'
-    notes: core/producer work with OpenViking and SDK unavailable
-  - command: '.cache/python313/bin/python with isolated Cozo abi3 wheel: unittest experiments.cozo.test_adapter'
+    observed_at: '2026-11-07T07:54:38Z'
+    notes: Prior product flows and baseline/producer without optional dependencies pass
+  - command: Clean archive build; focused Ruff/diff/100 relative links/pinned owner checks
     outcome: passed
-    observed_at: '2026-11-07T07:47:29Z'
-    notes: five native cases pass; 9.862 s, including final denied-input/staged-failure assertions
-  - command: .venv/bin/python -m build --no-isolation --outdir .cache/evaluations/dist
-    outcome: passed
-    observed_at: '2026-11-07T07:47:29Z'
-    notes: sdist/wheel build pass; all 14 new schemas included, no optional experiments in wheel
-  - command: Source -S and isolated installed-wheel -I scripts/learning_insight_demo.py
-    outcome: passed
-    observed_at: '2026-11-07T07:47:29Z'
-    notes: exact learning/insight CLI goldens + apply/import pass; no source fallback, models or Python sockets
-  - command: Isolated installed-wheel -I scripts/product_checkpoint_demo.py --require-installed
-    outcome: passed
-    observed_at: '2026-11-07T07:47:29Z'
-    notes: memory/dependency/SQLite/private-bookmark proof passes; external Akashic handoff explicitly unavailable
+    observed_at: '2026-11-07T07:54:38Z'
+    notes: sdist/wheel and 14 new schemas pass; all 44 rows and proposed/null ADRs preserved; hashes in verification
+      receipt
   environment_limitations:
   - 'OpenViking: missing model, blocked import HTTP metadata request and timed-out service initialization/partial
     close; no live retrieval/quality/memory/native backup/upgrade/confidential promise. Producer-only recovery is
@@ -186,7 +195,7 @@ Complete five bounded learning/infographic/evaluation drafts and regroup with th
 
 ## State snapshot
 
-Main d5edb13; #93–#108 remain unmerged. Combined OpenViking branch extends #108 at 169ded0. All 44 issues remain open. Four producer cases pass both Pythons; core full-suite rerun with loopback permission is still running. New source/installed wheel CLI proofs pass.
+Main d5edb13; #93–#109 unmerged. Combined functional source e410be7 extends #108 (169ded0). All 44 issues remain open. Both complete local suites pass 381 tests without skips; clean archive and isolated wheel match authored CLI goldens.
 
 ## Completed and material changes
 
@@ -194,7 +203,7 @@ Main d5edb13; #93–#108 remain unmerged. Combined OpenViking branch extends #10
 
 ## Validation and review evidence
 
-.venv/bin/python -m unittest experiments.openviking.test_adapter -q — four dependency-free producer cases pass; Python 3.12.14. .cache/python313/bin/python -m unittest experiments.openviking.test_adapter -q — four producer cases pass; Python 3.13.5. OpenViking 0.5.3 supervised native probe (explicit owned config, missing model, HTTP guards) — observation recorded; initialization/partial close BLOCKED by timeout, not native acceptance. python3 -m pip --python .cache/evaluations/openviking-python/bin/python check — no broken requirements in isolated 320-distribution environment. .venv/bin/python -S -m experiments.openviking.exit_probe — core/producer work with OpenViking and SDK unavailable. .cache/python313/bin/python with isolated Cozo abi3 wheel: unittest experiments.cozo.test_adapter — five native cases pass; 9.862 s, including final denied-input/staged-failure assertions. .venv/bin/python -m build --no-isolation --outdir .cache/evaluations/dist — sdist/wheel build pass; all 14 new schemas included, no optional experiments in wheel. Source -S and isolated installed-wheel -I scripts/learning_insight_demo.py — exact learning/insight CLI goldens + apply/import pass; no source fallback, models or Python sockets. Isolated installed-wheel -I scripts/product_checkpoint_demo.py --require-installed — memory/dependency/SQLite/private-bookmark proof passes; external Akashic handoff explicitly unavailable.
+.venv/bin/python -m unittest discover --start-directory tests --verbose — 381 pass, no skips; Python 3.12.14; 321.205 s; network permission for the existing loopback test. .cache/python313/bin/python -m unittest discover --start-directory tests --verbose — 381 pass, no skips; Python 3.13.5; 301.556 s; same loopback permission. Cozo native suite on Python 3.12/3.13; OpenViking producer suite on both — 5 native + 4 producer cases pass per Python; separate from core suite. OpenViking 0.5.3 supervised native probe — Observation recorded; native model/startup/partial close BLOCKED; no live retrieval acceptance. Clean git archive source -S and clean-built installed wheel -I learning_insight_demo.py — Exact learning/insight CLI goldens, apply/import and module origin pass; no models/Google; Python sockets blocked. Clean-source and installed product_checkpoint_demo.py; no-package exit probes — Prior product flows and baseline/producer without optional dependencies pass. Clean archive build; focused Ruff/diff/100 relative links/pinned owner checks — sdist/wheel and 14 new schemas pass; all 44 rows and proposed/null ADRs preserved; hashes in verification receipt.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -202,7 +211,7 @@ OpenViking: missing model, blocked import HTTP metadata request and timed-out se
 
 ## Next dependency-ready work
 
-Regroup with the maintainer; review drafts #105 → #106 → #107 → #108 → the OpenViking draft over #104. Decide optional evaluation dispositions and next ready parent gaps. Do not merge, publish, resume releases or activate #86–#91 automatically.
+Regroup with the maintainer; review drafts #105 → #106 → #107 → #108 → #109 over #104. Decide optional evaluation dispositions and next ready parent gaps. Do not merge, publish, resume releases or activate #86–#91 automatically.
 
 ## Parallel changes and reconciliation
 

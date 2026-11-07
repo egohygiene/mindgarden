@@ -1,4 +1,4 @@
-# Open-issue coverage — 2026-11-06
+# Open-issue coverage — 2026-11-07
 
 This is the detailed coverage ledger for [ROADMAP.md](../ROADMAP.md). It records
 all **44 open issues**: the original 38-issue queue and six newly deferred
@@ -8,7 +8,13 @@ criteria; a batch is a bounded checkpoint, not automatic parent completion.
 
 ## Observed baseline and authority
 
-Current main is `b9cc3fd3b8b68e56944d592e2092b07485de465a`, after the
+Current main remains `d5edb13de1b65871ec85e7a25af035228a1d756d`.
+Drafts #93–#109 remain unmerged; the [learning/evaluation checkpoint ledger](learning-evaluation-checkpoints.md)
+records the latest five-item stack and functional `e410be7` verification. Both
+complete local suites pass 381 tests, without skips; optional native experiments
+are separate. No parent issue is closed, proposal ratified or release resumed.
+
+The earlier merged pipeline baseline was `b9cc3fd3b8b68e56944d592e2092b07485de465a`, after the
 [authorized #74–#85 merges](merged-pipeline-storage-checkpoints.md). The engine's
 combined suite passes 298 tests on each supported Python; exact-source/installed
 proofs and passing pre-merge CI remain linked in those receipts. The original 38
@@ -188,7 +194,7 @@ not one serial gate over all work.
 | [#32](https://github.com/egohygiene/mindgarden/issues/32) — replaceable query-store/SQLite baseline | partial | Draft #99/#104 opt-in SQLite FTS5, ten-case parity/recovery/optional-module boundary and 256-note observation | Incremental updates, larger workload/resource/platform/confidential proof and accepted permanent store disposition | #12/#16/#31, Realm #25/#60 and accepted #42 storage decisions; Q after B1, canonical files remain authoritative |
 | [#26](https://github.com/egohygiene/mindgarden/issues/26) — OpenAleph architectural evaluation | partial | [Exact 5.3.2 architectural/privacy/license/ownership/cost evaluation](evaluations/openaleph.md), twelve-dimension adapt/defer matrix in [draft #107](https://github.com/egohygiene/mindgarden/pull/107) (`c5b1f52`); no service/code adoption | Maintainer disposition; optional native FtM export probe blocked by PyICU/ICU build inputs; no production or private deployment | #11–#17 comparison only, no core gate; next optional #33 |
 | [#33](https://github.com/egohygiene/mindgarden/issues/33) — optional CozoDB projection evaluation | partial | [Pinned native 0.7.6 adapter, scoped corpus, parity/resource/recovery/exit evidence](evaluations/cozodb.md); five native tests and 262-record baseline in [draft #108](https://github.com/egohygiene/mindgarden/pull/108) (`7c75d12`); no default dependency | Maintainer adopt/defer disposition; untested platforms, actual upgrades, installed selection/restore and confidential runtime; no vectors/semantic claim | #32 port available; Realm #25/#60 remain runtime gates; next #34 |
-| [#34](https://github.com/egohygiene/mindgarden/issues/34) — optional OpenViking context projection | partial | [Pinned 0.5.3/SDK 0.1.18 producer/native evaluation](evaluations/openviking.md), exact selected provenance, four producer tests, scoped bundle recovery/exit and observed dependency lock | Native no-model startup timed out; models, live retrieval/quality, session inspect/delete, encrypted containment, native backup/upgrade/restore remain blocked; proposed defer adoption | #32/#12 available; live Realm #25→#60 and Aether #64 gates remain; regroup after draft review |
+| [#34](https://github.com/egohygiene/mindgarden/issues/34) — optional OpenViking context projection | partial | [Pinned 0.5.3/SDK 0.1.18 producer/native evaluation](evaluations/openviking.md), exact selected provenance, four producer tests, scoped bundle recovery/exit and observed dependency lock in [draft #109](https://github.com/egohygiene/mindgarden/pull/109) (`e410be7`) | Native no-model startup timed out; models, live retrieval/quality, session inspect/delete, encrypted containment, native backup/upgrade/restore remain blocked; proposed defer adoption | #32/#12 available; live Realm #25→#60 and Aether #64 gates remain; regroup after draft review |
 
 ## Learning, insights, compaction and retention
 
