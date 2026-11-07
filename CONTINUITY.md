@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-07T07:35:20Z'
+  updated_at: '2026-11-07T07:36:21Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -81,15 +81,18 @@ state:
   base:
     revision: c0a0cd71d351b3185fa44d478d3f48f7ab1d46af
     ref: refs/heads/docs/26-openaleph-evaluation
-    verified_at: '2026-11-07T07:35:20Z'
+    verified_at: '2026-11-07T07:36:21Z'
   candidate:
     branch: experiment/33-cozo-query-store
-    revision: c0a0cd71d351b3185fa44d478d3f48f7ab1d46af
-    pull_request: null
+    revision: 7c75d12f9249b08ce4ac10ad003bc33d448bd8af
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#108
+      url: https://github.com/egohygiene/mindgarden/pull/108
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-07T07:35:20Z'
+    observed_at: '2026-11-07T07:36:21Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: draft
@@ -101,29 +104,29 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/104
 review:
   status: partial
-  reviewed_at: '2026-11-07T07:35:20Z'
+  reviewed_at: '2026-11-07T07:36:21Z'
   reviewed_by: codex
   evidence:
   - command: .cache/evaluations/cozo-python/bin/python -m unittest experiments.cozo.test_adapter -q
     outcome: passed
-    observed_at: '2026-11-07T07:35:20Z'
+    observed_at: '2026-11-07T07:36:21Z'
     notes: five native cases pass; Python 3.12.14
   - command: 'Python 3.13 with the same isolated abi3 wheel: unittest experiments.cozo.test_adapter'
     outcome: passed
-    observed_at: '2026-11-07T07:35:20Z'
+    observed_at: '2026-11-07T07:36:21Z'
     notes: five cases pass (before added denied-input/staged-failure assertions; rerun at final validation)
   - command: .cache/evaluations/cozo-python/bin/python -m experiments.cozo.benchmark --records-per-garden 128 --report
       experiments/cozo/observed-baseline.json
     outcome: passed
-    observed_at: '2026-11-07T07:35:20Z'
+    observed_at: '2026-11-07T07:36:21Z'
     notes: 262 reviewed public records, two gardens/two edges; 30 queries per isolated adapter; exact fingerprints
   - command: .cache/evaluations/cozo-python/bin/python -m experiments.cozo.native_probe --report experiments/cozo/observed-native.json
     outcome: passed
-    observed_at: '2026-11-07T07:35:20Z'
+    observed_at: '2026-11-07T07:36:21Z'
     notes: native FTS and authored 2D HNSW smoke pass; no semantic quality claim
   - command: .venv/bin/python -S -m experiments.cozo.exit_probe
     outcome: passed
-    observed_at: '2026-11-07T07:35:20Z'
+    observed_at: '2026-11-07T07:36:21Z'
     notes: reference/SQLite rebuild/search passes with Cozo unavailable and adapter unloaded
   environment_limitations:
   - 'Cozo native syscall trace unavailable: ptrace denied. Linux x86_64 only; confidential processing, actual cross-release
