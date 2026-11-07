@@ -68,3 +68,7 @@ its authorized view; it is parity/recovery evidence, not a performance win or
 large-corpus guarantee. Incremental invalidation, broader workloads/resources,
 native platforms, confidential Realm runtime and accepted store disposition
 remain parent #32 scope. No new runtime dependency is installed.
+
+The optional [CozoDB evaluation](evaluations/cozodb.md) uses this port in a
+removable lab. Its native dependency, recommendations and unsupported installed
+restore dispatch do not alter the default reference/SQLite contract.

@@ -1,0 +1,88 @@
+{
+  "excluded_personal_records": 1,
+  "gardens": 2,
+  "index_bytes": 657771,
+  "limitations": [
+    "Small synthetic corpus; no production throughput, semantic quality or confidential-runtime assurance.",
+    "Each query includes full cache checksum/relation audit for both durable stores.",
+    "Per-worker peak RSS includes interpreter/module/index initialization; installation footprint is separate.",
+    "No incremental writes, vectors, native FTS ranking or multi-writer support in the adapter."
+  ],
+  "network": "Default network-denied sandbox; native syscall trace unavailable because ptrace is denied. No syscall-level egress claim.",
+  "observations": [
+    {
+      "adapter": "reference",
+      "build_ms": 0.0,
+      "cache_bytes": 0,
+      "import_ms": 0.001,
+      "max_rss_kib": 36732,
+      "queries": 30,
+      "query_median_ms": 0.361,
+      "query_p95_ms": 0.563,
+      "result_fingerprints": {
+        "NOT OR *": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "caf\u00e9 long-term": "2bc2844cbaeed25d59abee2eade056591cb81ce229732bc08c296a1215734f90",
+        "canonical home": "60a038d1c9bc1a3ca02e39ab3f095c4b76bc95579b528e94e03469988b0f8103",
+        "prompt": "dda7b7aabd4b4e053d7778f01447e8eb331934dcda17ae0b007c6326f40d9663",
+        "retirement": "21e50644d7131f08149909a9c6d5a67c00490327aecdff1d5e93e4212c0f1a59",
+        "\u65e5\u672c\u8a9e": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      }
+    },
+    {
+      "adapter": "sqlite",
+      "backup_ms": 84.327,
+      "build_ms": 108.472,
+      "cache_bytes": 1892807,
+      "import_ms": 2.589,
+      "max_rss_kib": 36732,
+      "portable_backup_bytes": 706997,
+      "queries": 30,
+      "query_median_ms": 55.238,
+      "query_p95_ms": 62.051,
+      "result_fingerprints": {
+        "NOT OR *": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "caf\u00e9 long-term": "2bc2844cbaeed25d59abee2eade056591cb81ce229732bc08c296a1215734f90",
+        "canonical home": "60a038d1c9bc1a3ca02e39ab3f095c4b76bc95579b528e94e03469988b0f8103",
+        "prompt": "dda7b7aabd4b4e053d7778f01447e8eb331934dcda17ae0b007c6326f40d9663",
+        "retirement": "21e50644d7131f08149909a9c6d5a67c00490327aecdff1d5e93e4212c0f1a59",
+        "\u65e5\u672c\u8a9e": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      }
+    },
+    {
+      "adapter": "cozo",
+      "backup_ms": 126.832,
+      "build_ms": 93.683,
+      "cache_bytes": 2392554,
+      "import_ms": 7.13,
+      "max_rss_kib": 53120,
+      "portable_backup_bytes": 707003,
+      "queries": 30,
+      "query_median_ms": 89.573,
+      "query_p95_ms": 94.196,
+      "result_fingerprints": {
+        "NOT OR *": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "caf\u00e9 long-term": "2bc2844cbaeed25d59abee2eade056591cb81ce229732bc08c296a1215734f90",
+        "canonical home": "60a038d1c9bc1a3ca02e39ab3f095c4b76bc95579b528e94e03469988b0f8103",
+        "prompt": "dda7b7aabd4b4e053d7778f01447e8eb331934dcda17ae0b007c6326f40d9663",
+        "retirement": "21e50644d7131f08149909a9c6d5a67c00490327aecdff1d5e93e4212c0f1a59",
+        "\u65e5\u672c\u8a9e": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      }
+    }
+  ],
+  "observed_at": "2026-11-07",
+  "parity": "exact results, scores, reasons and source references",
+  "platform": "Linux/x86_64",
+  "python": "3.12.14",
+  "queries": [
+    "prompt",
+    "retirement",
+    "caf\u00e9 long-term",
+    "canonical home",
+    "\u65e5\u672c\u8a9e",
+    "NOT OR *"
+  ],
+  "records": 262,
+  "schema": "mindgarden.cozo-observation/v1",
+  "synthetic_corpus_prepare_ms": 7374.713,
+  "typed_edges": 2
+}

@@ -1,0 +1,2 @@
+# Observed CPython abi3 manylinux2014 x86_64 artifact; other platforms are not tested.
+cozo-embedded==0.7.6 --hash=sha256:7571f6521041c13b7e9ca8ab8809cf9c8eaad929726ed6190ffc25a5a3ab57a7
