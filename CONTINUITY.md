@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-07T07:24:06Z'
+  updated_at: '2026-11-07T07:24:42Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -80,15 +80,18 @@ state:
   base:
     revision: 5e31428a74525d47f0af193b20f4bdd1cabb7cb9
     ref: refs/heads/feature/28-learning-projections
-    verified_at: '2026-11-07T07:24:06Z'
+    verified_at: '2026-11-07T07:24:42Z'
   candidate:
     branch: feature/21-reviewed-insight-candidates
-    revision: 5e31428a74525d47f0af193b20f4bdd1cabb7cb9
-    pull_request: null
+    revision: 4e12dcd71623bfdab30d6323d322546c05c729c4
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#106
+      url: https://github.com/egohygiene/mindgarden/pull/106
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-07T07:24:06Z'
+    observed_at: '2026-11-07T07:24:42Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: draft
@@ -100,28 +103,28 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/104
 review:
   status: partial
-  reviewed_at: '2026-11-07T07:24:06Z'
+  reviewed_at: '2026-11-07T07:24:42Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest tests.test_learning tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-07T07:24:06Z'
+    observed_at: '2026-11-07T07:24:42Z'
     notes: 17 tests pass; Python 3.12.14
   - command: .cache/python313/bin/python -m unittest tests.test_learning -q
     outcome: passed
-    observed_at: '2026-11-07T07:24:06Z'
+    observed_at: '2026-11-07T07:24:42Z'
     notes: 12 tests pass; Python 3.13.5
   - command: python3 scripts/learning_browser_check.py --report tests/fixtures/learning/observed-browser.json
     outcome: passed
-    observed_at: '2026-11-07T07:24:06Z'
+    observed_at: '2026-11-07T07:24:42Z'
     notes: Chromium 151; keyboard, 320/1280 px, 200% zoom, reduced motion; static adapter only
   - command: .venv/bin/python -m unittest tests.test_insights tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-07T07:24:06Z'
+    observed_at: '2026-11-07T07:24:42Z'
     notes: 14 tests pass; Python 3.12.14
   - command: .cache/python313/bin/python -m unittest tests.test_insights -q
     outcome: passed
-    observed_at: '2026-11-07T07:24:06Z'
+    observed_at: '2026-11-07T07:24:42Z'
     notes: 9 tests pass; Python 3.13.5
   environment_limitations:
   - '#28 full hosted study UI, notification/sync and Realm runtime acceptance remain parent scope.'
