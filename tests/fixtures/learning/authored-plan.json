@@ -1,0 +1,149 @@
+{
+  "as_of": "2026-11-07T00:00:00Z",
+  "candidates": [
+    {
+      "output": {
+        "answer": {
+          "certainty": "supported",
+          "rubric": "Recall the exact immutable-source boundary; do not infer deletion authority.",
+          "schema": "mindgarden.learning-answer/v1",
+          "text": "Original sources stay immutable."
+        },
+        "difficulty": "introductory",
+        "id": "source-card",
+        "lifecycle": "approved",
+        "objective": "Recall the exact source/knowledge boundary.",
+        "prompt": "What happens to the original sources?",
+        "representation": "quoted",
+        "review": {
+          "rationale": "Synthetic human review fixture.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "schema": "mindgarden.learning-card/v1",
+        "supersedes": [],
+        "title": "Keep the source",
+        "type": "factual",
+        "uncertainty": []
+      },
+      "rationale": "Authored, bounded synthetic study item.",
+      "references": [
+        {
+          "garden": "synthetic-garden",
+          "id": "learning-claim",
+          "revision": "sha256:bf0f502971cf1cc3bc2f25f9dcc2e6892f404e0b75d4cd4093f68a474d2b78ba"
+        }
+      ],
+      "schema": "mindgarden.learning-candidate/v1"
+    },
+    {
+      "output": {
+        "answer": {
+          "certainty": "supported",
+          "rubric": "Recall the exact immutable-source boundary; do not infer deletion authority.",
+          "schema": "mindgarden.learning-answer/v1",
+          "text": "portable"
+        },
+        "difficulty": "introductory",
+        "id": "portable-card",
+        "lifecycle": "approved",
+        "objective": "Recall the exact source/knowledge boundary.",
+        "prompt": "Reviewed knowledge remains {{c1::portable}}.",
+        "representation": "quoted",
+        "review": {
+          "rationale": "Synthetic human review fixture.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "schema": "mindgarden.learning-card/v1",
+        "supersedes": [],
+        "title": "Portable reviewed knowledge",
+        "type": "cloze",
+        "uncertainty": []
+      },
+      "rationale": "Authored, bounded synthetic study item.",
+      "references": [
+        {
+          "garden": "synthetic-garden",
+          "id": "learning-facts",
+          "revision": "sha256:7dd54869929c3d5bb38ee759f534887303f24747ba4a6cef7a2c814d3633c270"
+        }
+      ],
+      "schema": "mindgarden.learning-candidate/v1"
+    },
+    {
+      "output": {
+        "difficulty": "introductory",
+        "id": "boundary-summary",
+        "lifecycle": "approved",
+        "objective": "Recall the exact source/knowledge boundary.",
+        "representation": "paraphrase",
+        "review": {
+          "rationale": "Synthetic human review fixture.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "schema": "mindgarden.learning-summary/v1",
+        "supersedes": [],
+        "text": "Keep originals separate from reviewed portable knowledge.",
+        "title": "Keep the source",
+        "uncertainty": []
+      },
+      "rationale": "Authored, bounded synthetic study item.",
+      "references": [
+        {
+          "garden": "synthetic-garden",
+          "id": "learning-facts",
+          "revision": "sha256:7dd54869929c3d5bb38ee759f534887303f24747ba4a6cef7a2c814d3633c270"
+        }
+      ],
+      "schema": "mindgarden.learning-candidate/v1"
+    }
+  ],
+  "deck": {
+    "id": "source-boundaries",
+    "objective": "Review exact source and knowledge ownership.",
+    "schema": "mindgarden.learning-deck/v1",
+    "title": "Synthetic source boundaries"
+  },
+  "generator": "authored",
+  "max_bytes": 131072,
+  "review": {
+    "rationale": "Synthetic human review fixture.",
+    "reviewed_at": "2026-11-04T00:00:00Z",
+    "reviewers": [
+      "synthetic-reviewer"
+    ],
+    "state": "approved"
+  },
+  "review_authority": {
+    "id": "synthetic-reviewer",
+    "kind": "human"
+  },
+  "scheduler": {
+    "anchor": "2026-11-04T00:00:00Z",
+    "id": "fixed-intervals",
+    "version": "1.0.0"
+  },
+  "schema": "mindgarden.learning-plan/v1",
+  "scope": {
+    "execution": "offline",
+    "persistence": "machine-local",
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": "never-exportable",
+    "schema": "mindgarden.scope/v1",
+    "visibility": "personal"
+  }
+}

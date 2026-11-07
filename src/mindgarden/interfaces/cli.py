@@ -592,6 +592,21 @@ def build_parser() -> ArgumentParser:
     add_federation_command(commands)
     add_compaction_command(commands)
     add_registry_command(commands)
+    from ..application.learning import run_learning
+
+    learning = commands.add_parser("learning", help="Review authored learning cards, summaries and private schedules")
+    learning.add_argument("--local-config", type=Path, required=True)
+    learning.add_argument("--scope", type=Path, required=True)
+    learning_input = learning.add_mutually_exclusive_group(required=True)
+    learning_input.add_argument("--input", type=Path)
+    learning_input.add_argument("--import-projection", type=Path)
+    learning.add_argument("--events", type=Path, help="Explicit private review-history file")
+    learning.add_argument("--review-event", type=Path, help="One authored private grading event to append into the new export")
+    learning.add_argument("--as-of", help="Explicit digest/schedule view boundary; does not extend session authority")
+    learning.add_argument("--apply", action="store_true")
+    learning.add_argument("--plan-digest")
+    learning.add_argument("--output-directory", type=Path)
+    learning.set_defaults(handler=run_learning)
     from ..application.bookmarks import run_bookmarks
 
     bookmarks = commands.add_parser("bookmarks", help="Inspect or review captured normalized bookmarks privately without browser mutation")

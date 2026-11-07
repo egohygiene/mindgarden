@@ -411,3 +411,12 @@ and a synthetic analysis-to-reviewed-packet composition (#90). Actual dependenci
 and independent fixtures are documented there. Existing #13/#46/#49 already own
 AI curation, refreshed summaries and memory views; do not duplicate or delay those
 current requirements. No new feature, provider or ADR is adopted by this capture.
+
+## Learning and optional evaluations
+
+The maintainer selected [#28 → #21 → #26 → #33 → #34](docs/learning-evaluation-checkpoints.md)
+for the next batch. Learning and infographic candidate contracts can advance as
+file/CLI projections without full web/runtime or release adoption. Evaluations
+remain optional, exact-version experiments over synthetic fixtures and the
+reference/SQLite baseline. Results are recommendations for review; source/privacy,
+canonical ownership and ADR gates remain unchanged. Regroup before any merge.

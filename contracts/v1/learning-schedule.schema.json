@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:learning-schedule:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "item",
+    "item_revision",
+    "algorithm",
+    "stage",
+    "interval_days",
+    "due_at",
+    "due",
+    "view_as_of",
+    "reason",
+    "last_event"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.learning-schedule/v1"
+    },
+    "item": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "item_revision": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "algorithm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        }
+      }
+    },
+    "stage": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "interval_days": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3650
+    },
+    "due_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "due": {
+      "type": "boolean"
+    },
+    "view_as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "last_event": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}
