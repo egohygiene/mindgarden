@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-07T07:24:42Z'
+  updated_at: '2026-11-07T07:26:13Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -65,68 +65,56 @@ work:
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#21
-    url: https://github.com/egohygiene/mindgarden/issues/21
+    id: egohygiene/mindgarden#26
+    url: https://github.com/egohygiene/mindgarden/issues/26
   next:
     kind: action
-    id: 26-openaleph-evaluation
-    description: Evaluate pinned OpenAleph 5.3.2 architecture, ownership, privacy, license, maintenance and cost.
-      Record the optional FollowTheMoney binary-install blocker; no service adoption or real data.
+    id: 33-cozo-experiment
+    description: Implement and measure a removable CozoDB 0.7.6 query-store experiment against the reference/SQLite
+      baseline. Use scoped synthetic multi-garden data, exact provenance, recovery/corruption/version/removal proofs;
+      no default adoption.
     readiness: ready
     references:
     - docs/learning-evaluation-checkpoints.md
     depends_on: []
 state:
   base:
-    revision: 5e31428a74525d47f0af193b20f4bdd1cabb7cb9
-    ref: refs/heads/feature/28-learning-projections
-    verified_at: '2026-11-07T07:24:42Z'
+    revision: 8e2ff53f7fb405323c46506de8e774a8e44d2223
+    ref: refs/heads/feature/21-reviewed-insight-candidates
+    verified_at: '2026-11-07T07:26:13Z'
   candidate:
-    branch: feature/21-reviewed-insight-candidates
-    revision: 4e12dcd71623bfdab30d6323d322546c05c729c4
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#106
-      url: https://github.com/egohygiene/mindgarden/pull/106
+    branch: docs/26-openaleph-evaluation
+    revision: 8e2ff53f7fb405323c46506de8e774a8e44d2223
+    pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-07T07:24:42Z'
+    observed_at: '2026-11-07T07:26:13Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: draft
-    notes: "Main d5edb13; drafts #93\u2013#105 unmerged. #21 branch extends #105 (5e31428). All 44 issues remain\
-      \ open; release and deferred package work remain parked."
+    notes: "Main d5edb13; drafts #93\u2013#106 unmerged. OpenAleph architectural review extends #106 (8e2ff53);\
+      \ all 44 issues remain open. No OpenAleph service deployed."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#104
     url: https://github.com/egohygiene/mindgarden/pull/104
 review:
   status: partial
-  reviewed_at: '2026-11-07T07:24:42Z'
+  reviewed_at: '2026-11-07T07:26:13Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_learning tests.test_v1_contracts -q
+  - command: git diff --check
     outcome: passed
-    observed_at: '2026-11-07T07:24:42Z'
-    notes: 17 tests pass; Python 3.12.14
-  - command: .cache/python313/bin/python -m unittest tests.test_learning -q
+    observed_at: '2026-11-07T07:26:13Z'
+    notes: passed; documentation-only checkpoint
+  - command: python3 .cache/context_phase_owner_checks.py
     outcome: passed
-    observed_at: '2026-11-07T07:24:42Z'
-    notes: 12 tests pass; Python 3.13.5
-  - command: python3 scripts/learning_browser_check.py --report tests/fixtures/learning/observed-browser.json
-    outcome: passed
-    observed_at: '2026-11-07T07:24:42Z'
-    notes: Chromium 151; keyboard, 320/1280 px, 200% zoom, reduced motion; static adapter only
-  - command: .venv/bin/python -m unittest tests.test_insights tests.test_v1_contracts -q
-    outcome: passed
-    observed_at: '2026-11-07T07:24:42Z'
-    notes: 14 tests pass; Python 3.12.14
-  - command: .cache/python313/bin/python -m unittest tests.test_insights -q
-    outcome: passed
-    observed_at: '2026-11-07T07:24:42Z'
-    notes: 9 tests pass; Python 3.13.5
+    observed_at: '2026-11-07T07:26:13Z'
+    notes: pinned ADR/continuity schemas, bounds and 44-row coverage pass
   environment_limitations:
+  - 'Optional FollowTheMoney 4.10.1 binary install failed: PyICU unavailable and ICU development metadata missing;
+    no native export compatibility or service test claimed.'
   - '#28 full hosted study UI, notification/sync and Realm runtime acceptance remain parent scope.'
   - '#21 downstream renderer/private redaction contracts and #33/#34 confidential runtime assurance require separate
     evidence.'
@@ -164,23 +152,23 @@ Complete five bounded learning/infographic/evaluation drafts and regroup with th
 
 ## State snapshot
 
-Main d5edb13; drafts #93–#105 unmerged. #21 branch extends #105 (5e31428). All 44 issues remain open; release and deferred package work remain parked.
+Main d5edb13; drafts #93–#106 unmerged. OpenAleph architectural review extends #106 (8e2ff53); all 44 issues remain open. No OpenAleph service deployed.
 
 ## Completed and material changes
 
-#28 authored factual/cloze cards, summaries, exact claim/source provenance, qualified answers, private history, source-bound item revisions, versioned schedules, deterministic JSON/Markdown/static HTML, digest-bound apply and import/grade round trips. Static keyboard/narrow-screen/zoom checks pass. #21 adds reviewed public-only insight/series producer contracts, claim-level citations/rights, deterministic duplicates/lifecycles, version-bound artifact feedback and digest-bound private staging. Private redaction/downstream adoption remain explicit gaps.
+#28 authored factual/cloze cards, summaries, exact claim/source provenance, qualified answers, private history, source-bound item revisions, versioned schedules, deterministic JSON/Markdown/static HTML, digest-bound apply and import/grade round trips. Static keyboard/narrow-screen/zoom checks pass. #21 adds reviewed public-only insight/series producer contracts, claim-level citations/rights, deterministic duplicates/lifecycles, version-bound artifact feedback and digest-bound private staging. Private redaction/downstream adoption remain explicit gaps. #26 pins OpenAleph 5.3.2, compares twelve architectural dimensions, documents personal-archive threats, qualitative costs, existing ownership and a proposed adapt-patterns/defer-service recommendation. Optional FtM export is explicitly blocked by missing PyICU/ICU build inputs.
 
 ## Validation and review evidence
 
-.venv/bin/python -m unittest tests.test_learning tests.test_v1_contracts -q — 17 tests pass; Python 3.12.14. .cache/python313/bin/python -m unittest tests.test_learning -q — 12 tests pass; Python 3.13.5. python3 scripts/learning_browser_check.py --report tests/fixtures/learning/observed-browser.json — Chromium 151; keyboard, 320/1280 px, 200% zoom, reduced motion; static adapter only. .venv/bin/python -m unittest tests.test_insights tests.test_v1_contracts -q — 14 tests pass; Python 3.12.14. .cache/python313/bin/python -m unittest tests.test_insights -q — 9 tests pass; Python 3.13.5.
+git diff --check — passed; documentation-only checkpoint. python3 .cache/context_phase_owner_checks.py — pinned ADR/continuity schemas, bounds and 44-row coverage pass.
 
 ## Blockers, risks, unknowns, and deferred work
 
-#28 full hosted study UI, notification/sync and Realm runtime acceptance remain parent scope. #21 downstream renderer/private redaction contracts and #33/#34 confidential runtime assurance require separate evidence. #43 Decisions preview 42314281186 fails native source validation; #41 history/#47 accepted-ADR gates remain. Real #20 pilot/Empathy cutover and #48 external capture/handoff remain partial. #19 release and #86–#91 remain deferred. No auto-merges or publication.
+Optional FollowTheMoney 4.10.1 binary install failed: PyICU unavailable and ICU development metadata missing; no native export compatibility or service test claimed. #28 full hosted study UI, notification/sync and Realm runtime acceptance remain parent scope. #21 downstream renderer/private redaction contracts and #33/#34 confidential runtime assurance require separate evidence. #43 Decisions preview 42314281186 fails native source validation; #41 history/#47 accepted-ADR gates remain. Real #20 pilot/Empathy cutover and #48 external capture/handoff remain partial. #19 release and #86–#91 remain deferred. No auto-merges or publication.
 
 ## Next dependency-ready work
 
-Evaluate pinned OpenAleph 5.3.2 architecture, ownership, privacy, license, maintenance and cost. Record the optional FollowTheMoney binary-install blocker; no service adoption or real data.
+Implement and measure a removable CozoDB 0.7.6 query-store experiment against the reference/SQLite baseline. Use scoped synthetic multi-garden data, exact provenance, recovery/corruption/version/removal proofs; no default adoption.
 
 ## Parallel changes and reconciliation
 
