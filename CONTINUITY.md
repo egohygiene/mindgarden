@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-07T07:19:44Z'
+  updated_at: '2026-11-07T07:24:42Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -65,59 +65,67 @@ work:
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#28
-    url: https://github.com/egohygiene/mindgarden/issues/28
+    id: egohygiene/mindgarden#21
+    url: https://github.com/egohygiene/mindgarden/issues/21
   next:
     kind: action
-    id: 21-insight-candidates
-    description: 'Implement #21 renderer-independent reviewed insight/series candidates over this learning draft.
-      Preserve release scheduling correction and fail closed on unavailable private-to-public derivation contracts.'
+    id: 26-openaleph-evaluation
+    description: Evaluate pinned OpenAleph 5.3.2 architecture, ownership, privacy, license, maintenance and cost.
+      Record the optional FollowTheMoney binary-install blocker; no service adoption or real data.
     readiness: ready
     references:
     - docs/learning-evaluation-checkpoints.md
     depends_on: []
 state:
   base:
-    revision: 0d436f49af1a8593676f7c77451c93dbc34b543f
-    ref: refs/heads/fix/32-optional-sqlite-boundary
-    verified_at: '2026-11-07T07:19:44Z'
+    revision: 5e31428a74525d47f0af193b20f4bdd1cabb7cb9
+    ref: refs/heads/feature/28-learning-projections
+    verified_at: '2026-11-07T07:24:42Z'
   candidate:
-    branch: feature/28-learning-projections
-    revision: 3510b22bff23e47e8aaf3dcc6dee39e3baca3850
+    branch: feature/21-reviewed-insight-candidates
+    revision: 4e12dcd71623bfdab30d6323d322546c05c729c4
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#105
-      url: https://github.com/egohygiene/mindgarden/pull/105
+      id: egohygiene/mindgarden#106
+      url: https://github.com/egohygiene/mindgarden/pull/106
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-07T07:19:44Z'
+    observed_at: '2026-11-07T07:24:42Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: draft
-    notes: "Main d5edb13; existing drafts #93\u2013#104 remain unmerged. New learning branch extends #104; all 44\
-      \ issues remain open. No model, real data or external service is used by learning."
+    notes: "Main d5edb13; drafts #93\u2013#105 unmerged. #21 branch extends #105 (5e31428). All 44 issues remain\
+      \ open; release and deferred package work remain parked."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#104
     url: https://github.com/egohygiene/mindgarden/pull/104
 review:
   status: partial
-  reviewed_at: '2026-11-07T07:19:44Z'
+  reviewed_at: '2026-11-07T07:24:42Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest tests.test_learning tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-07T07:19:44Z'
+    observed_at: '2026-11-07T07:24:42Z'
     notes: 17 tests pass; Python 3.12.14
   - command: .cache/python313/bin/python -m unittest tests.test_learning -q
     outcome: passed
-    observed_at: '2026-11-07T07:19:44Z'
+    observed_at: '2026-11-07T07:24:42Z'
     notes: 12 tests pass; Python 3.13.5
   - command: python3 scripts/learning_browser_check.py --report tests/fixtures/learning/observed-browser.json
     outcome: passed
-    observed_at: '2026-11-07T07:19:44Z'
+    observed_at: '2026-11-07T07:24:42Z'
     notes: Chromium 151; keyboard, 320/1280 px, 200% zoom, reduced motion; static adapter only
+  - command: .venv/bin/python -m unittest tests.test_insights tests.test_v1_contracts -q
+    outcome: passed
+    observed_at: '2026-11-07T07:24:42Z'
+    notes: 14 tests pass; Python 3.12.14
+  - command: .cache/python313/bin/python -m unittest tests.test_insights -q
+    outcome: passed
+    observed_at: '2026-11-07T07:24:42Z'
+    notes: 9 tests pass; Python 3.13.5
   environment_limitations:
   - '#28 full hosted study UI, notification/sync and Realm runtime acceptance remain parent scope.'
   - '#21 downstream renderer/private redaction contracts and #33/#34 confidential runtime assurance require separate
@@ -156,15 +164,15 @@ Complete five bounded learning/infographic/evaluation drafts and regroup with th
 
 ## State snapshot
 
-Main d5edb13; existing drafts #93–#104 remain unmerged. New learning branch extends #104; all 44 issues remain open. No model, real data or external service is used by learning.
+Main d5edb13; drafts #93–#105 unmerged. #21 branch extends #105 (5e31428). All 44 issues remain open; release and deferred package work remain parked.
 
 ## Completed and material changes
 
-#28 authored factual/cloze cards, summaries, exact claim/source provenance, qualified answers, private history, source-bound item revisions, versioned schedules, deterministic JSON/Markdown/static HTML, digest-bound apply and import/grade round trips. Static keyboard/narrow-screen/zoom checks pass.
+#28 authored factual/cloze cards, summaries, exact claim/source provenance, qualified answers, private history, source-bound item revisions, versioned schedules, deterministic JSON/Markdown/static HTML, digest-bound apply and import/grade round trips. Static keyboard/narrow-screen/zoom checks pass. #21 adds reviewed public-only insight/series producer contracts, claim-level citations/rights, deterministic duplicates/lifecycles, version-bound artifact feedback and digest-bound private staging. Private redaction/downstream adoption remain explicit gaps.
 
 ## Validation and review evidence
 
-.venv/bin/python -m unittest tests.test_learning tests.test_v1_contracts -q — 17 tests pass; Python 3.12.14. .cache/python313/bin/python -m unittest tests.test_learning -q — 12 tests pass; Python 3.13.5. python3 scripts/learning_browser_check.py --report tests/fixtures/learning/observed-browser.json — Chromium 151; keyboard, 320/1280 px, 200% zoom, reduced motion; static adapter only.
+.venv/bin/python -m unittest tests.test_learning tests.test_v1_contracts -q — 17 tests pass; Python 3.12.14. .cache/python313/bin/python -m unittest tests.test_learning -q — 12 tests pass; Python 3.13.5. python3 scripts/learning_browser_check.py --report tests/fixtures/learning/observed-browser.json — Chromium 151; keyboard, 320/1280 px, 200% zoom, reduced motion; static adapter only. .venv/bin/python -m unittest tests.test_insights tests.test_v1_contracts -q — 14 tests pass; Python 3.12.14. .cache/python313/bin/python -m unittest tests.test_insights -q — 9 tests pass; Python 3.13.5.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -172,7 +180,7 @@ Main d5edb13; existing drafts #93–#104 remain unmerged. New learning branch ex
 
 ## Next dependency-ready work
 
-Implement #21 renderer-independent reviewed insight/series candidates over this learning draft. Preserve release scheduling correction and fail closed on unavailable private-to-public derivation contracts.
+Evaluate pinned OpenAleph 5.3.2 architecture, ownership, privacy, license, maintenance and cost. Record the optional FollowTheMoney binary-install blocker; no service adoption or real data.
 
 ## Parallel changes and reconciliation
 

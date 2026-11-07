@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:insight-plan:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "review",
+    "review_authority",
+    "max_bytes",
+    "candidates",
+    "series",
+    "artifact_events"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.insight-plan/v1"
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "review_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "human"
+        },
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        }
+      }
+    },
+    "max_bytes": {
+      "type": "integer",
+      "minimum": 512,
+      "maximum": 1000000
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:insight-candidate:v1"
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "series": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "candidates",
+          "review"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192
+          },
+          "candidates": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+            },
+            "minItems": 1,
+            "maxItems": 100
+          },
+          "review": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+          }
+        }
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "artifact_events": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:insight-artifact-event:v1"
+      },
+      "minItems": 0,
+      "maxItems": 100
+    }
+  }
+}
