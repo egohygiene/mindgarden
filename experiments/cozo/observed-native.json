@@ -1,0 +1,19 @@
+{
+  "default_adapter_vectors": false,
+  "fts": {
+    "matched_ids": [
+      "a",
+      "b"
+    ],
+    "ranking_parity_claim": false
+  },
+  "native_version": "0.7.6",
+  "network_required": false,
+  "schema": "mindgarden.cozo-native-probe/v1",
+  "vector": {
+    "dimensions": 2,
+    "model_calls": 0,
+    "nearest_id": "near",
+    "semantic_quality_claim": false
+  }
+}
