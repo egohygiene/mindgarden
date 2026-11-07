@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-07T07:26:13Z'
+  updated_at: '2026-11-07T07:27:00Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -81,15 +81,18 @@ state:
   base:
     revision: 8e2ff53f7fb405323c46506de8e774a8e44d2223
     ref: refs/heads/feature/21-reviewed-insight-candidates
-    verified_at: '2026-11-07T07:26:13Z'
+    verified_at: '2026-11-07T07:27:00Z'
   candidate:
     branch: docs/26-openaleph-evaluation
-    revision: 8e2ff53f7fb405323c46506de8e774a8e44d2223
-    pull_request: null
+    revision: c5b1f524415e39464b5eac75789a5df0852d548b
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#107
+      url: https://github.com/egohygiene/mindgarden/pull/107
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-07T07:26:13Z'
+    observed_at: '2026-11-07T07:27:00Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: draft
@@ -101,16 +104,16 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/104
 review:
   status: partial
-  reviewed_at: '2026-11-07T07:26:13Z'
+  reviewed_at: '2026-11-07T07:27:00Z'
   reviewed_by: codex
   evidence:
   - command: git diff --check
     outcome: passed
-    observed_at: '2026-11-07T07:26:13Z'
+    observed_at: '2026-11-07T07:27:00Z'
     notes: passed; documentation-only checkpoint
   - command: python3 .cache/context_phase_owner_checks.py
     outcome: passed
-    observed_at: '2026-11-07T07:26:13Z'
+    observed_at: '2026-11-07T07:27:00Z'
     notes: pinned ADR/continuity schemas, bounds and 44-row coverage pass
   environment_limitations:
   - 'Optional FollowTheMoney 4.10.1 binary install failed: PyICU unavailable and ICU development metadata missing;
