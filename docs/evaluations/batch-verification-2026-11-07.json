@@ -1,0 +1,49 @@
+{
+  "build_artifacts": {
+    "mindgarden-0.1.0-py3-none-any.whl": {
+      "bytes": 342926,
+      "sha256": "5a1a81a6afec4d7052ea39b7489b4e0200b2e00f3710c0dd911d128c1673308c"
+    },
+    "mindgarden-0.1.0.tar.gz": {
+      "bytes": 649682,
+      "sha256": "fbb62800e79bb13623df25ee657d2c23f5180d70fddd9ed4e187f07b5e419f78"
+    }
+  },
+  "first_attempt": "Both full suites had one loopback socket PermissionError in the default sandbox; complete reruns with network permission passed.",
+  "focused": {
+    "cozo_native": 5,
+    "insights": 9,
+    "learning": 12,
+    "openviking_producer": 4,
+    "schema_registry": 5
+  },
+  "full_suites": [
+    {
+      "python": "3.12.14",
+      "result": "passed",
+      "seconds": 321.205,
+      "skips": 0,
+      "tests": 381
+    },
+    {
+      "python": "3.13.5",
+      "result": "passed",
+      "seconds": 301.556,
+      "skips": 0,
+      "tests": 381
+    }
+  ],
+  "functional_commit": "e410be7bebc865d3b7d0b684ec65b470d14940a9",
+  "google_used": false,
+  "models_used": false,
+  "optional_native": {
+    "cozo": "native parity/recovery/vector smoke passed; no default adoption",
+    "openaleph_ftm": "binary install blocked by PyICU/ICU; no native format claim",
+    "openviking": "blocked missing-model/startup/partial-close; no native retrieval acceptance"
+  },
+  "privacy": "synthetic-only; Python socket guards in authored CLI proof",
+  "relative_links_checked": 100,
+  "schema": "mindgarden.learning-evaluation-verification/v1",
+  "source_and_installed_goldens": "passed through exact CLI apply/import; clean archived source and built wheel",
+  "upstream_decisions_gate": "42314281186 failed; not resolved by this batch"
+}

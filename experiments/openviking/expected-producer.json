@@ -1,0 +1,15 @@
+{
+  "files": {
+    "08439167f6288541e36cb9029ed200a142cf565d4747f9360e85ff560c8f5d7b.md": "55c799c98ce3606e3b07e33b5a7b27837e3a881c96dbb33dd3550575c1281e1e",
+    "0bf39dad110114537ffde23189a842509d5808baaad634ccb1fec6eda71dd4ed.md": "30568f7fa07e2f34fabf8565dc051e64ffe265359d374df0af32c925e97f7047",
+    "3f32a6cce0cbdbc3fbd0bd31c3b78d194a0d9433b870907cf412c5b877112375.md": "dc29ec7b99f7a4a83b8e3479ee26a327decb20f859754da09b318a18ce7b2865",
+    "458fa94d9a6b844c3c37806c03068dee1c746c72f112cd5578a7689a217a62d2.md": "d97bcedf39a997b1256c34a8171207190587d77b2198b3a5ceb7363ded3ca5a5",
+    "provenance-map.json": "d97d8385050523a548c8500c22477d8e5593e16d91abcad939236cc40c741d7b"
+  },
+  "native_ingestion_verified": false,
+  "schema": "mindgarden.openviking-producer-proof/v1",
+  "scope": "public",
+  "selected_records": 4,
+  "session_memory": false,
+  "total_bytes": 20548
+}

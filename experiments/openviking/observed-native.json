@@ -1,0 +1,48 @@
+{
+  "confidential_runtime_verified": false,
+  "config": {
+    "local_model": "bge-small-zh-v1.5-f16",
+    "server_default_host": "127.0.0.1",
+    "server_default_port": 1933,
+    "storage_workspace_owned": true,
+    "tracing_enabled": false
+  },
+  "elapsed_ms": 25033.498,
+  "embedding_preflight": {
+    "error_type": "EmbeddingConfigurationError",
+    "reason": "Explicit local model file unavailable; no default downloader allowed.",
+    "status": "blocked"
+  },
+  "last_stage": "before-partial-service-close",
+  "limitations": [
+    "No native retrieval/quality/session/backup/upgrade proof; startup did not establish a usable no-model service.",
+    "Python HTTP guards and network-denied sandbox do not prove every native egress/telemetry path.",
+    "Owned lab cleanup is not production erasure or encrypted-runtime assurance."
+  ],
+  "max_child_rss_kib": 433800,
+  "model_calls_completed": 0,
+  "native_syscall_trace": "unavailable: sandbox denies ptrace",
+  "native_version": "0.5.3",
+  "observed_at": "2026-11-07",
+  "owned_runtime_bytes": 108215,
+  "probe_status": "blocked-timeout",
+  "python_facade": {
+    "SyncHTTPClient": true,
+    "embedded_OpenViking": false
+  },
+  "python_http_attempts": [
+    "blocked-python-http-request"
+  ],
+  "retrieval_comparison": "blocked",
+  "schema": "mindgarden.openviking-native-observation/v1",
+  "sdk_version": "0.1.18",
+  "service_constructor": "passed",
+  "service_initialization": {
+    "error_type": "TimeoutError",
+    "reason": "See owned local log; no private source/model/provider is supplied.",
+    "status": "blocked"
+  },
+  "service_listen_started": false,
+  "temporary_runtime_removed": true,
+  "unknown_policy_field_preserved": false
+}
