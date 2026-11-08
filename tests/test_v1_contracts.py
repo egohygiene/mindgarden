@@ -168,6 +168,9 @@ class V1ContractTests(unittest.TestCase):
                 "compaction-plan",
                 "compaction-manifest",
                 "adr-projection",
+                "observation",
+                "dependency-build-request",
+                "projection-dependencies",
             },
         )
         identifiers = set()

@@ -1,0 +1,20 @@
+{
+  "outputs": [
+    {
+      "id": "agent-context",
+      "reason": "dependency-or-profile-changed",
+      "state": "stale"
+    },
+    {
+      "id": "professional-profile",
+      "reason": "dependency-or-profile-changed",
+      "state": "stale"
+    },
+    {
+      "id": "unrelated-view",
+      "reason": "inputs-unchanged",
+      "state": "current"
+    }
+  ],
+  "schema": "mindgarden.projection-reconciliation/v1"
+}

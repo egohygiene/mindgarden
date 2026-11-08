@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:dependency-build-request:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "review_authority",
+    "review",
+    "outputs"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.dependency-build-request/v1"
+    },
+    "review_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "human"
+        },
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        }
+      }
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version",
+          "records",
+          "required_kinds",
+          "minimum_confidence",
+          "scope",
+          "redaction",
+          "renderer",
+          "output_schema",
+          "max_bytes",
+          "observations"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "version": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/semanticVersion"
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+            },
+            "minItems": 1,
+            "maxItems": 256
+          },
+          "required_kinds": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/nonEmptyString"
+            },
+            "minItems": 1,
+            "maxItems": 256
+          },
+          "minimum_confidence": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence"
+          },
+          "scope": {
+            "$ref": "urn:egohygiene:mindgarden:scope:v1"
+          },
+          "redaction": {
+            "const": "none"
+          },
+          "renderer": {
+            "enum": [
+              "json-records/v1",
+              "markdown-records/v1"
+            ]
+          },
+          "output_schema": {
+            "const": "mindgarden.reviewed-record-view/v1"
+          },
+          "max_bytes": {
+            "type": "integer",
+            "minimum": 256,
+            "maximum": 1000000
+          },
+          "observations": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:observation:v1"
+            },
+            "minItems": 0,
+            "maxItems": 256
+          }
+        }
+      },
+      "minItems": 1,
+      "maxItems": 256
+    }
+  }
+}
