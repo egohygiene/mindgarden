@@ -592,6 +592,16 @@ def build_parser() -> ArgumentParser:
     add_federation_command(commands)
     add_compaction_command(commands)
     add_registry_command(commands)
+    from ..application.memory import run_memory
+
+    memory = commands.add_parser("memory", help="Review bounded provider-neutral assistant-memory snippets")
+    memory.add_argument("--local-config", type=Path, required=True)
+    memory.add_argument("--scope", type=Path, required=True)
+    memory.add_argument("--input", type=Path, required=True)
+    memory.add_argument("--apply", action="store_true")
+    memory.add_argument("--plan-digest")
+    memory.add_argument("--output-directory", type=Path)
+    memory.set_defaults(handler=run_memory)
     from ..application.dependency_builds import run_dependency_build
 
     dependency_build = commands.add_parser("build-projections", help="Plan selected-record dependency builds or reconcile prior outputs")
