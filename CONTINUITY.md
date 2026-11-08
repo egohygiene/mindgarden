@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-08T20:51:56Z'
+  updated_at: '2026-11-08T20:52:47Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -86,49 +86,57 @@ state:
   base:
     revision: 3ac1eddea02d3cec7e9a8073ea96ff0fcae94bf0
     ref: refs/heads/feature/typesafe-read-workflow
-    verified_at: '2026-11-08T20:51:56Z'
+    verified_at: '2026-11-08T20:52:47Z'
   candidate:
     branch: feature/46-source-compaction
-    revision: 3ac1eddea02d3cec7e9a8073ea96ff0fcae94bf0
-    pull_request: null
+    revision: 3bdbdc7ce958f29ed85ebd10771fad0bd939e474
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#111
+      url: https://github.com/egohygiene/mindgarden/pull/111
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-08T20:51:56Z'
+    observed_at: '2026-11-08T20:52:47Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
-    notes: "Main f3a88cc contains all #93\u2013#109 merges. Draft #110 adds optional TypeSafe; this #46 checkpoint\
-      \ is stacked on #110/3ac1edd. Native main collection is ready/publication denied; no private pilot or publication\
-      \ is authorized."
+    notes: "Main f3a88cc contains all #93\u2013#109 merges. Draft #110 adds optional TypeSafe; Draft #111, this\
+      \ #46 checkpoint is stacked on #110/3ac1edd. Native main collection is ready/publication denied; no private\
+      \ pilot or publication is authorized."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
     url: https://github.com/egohygiene/mindgarden/pull/110
 review:
   status: partial
-  reviewed_at: '2026-11-08T20:51:56Z'
+  reviewed_at: '2026-11-08T20:52:47Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_scope_bindings
       tests.test_scoped_retrieval tests.test_output_scope -q
     outcome: passed
-    observed_at: '2026-11-08T20:51:56Z'
+    observed_at: '2026-11-08T20:52:47Z'
     notes: 44 tests pass in 49.826s at the initial eight-case extension; existing reviewed/scoped/output behavior
       preserved
   - command: .venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_distribution
       -q
     outcome: passed
-    observed_at: '2026-11-08T20:51:56Z'
+    observed_at: '2026-11-08T20:52:47Z'
     notes: 22 tests pass in 33.390s after two added CLI-grant/reviewed-hierarchy cases
   - command: .cache/python313/bin/python -m unittest tests.test_source_compaction -q
     outcome: passed
-    observed_at: '2026-11-08T20:51:56Z'
+    observed_at: '2026-11-08T20:52:47Z'
     notes: 10 source-compaction cases pass; no credentials, model or acquisition
   - command: Ruff E9/F; git diff --check; pinned owner handoff/ADR/44-row checks
     outcome: passed
-    observed_at: '2026-11-08T20:51:56Z'
+    observed_at: '2026-11-08T20:52:47Z'
     notes: Focused syntax/import/style and pinned authority/continuity/coverage checks pass
+  - command: .venv/bin/ruff check --select E9,F src
+    outcome: limited
+    observed_at: '2026-11-08T20:52:47Z'
+    notes: '4 unchanged baseline findings: unused imports in scope_cache/routing_transitions/site, and site base
+      variable. Focused changed-file scan passes.'
   environment_limitations:
   - TYPESAFE_API_KEY is not configured; live smoke and model accuracy/calibration remain unverified. Thresholds
     are provisional.
@@ -167,7 +175,7 @@ Merge the authorized stack, deliver one optional TypeSafe intent checkpoint, and
 
 ## State snapshot
 
-Main f3a88cc contains all #93–#109 merges. Draft #110 adds optional TypeSafe; this #46 checkpoint is stacked on #110/3ac1edd. Native main collection is ready/publication denied; no private pilot or publication is authorized.
+Main f3a88cc contains all #93–#109 merges. Draft #110 adds optional TypeSafe; Draft #111, this #46 checkpoint is stacked on #110/3ac1edd. Native main collection is ready/publication denied; no private pilot or publication is authorized.
 
 ## Completed and material changes
 
@@ -175,7 +183,7 @@ Optional TypeSafe #110 passes 393 local tests on each supported Python. The #46 
 
 ## Validation and review evidence
 
-.venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_scope_bindings tests.test_scoped_retrieval tests.test_output_scope -q — 44 tests pass in 49.826s at the initial eight-case extension; existing reviewed/scoped/output behavior preserved. .venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_distribution -q — 22 tests pass in 33.390s after two added CLI-grant/reviewed-hierarchy cases. .cache/python313/bin/python -m unittest tests.test_source_compaction -q — 10 source-compaction cases pass; no credentials, model or acquisition. Ruff E9/F; git diff --check; pinned owner handoff/ADR/44-row checks — Focused syntax/import/style and pinned authority/continuity/coverage checks pass.
+.venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_scope_bindings tests.test_scoped_retrieval tests.test_output_scope -q — 44 tests pass in 49.826s at the initial eight-case extension; existing reviewed/scoped/output behavior preserved. .venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_distribution -q — 22 tests pass in 33.390s after two added CLI-grant/reviewed-hierarchy cases. .cache/python313/bin/python -m unittest tests.test_source_compaction -q — 10 source-compaction cases pass; no credentials, model or acquisition. Ruff E9/F; git diff --check; pinned owner handoff/ADR/44-row checks — Focused syntax/import/style and pinned authority/continuity/coverage checks pass. .venv/bin/ruff check --select E9,F src — 4 unchanged baseline findings: unused imports in scope_cache/routing_transitions/site, and site base variable. Focused changed-file scan passes..
 
 ## Blockers, risks, unknowns, and deferred work
 
