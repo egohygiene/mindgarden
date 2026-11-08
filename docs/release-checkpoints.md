@@ -1,6 +1,7 @@
 # Provider, consumer and release checkpoints
 
-The maintainer authorized #51 → #27 → #20 → #19. The live refresh found #93 open
+The maintainer authorized #51 → #27 → #20, then explicitly deferred #19
+(ordinal 21) and further release work pending organization release conventions. The live refresh found #93 open
 and draft, no published GitHub releases, and main at
 `d5edb13de1b65871ec85e7a25af035228a1d756d`. This batch leaves small drafts for
 review and preserves the existing Python engine, canonical contracts and v0
@@ -34,8 +35,8 @@ ratify ADRs, invent missing contracts or authorize reading private consumer data
 | --- | --- | --- | --- |
 | #51 | Draft [#94](https://github.com/egohygiene/mindgarden/pull/94), `feature/51-provider-switch-proof` over #93; functional `1fac57d` | 308 tests per supported Python; clean source/wheel goldens; six reviewed records in 13,178/16,384 bytes | Maintainer review/merge of the bounded conformance scenario; live providers are not required |
 | #27 | Draft [#95](https://github.com/egohygiene/mindgarden/pull/95), `feature/27-release-preparation` over #94; functional `a3cbac9` | 315 tests per Python, two builds with identical source/wheel hashes, Relay artifact checks and clean installed compatibility pass | Strict handoff is blocked by exact root-authority schema parity; signing/PyPI remain unavailable; review and qualify owner fixes |
-| #20 | Complete synthetic archive→review→private fallback/public projection composition | Earlier local/mixed source proofs exist | Extend the composition; prepare an explicitly scoped private pilot and pinned Empathy handoff |
-| #19 | Acceptance and release readiness | Blocked by actual acceptance and external delivery setup | Prepare precise checks/artifacts; publish 1.0 only when acceptance and authority are evidenced |
+| #20 | `feature/20-consumer-journey-proof` over #95; functional `5cb8359`; [consumer proof](consumer-journey.md) | Authored synthetic archive/review/routing/public federation and relocation golden; scoped private-pilot helper; [Empathy draft #120](https://github.com/egohygiene/empathy/pull/120) | Real pilot inputs/review are pending; strict Empathy entrypoint cutover, holistic profile and actual renderer/deployment remain separate |
+| #19 | Release 1.0 | Deferred by the maintainer | Resume only when organization release conventions and actual acceptance are ready; no release-readiness implementation in this batch |
 
 The stack base is draft #93, preserving the new native registry proof in the
 combined checkout. That checkout dependency is distinct from the contracts above.
@@ -120,3 +121,23 @@ The candidate lives only in ignored local output, not a GitHub/PyPI release.
 The automatic preparation workflow checks supported artifacts and retains blocked
 external states; it is not the manual publication workflow and does not attest
 full 1.0 readiness. No paid workflow is manually dispatched.
+
+## Consumer composition checkpoint
+
+Functional source: `5cb8359`. Seven focused journey/private-pilot tests pass.
+A fresh installed wheel under `-I` reproduces the exact committed synthetic
+journey golden: 3,378/16,384 public context bytes, private fallback, explicit public
+review, verified federation and unchanged evidence through vault restoration.
+Both full supported-Python suites are running; pending results are not passing CI.
+
+Empathy draft #120 pins candidate `a3cbac9` without copying the engine or changing
+its canonical garden/entrypoint. Twelve consumer integration tests pass. Installed
+identity, validation, search, context and explicit-profile publication checks pass.
+Strict verification retains exit 3 for the incubation-to-standalone documentation
+link cutover. Task is unavailable locally; literal commands were run directly.
+Holistic and deployed consumer acceptance have not run. No manual workflow runs.
+
+The approved private archive/workspace/classification remain unavailable. The
+helper requires explicit inputs and preserves a private, owner-reviewed report.
+No real source was read. Next: the broader product batch; #19 and further #27
+release integration stay deferred.

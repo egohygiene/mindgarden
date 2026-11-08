@@ -1,0 +1,147 @@
+{
+  "archive_private_workflow": {
+    "archive_profile": "full-source",
+    "archive_sha256": "f3a68532baab877d62576769f5d2a2843e9eb3f33b8062545b62435ef40df6d3",
+    "archive_spec_version": "3.2.3",
+    "checks": [
+      "private-init-and-general-validation",
+      "archive-original-preserved",
+      "repeat-import-no-duplicates",
+      "authored-human-review",
+      "exact-source-search-and-evidence",
+      "bounded-json-and-markdown-context",
+      "deterministic-index",
+      "vault-export",
+      "relocation-same-reference",
+      "restore-clean-vault",
+      "rebuild-clean-garden-without-caches",
+      "original-vault-retained",
+      "no-physical-paths-in-records"
+    ],
+    "context_bytes": 2670,
+    "context_max_bytes": 16384,
+    "context_sha256": "fd1448d50b3712b912c50d296413a922693eb1d77e6b5dda59c704bf50cb8310",
+    "engine_version": "0.1.0",
+    "index_sha256": "5cad9f17875a68f0e88d36bf26fb65babaaee5bbb093c92b17a46050af6c1b7f",
+    "integrations": {
+      "google": "unused",
+      "model": "unused",
+      "network": "blocked-in-process"
+    },
+    "knowledge": {
+      "epistemic_state": "proposed",
+      "id": "reviewed-prompt",
+      "review": "approved",
+      "topic": "prompt-bank"
+    },
+    "original_selector": {
+      "json_pointer": "/messages/1",
+      "member": "CONVERSATION.json",
+      "member_sha256": "53d78f86def28dda8c102e69d8bf51b606dd12df2e74de7ac17f1af394497fd1"
+    },
+    "schema": "mindgarden.synthetic-workflow-proof/v1",
+    "source_reference": {
+      "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+      "locator": "json:/content/0/text",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+        "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+      }
+    },
+    "source_review": "unreviewed",
+    "speaker": "assistant",
+    "status": "passed",
+    "vault_backup_sha256": "c74e215fc9a035abc701ecab54a041ed840e3a6b8201314e151f6834ff0dba5d",
+    "vault_objects": 6
+  },
+  "checks": [
+    "archive-review-search-exact-evidence-context-restore-relocation-rebuild",
+    "explained-private-fallback",
+    "explicit-reviewed-public-route",
+    "duplicate-safe-routing-repeat",
+    "public-source-identity-and-revision-preserved",
+    "no-private-content-id-count-or-path-in-public-projections"
+  ],
+  "deployment": "not-performed",
+  "engine_version": "0.1.0",
+  "federation": {
+    "garden": "repository-garden",
+    "revision": "sha256:86652c973973d0f33e2155597c386a335dc2a240c6c52d3a79a232d0abb583e7",
+    "visibility": "public"
+  },
+  "google": "unused",
+  "limitations": [
+    "Authored synthetic agent proposal and human review, not live AI/real-person approval.",
+    "Content projection verified; actual renderer/deployment, approved real pilot and upstream Empathy acceptance are separate."
+  ],
+  "model": "unused",
+  "public_context_budget": 16384,
+  "public_context_bytes": 3378,
+  "public_evidence": [
+    {
+      "content_sha256": "844d4581e4f19e74c4417bc1ecc32e5646f75a584c60505e7bfdc88b7ea2152e",
+      "locator": "lines:1-1",
+      "source": {
+        "garden": "repository-garden",
+        "id": "reviewed-public-source",
+        "revision": "sha256:1581c5901aadd064d9077a519dbda5a903b5cb5ea9f9be7b4864ec95f3345d32"
+      }
+    }
+  ],
+  "public_fork": "separately supplied reviewed-public evidence; private archive remains private",
+  "public_reference": {
+    "garden": "repository-garden",
+    "id": "release-public-procedure",
+    "revision": "sha256:844d4581e4f19e74c4417bc1ecc32e5646f75a584c60505e7bfdc88b7ea2152e"
+  },
+  "routing": {
+    "private": "private-fallback",
+    "public": "routed",
+    "repeat": "verified-no-op"
+  },
+  "schema": "mindgarden.synthetic-release-journey/v1",
+  "site": {
+    "kind": "content",
+    "revision": "sha256:37570d284039cfb0832ca7a989563fc6e73ec1c2cc8d46518522b0127c8fc3ec",
+    "routes": [
+      {
+        "path": "notes/release-public-procedure/index.html",
+        "reference": {
+          "garden": "repository-garden",
+          "id": "release-public-procedure",
+          "revision": "sha256:844d4581e4f19e74c4417bc1ecc32e5646f75a584c60505e7bfdc88b7ea2152e"
+        },
+        "url": "https://repository-garden.example.test/garden/notes/release-public-procedure/"
+      },
+      {
+        "path": "notes/reviewed-claim/index.html",
+        "reference": {
+          "garden": "repository-garden",
+          "id": "reviewed-claim",
+          "revision": "sha256:9041afa5aeb9f972a62717e7dca71524b79dd73c1c0a357266f6971a10d38b18"
+        },
+        "url": "https://repository-garden.example.test/garden/notes/reviewed-claim/"
+      },
+      {
+        "path": "notes/reviewed-prompt/index.html",
+        "reference": {
+          "garden": "repository-garden",
+          "id": "reviewed-prompt",
+          "revision": "sha256:e1ce2bc9126281033e190c9607bff98c9cd38534c09a9e7d48216c8e2ca13a02"
+        },
+        "url": "https://repository-garden.example.test/garden/notes/reviewed-prompt/"
+      },
+      {
+        "path": "notes/reviewed-reference/index.html",
+        "reference": {
+          "garden": "repository-garden",
+          "id": "reviewed-reference",
+          "revision": "sha256:108c4cd4985f2149128df1478b61582798253bac06c6dfe369446f88c763d4d7"
+        },
+        "url": "https://repository-garden.example.test/garden/notes/reviewed-reference/"
+      }
+    ]
+  },
+  "status": "supported-synthetic-journey-passed"
+}

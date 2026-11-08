@@ -382,10 +382,18 @@ tests do not imply merge, wider-host acceptance or ADR ratification.
 ## Provider and release verification
 
 The current authorized batch is [provider, consumer and release checkpoints](docs/release-checkpoints.md):
-#51 local provider recovery, #27 release preparation, #20 synthetic/approved-private
-consumer proof, and conditional #19 publication. #27 can advance independently
-of the complete pilot. Actual private-pilot, consumer and protected publishing
-evidence gate 1.0; synthetic tests cannot stand in for them.
+#51 local provider recovery, parked #27 release preparation and #20 synthetic/approved-private
+consumer proof. The maintainer explicitly deferred #19 (ordinal 21) and additional
+release work pending organization release conventions. [Consumer composition](docs/consumer-journey.md)
+and Empathy draft #120 retain actual cutover/private-pilot gaps.
+
+## Broader product checkpoints
+
+The active batch is #41, #43, #44, #32, #37, #49, #48 and #47. Verify shared
+gates before ADR backfill and the framework-dependent web slice. Reuse Relay for
+Decisions; keep query stores and all generated views replaceable. Implement ready
+local projection, dependency-build, memory and bookmark contracts in bounded drafts,
+then regroup with the maintainer. Deferred #86–#91 are not activated.
 
 ## Deferred after the current queue and reconciliation
 
