@@ -171,7 +171,7 @@ not one serial gate over all work.
 
 | Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
 | --- | --- | --- | --- | --- |
-| [#48](https://github.com/egohygiene/mindgarden/issues/48) — private bookmark cleanup/separate Akashic publication | blocked | Reusable normalization/curation/routing/scope primitives, no bookmark cleanup implementation | Accepted source/delta and intake contracts, reversible cleaned export, quarantine/resume, independent per-item public packet and synthetic cross-source extraction proof | #42/#11/#13/#14/#16/#29/#30/#31, Mindcap #35, Akashic #173–#176; J contracts/fixtures first; metadata-only mode remains useful |
+| [#48](https://github.com/egohygiene/mindgarden/issues/48) — private bookmark cleanup/separate Akashic publication | partial | Bounded normalized v0.1 metadata cleanup, digest-bound resumable review, preserved originals, cleaned JSON/HTML and explicit unavailable public handoff | Accepted source-bundle/delta and Akashic intake/freshness contracts, raw capture verification, real canonical URL integration and cross-source knowledge proof | #42/#11/#13/#14/#16/#29/#30/#31, Mindcap #35, Akashic #173–#176; J contracts/fixtures first; metadata-only mode remains useful |
 
 ## Consumer, packaging and release readiness
 
