@@ -5,6 +5,7 @@ from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes, r
 from ..domain.validation import ContractError
 from .curation import require_review_authority
 from .evidence import resolve_evidence
+from .source_evidence import resolve_source_evidence
 from .query import QueryContext
 
 
@@ -54,21 +55,30 @@ def validate_curation_bridge(context, plan, proposal):
     return results
 
 
-def preview_compaction(context, plan, *, curation=None):
+def preview_compaction(context, plan, *, curation=None, source_only=False):
     nodes, _order = validate_plan(plan)
     context.require("context")
+    if source_only and (curation is not None or plan["curation_plan_sha256"] is not None
+            or any(node["layer"] not in {"normalized-segment", "source-summary"}
+                   or node["curation_candidate"] is not None or node["supersedes"]
+                   or node["layer"] == "source-summary" and any(statement["epistemic_state"] in {"observed", "decided"}
+                                                              for statement in node["statements"])
+                   for node in nodes.values())):
+        raise ContractError("COMPACTION_SOURCE_REVIEW: first-pass source grants authorize segments and proposed summaries only")
     if plan["garden"] not in context.bindings.gardens or not context.allows_scope(plan["scope"]):
         raise ContractError("COMPACTION_SCOPE: compaction requires an explicitly permitted garden and scope")
     citations = {canonical_json(citation): citation for node in nodes.values() for citation in node_sources(node)}
-    evidence = {key: resolve_evidence(context, **citation) for key, citation in sorted(citations.items())}
+    resolve = resolve_source_evidence if source_only else resolve_evidence
+    evidence = {key: resolve(context, **citation) for key, citation in sorted(citations.items())}
     if context.output_scope([item["scope"] for item in evidence.values()]) != plan["scope"]:
         raise ContractError("COMPACTION_SCOPE: declared output must equal effective authorized input restrictions")
     report = evaluate_compaction(plan, evidence)
     report["curation"] = validate_curation_bridge(context, plan, curation)
     report["evidence"] = [{key: value for key, value in item.items() if key in {
-        "source", "locator", "content_sha256", "trust", "source_identity", "source_review", "origin", "lineage"}}
+        "source", "locator", "content_sha256", "trust", "source_identity", "source_review", "origin", "lineage", "authorization"}}
         for item in evidence.values()]
-    report["plan_sha256"] = digest_bytes(canonical_json({"plan": plan, "authority_sha256": context.scope_digest()}))
+    report["plan_sha256"] = digest_bytes(canonical_json({"plan": plan, "authority_sha256": context.scope_digest(),
+        **({"input_mode": "source-grant"} if source_only else {})}))
     maximum = min(context.session["budgets"]["max_context_bytes"], plan["retention"]["model_context"]["max_bytes"],
                   plan["retention"]["detail_budgets"][plan["budget_profile"]]["max_bytes"])
     if len(canonical_json(report)) > maximum:
@@ -80,5 +90,5 @@ def run_compaction(arguments):
     context = QueryContext.load(arguments.local_config, arguments.scope)
     plan = read_object(arguments.input)
     curation = read_object(arguments.curation_plan) if arguments.curation_plan is not None else None
-    print(canonical_json(preview_compaction(context, plan, curation=curation)).decode(), end="")
+    print(canonical_json(preview_compaction(context, plan, curation=curation, source_only=arguments.source_only)).decode(), end="")
     return 0

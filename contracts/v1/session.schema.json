@@ -104,7 +104,8 @@
           "context",
           "llms",
           "evidence",
-          "assets"
+          "assets",
+          "source-evidence"
         ]
       },
       "uniqueItems": true
@@ -175,6 +176,15 @@
     },
     "registry_view": {
       "$ref": "urn:egohygiene:mindgarden:registry:v1#/$defs/session_reference"
+    },
+    "source_grants": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+      },
+      "minItems": 1,
+      "maxItems": 128,
+      "uniqueItems": true
     }
   },
   "additionalProperties": false

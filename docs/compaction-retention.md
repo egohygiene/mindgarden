@@ -44,7 +44,8 @@ The evaluator reuses existing scoped retrieval and exact-evidence services. It
 requires context/evidence capabilities and a permitted Garden. The first checkpoint
 consumes citations already visible in the authorized reviewed-knowledge closure;
 it does not grant an agent new raw-archive access. A first-pass raw-only compactor
-needs an explicit source-access contract and is outside this reader's scope.
+uses the separate exact-session-grant extension below. The reviewed-reader path
+retains its existing authorization requirement.
 The synthetic archive fixture establishes reviewed evidence anchors through the
 existing authored curation path before evaluating additional layers.
 
@@ -67,7 +68,62 @@ Apply that separately reviewed proposal through existing `gardenize --plan` /
 The ordinary curation digest binds exact current inputs and never overwrites
 originals. Retain the authored hierarchy, curation proposal and generated manifest
 together. Canonical curation provenance records the proposal digest/candidate and
-exact evidence; automatic manifest discovery/storage is future #37/#46 integration.
+exact evidence. Private proof storage is supported below; automatic discovery
+and broader scheduling remain #37/#46 integration work.
+
+## First-pass source summaries and private proof bundles
+
+This bounded extension accepts an authored `compaction-plan/v1` containing only
+`normalized-segment` and `source-summary` nodes, with no curation binding or
+supersession. It uses already captured/normalized artifacts, preserving immutable
+originals. It needs no reviewed knowledge anchor. It does not generate summaries;
+the authored interpretation stays proposed and the evidence stays untrusted.
+Durable knowledge, context/publication layers and curation still use their
+separate reviewed path.
+
+`session/v1` adds optional `source_grants`: at most 128 exact artifact references
+with immutable revisions. They require the explicit `source-evidence` capability,
+a personal/machine-local/offline/never-exportable request ceiling, and readable
+gardens. Missing, changed, denied or non-normalized grants fail before source
+bodies are opened. Existing dependency sensitivity, budgets, live authority,
+expiry, revocation, exact locators and checksum verification still apply. No
+grant changes `allowed_review_states` or promotes source/knowledge review.
+
+Copy an authored wrapper shaped like the synthetic
+[`source-grants.json`](../tests/fixtures/compaction/source-grants.json) into an
+owner-only control directory outside Git and canonical gardens. Author a new
+session with explicit `--projection context --projection source-evidence` and
+`--source-grants /private/control/source-grants.json`, together with ordinary
+`scope` arguments and `--publication-authority never-exportable`. Include other
+projections explicitly if needed. Nothing is granted by default.
+
+```sh
+mindgarden compaction preview --input source-only-plan.json --source-only \
+  --local-config /private/control/bindings.json --scope /private/control/session.json
+mindgarden compaction build --input source-only-plan.json --source-only \
+  --local-config /private/control/bindings.json --scope /private/control/session.json \
+  --created-at "$PROOF_CREATED_AT" --output-directory /private/control/proof
+```
+
+Inspect the build's report and digest. Repeat the exact command with `--apply
+--plan-digest DIGEST` to create the bundle, or `--check` to verify an existing one.
+Keep the explicit creation timestamp: it binds deterministic output and cannot
+silently refresh a stale plan. `compaction-bundle/v1` binds the session digest,
+input mode, source plan, derived manifest, report and expiration. Files are
+owner-only; existing differences and partial attempts remain inspectable. Use a
+new destination after interruption; no implicit repair overwrites previous proof.
+The same build supports the existing reviewed hierarchy and optional curation
+proposal without applying that proposal.
+
+Expiration is the earlier of creation plus model-context TTL and session expiry.
+Plan/apply/check revalidate current authority and evidence; expired, revoked,
+changed or corrupted inputs cannot yield a valid bundle. Expired files remain on
+disk for owner inspection. Consumers must use the checked path before reuse;
+this is not encryption, secure erasure, a background retention job or enforcement
+against another process reading files directly. It never deletes source objects.
+Refreshing authority can require a new complete bundle even when unrelated node
+revisions are reusable. `invalidated_nodes` retains selective revision evidence;
+automatic incremental scheduling remains open.
 
 ## Separate retention classes and budgets
 
@@ -75,14 +131,15 @@ exact evidence; automatic manifest discovery/storage is future #37/#46 integrati
 | --- | --- | --- |
 | Archival/source | Preserve originals; deletion unsupported | Provider/backups/hold/deletion policy and approved destructive proof |
 | Durable knowledge | Explicit review; superseded knowledge retained with lineage | Human lifecycle disposition and approved pilot |
-| Model context | Ephemeral declaration, byte cap and bounded TTL | Actual persistence/expiry jobs and consumer enforcement |
+| Model context | Byte/TTL contract; private proof build/apply/check enforces live authority and expiry | Background jobs, consumer adoption and secure erasure |
 | Publication | Separate review, declared TTL, revoke by invalidation/rebuild | Deployed revocation/expiry and host acceptance |
 
 Repository, organization, personal, agent and publishing detail profiles have
 explicit statement/byte budgets. Complete preview/provenance also fits the
-session and model-context byte ceilings. Retention TTLs are validated declarations
-in this checkpoint; no scheduler, deletion, memory store or deployed expiry service
-is implemented. Existing session expiration/revocation still gates every read.
+session and model-context byte ceilings. Private proof TTL is enforced through
+the supported build/check path; publication TTL remains a declaration. No scheduler,
+source deletion, memory store or deployed expiry service is implemented.
+Existing session expiration/revocation still gates every read.
 Context expiration cannot authorize source deletion. Publication-candidate nodes
 remain private proposals until an independent reviewed public flow permits them.
 

@@ -1,0 +1,153 @@
+{
+  "budget_profile": "personal",
+  "created_at": "2026-11-04T00:00:00Z",
+  "curation_plan_sha256": null,
+  "garden": "synthetic-garden",
+  "id": "synthetic-source-only-hierarchy",
+  "nodes": [
+    {
+      "action": "keep",
+      "curation_candidate": null,
+      "id": "segment-prompt",
+      "inputs": [],
+      "layer": "normalized-segment",
+      "rationale": "Authored synthetic keep at normalized-segment.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+                "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+              }
+            }
+          ],
+          "id": "segment-prompt-prompt",
+          "text": "Cite exact evidence; preserve uncertainty.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "unknown",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    },
+    {
+      "action": "summarize",
+      "curation_candidate": null,
+      "id": "summary-prompt",
+      "inputs": [
+        "segment-prompt"
+      ],
+      "layer": "source-summary",
+      "rationale": "Authored synthetic summarize at source-summary.",
+      "statements": [
+        {
+          "attribution": "assistant-suggestion",
+          "contradictions": [],
+          "epistemic_state": "proposed",
+          "evidence": [
+            {
+              "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+              "locator": "json:/content/0/text",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+                "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+              }
+            }
+          ],
+          "id": "summary-prompt-prompt",
+          "text": "Use exact evidence; preserve uncertainty.",
+          "uncertainty": [
+            "Effectiveness remains unmeasured.",
+            "Alternative branch remains unresolved."
+          ],
+          "validity": {
+            "reason": "Authored annotation; no factual adjudication.",
+            "state": "unknown",
+            "valid_from": null,
+            "valid_until": null
+          }
+        }
+      ],
+      "supersedes": []
+    }
+  ],
+  "outputs": [
+    "summary-prompt"
+  ],
+  "retention": {
+    "archival": {
+      "deletion": "unsupported",
+      "mode": "preserve-originals"
+    },
+    "destructive_changes": "unavailable",
+    "detail_budgets": {
+      "agent": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      },
+      "organization": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      },
+      "personal": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      },
+      "publishing": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      },
+      "repository": {
+        "max_bytes": 32768,
+        "max_statements": 8
+      }
+    },
+    "id": "synthetic-preserve-first",
+    "knowledge": {
+      "mode": "review-required",
+      "superseded": "retain-with-lineage"
+    },
+    "model_context": {
+      "max_bytes": 32768,
+      "persistence": "ephemeral",
+      "ttl_seconds": 600
+    },
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": {
+      "mode": "separate-review",
+      "revocation": "invalidate-and-rebuild",
+      "ttl_seconds": 3600
+    },
+    "schema": "mindgarden.retention-policy/v1"
+  },
+  "schema": "mindgarden.compaction-plan/v1",
+  "scope": {
+    "execution": "offline",
+    "persistence": "machine-local",
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": "never-exportable",
+    "schema": "mindgarden.scope/v1",
+    "visibility": "personal"
+  }
+}

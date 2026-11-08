@@ -467,8 +467,25 @@ def add_compaction_command(commands: ParserCollection) -> None:
     preview.add_argument("--local-config", type=Path, required=True)
     preview.add_argument("--scope", type=Path, required=True)
     preview.add_argument("--curation-plan", type=Path, help="Exact existing curation-plan/v1 proposal pinned by the hierarchy")
+    preview.add_argument("--source-only", action="store_true", help="Use exact private session grants for first-pass proposed summaries")
     preview.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
     preview.set_defaults(handler=run_compaction, public_artifact_command=True)
+    from ..application.compaction_bundles import run_compaction_bundle
+
+    build = operations.add_parser("build", help="Plan, create or verify an immutable private proof bundle with bounded lifetime")
+    build.add_argument("--input", type=Path, required=True)
+    build.add_argument("--local-config", type=Path, required=True)
+    build.add_argument("--scope", type=Path, required=True)
+    build.add_argument("--curation-plan", type=Path)
+    build.add_argument("--source-only", action="store_true")
+    build.add_argument("--created-at", required=True, help="Explicit proof creation time with offset, retained for reproducible checks")
+    build.add_argument("--output-directory", type=Path, required=True)
+    mode = build.add_mutually_exclusive_group()
+    mode.add_argument("--apply", action="store_true")
+    mode.add_argument("--check", action="store_true")
+    build.add_argument("--plan-digest", help="Reviewed build digest required for application")
+    build.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
+    build.set_defaults(handler=run_compaction_bundle, public_artifact_command=True)
 
 
 def add_registry_command(commands: ParserCollection) -> None:
@@ -718,7 +735,8 @@ def build_parser() -> ArgumentParser:
     scope.add_argument("--execution", choices=("offline", "controlled-import", "networked"), default="offline")
     scope.add_argument("--publication-authority", choices=("never-exportable", "review-required", "publishable"), default="never-exportable")
     scope.add_argument("--request-visibility", choices=("public", "organization", "personal", "restricted"), default="personal")
-    scope.add_argument("--projection", action="append", choices=("index", "search", "graph", "backlinks", "context", "llms", "evidence", "assets"))
+    scope.add_argument("--projection", action="append", choices=("index", "search", "graph", "backlinks", "context", "llms", "evidence", "assets", "source-evidence"))
+    scope.add_argument("--source-grants", type=Path, help="Private wrapper containing exact normalized source references; requires source-evidence projection")
     scope.add_argument("--max-results", type=positive_integer, default=100)
     scope.add_argument("--max-context-bytes", type=positive_integer, default=16384)
     scope.add_argument("--max-output-bytes", type=positive_integer, help="Serialized query-output ceiling; default 16 MiB")

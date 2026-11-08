@@ -75,6 +75,9 @@
         },
         "additionalProperties": false
       }
+    },
+    "authorization": {
+      "const": "session-source-grant"
     }
   },
   "additionalProperties": false

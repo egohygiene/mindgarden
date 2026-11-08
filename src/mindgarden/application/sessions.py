@@ -10,6 +10,7 @@ from ..domain.contracts import ContractRegistry, canonical_json, read_object
 from ..domain.scope import POLICY_REFERENCE, local_scope
 from ..domain.registry import selected_view, verify_session_view, view_reference
 from ..domain.validation import ContractError
+from ..adapters.registry_files import control_path
 from .bindings import LocalBindings
 from .query import QueryContext, selected_garden_ids
 from .query_view import metadata_view
@@ -60,6 +61,11 @@ def run_scope(arguments: Namespace) -> int:
         session["registry_view"] = view_reference(view)
     session["request_scope"] = local_scope(arguments.request_visibility, execution=arguments.execution,
                                             publication=arguments.publication_authority)
+    if getattr(arguments, "source_grants", None) is not None:
+        document = read_object(control_path(arguments.source_grants.absolute()))
+        if set(document) != {"source_grants"}:
+            raise ContractError("SOURCE_GRANT: supply a private source_grants wrapper only")
+        session["source_grants"] = document["source_grants"]
     session = bind_session_revisions(arguments.local_config, session)
     if datetime.fromisoformat(session["expires_at"].replace("Z", "+00:00")) <= datetime.now(timezone.utc):
         raise ContractError("SESSION_EXPIRED: supply a future expiration with an explicit offset")

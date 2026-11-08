@@ -1,0 +1,9 @@
+{
+  "source_grants": [
+    {
+      "garden": "synthetic-garden",
+      "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+      "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+    }
+  ]
+}

@@ -15,3 +15,11 @@ coverage and byte ratios are measurable; semantic truth remains a review concern
 changed evidence, selective invalidation, qualification loss, unsupported policy,
 forbidden deletion, public downgrade, budgets and preserved unreviewed authority.
 No real archive, credential, private Garden or external service is needed.
+
+`source-only-plan.json` and the synthetic `source-grants.json` wrapper prove the
+first segment/summary without creating any knowledge anchor. The grants are test
+data, not portable authority or a real session. `tests.test_source_compaction`
+captures the same archive and tests source grants, unchanged unreviewed state,
+private bundle create/repeat/check, corruption, expiry/revocation, changed inputs,
+and partial-output recovery without changing originals. Software fixtures do not
+establish semantic summary accuracy or an approved real private pilot.
