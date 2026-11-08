@@ -212,3 +212,14 @@ boundaries, plus independent bookmark cleanup and publication approvals.
 Conditional follow-ups become executable only after the relevant human and owner
 dispositions. Authentication, collaboration, specialized stores, jobs, MCP and
 new product integrations retain evidence requirements and revisit triggers.
+
+## Broader product checkpoints on draft branches
+
+The [product ledger](docs/product-checkpoints.md) distinguishes implementation on
+the review stack from merged/accepted architecture. Drafts add a public-only ADR
+metadata projection, an opt-in SQLite parity/recovery adapter, selected-record
+dependency builds, reviewed memory snippets and private bookmark cleanup. Portable
+records and source originals stay authoritative; the reference engine remains
+the default. The [shared-service proposal](docs/shared-service-slice-proposal.md)
+records current callables and required CLI/API/web/worker parity. Framework, HTTP
+identity and runtime disposition remain gated; no proposed ADR is self-ratified.
