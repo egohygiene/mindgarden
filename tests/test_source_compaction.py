@@ -1,6 +1,7 @@
 """First-pass source access, private proof recovery and expiry without review promotion."""
 
 from copy import deepcopy
+from argparse import Namespace
 from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
@@ -13,7 +14,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from mindgarden.adapters.generated_files import apply_generated
 from mindgarden.application.bindings import garden_fingerprint
 from mindgarden.application.compaction import preview_compaction
-from mindgarden.application.compaction_bundles import plan_compaction_bundle
+from mindgarden.application.compaction_bundles import (
+    plan_compaction_bundle,
+    run_compaction_bundle,
+)
 from mindgarden.application.query import QueryContext
 from mindgarden.application.retrieval import search_payload
 from mindgarden.application.sessions import bind_session_revisions
@@ -182,6 +186,18 @@ class SourceCompactionTests(unittest.TestCase):
         blob.write_bytes(b"Synthetic corrupt normalized evidence")
         with self.assertRaisesRegex(ContractError, "QUERY_INTEGRITY"):
             self.preview()
+
+    def test_bundle_destination_cannot_share_a_source_vault(self):
+        destination = self.root / "vault/derived"
+        with self.assertRaisesRegex(ContractError, "FEDERATION_OUTPUT"):
+            run_compaction_bundle(
+                Namespace(
+                    local_config=self.fixture["configuration"],
+                    scope=self.path,
+                    output_directory=destination,
+                )
+            )
+        self.assertFalse(destination.exists())
 
     def test_cli_create_repeat_check_stale_digest_and_conflict_preserve_originals(self):
         plan_path = self.root / "source-plan.json"

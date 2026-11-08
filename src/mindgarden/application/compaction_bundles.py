@@ -13,6 +13,7 @@ from ..domain.contracts import (
 from ..domain.scope import local_scope
 from ..domain.validation import ContractError
 from .compaction import preview_compaction
+from .federation import export_destination
 from .query import QueryContext
 
 
@@ -78,6 +79,7 @@ def plan_compaction_bundle(
 def run_compaction_bundle(arguments):
     context = QueryContext.load(arguments.local_config, arguments.scope)
     directory = arguments.output_directory.absolute()
+    directory = export_destination(context, directory.parent, directory.name)
     control_path(directory / ".mindgarden-generated.json")
 
     def current():
