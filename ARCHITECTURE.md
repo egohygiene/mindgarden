@@ -213,10 +213,21 @@ Conditional follow-ups become executable only after the relevant human and owner
 dispositions. Authentication, collaboration, specialized stores, jobs, MCP and
 new product integrations retain evidence requirements and revisit triggers.
 
-## Broader product checkpoints on draft branches
+## Broader product checkpoints
 
-The [product ledger](docs/product-checkpoints.md) distinguishes implementation on
-the review stack from merged/accepted architecture. Drafts add a public-only ADR
+The #93–#109 checkpoint stack is merged; the
+[merge receipt](docs/merged-closeout-checkpoints.md) distinguishes its tested
+baseline from remaining parent acceptance. Proposed decisions retain their
+existing approval state.
+
+The optional [TypeSafe read-intent seam](docs/typesafe-decisions.md), in draft
+#110, keeps the official SDK in an adapter and typed judgments in the domain.
+Application code maps closed intents to existing authorized read services.
+Model judgments cannot grant scope, choose executable code or promote review.
+The default CLI and engine require no model SDK or service.
+
+The [product ledger](docs/product-checkpoints.md) retains the original implementation
+and acceptance evidence. Merged checkpoints add a public-only ADR
 metadata projection, an opt-in SQLite parity/recovery adapter, selected-record
 dependency builds, reviewed memory snippets and private bookmark cleanup. Portable
 records and source originals stay authoritative; the reference engine remains

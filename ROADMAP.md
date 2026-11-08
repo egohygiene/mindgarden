@@ -40,7 +40,7 @@ updated: 2026-11-06
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate:** Source-workflow/private-storage checkpoints #74–#84 are merged at `eb0018e`; await the next maintainer issue group. Parent consumer/integration criteria and proposed ADR decisions remain open.
+**Current gate (2026-11-08):** The authorized #93–#109 stack is merged at `f3a88cc`. Advance bounded #43/#46/#17/#18/#20 closeout checkpoints; optional TypeSafe #110 stays draft. Parent acceptance, proposed ADRs and parked release work retain their gates. See [merge evidence](docs/merged-closeout-checkpoints.md) and the [active sprint](docs/closeout-sprint.md).
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
 
 ### Complete open-issue coverage and next batches

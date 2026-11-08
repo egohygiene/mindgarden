@@ -158,3 +158,8 @@ adapter's `_call` credential/client/timeout boundary and `DecisionSettings`, the
 keep selection/review policy in an application service. It must preserve Score
 or Noul semantics rather than reusing Choice confidence rules. No generic agent,
 plugin registry, automatic curation or cross-garden router is introduced now.
+
+Full combined verification at the merged-main TypeSafe checkpoint: 393 tests
+pass on Python 3.12 (361.764s) and Python 3.13 (350.318s), using
+`python -m unittest discover -s tests -q`. These are local results; hosted CI
+is recorded separately. The SDK wire tests remain outside the default suite.

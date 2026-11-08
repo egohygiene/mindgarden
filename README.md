@@ -12,19 +12,17 @@ repository's `.garden/` directory. Obsidian vaults, agent context, search
 indexes, and published sites are projections of that committed knowledge, not
 competing sources of truth.
 
-The source-workflow and private policy/storage checkpoints are merged through
-[#74–#84](docs/merged-pipeline-storage-checkpoints.md). The combined local suite
-passes 298 tests on each supported Python; the mixed archive/PDF/media proof
-preserves exact references through restore, relocation and a clean rebuild.
-See the [source sprint](docs/source-workflow-sprint.md) and
-[storage sprint](docs/private-storage-sprint.md) for bounded evidence and remaining
-parent acceptance. Proposed ADRs and confidential/provider integration remain open.
+The local workflow, policy/storage and later checkpoint stack is merged through
+[#109](docs/merged-closeout-checkpoints.md). Its combined baseline passed 381
+tests on each supported Python. Reviewed knowledge keeps exact source references
+through restore, relocation and clean projection rebuilds. Authored learning,
+public insight handoffs and optional database evaluations are bounded checkpoints;
+OpenAleph, CozoDB and OpenViking are not adopted default services.
 
-The subsequent work remains in reviewable drafts. The [learning/evaluation
-batch](docs/learning-evaluation-checkpoints.md) adds authored private study
-projections and reviewed public insight handoffs. OpenAleph, CozoDB and
-OpenViking evaluations are proposals, not default dependencies or adopted
-services. Follow the checkpoint ledger for exact source, tests and blockers.
+The [active closeout sprint](docs/closeout-sprint.md) records new drafts and
+remaining parent criteria. [Optional TypeSafe decisions](docs/typesafe-decisions.md)
+are implemented in draft #110; the existing CLI needs no model service. Proposed
+ADRs, confidential provider integration and broader consumer acceptance remain open.
 
 ## System at a glance
 

@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-08T20:21:34Z'
+  updated_at: '2026-11-08T20:45:31Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -74,69 +74,79 @@ work:
     url: https://github.com/egohygiene/mindgarden/issues/47
   next:
     kind: action
-    id: finish-merges-then-46
-    description: "Finish the source-qualified #97\u2192#109 merges, retarget the TypeSafe draft to merged main,\
-      \ then implement the bounded #46 raw-source compaction and derived-manifest persistence/expiry checkpoint.\
-      \ Preserve originals; no destructive retention or real pilot."
+    id: source-compaction-46
+    description: 'Implement the bounded #46 source-only compaction and private derived-manifest persistence/expiry
+      checkpoint over the existing source/session contracts. Keep #110 draft, preserve originals, then qualify #17/#18/#20
+      against available public owner/consumer contracts.'
     readiness: ready
     references:
     - docs/closeout-sprint.md
     depends_on: []
 state:
   base:
-    revision: fdce5df3b6b96b85865723032360323fafa7035c
-    ref: refs/heads/experiment/34-openviking-projection
-    verified_at: '2026-11-08T20:21:34Z'
+    revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
+    ref: refs/heads/main
+    verified_at: '2026-11-08T20:45:31Z'
   candidate:
     branch: feature/typesafe-read-workflow
-    revision: fdce5df3b6b96b85865723032360323fafa7035c
-    pull_request: null
+    revision: 43cdb72f481546a0355cffc9d463c3c70b07d5db
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#110
+      url: https://github.com/egohygiene/mindgarden/pull/110
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-08T20:21:34Z'
-    default_branch_revision: 11bcaa8d59e206b4bd6a2117eff8e80e5580cc7a
+    observed_at: '2026-11-08T20:45:31Z'
+    default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
-    notes: "#93\u2013#96 merged into main (11bcaa8). #97 repair 7efb049 passes real native collection and hosted\
-      \ Decisions preview 42519229741; engine Test pending. #98\u2013#109 remain open. TypeSafe is a separate optional\
-      \ draft over #109; all 44 issues remain open."
+    notes: "All seventeen PRs #93\u2013#109 merged in order into main f3a88cc. Merged main passes actual native\
+      \ ADR collection (ready/publication denied); repaired #97 shared Decisions preview and all four Test jobs\
+      \ passed. TypeSafe #110 is a separate draft based on main. All 44 parent/deferred issues remain open."
   parallel_changes:
   - provider: github
-    id: egohygiene/mindgarden#97
-    url: https://github.com/egohygiene/mindgarden/pull/97
-  - provider: github
-    id: egohygiene/mindgarden#104
-    url: https://github.com/egohygiene/mindgarden/pull/104
-  - provider: github
-    id: egohygiene/mindgarden#109
-    url: https://github.com/egohygiene/mindgarden/pull/109
+    id: egohygiene/mindgarden#110
+    url: https://github.com/egohygiene/mindgarden/pull/110
 review:
   status: partial
-  reviewed_at: '2026-11-08T20:21:34Z'
+  reviewed_at: '2026-11-08T20:45:31Z'
   reviewed_by: codex
   evidence:
   - command: .venv/bin/python -m unittest tests.test_semantic_workflow -q
     outcome: passed
-    observed_at: '2026-11-08T20:21:34Z'
+    observed_at: '2026-11-08T20:45:31Z'
     notes: 12 offline tests pass; Python 3.12
   - command: .cache/python313/bin/python -m unittest tests.test_semantic_workflow -q
     outcome: passed
-    observed_at: '2026-11-08T20:21:34Z'
+    observed_at: '2026-11-08T20:45:31Z'
     notes: 12 offline tests pass; Python 3.13
   - command: 'Optional TypeSafe 0.7.5 environments: unittest experiments.typesafe.test_sdk_contract -q'
     outcome: passed
-    observed_at: '2026-11-08T20:21:34Z'
+    observed_at: '2026-11-08T20:45:31Z'
     notes: 3 actual SDK/mock-transport tests pass on each Python; no paid/model calls
   - command: .venv/bin/python -m unittest tests.test_distribution -q
     outcome: passed
-    observed_at: '2026-11-08T20:21:34Z'
+    observed_at: '2026-11-08T20:45:31Z'
     notes: 2 distribution checks pass; no default runtime dependencies added
   - command: Source -S synthetic example and dataset audit; one-case live setup probe
     outcome: limited
-    observed_at: '2026-11-08T20:21:34Z'
+    observed_at: '2026-11-08T20:45:31Z'
     notes: disabled/unconfigured behavior pass; 16 labels, zero model-evaluated cases and accuracy null; live credential
       unavailable
+  - command: Unmodified Relay collect at merged main f3a88cc; git diff old combined fdce5df..main
+    outcome: passed
+    observed_at: '2026-11-08T20:45:31Z'
+    notes: Native status ready; publication denied with honest unknown coverage. Only three ADR body structures
+      differ; runtime/test files unchanged.
+  - command: .venv/bin/python -m unittest discover -s tests -q
+    outcome: passed
+    observed_at: '2026-11-08T20:45:31Z'
+    notes: 393 tests pass in 361.764s; exact merged-main plus TypeSafe implementation, Python 3.12
+  - command: .cache/python313/bin/python -m unittest discover -s tests -q
+    outcome: passed
+    observed_at: '2026-11-08T20:45:31Z'
+    notes: 393 tests pass in 350.318s; same implementation, Python 3.13
   environment_limitations:
   - TYPESAFE_API_KEY is not configured; live smoke and model accuracy/calibration remain unverified. Thresholds
     are provisional.
@@ -175,7 +185,7 @@ Merge the authorized stack, deliver one optional TypeSafe intent checkpoint, and
 
 ## State snapshot
 
-#93–#96 merged into main (11bcaa8). #97 repair 7efb049 passes real native collection and hosted Decisions preview 42519229741; engine Test pending. #98–#109 remain open. TypeSafe is a separate optional draft over #109; all 44 issues remain open.
+All seventeen PRs #93–#109 merged in order into main f3a88cc. Merged main passes actual native ADR collection (ready/publication denied); repaired #97 shared Decisions preview and all four Test jobs passed. TypeSafe #110 is a separate draft based on main. All 44 parent/deferred issues remain open.
 
 ## Completed and material changes
 
@@ -183,7 +193,7 @@ TypeSafe 0.7.5 typed Choice + applicability Noul seam suggests search/graph/back
 
 ## Validation and review evidence
 
-.venv/bin/python -m unittest tests.test_semantic_workflow -q — 12 offline tests pass; Python 3.12. .cache/python313/bin/python -m unittest tests.test_semantic_workflow -q — 12 offline tests pass; Python 3.13. Optional TypeSafe 0.7.5 environments: unittest experiments.typesafe.test_sdk_contract -q — 3 actual SDK/mock-transport tests pass on each Python; no paid/model calls. .venv/bin/python -m unittest tests.test_distribution -q — 2 distribution checks pass; no default runtime dependencies added. Source -S synthetic example and dataset audit; one-case live setup probe — disabled/unconfigured behavior pass; 16 labels, zero model-evaluated cases and accuracy null; live credential unavailable.
+.venv/bin/python -m unittest tests.test_semantic_workflow -q — 12 offline tests pass; Python 3.12. .cache/python313/bin/python -m unittest tests.test_semantic_workflow -q — 12 offline tests pass; Python 3.13. Optional TypeSafe 0.7.5 environments: unittest experiments.typesafe.test_sdk_contract -q — 3 actual SDK/mock-transport tests pass on each Python; no paid/model calls. .venv/bin/python -m unittest tests.test_distribution -q — 2 distribution checks pass; no default runtime dependencies added. Source -S synthetic example and dataset audit; one-case live setup probe — disabled/unconfigured behavior pass; 16 labels, zero model-evaluated cases and accuracy null; live credential unavailable. Unmodified Relay collect at merged main f3a88cc; git diff old combined fdce5df..main — Native status ready; publication denied with honest unknown coverage. Only three ADR body structures differ; runtime/test files unchanged.. .venv/bin/python -m unittest discover -s tests -q — 393 tests pass in 361.764s; exact merged-main plus TypeSafe implementation, Python 3.12. .cache/python313/bin/python -m unittest discover -s tests -q — 393 tests pass in 350.318s; same implementation, Python 3.13.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -191,7 +201,7 @@ TYPESAFE_API_KEY is not configured; live smoke and model accuracy/calibration re
 
 ## Next dependency-ready work
 
-Finish the source-qualified #97→#109 merges, retarget the TypeSafe draft to merged main, then implement the bounded #46 raw-source compaction and derived-manifest persistence/expiry checkpoint. Preserve originals; no destructive retention or real pilot.
+Implement the bounded #46 source-only compaction and private derived-manifest persistence/expiry checkpoint over the existing source/session contracts. Keep #110 draft, preserve originals, then qualify #17/#18/#20 against available public owner/consumer contracts.
 
 ## Parallel changes and reconciliation
 
