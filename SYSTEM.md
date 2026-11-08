@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-06
+updated: 2026-11-08
 governed_by:
   - architecture-system
 depends_on:
@@ -47,7 +47,6 @@ This document identifies Mindgarden's logical systems and responsibilities. It a
 | Federation | Local public checkpoint merged through #66 (#16) | Builds reviewed checksum-bound descriptor/index/graph/agent artifacts and supplied-directory catalogs; hosting, private federation and external adoption remain open. |
 | Local registry | Linux lifecycle merged #67; owned cache recovery merged #82; [native macOS checkpoint merged #93](docs/registry-native-platforms.md) | Saved plans, named scope selections, non-destructive unregister, private restore and native ACL/path checks have bounded evidence; Windows, restricted/host assurance and destructive cleanup remain open. |
 | V1 public preview | Merged #68; responsive correction #69 | Reuses scoped public selection for literal reviewed content, exact citations, typed links and pinned offline Quartz; broader UI/consumer acceptance remains open. |
-
 | First-pass compaction | Draft #111 | Extends existing sessions with exact private source grants and authored first summaries; expiring private proof bundles preserve originals and grant no knowledge approval. |
 | Optional semantic decisions | Draft #110 | Official TypeSafe SDK suggests a closed read intent; ordinary application code owns handlers, source access and permissions. Default commands require no model service. |
 

@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-08T21:16:57Z'
+  updated_at: '2026-11-08T21:28:42Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -75,11 +75,12 @@ work:
     url: https://github.com/egohygiene/mindgarden/issues/17
   next:
     kind: action
-    id: qualify-frozen-closeout-head
-    description: "Run the complete 404-test suite on both supported Python versions against the frozen closeout\
-      \ source; verify the installed wheel and native collection, record hosted CI separately, and finish review\
-      \ receipts for #110\u2192#111\u2192this draft. Preserve the unresolved Quartz Explorer ARIA, Relay #40 action,\
-      \ human ADR and private-pilot gates."
+    id: review-closeout-stack
+    description: "Review draft #110\u2192#111\u2192#112 in order; combined checkout feature/17-rendered-portal-proof,\
+      \ functional 2b800f516296abb3116a317f9a149a1e1ca81d45. Resolve the pinned mobile Explorer ARIA finding and\
+      \ larger-build cost before full #17 acceptance. Relay #40 action, Empathy full holistic/canonical cutover/deployment\
+      \ and approved private pilot remain separate owner/maintainer gates; no automatic release or deferred cohort\
+      \ activation."
     readiness: ready
     references:
     - docs/closeout-sprint.md
@@ -88,21 +89,25 @@ state:
   base:
     revision: 55393de49611090e4c40c62c2c881bfecd77f494
     ref: refs/heads/feature/46-source-compaction
-    verified_at: '2026-11-08T21:16:57Z'
+    verified_at: '2026-11-08T21:28:42Z'
   candidate:
     branch: feature/17-rendered-portal-proof
-    revision: 55393de49611090e4c40c62c2c881bfecd77f494
-    pull_request: null
+    revision: 2b800f516296abb3116a317f9a149a1e1ca81d45
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#112
+      url: https://github.com/egohygiene/mindgarden/pull/112
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-08T21:16:57Z'
+    observed_at: '2026-11-08T21:28:42Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
     notes: "Main f3a88cc contains all #93\u2013#109 merges. New drafts: #110 TypeSafe; #111 exact private source\
-      \ compaction (55393de); this public rendered/portal checkpoint follows #111. Empathy draft #120 is updated\
-      \ at 6d6630c. All 44 parent/deferred issues remain open; no release or site publication."
+      \ compaction (55393de); draft #112 is the public rendered/portal checkpoint over #111. Empathy draft #120\
+      \ is updated at 6d6630c. Live refresh: 43 open issues plus retained closed #30; 44 tracked coverage rows;\
+      \ no release or site publication."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -112,37 +117,36 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/111
 review:
   status: partial
-  reviewed_at: '2026-11-08T21:16:57Z'
+  reviewed_at: '2026-11-08T21:28:42Z'
   reviewed_by: codex
   evidence:
-  - command: python3 scripts/site_browser_check.py --workspace NEW --renderer PREPARED --npm-cache PREPARED --axe-script
-      AXE_4_10_3 --report REPORT
+  - command: 'Frozen 2b800f5: python -m unittest discover -s tests -q'
+    outcome: passed
+    observed_at: '2026-11-08T21:28:42Z'
+    notes: '3.12: 404 discovered, 402 pass/2 distribution skips, 320.686s. 3.13: same, 303.261s. Missing artifact
+      prerequisites supplied; separate distribution checks pass.'
+  - command: python -m unittest tests.test_distribution -q
+    outcome: passed
+    observed_at: '2026-11-08T21:28:42Z'
+    notes: 2 pass on each Python, 0.035s; exact frozen source/wheel built and tested. Installed first-pass proof
+      preserves sources/review with zero default dependencies.
+  - command: python -m unittest experiments.typesafe.test_sdk_contract -q
+    outcome: passed
+    observed_at: '2026-11-08T21:28:42Z'
+    notes: 3 actual SDK/mock-HTTP cases pass per Python. Disabled example and 16-label audit pass; no live model
+      cases or accuracy.
+  - command: python scripts/site_browser_check.py --workspace NEW --renderer PREPARED --npm-cache PREPARED --axe-script
+      AXE --report REPORT
     outcome: limited
-    observed_at: '2026-11-08T21:16:57Z'
-    notes: 'Actual 0/3/205 outputs, small render byte-repeat and local portal recovery pass; browser pages allow
-      loopback only. Partial accessibility: pinned mobile Explorer aria-allowed-attr remains; larger render 125.323s.'
-  - command: .venv/bin/python -m unittest tests.test_site tests.test_portal tests.test_design tests.test_v1_contracts
-      -q
-    outcome: passed
-    observed_at: '2026-11-08T21:16:57Z'
-    notes: 29 tests pass in 35.186s; intended golden changes inspected (only source/style-derived revisions and
-      manifest hashes)
-  - command: .venv/bin/python -m unittest tests.test_v1_contracts tests.test_source_compaction -q
-    outcome: passed
-    observed_at: '2026-11-08T21:16:57Z'
-    notes: 16 tests pass in 14.276s after schema inventory and vault-destination guard correction; now 11 source-compaction
-      cases
-  - command: Installed wheel source-compaction proof; installed VCS Empathy rehearsal; 12 consumer integration tests
+    observed_at: '2026-11-08T21:28:42Z'
+    notes: Actual 0/3/205 fixture behavior and 60-file portal recovery pass. Mobile Explorer ARIA remains critical;
+      larger build 125.323s.
+  - command: Unmodified native collect; Ruff E9/F; compileall; owner schemas; live coverage; Empathy checks
     outcome: limited
-    observed_at: '2026-11-08T21:16:57Z'
-    notes: New schema and source-only create/check work without model/Google and preserve original bytes. Empathy
-      strict old entrypoint fails 3, staged regeneration passes 0; 12 consumer tests pass.
-  - command: .venv/bin/ruff check --select E9,F src scripts/site_browser_check.py tests/test_source_compaction.py
-      tests/test_v1_contracts.py; compileall; diff; pinned owners
-    outcome: passed
-    observed_at: '2026-11-08T21:16:57Z'
-    notes: Three unused imports/unused assignment are cleaned up while retaining URL validation; focused broad source
-      syntax/import and formatting checks pass
+    observed_at: '2026-11-08T21:28:42Z'
+    notes: "Native ready/publication denied; code/owners pass. 43 open + closed #30 covered. Empathy 12 pass, staged\
+      \ strict 3\u21920. CI and exact commands: docs/closeout-sprint.md. Hosted #110/#111 Test succeeded; #112 Test\
+      \ pending at last observation."
   environment_limitations:
   - 'TYPESAFE_API_KEY is unavailable: no live model smoke, accuracy or calibrated thresholds. Optional SDK wire
     tests use mock transport.'
@@ -183,7 +187,7 @@ Merge the authorized stack, deliver one optional TypeSafe intent checkpoint, and
 
 ## State snapshot
 
-Main f3a88cc contains all #93–#109 merges. New drafts: #110 TypeSafe; #111 exact private source compaction (55393de); this public rendered/portal checkpoint follows #111. Empathy draft #120 is updated at 6d6630c. All 44 parent/deferred issues remain open; no release or site publication.
+Main f3a88cc contains all #93–#109 merges. New drafts: #110 TypeSafe; #111 exact private source compaction (55393de); draft #112 is the public rendered/portal checkpoint over #111. Empathy draft #120 is updated at 6d6630c. Live refresh: 43 open issues plus retained closed #30; 44 tracked coverage rows; no release or site publication.
 
 ## Completed and material changes
 
@@ -191,7 +195,7 @@ Actual pinned Quartz/browser proof passes owned behavior at 0/3/205 selected not
 
 ## Validation and review evidence
 
-python3 scripts/site_browser_check.py --workspace NEW --renderer PREPARED --npm-cache PREPARED --axe-script AXE_4_10_3 --report REPORT — Actual 0/3/205 outputs, small render byte-repeat and local portal recovery pass; browser pages allow loopback only. Partial accessibility: pinned mobile Explorer aria-allowed-attr remains; larger render 125.323s.. .venv/bin/python -m unittest tests.test_site tests.test_portal tests.test_design tests.test_v1_contracts -q — 29 tests pass in 35.186s; intended golden changes inspected (only source/style-derived revisions and manifest hashes). .venv/bin/python -m unittest tests.test_v1_contracts tests.test_source_compaction -q — 16 tests pass in 14.276s after schema inventory and vault-destination guard correction; now 11 source-compaction cases. Installed wheel source-compaction proof; installed VCS Empathy rehearsal; 12 consumer integration tests — New schema and source-only create/check work without model/Google and preserve original bytes. Empathy strict old entrypoint fails 3, staged regeneration passes 0; 12 consumer tests pass.. .venv/bin/ruff check --select E9,F src scripts/site_browser_check.py tests/test_source_compaction.py tests/test_v1_contracts.py; compileall; diff; pinned owners — Three unused imports/unused assignment are cleaned up while retaining URL validation; focused broad source syntax/import and formatting checks pass.
+Frozen 2b800f5: python -m unittest discover -s tests -q — 3.12: 404 discovered, 402 pass/2 distribution skips, 320.686s. 3.13: same, 303.261s. Missing artifact prerequisites supplied; separate distribution checks pass.. python -m unittest tests.test_distribution -q — 2 pass on each Python, 0.035s; exact frozen source/wheel built and tested. Installed first-pass proof preserves sources/review with zero default dependencies.. python -m unittest experiments.typesafe.test_sdk_contract -q — 3 actual SDK/mock-HTTP cases pass per Python. Disabled example and 16-label audit pass; no live model cases or accuracy.. python scripts/site_browser_check.py --workspace NEW --renderer PREPARED --npm-cache PREPARED --axe-script AXE --report REPORT — Actual 0/3/205 fixture behavior and 60-file portal recovery pass. Mobile Explorer ARIA remains critical; larger build 125.323s.. Unmodified native collect; Ruff E9/F; compileall; owner schemas; live coverage; Empathy checks — Native ready/publication denied; code/owners pass. 43 open + closed #30 covered. Empathy 12 pass, staged strict 3→0. CI and exact commands: docs/closeout-sprint.md. Hosted #110/#111 Test succeeded; #112 Test pending at last observation..
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -199,7 +203,7 @@ TYPESAFE_API_KEY is unavailable: no live model smoke, accuracy or calibrated thr
 
 ## Next dependency-ready work
 
-Run the complete 404-test suite on both supported Python versions against the frozen closeout source; verify the installed wheel and native collection, record hosted CI separately, and finish review receipts for #110→#111→this draft. Preserve the unresolved Quartz Explorer ARIA, Relay #40 action, human ADR and private-pilot gates.
+Review draft #110→#111→#112 in order; combined checkout feature/17-rendered-portal-proof, functional 2b800f516296abb3116a317f9a149a1e1ca81d45. Resolve the pinned mobile Explorer ARIA finding and larger-build cost before full #17 acceptance. Relay #40 action, Empathy full holistic/canonical cutover/deployment and approved private pilot remain separate owner/maintainer gates; no automatic release or deferred cohort activation.
 
 ## Parallel changes and reconciliation
 

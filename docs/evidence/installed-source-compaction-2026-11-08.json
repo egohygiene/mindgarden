@@ -1,5 +1,7 @@
 {
   "schema": "mindgarden.installed-source-compaction-proof/v1",
+  "source_commit": "2b800f516296abb3116a317f9a149a1e1ca81d45",
+  "wheel_sha256": "859f59611d13389e1fc2a08c86be6bbbbe829235dc3957fdc2214ccdb539b8bf",
   "engine_version": "0.1.0",
   "engine_location": "installed-interpreter-prefix",
   "default_dependencies": [],

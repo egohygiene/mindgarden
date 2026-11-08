@@ -1,10 +1,12 @@
-# Open-issue coverage — 2026-11-07
+# Issue coverage — 2026-11-08
 
 This is the detailed coverage ledger for [ROADMAP.md](../ROADMAP.md). It records
-all **44 open issues**: the original 38-issue queue and six newly deferred
-items #86–#91. Live bodies/comments and the merged #74–#85 baseline were refreshed
-for the new phase; earlier merge receipts preserve their original observations. It preserves each issue's acceptance
-criteria; a batch is a bounded checkpoint, not automatic parent completion.
+all **43 currently open issues** plus the retained historical row for closed #30:
+44 tracked issues in total (the original 38-issue queue and six deferred items
+#86–#91). GitHub's #30 closure at 2026-11-08T19:59:56Z is recorded separately
+from implementation/acceptance evidence; its remaining platform limits are not
+silently claimed complete. Live state was refreshed after the stack merges.
+Each batch remains a bounded checkpoint, not automatic parent completion.
 
 The previously open #93–#109 stack is now merged at `f3a88cc`;
 [the merge receipt](merged-closeout-checkpoints.md) supersedes older draft-state
@@ -13,17 +15,21 @@ observations in historical ledgers. New TypeSafe #110 remains draft. The
 
 ## Observed baseline and authority
 
-Current main remains `d5edb13de1b65871ec85e7a25af035228a1d756d`.
-Drafts #93–#109 remain unmerged; the [learning/evaluation checkpoint ledger](learning-evaluation-checkpoints.md)
-records the latest five-item stack and functional `e410be7` verification. Both
-complete local suites pass 381 tests, without skips; optional native experiments
-are separate. No parent issue is closed, proposal ratified or release resumed.
+Current main is `f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973` after the authorized
+#93–#109 merges. The unchanged engine baseline passed 381 tests per supported
+Python; only three native ADR body structures changed during merge qualification.
+New review stack #110 → #111 → #112 adds the explicitly authorized optional
+TypeSafe seam, exact private first-pass compaction and actual rendered/consumer
+proofs. The [active sprint](closeout-sprint.md) records exact new verification.
+#30 is closed in live GitHub; this execution does not reopen it or equate closure
+with unsupported Windows/confidential assurance. ADRs remain proposed and release
+work remains parked.
 
 The earlier merged pipeline baseline was `b9cc3fd3b8b68e56944d592e2092b07485de465a`, after the
 [authorized #74–#85 merges](merged-pipeline-storage-checkpoints.md). The engine's
 combined suite passes 298 tests on each supported Python; exact-source/installed
-proofs and passing pre-merge CI remain linked in those receipts. The original 38
-issues remain open and retain their acceptance. All ADRs remain proposed/null
+proofs and passing pre-merge CI remain linked in those receipts. At that observation the original 38
+issues were open and retained their acceptance. All ADRs remain proposed/null
 approval. New #86–#91 are a **deferred post-queue cohort**, not the next active
 batch. [Their roadmap](deferred-context-package-roadmap.md) records scope,
 existing owners and the end-of-roadmap reconciliation/scheduling gate.
@@ -146,7 +152,7 @@ not one serial gate over all work.
 | --- | --- | --- | --- | --- |
 | [#10](https://github.com/egohygiene/mindgarden/issues/10) — validation/private publication | partial | Merged version-aware validation plus merged #70 publication/preview hardening and reusable 80-test synthetic conformance pack; v0 preserved | Normative policy/runtime assurance, approved consumer/media conformance and complete cross-repository acceptance | Existing #7/#8/#9 contracts; #17 output surfaces; B3 conformance checkpoint, external owner gates retained |
 | [#29](https://github.com/egohygiene/mindgarden/issues/29) — independent scope/sensitivity axes | partial | #55/#62 local versioned contract; merged #80 shared decision API/schema/CLI and inheritance fixtures | Normative organization policy, declassification/federation integration and verified restricted runtime | Hygiene #39, Realm #25 → #60, #10/#14/#16; local contract usable, external assurance blocked |
-| [#30](https://github.com/egohygiene/mindgarden/issues/30) — local registry/private overlays | partial | #55/#62 bindings/scoped queries; merged #67 Linux lifecycle/views/recovery; merged #82 owned cache recovery; draft [#93](registry-native-platforms.md) adds ACL/path controls, 44 tests per native macOS job and clean installed-wheel goldens | Windows mutation, broader native hosts, verified restricted/encrypted coexistence and organization/host assurance | #29/#14/#16 contracts available; ordinary native proof independent of confidential assurance; Hygiene #39/#40 and Realm #25/#60 gate assurance; preserve originals |
+| [#30](https://github.com/egohygiene/mindgarden/issues/30) — local registry/private overlays | closed in GitHub; bounded evidence | #55/#62 bindings/scoped queries; merged #67 Linux lifecycle/views/recovery; merged #82 owned cache recovery; merged [#93](registry-native-platforms.md) adds ACL/path controls, 44 tests per native macOS job and clean installed-wheel goldens | Closed 2026-11-08; Windows mutation, broader native hosts and restricted/organization assurance remain unclaimed follow-up scope | #29/#14/#16 contracts available; ordinary native proof independent of confidential assurance; Hygiene #39/#40 and Realm #25/#60 gate assurance; preserve originals |
 | [#31](https://github.com/egohygiene/mindgarden/issues/31) — scoped retrieval/sensitivity | partial | #62/#64 filter before bodies/ranking; merged #81 output byte ceilings, live authority, sanitized diagnostics and owned caches; private asset output follows the same contract | Full federation/consumer projections, normative assurance/declassification and runtime integration | #29/#10/#12/#14, Hygiene #40 and Realm #25/#60; carry invariants into B1/B2/Q |
 | [#35](https://github.com/egohygiene/mindgarden/issues/35) — confidential document/PDF ingestion | partial | Draft #83 ordinary synthetic PDF checkpoint: versioned bundles/page spans, explicit initial classification, optional Poppler 25.03.0 and six real parser states | Confidential encrypted runtime/temp assurance, OCR/office/complex layout and real consumer proof | #29/#10/#11 local boundary usable; Hygiene #39/#40 and Realm #25/#60 still gate restricted processing |
 | [#45](https://github.com/egohygiene/mindgarden/issues/45) — portable private source/media vault | partial | #56/#63/#64 immutable vault/recovery; merged #84 adds versioned asset manifests, opaque media, retained-original review, explicit storage factories and archive/PDF/media recovery golden | Approved-copy rights policy, timed/destructive retention, encrypted/provider/platform/power-loss acceptance and real private consumer integration | #11/#15/#30/#31/#35/#40/#42; R0 early, later local/media checkpoints and independent adapter proofs |
