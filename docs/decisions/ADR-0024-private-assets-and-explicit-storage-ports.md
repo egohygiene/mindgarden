@@ -39,7 +39,7 @@ bindings. Media need inventory and human selection without destructive cleanup.
 Projection state and a provider's capabilities must not become canonical knowledge
 or implicit authority. #46 retention constraints apply before any deletion design.
 
-## Proposed decision
+## Decision
 
 Keep a versioned private asset manifest as a rebuildable, explicitly authorized
 projection. Group exact content identities while preserving every capture's
@@ -61,19 +61,31 @@ filesystem recovery implementation bounded and do not infer migration, encryptio
 or confidential execution from capability booleans. No ambient plugin/provider,
 credential, model or network discovery is part of this port.
 
-## Alternatives and consequences
+## Alternatives considered and rejected
 
 Mutating source records would lose review history. A canonical generated manifest
 would become stale after relocation or policy changes. Automatic provider loading
-would expand execution and credential authority. These proposals instead add
+would expand execution and credential authority.
+
+## Consequences and tradeoffs
+
+These proposals instead add
 explicit review metadata and projections over existing contracts. Conflicting
 cross-garden review histories need human reconciliation; they are not silently
 ordered by timestamps.
 
-## Evidence and owner action
+## Implementation and evidence links
 
 [Mixed-vault checkpoint](../mixed-source-vault.md), synthetic asset/adapter tests
 and scripts/mixed_vault_demo.py demonstrate the local boundary. Proposed decision
 status and null approval remain unchanged by implementation. Confidential,
 provider, native platform, power-loss and real private consumer acceptance remain
 open. No destructive retention action is implemented.
+
+## Replacement or exit strategy
+
+Discard and rebuild generated asset inventories from authorized records and immutable vault objects. Replace explicitly registered storage factories through byte/integrity conformance and reviewed relocation plans. Retain originals and append-only review history when disabling a provider.
+
+## Follow-up work
+
+Mindgarden #45 owns remaining provider/platform/power-loss and real-consumer acceptance; #46 owns approved retention and destructive recovery policy. Cross-garden review reconciliation and approved-copy rights require their own contracts and human review.

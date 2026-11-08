@@ -1,0 +1,26 @@
+name: Decisions preview
+
+on:
+  pull_request:
+    paths:
+      - "docs/decisions/**"
+      - ".github/workflows/decisions-preview.yml"
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: decisions-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    # Relay owns collection, native validation, Observatory normalization,
+    # Holon rendering and the review artifact. This caller never deploys.
+    uses: egohygiene/relay/.github/workflows/repository-intelligence.yml@b4a88db20bc26f9ddefbee174baa8162cbe94ff2
+    with:
+      collect-adrs: true
+      output-directory: ".cache/decisions-preview/intelligence"
+      work-directory: ".cache/decisions-collection"
+      artifact-retention-days: 7
