@@ -35,7 +35,7 @@ ratify ADRs, invent missing contracts or authorize reading private consumer data
 | --- | --- | --- | --- |
 | #51 | Draft [#94](https://github.com/egohygiene/mindgarden/pull/94), `feature/51-provider-switch-proof` over #93; functional `1fac57d` | 308 tests per supported Python; clean source/wheel goldens; six reviewed records in 13,178/16,384 bytes | Maintainer review/merge of the bounded conformance scenario; live providers are not required |
 | #27 | Draft [#95](https://github.com/egohygiene/mindgarden/pull/95), `feature/27-release-preparation` over #94; functional `a3cbac9` | 315 tests per Python, two builds with identical source/wheel hashes, Relay artifact checks and clean installed compatibility pass | Strict handoff is blocked by exact root-authority schema parity; signing/PyPI remain unavailable; review and qualify owner fixes |
-| #20 | `feature/20-consumer-journey-proof` over #95; functional `5cb8359`; [consumer proof](consumer-journey.md) | Authored synthetic archive/review/routing/public federation and relocation golden; scoped private-pilot helper; [Empathy draft #120](https://github.com/egohygiene/empathy/pull/120) | Real pilot inputs/review are pending; strict Empathy entrypoint cutover, holistic profile and actual renderer/deployment remain separate |
+| #20 | Draft [#96](https://github.com/egohygiene/mindgarden/pull/96), `feature/20-consumer-journey-proof` over #95; functional `5cb8359`; [consumer proof](consumer-journey.md) | Authored synthetic archive/review/routing/public federation and relocation golden; scoped private-pilot helper; [Empathy draft #120](https://github.com/egohygiene/empathy/pull/120) | Real pilot inputs/review are pending; strict Empathy entrypoint cutover, holistic profile and actual renderer/deployment remain separate |
 | #19 | Release 1.0 | Deferred by the maintainer | Resume only when organization release conventions and actual acceptance are ready; no release-readiness implementation in this batch |
 
 The stack base is draft #93, preserving the new native registry proof in the
@@ -128,7 +128,10 @@ Functional source: `5cb8359`. Seven focused journey/private-pilot tests pass.
 A fresh installed wheel under `-I` reproduces the exact committed synthetic
 journey golden: 3,378/16,384 public context bytes, private fallback, explicit public
 review, verified federation and unchanged evidence through vault restoration.
-Both full supported-Python suites are running; pending results are not passing CI.
+Both full 322-test suites completed with one default-sandbox loopback denial
+each; that case passes on both Pythons with local-network permission. Exact-head
+Test 42308061990 passes. The final product checkout separately passes 360 tests
+per Python; see [the product receipt](product-checkpoints.md).
 
 Empathy draft #120 pins candidate `a3cbac9` without copying the engine or changing
 its canonical garden/entrypoint. Twelve consumer integration tests pass. Installed

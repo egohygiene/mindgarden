@@ -49,9 +49,11 @@ plan into the selected cache. A stale/revoked backup cannot regain authority.
 recovery identity. They never delete unknown files or canonical content. Recovery
 can rebuild from sources or restore the logical backup into a new location.
 
-Eight focused tests pass on Python 3.12/3.13, including exact ranking/evidence,
+Ten focused tests pass in the final combined suite on Python 3.12/3.13, including exact ranking/evidence,
 Unicode, graph/backlinks, scope/plan staleness, pre-cache expiration denial,
-backup/restore/reset, corruption, symlinks, unowned files and failed replacement.
+backup/restore/reset, corruption, symlinks, unowned files and failed replacement. The compatibility follow-up also proves that missing
+SQLite preserves unrelated CLI commands and a conforming store factory can be
+injected without changing the core domain.
 
 ```bash
 python3 scripts/query_store_benchmark.py \
