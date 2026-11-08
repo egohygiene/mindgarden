@@ -45,7 +45,7 @@ This document identifies Mindgarden's logical systems and responsibilities. It a
 | Candidate routing | Local checkpoint merged | Places authored reviewed candidates with private fallback, one home, typed references and recoverable multi-garden writes. |
 | Source storage | Filesystem checkpoint merged | Preserves immutable content identities, verifies checksums and supports bounded audit/export/restore/relocation independently from location. |
 | Federation | Local public checkpoint merged through #66 (#16) | Builds reviewed checksum-bound descriptor/index/graph/agent artifacts and supplied-directory catalogs; hosting, private federation and external adoption remain open. |
-| Local registry | Bounded Linux checkpoint merged through #67 (#30) | Manages existing bindings through saved plans, manifest inspection, named scope selections, non-destructive unregister and private configuration restore; native/restricted assurance and cache cleanup remain open. |
+| Local registry | Linux lifecycle merged #67; owned cache recovery merged #82; [native macOS draft #93](docs/registry-native-platforms.md) | Saved plans, named scope selections, non-destructive unregister, private restore and native ACL/path checks have bounded evidence; Windows, restricted/host assurance and destructive cleanup remain open. |
 | V1 public preview | Merged #68; responsive correction #69 | Reuses scoped public selection for literal reviewed content, exact citations, typed links and pinned offline Quartz; broader UI/consumer acceptance remains open. |
 
 ## External systems

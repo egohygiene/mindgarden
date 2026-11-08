@@ -42,7 +42,7 @@ def default_registry_path() -> Path:
 
 def registry_platforms() -> dict:
     return {"linux":{"location":"tested","mutation":"verified-single-user-posix"},
-            "darwin":{"location":"tested-convention","mutation":"unsupported-native-acl-evidence"},
+            "darwin":{"location":"tested-convention","mutation":"native-acl-guarded-single-user-posix"},
             "win32":{"location":"tested-convention","mutation":"unsupported-native-acl-adapter"},
             "dev-container":{"location":"explicit-control-root","mutation":"linux-owner-permissions-required",
                              "host_mount_assurance":"not-claimed"}}

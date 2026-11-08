@@ -55,6 +55,8 @@ class DistributionTests(unittest.TestCase):
             "mindgarden/domain/registry.py",
             "mindgarden/application/registry.py",
             "mindgarden/adapters/registry_files.py",
+            "mindgarden/adapters/registry_acl.py",
+            "mindgarden/adapters/native_paths.py",
             "mindgarden/adapters/conversation_archive.py",
             "mindgarden/adapters/vault_bundle.py",
             "mindgarden/application/agent.py",
