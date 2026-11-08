@@ -1,0 +1,2 @@
+# Optional official SDK. Ordinary engine installation has no Python dependencies.
+typesafe-sdk==0.7.5

@@ -420,3 +420,11 @@ file/CLI projections without full web/runtime or release adoption. Evaluations
 remain optional, exact-version experiments over synthetic fixtures and the
 reference/SQLite baseline. Results are recommendations for review; source/privacy,
 canonical ownership and ADR gates remain unchanged. Regroup before any merge.
+
+## Authorized original-roadmap closeout
+
+The maintainer authorized merging #93–#109 and bounded follow-through for
+#43 → #46 → #17 → #18 → #20. See [the closeout ledger](docs/closeout-sprint.md).
+One separately requested [optional TypeSafe decision seam](docs/typesafe-decisions.md)
+can proceed independently of web/runtime and private-pilot gates. It does not
+activate deferred #86–#91 or release work. New checkpoint work stays in drafts.
