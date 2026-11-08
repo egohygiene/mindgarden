@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-08T21:13:07Z'
+  updated_at: '2026-11-08T21:16:57Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -62,6 +62,7 @@ scope:
   - docs/learning.md
   - docs/closeout-sprint.md
   - docs/typesafe-decisions.md
+  - docs/rendered-closeout-evidence.md
 work:
   objective: 'Merge the authorized stack, deliver one optional TypeSafe intent checkpoint, and advance bounded #43/#46/#17/#18/#20
     acceptance while preserving genuine owner/private-pilot gates.'
@@ -70,86 +71,87 @@ work:
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#46
-    url: https://github.com/egohygiene/mindgarden/issues/46
+    id: egohygiene/mindgarden#17
+    url: https://github.com/egohygiene/mindgarden/issues/17
   next:
     kind: action
-    id: rendered-portal-17-18
-    description: 'Qualify actual pinned Quartz output for empty/small/larger fixtures, keyboard/mobile/reduced motion
-      and graph alternatives (#17); then prove complete rendered artifact composition/recovery (#18). Relay #40
-      is open with no reusable Mindgarden action at the pinned tree; keep that integration gap explicit.'
+    id: qualify-frozen-closeout-head
+    description: "Run the complete 404-test suite on both supported Python versions against the frozen closeout\
+      \ source; verify the installed wheel and native collection, record hosted CI separately, and finish review\
+      \ receipts for #110\u2192#111\u2192this draft. Preserve the unresolved Quartz Explorer ARIA, Relay #40 action,\
+      \ human ADR and private-pilot gates."
     readiness: ready
     references:
     - docs/closeout-sprint.md
     depends_on: []
 state:
   base:
-    revision: 3ac1eddea02d3cec7e9a8073ea96ff0fcae94bf0
-    ref: refs/heads/feature/typesafe-read-workflow
-    verified_at: '2026-11-08T21:13:07Z'
+    revision: 55393de49611090e4c40c62c2c881bfecd77f494
+    ref: refs/heads/feature/46-source-compaction
+    verified_at: '2026-11-08T21:16:57Z'
   candidate:
-    branch: feature/46-source-compaction
-    revision: 4d084fd34acb52d948438f9cf30adf7776d9b64e
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#111
-      url: https://github.com/egohygiene/mindgarden/pull/111
+    branch: feature/17-rendered-portal-proof
+    revision: 55393de49611090e4c40c62c2c881bfecd77f494
+    pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-08T21:13:07Z'
+    observed_at: '2026-11-08T21:16:57Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
-    notes: "Main f3a88cc contains all #93\u2013#109 merges. Draft #110 adds optional TypeSafe; Draft #111, this\
-      \ #46 checkpoint is stacked on #110/3ac1edd. Native main collection is ready/publication denied; no private\
-      \ pilot or publication is authorized."
+    notes: "Main f3a88cc contains all #93\u2013#109 merges. New drafts: #110 TypeSafe; #111 exact private source\
+      \ compaction (55393de); this public rendered/portal checkpoint follows #111. Empathy draft #120 is updated\
+      \ at 6d6630c. All 44 parent/deferred issues remain open; no release or site publication."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
     url: https://github.com/egohygiene/mindgarden/pull/110
+  - provider: github
+    id: egohygiene/mindgarden#111
+    url: https://github.com/egohygiene/mindgarden/pull/111
 review:
   status: partial
-  reviewed_at: '2026-11-08T21:13:07Z'
+  reviewed_at: '2026-11-08T21:16:57Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_scope_bindings
-      tests.test_scoped_retrieval tests.test_output_scope -q
-    outcome: passed
-    observed_at: '2026-11-08T21:13:07Z'
-    notes: 44 tests pass in 49.826s at the initial eight-case extension; existing reviewed/scoped/output behavior
-      preserved
-  - command: .venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_distribution
+  - command: python3 scripts/site_browser_check.py --workspace NEW --renderer PREPARED --npm-cache PREPARED --axe-script
+      AXE_4_10_3 --report REPORT
+    outcome: limited
+    observed_at: '2026-11-08T21:16:57Z'
+    notes: 'Actual 0/3/205 outputs, small render byte-repeat and local portal recovery pass; browser pages allow
+      loopback only. Partial accessibility: pinned mobile Explorer aria-allowed-attr remains; larger render 125.323s.'
+  - command: .venv/bin/python -m unittest tests.test_site tests.test_portal tests.test_design tests.test_v1_contracts
       -q
     outcome: passed
-    observed_at: '2026-11-08T21:13:07Z'
-    notes: 22 tests pass in 33.390s after two added CLI-grant/reviewed-hierarchy cases
-  - command: .cache/python313/bin/python -m unittest tests.test_source_compaction -q
-    outcome: passed
-    observed_at: '2026-11-08T21:13:07Z'
-    notes: 10 source-compaction cases pass; no credentials, model or acquisition
-  - command: Ruff E9/F; git diff --check; pinned owner handoff/ADR/44-row checks
-    outcome: passed
-    observed_at: '2026-11-08T21:13:07Z'
-    notes: Focused syntax/import/style and pinned authority/continuity/coverage checks pass
-  - command: .venv/bin/ruff check --select E9,F src
-    outcome: limited
-    observed_at: '2026-11-08T21:13:07Z'
-    notes: '4 unchanged baseline findings: unused imports in scope_cache/routing_transitions/site, and site base
-      variable. Focused changed-file scan passes.'
+    observed_at: '2026-11-08T21:16:57Z'
+    notes: 29 tests pass in 35.186s; intended golden changes inspected (only source/style-derived revisions and
+      manifest hashes)
   - command: .venv/bin/python -m unittest tests.test_v1_contracts tests.test_source_compaction -q
     outcome: passed
-    observed_at: '2026-11-08T21:13:07Z'
-    notes: 16 tests pass in 14.276s, including explicit new schema inventory and rejection of vault output targets.
-      A full 403-test run found only the omitted inventory entry and downstream UI golden hash; both are corrected
-      before final 404-test qualification.
+    observed_at: '2026-11-08T21:16:57Z'
+    notes: 16 tests pass in 14.276s after schema inventory and vault-destination guard correction; now 11 source-compaction
+      cases
+  - command: Installed wheel source-compaction proof; installed VCS Empathy rehearsal; 12 consumer integration tests
+    outcome: limited
+    observed_at: '2026-11-08T21:16:57Z'
+    notes: New schema and source-only create/check work without model/Google and preserve original bytes. Empathy
+      strict old entrypoint fails 3, staged regeneration passes 0; 12 consumer tests pass.
+  - command: .venv/bin/ruff check --select E9,F src scripts/site_browser_check.py tests/test_source_compaction.py
+      tests/test_v1_contracts.py; compileall; diff; pinned owners
+    outcome: passed
+    observed_at: '2026-11-08T21:16:57Z'
+    notes: Three unused imports/unused assignment are cleaned up while retaining URL validation; focused broad source
+      syntax/import and formatting checks pass
   environment_limitations:
-  - TYPESAFE_API_KEY is not configured; live smoke and model accuracy/calibration remain unverified. Thresholds
-    are provisional.
-  - '#42 human disposition/#41 historical/#47 web/runtime and approved private #20 pilot remain separate gates;
-    #18 Relay action must be verified rather than invented.'
-  - "New checkpoint drafts are not auto-merged. Release #19, production publication and deferred #86\u2013#91 remain\
-    \ parked."
+  - 'TYPESAFE_API_KEY is unavailable: no live model smoke, accuracy or calibrated thresholds. Optional SDK wire
+    tests use mock transport.'
+  - Pinned Quartz Explorer mobile ARIA is critical; full WCAG and graph/screen-reader/consumer acceptance remain
+    open. The 205-record build cost remains a performance follow-up.
+  - 'Relay #40 is open and the inspected tree has no Mindgarden action. Empathy full holistic/canonical cutover/deployment,
+    approved private #20/#46 pilot and #41/#42/#47 decisions remain separate gates.'
+  - "No manual paid workflow is dispatched; no release, production publication, private-data access or deferred\
+    \ #86\u2013#91 implementation. New checkpoint drafts remain for review."
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -181,23 +183,23 @@ Merge the authorized stack, deliver one optional TypeSafe intent checkpoint, and
 
 ## State snapshot
 
-Main f3a88cc contains all #93–#109 merges. Draft #110 adds optional TypeSafe; Draft #111, this #46 checkpoint is stacked on #110/3ac1edd. Native main collection is ready/publication denied; no private pilot or publication is authorized.
+Main f3a88cc contains all #93–#109 merges. New drafts: #110 TypeSafe; #111 exact private source compaction (55393de); this public rendered/portal checkpoint follows #111. Empathy draft #120 is updated at 6d6630c. All 44 parent/deferred issues remain open; no release or site publication.
 
 ## Completed and material changes
 
-Optional TypeSafe #110 passes 393 local tests on each supported Python. The #46 extension adds exact private source grants to session/v1, authored first segment/summary without reviewed knowledge, and private create/repeat/check proof bundles with input/session digests, TTL/revocation checks and retained partial outputs. Original objects and review authority remain unchanged.
+Actual pinned Quartz/browser proof passes owned behavior at 0/3/205 selected notes/claims, 320/1280px, reduced motion, 200% text, keyboard activation, search focus, no-JS list and unavailable/oversized graph fallbacks; mobile Explorer ARIA remains a recorded critical external finding. Actual 60-file portal proof preserves siblings, blocks missing receipts, retries unchanged data and rejects corruption. Fresh installed merged-engine Empathy rehearsal validates five public notes and passes strict verification after regenerating only its staged entrypoint; actual consumer files and publication authority remain unchanged.
 
 ## Validation and review evidence
 
-.venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_scope_bindings tests.test_scoped_retrieval tests.test_output_scope -q — 44 tests pass in 49.826s at the initial eight-case extension; existing reviewed/scoped/output behavior preserved. .venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_distribution -q — 22 tests pass in 33.390s after two added CLI-grant/reviewed-hierarchy cases. .cache/python313/bin/python -m unittest tests.test_source_compaction -q — 10 source-compaction cases pass; no credentials, model or acquisition. Ruff E9/F; git diff --check; pinned owner handoff/ADR/44-row checks — Focused syntax/import/style and pinned authority/continuity/coverage checks pass. .venv/bin/ruff check --select E9,F src — 4 unchanged baseline findings: unused imports in scope_cache/routing_transitions/site, and site base variable. Focused changed-file scan passes.. .venv/bin/python -m unittest tests.test_v1_contracts tests.test_source_compaction -q — 16 tests pass in 14.276s, including explicit new schema inventory and rejection of vault output targets. A full 403-test run found only the omitted inventory entry and downstream UI golden hash; both are corrected before final 404-test qualification..
+python3 scripts/site_browser_check.py --workspace NEW --renderer PREPARED --npm-cache PREPARED --axe-script AXE_4_10_3 --report REPORT — Actual 0/3/205 outputs, small render byte-repeat and local portal recovery pass; browser pages allow loopback only. Partial accessibility: pinned mobile Explorer aria-allowed-attr remains; larger render 125.323s.. .venv/bin/python -m unittest tests.test_site tests.test_portal tests.test_design tests.test_v1_contracts -q — 29 tests pass in 35.186s; intended golden changes inspected (only source/style-derived revisions and manifest hashes). .venv/bin/python -m unittest tests.test_v1_contracts tests.test_source_compaction -q — 16 tests pass in 14.276s after schema inventory and vault-destination guard correction; now 11 source-compaction cases. Installed wheel source-compaction proof; installed VCS Empathy rehearsal; 12 consumer integration tests — New schema and source-only create/check work without model/Google and preserve original bytes. Empathy strict old entrypoint fails 3, staged regeneration passes 0; 12 consumer tests pass.. .venv/bin/ruff check --select E9,F src scripts/site_browser_check.py tests/test_source_compaction.py tests/test_v1_contracts.py; compileall; diff; pinned owners — Three unused imports/unused assignment are cleaned up while retaining URL validation; focused broad source syntax/import and formatting checks pass.
 
 ## Blockers, risks, unknowns, and deferred work
 
-TYPESAFE_API_KEY is not configured; live smoke and model accuracy/calibration remain unverified. Thresholds are provisional. #42 human disposition/#41 historical/#47 web/runtime and approved private #20 pilot remain separate gates; #18 Relay action must be verified rather than invented. New checkpoint drafts are not auto-merged. Release #19, production publication and deferred #86–#91 remain parked.
+TYPESAFE_API_KEY is unavailable: no live model smoke, accuracy or calibrated thresholds. Optional SDK wire tests use mock transport. Pinned Quartz Explorer mobile ARIA is critical; full WCAG and graph/screen-reader/consumer acceptance remain open. The 205-record build cost remains a performance follow-up. Relay #40 is open and the inspected tree has no Mindgarden action. Empathy full holistic/canonical cutover/deployment, approved private #20/#46 pilot and #41/#42/#47 decisions remain separate gates. No manual paid workflow is dispatched; no release, production publication, private-data access or deferred #86–#91 implementation. New checkpoint drafts remain for review.
 
 ## Next dependency-ready work
 
-Qualify actual pinned Quartz output for empty/small/larger fixtures, keyboard/mobile/reduced motion and graph alternatives (#17); then prove complete rendered artifact composition/recovery (#18). Relay #40 is open with no reusable Mindgarden action at the pinned tree; keep that integration gap explicit.
+Run the complete 404-test suite on both supported Python versions against the frozen closeout source; verify the installed wheel and native collection, record hosted CI separately, and finish review receipts for #110→#111→this draft. Preserve the unresolved Quartz Explorer ARIA, Relay #40 action, human ADR and private-pilot gates.
 
 ## Parallel changes and reconciliation
 

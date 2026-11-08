@@ -1,6 +1,6 @@
 """Append-only canonical-home transitions carried by existing provenance records."""
 
-from .contracts import ContractRegistry, canonical_json
+from .contracts import ContractRegistry
 from .validation import ContractError
 
 

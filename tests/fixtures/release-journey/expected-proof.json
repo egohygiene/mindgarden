@@ -103,7 +103,7 @@
   "schema": "mindgarden.synthetic-release-journey/v1",
   "site": {
     "kind": "content",
-    "revision": "sha256:37570d284039cfb0832ca7a989563fc6e73ec1c2cc8d46518522b0127c8fc3ec",
+    "revision": "sha256:2166e5388ec81214df2e01a6d3447015f67c23c21eaa73cfe232e30374cf3ace",
     "routes": [
       {
         "path": "notes/release-public-procedure/index.html",

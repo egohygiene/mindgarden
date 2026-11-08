@@ -82,6 +82,7 @@ h1,h2,h3,.page-title {{ font-family:var(--mg-heading-font); }}
 .page-title {{ letter-spacing:{typography['display_tracking_em']}em; overflow-wrap:anywhere; }}
 code,pre {{ font-family:var(--mg-code-font); }}
 a {{ color:var(--mg-accent); text-underline-offset:.2em; }}
+.explorer .nav-file-title {{ color:var(--mg-accent); opacity:1; }}
 article,.center {{ min-width:0; max-width:100%; }}
 article pre,article pre code,.code-wrapper {{ max-width:100%; white-space:pre-wrap; overflow-wrap:anywhere; }}
 article pre code {{ display:block; width:100%; }}

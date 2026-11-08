@@ -1,0 +1,15 @@
+{
+  "schema": "mindgarden.installed-source-compaction-proof/v1",
+  "engine_version": "0.1.0",
+  "engine_location": "installed-interpreter-prefix",
+  "default_dependencies": [],
+  "exact_citations_verified": 1,
+  "source_review": "unreviewed",
+  "bundle_schema": "mindgarden.compaction-bundle/v1",
+  "create_and_check": "passed",
+  "canonical_originals": "unchanged",
+  "knowledge_anchors": 0,
+  "network": "restricted-during-proof",
+  "model": "unused",
+  "google": "unused"
+}

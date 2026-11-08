@@ -11,10 +11,24 @@
     return node;
   }
   async function render() {
+    const skip = document.querySelector(".mindgarden-skip-link");
+    if (skip && !skip.dataset.bound) {
+      skip.dataset.bound = "true";
+      skip.addEventListener("click", event => {
+        const target = document.getElementById("mindgarden-main");
+        if (!target) return;
+        event.preventDefault();
+        event.stopPropagation();
+        target.focus({preventScroll: true});
+        target.scrollIntoView({block: "start", behavior: "instant"});
+      });
+    }
     const host = document.getElementById("mindgarden-graph");
     if (!host || host.dataset.rendered) return;
     host.dataset.rendered = "true";
     const status = host.querySelector("[role=status]");
+    const controls = [...host.querySelectorAll("button")];
+    controls.forEach(button => { button.disabled = true; });
     try {
       const [graph, index] = await Promise.all(["graph.json", "index.json"].map(async name => {
         const response = await fetch(new URL(name, base), {credentials: "omit"});
@@ -54,6 +68,7 @@
       host.querySelector('[data-zoom="in"]').onclick = () => update(0.25);
       host.querySelector('[data-zoom="out"]').onclick = () => update(-0.25);
       host.querySelector('[data-zoom="reset"]').onclick = () => { zoom = 1; update(0); };
+      controls.forEach(button => { button.disabled = nodes.length === 0; });
       status.textContent = nodes.length ? "Use Tab to select a note, or the zoom controls to explore. The complete typed relationships are listed below." : "No reviewed nodes are selected yet.";
     } catch (_) {
       status.textContent = "The interactive view is unavailable. The complete relationship list remains below.";

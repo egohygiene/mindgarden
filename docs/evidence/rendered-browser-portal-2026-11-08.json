@@ -1,0 +1,274 @@
+{
+  "google": "unused",
+  "limitations": [
+    "Pinned Quartz Explorer has an unsupported aria-expanded attribute; retained axe finding",
+    "Automated rules/keyboard checks are not full WCAG or screen-reader certification",
+    "Relay #40 action, host promotion and production publication remain unverified"
+  ],
+  "models": "unused",
+  "renderer_commit": "075afd3f712da0088a07f5284a7b3aba37dd61b6",
+  "schema": "mindgarden.rendered-browser-portal-proof/v1",
+  "status": "partial-renderer-accessibility-findings",
+  "variants": {
+    "empty": {
+      "browser": {
+        "browser_requests": "loopback-only",
+        "chromium": "151.0.7922.173",
+        "javascript_disabled_list": "passed",
+        "playwright": "1.62.0",
+        "unavailable_graph": "passed",
+        "viewports": [
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": [
+                  {
+                    "details": [
+                      "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
+                    ],
+                    "id": "aria-allowed-attr",
+                    "impact": "critical",
+                    "targets": [
+                      [
+                        ".explorer"
+                      ]
+                    ]
+                  }
+                ]
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": [
+                  {
+                    "details": [
+                      "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
+                    ],
+                    "id": "aria-allowed-attr",
+                    "impact": "critical",
+                    "targets": [
+                      [
+                        ".explorer"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ],
+            "checks": "passed",
+            "graph_ready_seconds": 0.419,
+            "width": 320
+          },
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": []
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": []
+              }
+            ],
+            "checks": "passed",
+            "graph_ready_seconds": 0.352,
+            "width": 1280
+          }
+        ]
+      },
+      "render": {
+        "build_seconds": 5.442,
+        "files": 52,
+        "manifest_sha256": "206f8ac7d2d3cc9dfac216a419d4d555f3db4f638b2406a06dfed06bc21f4b5a",
+        "nodes": 0,
+        "revision": "sha256:5831d41a84d0303bd30e6010c65d163086e8cbdf53a033e8c011bdc2782552dc"
+      }
+    },
+    "large": {
+      "browser": {
+        "browser_requests": "loopback-only",
+        "chromium": "151.0.7922.173",
+        "javascript_disabled_list": "passed",
+        "playwright": "1.62.0",
+        "unavailable_graph": "passed",
+        "viewports": [
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": [
+                  {
+                    "details": [
+                      "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
+                    ],
+                    "id": "aria-allowed-attr",
+                    "impact": "critical",
+                    "targets": [
+                      [
+                        ".explorer"
+                      ]
+                    ]
+                  }
+                ]
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": [
+                  {
+                    "details": [
+                      "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
+                    ],
+                    "id": "aria-allowed-attr",
+                    "impact": "critical",
+                    "targets": [
+                      [
+                        ".explorer"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ],
+            "checks": "passed",
+            "graph_ready_seconds": 0.329,
+            "width": 320
+          },
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": []
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": []
+              }
+            ],
+            "checks": "passed",
+            "graph_ready_seconds": 0.26,
+            "width": 1280
+          }
+        ]
+      },
+      "render": {
+        "build_seconds": 125.323,
+        "files": 262,
+        "manifest_sha256": "df83d7a65edec3b9665409540a48e99b76d7574776770e12efe2f40d8eeb2be2",
+        "nodes": 205,
+        "revision": "sha256:e4f0a935dbd1f10409c45c1da86414e702feb7458ac3b56a9f4adfd6a08dc74e"
+      }
+    },
+    "small": {
+      "browser": {
+        "browser_requests": "loopback-only",
+        "chromium": "151.0.7922.173",
+        "javascript_disabled_list": "passed",
+        "playwright": "1.62.0",
+        "unavailable_graph": "passed",
+        "viewports": [
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": [
+                  {
+                    "details": [
+                      "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
+                    ],
+                    "id": "aria-allowed-attr",
+                    "impact": "critical",
+                    "targets": [
+                      [
+                        ".explorer"
+                      ]
+                    ]
+                  }
+                ]
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": [
+                  {
+                    "details": [
+                      "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
+                    ],
+                    "id": "aria-allowed-attr",
+                    "impact": "critical",
+                    "targets": [
+                      [
+                        ".explorer"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ],
+            "checks": "passed",
+            "graph_ready_seconds": 0.347,
+            "width": 320
+          },
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": []
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": []
+              }
+            ],
+            "checks": "passed",
+            "graph_ready_seconds": 0.31,
+            "width": 1280
+          }
+        ]
+      },
+      "portal": {
+        "checks": [
+          "actual-renderer-manifest",
+          "receipt-failure-blocks-verification",
+          "retry-and-repeat",
+          "siblings-preserved",
+          "corrupted-candidate-denied",
+          "previous-portal-retained"
+        ],
+        "deployment": "not-invoked",
+        "owned_files": 60,
+        "receipt_sha256": "1278ea1db6649dc80dee43e2a78e3e299f7e6bed990c3e2479a4f9e6ee433a87",
+        "relay_action": "unavailable-at-inspected-pin"
+      },
+      "render": {
+        "build_seconds": 6.093,
+        "files": 60,
+        "manifest_sha256": "7d31a9261e12df8a0314e4924b627f5b55f75c1ddc08c4a641f529ea0f5781f8",
+        "nodes": 3,
+        "revision": "sha256:5870b30486bd48d20ec62b4efb1ec4ca127eeef94491c97cfe7891535b90923f"
+      }
+    }
+  }
+}

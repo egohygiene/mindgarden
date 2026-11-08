@@ -34,6 +34,27 @@ DISTINCT_CACHE_DIRECTORY_COUNT = 3
 MAXIMUM_PORT = 65_535
 
 
+def accessible_navigation(html: str) -> str:
+    """Keep Quartz's article hooks while adding a main landmark and skip target."""
+    import re
+
+    html, articles = re.subn(
+        r"<article(?=[ >])",
+        '<article role="main" id="mindgarden-main" tabindex="-1"',
+        html,
+        count=1,
+    )
+    html, bodies = re.subn(
+        r"(<body(?: [^>]*)?>)",
+        r'\1<a class="mindgarden-skip-link" href="#mindgarden-main">Skip to garden content</a>',
+        html,
+        count=1,
+    )
+    if articles != 1 or bodies != 1:
+        raise ContractError("SITE_RENDERER: pinned page lacks the expected article/body landmarks")
+    return html
+
+
 def render_public_site(projection, engine_root: Path) -> dict[str, bytes]:
     """Render only generated reviewed content; keep subprocess logs private."""
     from html import escape
@@ -114,7 +135,7 @@ def render_public_site(projection, engine_root: Path) -> dict[str, bytes]:
             files[name] = content
     for name in list(files):
         if name.endswith(".html"):
-            html = files[name].decode("utf8")
+            html = accessible_navigation(files[name].decode("utf8"))
             html = html.replace('<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/>', "")
             html = html.replace("</head>", '<link rel="stylesheet" href="' + base_path + 'static/mindgarden/site.css"/>'
                 + ('<link rel="stylesheet" href="' + base_path + 'static/mindgarden/theme.css"/>' if "static/mindgarden/theme.css" in files else '')
