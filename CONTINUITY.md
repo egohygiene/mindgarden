@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T22:55:29Z'
+  updated_at: '2026-11-06T22:59:06Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -49,44 +49,44 @@ scope:
   - AGENTS.md
   - docs/consumer-journey.md
   - docs/product-checkpoints.md
+  - docs/adr-projections.md
 work:
-  objective: Consume the shared Decisions preview contract and reconcile historical migration gates before implementing
-    independent product projections.
+  objective: Project public owner ADR metadata without copying canonical bodies or inventing disposition authority.
   success_conditions:
   - Keep exact citations, reviewed routing, bounded output and relocation proof.
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#43
-    url: https://github.com/egohygiene/mindgarden/issues/43
+    id: egohygiene/mindgarden#44
+    url: https://github.com/egohygiene/mindgarden/issues/44
   next:
     kind: action
-    id: adr-metadata-projection
-    description: 'Implement #44 read-only metadata projection over the explicit public Observatory/Relay decision
-      interface; then the opt-in #32 SQLite baseline.'
+    id: sqlite-query-store-conformance
+    description: 'Implement the opt-in #32 query-store contract and SQLite/reference conformance, keeping the reference
+      engine default.'
     readiness: ready
     references:
     - docs/product-checkpoints.md
-    - docs/consumer-journey.md
+    - docs/adr-projections.md
     depends_on: []
 state:
   base:
-    revision: 29817e14cf3a537402d5f63885d925af172b94ce
-    ref: refs/heads/feature/20-consumer-journey-proof
-    verified_at: '2026-11-06T22:55:29Z'
+    revision: 6ba1c2db04d36c81f4474639f30b60fc2a3a645b
+    ref: refs/heads/feature/43-decisions-contract-checkpoint
+    verified_at: '2026-11-06T22:59:06Z'
   candidate:
-    branch: feature/43-decisions-contract-checkpoint
-    revision: null
+    branch: feature/44-adr-projections
+    revision: 6666038ac626b46123239247b7ea22093417cc98
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-06T22:55:29Z'
+    observed_at: '2026-11-06T22:59:06Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: not-applicable
-    notes: "Main d5edb13; drafts #93\u2192#94\u2192#95\u2192#96 plus current Decisions caller. Empathy #120 is separate.\
-      \ Release is deferred; 44 issues remain open."
+    notes: 'Draft #97 follows #96; current #44 projection extends that combined stack. All ADRs remain proposed.
+      Release stays deferred.'
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#93
@@ -100,20 +100,22 @@ state:
   - provider: github
     id: egohygiene/mindgarden#96
     url: https://github.com/egohygiene/mindgarden/pull/96
+  - provider: github
+    id: egohygiene/mindgarden#97
+    url: https://github.com/egohygiene/mindgarden/pull/97
 review:
   status: partial
-  reviewed_at: '2026-11-06T22:55:29Z'
+  reviewed_at: '2026-11-06T22:59:06Z'
   reviewed_by: codex
   evidence:
-  - command: 'python3: parse decisions-preview.yml and compare pinned workflow inputs'
+  - command: .venv/bin/python -m unittest tests.test_decisions -q
     outcome: passed
-    observed_at: '2026-11-06T22:55:29Z'
-    notes: Read-only shared caller; no Pages or OIDC permissions.
-  - command: Both 322-test suites; rerun the loopback case with network permission
+    observed_at: '2026-11-06T22:59:06Z'
+    notes: 6 cases, including CLI digest binding and denied metadata canaries.
+  - command: .venv/bin/python -m unittest tests.test_decisions tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-06T22:55:29Z'
-    notes: 321 cases pass per full run; the sole environment-denied case passes individually on both supported Pythons.
-      No hosted CI claim.
+    observed_at: '2026-11-06T22:59:06Z'
+    notes: 10 initial cases; final added CLI case also passes.
   environment_limitations:
   - '#41 historical backfill remains behind shared operational/adoption readiness; current proposals are not ratified.'
   - Native Relay collector Rust toolchain is unavailable locally; hosted artifact/browser/publication evidence is
@@ -148,19 +150,19 @@ Read status, live issues/PRs, README, AI_CONSTITUTION, ROADMAP, the coverage and
 
 ## Current objective and success conditions
 
-Consume the shared Decisions preview contract and reconcile historical migration gates before implementing independent product projections. Keep exact citations, reviewed routing, bounded output and relocation proof. Park release work and preserve small reviewable drafts.
+Project public owner ADR metadata without copying canonical bodies or inventing disposition authority. Keep exact citations, reviewed routing, bounded output and relocation proof. Park release work and preserve small reviewable drafts.
 
 ## State snapshot
 
-Main d5edb13; drafts #93→#94→#95→#96 plus current Decisions caller. Empathy #120 is separate. Release is deferred; 44 issues remain open.
+Draft #97 follows #96; current #44 projection extends that combined stack. All ADRs remain proposed. Release stays deferred.
 
 ## Completed and material changes
 
-Reconciled all eight product dependencies against live owners, including actual Hygiene ratification. Added a full-commit shared Relay PR-artifact caller with no deployment authority. Historical ADRs are untouched.
+Added versioned public ADR metadata output, exact input/revision binding, lifecycle/approval separation, typed authoritative/inferred relationships, backlinks and bounded context. Canonical bodies and private ADRs are never copied.
 
 ## Validation and review evidence
 
-Shared workflow input and permission contracts inspected; YAML parsed. Prior consumer full suites each ran 322 tests with one sandbox loopback error; the affected test passes on each Python with explicit local-network permission.
+Six focused tests pass; ten combined initial projection/schema tests pass and five initial cases pass on Python 3.13. Full combined suite follows the runtime batch.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -168,7 +170,7 @@ Shared workflow input and permission contracts inspected; YAML parsed. Prior con
 
 ## Next dependency-ready work
 
-Implement #44 read-only metadata projection over the explicit public Observatory/Relay decision interface; then the opt-in #32 SQLite baseline.
+Implement the opt-in #32 query-store contract and SQLite/reference conformance, keeping the reference engine default.
 
 ## Parallel changes and reconciliation
 
