@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:learning-plan:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "deck",
+    "scope",
+    "generator",
+    "review",
+    "review_authority",
+    "scheduler",
+    "as_of",
+    "max_bytes",
+    "candidates"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.learning-plan/v1"
+    },
+    "deck": {
+      "$ref": "urn:egohygiene:mindgarden:learning-deck:v1"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "generator": {
+      "enum": [
+        "authored",
+        "imported-reviewed",
+        "model-proposed"
+      ]
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "review_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "human"
+        },
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        }
+      }
+    },
+    "scheduler": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version",
+        "anchor"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "anchor": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "max_bytes": {
+      "type": "integer",
+      "minimum": 512,
+      "maximum": 1000000
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:learning-candidate:v1"
+      },
+      "minItems": 0,
+      "maxItems": 100
+    }
+  }
+}

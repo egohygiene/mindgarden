@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:learning-projection:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "deck",
+    "scope",
+    "canonical",
+    "generator",
+    "authoring_request",
+    "items",
+    "schedules",
+    "historical_events",
+    "as_of",
+    "source_digest",
+    "publication",
+    "trust"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.learning-projection/v1"
+    },
+    "deck": {
+      "$ref": "urn:egohygiene:mindgarden:learning-deck:v1"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "canonical": {
+      "const": false
+    },
+    "generator": {
+      "enum": [
+        "authored",
+        "imported-reviewed",
+        "model-proposed"
+      ]
+    },
+    "authoring_request": {
+      "$ref": "urn:egohygiene:mindgarden:learning-plan:v1"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "output",
+          "sources",
+          "qualification_reasons",
+          "transformation_rationale",
+          "source_digest",
+          "revision"
+        ],
+        "properties": {
+          "output": {
+            "oneOf": [
+              {
+                "$ref": "urn:egohygiene:mindgarden:learning-card:v1"
+              },
+              {
+                "$ref": "urn:egohygiene:mindgarden:learning-summary:v1"
+              }
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "reference",
+                "scope",
+                "review",
+                "confidence",
+                "evidence",
+                "qualifications",
+                "claim_relationships"
+              ],
+              "properties": {
+                "reference": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+                },
+                "scope": {
+                  "$ref": "urn:egohygiene:mindgarden:scope:v1"
+                },
+                "review": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+                },
+                "confidence": {
+                  "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/confidence"
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+                  },
+                  "minItems": 1,
+                  "maxItems": 100
+                },
+                "qualifications": {
+                  "type": "object"
+                },
+                "claim_relationships": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 8192
+                  },
+                  "minItems": 0,
+                  "maxItems": 100
+                }
+              }
+            },
+            "minItems": 1,
+            "maxItems": 100
+          },
+          "qualification_reasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 8192
+            },
+            "minItems": 0,
+            "maxItems": 100
+          },
+          "transformation_rationale": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192
+          },
+          "source_digest": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+          },
+          "revision": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        }
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "schedules": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:learning-schedule:v1"
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "historical_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event",
+          "item",
+          "state"
+        ],
+        "properties": {
+          "event": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "item": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "state": {
+            "enum": ["historical-item-revision", "after-view-as-of"]
+          }
+        }
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_digest": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "publication": {
+      "const": "never-exportable"
+    },
+    "trust": {
+      "const": "source-data-only"
+    }
+  }
+}
