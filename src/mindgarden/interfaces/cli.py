@@ -592,6 +592,17 @@ def build_parser() -> ArgumentParser:
     add_federation_command(commands)
     add_compaction_command(commands)
     add_registry_command(commands)
+    from ..application.insights import run_insights
+
+    insights = commands.add_parser("insights", help="Plan reviewed renderer-independent public insight handoffs")
+    insights.add_argument("--local-config", type=Path, required=True)
+    insights.add_argument("--scope", type=Path, required=True)
+    insights.add_argument("--input", type=Path, required=True)
+    insights.add_argument("--apply", action="store_true")
+    insights.add_argument("--plan-digest")
+    insights.add_argument("--output-directory", type=Path)
+    insights.set_defaults(handler=run_insights)
+
     from ..application.learning import run_learning
 
     learning = commands.add_parser("learning", help="Review authored learning cards, summaries and private schedules")

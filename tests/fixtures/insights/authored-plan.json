@@ -1,0 +1,102 @@
+{
+  "artifact_events": [],
+  "candidates": [
+    {
+      "alt_text": "A teaching claim linked to its exact synthetic evidence.",
+      "audience": "Knowledge tool builders",
+      "caption": "A synthetic example of evidence-backed knowledge.",
+      "channel": {
+        "format": "renderer-independent",
+        "name": "unassigned"
+      },
+      "claims": [
+        {
+          "certainty": "qualified",
+          "id": "evidence-claim",
+          "references": [
+            {
+              "garden": "repository-garden",
+              "id": "reviewed-claim",
+              "revision": "sha256:9041afa5aeb9f972a62717e7dca71524b79dd73c1c0a357266f6971a10d38b18"
+            },
+            {
+              "garden": "repository-garden",
+              "id": "reviewed-prompt",
+              "revision": "sha256:e1ce2bc9126281033e190c9607bff98c9cd38534c09a9e7d48216c8e2ca13a02"
+            }
+          ],
+          "representation": "paraphrase",
+          "rights": {
+            "attribution": "Synthetic fixture author",
+            "license": "CC0-1.0 (synthetic fixture declaration)",
+            "review": {
+              "rationale": "Authored synthetic rights and content review.",
+              "reviewed_at": "2026-11-07T00:00:00Z",
+              "reviewers": [
+                "synthetic-reviewer"
+              ],
+              "state": "approved"
+            },
+            "status": "approved"
+          },
+          "text": "Retain exact source evidence with reviewed knowledge."
+        }
+      ],
+      "garden": "repository-garden",
+      "id": "evidence-insight",
+      "intended_use": "A reviewed teaching handoff; no posting authority.",
+      "lifecycle": "approved",
+      "objective": "Keep exact evidence attached to reviewed knowledge.",
+      "publication": "eligible-for-reviewed-handoff",
+      "review": {
+        "rationale": "Authored synthetic rights and content review.",
+        "reviewed_at": "2026-11-07T00:00:00Z",
+        "reviewers": [
+          "synthetic-reviewer"
+        ],
+        "state": "approved"
+      },
+      "rights": {
+        "attribution": "Synthetic fixture author",
+        "license": "CC0-1.0 (synthetic fixture declaration)",
+        "review": {
+          "rationale": "Authored synthetic rights and content review.",
+          "reviewed_at": "2026-11-07T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "status": "approved"
+      },
+      "schema": "mindgarden.insight-candidate/v1",
+      "supersedes": [],
+      "uncertainty": [
+        "Synthetic example, not a factual research conclusion."
+      ],
+      "visual": {
+        "form": "single-insight",
+        "hierarchy": [
+          "Teaching objective",
+          "Qualified claim",
+          "Evidence trail"
+        ]
+      }
+    }
+  ],
+  "max_bytes": 131072,
+  "review": {
+    "rationale": "Authored synthetic rights and content review.",
+    "reviewed_at": "2026-11-07T00:00:00Z",
+    "reviewers": [
+      "synthetic-reviewer"
+    ],
+    "state": "approved"
+  },
+  "review_authority": {
+    "id": "synthetic-reviewer",
+    "kind": "human"
+  },
+  "schema": "mindgarden.insight-plan/v1",
+  "series": []
+}

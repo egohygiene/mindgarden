@@ -1,0 +1,11 @@
+{
+  "candidates": 1,
+  "canonical": false,
+  "files": {
+    "insight-candidates.json": "916928a5581dd02a9b1c7741101af1b890f00c838dfd4872b1e84979c012331d"
+  },
+  "network": "not-used",
+  "renderer": "not-used",
+  "schema": "mindgarden.insight-proof/v1",
+  "total_bytes": 7431
+}

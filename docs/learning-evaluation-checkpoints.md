@@ -37,7 +37,7 @@ new default store, framework, model provider or product.
 | Issue | Branch / PR and implemented checkpoint | Verification | Remaining / exact next action |
 | --- | --- | --- | --- |
 | #28 | [draft #105](https://github.com/egohygiene/mindgarden/pull/105), `3510b22`, over #104; authored cards/summaries/private grading/versioned schedules/export round trip | 12 focused tests on Python 3.12/3.13 + 5 schema tests; Chromium static accessibility proof | Authored cards/summaries, exact provenance, private events, schedule versions and export round trip; full hosted UI remains separate |
-| #21 | Planned next draft over #28 | Pending | Reviewed renderer-independent insight/series candidates, public-safe provenance, duplicate/lifecycle/privacy fixtures; no rendering or posting |
+| #21 | [draft #106](https://github.com/egohygiene/mindgarden/pull/106), `4e12dcd`, over #105; public reviewed candidates/series, rights, duplicates and artifact-feedback projections | 9 focused tests on Python 3.12/3.13 + 5 schema cases | Reviewed renderer-independent insight/series candidates, public-safe provenance, duplicate/lifecycle/privacy fixtures; no rendering or posting |
 | #26 | Planned evaluation draft | Pending | Pin OpenAleph evidence; architectural/privacy/license/cost matrix and removable synthetic export experiment |
 | #33 | Planned optional CozoDB experiment | Pending | Exact native version/adapter, multi-garden parity, resource/recovery/exit proof; no canonical store change |
 | #34 | Planned optional OpenViking experiment | Pending | Exact version/license, synthetic provenance adapter, network/model/storage behavior, baseline comparison or explicit blockers and removal |
@@ -51,6 +51,6 @@ full framework/runtime work remain gated. Real #20 pilot/consumer cutover,
 restricted runtime assurance and #48 external handoffs remain unverified.
 Release #19, further release work and deferred #86–#91 are not activated.
 
-The exact next action is #21 renderer-independent reviewed insight candidates. Every
+The exact next action is #26 pinned OpenAleph architectural evaluation. Every
 checkpoint will record source/PR, commands/results, supported interfaces, genuine
 blockers and the following action. Leave all new drafts for the morning sync.
