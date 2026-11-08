@@ -1,5 +1,6 @@
 """Public Mindgarden 0.x library surface."""
 
+from ._version import __version__
 from .adapters.publishing import project_garden, verify_projection
 from .application.agent import (
     build_index,
@@ -9,8 +10,6 @@ from .application.agent import (
     search_payload,
 )
 from .domain.validation import ContractError, validate_repository
-
-__version__ = "0.1.0"
 
 __all__ = [
     "ContractError",

@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T21:56:10Z'
+  updated_at: '2026-11-06T22:18:36Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -42,88 +42,101 @@ scope:
   - docs/registry-native-platforms.md
   - docs/release-checkpoints.md
   - docs/provider-switch-proof.md
+  - docs/releases.md
+  - .egohygiene/release.json
+  - .egohygiene/release-sources.json
+  - CHANGELOG.md
+  - Taskfile.yml
+  - AGENTS.md
 work:
-  objective: Prove provider-switch recovery through two removable local adapter fixtures over existing scoped CLI
-    contracts.
+  objective: Prepare reproducible Python release evidence through pinned owner contracts without publishing or claiming
+    full 1.0 acceptance.
   success_conditions:
-  - Recover preferences, project goal, artifact evidence, decision and correction history after removing the first
-    provider and caches.
-  - Preserve canonical IDs/digests/review/sensitivity and deny out-of-scope or unreviewed history.
-  - Keep all external pilot/publication gates explicit and preserve the dependency-aware release stack.
+  - Keep pyproject.toml as the sole version authority and derive runtime/provenance versions.
+  - Build source-bound artifacts twice, verify exact hashes and preserve external policy/schema/signing/PyPI gates.
+  - 'Leave a small draft over #94, then advance the synthetic consumer/pilot handoff and conditional acceptance
+    checks.'
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#51
-    url: https://github.com/egohygiene/mindgarden/issues/51
+    id: egohygiene/mindgarden#27
+    url: https://github.com/egohygiene/mindgarden/issues/27
   next:
     kind: action
-    id: release-convention-preparation
-    description: 'Implement #27 release declaration, authoritative version and reproducible artifact preparation
-      on a branch over draft #94. Preserve the confirmed Relay root-pyproject schema/reference-validator mismatch
-      as an external parity gate; continue #20 synthetic/pilot handoff and conditional #19 acceptance.'
+    id: synthetic-consumer-and-private-pilot-handoff
+    description: 'Implement #20 synthetic archive→review/routing→public projection and pinned Empathy consumer evidence
+      on a branch over draft #95. Prepare a private pilot with explicit input/workspace/classification; do not run
+      real data until the pending user input arrives. Then deliver conditional #19 pre/postpublication acceptance
+      checks.'
     readiness: ready
     references:
     - docs/release-checkpoints.md
     depends_on: []
 state:
   base:
-    revision: 7938f573100658908acc0a039974e60f8cf888aa
-    ref: refs/heads/feature/30-macos-registry-conformance
-    verified_at: '2026-11-06T21:56:10Z'
+    revision: 62cbead700679e6b12984f1fc502d27c427fd6bb
+    ref: refs/heads/feature/51-provider-switch-proof
+    verified_at: '2026-11-06T22:18:36Z'
   candidate:
-    branch: feature/51-provider-switch-proof
-    revision: 1fac57d280322f0a5e835973e1c57eb4ade93135
+    branch: feature/27-release-preparation
+    revision: a3cbac93d2a68e99e7955ddb18302e0358f53247
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#94
-      url: https://github.com/egohygiene/mindgarden/pull/94
+      id: egohygiene/mindgarden#95
+      url: https://github.com/egohygiene/mindgarden/pull/95
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T21:56:10Z'
+    observed_at: '2026-11-06T22:18:36Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: draft
-    notes: 'Main remains d5edb13. #93 is draft and its exact head passed Test 42297920995. #94 is draft at functional
-      source 1fac57d; Test 42300245942 was in progress when observed. The four requested parent issues remain open;
-      no release exists.'
+    notes: 'Main remains d5edb13. #93/#94/#95 are open drafts. #94 exact head passed Test 42300786846. #95 exact
+      source produced local artifacts and retains the owner schema blocker. No release exists; real-pilot inputs
+      are pending.'
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#93
     url: https://github.com/egohygiene/mindgarden/pull/93
+  - provider: github
+    id: egohygiene/mindgarden#94
+    url: https://github.com/egohygiene/mindgarden/pull/94
 review:
   status: partial
-  reviewed_at: '2026-11-06T21:56:10Z'
+  reviewed_at: '2026-11-06T22:18:36Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_provider_continuity tests.test_v1_retrieval tests.test_scoped_retrieval
-      tests.test_output_scope -q
+  - command: .venv/bin/python -m unittest tests.test_release_preparation tests.test_package -q
     outcome: passed
-    observed_at: '2026-11-06T21:56:10Z'
-    notes: 30 passed in 26.305 seconds. Initial test-harness invocations with a nonexistent module/missing --pack
-      were corrected; the final command passes.
-  - command: .venv/bin/python -S scripts/provider_switch_demo.py --workspace .cache/provider-switch-second --require-source
-      --report .cache/provider-switch-second.json
+    observed_at: '2026-11-06T22:18:36Z'
+    notes: 13 passed in 0.268 seconds.
+  - command: .venv/bin/python scripts/release.py bootstrap; .venv/bin/python scripts/release.py plan --release-version
+      v0.1.0
     outcome: passed
-    observed_at: '2026-11-06T21:56:10Z'
-    notes: Committed golden matches; first provider and scoped index are absent before beta recovery.
-  - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist
+    observed_at: '2026-11-06T22:18:36Z'
+    notes: Exact owner revisions fetched/qualified; policy remains proposed; no publication performed.
+  - command: .venv/bin/python scripts/release.py prepare --release-version v0.1.0 --output-directory .cache/release-candidate-first
     outcome: passed
-    observed_at: '2026-11-06T21:56:10Z'
-    notes: Fresh distributions built from current source; no runtime dependencies added.
+    observed_at: '2026-11-06T22:18:36Z'
+    notes: Two independent builds match; Relay profile passes; report preserves schema/owner/PyPI gates.
+  - command: .venv/bin/python scripts/release.py verify --release-version v0.1.0 --output-directory .cache/release-candidate-first
+    outcome: passed
+    observed_at: '2026-11-06T22:18:36Z'
+    notes: 'Negative check: exits 2 with RELEASE_UPSTREAM_SCHEMA_PARITY; publication remains impossible.'
   - command: .venv/bin/python -m unittest discover --start-directory tests --verbose; .cache/python313/bin/python
       -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T21:56:10Z'
-    notes: 308 passed, no skips, per Python 3.12.14/3.13.5; 240.746/227.943 seconds.
-  - command: Clean git archive -S and isolated installed-wheel -I provider_switch_demo.py proofs
+    observed_at: '2026-11-06T22:18:36Z'
+    notes: 315 passed, no skips, each; 224.594/207.984 seconds.
+  - command: Installed candidate CLI/version/v0 validate/publication and provider_switch_demo.py under -I
     outcome: passed
-    observed_at: '2026-11-06T21:56:10Z'
-    notes: Both reports byte-match tests/fixtures/provider-continuity/expected-proof.json.
+    observed_at: '2026-11-06T22:18:36Z'
+    notes: Source-bound candidate wheel preserves compatibility and the exact provider golden.
   environment_limitations:
-  - Local fixture adapters prove structured context continuity, not live model behavior or proprietary history transfer.
-  - 'Approved private pilot, actual Empathy consumption, protected OIDC/registry/signing evidence remain external;
-    #19 is not publishable.'
-  - 'ADRs and Hygiene release baseline remain proposed; deferred #86–#91 are not activated.'
+  - Relay Python package JSON Schema rejects the root authority path accepted by its reference validator; strict
+    handoff remains blocked.
+  - 'EgoLint pinned inputs qualify; native Python consumer conformance and broader #29 acceptance are not inferred.'
+  - Protected OIDC, signing, approved private pilot and real Empathy/released-version verification remain external;
+    no 1.0 publication.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -151,19 +164,19 @@ Read git status, live issues/PRs, README, AI_CONSTITUTION, ROADMAP, the coverage
 
 ## Current objective and success conditions
 
-Prove provider-switch recovery through two removable local adapter fixtures over existing scoped CLI contracts. Recover preferences, project goal, artifact evidence, decision and correction history after removing the first provider and caches. Preserve canonical IDs/digests/review/sensitivity and deny out-of-scope or unreviewed history. Keep all external pilot/publication gates explicit and preserve the dependency-aware release stack.
+Prepare reproducible Python release evidence through pinned owner contracts without publishing or claiming full 1.0 acceptance. Keep pyproject.toml as the sole version authority and derive runtime/provenance versions. Build source-bound artifacts twice, verify exact hashes and preserve external policy/schema/signing/PyPI gates. Leave a small draft over #94, then advance the synthetic consumer/pilot handoff and conditional acceptance checks.
 
 ## State snapshot
 
-Draft #94 (functional source 1fac57d280322f0a5e835973e1c57eb4ade93135) is stacked over draft #93 at 7938f573100658908acc0a039974e60f8cf888aa. Main remains d5edb13de1b65871ec85e7a25af035228a1d756d. All 44 issues remain open. Later handoff edits are documentation only.
+Draft #95 source a3cbac93d2a68e99e7955ddb18302e0358f53247 is stacked over #94 (62cbead), over #93. Main remains d5edb13. Later checkpoint edits are documentation only. All 44 issues remain open.
 
 ## Completed and material changes
 
-The provider fixture removes alpha code/state and the scoped index, then reconstructs identical structured context through beta using ordinary index/context/graph/evidence commands. The scenario exposed and fixes approved historical dependency validation without returning inactive claims in current ranking. Denied/unreviewed historical nodes still remove derivatives. No new provider SDK or memory system is introduced.
+Aether/Hygiene declaration, changelog, agent release pointer, Taskfile handoffs and pinned manual Relay flow are added. Runtime/provenance derive the PEP 621 version. The local builder uses immutable git archive input, separate duplicate builds, normalized archives, exact checksums, SPDX/package/provenance/signature-state records, and strict verification. PyPI/signing remain unavailable. Relay reference validator/schema disagree about root pyproject.toml; the strict handoff retains that blocker.
 
 ## Validation and review evidence
 
-All 308 tests pass, no skips, on Linux/Python 3.12.14 and 3.13.5 (240.746/227.943 seconds). The clean git-archive source and isolated installed wheel reproduce the golden byte-for-byte. The context is 13178 bytes within 16384. Pinned owners, 44 issue rows, compilation and diff checks pass. Hosted #94 CI is recorded separately; no publication or ADR approval is inferred.
+All 315 tests pass, no skips, on Python 3.12.14/3.13.5 (224.594/207.984 s). Duplicate builds match; Relay reference artifact checks pass. Strict verification returns code 2 for the exact root-authority schema mismatch. Fresh distribution tests, clean installed CLI/v0 public projection and provider recovery golden pass. No publication was attempted.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -171,11 +184,11 @@ An approved private archive/workspace, real Empathy #65 acceptance, compatible A
 
 ## Next dependency-ready work
 
-Implement #27 release declaration, authoritative version and reproducible artifact preparation on a branch over draft #94. Preserve the confirmed Relay root-pyproject schema/reference-validator mismatch as an external parity gate; continue #20 synthetic/pilot handoff and conditional #19 acceptance.
+Implement #20 synthetic archive→review/routing→public projection and pinned Empathy consumer evidence on a branch over draft #95. Prepare a private pilot with explicit input/workspace/classification; do not run real data until the pending user input arrives. Then deliver conditional #19 pre/postpublication acceptance checks.
 
 ## Parallel changes and reconciliation
 
-PR #93 is the unmerged checkout base; native support is not a semantic gate for the provider scenario. Keep every new checkpoint as an explicit draft stack, preserve a combined checkout, and leave merge/publication for their applicable authority. Reconcile CONTINUITY.md semantically after each checkpoint.
+Draft stack is #93 → #94 → the current #27 checkpoint. Native support is only a checkout dependency. Preparation is independent of the full private pilot, while #19 acceptance and postpublication checks remain separate. Preserve the combined checkout and leave new drafts for review.
 
 ## Privacy and redaction
 
