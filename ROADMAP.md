@@ -389,7 +389,7 @@ and Empathy draft #120 retain actual cutover/private-pilot gaps.
 
 ## Broader product checkpoints
 
-The active batch is [the eight product checkpoints](docs/product-checkpoints.md):
+The earlier draft batch covers [the eight product checkpoints](docs/product-checkpoints.md):
 #41, #43, #44, #32, #37, #49, #48 and #47. Verify shared
 gates before ADR backfill and the framework-dependent web slice. Reuse Relay for
 Decisions; keep query stores and all generated views replaceable. Implement ready

@@ -20,6 +20,12 @@ See the [source sprint](docs/source-workflow-sprint.md) and
 [storage sprint](docs/private-storage-sprint.md) for bounded evidence and remaining
 parent acceptance. Proposed ADRs and confidential/provider integration remain open.
 
+The subsequent work remains in reviewable drafts. The [learning/evaluation
+batch](docs/learning-evaluation-checkpoints.md) adds authored private study
+projections and reviewed public insight handoffs. OpenAleph, CozoDB and
+OpenViking evaluations are proposals, not default dependencies or adopted
+services. Follow the checkpoint ledger for exact source, tests and blockers.
+
 ## System at a glance
 
 <p align="center">
