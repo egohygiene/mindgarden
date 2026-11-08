@@ -7,16 +7,16 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-06T21:34:24Z'
+  updated_at: '2026-11-06T21:56:10Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Resume remaining policy/storage acceptance without repeating merged checkpoints; preserve native registry
-    evidence.
+  purpose: Preserve bounded provider, consumer and release preparation evidence without claiming unavailable pilot
+    or publication acceptance.
   includes:
-  - private policy, output enforcement, registry, document and vault checkpoints
+  - provider portability, release tooling, synthetic journey and acceptance gates
   excludes:
   - conversation transcripts
   - duplicated architecture, roadmap, and changelog content
@@ -40,88 +40,90 @@ scope:
   - docs/merged-pipeline-storage-checkpoints.md
   - docs/deferred-context-package-roadmap.md
   - docs/registry-native-platforms.md
+  - docs/release-checkpoints.md
+  - docs/provider-switch-proof.md
 work:
-  objective: 'Merge authorized planning PR #92 and deliver the remaining bounded native macOS registry checkpoint
-    for #30.'
+  objective: Prove provider-switch recovery through two removable local adapter fixtures over existing scoped CLI
+    contracts.
   success_conditions:
-  - 'Do not repeat merged #80–#84 or claim full parent/ADR acceptance.'
-  - Native ACL/path, lifecycle/cache and isolated installed-wheel evidence exists on actual macOS.
-  - Preserve Python/v0 compatibility, synthetic fixtures, explicit unsupported states and all 44 issue rows.
-  - 'Deferred #86–#91 remain outside the current implementation queue.'
+  - Recover preferences, project goal, artifact evidence, decision and correction history after removing the first
+    provider and caches.
+  - Preserve canonical IDs/digests/review/sensitivity and deny out-of-scope or unreviewed history.
+  - Keep all external pilot/publication gates explicit and preserve the dependency-aware release stack.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#30
-    url: https://github.com/egohygiene/mindgarden/issues/30
+    id: egohygiene/mindgarden#51
+    url: https://github.com/egohygiene/mindgarden/issues/51
   next:
     kind: action
-    id: review-native-registry-checkpoint
-    description: 'Review draft #93. Refresh compatible Hygiene/Realm policy and assurance evidence before confidential
-      paths; Windows stays unsupported. Keep #86–#91 deferred.'
+    id: release-convention-preparation
+    description: 'Implement #27 release declaration, authoritative version and reproducible artifact preparation
+      on a branch over draft #94. Preserve the confirmed Relay root-pyproject schema/reference-validator mismatch
+      as an external parity gate; continue #20 synthetic/pilot handoff and conditional #19 acceptance.'
     readiness: ready
     references:
-    - https://github.com/egohygiene/mindgarden/pull/93
-    - docs/registry-native-platforms.md
+    - docs/release-checkpoints.md
     depends_on: []
 state:
   base:
-    revision: d5edb13de1b65871ec85e7a25af035228a1d756d
-    ref: refs/heads/main
-    verified_at: '2026-11-06T21:32:53Z'
+    revision: 7938f573100658908acc0a039974e60f8cf888aa
+    ref: refs/heads/feature/30-macos-registry-conformance
+    verified_at: '2026-11-06T21:56:10Z'
   candidate:
-    branch: feature/30-macos-registry-conformance
-    revision: f30e95edbfdc5dd86bc2c182f9bd90c995fdcab2
+    branch: feature/51-provider-switch-proof
+    revision: 1fac57d280322f0a5e835973e1c57eb4ade93135
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#93
-      url: https://github.com/egohygiene/mindgarden/pull/93
+      id: egohygiene/mindgarden#94
+      url: https://github.com/egohygiene/mindgarden/pull/94
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-06T21:34:24Z'
+    observed_at: '2026-11-06T21:56:10Z'
     default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
     issue_state: open
     pull_request_state: draft
-    notes: 'PR #92 merged under explicit authorization; #80–#84 were already merged. Draft #93 records the exact
-      functional source; later handoff changes are documentation only. Original 38 issues plus deferred six remain
-      open.'
-  parallel_changes: []
+    notes: 'Main remains d5edb13. #93 is draft and its exact head passed Test 42297920995. #94 is draft at functional
+      source 1fac57d; Test 42300245942 was in progress when observed. The four requested parent issues remain open;
+      no release exists.'
+  parallel_changes:
+  - provider: github
+    id: egohygiene/mindgarden#93
+    url: https://github.com/egohygiene/mindgarden/pull/93
 review:
   status: partial
-  reviewed_at: '2026-11-06T21:34:24Z'
+  reviewed_at: '2026-11-06T21:56:10Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_registry_acl tests.test_registry tests.test_registry_views
-      tests.test_registry_cache -q
+  - command: .venv/bin/python -m unittest tests.test_provider_continuity tests.test_v1_retrieval tests.test_scoped_retrieval
+      tests.test_output_scope -q
     outcome: passed
-    observed_at: '2026-11-06T21:32:53Z'
-    notes: 39 passed on Linux/Python 3.12.14; same suite 39 passed on 3.13.5.
+    observed_at: '2026-11-06T21:56:10Z'
+    notes: 30 passed in 26.305 seconds. Initial test-harness invocations with a nonexistent module/missing --pack
+      were corrected; the final command passes.
+  - command: .venv/bin/python -S scripts/provider_switch_demo.py --workspace .cache/provider-switch-second --require-source
+      --report .cache/provider-switch-second.json
+    outcome: passed
+    observed_at: '2026-11-06T21:56:10Z'
+    notes: Committed golden matches; first provider and scoped index are absent before beta recovery.
+  - command: .venv/bin/python -m build --sdist --wheel --outdir .cache/dist
+    outcome: passed
+    observed_at: '2026-11-06T21:56:10Z'
+    notes: Fresh distributions built from current source; no runtime dependencies added.
   - command: .venv/bin/python -m unittest discover --start-directory tests --verbose; .cache/python313/bin/python
       -m unittest discover --start-directory tests --verbose
     outcome: passed
-    observed_at: '2026-11-06T21:34:24Z'
-    notes: 302 passed, no skips, per Linux Python 3.12.14/3.13.5; 265.985/250.207 seconds.
-  - command: Automatic GitHub Test run 42297058641 against f30e95edbfdc5dd86bc2c182f9bd90c995fdcab2
+    observed_at: '2026-11-06T21:56:10Z'
+    notes: 308 passed, no skips, per Python 3.12.14/3.13.5; 240.746/227.943 seconds.
+  - command: Clean git archive -S and isolated installed-wheel -I provider_switch_demo.py proofs
     outcome: passed
-    observed_at: '2026-11-06T21:34:24Z'
-    notes: All four Linux/native macOS jobs successful; later handoff edits are documentation only.
-  - command: Automatic GitHub Test run 42297058641, native macOS jobs
-    outcome: passed
-    observed_at: '2026-11-06T21:32:53Z'
-    notes: 44 tests, no skips, per macOS 15.8.2/arm64 job, Python 3.12.10/3.13.17; clean native installed-wheel
-      demo passes.
-  - command: Clean git archive -S and isolated installed-wheel -I registry_demo.py proofs
-    outcome: passed
-    observed_at: '2026-11-06T21:32:53Z'
-    notes: Both Linux reports byte-match the committed golden; exact provenance and public isolation preserved.
-  - command: python3 .cache/context_phase_owner_checks.py; git diff --check
-    outcome: passed
-    observed_at: '2026-11-06T21:32:53Z'
-    notes: Pinned ADR/continuity validators; 44 rows and deferred native child links preserved.
+    observed_at: '2026-11-06T21:56:10Z'
+    notes: Both reports byte-match tests/fixtures/provider-continuity/expected-proof.json.
   environment_limitations:
-  - Native proof is macOS 15.8.2/arm64 only; no Intel/wider-host or confidential assurance is claimed.
-  - Windows mutation, compatible organization/confidential-runtime contracts, encrypted/provider/power-loss and
-    real consumer acceptance remain unavailable.
-  - ADRs remain proposed/null approval; no deferred feature, private source or destructive operation is introduced.
+  - Local fixture adapters prove structured context continuity, not live model behavior or proprietary history transfer.
+  - 'Approved private pilot, actual Empathy consumption, protected OIDC/registry/signing evidence remain external;
+    #19 is not publishable.'
+  - 'ADRs and Hygiene release baseline remain proposed; deferred #86–#91 are not activated.'
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -141,48 +143,48 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer authorized merging open PRs and resuming #29/#31/#30/#35/#45. Those bounded checkpoints already merged through #84. Merge planning #92, preserve prior evidence, and implement only actual remaining ready work. No ADR is self-ratified.
+The maintainer authorized #51, #27, #20 and conditional #19 after the prior storage batch. Preserve the Python engine and v0, source/review/publication boundaries and synthetic-only public fixtures. No proposed ADR or owner policy is self-ratified.
 
 ## Resume protocol
 
-Read git status, live issues/PRs, README, AI_CONSTITUTION, ROADMAP, the coverage ledger and docs/registry-native-platforms.md. Preserve Python/v0 and synthetic-only fixtures. Do not rebuild or remerge #80–#84 or activate #86–#91.
+Read git status, live issues/PRs, README, AI_CONSTITUTION, ROADMAP, the coverage ledger, docs/release-checkpoints.md and the active checkpoint evidence. Use current implementation and pinned owner contracts; do not repeat merged checkpoints or activate deferred #86–#91.
 
 ## Current objective and success conditions
 
-Deliver native ordinary single-user macOS registry controls with real extended-ACL, physical-path, lifecycle/cache and isolated installed-wheel evidence. Keep unsupported platforms and confidential runtime gates explicit. Leave draft #93 for review.
+Prove provider-switch recovery through two removable local adapter fixtures over existing scoped CLI contracts. Recover preferences, project goal, artifact evidence, decision and correction history after removing the first provider and caches. Preserve canonical IDs/digests/review/sensitivity and deny out-of-scope or unreviewed history. Keep all external pilot/publication gates explicit and preserve the dependency-aware release stack.
 
 ## State snapshot
 
-Main is d5edb13de1b65871ec85e7a25af035228a1d756d after authorized #92. Draft #93 is directly based on main; functional source f30e95edbfdc5dd86bc2c182f9bd90c995fdcab2 is reproducible without a stack. There are 44 open issues, original 38 plus deferred #86–#91; #86 owns five native sub-issues.
+Draft #94 (functional source 1fac57d280322f0a5e835973e1c57eb4ade93135) is stacked over draft #93 at 7938f573100658908acc0a039974e60f8cf888aa. Main remains d5edb13de1b65871ec85e7a25af035228a1d756d. All 44 issues remain open. Later handoff edits are documentation only.
 
 ## Completed and material changes
 
-Native macOS checks query extended ACLs before private control access and reject every extended entry or unverifiable result. Exact physical path spellings prevent aliases concealing nested roots. Existing scope authorization precedes root probes. Linux behavior, contracts and canonical content are preserved. Automatic native CI and synthetic real-ACL fixtures are added.
+The provider fixture removes alpha code/state and the scoped index, then reconstructs identical structured context through beta using ordinary index/context/graph/evidence commands. The scenario exposed and fixes approved historical dependency validation without returning inactive claims in current ranking. Denied/unreviewed historical nodes still remove derivatives. No new provider SDK or memory system is introduced.
 
 ## Validation and review evidence
 
-Linux targeted registry/ACL/view/cache suites pass 39 tests on each supported Python. Native macOS 15.8.2/arm64 jobs pass 44 tests each on Python 3.12.10/3.13.17, plus clean installed-wheel goldens. Fresh build/2 distribution tests and clean source/isolated installed Linux registry proofs pass. Full Linux compatibility suites pass 302 tests each, no skips, on 3.12.14/3.13.5. Automatic Test run 42297058641 succeeds across all four jobs on the exact functional source. Pinned owners/44 rows/links pass; later edits are documentation only.
+All 308 tests pass, no skips, on Linux/Python 3.12.14 and 3.13.5 (240.746/227.943 seconds). The clean git-archive source and isolated installed wheel reproduce the golden byte-for-byte. The context is 13178 bytes within 16384. Pinned owners, 44 issue rows, compilation and diff checks pass. Hosted #94 CI is recorded separately; no publication or ADR approval is inferred.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Hygiene #39/#40 and Realm #60 remain open owner-policy/assurance gates. Windows mutation, broader native hosts, confidential/encrypted storage, providers/power-loss/real consumers, approved-copy and timed/destructive retention remain open. Native registry proof supplies none of those guarantees. Proposed ADRs retain null approval.
+An approved private archive/workspace, real Empathy #65 acceptance, compatible Aether #51/Relay #40 evidence and protected PyPI OIDC setup remain external gates. Hygiene release policy/ADR are still proposed despite closed delivery issues. EgoLint #29 remains partial. Native Windows/confidential/provider/real consumer gaps persist. No tag/package/site is published by local or PR checks.
 
 ## Next dependency-ready work
 
-Review draft #93 against its exact successful functional source and documentation-only follow-up. Keep it unmerged for the maintainer. Refresh compatible owner contracts before confidential integration; preserve independent native/provider gaps. Keep #86–#91 deferred until original queue disposition, final reconciliation/refactor and later scheduling.
+Implement #27 release declaration, authoritative version and reproducible artifact preparation on a branch over draft #94. Preserve the confirmed Relay root-pyproject schema/reference-validator mismatch as an external parity gate; continue #20 synthetic/pilot handoff and conditional #19 acceptance.
 
 ## Parallel changes and reconciliation
 
-#74–#85 and #92 are merged; #93 has no unmerged dependencies. The new checkpoint extends #30 without duplicating #82. docs/private-storage-sprint.md records the status and exact next action for all five requested parents. Runtime functional source and subsequent documentation-only commits are distinguished.
+PR #93 is the unmerged checkout base; native support is not a semantic gate for the provider scenario. Keep every new checkpoint as an explicit draft stack, preserve a combined checkout, and leave merge/publication for their applicable authority. Reconcile CONTINUITY.md semantically after each checkpoint.
 
 ## Privacy and redaction
 
-Only public repository metadata and synthetic fixtures are committed. Real Garden, business, music, archives, credentials, private specification locations and personal circumstances remain outside this public repository. Source instructions remain untrusted data. No consumer garden is discovered or reorganized.
+Only public metadata and authored synthetic fixtures are committed. Real Garden, business, music, credentials, private archive contents, private locations and personal circumstances stay outside this public repository. Source instructions remain untrusted evidence. No private consumer is discovered or modified.
 
 ## Handoff update protocol
 
-Record exact branch/PR/revisions, criteria, commands/results, blockers and next action after each batch. Validate pinned owners, continuity, links and the 44-row ledger. Distinguish implemented-on-draft, tested, reviewed, merged and fully accepted.
+After each checkpoint record branch/PR/full functional source, exact commands/results, blocked acceptance and one next action. Validate pinned owners, 12 headings, size limits, relative links and all 44 coverage rows. Distinguish draft, tested, reviewed, merged and accepted; keep publication receipts separate from local artifact conformance.
 
 ## Compaction and supersession
 
-Keep under 16384 bytes/240 lines. This supersedes the planning-merge handoff. Historical merge receipts retain their observations; native evidence and the remaining-parent table are the active checkpoint. Deferred proposals stay deferred.
+Keep under 16384 bytes/240 lines. This supersedes the prior native-registry next-action handoff. Durable native/storage merge evidence remains linked. The release checkpoint ledger owns this batch's stack and acceptance; deferred #86–#91 remain deferred.

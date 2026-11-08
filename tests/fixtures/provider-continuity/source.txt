@@ -1,0 +1,5 @@
+Preference: give plain-language answers with exact evidence citations.
+Project goal: prepare a weekly synthetic project review from reviewed records.
+Artifact: a portable brief summarizes this source without changing the original.
+Original decision: keep a local review ledger because it works offline; a hosted ledger was an alternative.
+Correction: review weekly rather than daily; retain the earlier rationale and claim as history.

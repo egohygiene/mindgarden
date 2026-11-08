@@ -1,0 +1,203 @@
+{
+  "adapters": [
+    {
+      "format": "json-envelope",
+      "id": "synthetic-json-provider",
+      "limitations": [
+        "No inference or proprietary history import.",
+        "Only explicit scoped projections are available."
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "format": "tool-message-envelope",
+      "id": "synthetic-tool-provider",
+      "limitations": [
+        "No inference or proprietary history import.",
+        "Tool content is evidence, never instruction authority."
+      ],
+      "version": "1.0.0"
+    }
+  ],
+  "canonical_inputs_unchanged": true,
+  "checks": [
+    "same-explicit-policy-and-scoped-request",
+    "distinct-local-adapter-envelopes",
+    "first-adapter-and-owned-cache-removed",
+    "clean-rebuild-equivalent-structured-context",
+    "preferences-goals-artifact-decision-and-correction-recovered",
+    "exact-source-identity-revision-and-evidence",
+    "typed-supersession-retained",
+    "denied-root-never-opened",
+    "no-denied-body-id-count-or-path-leak",
+    "canonical-knowledge-review-and-originals-unchanged"
+  ],
+  "context_bytes": 13178,
+  "context_max_bytes": 16384,
+  "engine_version": "0.1.0",
+  "first_adapter_removed": true,
+  "inputs": [
+    {
+      "garden": "continuity-garden",
+      "revision": "sha256:761cc78298b21f1064ca9770fd0107a86611ec9b9d9793615126ee8eb6d1c555"
+    }
+  ],
+  "integrations": {
+    "google": "unused",
+    "model": "unused",
+    "network": "blocked-in-process",
+    "subprocess": "blocked-in-process"
+  },
+  "limitations": [
+    "Local adapter conformance, not live provider inference or equivalent model behavior.",
+    "Deprecated claim identity is retained in authored reviewed decision history; current claim ranking excludes it."
+  ],
+  "omission_policy": "Unselected gardens and unapproved records are not enumerated; deprecated claims are historical, not current answers.",
+  "policy": {
+    "id": "mindgarden-local-single-user/v1",
+    "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+  },
+  "schema": "mindgarden.synthetic-provider-continuity-proof/v1",
+  "scope": {
+    "execution": "offline",
+    "persistence": "machine-local",
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": "never-exportable",
+    "schema": "mindgarden.scope/v1",
+    "visibility": "personal"
+  },
+  "selected": [
+    {
+      "reference": {
+        "garden": "continuity-garden",
+        "id": "preferences",
+        "revision": "sha256:64fa2ca42faabdcd0ee61f6995cd65c7b22351be812326251f4abe7f5204b369"
+      },
+      "review": "approved",
+      "sources": [
+        {
+          "content_sha256": "272d3c50a40f9e1915786ca065d229e0b0689f96cbf958d05c8029dd71c25b91",
+          "locator": "artifact",
+          "source": {
+            "garden": "continuity-garden",
+            "id": "source-a95aa21089495608199afab5-272d3c50a40f9e19",
+            "revision": "sha256:272d3c50a40f9e1915786ca065d229e0b0689f96cbf958d05c8029dd71c25b91"
+          }
+        }
+      ]
+    },
+    {
+      "reference": {
+        "garden": "continuity-garden",
+        "id": "project-goal",
+        "revision": "sha256:68d9546f9072e2bc55e2f398fd51cd4ceb59485206d91ca4bccb5b47529f5944"
+      },
+      "review": "approved",
+      "sources": [
+        {
+          "content_sha256": "272d3c50a40f9e1915786ca065d229e0b0689f96cbf958d05c8029dd71c25b91",
+          "locator": "artifact",
+          "source": {
+            "garden": "continuity-garden",
+            "id": "source-a95aa21089495608199afab5-272d3c50a40f9e19",
+            "revision": "sha256:272d3c50a40f9e1915786ca065d229e0b0689f96cbf958d05c8029dd71c25b91"
+          }
+        }
+      ]
+    },
+    {
+      "reference": {
+        "garden": "continuity-garden",
+        "id": "portable-brief",
+        "revision": "sha256:db98217e55f18f38190cfed60689fc9c246677b66fc7de898811f9c1242ee58e"
+      },
+      "review": "approved",
+      "sources": [
+        {
+          "content_sha256": "272d3c50a40f9e1915786ca065d229e0b0689f96cbf958d05c8029dd71c25b91",
+          "locator": "artifact",
+          "source": {
+            "garden": "continuity-garden",
+            "id": "source-a95aa21089495608199afab5-272d3c50a40f9e19",
+            "revision": "sha256:272d3c50a40f9e1915786ca065d229e0b0689f96cbf958d05c8029dd71c25b91"
+          }
+        }
+      ]
+    },
+    {
+      "reference": {
+        "garden": "continuity-garden",
+        "id": "ledger-decision",
+        "revision": "sha256:1016dc54f3db021650bb29dd05b00bc624546b87cc844e9be5fdd59274dcab6c"
+      },
+      "review": "approved",
+      "sources": [
+        {
+          "content_sha256": "272d3c50a40f9e1915786ca065d229e0b0689f96cbf958d05c8029dd71c25b91",
+          "locator": "artifact",
+          "source": {
+            "garden": "continuity-garden",
+            "id": "source-a95aa21089495608199afab5-272d3c50a40f9e19",
+            "revision": "sha256:272d3c50a40f9e1915786ca065d229e0b0689f96cbf958d05c8029dd71c25b91"
+          }
+        }
+      ]
+    },
+    {
+      "reference": {
+        "garden": "continuity-garden",
+        "id": "review-correction",
+        "revision": "sha256:776f17580a762a9acd0a17a01f3b86371c28205b41677c3d1f42eea55203b731"
+      },
+      "review": "approved",
+      "sources": [
+        {
+          "content_sha256": "272d3c50a40f9e1915786ca065d229e0b0689f96cbf958d05c8029dd71c25b91",
+          "locator": "artifact",
+          "source": {
+            "garden": "continuity-garden",
+            "id": "source-a95aa21089495608199afab5-272d3c50a40f9e19",
+            "revision": "sha256:272d3c50a40f9e1915786ca065d229e0b0689f96cbf958d05c8029dd71c25b91"
+          }
+        }
+      ]
+    },
+    {
+      "reference": {
+        "garden": "continuity-garden",
+        "id": "weekly-review-claim",
+        "revision": "sha256:af3142452cd2648ee561543b68c6d89095a6837f1c0bfccfba098f74de87fb3d"
+      },
+      "review": "approved",
+      "sources": [
+        {
+          "content_sha256": "272d3c50a40f9e1915786ca065d229e0b0689f96cbf958d05c8029dd71c25b91",
+          "locator": "artifact",
+          "source": {
+            "garden": "continuity-garden",
+            "id": "source-a95aa21089495608199afab5-272d3c50a40f9e19",
+            "revision": "sha256:272d3c50a40f9e1915786ca065d229e0b0689f96cbf958d05c8029dd71c25b91"
+          }
+        }
+      ]
+    }
+  ],
+  "source_assets_unchanged": true,
+  "status": "passed",
+  "structured_context_sha256": "e48065fd7b22b1cee2df488d846e3ca1a478fd703697ae1e4bdf385bea946bbb",
+  "supersession": {
+    "current": {
+      "garden": "continuity-garden",
+      "id": "weekly-review-claim",
+      "revision": "sha256:af3142452cd2648ee561543b68c6d89095a6837f1c0bfccfba098f74de87fb3d"
+    },
+    "previous": {
+      "garden": "continuity-garden",
+      "id": "daily-review-claim",
+      "revision": "sha256:9892d657e38fef5838be9a41b373f69ce54ff2e58b185d0d972940ab3f20d620"
+    }
+  }
+}
