@@ -38,7 +38,7 @@ new default store, framework, model provider or product.
 | --- | --- | --- | --- |
 | #28 | [draft #105](https://github.com/egohygiene/mindgarden/pull/105), `3510b22`, over #104; authored cards/summaries/private grading/versioned schedules/export round trip | 12 focused tests on Python 3.12/3.13 + 5 schema tests; Chromium static accessibility proof | Authored cards/summaries, exact provenance, private events, schedule versions and export round trip; full hosted UI remains separate |
 | #21 | [draft #106](https://github.com/egohygiene/mindgarden/pull/106), `4e12dcd`, over #105; public reviewed candidates/series, rights, duplicates and artifact-feedback projections | 9 focused tests on Python 3.12/3.13 + 5 schema cases | Reviewed renderer-independent insight/series candidates, public-safe provenance, duplicate/lifecycle/privacy fixtures; no rendering or posting |
-| #26 | Planned evaluation draft | Pending | Pin OpenAleph evidence; architectural/privacy/license/cost matrix and removable synthetic export experiment |
+| #26 | [draft #107](https://github.com/egohygiene/mindgarden/pull/107), `c5b1f52`, over #106; [pinned architecture/privacy/cost/ownership matrix](evaluations/openaleph.md), proposed adapt/defer recommendation | Official 5.3.2 source/license/docs reviewed; native FtM binary probe blocked, not passed | Pin OpenAleph evidence; architectural/privacy/license/cost matrix and removable synthetic export experiment |
 | #33 | Planned optional CozoDB experiment | Pending | Exact native version/adapter, multi-garden parity, resource/recovery/exit proof; no canonical store change |
 | #34 | Planned optional OpenViking experiment | Pending | Exact version/license, synthetic provenance adapter, network/model/storage behavior, baseline comparison or explicit blockers and removal |
 
@@ -51,6 +51,6 @@ full framework/runtime work remain gated. Real #20 pilot/consumer cutover,
 restricted runtime assurance and #48 external handoffs remain unverified.
 Release #19, further release work and deferred #86–#91 are not activated.
 
-The exact next action is #26 pinned OpenAleph architectural evaluation. Every
+The exact next action is #33 native CozoDB experiment against the replaceable baseline. Every
 checkpoint will record source/PR, commands/results, supported interfaces, genuine
 blockers and the following action. Leave all new drafts for the morning sync.
