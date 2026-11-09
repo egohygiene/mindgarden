@@ -55,3 +55,10 @@ Initial consumer verification: 6 new cases pass on each Python (1.181s/1.193s);
 24 source/conformance/contract cases are rerun together. The actual two-capture
 producer/consumer proof passes with acquisition blocked. The producer contract
 is vendored with its exact SHA; core dependency metadata is unchanged.
+
+### #11 review receipt
+
+[Mindgarden #113](https://github.com/egohygiene/mindgarden/pull/113), branch
+`feature/11-captured-bundle-handoff`, functional `b661dc2`, stacks over #112.
+The 24-case combined adapter/conformance/contract run passes in 3.857s.
+Next: v2 archive compatibility, followed by the optional extraction producer.

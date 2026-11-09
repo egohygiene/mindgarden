@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T01:49:31Z'
+  updated_at: '2026-11-09T01:55:06Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -88,21 +88,25 @@ state:
   base:
     revision: 83e553d5fddb42583f8e9b3e1875c02286294cd6
     ref: refs/heads/feature/17-rendered-portal-proof
-    verified_at: '2026-11-09T01:49:31Z'
+    verified_at: '2026-11-09T01:55:06Z'
   candidate:
     branch: feature/11-captured-bundle-handoff
-    revision: 83e553d5fddb42583f8e9b3e1875c02286294cd6
-    pull_request: null
+    revision: b661dc2da882e3e5225341daf54a8ddea80795a3
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#113
+      url: https://github.com/egohygiene/mindgarden/pull/113
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T01:49:31Z'
+    observed_at: '2026-11-09T01:55:06Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
     notes: "Main f3a88cc; existing green #110\u2013#112 drafts remain open. Current branch stacks over #112/83e553d.\
       \ Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner\
-      \ contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered."
+      \ contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered. Consumer\
+      \ draft #113 functional b661dc2 is pushed over #112."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -115,26 +119,27 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T01:49:31Z'
+  reviewed_at: '2026-11-09T01:55:06Z'
   reviewed_by: codex
   evidence:
-  - command: python -m unittest tests.test_captured_source -q
+  - command: .venv/bin/python -m unittest tests.test_captured_source tests.test_source_adapters tests.test_adapter_conformance
+      tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-09T01:49:31Z'
-    notes: 6 cases pass on Python 3.12/3.13 (1.181s/1.193s); no provider runtime imports or acquisition
+    observed_at: '2026-11-09T01:55:06Z'
+    notes: 24 pass, 3.857s; 6 new cases separately pass on both supported Python versions
   - command: 'Owner: pytest -q; ruff check .'
     outcome: passed
-    observed_at: '2026-11-09T01:49:31Z'
+    observed_at: '2026-11-09T01:55:06Z'
     notes: 622 pass, 4.82s, with loopback allowed; initial restricted run 620 pass/2 socket failures. All source
       fixtures synthetic.
   - command: Optional real producer/consumer check with pinned Mindcap source
     outcome: passed
-    observed_at: '2026-11-09T01:49:31Z'
+    observed_at: '2026-11-09T01:55:06Z'
     notes: 2 observations, 2 units each; original packages distinct, normalized units equal; network blocked in-process
       and no model.
   - command: Ruff E9/F, format and schema inventory
     outcome: passed
-    observed_at: '2026-11-09T01:49:31Z'
+    observed_at: '2026-11-09T01:55:06Z'
     notes: Focused checks pass; owner schema is pinned, not redefined. Full combined checks follow later sprint
       checkpoints.
   environment_limitations:
@@ -175,7 +180,7 @@ Advance #11–#16 through required producer contracts, authored extraction, arch
 
 ## State snapshot
 
-Main f3a88cc; existing green #110–#112 drafts remain open. Current branch stacks over #112/83e553d. Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered.
+Main f3a88cc; existing green #110–#112 drafts remain open. Current branch stacks over #112/83e553d. Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered. Consumer draft #113 functional b661dc2 is pushed over #112.
 
 ## Completed and material changes
 
@@ -183,7 +188,7 @@ Mindcap provider-neutral captured-source schema/ZIP and explicit bookmark export
 
 ## Validation and review evidence
 
-python -m unittest tests.test_captured_source -q — 6 cases pass on Python 3.12/3.13 (1.181s/1.193s); no provider runtime imports or acquisition. Owner: pytest -q; ruff check . — 622 pass, 4.82s, with loopback allowed; initial restricted run 620 pass/2 socket failures. All source fixtures synthetic.. Optional real producer/consumer check with pinned Mindcap source — 2 observations, 2 units each; original packages distinct, normalized units equal; network blocked in-process and no model.. Ruff E9/F, format and schema inventory — Focused checks pass; owner schema is pinned, not redefined. Full combined checks follow later sprint checkpoints..
+.venv/bin/python -m unittest tests.test_captured_source tests.test_source_adapters tests.test_adapter_conformance tests.test_v1_contracts -q — 24 pass, 3.857s; 6 new cases separately pass on both supported Python versions. Owner: pytest -q; ruff check . — 622 pass, 4.82s, with loopback allowed; initial restricted run 620 pass/2 socket failures. All source fixtures synthetic.. Optional real producer/consumer check with pinned Mindcap source — 2 observations, 2 units each; original packages distinct, normalized units equal; network blocked in-process and no model.. Ruff E9/F, format and schema inventory — Focused checks pass; owner schema is pinned, not redefined. Full combined checks follow later sprint checkpoints..
 
 ## Blockers, risks, unknowns, and deferred work
 
