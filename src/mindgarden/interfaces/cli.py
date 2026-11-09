@@ -439,7 +439,7 @@ def add_federation_command(commands: ParserCollection) -> None:
     """Register offline, reviewed public discovery projections."""
     from ..application.federation import run_federation
 
-    federation = commands.add_parser("federation", help="Build reviewed public discovery artifacts from explicit inputs")
+    federation = commands.add_parser("federation", help="Discover explicit public projections or authorized local gardens")
     operations = federation.add_subparsers(dest="operation", required=True)
     build = operations.add_parser("build", help="Plan, create or check an immutable public projection bundle")
     build.add_argument("--local-config", type=Path, required=True)
@@ -455,6 +455,27 @@ def add_federation_command(commands: ParserCollection) -> None:
     catalog = operations.add_parser("catalog", help="Verify and combine explicitly supplied public bundles without fetching")
     catalog.add_argument("--input", type=Path, required=True, help="Machine-local versioned catalog request with expected revisions")
     catalog.set_defaults(handler=run_federation)
+
+    from ..application.local_federation import run_local_federation
+
+    local = operations.add_parser("local-discover", help="Inspect authorized private/internal garden metadata before opening bodies")
+    local.add_argument("--local-config", type=Path, required=True)
+    local.add_argument("--scope", type=Path, required=True)
+    local.add_argument("--garden-id", action="append", help="Narrow to an already-authorized garden; repeat for dependencies")
+    local.add_argument("--max-gardens", type=int, default=16)
+    local.add_argument("--output-directory", type=Path)
+    mode = local.add_mutually_exclusive_group()
+    mode.add_argument("--apply", action="store_true")
+    mode.add_argument("--check", action="store_true")
+    local.add_argument("--plan-digest")
+    local.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
+    local.set_defaults(handler=run_local_federation, scoped_output_command=True)
+    query = operations.add_parser("local-query", help="Use a bounded existing read handler over exact selected garden revisions")
+    query.add_argument("--local-config", type=Path, required=True)
+    query.add_argument("--scope", type=Path, required=True)
+    query.add_argument("--input", type=Path, required=True)
+    query.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
+    query.set_defaults(handler=run_local_federation, scoped_output_command=True)
 
 
 def add_compaction_command(commands: ParserCollection) -> None:

@@ -146,6 +146,8 @@ class V1ContractTests(unittest.TestCase):
                 "vault-recovery-plan",
                 "evidence",
                 "federation-descriptor",
+                "local-federation-catalog",
+                "local-federation-query",
                 "federation-index",
                 "federation-graph",
                 "federation-catalog-request",

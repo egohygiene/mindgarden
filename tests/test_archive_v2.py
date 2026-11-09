@@ -17,38 +17,8 @@ from mindgarden.domain.contracts import canonical_json, digest_bytes, strict_jso
 from mindgarden.domain.sources import check_adapter_conformance
 from mindgarden.domain.validation import ContractError
 from mindgarden.domain.zip_package import read_zip, verify_inventory
-from tests.archive_fixture import FIXTURE_ROOT, package_bytes, package_members
+from tests.archive_fixture import package_bytes, package_members, v2_members
 from tests import test_conversation_archives as fixtures
-
-
-def v2_members(version="2.0.2", revision=1, fallback=False):
-    members = package_members()
-    members.pop("routing/PLAN.json")
-    members.pop("routing/PLAN.md")
-    manifest = strict_json(
-        (FIXTURE_ROOT / "v2-source/ARCHIVE-MANIFEST.json").read_bytes()
-    )
-    manifest.update(spec_version=version, archive_revision=revision)
-    if fallback:
-        manifest["delivery"].update(
-            method="fallback-local-packager",
-            attempts=[
-                {
-                    "path_id": "primary-file-runtime",
-                    "result": "failed-transient",
-                    "error_class": "transport-or-wrapper-error",
-                    "archive_created": False,
-                },
-                {
-                    "path_id": "fallback-local-filesystem",
-                    "result": "success",
-                    "error_class": None,
-                    "archive_created": True,
-                },
-            ],
-        )
-    members["ARCHIVE-MANIFEST.json"] = canonical_json(manifest)
-    return members
 
 
 class ArchiveV2Tests(unittest.TestCase):
