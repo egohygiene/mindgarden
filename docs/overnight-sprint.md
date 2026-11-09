@@ -213,3 +213,26 @@ New-head CI is separate. [The acceptance mapping](assistant-memory.md) covers al
 Provider copying/recall and richer UI are not silently claimed implemented.
 Next action: qualify/merge, confirm the new live count, then finish #28's bounded
 due-card review view and verify its actual accessible static-web criteria.
+
+
+### Checkpoint F — #28 bounded due-card review
+
+Branch: `feature/28-due-review-queue`, [draft #125](https://github.com/egohygiene/mindgarden/pull/125), functional `31f46e5`, stacked after managed-memory #124.
+Adds an explicit bounded/paged due view, exact item-revision queue, transparent
+remaining counts and private grade-history round trip. The complete deck JSON
+remains intact; edits/superseded sources do not inherit an old grade. Invalid
+view options fail before source access, and output cannot enter source vaults.
+
+`python -m unittest tests.test_learning_queue tests.test_learning --verbose`
+passes **20 cases, zero skips**, Python 3.12.14 (26.442s) and 3.13.5 (25.986s).
+Eight new cases cover bounded exact views, grade/stale history, suspended/empty
+states, invalid selection, timezone ordering, CLI digest/import/replay, revocation
+and storage separation. Actual Chromium full/due checks pass at 320/1280 with
+keyboard/zoom/reduced motion and **zero axe findings/incompletes**. Exact commands,
+limits and the ten-criterion mapping are in [learning.md](learning.md).
+
+The local learning issue closes after this checkpoint merges; full hosted #17/#47,
+notifications and sync are not invented prerequisites. No model/publishing/account
+or private consumer is used. Next action: qualify/merge and then fix the recorded
+mobile Explorer ARIA defect in the pinned #17 adapter, keeping full WCAG acceptance
+separate from that bounded defect proof.

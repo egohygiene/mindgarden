@@ -16,11 +16,16 @@ from tests import learning_fixture
 from playwright.sync_api import sync_playwright
 
 
-def check():
+def check(*, due_only=False, axe_script=None):
     case = unittest.TestCase()
     try:
         learning_fixture.setup(case)
-        _, files = plan_learning(case.context, case.request)
+        _, files = plan_learning(
+            case.context,
+            case.request,
+            due_only=due_only,
+            review_limit=1 if due_only else None,
+        )
         with sync_playwright() as engine:
             browser = engine.chromium.launch(
                 executable_path="/usr/bin/chromium",
@@ -28,6 +33,7 @@ def check():
                 args=["--no-sandbox", "--disable-background-networking"],
             )
             try:
+                audits = []
                 for width in (320, 1280):
                     context = browser.new_context(
                         offline=True,
@@ -61,11 +67,20 @@ def check():
                     assert page.evaluate(
                         "document.documentElement.scrollWidth <= innerWidth"
                     )
+                    if axe_script is not None:
+                        page.add_script_tag(path=str(axe_script))
+                        result = page.evaluate(
+                            """async () => {const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}});return {version:axe.version,violations:r.violations.map(v=>({id:v.id,impact:v.impact})),incomplete:r.incomplete.map(v=>v.id)}}"""
+                        )
+                        assert (
+                            result["version"] == "4.10.3" and not result["violations"]
+                        ), result
+                        audits.append({"width": width, **result})
                     context.close()
                 version = browser.version
             finally:
                 browser.close()
-        return {
+        report = {
             "schema": "mindgarden.learning-browser-check/v1",
             "chromium": version,
             "playwright": importlib.metadata.version("playwright"),
@@ -80,6 +95,13 @@ def check():
                 "static projection only; not full hosted review UI or screen-reader certification"
             ],
         }
+        if due_only:
+            report["study_selection"] = (
+                "one-due-card-with-private-history-and-exact-provenance"
+            )
+        if axe_script is not None:
+            report["axe_audits"] = audits
+        return report
     finally:
         case.doCleanups()
 
@@ -87,8 +109,17 @@ def check():
 if __name__ == "__main__":
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--report", type=Path)
+    parser.add_argument("--due-only", action="store_true")
+    parser.add_argument("--axe-script", type=Path)
     args = parser.parse_args()
-    content = json.dumps(check(), sort_keys=True, indent=2) + "\n"
+    content = (
+        json.dumps(
+            check(due_only=args.due_only, axe_script=args.axe_script),
+            sort_keys=True,
+            indent=2,
+        )
+        + "\n"
+    )
     if args.report:
         with args.report.open("x") as output:
             output.write(content)

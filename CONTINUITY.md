@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T04:20:50Z'
+  updated_at: '2026-11-09T04:31:24Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -75,54 +75,44 @@ work:
   - Merge only completed tested checkpoints; keep blocked parent scope explicit.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#49
-    url: https://github.com/egohygiene/mindgarden/issues/49
+    id: egohygiene/mindgarden#28
+    url: https://github.com/egohygiene/mindgarden/issues/28
   next:
     kind: action
     id: acceptance-then-bookmark-integration
-    description: 'Qualify/merge #122 → #123 → managed-memory checkpoint in order; confirm #49 closure, then implement
-      #28 bounded due-card study view and browser proof.'
+    description: 'Qualify/merge #124 → due-card review checkpoint, verify #49/#28 closure states, then fix the pinned
+      mobile Explorer ARIA defect (#17) and run combined source/wheel/offline checks.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
     depends_on: []
 state:
   base:
-    revision: 4ffe8618ffee5df7177d83e035f70eea160e4b92
-    ref: refs/heads/feature/37-selected-projection-builds
-    verified_at: '2026-11-09T04:20:50Z'
+    revision: 5af4065f0516fddbed06606f619ca6cd2537b3a0
+    ref: refs/heads/feature/49-expiring-memory-bundles
+    verified_at: '2026-11-09T04:31:24Z'
   candidate:
-    branch: feature/49-expiring-memory-bundles
-    revision: 79fa120426374073292e917e7d7070230d2b758e
+    branch: feature/28-due-review-queue
+    revision: 31f46e540ffc79d2ab0c4b85440ca5924588094d
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#124
-      url: https://github.com/egohygiene/mindgarden/pull/124
+      id: egohygiene/mindgarden#125
+      url: https://github.com/egohygiene/mindgarden/pull/125
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T04:20:50Z'
-    default_branch_revision: 1c01649ba333c05b42468404f243a514803b7858
+    observed_at: '2026-11-09T04:31:24Z'
+    default_branch_revision: 51c29c43a2a815918b54deef4688dd42afaf77a1
     issue_state: open
     pull_request_state: draft
-    notes: 'Acceptance #120, bookmark #121 and routing #122 are merged after green CI. Selected builds #123 and
-      managed memory #124 remain draft. 37 issues live open before #49 closure; 44 rows retained.'
+    notes: 'Acceptance #120 and integration #121–#123 are merged after green CI. Managed memory #124 remains draft;
+      learning due view stacks after it. 37 issues live open before #49/#28 closure; all 44 rows retained.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T04:20:50Z'
+  reviewed_at: '2026-11-09T04:31:24Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: unittest tests.test_selected_builds tests.test_dependency_builds --verbose; focused
-      Ruff/format; pinned owner checks'
-    outcome: passed
-    observed_at: '2026-11-09T04:11:09Z'
-    notes: 12 pass per interpreter, zero skips (15.986s / 15.580s); new-head automatic CI recorded separately
-  - command: 'Python 3.12/3.13: unittest tests.test_selected_builds tests.test_dependency_builds --verbose; focused
-      Ruff/format; pinned owner checks'
-    outcome: passed
-    observed_at: '2026-11-09T04:12:04Z'
-    notes: 12 pass per interpreter, zero skips (15.986s / 15.580s); new-head automatic CI recorded separately
   - command: 'Python 3.12/3.13: unittest tests.test_memory_validity tests.test_memory --verbose; additional one-source
       refresh test; focused Ruff/format; pinned owner checks'
     outcome: passed
@@ -135,6 +125,18 @@ review:
     observed_at: '2026-11-09T04:20:50Z'
     notes: 16 pass per interpreter, zero skips (30.200s / 25.775s), plus one authored refresh case per interpreter;
       new-head CI separate
+  - command: 'Python 3.12/3.13: unittest tests.test_learning_queue tests.test_learning --verbose; actual learning_browser_check.py
+      full/due with axe 4.10.3; Ruff/format/owner checks'
+    outcome: passed
+    observed_at: '2026-11-09T04:28:55Z'
+    notes: 20 pass per interpreter, zero skips (26.442s / 25.986s); Chromium 151/Playwright 1.62, 320/1280, keyboard/200%
+      zoom/reduced motion, zero axe violations/incompletes; CI separate
+  - command: 'Python 3.12/3.13: unittest tests.test_learning_queue tests.test_learning --verbose; actual learning_browser_check.py
+      full/due with axe 4.10.3; Ruff/format/owner checks'
+    outcome: passed
+    observed_at: '2026-11-09T04:31:24Z'
+    notes: 20 pass per interpreter, zero skips (26.442s / 25.986s); Chromium 151/Playwright 1.62, 320/1280, keyboard/200%
+      zoom/reduced motion, zero axe violations/incompletes; CI separate
   environment_limitations:
   - 'Aether #69/Akashic #176 accepted integration contracts and real private pilots remain unavailable.'
   - OpenViking native useful-query/lifecycle acceptance incomplete; live Ollama accuracy unavailable.
@@ -166,19 +168,19 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Finish local memory and learning criteria, preserve source/privacy boundaries, and merge only exact tested green checkpoints under the maintainer’s sleep-session authority.
+Complete finite local memory/learning criteria and a bounded mobile accessibility fix; preserve full product, private pilot, release and ADR gates.
 
 ## State snapshot
 
-Acceptance #120, bookmark #121 and routing #122 are merged after green CI. Selected builds #123 and managed memory #124 remain draft. 37 issues live open before #49 closure; 44 rows retained.
+Acceptance #120 and integration #121–#123 are merged after green CI. Managed memory #124 remains draft; learning due view stacks after it. 37 issues live open before #49/#28 closure; all 44 rows retained.
 
 ## Completed and material changes
 
-Managed memory binds exact source/request/authority and earliest retention/session/snippet expiry. Checks do not write missing bundles or recall external copies. One authored source refresh preserves five unaffected snippets and the old bundle.
+Twenty learning cases pass per Python; full/due static Chromium checks pass with zero axe findings at mobile/desktop widths. Due views retain full private JSON and exact history; no canonical deletion or model requirement.
 
 ## Validation and review evidence
 
-Python 3.12/3.13: unittest tests.test_memory_validity tests.test_memory --verbose; additional one-source refresh test; focused Ruff/format; pinned owner checks — 16 pass per interpreter, zero skips (30.200s / 25.775s), plus one authored refresh case per interpreter; new-head CI separate. Full combined verification and exact CI remain in docs/overnight-sprint.md.
+Python 3.12/3.13: unittest tests.test_learning_queue tests.test_learning --verbose; actual learning_browser_check.py full/due with axe 4.10.3; Ruff/format/owner checks — 20 pass per interpreter, zero skips (26.442s / 25.986s); Chromium 151/Playwright 1.62, 320/1280, keyboard/200% zoom/reduced motion, zero axe violations/incompletes; CI separate. Full combined verification and exact CI remain in docs/overnight-sprint.md.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -186,7 +188,7 @@ Native OpenViking acceptance, real Ollama evaluation, confidential runtime, Aeth
 
 ## Next dependency-ready work
 
-Qualify/merge #122 → #123 → managed-memory checkpoint in order; confirm #49 closure, then implement #28 bounded due-card study view and browser proof.
+Qualify/merge #124 → due-card review checkpoint, verify #49/#28 closure states, then fix the pinned mobile Explorer ARIA defect (#17) and run combined source/wheel/offline checks.
 
 ## Parallel changes and reconciliation
 

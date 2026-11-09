@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:learning-review-queue:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "canonical",
+    "scope",
+    "deck",
+    "as_of",
+    "offset",
+    "limit",
+    "total_due",
+    "remaining_due",
+    "items",
+    "publication"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.learning-review-queue/v1"
+    },
+    "canonical": {
+      "const": false
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "deck": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "offset": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000
+    },
+    "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+    },
+    "total_due": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "remaining_due": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "publication": {
+      "const": "never-exportable"
+    },
+    "items": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "item",
+          "item_revision",
+          "due_at",
+          "reason"
+        ],
+        "properties": {
+          "item": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "item_revision": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/immutableRevision"
+          },
+          "due_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}
