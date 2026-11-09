@@ -142,3 +142,9 @@ the dependency-free engine does not. Register any other trusted adapter through
 the same `SourceAdapter`/`AdapterRegistry` interface, media/version declaration and
 conformance harness. See [the active sprint](pipeline-completion-sprint.md) for
 external dependencies, version boundaries and exact verification.
+
+The one committed synthetic captured-source ZIP is explicitly included in source
+distributions. The package inventory test requires that exact fixture path;
+there is no blanket inclusion of arbitrary archives. This keeps a clean artifact
+checkout able to exercise the adapter without introducing runtime dependencies,
+real archives or release publication.
