@@ -1,8 +1,8 @@
 # Issue coverage — 2026-11-09
 
 This ledger retains **44 tracked issues**: the original 38 and deferred #86–#91.
-Before the acceptance receipt merges, 43 are open and #30 is closed. Its six
-proposed closures (#10/#11/#12/#26/#33/#51) leave 37 open and seven closed.
+Acceptance #120 merged at `2c4c465`: **37 are open and seven are closed**
+(#10/#11/#12/#26/#30/#33/#51). GitHub closure state was refreshed after merge.
 Preserve closed rows as evidence. [The overnight receipt](overnight-sprint.md)
 maps current listed criteria to source/tests and records the maintainer’s merge
 authority, exact #110–#119 merge commits and the next bounded checkpoints.
@@ -15,7 +15,7 @@ separate. ADRs stay proposed; release and deferred-package work stay parked.
 
 ## Observed baseline and authority
 
-Current main is `f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973` after the authorized
+Historical main was `f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973` after the authorized
 #93–#109 merges. The unchanged engine baseline passed 381 tests per supported
 Python; only three native ADR body structures changed during merge qualification.
 New review stack #110 → #111 → #112 adds the explicitly authorized optional
@@ -169,7 +169,7 @@ links evidence to #20; no private pilot or broader parent completion is inferred
 | [#11](https://github.com/egohygiene/mindgarden/issues/11) — normalized-source extension boundary | completed | Merged #74/#113: versioned adapter declarations, text/archive/captured-bookmark consumers, digest-bound plans, immutable observations and custom reference adapter; [acceptance mapping](overnight-sprint.md) | Listed criteria satisfied; Mindcap #42 merged; recurring capture/deletion is upstream scope, not normalization | #8/#9/#10; #48 uses the shared adapter, no model/provider requirement |
 | [#12](https://github.com/egohygiene/mindgarden/issues/12) — graph/search/bounded context | completed | Merged #78/#117/#119: all eight typed relations, complete projection schema/goldens, exact evidence, denied-target suppression, measured/repeated 2048-note envelope and clean rebuild; [acceptance mapping](overnight-sprint.md) | Listed criteria satisfied; faster interactive queries and wider hardware are future improvements, not added acceptance gates | #8/#9/#10; optional #32 and targeted #37 can advance independently |
 | [#13](https://github.com/egohygiene/mindgarden/issues/13) — reviewable curation/extraction plans | partial | #59/#64 plus merged #75: merge qualification/author inheritance, exact relationships, selected claim evidence and authored redactions; Draft #115 adds versioned optional producer contracts, evidence-bound unreviewed entity/claim mapping and recoverable authored batches | New draft adds versioned source-grant producer, attributed entity/triple mapping, failure/resume and authored review proof; live Ollama accuracy, broader media/multi-route and consumer acceptance remain open | #9/#10/#11; J and optional producer checkpoint; no model prerequisite for authored plans |
-| [#14](https://github.com/egohygiene/mindgarden/issues/14) — canonical routing/private fallback | partial | #61/#63/#64 plus merged #77 append-only private move/merge transitions, aliases, one retrievable home and recovery; Draft #116 adds exact outgoing graph moves, v2 reviewed split/replacement lineage and second-cutover rollback/retry | New draft adds outgoing graph copies, exact split anchors/replacements and rollback proofs; incoming edge retargeting, public/policy-changing and full organization acceptance remain open | #9/#10/#12/#13; B1 descriptors then B2 registry; no public default from missing fallback |
+| [#14](https://github.com/egohygiene/mindgarden/issues/14) — routing, transitions and private fallback | partial | Reviewed initial routing, private moves/merges/splits/replacements and graph transfer/recovery; new exact incoming-reference inventory preserves independent review and historical edges; [checkpoint](private-routing.md) | Explicit general incoming-reference repair, public/policy-changing transfers and wider platform recovery remain open | Existing #10–#13 interfaces; independent #37/#49 checkpoints need no incoming-repair contract |
 | [#15](https://github.com/egohygiene/mindgarden/issues/15) — conversation archives/selective assets | partial | #60/#64 plus merged #76: v1.2.1 minimal reader, v3.2.2/v3.2.3 profiles, selective attachment catalogs/bytes, opaque JSON attachment proof; Draft #114 adds reread v2.0.0/2.0.1/2.0.2 source profiles, selective assets and cross-version deduplication | Draft v2.0.0/2.0.1/2.0.2 source-profile reader/fixtures now added; collections/multipart, wider media, owner adoption and full producer conformance remain | #11/#13, Mindcap #31; B4 historical compatibility only after authoritative specs; do not infer old-version support |
 
 ## Projections, federation and portability

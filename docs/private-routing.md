@@ -145,3 +145,30 @@ These are bounded implementation proofs under proposed ADR-0022. General incomin
 edge migration, alias/entity reconciliation, declassification, public/organization
 policy transitions and wider platform/power-loss recovery remain parent scope.
 No owner or ADR approval is inferred from tests or a merged implementation.
+
+
+## Incoming-reference review inventory
+
+A move/merge/split/replacement plan now inventories up to 128 active, independently
+approved incoming synapses under the same ordinary personal policy. It includes
+the exact edge reference and revision, original source/target, relation direction,
+review and proposed current canonical target. Unreviewed/inactive edges, stricter
+policies, unreviewed sources and retired source homes are omitted without counts.
+This inventory is a private plan aid, not a complete cross-scope graph census.
+
+Each entry says `separate-reviewed-reference-repair-required`. A historical
+`supports` or `contradicts` relation may concern the old statement specifically;
+a canonical-home move is not authority to rewrite its meaning. Existing edges and
+their owners stay byte-identical after application. Unpinned and undirected forms
+remain explicit rather than being silently upgraded to exact directed claims.
+The current target hint does not authorize retrieval, graph access or public
+publication. Exact input checks bind the inventory to the reviewed transition.
+
+Six new cases prove deterministic exact inventory, unchanged original links,
+unreviewed/stricter omissions, stale-edge refusal before cutover, unpinned and
+undirected preservation, and the 128-entry bound. The existing move/split/merge/
+replacement/transaction suites retain rollback, retry and one-home proofs.
+General edge repair still needs an explicit operation naming independently
+reviewed replacement references; public/policy-changing transitions remain open.
+This is a bounded #14 checkpoint under proposed ADR-0022, not ratification or a
+claim of complete incoming migration.

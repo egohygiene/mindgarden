@@ -148,3 +148,27 @@ passes with networking blocked and two distinct synthetic observations; exact
 receipt and command are in [the bookmark checkpoint](bookmark-cleanup.md).
 New-head automatic CI is recorded separately. Next action: qualify/merge this
 bounded checkpoint, then inspect #14 incoming-reference move semantics.
+
+
+### Checkpoint C — #14 incoming-reference review inventory
+
+Branch: `feature/14-incoming-reference-inventory`, stacked on bookmark #121 until
+it merges. The private transition preview now records exact independently
+reviewed incoming links requiring separate repair, without changing original
+links or their meaning. Inventory is limited to matching ordinary personal
+policies and 128 references; it reports no denied counts. Edge/source changes
+invalidate the group plan before output. Six new cases plus existing routing
+lifecycle/transfer/recovery suites run with **24 cases per supported Python**.
+
+Dependency correction: incoming edge *repair* is a separately reviewed operation,
+not an implicit side effect of moving its target. This checkpoint delivers the
+inventory needed to author that future operation. It does not hold independent
+#37/#49 work behind a new repair contract. No current v1/v2 request schema or
+canonical bytes change; #14 remains open for general repair and broader policy
+transitions. Next action: qualify/merge this checkpoint, then implement explicit
+selected-output dependency builds (#37).
+
+Acceptance #120 merged at `2c4c465ef92000339eceb521f9690c531b0fcdc0` after
+[Test 42558542393](https://github.com/egohygiene/mindgarden/actions/runs/42558542393)
+and release-preparation 42558542304 succeeded. GitHub confirms #10/#11/#12/#26/
+#33/#51 closed; **37 issues remain open**. No feature/evaluation ADR was ratified.
