@@ -40,7 +40,7 @@ updated: 2026-11-06
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate:** Source-workflow/private-storage checkpoints #74–#84 are merged at `eb0018e`; await the next maintainer issue group. Parent consumer/integration criteria and proposed ADR decisions remain open.
+**Current gate (2026-11-08):** The authorized #93–#109 stack is merged at `f3a88cc`. Advance bounded #43/#46/#17/#18/#20 closeout checkpoints; optional TypeSafe #110 stays draft. Parent acceptance, proposed ADRs and parked release work retain their gates. See [merge evidence](docs/merged-closeout-checkpoints.md) and the [active sprint](docs/closeout-sprint.md).
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
 
 ### Complete open-issue coverage and next batches
@@ -420,3 +420,11 @@ file/CLI projections without full web/runtime or release adoption. Evaluations
 remain optional, exact-version experiments over synthetic fixtures and the
 reference/SQLite baseline. Results are recommendations for review; source/privacy,
 canonical ownership and ADR gates remain unchanged. Regroup before any merge.
+
+## Authorized original-roadmap closeout
+
+The maintainer authorized merging #93–#109 and bounded follow-through for
+#43 → #46 → #17 → #18 → #20. See [the closeout ledger](docs/closeout-sprint.md).
+One separately requested [optional TypeSafe decision seam](docs/typesafe-decisions.md)
+can proceed independently of web/runtime and private-pilot gates. It does not
+activate deferred #86–#91 or release work. New checkpoint work stays in drafts.

@@ -7,16 +7,18 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-07T07:54:38Z'
+  updated_at: '2026-11-08T20:45:31Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Resume the authorized learning and optional-system evaluation batch, then regroup.
+  purpose: Resume the authorized PR merge and original-roadmap closeout sprint, including one optional TypeSafe
+    decision checkpoint.
   includes:
-  - learning and infographic projections
-  - optional OpenAleph, CozoDB and OpenViking evaluations
+  - existing PR stack merge and native Decisions repair
+  - 'bounded closeout work for #43/#46/#17/#18/#20'
+  - one optional typed TypeSafe read-intent seam
   excludes:
   - conversation transcripts
   - duplicated architecture, roadmap, and changelog content
@@ -58,112 +60,100 @@ scope:
   - docs/shared-service-slice-proposal.md
   - docs/learning-evaluation-checkpoints.md
   - docs/learning.md
+  - docs/closeout-sprint.md
+  - docs/typesafe-decisions.md
 work:
-  objective: Complete five bounded learning/infographic/evaluation drafts and regroup with the maintainer.
+  objective: 'Merge the authorized stack, deliver one optional TypeSafe intent checkpoint, and advance bounded #43/#46/#17/#18/#20
+    acceptance while preserving genuine owner/private-pilot gates.'
   success_conditions:
   - Keep exact citations, reviewed routing, bounded output and relocation proof.
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#34
-    url: https://github.com/egohygiene/mindgarden/issues/34
+    id: egohygiene/mindgarden#47
+    url: https://github.com/egohygiene/mindgarden/issues/47
   next:
     kind: action
-    id: morning-review-and-regroup
-    description: "Regroup with the maintainer; review drafts #105 \u2192 #106 \u2192 #107 \u2192 #108 \u2192 #109\
-      \ over #104. Decide optional evaluation dispositions and next ready parent gaps. Do not merge, publish, resume\
-      \ releases or activate #86\u2013#91 automatically."
+    id: source-compaction-46
+    description: 'Implement the bounded #46 source-only compaction and private derived-manifest persistence/expiry
+      checkpoint over the existing source/session contracts. Keep #110 draft, preserve originals, then qualify #17/#18/#20
+      against available public owner/consumer contracts.'
     readiness: ready
     references:
-    - docs/learning-evaluation-checkpoints.md
+    - docs/closeout-sprint.md
     depends_on: []
 state:
   base:
-    revision: 169ded072c9b519413cd4919d4a1eadbf9331ffc
-    ref: refs/heads/experiment/33-cozo-query-store
-    verified_at: '2026-11-07T07:54:38Z'
+    revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
+    ref: refs/heads/main
+    verified_at: '2026-11-08T20:45:31Z'
   candidate:
-    branch: experiment/34-openviking-projection
-    revision: e410be7bebc865d3b7d0b684ec65b470d14940a9
+    branch: feature/typesafe-read-workflow
+    revision: 43cdb72f481546a0355cffc9d463c3c70b07d5db
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#109
-      url: https://github.com/egohygiene/mindgarden/pull/109
+      id: egohygiene/mindgarden#110
+      url: https://github.com/egohygiene/mindgarden/pull/110
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-07T07:54:38Z'
-    default_branch_revision: d5edb13de1b65871ec85e7a25af035228a1d756d
+    observed_at: '2026-11-08T20:45:31Z'
+    default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
-    notes: "Main d5edb13; #93\u2013#109 unmerged. Combined functional source e410be7 extends #108 (169ded0). All\
-      \ 44 issues remain open. Both complete local suites pass 381 tests without skips; clean archive and isolated\
-      \ wheel match authored CLI goldens."
+    notes: "All seventeen PRs #93\u2013#109 merged in order into main f3a88cc. Merged main passes actual native\
+      \ ADR collection (ready/publication denied); repaired #97 shared Decisions preview and all four Test jobs\
+      \ passed. TypeSafe #110 is a separate draft based on main. All 44 parent/deferred issues remain open."
   parallel_changes:
   - provider: github
-    id: egohygiene/mindgarden#104
-    url: https://github.com/egohygiene/mindgarden/pull/104
-  - provider: github
-    id: egohygiene/mindgarden#105
-    url: https://github.com/egohygiene/mindgarden/pull/105
-  - provider: github
-    id: egohygiene/mindgarden#106
-    url: https://github.com/egohygiene/mindgarden/pull/106
-  - provider: github
-    id: egohygiene/mindgarden#107
-    url: https://github.com/egohygiene/mindgarden/pull/107
-  - provider: github
-    id: egohygiene/mindgarden#108
-    url: https://github.com/egohygiene/mindgarden/pull/108
+    id: egohygiene/mindgarden#110
+    url: https://github.com/egohygiene/mindgarden/pull/110
 review:
   status: partial
-  reviewed_at: '2026-11-07T07:54:38Z'
+  reviewed_at: '2026-11-08T20:45:31Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest discover --start-directory tests --verbose
+  - command: .venv/bin/python -m unittest tests.test_semantic_workflow -q
     outcome: passed
-    observed_at: '2026-11-07T07:54:38Z'
-    notes: 381 pass, no skips; Python 3.12.14; 321.205 s; network permission for the existing loopback test
-  - command: .cache/python313/bin/python -m unittest discover --start-directory tests --verbose
+    observed_at: '2026-11-08T20:45:31Z'
+    notes: 12 offline tests pass; Python 3.12
+  - command: .cache/python313/bin/python -m unittest tests.test_semantic_workflow -q
     outcome: passed
-    observed_at: '2026-11-07T07:54:38Z'
-    notes: 381 pass, no skips; Python 3.13.5; 301.556 s; same loopback permission
-  - command: Cozo native suite on Python 3.12/3.13; OpenViking producer suite on both
+    observed_at: '2026-11-08T20:45:31Z'
+    notes: 12 offline tests pass; Python 3.13
+  - command: 'Optional TypeSafe 0.7.5 environments: unittest experiments.typesafe.test_sdk_contract -q'
     outcome: passed
-    observed_at: '2026-11-07T07:54:38Z'
-    notes: 5 native + 4 producer cases pass per Python; separate from core suite
-  - command: OpenViking 0.5.3 supervised native probe
+    observed_at: '2026-11-08T20:45:31Z'
+    notes: 3 actual SDK/mock-transport tests pass on each Python; no paid/model calls
+  - command: .venv/bin/python -m unittest tests.test_distribution -q
+    outcome: passed
+    observed_at: '2026-11-08T20:45:31Z'
+    notes: 2 distribution checks pass; no default runtime dependencies added
+  - command: Source -S synthetic example and dataset audit; one-case live setup probe
     outcome: limited
-    observed_at: '2026-11-07T07:54:38Z'
-    notes: Observation recorded; native model/startup/partial close BLOCKED; no live retrieval acceptance
-  - command: Clean git archive source -S and clean-built installed wheel -I learning_insight_demo.py
+    observed_at: '2026-11-08T20:45:31Z'
+    notes: disabled/unconfigured behavior pass; 16 labels, zero model-evaluated cases and accuracy null; live credential
+      unavailable
+  - command: Unmodified Relay collect at merged main f3a88cc; git diff old combined fdce5df..main
     outcome: passed
-    observed_at: '2026-11-07T07:54:38Z'
-    notes: Exact learning/insight CLI goldens, apply/import and module origin pass; no models/Google; Python sockets
-      blocked
-  - command: Clean-source and installed product_checkpoint_demo.py; no-package exit probes
+    observed_at: '2026-11-08T20:45:31Z'
+    notes: Native status ready; publication denied with honest unknown coverage. Only three ADR body structures
+      differ; runtime/test files unchanged.
+  - command: .venv/bin/python -m unittest discover -s tests -q
     outcome: passed
-    observed_at: '2026-11-07T07:54:38Z'
-    notes: Prior product flows and baseline/producer without optional dependencies pass
-  - command: Clean archive build; focused Ruff/diff/100 relative links/pinned owner checks
+    observed_at: '2026-11-08T20:45:31Z'
+    notes: 393 tests pass in 361.764s; exact merged-main plus TypeSafe implementation, Python 3.12
+  - command: .cache/python313/bin/python -m unittest discover -s tests -q
     outcome: passed
-    observed_at: '2026-11-07T07:54:38Z'
-    notes: sdist/wheel and 14 new schemas pass; all 44 rows and proposed/null ADRs preserved; hashes in verification
-      receipt
+    observed_at: '2026-11-08T20:45:31Z'
+    notes: 393 tests pass in 350.318s; same implementation, Python 3.13
   environment_limitations:
-  - 'OpenViking: missing model, blocked import HTTP metadata request and timed-out service initialization/partial
-    close; no live retrieval/quality/memory/native backup/upgrade/confidential promise. Producer-only recovery is
-    distinct.'
-  - 'Cozo native syscall trace unavailable: ptrace denied. Linux x86_64 only; confidential processing, actual cross-release
-    migration and installed generic restore remain unverified.'
-  - 'Optional FollowTheMoney 4.10.1 binary install failed: PyICU unavailable and ICU development metadata missing;
-    no native export compatibility or service test claimed.'
-  - '#28 full hosted study UI, notification/sync and Realm runtime acceptance remain parent scope.'
-  - '#21 downstream renderer/private redaction contracts and #33/#34 confidential runtime assurance require separate
-    evidence.'
-  - '#43 Decisions preview 42314281186 fails native source validation; #41 history/#47 accepted-ADR gates remain.'
-  - "Real #20 pilot/Empathy cutover and #48 external capture/handoff remain partial. #19 release and #86\u2013#91\
-    \ remain deferred. No auto-merges or publication."
+  - TYPESAFE_API_KEY is not configured; live smoke and model accuracy/calibration remain unverified. Thresholds
+    are provisional.
+  - '#42 human disposition/#41 historical/#47 web/runtime and approved private #20 pilot remain separate gates;
+    #18 Relay action must be verified rather than invented.'
+  - "New checkpoint drafts are not auto-merged. Release #19, production publication and deferred #86\u2013#91 remain\
+    \ parked."
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -183,7 +173,7 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer authorized #28 → #21 → #26 → #33 → #34 in small draft PRs, then a morning sync. Preserve Python/v0, source/privacy boundaries and proposed ADR status. No merges, publication, release or real private data processing.
+The maintainer explicitly authorized merging the existing #93–#109 stack and implementing the next #43/#46/#17/#18/#20 checkpoints, plus one bounded Jev/TypeSafe integration. Preserve Python/v0, source/privacy boundaries and proposed ADR status. No release, production publication or real private pilot is authorized.
 
 ## Resume protocol
 
@@ -191,31 +181,31 @@ Read live status, issues/comments/PRs, README, AI_CONSTITUTION, ROADMAP, coverag
 
 ## Current objective and success conditions
 
-Complete five bounded learning/infographic/evaluation drafts and regroup with the maintainer.
+Merge the authorized stack, deliver one optional TypeSafe intent checkpoint, and advance bounded #43/#46/#17/#18/#20 acceptance while preserving genuine owner/private-pilot gates.
 
 ## State snapshot
 
-Main d5edb13; #93–#109 unmerged. Combined functional source e410be7 extends #108 (169ded0). All 44 issues remain open. Both complete local suites pass 381 tests without skips; clean archive and isolated wheel match authored CLI goldens.
+All seventeen PRs #93–#109 merged in order into main f3a88cc. Merged main passes actual native ADR collection (ready/publication denied); repaired #97 shared Decisions preview and all four Test jobs passed. TypeSafe #110 is a separate draft based on main. All 44 parent/deferred issues remain open.
 
 ## Completed and material changes
 
-#28 authored factual/cloze cards, summaries, exact claim/source provenance, qualified answers, private history, source-bound item revisions, versioned schedules, deterministic JSON/Markdown/static HTML, digest-bound apply and import/grade round trips. Static keyboard/narrow-screen/zoom checks pass. #21 adds reviewed public-only insight/series producer contracts, claim-level citations/rights, deterministic duplicates/lifecycles, version-bound artifact feedback and digest-bound private staging. Private redaction/downstream adoption remain explicit gaps. #26 pins OpenAleph 5.3.2, compares twelve architectural dimensions, documents personal-archive threats, qualitative costs, existing ownership and a proposed adapt-patterns/defer-service recommendation. Optional FtM export is explicitly blocked by missing PyICU/ICU build inputs. #33 adds optional Cozo 0.7.6 QueryStore/factory experiment, native lexical/typed graph/backlink parity, scoped two-garden/personal-overlay fixtures, backup/rebuild/native restore, corruption/version/staged-failure/quarantine/exit proofs and measured 262-record baseline. Proposed recommendation: retain experiment, defer adoption. #34 pins OpenViking 0.5.3/SDK 0.1.18 and 320 observed dependencies; a removable public producer/verified-leaf map preserves provenance and passes recovery/relocation/exit tests. Native missing-model preflight blocks, LiteLLM import HTTP attempt is denied, constructor passes but initialization/close time out. Native retrieval/memory/confidential and lifecycle outcomes remain explicitly blocked. A new source/installed demo verifies learning and insight goldens through the actual CLI.
+TypeSafe 0.7.5 typed Choice + applicability Noul seam suggests search/graph/backlinks only. Explicit caller request permission, static authorized handlers, server-side key/model/timeout/retry settings, safe metadata logging and disabled/unconfigured fallbacks are implemented. Sixteen labeled synthetic examples, executable fixed-input example and model-independent evaluation audit are included. No SDK is required by the normal engine. Native #43 repair normalizes three ADR body structures, retaining all proposed/null metadata.
 
 ## Validation and review evidence
 
-.venv/bin/python -m unittest discover --start-directory tests --verbose — 381 pass, no skips; Python 3.12.14; 321.205 s; network permission for the existing loopback test. .cache/python313/bin/python -m unittest discover --start-directory tests --verbose — 381 pass, no skips; Python 3.13.5; 301.556 s; same loopback permission. Cozo native suite on Python 3.12/3.13; OpenViking producer suite on both — 5 native + 4 producer cases pass per Python; separate from core suite. OpenViking 0.5.3 supervised native probe — Observation recorded; native model/startup/partial close BLOCKED; no live retrieval acceptance. Clean git archive source -S and clean-built installed wheel -I learning_insight_demo.py — Exact learning/insight CLI goldens, apply/import and module origin pass; no models/Google; Python sockets blocked. Clean-source and installed product_checkpoint_demo.py; no-package exit probes — Prior product flows and baseline/producer without optional dependencies pass. Clean archive build; focused Ruff/diff/100 relative links/pinned owner checks — sdist/wheel and 14 new schemas pass; all 44 rows and proposed/null ADRs preserved; hashes in verification receipt.
+.venv/bin/python -m unittest tests.test_semantic_workflow -q — 12 offline tests pass; Python 3.12. .cache/python313/bin/python -m unittest tests.test_semantic_workflow -q — 12 offline tests pass; Python 3.13. Optional TypeSafe 0.7.5 environments: unittest experiments.typesafe.test_sdk_contract -q — 3 actual SDK/mock-transport tests pass on each Python; no paid/model calls. .venv/bin/python -m unittest tests.test_distribution -q — 2 distribution checks pass; no default runtime dependencies added. Source -S synthetic example and dataset audit; one-case live setup probe — disabled/unconfigured behavior pass; 16 labels, zero model-evaluated cases and accuracy null; live credential unavailable. Unmodified Relay collect at merged main f3a88cc; git diff old combined fdce5df..main — Native status ready; publication denied with honest unknown coverage. Only three ADR body structures differ; runtime/test files unchanged.. .venv/bin/python -m unittest discover -s tests -q — 393 tests pass in 361.764s; exact merged-main plus TypeSafe implementation, Python 3.12. .cache/python313/bin/python -m unittest discover -s tests -q — 393 tests pass in 350.318s; same implementation, Python 3.13.
 
 ## Blockers, risks, unknowns, and deferred work
 
-OpenViking: missing model, blocked import HTTP metadata request and timed-out service initialization/partial close; no live retrieval/quality/memory/native backup/upgrade/confidential promise. Producer-only recovery is distinct. Cozo native syscall trace unavailable: ptrace denied. Linux x86_64 only; confidential processing, actual cross-release migration and installed generic restore remain unverified. Optional FollowTheMoney 4.10.1 binary install failed: PyICU unavailable and ICU development metadata missing; no native export compatibility or service test claimed. #28 full hosted study UI, notification/sync and Realm runtime acceptance remain parent scope. #21 downstream renderer/private redaction contracts and #33/#34 confidential runtime assurance require separate evidence. #43 Decisions preview 42314281186 fails native source validation; #41 history/#47 accepted-ADR gates remain. Real #20 pilot/Empathy cutover and #48 external capture/handoff remain partial. #19 release and #86–#91 remain deferred. No auto-merges or publication.
+TYPESAFE_API_KEY is not configured; live smoke and model accuracy/calibration remain unverified. Thresholds are provisional. #42 human disposition/#41 historical/#47 web/runtime and approved private #20 pilot remain separate gates; #18 Relay action must be verified rather than invented. New checkpoint drafts are not auto-merged. Release #19, production publication and deferred #86–#91 remain parked.
 
 ## Next dependency-ready work
 
-Regroup with the maintainer; review drafts #105 → #106 → #107 → #108 → #109 over #104. Decide optional evaluation dispositions and next ready parent gaps. Do not merge, publish, resume releases or activate #86–#91 automatically.
+Implement the bounded #46 source-only compaction and private derived-manifest persistence/expiry checkpoint over the existing source/session contracts. Keep #110 draft, preserve originals, then qualify #17/#18/#20 against available public owner/consumer contracts.
 
 ## Parallel changes and reconciliation
 
-New drafts extend #104 and preserve #93–#104. See docs/learning-evaluation-checkpoints.md for exact stack edges, sources and dependency corrections. Optional experiments do not change the default dependency set or canonical store.
+Existing stack merges are authorized in order; native #43 findings must be genuinely fixed. New checkpoints stay draft. See docs/closeout-sprint.md for exact edges, source, dependency corrections and owner gaps. Core dependencies and canonical ownership remain unchanged.
 
 ## Privacy and redaction
 
@@ -227,4 +217,4 @@ At each checkpoint record functional revision, branch/PR, exact tests/results, p
 
 ## Compaction and supersession
 
-Keep the twelve required headings and the 16384-byte/240-line bounds. This supersedes the prior regroup action with the newly authorized five-item batch; historical ledgers retain earlier evidence.
+Keep the twelve required headings and the 16384-byte/240-line bounds. This supersedes the morning regroup with the newly authorized merge/closeout sprint and one narrow semantic decision. Historical ledgers retain prior evidence; deferred #86–#91 and release work remain parked.
