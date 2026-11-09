@@ -240,7 +240,7 @@ separate from that bounded defect proof.
 
 ### Checkpoint G — #17 mobile Explorer disclosure semantics
 
-Branch: `fix/17-mobile-explorer-aria`, stacked after learning #125. The owned
+Branch: `fix/17-mobile-explorer-aria`, [draft #126](https://github.com/egohygiene/mindgarden/pull/126), functional `ffa66d4`, stacked after learning #125. The owned
 runtime adapter moves disclosure state from ordinary containers to native
 controls, binds controlled content IDs and tracks the pinned controller's class.
 No vendor source, canonical note, renderer pin or dependency changes.

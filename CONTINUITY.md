@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T04:43:39Z'
+  updated_at: '2026-11-09T04:46:50Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -91,33 +91,30 @@ state:
   base:
     revision: 37d5adb7c19aeef3dfd025391e695a024fd482ce
     ref: refs/heads/feature/28-due-review-queue
-    verified_at: '2026-11-09T04:43:39Z'
+    verified_at: '2026-11-09T04:46:50Z'
   candidate:
     branch: fix/17-mobile-explorer-aria
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: ffa66d4ee2ce9c7c44f64b7deee227fe2e2f453d
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#126
+      url: https://github.com/egohygiene/mindgarden/pull/126
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T04:43:39Z'
+    observed_at: '2026-11-09T04:46:50Z'
     default_branch_revision: 51c29c43a2a815918b54deef4688dd42afaf77a1
     issue_state: open
     pull_request_state: draft
-    notes: 'Acceptance #120 and integration #121–#123 merged. Corrected #124/#125 remain draft; the combined mobile
-      checkpoint includes both schema-inventory fixes without rewriting history. 37 issues live open before #49/#28
-      closures; all 44 rows retained.'
+    notes: 'Acceptance #120 and #121–#123 merged; corrected #124/#125 remain draft, mobile #126 is the combined
+      checkout. Full tests use detached ffa66d4 with explicit frozen-source interpreters; source/wheel checks follow.
+      37 live open before two closures, 44 rows retained.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T04:43:39Z'
+  reviewed_at: '2026-11-09T04:46:50Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: unittest tests.test_memory_validity tests.test_memory --verbose; additional one-source
-      refresh test; focused Ruff/format; pinned owner checks'
-    outcome: passed
-    observed_at: '2026-11-09T04:20:50Z'
-    notes: 16 pass per interpreter, zero skips (30.200s / 25.775s), plus one authored refresh case per interpreter;
-      new-head CI separate
   - command: 'Python 3.12/3.13: unittest tests.test_learning_queue tests.test_learning --verbose; actual learning_browser_check.py
       full/due with axe 4.10.3; Ruff/format/owner checks'
     outcome: passed
@@ -134,6 +131,12 @@ review:
       --verbose; actual site_browser_check.py offline; node --check; owner checks'
     outcome: passed
     observed_at: '2026-11-09T04:43:39Z'
+    notes: 33 pass per interpreter, zero skips (45.255s / 43.936s); 15 actual axe audits have zero findings/incompletes,
+      keyboard/search/fallback/portal recovery pass; full combined and corrected CI pending
+  - command: 'Python 3.12/3.13: unittest tests.test_site tests.test_design tests.test_portal tests.test_publication_conformance
+      --verbose; actual site_browser_check.py offline; node --check; owner checks'
+    outcome: passed
+    observed_at: '2026-11-09T04:46:50Z'
     notes: 33 pass per interpreter, zero skips (45.255s / 43.936s); 15 actual axe audits have zero findings/incompletes,
       keyboard/search/fallback/portal recovery pass; full combined and corrected CI pending
   environment_limitations:
@@ -171,7 +174,7 @@ Qualify and merge the completed sleep queue, with honest parent limits and curre
 
 ## State snapshot
 
-Acceptance #120 and integration #121–#123 merged. Corrected #124/#125 remain draft; the combined mobile checkpoint includes both schema-inventory fixes without rewriting history. 37 issues live open before #49/#28 closures; all 44 rows retained.
+Acceptance #120 and #121–#123 merged; corrected #124/#125 remain draft, mobile #126 is the combined checkout. Full tests use detached ffa66d4 with explicit frozen-source interpreters; source/wheel checks follow. 37 live open before two closures, 44 rows retained.
 
 ## Completed and material changes
 
