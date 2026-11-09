@@ -100,3 +100,24 @@ Restricted processing still stops before parsing; no ordinary-file label grants
 confidential authority. Additional formats remain separate adapters.
 
 Draft [#129](https://github.com/egohygiene/mindgarden/pull/129), functional `6d31e75fd76fccaa27c82cf32eba81914815e30a`, is stacked on #128. Qualification and parent gates remain distinct from merge or acceptance.
+
+
+### #45 reviewed initialized-adapter migration
+
+Branch `feature/45-reviewed-adapter-migration`, based on draft #129. The new
+`vault migrate --target-local-config` plan/apply and versioned private control
+schema bind configurations, capabilities, complete inventoried objects and garden
+revisions. Copy includes unreferenced originals; target extras are retained and
+never adopted as knowledge. Independent target reopen and core checksums precede
+private binding history and durable rebind. Partial retries keep the same digest;
+stale, corrupt, unsupported or unavailable inputs fail without source loss.
+See [the operation/recovery contract](vault-migration.md), including completed-CLI
+verification and explicit single-writer/provider limits.
+
+`python -m unittest tests.test_vault_migration tests.test_vault_recovery tests.test_storage_adapters tests.test_v1_contracts --quiet` — **35 pass, zero skips**, Python 3.12.14 (14.181s) and 3.13.5 (14.091s). Sixteen new cases include exact CLI review, retained source/target objects, private controls, partial retry, stale input, changed capabilities, dishonest read/put, absent adapters, unknown commit state, isolated factory bindings and complete golden recovery. The explicit schema inventory and valid fixture include the new contract.
+
+`python scripts/vault_migration_demo.py --workspace /tmp/mindgarden-adapter-migration-source-v2 --require-source --report .cache/privacy-storage/45-migration-proof.json` passes with networking/HTTP/process entry points blocked. Two immutable objects (including an unreferenced original) survive migration, extension removal and clean restore. Exact index, context and source evidence match the committed golden. The extension uses actual filesystem bytes behind a synthetic adapter ID; no real provider is claimed.
+
+The first 20-case migration run had one test expecting unavailable for an initialized target whose descriptor was removed; that is correctly corrupted. The corrected test proves both corrupted and genuinely absent states. The first standalone workflow reached its report serialization with a mistaken bytes index; the corrected complete workflow was rerun in a new workspace and is now covered by the golden test. Neither earlier attempt is passing qualification.
+
+#127 head `5c267b5fbfc3f68b3b992b41c7644bbc51438919` has successful automatic Test **42599031839** and release-preparation **42599031929**. #128 head `5548976ba4fb3c2eb63c3d643faf45631d677fd2` has successful Test **42599887053** and release-preparation **42599886961**. No run was returned for current #129 head `3893c399e3b96cb56868b7f573c9de30b7d40cfd` when inspected; that is unavailable CI evidence, not a pass. Final combined and new-head qualification follows. No workflow was manually dispatched.

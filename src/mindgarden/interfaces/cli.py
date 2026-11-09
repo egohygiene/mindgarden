@@ -805,11 +805,11 @@ def build_parser() -> ArgumentParser:
 
     vault = commands.add_parser("vault", help="Manage explicitly bound private source storage")
     vault_commands = vault.add_subparsers(dest="operation", required=True)
-    for operation in ("init", "audit", "capabilities", "resolve", "export", "restore", "relocate"):
+    for operation in ("init", "audit", "capabilities", "resolve", "export", "restore", "relocate", "migrate"):
         command = vault_commands.add_parser(operation)
         command.add_argument("--local-config", type=Path, required=True)
         command.add_argument("--vault-id", required=True)
-        if operation in {"init", "export", "restore", "relocate"}:
+        if operation in {"init", "export", "restore", "relocate", "migrate"}:
             mode = command.add_mutually_exclusive_group()
             mode.add_argument("--plan", action="store_true")
             mode.add_argument("--apply", action="store_true")
@@ -822,6 +822,9 @@ def build_parser() -> ArgumentParser:
             command.add_argument("--input", type=Path, required=True, help="Captured portable vault backup")
         if operation == "resolve":
             command.add_argument("--content-id", required=True)
+        if operation == "migrate":
+            command.add_argument("--target-local-config", type=Path, required=True,
+                                 help="Private configuration of an initialized target with the same logical vault ID")
         command.set_defaults(handler=run_vault)
     from ..application.policy import run_policy
 

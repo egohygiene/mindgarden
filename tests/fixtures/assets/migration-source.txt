@@ -1,0 +1,2 @@
+Use a reviewed synthetic prompt with exact evidence.
+Keep every immutable original when changing storage adapters.

@@ -144,6 +144,7 @@ class V1ContractTests(unittest.TestCase):
                 "routing-receipt",
                 "vault-export",
                 "vault-recovery-plan",
+                "vault-migration-plan",
                 "evidence",
                 "federation-descriptor",
                 "local-federation-catalog",

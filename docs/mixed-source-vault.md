@@ -1,5 +1,11 @@
 # Mixed source/media vault checkpoint (#45)
 
+The later [reviewed local adapter migration](vault-migration.md) supplies a
+copy/verify/rebind checkpoint over the existing content port. Source stores and
+canonical records are retained, with exact retry and private control history.
+This supersedes the local migration gap below; real remote/encrypted providers
+and the broader parent acceptance remain unclaimed.
+
 This draft extends the existing filesystem baseline with private asset inventory,
 non-destructive triage, an explicit storage factory boundary, and a combined
 archive/PDF/image/audio recovery proof. [ADR-0024](decisions/ADR-0024-private-assets-and-explicit-storage-ports.md)

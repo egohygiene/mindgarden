@@ -59,12 +59,15 @@ class StorageAdapters:
         from .contracts import ContractRegistry, canonical_json
 
         try:
-            storage = factory(binding, vault_id)
+            storage = factory(dict(binding), vault_id)
             capabilities = storage.capabilities()
             if (len(canonical_json(capabilities)) > 65536
                     or ContractRegistry().errors(capabilities, "storage-capabilities")
                     or capabilities["adapter"] != binding["adapter"]
-                    or any(not callable(getattr(storage, name, None)) for name in ("state", "get", "put"))):
+                    or any(not callable(getattr(storage, name, None)) for name in ("state", "get", "put"))
+                    or any(capabilities[capability] and not callable(getattr(storage, method, None))
+                           for capability, method in (("audit", "audit"), ("export", "export_bundle"),
+                                                      ("restore", "restore_bundle")))):
                 raise ContractError("STORAGE_CAPABILITIES: adapter does not implement its declared port")
         except ContractError:
             raise

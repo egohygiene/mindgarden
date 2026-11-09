@@ -41,6 +41,10 @@ def content_resolver(bindings: LocalBindings, *, adapters: StorageAdapters | Non
 
 
 def run_vault(arguments: Namespace) -> int:
+    if arguments.operation == "migrate":
+        from .vault_migration import run_migration
+
+        return run_migration(arguments)
     bindings = LocalBindings.load(arguments.local_config)
     vault = open_vault(bindings, arguments.vault_id)
     if arguments.operation == "init":
