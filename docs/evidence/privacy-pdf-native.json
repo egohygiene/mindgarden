@@ -1,0 +1,48 @@
+{
+  "classification": "explicit-initial-personal-synthetic",
+  "google": "unused",
+  "model": "unused",
+  "network": "blocked-in-process; no acquisition",
+  "original_sha256": "0924472858641246bcb3fcc26fd03488d0dc81e918b0035e8d08dbd7293ccfd5",
+  "originals": "preserved",
+  "page_sha256": [
+    "fc7a4baf2b84982a3bd7474053cba758b3ae0de8806dea9f34fd1ff1c0a7a1f0",
+    "27e2243a27646e5230b9b705299775aa8b6f03a82d74e8716b8d4da13ff625d2"
+  ],
+  "parser": {
+    "adapter_version": "1.0.0",
+    "limits": {
+      "capture_bytes": 10485760,
+      "output_bytes": 8388608,
+      "pages": 1000,
+      "timeout_seconds": 15,
+      "words": 100000
+    },
+    "name": "poppler-bbox-layout",
+    "normalization": "word-order-space-separated-lines-lf/1",
+    "tools": [
+      {
+        "name": "pdfinfo",
+        "sha256": "a1a371340d7b76e7d501da9136cc9256dfdb9cbdf09300520d7a3b4465343e67",
+        "version": "25.03.0"
+      },
+      {
+        "name": "pdftotext",
+        "sha256": "7fe3559cac3ba61dd93650a1ba90499b9fc488184ef8d0f2f1305ddf52c0378b",
+        "version": "25.03.0"
+      }
+    ]
+  },
+  "restricted_runtime": "unavailable",
+  "schema": "mindgarden.document-proof/v1",
+  "states": {
+    "complete.pdf": "complete",
+    "encrypted.pdf": "encrypted",
+    "malformed.pdf": "malformed",
+    "ocr-needed.pdf": "ocr-needed",
+    "partial.pdf": "partial",
+    "unsupported.txt": "unsupported"
+  },
+  "status": "passed",
+  "temporary_state": "owned-vault-removed"
+}

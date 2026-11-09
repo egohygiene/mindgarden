@@ -4,6 +4,7 @@ from pathlib import Path
 import math
 import os
 import re
+import signal
 import subprocess
 import sys
 import tempfile
@@ -14,6 +15,7 @@ from ..domain.validation import ContractError
 
 MAXIMUM_PDF = 10 * 1024 * 1024
 MAXIMUM_OUTPUT = 8 * 1024 * 1024
+TOOL_TIMEOUT_SECONDS = 15
 
 
 def child_limits():
@@ -28,17 +30,36 @@ def child_limits():
 
 def run_tool(path: Path, arguments: list[str], captured: bytes, workspace: Path):
     environment = {"HOME": str(workspace), "TMPDIR": str(workspace), "TMP": str(workspace),
-                   "TEMP": str(workspace), "XDG_CACHE_HOME": str(workspace), "LC_ALL": "C"}
+                   "TEMP": str(workspace), "XDG_CACHE_HOME": str(workspace),
+                   "XDG_CONFIG_HOME": str(workspace), "XDG_DATA_HOME": str(workspace),
+                   "XDG_STATE_HOME": str(workspace), "LC_ALL": "C"}
     with tempfile.TemporaryFile(dir=workspace) as output, tempfile.TemporaryFile(dir=workspace) as errors:
         try:
-            with subprocess.Popen([str(path), *arguments], stdin=subprocess.PIPE, stdout=output,
-                                  stderr=errors, cwd=workspace, env=environment,
-                                  preexec_fn=child_limits, start_new_session=True) as process:
+            process = subprocess.Popen([str(path), *arguments], stdin=subprocess.PIPE, stdout=output,
+                                       stderr=errors, cwd=workspace, env=environment, umask=0o077,
+                                       preexec_fn=child_limits, start_new_session=True)
+            try:
                 try:
-                    process.communicate(captured, timeout=15)
+                    process.communicate(captured, timeout=TOOL_TIMEOUT_SECONDS)
                 except subprocess.TimeoutExpired as error:
-                    process.kill(); process.communicate()
                     raise ContractError("DOCUMENT_LIMIT: local reader exceeded its time bound") from error
+            finally:
+                # A completed leader can still leave children holding vault files.
+                # This governs the started process group, not an OS sandbox.
+                try:
+                    os.killpg(process.pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+                try:
+                    process.wait(timeout=2)
+                except subprocess.TimeoutExpired as error:
+                    raise ContractError("DOCUMENT_LIMIT: local reader shutdown could not be verified") from error
+                finally:
+                    if process.stdin is not None:
+                        try:
+                            process.stdin.close()
+                        except OSError:
+                            pass
             output.seek(0); errors.seek(0)
             content, diagnostic = output.read(MAXIMUM_OUTPUT + 1), errors.read(MAXIMUM_OUTPUT + 1)
             if len(content) >= MAXIMUM_OUTPUT or len(diagnostic) >= MAXIMUM_OUTPUT or process.returncode < 0:
@@ -115,7 +136,7 @@ class LocalPDFReader:
         profile = {"name": "poppler-bbox-layout", "adapter_version": "1.0.0", "tools": [],
                    "normalization": "word-order-space-separated-lines-lf/1",
                    "limits": {"capture_bytes": MAXIMUM_PDF, "output_bytes": MAXIMUM_OUTPUT,
-                              "timeout_seconds": 15, "pages": 1000, "words": 100000}}
+                              "timeout_seconds": TOOL_TIMEOUT_SECONDS, "pages": 1000, "words": 100000}}
         with tempfile.TemporaryDirectory(prefix=".document-work-", dir=self.work_root) as temporary:
             workspace = Path(temporary); workspace.chmod(0o700)
             for name, path in tools.items():

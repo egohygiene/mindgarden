@@ -34,7 +34,7 @@ approval: null
 ## Context
 
 Confidential documents require actual storage/runtime assurance, not a scope label.
-Hygiene #39/#40 and Realm #25/#60 have not supplied accepted contracts or verified
+Hygiene #39/#40 and Realm #25/#28/#29/#30 have not supplied accepted contracts or verified
 confidential capabilities here. Ordinary synthetic PDF evidence can exercise the
 existing source-adapter boundary independently.
 
@@ -79,4 +79,6 @@ Keep the parser behind the normalized-source adapter and retain original bytes, 
 
 ## Follow-up work
 
-Mindgarden #35 owns wider layout/OCR/format proofs; Hygiene #39/#40 and Realm #25/#60 own normative confidential runtime assurance. Human disposition, native dependency/temporary-state evidence and an approved private pilot remain separate.
+Mindgarden #35 owns wider layout/OCR/format proofs; Hygiene #39/#40 and Realm #25/#28/#29/#30 own normative confidential runtime assurance. Human disposition, native dependency/temporary-state evidence and an approved private pilot remain separate.
+
+The 2026-11-09 [follow-through](../privacy-storage-followthrough.md) adds managed process-group cleanup, owner-only child defaults and native six-state evidence without changing proposed status or claiming a confidential sandbox. Realm #60 remains a platform/distribution tracker; encrypted-vault and confidential acceptance belong directly to #28/#29/#30.

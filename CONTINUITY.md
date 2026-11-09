@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T10:18:03Z'
+  updated_at: '2026-11-09T10:21:15Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -69,57 +69,49 @@ scope:
   - docs/overnight-sprint.md
   - docs/privacy-storage-followthrough.md
 work:
-  objective: 'Implement complete session-owned output limits, then independent PDF containment and reviewed vault
-    migration; preserve closed #10 and external assurance gaps.'
+  objective: 'Finish bounded privacy/storage integration: retain #10 completion, qualify complete output limits,
+    harden ordinary PDF lifecycle and implement reviewed adapter migration.'
   success_conditions:
   - Preserve Python/v0, exact evidence, scope and proposed ADR status.
   - Merge only completed tested checkpoints; keep blocked parent scope explicit.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#31
-    url: https://github.com/egohygiene/mindgarden/issues/31
+    id: egohygiene/mindgarden#35
+    url: https://github.com/egohygiene/mindgarden/issues/35
   next:
     kind: action
     id: privacy-storage-next-checkpoint
-    description: 'Implement #35 private PDF child-process lifecycle above #128; finish corrected frozen #31 suites
-      and final combined conformance before qualification.'
+    description: 'Open #35 draft above #128, then implement #45 reviewed initialized-adapter migration with exact
+      inventory/bytes, retained sources, failure retry and unchanged garden references; finish combined compatibility/conformance.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
     depends_on: []
 state:
   base:
-    revision: 5c267b5fbfc3f68b3b992b41c7644bbc51438919
-    ref: refs/heads/feature/29-export-policy-boundaries
-    verified_at: '2026-11-09T10:18:03Z'
+    revision: 5548976ba4fb3c2eb63c3d643faf45631d677fd2
+    ref: refs/heads/feature/31-bounded-generated-bundles
+    verified_at: '2026-11-09T10:21:15Z'
   candidate:
-    branch: feature/31-bounded-generated-bundles
-    revision: 177dad83a4c54d47b57f5ba9ff8d7caed5e9eb45
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#128
-      url: https://github.com/egohygiene/mindgarden/pull/128
-    handoff_state: ready-for-review
+    branch: fix/35-pdf-process-lifecycle
+    revision: null
+    pull_request: null
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-09T10:18:03Z'
+    observed_at: '2026-11-09T10:21:15Z'
     default_branch_revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     issue_state: open
-    pull_request_state: draft
-    notes: 'Draft #127 → #128 is the active privacy stack. #31 has eight new passing cases; its corrected broader
-      suites run from frozen 177dad8 while independent PDF containment proceeds. No issue closure, merge or external
-      assurance is claimed.'
+    pull_request_state: not-applicable
+    notes: 'Draft #127 → #128 is tested locally. Corrected frozen #31 qualification passes 98 cases per Python.
+      #35 adds five process lifecycle regressions: 19 focused cases per Python and the real six-state Poppler proof
+      pass; the new coherent draft opens next. 35 issues remain open.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T10:18:03Z'
+  reviewed_at: '2026-11-09T10:21:15Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: unittest tests.test_export_policy tests.test_scope_policy tests.test_federation
-      tests.test_site --quiet; focused Ruff/format and diff checks'
-    outcome: passed
-    observed_at: '2026-11-09T10:11:11Z'
-    notes: 39 pass each, zero skips (51.261s / 43.269s); compatible public output bytes unchanged
   - command: 'Python 3.12.14: unittest tests.test_scope_bundle_outputs --quiet; focused changed-code Ruff, format
       and diff checks'
     outcome: passed
@@ -132,6 +124,12 @@ review:
     observed_at: '2026-11-09T10:18:03Z'
     notes: 8 pass, zero skips, 12.063s; initial test fixtures below the existing 256-byte minimum were corrected
       without weakening the session schema
+  - command: 'Python 3.12/3.13: unittest tests.test_pdf_process_lifecycle tests.test_documents tests.test_storage_adapters
+      tests.test_mixed_vault_workflow --quiet; document_demo.py with explicit /usr/bin tools'
+    outcome: passed
+    observed_at: '2026-11-09T10:21:15Z'
+    notes: '19 pass each, zero skips (28.681s / 28.293s); real Poppler six-state proof passed, owned temporary state
+      removed; corrected #31 suites 98 pass each (205.507s / 195.094s)'
   environment_limitations:
   - 'Hygiene #39/#40 normative information-flow and assurance contracts unavailable at 92195e4.'
   - 'Realm #28/#29/#30 still own encrypted-vault selection/implementation and confidential runtime; #60 only consolidates
@@ -165,19 +163,19 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Implement complete session-owned output limits, then independent PDF containment and reviewed vault migration; preserve closed #10 and external assurance gaps.
+Finish bounded privacy/storage integration: retain #10 completion, qualify complete output limits, harden ordinary PDF lifecycle and implement reviewed adapter migration.
 
 ## State snapshot
 
-Draft #127 → #128 is the active privacy stack. #31 has eight new passing cases; its corrected broader suites run from frozen 177dad8 while independent PDF containment proceeds. No issue closure, merge or external assurance is claimed.
+Draft #127 → #128 is tested locally. Corrected frozen #31 qualification passes 98 cases per Python. #35 adds five process lifecycle regressions: 19 focused cases per Python and the real six-state Poppler proof pass; the new coherent draft opens next. 35 issues remain open.
 
 ## Completed and material changes
 
-Whole federation/site/rendered inventories and seven private generated writers share live session byte limits, including ownership markers. Internal indexes do not consume a selected export response budget. Revocation is checked before budget diagnostics and before output selection.
+The PDF runner now cleans its started process group on timeout and normal leader exit, applies owner-only creation defaults, confines standard cache/temp/home state to the supplied work root and keeps constant diagnostics. Native PDF bytes/page evidence remain unchanged.
 
 ## Validation and review evidence
 
-Python 3.12.14: unittest tests.test_scope_bundle_outputs --quiet; focused changed-code Ruff, format and diff checks — 8 pass, zero skips, 12.063s; initial test fixtures below the existing 256-byte minimum were corrected without weakening the session schema. Exact CI and combined qualification remain separate observations in docs/privacy-storage-followthrough.md.
+Python 3.12/3.13: unittest tests.test_pdf_process_lifecycle tests.test_documents tests.test_storage_adapters tests.test_mixed_vault_workflow --quiet; document_demo.py with explicit /usr/bin tools — 19 pass each, zero skips (28.681s / 28.293s); real Poppler six-state proof passed, owned temporary state removed; corrected #31 suites 98 pass each (205.507s / 195.094s). Exact CI and combined qualification remain separate observations in docs/privacy-storage-followthrough.md.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -185,7 +183,7 @@ Accepted Hygiene classification/declassification/assurance, Realm encrypted-vaul
 
 ## Next dependency-ready work
 
-Implement #35 private PDF child-process lifecycle above #128; finish corrected frozen #31 suites and final combined conformance before qualification.
+Open #35 draft above #128, then implement #45 reviewed initialized-adapter migration with exact inventory/bytes, retained sources, failure retry and unchanged garden references; finish combined compatibility/conformance.
 
 ## Parallel changes and reconciliation
 

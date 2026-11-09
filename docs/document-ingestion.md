@@ -84,3 +84,8 @@ The exact command/workspace used at this checkpoint is in the sprint handoff.
 This is implementation and local evidence. Restricted processing, OCR/office
 coverage, host/runtime integration and real private consumer acceptance keep #35
 open. Its ordinary mixed-source recovery proof follows in #45.
+
+
+## Managed parser processes
+
+The Linux local runner cleans its started process group after timeout and normal parent completion, uses owner-only file creation defaults and points standard child temporary/cache/config/data/state paths at the supplied vault workspace. Synthetic descendant, permission and diagnostic regressions and the actual six-state Poppler receipt are in [the privacy follow-through](privacy-storage-followthrough.md). This is bounded resource/lifetime management, not containment of an executable that escapes its process group or host/network/encryption assurance. Restricted inputs still fail before parsing.
