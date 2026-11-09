@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T02:13:48Z'
+  updated_at: '2026-11-09T02:20:44Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -72,39 +72,39 @@ work:
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#13
-    url: https://github.com/egohygiene/mindgarden/issues/13
+    id: egohygiene/mindgarden#14
+    url: https://github.com/egohygiene/mindgarden/issues/14
   next:
     kind: action
-    id: reviewed-routing-lifecycle
-    description: 'Implement #14 reviewed attached-graph transfer and explicit split/supersession reconciliation,
-      preserving originals and transaction recovery. Keep public/policy-changing routes behind owner contracts.'
+    id: projection-coverage-performance
+    description: 'Implement #12 typed/cross-garden coverage and explicit narrowing over existing authority; measure
+      a larger synthetic corpus, preserving authorization before bodies/ranking. Then #16 machine-local discovery.'
     readiness: ready
     references:
     - docs/pipeline-completion-sprint.md
     depends_on: []
 state:
   base:
-    revision: 4c80d080137f892ade61c97faad5437d8e7da60e
-    ref: refs/heads/feature/15-archive-v2
-    verified_at: '2026-11-09T02:13:48Z'
+    revision: eed15a1f14d4c5e314fe52bb67010158a81e963c
+    ref: refs/heads/feature/13-extraction-producer
+    verified_at: '2026-11-09T02:20:44Z'
   candidate:
-    branch: feature/13-extraction-producer
-    revision: 82f83fec5328d99a1593a9a13d81a6a00e52ba3b
+    branch: feature/14-routing-lifecycle-v2
+    revision: f369932b694365620c626db03e179304f0ac963f
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#115
-      url: https://github.com/egohygiene/mindgarden/pull/115
+      id: egohygiene/mindgarden#116
+      url: https://github.com/egohygiene/mindgarden/pull/116
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T02:13:48Z'
+    observed_at: '2026-11-09T02:20:44Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
     notes: "Existing #110\u2013#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13\
       \ stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional\
-      \ 82f83fe is pushed."
+      \ 82f83fe is pushed. Draft #116 functional f369932 stacks over #115/eed15a1."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -117,24 +117,18 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T02:13:48Z'
+  reviewed_at: '2026-11-09T02:20:44Z'
   reviewed_by: codex
   evidence:
-  - command: python -m unittest tests.test_extraction tests.test_ollama_extraction tests.test_v1_contracts -q
+  - command: python -m unittest tests.test_routing_transfers tests.test_routing_lifecycle tests.test_routing tests.test_v1_contracts
+      -q
     outcome: passed
-    observed_at: '2026-11-09T02:13:48Z'
-    notes: 13 pass on Python 3.12/3.13 (28.043s/26.264s); includes six end-to-end extraction, two wire and five
-      schema cases
-  - command: .venv/bin/python experiments/ollama_extraction/evaluate.py --model unselected-live-model
+    observed_at: '2026-11-09T02:20:44Z'
+    notes: 23 pass on Python 3.12/3.13 (16.513s/15.844s)
+  - command: Focused Ruff E9/F; formatting; git diff --check; pinned owner checks
     outcome: passed
-    observed_at: '2026-11-09T02:13:48Z'
-    notes: Dry run passes; no Ollama executable or operator-selected model. Live model accuracy unmeasured, not
-      passing.
-  - command: Focused Ruff E9/F; format; owner checks; git diff --check
-    outcome: passed
-    observed_at: '2026-11-09T02:13:48Z'
-    notes: Pass. Broader Ruff over scripts/tests reports 35 pre-existing unused imports/variables; no repository-wide
-      clean lint claim.
+    observed_at: '2026-11-09T02:20:44Z'
+    notes: Pass; original v1 transition schemas unchanged. Wider runtime/policy acceptance remains open.
   environment_limitations:
   - 'Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain
     open. Mindcap #48 is unavailable; no missing contract is invented.'
@@ -173,15 +167,15 @@ Advance #11–#16 through required producer contracts, authored extraction, arch
 
 ## State snapshot
 
-Existing #110–#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13 stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional 82f83fe is pushed.
+Existing #110–#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13 stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional 82f83fe is pushed. Draft #116 functional f369932 stacks over #115/eed15a1.
 
 ## Completed and material changes
 
-Versioned optional extraction contracts, offline recording producer and bounded private source-grant batches now map entities/assertions to unreviewed existing curation plans. Synthetic archive/bookmarks/page proof preserves assistant attribution, negation, uncertainty, conflicts and ambiguity, then uses authored human review for exact-source search/graph. Resume avoids completed-unit replay. Pure Ollama wire mapping and synthetic opt-in evaluation remain separate from private offline sessions.
+Private moves preserve up to 128 exact outgoing graph attachments with their independent review, authors and evidence. Explicit v2 split/replacement contracts preserve unchanged v1 schemas and one canonical successor; approved authored children/anchors need exact original lineage. Collision, stale, policy and second-garden rollback/retry proofs pass. ADR-0022 remains proposed with null approval.
 
 ## Validation and review evidence
 
-python -m unittest tests.test_extraction tests.test_ollama_extraction tests.test_v1_contracts -q — 13 pass on Python 3.12/3.13 (28.043s/26.264s); includes six end-to-end extraction, two wire and five schema cases. .venv/bin/python experiments/ollama_extraction/evaluate.py --model unselected-live-model — Dry run passes; no Ollama executable or operator-selected model. Live model accuracy unmeasured, not passing.. Focused Ruff E9/F; format; owner checks; git diff --check — Pass. Broader Ruff over scripts/tests reports 35 pre-existing unused imports/variables; no repository-wide clean lint claim..
+python -m unittest tests.test_routing_transfers tests.test_routing_lifecycle tests.test_routing tests.test_v1_contracts -q — 23 pass on Python 3.12/3.13 (16.513s/15.844s). Focused Ruff E9/F; formatting; git diff --check; pinned owner checks — Pass; original v1 transition schemas unchanged. Wider runtime/policy acceptance remains open..
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -189,7 +183,7 @@ Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and rea
 
 ## Next dependency-ready work
 
-Implement #14 reviewed attached-graph transfer and explicit split/supersession reconciliation, preserving originals and transaction recovery. Keep public/policy-changing routes behind owner contracts.
+Implement #12 typed/cross-garden coverage and explicit narrowing over existing authority; measure a larger synthetic corpus, preserving authorization before bodies/ranking. Then #16 machine-local discovery.
 
 ## Parallel changes and reconciliation
 

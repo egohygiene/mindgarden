@@ -732,7 +732,7 @@ def build_parser() -> ArgumentParser:
     route.add_argument("--local-config", type=Path, required=True)
     route.add_argument("--catalog", type=Path, help="Portable versioned garden catalog")
     route.add_argument("--input", type=Path, help="Authored routing-plan document")
-    route.add_argument("--transition", type=Path, help="Reviewed private move or merge transition request")
+    route.add_argument("--transition", type=Path, help="Reviewed private move, merge or v2 split/replacement request")
     mode = route.add_mutually_exclusive_group()
     for operation in ("plan", "apply", "explain", "check", "recover"):
         mode.add_argument("--" + operation, action="store_true")

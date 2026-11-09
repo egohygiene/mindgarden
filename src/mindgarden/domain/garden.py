@@ -389,6 +389,8 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                     if event is not None:
                         resolve(event["from"], location, "knowledge")
                         resolve(event["to"], location, "knowledge")
+                        for child in event.get("split_targets", []):
+                            resolve(child, location, "knowledge")
                 except ContractError:
                     issue("ROUTE_TRANSITION_INVALID", location, "Invalid reviewed canonical transition",
                           "Restore the exact reviewed transition lineage or author a new private plan.")
