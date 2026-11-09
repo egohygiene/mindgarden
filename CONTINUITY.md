@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T02:30:17Z'
+  updated_at: '2026-11-09T02:41:15Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -72,41 +72,37 @@ work:
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#12
-    url: https://github.com/egohygiene/mindgarden/issues/12
+    id: egohygiene/mindgarden#16
+    url: https://github.com/egohygiene/mindgarden/issues/16
   next:
     kind: action
-    id: private-local-federation
-    description: 'Implement #16 machine-local discovery and progressive selected retrieval over existing IDs, sessions,
-      scopes and application services. Keep private metadata out of public catalogs and external Aether/Akashic
-      acceptance explicit.'
+    id: combined-offline-proof
+    description: "Complete the combined #11\u2013#16 offline proof linked to #20, propagate the #114 nested metadata\
+      \ golden repair through the stack, then build source/wheel and run both Python full suites. Leave all new\
+      \ drafts for review."
     readiness: ready
     references:
     - docs/pipeline-completion-sprint.md
     depends_on: []
 state:
   base:
-    revision: f9219dafc486f86f0ea5a7efaef6d77f9ebda115
-    ref: refs/heads/feature/14-routing-lifecycle-v2
-    verified_at: '2026-11-09T02:30:17Z'
+    revision: e061b905d6712e72b6fa3d1fba08327f9684373d
+    ref: refs/heads/feature/12-projection-selection
+    verified_at: '2026-11-09T02:41:15Z'
   candidate:
-    branch: feature/12-projection-selection
-    revision: 2c70c89819a606024de2ccf7b125db93c808aa1b
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#117
-      url: https://github.com/egohygiene/mindgarden/pull/117
+    branch: feature/16-local-federation
+    revision: e061b905d6712e72b6fa3d1fba08327f9684373d
+    pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T02:30:17Z'
+    observed_at: '2026-11-09T02:41:15Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
-    notes: "Existing #110\u2013#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13\
-      \ stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional\
-      \ 82f83fe is pushed. Draft #116 functional f369932 stacks over #115/eed15a1. Draft #117 functional 2c70c89\
-      \ stacks over #116/f9219da."
+    notes: "Main remains f3a88cc; #110\u2013#117 drafts are open, with five new functional checkpoints pushed. #16\
+      \ stacks over #117/e061b90. Source pins remain provisional where owners are unmerged. 43 open issues plus\
+      \ closed #30 covered."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -119,25 +115,24 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T02:30:17Z'
+  reviewed_at: '2026-11-09T02:41:15Z'
   reviewed_by: codex
   evidence:
-  - command: python -m unittest tests.test_projection_selection tests.test_projection_corpus -q
+  - command: python -m unittest tests.test_local_federation tests.test_archive_v2 -q
     outcome: passed
-    observed_at: '2026-11-09T02:30:17Z'
-    notes: 9 pass on Python 3.12/3.13 (19.377s/18.607s)
-  - command: python scripts/projection_benchmark.py --workspace .cache/pipeline-next/corpus-2048 --records 2048
+    observed_at: '2026-11-09T02:41:15Z'
+    notes: 13 pass on Python 3.12/3.13 (12.650s/11.943s); earlier 37-case run caught and then fixed mixed-output
+      refusal
+  - command: Focused Ruff E9/F; formatting; git diff --check; pinned owner checks
     outcome: passed
-    observed_at: '2026-11-09T02:30:17Z'
-    notes: "6 projections pass; 15.282\u201328.402s, peak 166473728 bytes, same 60s/256MiB limits; network blocked"
-  - command: 'Fresh QueryContext on unchanged corpus: build_index and render_context JSON'
+    observed_at: '2026-11-09T02:41:15Z'
+    notes: Pass. Original public federation contracts/goldens unchanged; local organization assurance is draft-policy-only.
+  - command: Automatic PR CI refresh
     outcome: passed
-    observed_at: '2026-11-09T02:30:17Z'
-    notes: Exact hashes match in 16.150s/27.462s; receipt committed. Existing 32-note full goldens unchanged.
-  - command: Focused Ruff E9/F; format; pinned owner checks; git diff --check
-    outcome: passed
-    observed_at: '2026-11-09T02:30:17Z'
-    notes: Pass; default unselected session behavior/digest remains unchanged.
+    observed_at: '2026-11-09T02:41:15Z'
+    notes: "Source #113 passes. #114\u2013#116 full Linux suites failed on the nested release-journey copy of two\
+      \ metadata hashes; an owning-branch repair is being propagated. macOS registry and release-preparation jobs\
+      \ pass. No manually launched workflow."
   environment_limitations:
   - 'Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain
     open. Mindcap #48 is unavailable; no missing contract is invented.'
@@ -176,15 +171,15 @@ Advance #11–#16 through required producer contracts, authored extraction, arch
 
 ## State snapshot
 
-Existing #110–#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13 stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional 82f83fe is pushed. Draft #116 functional f369932 stacks over #115/eed15a1. Draft #117 functional 2c70c89 stacks over #116/f9219da.
+Main remains f3a88cc; #110–#117 drafts are open, with five new functional checkpoints pushed. #16 stacks over #117/e061b90. Source pins remain provisional where owners are unmerged. 43 open issues plus closed #30 covered.
 
 ## Completed and material changes
 
-All eight relation types, cross-garden and unavailable/denied projection behavior are qualified. Query contexts narrow existing authority before roots/bodies and isolate cache identities, retaining original exact pins and live checks. A 2048-note corpus passes existing time/memory bounds, with reproducible index/context hashes. No query cache, database, model or source change is required.
+Private local discovery and closed exact selected-read requests now reuse existing garden/session/scope/application services. Catalogs open no bodies, keep private metadata outside public artifacts and declare body/remote/AI capabilities honestly. Retrieval keeps exact pins, provenance/review, budgets and live expiration/revocation. Mixed organization/personal outputs fail without confidential assurance. Aether/Akashic owner mains and open contract gates refreshed.
 
 ## Validation and review evidence
 
-python -m unittest tests.test_projection_selection tests.test_projection_corpus -q — 9 pass on Python 3.12/3.13 (19.377s/18.607s). python scripts/projection_benchmark.py --workspace .cache/pipeline-next/corpus-2048 --records 2048 — 6 projections pass; 15.282–28.402s, peak 166473728 bytes, same 60s/256MiB limits; network blocked. Fresh QueryContext on unchanged corpus: build_index and render_context JSON — Exact hashes match in 16.150s/27.462s; receipt committed. Existing 32-note full goldens unchanged.. Focused Ruff E9/F; format; pinned owner checks; git diff --check — Pass; default unselected session behavior/digest remains unchanged..
+python -m unittest tests.test_local_federation tests.test_archive_v2 -q — 13 pass on Python 3.12/3.13 (12.650s/11.943s); earlier 37-case run caught and then fixed mixed-output refusal. Focused Ruff E9/F; formatting; git diff --check; pinned owner checks — Pass. Original public federation contracts/goldens unchanged; local organization assurance is draft-policy-only.. Automatic PR CI refresh — Source #113 passes. #114–#116 full Linux suites failed on the nested release-journey copy of two metadata hashes; an owning-branch repair is being propagated. macOS registry and release-preparation jobs pass. No manually launched workflow..
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -192,7 +187,7 @@ Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and rea
 
 ## Next dependency-ready work
 
-Implement #16 machine-local discovery and progressive selected retrieval over existing IDs, sessions, scopes and application services. Keep private metadata out of public catalogs and external Aether/Akashic acceptance explicit.
+Complete the combined #11–#16 offline proof linked to #20, propagate the #114 nested metadata golden repair through the stack, then build source/wheel and run both Python full suites. Leave all new drafts for review.
 
 ## Parallel changes and reconciliation
 

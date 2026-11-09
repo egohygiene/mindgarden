@@ -237,3 +237,12 @@ integration. Aether owns the broader session capability contract. Private/intern
 federation, signatures/authentication, remote acquisition/serving and their real
 consumer proofs remain unavailable or unproven; the descriptor advertises those
 limits. The reusable-package direction remains a proposed decision.
+
+## Separate private local application surface
+
+[Private local discovery](local-federation.md) reuses existing sessions and garden
+identities for metadata-first inspection and selected read handlers. Its control
+catalog is never-exportable and cannot be used as a public descriptor or as query
+authority. Public bundle bytes/contracts above remain unchanged. Remote/private
+authentication, signatures, package installation and owner integration are not
+claimed by this local checkpoint.

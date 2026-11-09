@@ -139,3 +139,28 @@ is introduced. Next: #16 private/local discovery and progressive selected retrie
 
 [Draft #117](https://github.com/egohygiene/mindgarden/pull/117), functional
 `2c70c89`, records the #12 checkpoint. Next: local discovery over the same authority.
+
+### #16 private local discovery
+
+Branch `feature/16-local-federation` stacks over #117/`e061b90`. A private metadata
+catalog and closed selected-read request reuse existing garden/session/scope
+contracts and application handlers. Discovery opens no bodies and makes no body
+health claim. Exact selected reads enforce review, provenance, budgets, expiry and
+revocation. Unavailable unselected peers can be excluded before root probing;
+linked dependencies still require their explicitly authorized set. Mixed personal/
+organization outputs fail without confidential runtime/storage. Public artifacts
+remain unchanged; no private metadata is advertised there.
+
+13 local-federation/archive cases pass on Python 3.12/3.13 (12.650s/11.943s).
+The initial broader 37-case run exposed the missing mixed-output runtime refusal;
+it is fixed, not relabeled as a passing run. New ordinary organization fixtures
+claim draft-local policy only. Owner source mains were refreshed at Aether `5077797`
+and Akashic `caeaf6b`; #69/#176 remain open without a matching accepted integration
+contract. Remote/private protocols, signing, installation and real consumer proof
+remain open. Next: the combined offline source/installed proof and complete checks.
+
+Automatic CI also caught the nested copy of the private-workflow golden inside
+the release-journey report on #114. Its two derived metadata hashes require the
+same constrained reconciliation as the underlying report. Repair is propagated
+from the owning archive branch; failed runs remain recorded as failed. No workflow
+was manually launched and no release is being prepared for publication.

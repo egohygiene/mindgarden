@@ -95,9 +95,15 @@ full consumer, publication and architecture acceptance remain separate.
 
 The [public discovery checkpoint](docs/federation.md) adds reviewed, digest-bound
 local exports and a catalog over explicitly supplied public bundles. It declares
-remote fetching/querying/writing, private federation and signatures unavailable.
+remote fetching/querying/writing, private remote federation and signatures unavailable.
 Run `python3 scripts/federation_demo.py --workspace ".cache/federation-demo"`
 to reproduce the synthetic two-garden proof without integrations.
+
+The new [private local discovery checkpoint](docs/local-federation.md) adds
+metadata-first discovery and selected reads over the existing sessions, without
+advertising private gardens in public catalogs. The [completion sprint ledger](docs/pipeline-completion-sprint.md)
+records the review stack, source-adapter/archive work and [optional extraction proposals](docs/extraction-producers.md).
+These are bounded draft checkpoints; external owner and consumer gates remain open.
 
 The [machine-local registry checkpoint](docs/local-registry.md), merged through
 [#67](https://github.com/egohygiene/mindgarden/pull/67), adds reviewed registration,

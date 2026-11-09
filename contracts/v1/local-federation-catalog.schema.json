@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:local-federation-catalog:v1",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "mindgarden.local-federation-catalog/v1"
+    },
+    "classification": {
+      "const": "machine-local-control"
+    },
+    "publication": {
+      "const": "never-exportable"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "freshness": {
+      "const": "represented-revision"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "authority_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "trust": {
+      "const": "untrusted-evidence"
+    },
+    "gardens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "garden": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "revision": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "canonical_uri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "kind": {
+            "$ref": "urn:egohygiene:mindgarden:garden:v1#/properties/kind"
+          },
+          "scope": {
+            "$ref": "urn:egohygiene:mindgarden:scope:v1"
+          },
+          "review_state": {
+            "const": "approved-only"
+          },
+          "records_available": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "body_verification": {
+            "const": "not-performed"
+          },
+          "permitted_operations": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "search",
+                "graph",
+                "backlinks",
+                "outbound",
+                "context"
+              ]
+            },
+            "minItems": 0,
+            "maxItems": 5,
+            "uniqueItems": true
+          },
+          "contracts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "maxItems": 64,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "garden",
+          "revision",
+          "canonical_uri",
+          "title",
+          "kind",
+          "scope",
+          "review_state",
+          "records_available",
+          "body_verification",
+          "permitted_operations",
+          "contracts"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 16,
+      "uniqueItems": true
+    },
+    "truncated": {
+      "type": "boolean"
+    },
+    "capabilities": {
+      "type": "object",
+      "properties": {
+        "local_discovery": {
+          "const": true
+        },
+        "metadata_before_bodies": {
+          "const": true
+        },
+        "remote_fetch": {
+          "const": false
+        },
+        "remote_query": {
+          "const": false
+        },
+        "remote_write": {
+          "const": false
+        },
+        "signatures": {
+          "const": false
+        },
+        "package_installation": {
+          "const": false
+        },
+        "ai_summary": {
+          "const": false
+        },
+        "organization_assurance": {
+          "const": "draft-local-policy-only"
+        }
+      },
+      "required": [
+        "local_discovery",
+        "metadata_before_bodies",
+        "remote_fetch",
+        "remote_query",
+        "remote_write",
+        "signatures",
+        "package_installation",
+        "ai_summary",
+        "organization_assurance"
+      ],
+      "additionalProperties": false
+    },
+    "catalog_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    }
+  },
+  "required": [
+    "schema",
+    "classification",
+    "publication",
+    "scope",
+    "freshness",
+    "expires_at",
+    "authority_sha256",
+    "trust",
+    "gardens",
+    "truncated",
+    "capabilities",
+    "catalog_sha256"
+  ],
+  "additionalProperties": false
+}

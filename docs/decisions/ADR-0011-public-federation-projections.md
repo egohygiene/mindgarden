@@ -128,3 +128,17 @@ creating a second session model. A full installer, provider acquisition, private
 federation and real Akashic/Aether acceptance remain independent work. This
 extension and the original ADR remain proposed with null approval; tests or
 implementation merges do not accept either decision.
+
+## Proposed private local extension — 2026-11-08
+
+Add a machine-local, never-exportable metadata catalog and explicit selected read
+requests over the same garden IDs, scopes and live sessions. Read metadata before
+bodies, pin represented views, preserve review/expiry/revocation and route only to
+existing read handlers. Private catalogs stay outside public artifacts and never
+grant capability. Explicit narrower selections avoid unselected unavailable roots;
+missing dependencies still fail on exact revision mismatch. Ordinary organization
+scope is draft-local-policy-only; mixed personal/organization outputs are refused
+without confidential runtime/storage. See ../local-federation.md and
+tests/test_local_federation.py. Remote private protocols and real Aether/Akashic
+integration remain open. This is implementation evidence for a proposal, with
+status proposed and approval null unchanged.

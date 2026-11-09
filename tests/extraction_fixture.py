@@ -9,9 +9,8 @@ from mindgarden.application.query import QueryContext
 from mindgarden.application.sessions import bind_session_revisions
 from mindgarden.domain.contracts import canonical_json, digest_bytes
 from mindgarden.domain.scope import local_scope
-from tests.archive_fixture import package_bytes
+from tests.archive_fixture import package_bytes, v2_members
 from tests.support_v1 import TIME, write_json, write_session
-from tests.test_archive_v2 import v2_members
 
 FIXTURES = Path(__file__).parent / "fixtures/extraction"
 
