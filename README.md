@@ -12,19 +12,18 @@ repository's `.garden/` directory. Obsidian vaults, agent context, search
 indexes, and published sites are projections of that committed knowledge, not
 competing sources of truth.
 
-The local workflow, policy/storage and later checkpoint stack is merged through
-[#109](docs/merged-closeout-checkpoints.md). Its combined baseline passed 381
-tests on each supported Python. Reviewed knowledge keeps exact source references
-through restore, relocation and clean projection rebuilds. Authored learning,
-public insight handoffs and optional database evaluations are bounded checkpoints;
-OpenAleph, CozoDB and OpenViking are not adopted default services.
+The local workflow is merged through [#119](docs/overnight-sprint.md), with
+446 tests passing on each supported Python. Captured conversations, bookmarks,
+documents and opaque assets feed reviewed knowledge with exact source references.
+Those references survive restore, relocation and clean projection rebuilds.
+Optional extraction producers, authored learning, private compaction and local
+federation remain bounded capabilities; the CLI needs no model or hosted database.
 
-The [active closeout sprint](docs/closeout-sprint.md) records new drafts and
-remaining parent criteria. [Optional TypeSafe decisions](docs/typesafe-decisions.md)
-are implemented in draft #110; #111 adds source-first private compaction and
-#112 records rendered garden/portal/consumer proofs. The existing CLI needs no
-model service. Proposed
-ADRs, confidential provider integration and broader consumer acceptance remain open.
+The [active overnight roadmap](docs/overnight-sprint.md) reconciles completed
+acceptance criteria and orders the next integration checkpoints. OpenAleph and
+CozoDB evaluations recommend deferring service adoption; OpenViking native
+acceptance remains incomplete. Proposed ADRs, release work, confidential runtime
+assurance and real private-consumer pilots retain their explicit gates.
 
 ## System at a glance
 

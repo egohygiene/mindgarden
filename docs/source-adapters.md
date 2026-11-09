@@ -77,9 +77,9 @@ networking disabled. Each adapter version needs deterministic golden and unsafe
 input fixtures. Changing normalization semantics requires a new adapter version;
 all existing source records and exact represented revisions remain resolvable.
 
-Mindcap #35/#48 bookmark integration and the #15 archive adapter remain separate
-proofs over this contract. No support for their formats is implied by the text
-adapter or extension example.
+The #15 archive adapter and merged Mindcap #42 captured-bookmark bundle are
+separate tested consumers of this contract. The extension example alone does
+not imply support for another producer’s format.
 
 ## Versioned declarations and conformance checkpoint
 
@@ -127,11 +127,12 @@ payload membership, sizes/hashes, normalized/raw lineage, identity and evidence
 locators before writes. It never imports Mindcap, acquires a URL, runs a
 bookmarklet or promotes source review. Partial and empty captures stay explicit.
 
-The byte-for-byte vendored schema belongs to proposed
+The byte-for-byte vendored schema is implemented by merged
 [Mindcap #42](https://github.com/egohygiene/mindcap/pull/42), source
 `7ee766c1c34adad239fc602499f624979a2d9cac`, SHA-256
 `bdc8d83a75ee8e6510ff97aecb943451a42e13a59f764cc6109d36ea558840a6`.
-This is draft compatibility, not ratification or a released upstream interface.
+This is pinned merged implementation compatibility, not ADR ratification or a
+claim that the upstream interface has been released.
 Prior digests are asserted capture lineage; delta, deletion, remote fetching and
 knowledge approval are unavailable capabilities.
 

@@ -49,9 +49,8 @@ universal performance limit. Unit CI checks bytes, schemas, privacy and bounded
 work; it does not impose a flaky wall-clock benchmark.
 
 The private index exceeds the separate 2 MB federation-file limit. A public
-federation export must use its own bounded reviewed selection. Larger reference
-hardware/corpora, broader relationship matrices and consumer acceptance remain
-parent scope. SQLite stays optional and is not made canonical by this checkpoint.
+federation export must use its own bounded reviewed selection. Wider hardware and larger corpora are future qualification opportunities;
+the relation matrix is extended below. These do not add unstated #12 gates. SQLite stays optional and is not made canonical by this checkpoint.
 
 ## Extended relation/selection and 2048-note checkpoint
 

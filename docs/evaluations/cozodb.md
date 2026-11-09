@@ -4,7 +4,9 @@ Proposed recommendation: **keep the removable experiment; defer adoption**.
 The native adapter passes lexical, graph and provenance parity, but the measured
 small corpus shows no query advantage over reference/SQLite and adds a native
 binary/support boundary. No default dependency, canonical store, scope policy or
-accepted ADR changes. Parent #33 remains open for maintainer disposition.
+accepted ADR changes. The #33 evaluation is complete with this conservative defer outcome;
+[the acceptance receipt](../overnight-sprint.md) records its criteria. Default
+store adoption and ADR ratification remain separate human decisions.
 
 ## Exact software and portability
 

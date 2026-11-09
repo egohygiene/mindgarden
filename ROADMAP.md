@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-08
+updated: 2026-11-09
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -33,14 +33,14 @@ repository: egohygiene/mindgarden
 visibility: public
 publication: central
 route: /roadmap/mindgarden/
-updated: 2026-11-08
+updated: 2026-11-09
 -->
-## 2026-11-08 execution snapshot
+## 2026-11-09 execution snapshot
 
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate (2026-11-08):** The authorized #93–#109 stack is merged at `f3a88cc`; #110–#112 closeout drafts remain for review. The newly selected #11–#16 checkpoints are in drafts #113–#118, with a proposed producer-owned dependency in Mindcap #42. The combined offline proof/checks follow in an explicit stack; parent acceptance, proposed ADRs and parked release work retain their gates. See [the active pipeline ledger](docs/pipeline-completion-sprint.md) and [the combined proof](docs/pipeline-completion-proof.md).
+**Current gate (2026-11-09):** Mindcap #42 and Mindgarden #110–#119 are merged; main `2eda2f4` exactly matches the tested combined tree (446 tests per Python). [The overnight sprint](docs/overnight-sprint.md) maps every listed acceptance criterion for #10/#11/#12/#26/#33/#51, then orders #48, #14, #37, #49, #28 and #17. Complete tested checkpoints may merge under the maintainer’s sleep-session approval. Blocked parents remain open; proposed ADRs, release publication, private pilots and deferred #86–#91 retain their gates.
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
 
 ### Complete open-issue coverage and next batches
@@ -152,7 +152,7 @@ issues: [1, 9, 7, 10]
 - [x] Valid and invalid fixtures are tested in CI.
 - [x] Identity, provenance, privacy, and migration fields are explicit.
 - [x] Deterministic v1 initialization and migration are implemented.
-- [x] Bounded general v1 cross-record and privacy diagnostics are merged; full consumer/publication conformance remains open.
+- [x] Bounded general v1 cross-record and privacy diagnostics are merged; the reusable 80-test publication conformance pack passes; broader private/runtime pilots remain with their owning issues.
 
 **Current evidence:**
 
