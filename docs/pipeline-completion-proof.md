@@ -64,7 +64,9 @@ verification, with no version change, tag, release preparation or publication.
 A clean source archive can rebuild projections against the independently installed
 wheel using `--require-installed`, without importing the checkout's engine.
 Exact commands/results and immutable source pins are recorded in the sprint
-ledger and CONTINUITY.md after verification.
+ledger, CONTINUITY.md and the [qualification receipt](evidence/pipeline-qualification.json).
+Both clean artifact reports match the committed golden. The frozen functional
+commit passes all 446 tests on Python 3.12.14 and 3.13.5, with no skips.
 
 ## Review boundaries
 

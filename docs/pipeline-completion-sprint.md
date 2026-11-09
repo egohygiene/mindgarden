@@ -192,3 +192,58 @@ credentials and personal data stay outside portable records. Two workspace/contr
 guards pass on each Python. Full clean source/wheel and both full suites follow;
 those are not yet recorded as passing here. Refs #20, without private-pilot,
 publication or Empathy acceptance. No release work or deferred phase is activated.
+
+## Final qualification and review handoff
+
+Combined functional commit `b2ee9c774ea7c64200632104b62b53509cff497b` is in
+[draft #119](https://github.com/egohygiene/mindgarden/pull/119), base #118/`2799944`.
+A clean detached checkout builds source/wheel artifacts and passes all 446 tests
+with **no skips** on Python 3.12.14 (451.000s) and 3.13.5 (422.874s). The full
+command on each frozen interpreter is `python -m unittest discover
+--start-directory tests --verbose`; loopback is enabled for server fixtures.
+
+`python -m build --no-isolation --sdist --wheel --outdir .cache/dist` succeeds.
+An unpacked sdist in an empty Python environment runs the combined proof with
+`python -I scripts/pipeline_completion_demo.py --workspace PRIVATE_NEW_DIRECTORY
+--require-source`. A separately installed wheel, installed with `--no-index
+--find-links ARTIFACT_DIRECTORY mindgarden==0.1.0`, runs that unpacked source's
+script with `--require-installed`. Both exact reports match the committed golden;
+all socket/HTTP/subprocess calls are blocked in-process. No runtime dependency,
+Google/model connection, version change or release publication is required.
+
+The [qualification receipt](evidence/pipeline-qualification.json) records both
+artifact checksums, test commands/counts/times, projection hashes and CI run IDs.
+Compileall, Node v24.19.0, focused E9/F lint, 18-file formatting and pinned
+owner/continuity checks pass. The frozen tracked checkout remains clean. Broader
+historical scripts/tests still have the documented 35 unused import/variable lint
+findings; no whole-tree clean lint claim is made.
+
+Automatic CI is green at the recorded feature heads #113–#118 and combined
+functional `b2ee9c7` (Test run 42554228478, all four Linux/macOS jobs), with normal
+release-preparation checks also green. Mindcap #42 CI run 42547007196 passes.
+Earlier failed metadata-golden CI remains recorded as failed and superseded by
+the owning-branch repairs. No workflow was manually dispatched. A following
+handoff-only commit has its own CI status; functional checks apply to `b2ee9c7`.
+
+The #13 first-pass producer **requires #111's exact source-grant/source-evidence
+contract**. TypeSafe #110 and public UI #112 remain operational stack ancestors,
+not semantic requirements for ingestion/extraction. #16 requires #117's existing-
+authority narrowing service. All are present in the combined checkout; no owner
+or runtime prerequisite is silently treated as accepted.
+
+| Issue | Completed checkpoint | Draft | Verification | Remaining parent scope | Exact next action |
+| --- | --- | --- | --- | --- | --- |
+| #11 | Pinned captured-source wire, adapter and real synthetic capture handoff | #113 (`b661dc2`, packaging `9c66b0f`) | 6 new cases each Python; owner 622; CI green | Owner adoption, full capture deltas/recurrence and wider adapters | Review Mindcap #42 and the exact vendored source pin |
+| #15 | Direct v2.0.0–2.0.2 profiles, selective assets and cross-version evidence reuse | #114 (`cc38583`, nested fix `e7baa73`) | 18 archive cases each Python; full combined/CI green | Collections/multipart, full producer conformance and real archives | Review tested-version boundary before expanding profiles |
+| #13 | Evidence-bound optional producer, proposal mapping, private batches/resumption | #115 (`82f83fe`) | 13 focused cases each Python; four-input/eight-proposal proof | Live Ollama accuracy, reviewed entity resolution and wider media/multi-route | Review schema/mapping; choose an optional model only in an authorized execution boundary |
+| #14 | Exact outgoing graph moves, reviewed split anchors/replacements and rollback | #116 (`f369932`) | 23 routing/schema cases each Python; CI green | Incoming edge retargeting, public/policy transitions and broader recovery | Review proposed ADR-0022/v2 semantics before broader migration |
+| #12 | Eight relation types, scoped selection and measured 2048-note projections | #117 (`2c70c89`) | 9 matrix cases each Python; fresh index/context hashes; CI green | Interactive latency, wider corpora/hardware and consumer acceptance | Profile the measured latency when interactive work is selected |
+| #16 | Private metadata discovery and exact selected existing read handlers | #118 (`f2d2248`) | 13 local/archive cases each Python; source/installed combined proof; CI green | Remote/signing/package protocols and Aether/Akashic acceptance | Obtain owning contracts/fixtures; preserve local behavior meanwhile |
+
+Review the explicit stack **#110 → #111 → #112 → #113 → #114 → #115 → #116 →
+#117 → #118 → #119**. Review the cross-repository Mindcap #42 contract before
+accepting its consumer pin. Retarget dependent bases after reviewed merges while
+preserving this combined branch. New drafts are not merged by this handoff.
+Main remains `f3a88cc`; all six parent issues remain open for their broader scope.
+Refs #20: synthetic composition is proved; private pilot/publication/Empathy
+acceptance remains open. Deferred #86–#91 and release work remain parked.
