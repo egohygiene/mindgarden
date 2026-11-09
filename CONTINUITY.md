@@ -93,9 +93,12 @@ state:
     verified_at: '2026-11-09T03:57:01Z'
   candidate:
     branch: feature/48-captured-bookmark-review
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 11439dc05738310229f1a5d95382305d375ff5ef
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#121
+      url: https://github.com/egohygiene/mindgarden/pull/121
+    handoff_state: ready-for-review
   live:
     status: verified
     observed_at: '2026-11-09T03:57:01Z'

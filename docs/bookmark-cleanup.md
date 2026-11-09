@@ -135,3 +135,18 @@ it asserts no uncaptured page claim and leaves original vault bytes unchanged.
 a complete independently approved public journey and producer-owned deltas.
 There is no synthesized Akashic packet or remote draft-PR write. Next action:
 provide the accepted owner wire contract, then add a separate sanitized exporter.
+
+
+Producer reproduction (supply the pinned Mindcap checkout/environment, not a real
+browser profile):
+
+```bash
+PYTHONPATH="<mindcap-checkout>/src:src" "<mindcap-env>/bin/python" \
+  experiments/capture_handoff/check.py \
+  --fixture-directory "<mindcap-checkout>/tests/fixtures/chrome_bookmarks/multiple_profiles/User Data" \
+  --report "<new-private-report.json>"
+```
+
+Verification used the exact producer commit above, two synthetic records per
+observation and no model/Google access. Core regression command and timings are
+recorded in [the overnight ledger](overnight-sprint.md).

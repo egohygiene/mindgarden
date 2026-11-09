@@ -134,7 +134,7 @@ bookmark checkpoint. No optional library is added to the core.
 
 ### Checkpoint B — #48 captured bookmark review
 
-Branch: `feature/48-captured-bookmark-review`, stacked on acceptance #120 until
+Branch: `feature/48-captured-bookmark-review`, [draft #121](https://github.com/egohygiene/mindgarden/pull/121), functional `11439dc`, stacked on acceptance #120 until
 it merges. Implements explicit bundle input, exact evidence/observation lineage,
 private immutable export, incomplete-capture reporting and reviewed graph proof.
 No schema, canonical format, publication authority or runtime dependency changes.
