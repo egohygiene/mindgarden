@@ -1,6 +1,7 @@
 """Deterministic selected-record dependency builds, independent of event delivery."""
 
 from dataclasses import dataclass
+from copy import deepcopy
 from datetime import datetime
 
 from ..adapters.generated_files import apply_generated, inventory
@@ -117,6 +118,7 @@ class DependencyBuild:
     manifest: dict
     files: dict[str, bytes]
     authority_sha256: str
+    selection: tuple[str, ...] | None = None
 
     def document(self):
         payload = {
@@ -126,23 +128,40 @@ class DependencyBuild:
             "manifest": self.manifest,
             "files": inventory(self.files),
         }
+        if self.selection is not None:
+            payload["selected_outputs"] = list(self.selection)
         return {**payload, "plan_sha256": digest_bytes(canonical_json(payload))}
 
 
-def plan_build(context, request, *, renderer=render_records):
+def plan_build(context, request, *, renderer=render_records, output_ids=None):
     if ContractRegistry().errors(request, "dependency-build-request"):
         raise ContractError(
             "BUILD_REQUEST: explicit compatible projection declarations are required"
         )
+    request = deepcopy(request)
+    outputs = request["outputs"]
+    names = {output["id"] for output in outputs}
+    if len(names) != len(outputs):
+        raise ContractError("BUILD_REQUEST: projection identities must be unique")
+    selection = None
+    if output_ids is not None:
+        if (
+            not isinstance(output_ids, (list, tuple))
+            or not output_ids
+            or any(not isinstance(identity, str) for identity in output_ids)
+            or len(set(output_ids)) != len(output_ids)
+            or not set(output_ids) <= names
+        ):
+            raise ContractError(
+                "BUILD_SELECTION: select distinct output identities from the explicit request"
+            )
+        selection = tuple(sorted(output_ids))
+        outputs = [output for output in outputs if output["id"] in selection]
     index = build_index(context, projection="context")
     available = {record_key(r["reference"]): r for r in index["records"]}
     manifests = []
     files = {}
-    seen = set()
-    for output in request["outputs"]:
-        if output["id"] in seen:
-            raise ContractError("BUILD_REQUEST: projection identities must be unique")
-        seen.add(output["id"])
+    for output in outputs:
         if not set(output["records"]) <= available.keys():
             raise ContractError(
                 "BUILD_INPUT: a selected record is unavailable to the current reviewed scope"
@@ -234,7 +253,7 @@ def plan_build(context, request, *, renderer=render_records):
         )
     files["projection-dependencies.json"] = canonical_json(manifest)
     context.ensure_output(canonical_json(manifest))
-    return DependencyBuild(request, manifest, files, context.scope_digest())
+    return DependencyBuild(request, manifest, files, context.scope_digest(), selection)
 
 
 def reconcile_build(current, previous):
@@ -264,7 +283,8 @@ def reconcile_build(current, previous):
 def run_dependency_build(arguments):
     context = QueryContext.load(arguments.local_config, arguments.scope)
     request = read_object(arguments.input)
-    plan = plan_build(context, request)
+    selection = getattr(arguments, "select_output", None)
+    plan = plan_build(context, request, output_ids=selection)
     if arguments.previous_manifest:
         result = reconcile_build(plan, read_object(arguments.previous_manifest))
     elif arguments.apply:
@@ -278,7 +298,9 @@ def run_dependency_build(arguments):
 
         def verify():
             if (
-                plan_build(context, read_object(arguments.input)).document()
+                plan_build(
+                    context, read_object(arguments.input), output_ids=selection
+                ).document()
                 != plan.document()
             ):
                 raise ContractError(

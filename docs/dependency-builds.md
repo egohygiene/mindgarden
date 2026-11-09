@@ -53,3 +53,36 @@ Mindcap #33 integration and a separately approved private pilot. The observation
 contract here is an additive reviewed input, not a second Garden model. No real
 private data or expertise inference is used. ADR impact: existing canonical/
 projection and human-review boundaries apply; their proposed statuses are unchanged.
+
+
+## Explicit targeted execution
+
+After full reconciliation, rebuild just the affected declared outputs:
+
+```bash
+mindgarden build-projections --local-config "/private/bindings.json" \
+  --scope "/private/session.json" --input "/private/authored-build.json" \
+  --select-output agent-context --select-output professional-profile
+```
+
+The repeatable flag narrows an existing authored request; it grants no additional
+source or publication authority. Unknown, duplicate or empty selections fail
+before index access. Only selected renderers execute and only selected artifacts
+enter the new immutable bundle. A full build remains the default. Selection order
+does not change bytes; selected artifact/dependency fingerprints exactly match
+the corresponding complete-build entries. The preview binds both the selected
+IDs and the entire original request to its reviewed digest.
+
+Apply with the same selection flags, `--apply`, a fresh private output directory
+and the exact selected preview digest. A full-build digest cannot approve a
+selected build, or the reverse. Existing review, source, scope, expiration and
+revocation checks remain. Plans snapshot authored input so later Python caller
+mutation cannot change an already-created plan's request digest.
+
+A synthetic missed-event test changes one source, performs complete deterministic
+reconciliation, then renders only its two affected consumers. The unrelated
+artifact remains byte-identical and no prior bundle is overwritten. The selected
+manifest covers that explicit subset; it is not a replacement inventory for every
+historical build. No automatic event hook, worker, prior-manifest trust or private
+real-data pilot is claimed. #37 remains open for its actual pilot and broader
+observation/consumer integration, independently from this manual local checkpoint.

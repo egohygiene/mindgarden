@@ -172,3 +172,22 @@ Acceptance #120 merged at `2c4c465ef92000339eceb521f9690c531b0fcdc0` after
 [Test 42558542393](https://github.com/egohygiene/mindgarden/actions/runs/42558542393)
 and release-preparation 42558542304 succeeded. GitHub confirms #10/#11/#12/#26/
 #33/#51 closed; **37 issues remain open**. No feature/evaluation ADR was ratified.
+
+
+### Checkpoint D — #37 selected-output dependency builds
+
+Branch: `feature/37-selected-projection-builds`, stacked after routing #122.
+Repeatable `--select-output` narrows an authored request before renderer calls.
+Full reconciliation recovers from missed events; exact selected outputs retain
+complete-build fingerprints while unrelated artifacts are not rendered/copied.
+The selected plan binds full input configuration and authority, snapshots mutable
+caller input, and retains existing digest-bound review/apply/expiry/revocation.
+
+`python -m unittest tests.test_selected_builds tests.test_dependency_builds --verbose`
+passes **12 cases, zero skips**, Python 3.12.14 (15.986s) and 3.13.5 (15.580s).
+Five new cases cover renderer invocation, missed events, invalid early selection,
+CLI digest/replay/source immutability, complete-request binding and revocation.
+Focused Ruff, changed-file formatting, pinned owner/continuity and diff checks
+pass. No worker, canonical observation migration or private pilot is claimed.
+Next action: qualify/merge this bounded checkpoint, then add live-expiring local
+assistant-memory bundles (#49) and audit that issue against its actual criteria.
