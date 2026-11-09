@@ -216,3 +216,10 @@ tests.test_release_journey -q` passes 2 cases on Python 3.12/3.13
 (11.536s/11.037s). Earlier candidate pins describe the prior functional checkpoint;
 this branch head includes the repair. Next: carry this source fix through the
 #115–#118 stack and record final full combined checks. No release publication.
+
+Captured fixture artifact follow-up: MANIFEST.in explicitly includes the single
+committed synthetic-source ZIP, and the distribution inventory test requires it.
+The existing recursive source-data rule did not include ZIPs. A clean sdist must
+carry this conformance input; arbitrary archives remain excluded. This is local
+artifact verification, with release/version/publication behavior otherwise
+unchanged. The combined sprint ledger records final build/test receipts.
