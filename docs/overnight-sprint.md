@@ -176,7 +176,7 @@ and release-preparation 42558542304 succeeded. GitHub confirms #10/#11/#12/#26/
 
 ### Checkpoint D — #37 selected-output dependency builds
 
-Branch: `feature/37-selected-projection-builds`, stacked after routing #122.
+Branch: `feature/37-selected-projection-builds`, [draft #123](https://github.com/egohygiene/mindgarden/pull/123), functional `cf963e8`, stacked after routing #122.
 Repeatable `--select-output` narrows an authored request before renderer calls.
 Full reconciliation recovers from missed events; exact selected outputs retain
 complete-build fingerprints while unrelated artifacts are not rendered/copied.

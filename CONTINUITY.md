@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T04:11:09Z'
+  updated_at: '2026-11-09T04:12:04Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -90,30 +90,29 @@ state:
   base:
     revision: c459ee830d67803ac8879e253b3b81fdb31c2661
     ref: refs/heads/feature/14-incoming-reference-inventory
-    verified_at: '2026-11-09T04:11:09Z'
+    verified_at: '2026-11-09T04:12:04Z'
   candidate:
     branch: feature/37-selected-projection-builds
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: cf963e8e8ff651a0cc08535ae3f66ba01660ca14
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#123
+      url: https://github.com/egohygiene/mindgarden/pull/123
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T04:11:09Z'
-    default_branch_revision: 2c4c465ef92000339eceb521f9690c531b0fcdc0
+    observed_at: '2026-11-09T04:12:04Z'
+    default_branch_revision: 40169589df086f4dee9d22611aa1f87c3a250e33
     issue_state: open
     pull_request_state: draft
-    notes: 'Acceptance #120 merged, six issues closed and 37 open. Bookmark #121 and routing #122 are draft; selected-output
-      dependency builds stack on #122. All 44 coverage rows retained.'
+    notes: 'Acceptance #120 and bookmark #121 merged after green CI; six issue closures, 37 open. Routing #122 remains
+      draft over main; selected builds #123 stack on #122. All 44 coverage rows retained.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T04:11:09Z'
+  reviewed_at: '2026-11-09T04:12:04Z'
   reviewed_by: codex
   evidence:
-  - command: Fresh publication pack; Python 3.13 adapter/projection/provider suites; actual Cozo 0.7.6 native suite
-    outcome: passed
-    observed_at: '2026-11-09T03:48:09Z'
-    notes: 80 + 27 + 5 cases, zero skips; exact prior merged-tree equality. New-head hosted CI recorded separately.
   - command: 'Python 3.12/3.13: unittest tests.test_captured_bookmarks tests.test_bookmarks tests.test_captured_source
       tests.test_extraction --verbose; pinned real Mindcap check'
     outcome: passed
@@ -130,6 +129,11 @@ review:
       Ruff/format; pinned owner checks'
     outcome: passed
     observed_at: '2026-11-09T04:11:09Z'
+    notes: 12 pass per interpreter, zero skips (15.986s / 15.580s); new-head automatic CI recorded separately
+  - command: 'Python 3.12/3.13: unittest tests.test_selected_builds tests.test_dependency_builds --verbose; focused
+      Ruff/format; pinned owner checks'
+    outcome: passed
+    observed_at: '2026-11-09T04:12:04Z'
     notes: 12 pass per interpreter, zero skips (15.986s / 15.580s); new-head automatic CI recorded separately
   environment_limitations:
   - 'Aether #69/Akashic #176 accepted integration contracts and real private pilots remain unavailable.'
@@ -166,7 +170,7 @@ Finish bounded dependency-ready local checkpoints and merge only tested green he
 
 ## State snapshot
 
-Acceptance #120 merged, six issues closed and 37 open. Bookmark #121 and routing #122 are draft; selected-output dependency builds stack on #122. All 44 coverage rows retained.
+Acceptance #120 and bookmark #121 merged after green CI; six issue closures, 37 open. Routing #122 remains draft over main; selected builds #123 stack on #122. All 44 coverage rows retained.
 
 ## Completed and material changes
 
