@@ -97,3 +97,8 @@ loopback-only opt-in probe are provided. No executable or operator-selected loca
 model exists here, so only the dry run is tested and accuracy remains unmeasured.
 Private source grants remain offline; network-provider policy is an explicit gate.
 No new runtime dependency or ADR acceptance is introduced. Next: #14 lifecycle.
+
+[Draft #115](https://github.com/egohygiene/mindgarden/pull/115), functional
+`82f83fe`, records the #13 checkpoint. Eight new cases pass again after source
+metadata retention (27.623s). Historical whole-tree Ruff has 35 existing unused
+import/variable findings; focused changed-code lint passes.

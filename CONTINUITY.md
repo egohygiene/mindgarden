@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T02:11:40Z'
+  updated_at: '2026-11-09T02:13:48Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -87,20 +87,24 @@ state:
   base:
     revision: 4c80d080137f892ade61c97faad5437d8e7da60e
     ref: refs/heads/feature/15-archive-v2
-    verified_at: '2026-11-09T02:11:40Z'
+    verified_at: '2026-11-09T02:13:48Z'
   candidate:
     branch: feature/13-extraction-producer
-    revision: 4c80d080137f892ade61c97faad5437d8e7da60e
-    pull_request: null
+    revision: 82f83fec5328d99a1593a9a13d81a6a00e52ba3b
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#115
+      url: https://github.com/egohygiene/mindgarden/pull/115
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T02:11:40Z'
+    observed_at: '2026-11-09T02:13:48Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
     notes: "Existing #110\u2013#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13\
-      \ stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered."
+      \ stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional\
+      \ 82f83fe is pushed."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -113,22 +117,22 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T02:11:40Z'
+  reviewed_at: '2026-11-09T02:13:48Z'
   reviewed_by: codex
   evidence:
   - command: python -m unittest tests.test_extraction tests.test_ollama_extraction tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-09T02:11:40Z'
+    observed_at: '2026-11-09T02:13:48Z'
     notes: 13 pass on Python 3.12/3.13 (28.043s/26.264s); includes six end-to-end extraction, two wire and five
       schema cases
   - command: .venv/bin/python experiments/ollama_extraction/evaluate.py --model unselected-live-model
     outcome: passed
-    observed_at: '2026-11-09T02:11:40Z'
+    observed_at: '2026-11-09T02:13:48Z'
     notes: Dry run passes; no Ollama executable or operator-selected model. Live model accuracy unmeasured, not
       passing.
   - command: Focused Ruff E9/F; format; owner checks; git diff --check
     outcome: passed
-    observed_at: '2026-11-09T02:11:40Z'
+    observed_at: '2026-11-09T02:13:48Z'
     notes: Pass. Broader Ruff over scripts/tests reports 35 pre-existing unused imports/variables; no repository-wide
       clean lint claim.
   environment_limitations:
@@ -169,7 +173,7 @@ Advance #11–#16 through required producer contracts, authored extraction, arch
 
 ## State snapshot
 
-Existing #110–#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13 stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered.
+Existing #110–#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13 stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional 82f83fe is pushed.
 
 ## Completed and material changes
 
