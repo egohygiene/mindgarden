@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T02:41:15Z'
+  updated_at: '2026-11-09T02:41:58Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -88,21 +88,25 @@ state:
   base:
     revision: e061b905d6712e72b6fa3d1fba08327f9684373d
     ref: refs/heads/feature/12-projection-selection
-    verified_at: '2026-11-09T02:41:15Z'
+    verified_at: '2026-11-09T02:41:58Z'
   candidate:
     branch: feature/16-local-federation
-    revision: e061b905d6712e72b6fa3d1fba08327f9684373d
-    pull_request: null
+    revision: f2d2248566de9e5579de9ed197a11deed8b27a61
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#118
+      url: https://github.com/egohygiene/mindgarden/pull/118
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T02:41:15Z'
+    observed_at: '2026-11-09T02:41:58Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
     notes: "Main remains f3a88cc; #110\u2013#117 drafts are open, with five new functional checkpoints pushed. #16\
       \ stacks over #117/e061b90. Source pins remain provisional where owners are unmerged. 43 open issues plus\
-      \ closed #30 covered."
+      \ closed #30 covered. Draft #118 functional f2d2248 is pushed. All six requested issues have bounded draft\
+      \ checkpoints."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -115,21 +119,21 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T02:41:15Z'
+  reviewed_at: '2026-11-09T02:41:58Z'
   reviewed_by: codex
   evidence:
   - command: python -m unittest tests.test_local_federation tests.test_archive_v2 -q
     outcome: passed
-    observed_at: '2026-11-09T02:41:15Z'
+    observed_at: '2026-11-09T02:41:58Z'
     notes: 13 pass on Python 3.12/3.13 (12.650s/11.943s); earlier 37-case run caught and then fixed mixed-output
       refusal
   - command: Focused Ruff E9/F; formatting; git diff --check; pinned owner checks
     outcome: passed
-    observed_at: '2026-11-09T02:41:15Z'
+    observed_at: '2026-11-09T02:41:58Z'
     notes: Pass. Original public federation contracts/goldens unchanged; local organization assurance is draft-policy-only.
   - command: Automatic PR CI refresh
     outcome: passed
-    observed_at: '2026-11-09T02:41:15Z'
+    observed_at: '2026-11-09T02:41:58Z'
     notes: "Source #113 passes. #114\u2013#116 full Linux suites failed on the nested release-journey copy of two\
       \ metadata hashes; an owning-branch repair is being propagated. macOS registry and release-preparation jobs\
       \ pass. No manually launched workflow."
@@ -171,7 +175,7 @@ Advance #11–#16 through required producer contracts, authored extraction, arch
 
 ## State snapshot
 
-Main remains f3a88cc; #110–#117 drafts are open, with five new functional checkpoints pushed. #16 stacks over #117/e061b90. Source pins remain provisional where owners are unmerged. 43 open issues plus closed #30 covered.
+Main remains f3a88cc; #110–#117 drafts are open, with five new functional checkpoints pushed. #16 stacks over #117/e061b90. Source pins remain provisional where owners are unmerged. 43 open issues plus closed #30 covered. Draft #118 functional f2d2248 is pushed. All six requested issues have bounded draft checkpoints.
 
 ## Completed and material changes
 

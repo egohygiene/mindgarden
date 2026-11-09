@@ -164,3 +164,6 @@ the release-journey report on #114. Its two derived metadata hashes require the
 same constrained reconciliation as the underlying report. Repair is propagated
 from the owning archive branch; failed runs remain recorded as failed. No workflow
 was manually launched and no release is being prepared for publication.
+
+[Draft #118](https://github.com/egohygiene/mindgarden/pull/118), functional
+`f2d2248`, records the #16 checkpoint. Combined proof/checks follow separately.
