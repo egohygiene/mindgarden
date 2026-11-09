@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T02:20:11Z'
+  updated_at: '2026-11-09T02:20:44Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -87,21 +87,24 @@ state:
   base:
     revision: eed15a1f14d4c5e314fe52bb67010158a81e963c
     ref: refs/heads/feature/13-extraction-producer
-    verified_at: '2026-11-09T02:20:11Z'
+    verified_at: '2026-11-09T02:20:44Z'
   candidate:
     branch: feature/14-routing-lifecycle-v2
-    revision: eed15a1f14d4c5e314fe52bb67010158a81e963c
-    pull_request: null
+    revision: f369932b694365620c626db03e179304f0ac963f
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#116
+      url: https://github.com/egohygiene/mindgarden/pull/116
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T02:20:11Z'
+    observed_at: '2026-11-09T02:20:44Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
     notes: "Existing #110\u2013#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13\
       \ stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional\
-      \ 82f83fe is pushed."
+      \ 82f83fe is pushed. Draft #116 functional f369932 stacks over #115/eed15a1."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -114,17 +117,17 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T02:20:11Z'
+  reviewed_at: '2026-11-09T02:20:44Z'
   reviewed_by: codex
   evidence:
   - command: python -m unittest tests.test_routing_transfers tests.test_routing_lifecycle tests.test_routing tests.test_v1_contracts
       -q
     outcome: passed
-    observed_at: '2026-11-09T02:20:11Z'
+    observed_at: '2026-11-09T02:20:44Z'
     notes: 23 pass on Python 3.12/3.13 (16.513s/15.844s)
   - command: Focused Ruff E9/F; formatting; git diff --check; pinned owner checks
     outcome: passed
-    observed_at: '2026-11-09T02:20:11Z'
+    observed_at: '2026-11-09T02:20:44Z'
     notes: Pass; original v1 transition schemas unchanged. Wider runtime/policy acceptance remains open.
   environment_limitations:
   - 'Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain
@@ -164,7 +167,7 @@ Advance #11–#16 through required producer contracts, authored extraction, arch
 
 ## State snapshot
 
-Existing #110–#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13 stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional 82f83fe is pushed.
+Existing #110–#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13 stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional 82f83fe is pushed. Draft #116 functional f369932 stacks over #115/eed15a1.
 
 ## Completed and material changes
 

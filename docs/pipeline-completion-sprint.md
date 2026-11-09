@@ -115,3 +115,6 @@ a second-garden cutover fault. 23 routing/schema cases pass on Python 3.12/3.13
 (16.513s/15.844s). ADR-0022 is extended as a proposal, with no approval change.
 Incoming edge retargeting, public/policy-changing and broader platform acceptance
 remain open. Next: #12 projection matrix, narrowing and larger measured corpus.
+
+[Draft #116](https://github.com/egohygiene/mindgarden/pull/116), functional
+`f369932`, records the #14 checkpoint. Next: #12, then #16.
