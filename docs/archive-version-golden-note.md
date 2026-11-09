@@ -38,3 +38,13 @@ version. Original content and the vault backup hash remain unchanged. Every othe
 golden is replaced. This preserves exact original/source hashes, IDs, review,
 bodies, budgets and recovery assertions. Focused tests verify the existing v1/v3
 profiles as well as v2; no checksum or schema check is relaxed.
+
+The first #114 full CI run (42548628131 at `4c80d08`) failed one Linux
+full-suite case: release-journey's embedded copy of the private workflow still
+contained the two old index/context metadata hashes. The underlying proof had
+already been reconciled. Its nested copy now matches exactly, with a constrained
+two-field update. Every other release-journey fact stays identical. The initial
+415-case run is recorded as 414 passed/1 failed, not passing CI; native macOS
+registry and packaging jobs passed independently. Focused source checks and the
+propagated full combined receipts document the correction. No workflow was
+manually launched and no release publication occurred.
