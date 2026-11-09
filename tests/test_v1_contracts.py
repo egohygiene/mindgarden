@@ -191,6 +191,7 @@ class V1ContractTests(unittest.TestCase):
                 "learning-schedule",
                 "learning-projection",
                 "memory-plan",
+                "memory-validity",
                 "bookmark-decision",
                 "bookmark-review-request",
                 "memory-projection",
