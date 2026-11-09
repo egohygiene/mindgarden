@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T02:41:58Z'
+  updated_at: '2026-11-09T02:59:50Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -63,6 +63,9 @@ scope:
   - docs/typesafe-decisions.md
   - docs/rendered-closeout-evidence.md
   - docs/pipeline-completion-sprint.md
+  - docs/pipeline-completion-proof.md
+  - docs/local-federation.md
+  - docs/extraction-producers.md
 work:
   objective: "Advance #11\u2013#16 through required producer contracts, authored extraction, archive compatibility,\
     \ reviewed routing, scoped projections and local federation. Keep every checkpoint reviewable and all broader\
@@ -76,37 +79,33 @@ work:
     url: https://github.com/egohygiene/mindgarden/issues/16
   next:
     kind: action
-    id: combined-offline-proof
-    description: "Complete the combined #11\u2013#16 offline proof linked to #20, propagate the #114 nested metadata\
-      \ golden repair through the stack, then build source/wheel and run both Python full suites. Leave all new\
-      \ drafts for review."
+    id: clean-combined-verification
+    description: Freeze this functional commit, build source/wheel with no default dependencies, run the source/archive/installed
+      combined proof and both full Python suites with loopback allowed. Refresh automatic CI and draft heads, then
+      leave the full stack for maintainer review.
     readiness: ready
     references:
     - docs/pipeline-completion-sprint.md
     depends_on: []
 state:
   base:
-    revision: e061b905d6712e72b6fa3d1fba08327f9684373d
-    ref: refs/heads/feature/12-projection-selection
-    verified_at: '2026-11-09T02:41:58Z'
+    revision: 2799944cecc073741be95ad80304686e86983acf
+    ref: refs/heads/feature/16-local-federation
+    verified_at: '2026-11-09T02:59:50Z'
   candidate:
-    branch: feature/16-local-federation
-    revision: f2d2248566de9e5579de9ed197a11deed8b27a61
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#118
-      url: https://github.com/egohygiene/mindgarden/pull/118
+    branch: milestone/pipeline-completion-proof
+    revision: 2799944cecc073741be95ad80304686e86983acf
+    pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T02:41:58Z'
+    observed_at: '2026-11-09T02:59:50Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
-    notes: "Main remains f3a88cc; #110\u2013#117 drafts are open, with five new functional checkpoints pushed. #16\
-      \ stacks over #117/e061b90. Source pins remain provisional where owners are unmerged. 43 open issues plus\
-      \ closed #30 covered. Draft #118 functional f2d2248 is pushed. All six requested issues have bounded draft\
-      \ checkpoints."
+    notes: "Main f3a88cc remains unchanged. Existing #110\u2013#112 and new #113\u2013#118 drafts are open. Combined\
+      \ branch stacks over #118/2799944 and includes both source fixes. Mindcap #42 is proposed/unmerged. 43 live\
+      \ open issues plus closed #30 remain covered."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -119,24 +118,25 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T02:41:58Z'
+  reviewed_at: '2026-11-09T02:59:50Z'
   reviewed_by: codex
   evidence:
-  - command: python -m unittest tests.test_local_federation tests.test_archive_v2 -q
+  - command: Combined run_demo in a fresh private temporary workspace
     outcome: passed
-    observed_at: '2026-11-09T02:41:58Z'
-    notes: 13 pass on Python 3.12/3.13 (12.650s/11.943s); earlier 37-case run caught and then fixed mixed-output
-      refusal
-  - command: Focused Ruff E9/F; formatting; git diff --check; pinned owner checks
+    observed_at: '2026-11-09T02:59:50Z'
+    notes: Pass with socket/HTTP/subprocess access blocked; exact report committed. No Google/model call.
+  - command: Two occupied-workspace/Git-control guards, each Python
     outcome: passed
-    observed_at: '2026-11-09T02:41:58Z'
-    notes: Pass. Original public federation contracts/goldens unchanged; local organization assurance is draft-policy-only.
-  - command: Automatic PR CI refresh
+    observed_at: '2026-11-09T02:59:50Z'
+    notes: 2 pass in 0.002s on 3.12/3.13; actual git fixture contains HEAD. Full combined suite follows.
+  - command: 'Owning source fixes: journey and fresh distribution tests'
     outcome: passed
-    observed_at: '2026-11-09T02:41:58Z'
-    notes: "Source #113 passes. #114\u2013#116 full Linux suites failed on the nested release-journey copy of two\
-      \ metadata hashes; an owning-branch repair is being propagated. macOS registry and release-preparation jobs\
-      \ pass. No manually launched workflow."
+    observed_at: '2026-11-09T02:59:50Z'
+    notes: 2 journey cases pass each Python (11.536s/11.037s); 2 artifact cases pass each (0.039s/0.044s).
+  - command: Focused Ruff E9/F; format; diff; pinned owner checks
+    outcome: passed
+    observed_at: '2026-11-09T02:59:50Z'
+    notes: Pass; initial full CI nested-golden failures are preserved as failed, with normal-merge repair history.
   environment_limitations:
   - 'Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain
     open. Mindcap #48 is unavailable; no missing contract is invented.'
@@ -175,15 +175,15 @@ Advance #11–#16 through required producer contracts, authored extraction, arch
 
 ## State snapshot
 
-Main remains f3a88cc; #110–#117 drafts are open, with five new functional checkpoints pushed. #16 stacks over #117/e061b90. Source pins remain provisional where owners are unmerged. 43 open issues plus closed #30 covered. Draft #118 functional f2d2248 is pushed. All six requested issues have bounded draft checkpoints.
+Main f3a88cc remains unchanged. Existing #110–#112 and new #113–#118 drafts are open. Combined branch stacks over #118/2799944 and includes both source fixes. Mindcap #42 is proposed/unmerged. 43 live open issues plus closed #30 remain covered.
 
 ## Completed and material changes
 
-Private local discovery and closed exact selected-read requests now reuse existing garden/session/scope/application services. Catalogs open no bodies, keep private metadata outside public artifacts and declare body/remote/AI capabilities honestly. Retrieval keeps exact pins, provenance/review, budgets and live expiration/revocation. Mixed organization/personal outputs fail without confidential assurance. Aether/Akashic owner mains and open contract gates refreshed.
+All six #11–#16 checkpoints are drafted. The combined offline source proof passes: four inputs, eight unreviewed proposals, resumable authored producer, explicit review, graph move, private discovery, exact citation, 4419/8192-byte pack, and identical index/graph/context after relocation/restore/clean rebuild. Owning-branch fixes e7baa73 and 9c66b0f are propagated normally through #118/2799944.
 
 ## Validation and review evidence
 
-python -m unittest tests.test_local_federation tests.test_archive_v2 -q — 13 pass on Python 3.12/3.13 (12.650s/11.943s); earlier 37-case run caught and then fixed mixed-output refusal. Focused Ruff E9/F; formatting; git diff --check; pinned owner checks — Pass. Original public federation contracts/goldens unchanged; local organization assurance is draft-policy-only.. Automatic PR CI refresh — Source #113 passes. #114–#116 full Linux suites failed on the nested release-journey copy of two metadata hashes; an owning-branch repair is being propagated. macOS registry and release-preparation jobs pass. No manually launched workflow..
+Combined run_demo in a fresh private temporary workspace — Pass with socket/HTTP/subprocess access blocked; exact report committed. No Google/model call.. Two occupied-workspace/Git-control guards, each Python — 2 pass in 0.002s on 3.12/3.13; actual git fixture contains HEAD. Full combined suite follows.. Owning source fixes: journey and fresh distribution tests — 2 journey cases pass each Python (11.536s/11.037s); 2 artifact cases pass each (0.039s/0.044s).. Focused Ruff E9/F; format; diff; pinned owner checks — Pass; initial full CI nested-golden failures are preserved as failed, with normal-merge repair history..
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -191,7 +191,7 @@ Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and rea
 
 ## Next dependency-ready work
 
-Complete the combined #11–#16 offline proof linked to #20, propagate the #114 nested metadata golden repair through the stack, then build source/wheel and run both Python full suites. Leave all new drafts for review.
+Freeze this functional commit, build source/wheel with no default dependencies, run the source/archive/installed combined proof and both full Python suites with loopback allowed. Refresh automatic CI and draft heads, then leave the full stack for maintainer review.
 
 ## Parallel changes and reconciliation
 
@@ -208,18 +208,3 @@ At each checkpoint record functional revision, branch/PR, exact tests/results, p
 ## Compaction and supersession
 
 Keep the twelve required headings and the 16384-byte/240-line bounds. This supersedes the closeout regroup with the newly selected #11–#16 completion sprint. Historical ledgers retain prior evidence; deferred #86–#91 and release work remain parked.
-
-Archive CI follow-up: the full Linux run 42548628131 at `4c80d08` failed the
-nested release-journey copy of two metadata hashes. The constrained correction
-changes only its embedded index/context hashes. `PYTHONPATH=src python -m unittest
-tests.test_release_journey -q` passes 2 cases on Python 3.12/3.13
-(11.536s/11.037s). Earlier candidate pins describe the prior functional checkpoint;
-this branch head includes the repair. Next: carry this source fix through the
-#115–#118 stack and record final full combined checks. No release publication.
-
-Captured fixture artifact follow-up: MANIFEST.in explicitly includes the single
-committed synthetic-source ZIP, and the distribution inventory test requires it.
-The existing recursive source-data rule did not include ZIPs. A clean sdist must
-carry this conformance input; arbitrary archives remain excluded. This is local
-artifact verification, with release/version/publication behavior otherwise
-unchanged. The combined sprint ledger records final build/test receipts.

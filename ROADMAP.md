@@ -40,7 +40,7 @@ updated: 2026-11-08
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate (2026-11-08):** The authorized #93–#109 stack is merged at `f3a88cc`. Advance bounded #43/#46/#17/#18/#20 closeout checkpoints; optional TypeSafe #110 stays draft. Parent acceptance, proposed ADRs and parked release work retain their gates. See [merge evidence](docs/merged-closeout-checkpoints.md) and the [active sprint](docs/closeout-sprint.md).
+**Current gate (2026-11-08):** The authorized #93–#109 stack is merged at `f3a88cc`; #110–#112 closeout drafts remain for review. The newly selected #11–#16 checkpoints are in drafts #113–#118, with a proposed producer-owned dependency in Mindcap #42. The combined offline proof/checks follow in an explicit stack; parent acceptance, proposed ADRs and parked release work retain their gates. See [the active pipeline ledger](docs/pipeline-completion-sprint.md) and [the combined proof](docs/pipeline-completion-proof.md).
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
 
 ### Complete open-issue coverage and next batches
@@ -428,3 +428,25 @@ The maintainer authorized merging #93–#109 and bounded follow-through for
 One separately requested [optional TypeSafe decision seam](docs/typesafe-decisions.md)
 can proceed independently of web/runtime and private-pilot gates. It does not
 activate deferred #86–#91 or release work. New checkpoint work stays in drafts.
+
+## Authorized pipeline completion sprint
+
+The maintainer selected #11–#16 and necessary dependencies. Execute the bounded
+checkpoints as #11 → #15 → #13 → #14 → #12 → #16. This corrects the presentation
+order: the existing authored #13 curation contract already satisfies #15 parsing,
+while the new v2 fixtures support the later optional producer proof. #14 can use
+existing #12 retrieval before the new performance matrix. The Mindcap captured
+source contract is a pinned proposed owner draft, not an accepted shared policy.
+
+[Drafts #113–#118](docs/pipeline-completion-sprint.md) add capture conformance,
+v2.0.0–2.0.2 source profiles, optional evidence-bound extraction/resumption,
+reviewed graph moves/splits/replacements, typed projection coverage and measured
+2048-note operation, and local private/internal discovery/selected reads. A
+[combined source/installed proof](docs/pipeline-completion-proof.md) links evidence
+to #20 without completing private-pilot, publication or Empathy acceptance.
+
+The supported Python/v0 workflow, original sources, private fallback and canonical
+record ownership remain. Models, Google, hosting and query stores are optional.
+Source/controller state stays outside tracked gardens. Proposed ADRs, Aether #69,
+Akashic #176, confidential runtime, real consumer acceptance and unselected parent
+scope retain their gates. Deferred #86–#91 and release work remain parked.

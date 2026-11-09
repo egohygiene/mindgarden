@@ -144,6 +144,8 @@ class DistributionTests(unittest.TestCase):
             "mindgarden-0.1.0/src/mindgarden/application/lifecycle.py",
             "mindgarden-0.1.0/scripts/publication_conformance.py",
             "mindgarden-0.1.0/scripts/compaction_demo.py",
+            "mindgarden-0.1.0/scripts/pipeline_completion_demo.py",
+            "mindgarden-0.1.0/tests/fixtures/extraction/pipeline-proof.json",
             "mindgarden-0.1.0/tests/fixtures/compaction/authored-plan.json",
             "mindgarden-0.1.0/tests/fixtures/compaction/expected-proof.json",
             "mindgarden-0.1.0/tests/fixtures/publication-conformance/cases.json",

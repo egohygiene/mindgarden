@@ -1,0 +1,56 @@
+{
+  "archive_spec_version": "2.0.2",
+  "attribution": "assistant-suggestion",
+  "baseline_proof_sha256": "ff787d6a74a17b6164f3c2be4cb29a6eda30c62f3a35c5c6315ad5310751b65c",
+  "canonical_home": "single-moved-home",
+  "context_bytes": 4419,
+  "context_max_bytes": 8192,
+  "context_sha256": "2396d6433aa7814ac6c6afdac17d16d7d39dc241b0b7d3375aaec42c1f6b3488",
+  "engine_version": "0.1.0",
+  "google": "unused",
+  "graph_sha256": "89b47fdd6c78f058f6a6d7e883a2eadd97edce6f26f0727adabb55630469ff43",
+  "index_sha256": "fb4aa1ff8d0b95f0aa33e7546c72f6028c6a59030a4fb3d09eb221dd0b9695be",
+  "local_catalog": "metadata-only-never-exportable",
+  "model": "unused",
+  "network": "blocked-in-process",
+  "original_selector": {
+    "json_pointer": "/messages/1",
+    "member": "CONVERSATION.json",
+    "member_sha256": "53d78f86def28dda8c102e69d8bf51b606dd12df2e74de7ac17f1af394497fd1"
+  },
+  "originals": "retained",
+  "producer": {
+    "id": "authored-extraction",
+    "model": "authored-fixture-no-model",
+    "prompt_revision": "5286552878f33e2f9905bede3b23d12d2806faa1f01ddd717fe0db44f8c51543",
+    "schema_revision": "mindgarden.extraction-output/v1",
+    "version": "1.0.0"
+  },
+  "producer_units": 4,
+  "proposal_count": 8,
+  "recovery": "relocation-restore-clean-rebuild-exact",
+  "resume": {
+    "completed_unit_replay": 0,
+    "initial_new_calls": 1,
+    "resumed_new_calls": 3
+  },
+  "retrieved": {
+    "garden": "project-garden",
+    "id": "moved-extracted-prompt",
+    "revision": "sha256:8f11fbd6dcf3e2cc1bb4f06054ef2dc5f17e795738a3761f16477b44d4b5577d"
+  },
+  "review": "explicit-authored-human",
+  "schema": "mindgarden.pipeline-completion-proof/v1",
+  "source_reference": {
+    "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+    "locator": "json:/content/0/text",
+    "source": {
+      "garden": "synthetic-garden",
+      "id": "source-49101f6a41f4768b98734604-f03c4e39101deeb8",
+      "revision": "sha256:f03c4e39101deeb851f2138f101805ba2d303706d22e528d376e9137abc22262"
+    }
+  },
+  "status": "passed",
+  "unresolved_proposals": "ambiguity-and-unknown-relations-retained",
+  "vault_backup_sha256": "5620a4a69e3adcd2e8f8c94fc2ce4b0a6617dfd7a2f182f3bbffb5f5cd3efd36"
+}

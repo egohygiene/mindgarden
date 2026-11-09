@@ -167,3 +167,28 @@ was manually launched and no release is being prepared for publication.
 
 [Draft #118](https://github.com/egohygiene/mindgarden/pull/118), functional
 `f2d2248`, records the #16 checkpoint. Combined proof/checks follow separately.
+
+## Combined checkout and recovery fixes
+
+All six requested issues now have separate drafts. The reproducible combined
+checkout is `milestone/pipeline-completion-proof`, stacked over #118. Functional
+checkpoints are #113/`b661dc2`, #114/`cc38583`, #115/`82f83fe`, #116/`f369932`,
+#117/`2c70c89`, #118/`f2d2248`. Mindcap #42 remains pinned at `7ee766c` and proposed.
+
+The #114 nested journey golden is fixed at `e7baa73`; its two metadata-only hashes
+match the underlying proof. The two focused journey cases pass on Python 3.12/3.13
+(11.536s/11.037s). Source fixture packaging is fixed on #113 at `9c66b0f`: only the
+one synthetic ZIP is explicitly included, with both distribution cases passing on
+3.12/3.13 (0.039s/0.044s) against fresh artifacts. Normal merges propagate both
+repairs without rewriting branch history. Source heads after propagation are
+#114 `0d32539`, #115 `d1b8c4f`, #116 `f25b67c`, #117 `3f25c14`, #118 `2799944`.
+
+The [combined executable proof](pipeline-completion-proof.md) adds authored
+proposal/resume/review, graph transfer, local discovery, exact selected reads and
+whole index/graph/context equality after relocation/restore/clean rebuild. It runs
+with socket/HTTP/subprocess access blocked, four producer inputs and eight
+proposals. The context is 4419/8192 bytes. The source run passes; original paths,
+credentials and personal data stay outside portable records. Two workspace/control
+guards pass on each Python. Full clean source/wheel and both full suites follow;
+those are not yet recorded as passing here. Refs #20, without private-pilot,
+publication or Empathy acceptance. No release work or deferred phase is activated.
