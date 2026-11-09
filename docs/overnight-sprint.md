@@ -195,7 +195,7 @@ assistant-memory bundles (#49) and audit that issue against its actual criteria.
 
 ### Checkpoint E — #49 expiring assistant-memory bundles
 
-Branch: `feature/49-expiring-memory-bundles`, stacked after selected-build #123.
+Branch: `feature/49-expiring-memory-bundles`, [draft #124](https://github.com/egohygiene/mindgarden/pull/124), functional `79fa120`, stacked after selected-build #123.
 Optional explicit `--created-at` binds a managed validity receipt; `--check`
 revalidates sources, authority, expiry and immutable bytes without creating a
 missing bundle or changing old output. Expiry is bounded by the existing #46

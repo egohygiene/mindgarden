@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T04:18:45Z'
+  updated_at: '2026-11-09T04:20:50Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -90,32 +90,29 @@ state:
   base:
     revision: 4ffe8618ffee5df7177d83e035f70eea160e4b92
     ref: refs/heads/feature/37-selected-projection-builds
-    verified_at: '2026-11-09T04:18:45Z'
+    verified_at: '2026-11-09T04:20:50Z'
   candidate:
     branch: feature/49-expiring-memory-bundles
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 79fa120426374073292e917e7d7070230d2b758e
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#124
+      url: https://github.com/egohygiene/mindgarden/pull/124
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T04:18:45Z'
-    default_branch_revision: 40169589df086f4dee9d22611aa1f87c3a250e33
+    observed_at: '2026-11-09T04:20:50Z'
+    default_branch_revision: 1c01649ba333c05b42468404f243a514803b7858
     issue_state: open
     pull_request_state: draft
-    notes: 'Acceptance #120 and bookmark #121 are merged. Routing #122 and selected builds #123 remain draft; managed
-      memory stacks after #123. 37 issues remain live open before #49 closure; 44 rows retained.'
+    notes: 'Acceptance #120, bookmark #121 and routing #122 are merged after green CI. Selected builds #123 and
+      managed memory #124 remain draft. 37 issues live open before #49 closure; 44 rows retained.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T04:18:45Z'
+  reviewed_at: '2026-11-09T04:20:50Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: unittest tests.test_routing_incoming tests.test_routing_lifecycle tests.test_routing_transfers
-      tests.test_routing --verbose'
-    outcome: passed
-    observed_at: '2026-11-09T04:04:41Z'
-    notes: 24 cases; six new incoming-reference cases, existing routing/split/supersession/rollback/idempotence
-      proofs. Pinned owner checks and exact new-head CI recorded separately.
   - command: 'Python 3.12/3.13: unittest tests.test_selected_builds tests.test_dependency_builds --verbose; focused
       Ruff/format; pinned owner checks'
     outcome: passed
@@ -130,6 +127,12 @@ review:
       refresh test; focused Ruff/format; pinned owner checks'
     outcome: passed
     observed_at: '2026-11-09T04:18:45Z'
+    notes: 16 pass per interpreter, zero skips (30.200s / 25.775s), plus one authored refresh case per interpreter;
+      new-head CI separate
+  - command: 'Python 3.12/3.13: unittest tests.test_memory_validity tests.test_memory --verbose; additional one-source
+      refresh test; focused Ruff/format; pinned owner checks'
+    outcome: passed
+    observed_at: '2026-11-09T04:20:50Z'
     notes: 16 pass per interpreter, zero skips (30.200s / 25.775s), plus one authored refresh case per interpreter;
       new-head CI separate
   environment_limitations:
@@ -167,7 +170,7 @@ Finish local memory and learning criteria, preserve source/privacy boundaries, a
 
 ## State snapshot
 
-Acceptance #120 and bookmark #121 are merged. Routing #122 and selected builds #123 remain draft; managed memory stacks after #123. 37 issues remain live open before #49 closure; 44 rows retained.
+Acceptance #120, bookmark #121 and routing #122 are merged after green CI. Selected builds #123 and managed memory #124 remain draft. 37 issues live open before #49 closure; 44 rows retained.
 
 ## Completed and material changes
 
