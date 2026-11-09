@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T10:16:18Z'
+  updated_at: '2026-11-09T10:18:03Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -81,8 +81,8 @@ work:
   next:
     kind: action
     id: privacy-storage-next-checkpoint
-    description: 'Open #31 draft above #127, freeze its source for corrected Python 3.12/3.13 regression runs, then
-      implement #35 process-group and private temporary-state containment.'
+    description: 'Implement #35 private PDF child-process lifecycle above #128; finish corrected frozen #31 suites
+      and final combined conformance before qualification.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
@@ -91,32 +91,30 @@ state:
   base:
     revision: 5c267b5fbfc3f68b3b992b41c7644bbc51438919
     ref: refs/heads/feature/29-export-policy-boundaries
-    verified_at: '2026-11-09T10:16:18Z'
+    verified_at: '2026-11-09T10:18:03Z'
   candidate:
     branch: feature/31-bounded-generated-bundles
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 177dad83a4c54d47b57f5ba9ff8d7caed5e9eb45
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#128
+      url: https://github.com/egohygiene/mindgarden/pull/128
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T10:16:18Z'
+    observed_at: '2026-11-09T10:18:03Z'
     default_branch_revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     issue_state: open
-    pull_request_state: not-applicable
-    notes: 'Draft #127 supplies the #29 parent. #31 complete-bundle enforcement has eight new passing regression
-      cases on Python 3.12; broader corrected qualification and hosted CI remain pending. 35 issues are open; the
-      stack has no merge or parent-acceptance claim.'
+    pull_request_state: draft
+    notes: 'Draft #127 → #128 is the active privacy stack. #31 has eight new passing cases; its corrected broader
+      suites run from frozen 177dad8 while independent PDF containment proceeds. No issue closure, merge or external
+      assurance is claimed.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T10:16:18Z'
+  reviewed_at: '2026-11-09T10:18:03Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: unittest tests.test_export_policy tests.test_scope_policy tests.test_federation
-      tests.test_site --quiet; focused Ruff/format and diff checks'
-    outcome: passed
-    observed_at: '2026-11-09T10:10:34Z'
-    notes: 39 pass each, zero skips (51.261s / 43.269s); compatible public output bytes unchanged
   - command: 'Python 3.12/3.13: unittest tests.test_export_policy tests.test_scope_policy tests.test_federation
       tests.test_site --quiet; focused Ruff/format and diff checks'
     outcome: passed
@@ -126,6 +124,12 @@ review:
       and diff checks'
     outcome: passed
     observed_at: '2026-11-09T10:16:18Z'
+    notes: 8 pass, zero skips, 12.063s; initial test fixtures below the existing 256-byte minimum were corrected
+      without weakening the session schema
+  - command: 'Python 3.12.14: unittest tests.test_scope_bundle_outputs --quiet; focused changed-code Ruff, format
+      and diff checks'
+    outcome: passed
+    observed_at: '2026-11-09T10:18:03Z'
     notes: 8 pass, zero skips, 12.063s; initial test fixtures below the existing 256-byte minimum were corrected
       without weakening the session schema
   environment_limitations:
@@ -165,7 +169,7 @@ Implement complete session-owned output limits, then independent PDF containment
 
 ## State snapshot
 
-Draft #127 supplies the #29 parent. #31 complete-bundle enforcement has eight new passing regression cases on Python 3.12; broader corrected qualification and hosted CI remain pending. 35 issues are open; the stack has no merge or parent-acceptance claim.
+Draft #127 → #128 is the active privacy stack. #31 has eight new passing cases; its corrected broader suites run from frozen 177dad8 while independent PDF containment proceeds. No issue closure, merge or external assurance is claimed.
 
 ## Completed and material changes
 
@@ -181,7 +185,7 @@ Accepted Hygiene classification/declassification/assurance, Realm encrypted-vaul
 
 ## Next dependency-ready work
 
-Open #31 draft above #127, freeze its source for corrected Python 3.12/3.13 regression runs, then implement #35 process-group and private temporary-state containment.
+Implement #35 private PDF child-process lifecycle above #128; finish corrected frozen #31 suites and final combined conformance before qualification.
 
 ## Parallel changes and reconciliation
 

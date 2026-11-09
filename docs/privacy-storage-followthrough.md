@@ -71,3 +71,5 @@ and full verification results follow after their commands finish. Branch
 `feature/31-bounded-generated-bundles` is stacked on draft #127.
 
 Initial new-case verification: **8 pass, zero skips**, Python 3.12.14 (12.063s). Two initial fixture budgets were below the existing 256-byte schema minimum; corrected fixtures keep that contract unchanged. The first broader command also named nonexistent `tests.test_compaction_bundles`; it is not passing evidence. Corrected broader runs use `tests.test_source_compaction`, followed by final full discovery. Focused changed-code Ruff and diff checks pass.
+
+Draft [#128](https://github.com/egohygiene/mindgarden/pull/128), functional `177dad83a4c54d47b57f5ba9ff8d7caed5e9eb45`, is based on #127. Corrected broader suites run from an immutable worktree; new implementation cannot change those tested bytes.
