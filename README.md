@@ -12,8 +12,8 @@ repository's `.garden/` directory. Obsidian vaults, agent context, search
 indexes, and published sites are projections of that committed knowledge, not
 competing sources of truth.
 
-The local workflow is merged through [#119](docs/overnight-sprint.md), with
-446 tests passing on each supported Python. Captured conversations, bookmarks,
+The local workflow includes the [overnight checkpoints](docs/overnight-sprint.md),
+with 481 tests passing on each supported Python. Captured conversations, bookmarks,
 documents and opaque assets feed reviewed knowledge with exact source references.
 Those references survive restore, relocation and clean projection rebuilds.
 Optional extraction producers, authored learning, private compaction and local
@@ -102,7 +102,7 @@ The new [private local discovery checkpoint](docs/local-federation.md) adds
 metadata-first discovery and selected reads over the existing sessions, without
 advertising private gardens in public catalogs. The [completion sprint ledger](docs/pipeline-completion-sprint.md)
 records the review stack, source-adapter/archive work and [optional extraction proposals](docs/extraction-producers.md).
-These are bounded draft checkpoints; external owner and consumer gates remain open.
+These are bounded implementation checkpoints; external owner and consumer gates remain open.
 
 The [machine-local registry checkpoint](docs/local-registry.md), merged through
 [#67](https://github.com/egohygiene/mindgarden/pull/67), adds reviewed registration,
@@ -221,12 +221,14 @@ and emits an exact ownership receipt without deploying.
 [Authored compaction and retention](docs/compaction-retention.md) adds a read-only
 exact-evidence preview and synthetic curation handoff; originals are preserved.
 
-## Product checkpoints in review
+## Product checkpoint status
 
-The [broader product stack](docs/product-checkpoints.md) adds draft ADR metadata,
+The merged [broader product stack](docs/product-checkpoints.md) adds ADR metadata,
 optional SQLite, dependency-build, reviewed memory and private bookmark workflows.
-The final combined local suite passes 360 tests per supported Python. These are
-tested checkpoints on review branches; parent acceptance, historical ADR migration
-and the framework-dependent API/web slice remain separate. The existing Python
+The [latest qualification](docs/evidence/overnight-qualification.json) passes 481
+tests per supported Python, clean source/wheel recovery and actual browser checks.
+Parent acceptance, historical ADR migration and the framework-dependent API/web
+slice remain separate. Managed memory bundles, bounded due-card study, captured
+bookmark cleanup and selected-output builds extend the existing services. The Python
 CLI and dependency-free reference engine are preserved; no model or Google
 integration is required. Release work is deferred.

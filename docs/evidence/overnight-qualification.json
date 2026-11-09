@@ -1,0 +1,155 @@
+{
+  "artifact_proofs": [
+    {
+      "golden": "tests/fixtures/extraction/pipeline-proof.json",
+      "mode": "isolated-installed-wheel",
+      "result": "exact-byte-match",
+      "script": "pipeline_completion_demo.py",
+      "sha256": "917ecf0596f3f7ba91c9389769e73f3a69f0102d5face701b829872baac4627d"
+    },
+    {
+      "golden": "tests/fixtures/extraction/pipeline-proof.json",
+      "mode": "unpacked-sdist-empty-venv",
+      "result": "exact-byte-match",
+      "script": "pipeline_completion_demo.py",
+      "sha256": "917ecf0596f3f7ba91c9389769e73f3a69f0102d5face701b829872baac4627d"
+    },
+    {
+      "golden": "tests/fixtures/provider-continuity/expected-proof.json",
+      "mode": "isolated-installed-wheel",
+      "result": "exact-byte-match",
+      "script": "provider_switch_demo.py",
+      "sha256": "a8b4f4c1162f9f61cb4227c176040dbc3263e9da81ba5b8da1bcc9a17b96e6fe"
+    },
+    {
+      "golden": "tests/fixtures/release-journey/expected-proof.json",
+      "mode": "isolated-installed-wheel",
+      "result": "exact-byte-match",
+      "script": "release_journey_demo.py",
+      "sha256": "76dfbb49558b2187509522817bfa5bfb7f3affab598044ccfa43e42cdb6047df"
+    },
+    {
+      "golden": "tests/fixtures/release-journey/expected-proof.json",
+      "mode": "unpacked-sdist-empty-venv",
+      "result": "exact-byte-match",
+      "script": "release_journey_demo.py",
+      "sha256": "76dfbb49558b2187509522817bfa5bfb7f3affab598044ccfa43e42cdb6047df"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "mindgarden-0.1.0-py3-none-any.whl",
+      "sha256": "fcb2a72b57867e86b75a2ce2c2a1d66c4c338d87942f91fc64a88fe21d2851d3",
+      "size_bytes": 385880
+    },
+    {
+      "path": "mindgarden-0.1.0.tar.gz",
+      "sha256": "1fb7e9f34be1ec2401bf7182fd47afdf4d2fc08c48ccbdbdd9fc114e2ce3c423",
+      "size_bytes": 770671
+    }
+  ],
+  "browser": {
+    "axe_audits": 15,
+    "axe_core": "4.10.3",
+    "chromium": "151.0.7922.173",
+    "incomplete": 0,
+    "learning_receipts": [
+      "docs/evidence/learning-due-browser.json",
+      "docs/evidence/learning-full-browser.json"
+    ],
+    "node": "24.19.0",
+    "playwright": "1.62.0",
+    "quartz_commit": "075afd3f712da0088a07f5284a7b3aba37dd61b6",
+    "receipt": "docs/evidence/overnight-rendered-browser-proof.json",
+    "status": "passed-bounded-browser-checks",
+    "violations": 0
+  },
+  "build_command": "python -m build --no-isolation --sdist --wheel --outdir .cache/dist",
+  "build_mode": "local verification artifacts from functional revision; no release preparation, tag, upload or publication",
+  "ci": {
+    "functional_revision": "32bcb3ce4a626a4edaa9ac9ad04f027ac1335e77",
+    "jobs": [
+      "Python 3.12 / Node 24",
+      "Python 3.13 / Node 24",
+      "macOS registry / Python 3.12",
+      "macOS registry / Python 3.13"
+    ],
+    "later_documentation_head": "requires its own observed automatic CI before merge",
+    "manual_dispatches": 0,
+    "release_preparation_conclusion": "success",
+    "release_preparation_run": 42564846458,
+    "test_conclusion": "success",
+    "test_run": 42564846322
+  },
+  "closed_issues_this_sprint": [
+    10,
+    11,
+    12,
+    26,
+    28,
+    33,
+    49,
+    51
+  ],
+  "context": {
+    "bytes": 4419,
+    "max_bytes": 8192,
+    "sha256": "2396d6433aa7814ac6c6afdac17d16d7d39dc241b0b7d3375aaec42c1f6b3488"
+  },
+  "coverage_rows": 44,
+  "default_branch_revision_before_final_checkpoint": "b38dbc82e237309358e2b99b2163bfc75e13657c",
+  "functional_revision": "32bcb3ce4a626a4edaa9ac9ad04f027ac1335e77",
+  "limitations": [
+    "Authored extraction fixtures are not live model accuracy evidence.",
+    "All 24 indexed ADRs remain proposed with null approval; unavailable owner contracts are not fabricated.",
+    "Real private archive/pilot, confidential runtime, full manual WCAG, hosted consumer and production publication acceptance remain open.",
+    "OpenViking useful native retrieval/lifecycle and live Ollama accuracy remain unverified.",
+    "Artifact hashes describe these local builds; they are not reproducible release or current documentation archive claims.",
+    "Later changes are documentation only; verify runtime/test/profile/contract identity with the functional revision.",
+    "Whole-tree historical Ruff findings are not claimed fixed; focused changed-code lint passes.",
+    "Release #19/#27 and deferred #86\u2013#91 stay parked."
+  ],
+  "observed_at": "2026-11-09T05:18:00Z",
+  "open_issue_count": 35,
+  "proof_environment": {
+    "google": "unused",
+    "model": "unused",
+    "network": "socket-http-subprocess-blocked-in-process",
+    "wheel_install": "pip --python EMPTY_VENV/bin/python install --no-index --no-deps LOCAL_WHEEL"
+  },
+  "pull_request": 126,
+  "python_tests": {
+    "3.12.14": {
+      "count": 481,
+      "seconds": 493.978,
+      "skipped": 0,
+      "status": "passed"
+    },
+    "3.13.5": {
+      "count": 481,
+      "seconds": 463.964,
+      "skipped": 0,
+      "status": "passed"
+    }
+  },
+  "recovery": "exact evidence, index, graph and bounded context after private move, vault relocation, restore and clean rebuild",
+  "runtime_dependencies": 0,
+  "schema": "mindgarden.overnight-qualification/v1",
+  "scope": "bounded local checkpoints; no release or parent umbrella acceptance",
+  "status": "passed",
+  "superseded_failures": [
+    {
+      "correction": "3d3cb2d2f213b7e2e9516d3cf16b80af4869cb8a; corrected CI passed before merge",
+      "pull_request": 124,
+      "result": "472/473; missing memory-validity schema inventory entry",
+      "run": 42561324762
+    },
+    {
+      "correction": "only derived /site/revision refreshed; full suites and all artifacts rerun at qualified revision",
+      "result": "480/481 on each Python; nested journey site revision receipt stale",
+      "revision": "ffa66d4ee2ce9c7c44f64b7deee227fe2e2f453d"
+    }
+  ],
+  "test_command": "python -m unittest discover --start-directory tests --verbose",
+  "test_environment": "clean frozen qualified source; Python 3.12.14 and 3.13.5; loopback allowed for server fixtures"
+}

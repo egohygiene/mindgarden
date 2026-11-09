@@ -4,6 +4,31 @@
   window.mindgardenGraphInstalled = true;
   const base = new URL("../../", document.currentScript.src);
   const namespace = "http://www.w3.org/2000/svg";
+  const explorers = new Map();
+  function prepareExplorerNavigation() {
+    for (const [panel, observer] of explorers) {
+      if (!panel.isConnected) { observer.disconnect(); explorers.delete(panel); }
+    }
+    for (const panel of document.querySelectorAll(".explorer")) {
+      if (explorers.has(panel)) continue;
+      const update = () => {
+        const content = panel.querySelector(".explorer-content");
+        if (!content || !content.id) return;
+        const expanded = String(!panel.classList.contains("collapsed"));
+        for (const button of panel.querySelectorAll("button.explorer-toggle")) {
+          button.setAttribute("aria-expanded", expanded);
+          button.setAttribute("aria-controls", content.id);
+        }
+        // The native controls own disclosure state; these are ordinary groups.
+        panel.removeAttribute("aria-expanded");
+        content.removeAttribute("aria-expanded");
+      };
+      const observer = new MutationObserver(update);
+      observer.observe(panel, {attributes: true, attributeFilter: ["class", "aria-expanded"]});
+      explorers.set(panel, observer);
+      update();
+    }
+  }
   function element(name, attributes, text) {
     const node = document.createElementNS(namespace, name);
     for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, String(value));
@@ -11,6 +36,7 @@
     return node;
   }
   async function render() {
+    prepareExplorerNavigation();
     const skip = document.querySelector(".mindgarden-skip-link");
     if (skip && !skip.dataset.bound) {
       skip.dataset.bound = "true";

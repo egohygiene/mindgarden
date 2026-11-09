@@ -40,7 +40,7 @@ updated: 2026-11-09
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate (2026-11-09):** Mindcap #42 and Mindgarden #110–#119 are merged; main `2eda2f4` exactly matches the tested combined tree (446 tests per Python). [The overnight sprint](docs/overnight-sprint.md) maps every listed acceptance criterion for #10/#11/#12/#26/#33/#51, then orders #48, #14, #37, #49, #28 and #17. Complete tested checkpoints may merge under the maintainer’s sleep-session approval. Blocked parents remain open; proposed ADRs, release publication, private pilots and deferred #86–#91 retain their gates.
+**Current gate (2026-11-09):** Mindcap #42 and Mindgarden #110–#125 are merged. Eight issues (#10/#11/#12/#26/#28/#33/#49/#51) are closed; 35 remain open. [The overnight sprint](docs/overnight-sprint.md) records the completed #48 → #14 → #37 → #49 → #28 → #17 checkpoints and their limits. Final mobile checkpoint #126 passes 481 tests per Python, clean source/wheel recovery and 15 actual browser/axe audits; merge follows exact-head CI under the maintainer’s sleep-session approval. Next is explicit #15 binary diagram/scratch-asset and attribution proof, followed by separately reviewed #14 incoming-reference repair. Blocked parents remain open; proposed ADRs, release publication, private pilots and deferred #86–#91 retain their gates.
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
 
 ### Complete open-issue coverage and next batches
@@ -373,11 +373,11 @@ providers, approved copy and destructive/timed retention are explicit remaining
 gates. Review/merge of drafts is distinct from owner ADR or consumer acceptance.
 
 The bounded [native macOS registry follow-up](docs/registry-native-platforms.md)
-is implemented on draft #93: extended ACL and exact ownership-path checks,
+is implemented in merged #93: extended ACL and exact ownership-path checks,
 44 tests per native Python job and clean installed-wheel evidence pass on
 macOS 15.8.2/arm64. Windows/confidential-host gaps remain explicit. This extends
-the merged checkpoints without repeating #80–#84; draft implementation and native
-tests do not imply merge, wider-host acceptance or ADR ratification.
+the merged checkpoints without repeating #80–#84; native tests and merge do not
+imply wider-host acceptance or ADR ratification.
 
 ## Provider and release verification
 
@@ -389,12 +389,13 @@ and Empathy draft #120 retain actual cutover/private-pilot gaps.
 
 ## Broader product checkpoints
 
-The earlier draft batch covers [the eight product checkpoints](docs/product-checkpoints.md):
+The merged batch covers [the eight product checkpoints](docs/product-checkpoints.md):
 #41, #43, #44, #32, #37, #49, #48 and #47. Verify shared
 gates before ADR backfill and the framework-dependent web slice. Reuse Relay for
 Decisions; keep query stores and all generated views replaceable. Implement ready
-local projection, dependency-build, memory and bookmark contracts in bounded drafts,
-then regroup with the maintainer. [The #47 service/parity proposal](docs/shared-service-slice-proposal.md)
+local projection, dependency-build, memory and bookmark contracts through bounded
+checkpoints. The overnight continuation closes #49 and extends #37/#48 without
+inventing owner acceptance. [The #47 service/parity proposal](docs/shared-service-slice-proposal.md)
 preserves the accepted-ADR gate. Deferred #86–#91 are not activated.
 
 ## Deferred after the current queue and reconciliation
@@ -419,7 +420,9 @@ for the next batch. Learning and infographic candidate contracts can advance as
 file/CLI projections without full web/runtime or release adoption. Evaluations
 remain optional, exact-version experiments over synthetic fixtures and the
 reference/SQLite baseline. Results are recommendations for review; source/privacy,
-canonical ownership and ADR gates remain unchanged. Regroup before any merge.
+canonical ownership and ADR gates remain unchanged. The later sleep-session
+authorization permits qualified merges: #28/#26/#33 are now closed, while
+#21 and native #34 retain explicit unmet criteria.
 
 ## Authorized original-roadmap closeout
 
@@ -427,7 +430,8 @@ The maintainer authorized merging #93–#109 and bounded follow-through for
 #43 → #46 → #17 → #18 → #20. See [the closeout ledger](docs/closeout-sprint.md).
 One separately requested [optional TypeSafe decision seam](docs/typesafe-decisions.md)
 can proceed independently of web/runtime and private-pilot gates. It does not
-activate deferred #86–#91 or release work. New checkpoint work stays in drafts.
+activate deferred #86–#91 or release work. That batch is merged; the later
+sleep-session authorization permits tested bounded checkpoints to merge after CI.
 
 ## Authorized pipeline completion sprint
 
@@ -438,7 +442,7 @@ while the new v2 fixtures support the later optional producer proof. #14 can use
 existing #12 retrieval before the new performance matrix. The Mindcap captured
 source contract is a pinned proposed owner draft, not an accepted shared policy.
 
-[Drafts #113–#118](docs/pipeline-completion-sprint.md) add capture conformance,
+[Merged #113–#118](docs/pipeline-completion-sprint.md) add capture conformance,
 v2.0.0–2.0.2 source profiles, optional evidence-bound extraction/resumption,
 reviewed graph moves/splits/replacements, typed projection coverage and measured
 2048-note operation, and local private/internal discovery/selected reads. A
