@@ -119,4 +119,6 @@ Revisit when a measured corpus exceeds #32's useful baseline, reviewed entity
 cross-referencing becomes a concrete consumer requirement, or an owner supplies
 the service policy/runtime/restore contracts; review evidence again by
 2027-01-01. Until then, **adapt patterns and defer deployment** is a proposed
-recommendation. Parent issue acceptance remains with the maintainer.
+recommendation. The #26 architectural evaluation is complete with this adapt/defer outcome;
+[the acceptance receipt](../overnight-sprint.md) records its criteria. This does
+not adopt a service or accept a proposed architecture decision.

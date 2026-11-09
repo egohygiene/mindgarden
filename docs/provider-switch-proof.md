@@ -2,11 +2,10 @@
 
 This scenario runs the same scoped request through two distinguishable local
 adapter fixtures, removes the first adapter and its caches, and reconstructs
-equivalent structured context from canonical sources. The implementation is on
-`feature/51-provider-switch-proof`, stacked over draft #93 at
-`7938f573100658908acc0a039974e60f8cf888aa`. The stack preserves a combined checkout;
-native macOS registry support is not a semantic prerequisite for this scenario.
-Refs #51. No live provider account, Google connection or model is required.
+equivalent structured context from canonical sources. The implementation and source/installed-engine qualification are merged.
+[The acceptance receipt](overnight-sprint.md) maps all nine #51 criteria to the
+fixture, report and recovery tests. Native macOS registry support is not a semantic
+prerequisite for this scenario. Refs #51. No live provider account, Google connection or model is required.
 
 ## Required contracts and integration proofs
 

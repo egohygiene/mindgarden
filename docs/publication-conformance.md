@@ -2,8 +2,9 @@
 
 This reusable synthetic pack exercises the existing v0 publication gates, v1
 record/provenance validation, scoped retrieval, public federation and the v1 site
-adapter. It is a bounded reference implementation, not a claim of complete media,
-restricted-runtime or real-consumer acceptance for #10.
+adapter. It satisfies the listed #10 engine conformance criteria; [the acceptance
+receipt](overnight-sprint.md) maps those criteria. Future media, restricted-runtime
+and real-consumer pilots remain with their owning issues.
 
 Install `requirements/test.txt` in a development environment, then run:
 
@@ -52,6 +53,6 @@ Final stack verification also rejects malformed unused storage declarations with
 relative roots or traversal. These declarations cannot evade export/cache overlap
 checks, and validating their lexical form does not probe denied locations.
 
-Remaining #10 work includes external normative policy/runtime assurance, approved
-consumer conformance and media-specific adapters. No secret-scanning, source-rights
+External normative policy/runtime assurance, real-consumer pilots and future
+media adapters remain separate integration work, rather than added #10 criteria. No secret-scanning, source-rights
 adjudication or sensitivity-classification claim is made by this pack.
