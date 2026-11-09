@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T04:31:24Z'
+  updated_at: '2026-11-09T04:43:39Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -75,50 +75,43 @@ work:
   - Merge only completed tested checkpoints; keep blocked parent scope explicit.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#28
-    url: https://github.com/egohygiene/mindgarden/issues/28
+    id: egohygiene/mindgarden#17
+    url: https://github.com/egohygiene/mindgarden/issues/17
   next:
     kind: action
     id: acceptance-then-bookmark-integration
-    description: 'Qualify/merge #124 → due-card review checkpoint, verify #49/#28 closure states, then fix the pinned
-      mobile Explorer ARIA defect (#17) and run combined source/wheel/offline checks.'
+    description: 'Run full combined tests on Python 3.12/3.13, clean source/wheel offline proofs and owner checks;
+      then merge corrected #124 → #125 → mobile checkpoint after exact-head qualification. Keep #17 manual/hosted
+      acceptance open.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
     depends_on: []
 state:
   base:
-    revision: 5af4065f0516fddbed06606f619ca6cd2537b3a0
-    ref: refs/heads/feature/49-expiring-memory-bundles
-    verified_at: '2026-11-09T04:31:24Z'
+    revision: 37d5adb7c19aeef3dfd025391e695a024fd482ce
+    ref: refs/heads/feature/28-due-review-queue
+    verified_at: '2026-11-09T04:43:39Z'
   candidate:
-    branch: feature/28-due-review-queue
-    revision: 31f46e540ffc79d2ab0c4b85440ca5924588094d
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#125
-      url: https://github.com/egohygiene/mindgarden/pull/125
-    handoff_state: ready-for-review
+    branch: fix/17-mobile-explorer-aria
+    revision: null
+    pull_request: null
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-09T04:31:24Z'
+    observed_at: '2026-11-09T04:43:39Z'
     default_branch_revision: 51c29c43a2a815918b54deef4688dd42afaf77a1
     issue_state: open
     pull_request_state: draft
-    notes: 'Acceptance #120 and integration #121–#123 are merged after green CI. Managed memory #124 remains draft;
-      learning due view stacks after it. 37 issues live open before #49/#28 closure; all 44 rows retained.'
+    notes: 'Acceptance #120 and integration #121–#123 merged. Corrected #124/#125 remain draft; the combined mobile
+      checkpoint includes both schema-inventory fixes without rewriting history. 37 issues live open before #49/#28
+      closures; all 44 rows retained.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T04:31:24Z'
+  reviewed_at: '2026-11-09T04:43:39Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: unittest tests.test_memory_validity tests.test_memory --verbose; additional one-source
-      refresh test; focused Ruff/format; pinned owner checks'
-    outcome: passed
-    observed_at: '2026-11-09T04:18:45Z'
-    notes: 16 pass per interpreter, zero skips (30.200s / 25.775s), plus one authored refresh case per interpreter;
-      new-head CI separate
   - command: 'Python 3.12/3.13: unittest tests.test_memory_validity tests.test_memory --verbose; additional one-source
       refresh test; focused Ruff/format; pinned owner checks'
     outcome: passed
@@ -137,6 +130,12 @@ review:
     observed_at: '2026-11-09T04:31:24Z'
     notes: 20 pass per interpreter, zero skips (26.442s / 25.986s); Chromium 151/Playwright 1.62, 320/1280, keyboard/200%
       zoom/reduced motion, zero axe violations/incompletes; CI separate
+  - command: 'Python 3.12/3.13: unittest tests.test_site tests.test_design tests.test_portal tests.test_publication_conformance
+      --verbose; actual site_browser_check.py offline; node --check; owner checks'
+    outcome: passed
+    observed_at: '2026-11-09T04:43:39Z'
+    notes: 33 pass per interpreter, zero skips (45.255s / 43.936s); 15 actual axe audits have zero findings/incompletes,
+      keyboard/search/fallback/portal recovery pass; full combined and corrected CI pending
   environment_limitations:
   - 'Aether #69/Akashic #176 accepted integration contracts and real private pilots remain unavailable.'
   - OpenViking native useful-query/lifecycle acceptance incomplete; live Ollama accuracy unavailable.
@@ -168,19 +167,19 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Complete finite local memory/learning criteria and a bounded mobile accessibility fix; preserve full product, private pilot, release and ADR gates.
+Qualify and merge the completed sleep queue, with honest parent limits and current issue closure state; no release, private pilot or ADR ratification.
 
 ## State snapshot
 
-Acceptance #120 and integration #121–#123 are merged after green CI. Managed memory #124 remains draft; learning due view stacks after it. 37 issues live open before #49/#28 closure; all 44 rows retained.
+Acceptance #120 and integration #121–#123 merged. Corrected #124/#125 remain draft; the combined mobile checkpoint includes both schema-inventory fixes without rewriting history. 37 issues live open before #49/#28 closures; all 44 rows retained.
 
 ## Completed and material changes
 
-Twenty learning cases pass per Python; full/due static Chromium checks pass with zero axe findings at mobile/desktop widths. Due views retain full private JSON and exact history; no canonical deletion or model requirement.
+Native Explorer disclosure fixed in owned code; actual empty/small/205-note builds and 15 browser/axe audits pass. Focused 33-case site/design/portal/publication suite passes per Python; source/portal goldens refreshed only for derived hashes.
 
 ## Validation and review evidence
 
-Python 3.12/3.13: unittest tests.test_learning_queue tests.test_learning --verbose; actual learning_browser_check.py full/due with axe 4.10.3; Ruff/format/owner checks — 20 pass per interpreter, zero skips (26.442s / 25.986s); Chromium 151/Playwright 1.62, 320/1280, keyboard/200% zoom/reduced motion, zero axe violations/incompletes; CI separate. Full combined verification and exact CI remain in docs/overnight-sprint.md.
+Python 3.12/3.13: unittest tests.test_site tests.test_design tests.test_portal tests.test_publication_conformance --verbose; actual site_browser_check.py offline; node --check; owner checks — 33 pass per interpreter, zero skips (45.255s / 43.936s); 15 actual axe audits have zero findings/incompletes, keyboard/search/fallback/portal recovery pass; full combined and corrected CI pending. Full combined verification and exact CI remain in docs/overnight-sprint.md.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -188,7 +187,7 @@ Native OpenViking acceptance, real Ollama evaluation, confidential runtime, Aeth
 
 ## Next dependency-ready work
 
-Qualify/merge #124 → due-card review checkpoint, verify #49/#28 closure states, then fix the pinned mobile Explorer ARIA defect (#17) and run combined source/wheel/offline checks.
+Run full combined tests on Python 3.12/3.13, clean source/wheel offline proofs and owner checks; then merge corrected #124 → #125 → mobile checkpoint after exact-head qualification. Keep #17 manual/hosted acceptance open.
 
 ## Parallel changes and reconciliation
 

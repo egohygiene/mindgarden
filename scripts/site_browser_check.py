@@ -311,6 +311,26 @@ def browser_proof(data, axe_script, chromium):
                             == 1
                         )
                     page.goto(base + "/garden/")
+                    page.wait_for_function(
+                        """() => [...document.querySelectorAll('.explorer')].length > 0 && [...document.querySelectorAll('.explorer')].every(panel => !panel.hasAttribute('aria-expanded') && [...panel.querySelectorAll('button.explorer-toggle')].every(button => button.getAttribute('aria-expanded') === String(!panel.classList.contains('collapsed')) && document.getElementById(button.getAttribute('aria-controls')) === panel.querySelector('.explorer-content')))"""
+                    )
+                    page.add_script_tag(path=str(axe_script))
+                    expanded_audit = None
+                    if width == 320:
+                        explorer = page.locator(".explorer button.mobile-explorer")
+                        explorer.focus()
+                        page.keyboard.press("Enter")
+                        page.wait_for_function(
+                            """() => document.querySelector('.explorer button.mobile-explorer').getAttribute('aria-expanded') === 'true' && !document.querySelector('.explorer').hasAttribute('aria-expanded')"""
+                        )
+                        expanded_audit = page.evaluate(
+                            """async () => {const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}});return {version:axe.version, violations:r.violations.map(v=>({id:v.id,impact:v.impact,targets:v.nodes.map(n=>n.target)})),incomplete:r.incomplete.map(v=>v.id)}}"""
+                        )
+                        assert not expanded_audit["violations"], expanded_audit
+                        page.keyboard.press("Space")
+                        page.wait_for_function(
+                            """() => document.querySelector('.explorer button.mobile-explorer').getAttribute('aria-expanded') === 'false' && !document.documentElement.classList.contains('mobile-no-scroll')"""
+                        )
                     page.get_by_role("button", name="Search", exact=True).click()
                     search = page.get_by_role(
                         "textbox", name="Search for something...", exact=True
@@ -320,7 +340,6 @@ def browser_proof(data, axe_script, chromium):
                         "element => element === document.activeElement"
                     )
                     page.keyboard.press("Escape")
-                    page.add_script_tag(path=str(axe_script))
                     audits = []
                     for theme in ("light", "dark"):
                         if (
@@ -338,10 +357,7 @@ def browser_proof(data, axe_script, chromium):
                             """async () => {const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}});return {version:axe.version, violations:r.violations.map(v=>({id:v.id,impact:v.impact,targets:v.nodes.map(n=>n.target),details:v.nodes.map(n=>n.failureSummary)})),incomplete:r.incomplete.map(v=>v.id)}}"""
                         )
                         assert result["version"] == "4.10.3"
-                        # Retain the pinned external renderer defect, never hide it.
-                        assert {item["id"] for item in result["violations"]} <= {
-                            "aria-allowed-attr"
-                        }, result
+                        assert not result["violations"], result
                         audits.append({"theme": theme, **result})
                     page.evaluate('document.documentElement.style.fontSize="200%"')
                     assert page.evaluate(
@@ -353,6 +369,8 @@ def browser_proof(data, axe_script, chromium):
                             "graph_ready_seconds": elapsed,
                             "checks": "passed",
                             "axe": audits,
+                            "mobile_expanded_axe": expanded_audit,
+                            "explorer_controls": "native-disclosure-state-and-controlled-content",
                         }
                     )
                     context.close()
@@ -447,13 +465,12 @@ def main():
             )
     report = {
         "schema": "mindgarden.rendered-browser-portal-proof/v1",
-        "status": "partial-renderer-accessibility-findings",
+        "status": "passed-bounded-browser-checks",
         "renderer_commit": QUARTZ_COMMIT,
         "variants": reports,
         "models": "unused",
         "google": "unused",
         "limitations": [
-            "Pinned Quartz Explorer has an unsupported aria-expanded attribute; retained axe finding",
             "Automated rules/keyboard checks are not full WCAG or screen-reader certification",
             "Relay #40 action, host promotion and production publication remain unverified",
         ],

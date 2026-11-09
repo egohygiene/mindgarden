@@ -23,7 +23,7 @@
     "owned": [
       {
         "path": "garden/.mindgarden-site.json",
-        "sha256": "4934da199aba167d3a8e98261972e1e72c2fd84969aa107ef541f9a27328d754",
+        "sha256": "a4a86c50bf251b419c833ecc578e480d361e0973e688678be90232c2e0f2fd8e",
         "size_bytes": 2905
       },
       {
@@ -67,11 +67,11 @@
         "size_bytes": 50
       }
     ],
-    "revision": "sha256:b3e8dba16a264905b0f30e60cf028991d0de3791d9528b25fe23e0a22158b547",
+    "revision": "sha256:47fa063be1c154a5117e8187880dc44d1708310eabb181d37b1b1e667837a76f",
     "schema": "mindgarden.portal-manifest/v1",
     "site": {
       "base_uri": "https://repository-garden.example.test/garden/",
-      "manifest_sha256": "4934da199aba167d3a8e98261972e1e72c2fd84969aa107ef541f9a27328d754",
+      "manifest_sha256": "a4a86c50bf251b419c833ecc578e480d361e0973e688678be90232c2e0f2fd8e",
       "renderer": {
         "commit": "075afd3f712da0088a07f5284a7b3aba37dd61b6",
         "description": "Reviewed prompts with exact evidence and typed relationships.",
@@ -81,7 +81,7 @@
         "schema": "mindgarden.site-adapter/v1",
         "title": "Synthetic prompt bank"
       },
-      "revision": "sha256:f82c188e626ab2c4f9c86902b4cbe178a71c571d5dcedb63c2a31f5a41a85f6b"
+      "revision": "sha256:0e728141603c7a82d510c4f1f02a995dd69e8a5adf77d20af754c2ce5f6b6ea8"
     }
   },
   "renderer": "authored-contract-fixture-no-renderer-invocation",

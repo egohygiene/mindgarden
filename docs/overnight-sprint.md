@@ -236,3 +236,34 @@ notifications and sync are not invented prerequisites. No model/publishing/accou
 or private consumer is used. Next action: qualify/merge and then fix the recorded
 mobile Explorer ARIA defect in the pinned #17 adapter, keeping full WCAG acceptance
 separate from that bounded defect proof.
+
+
+### Checkpoint G — #17 mobile Explorer disclosure semantics
+
+Branch: `fix/17-mobile-explorer-aria`, stacked after learning #125. The owned
+runtime adapter moves disclosure state from ordinary containers to native
+controls, binds controlled content IDs and tracks the pinned controller's class.
+No vendor source, canonical note, renderer pin or dependency changes.
+
+Actual offline Quartz empty/small/205-note builds and **15 browser/axe audits**
+pass with zero violations/incompletes, including expanded mobile Explorer, both
+closed themes/viewports, keyboard controls, search, graph limits, no-JS fallback
+and portal interruption/retry. Small actual output reproduces complete bytes.
+`node --check profiles/quartz/v1.graph.js` passes. Updated source/portal goldens
+reflect derived asset/manifest revisions only. The 33-case site/design/portal/
+publication suite passes on Python 3.12.14 (45.255s) and 3.13.5 (43.936s).
+See [the exact browser receipt/command](rendered-closeout-evidence.md).
+
+The schema-inventory corrections from parent #124 and learning #125 are merged
+into this combined branch without rewriting stack history. Parent #124's first
+473-case CI attempt failed only its missing `memory-validity` inventory entry;
+that failure is explicitly retained, not called passing. Corrected memory+contract
+checks pass 22 cases on Python 3.12; contract checks pass on Python 3.13. Learning
+plus contract checks pass 25 cases/5 contract cases respectively. Fresh automatic
+head checks and the complete combined/source/wheel qualification follow.
+
+#17 remains open for full manual WCAG, visual/consumer and hosted acceptance.
+Next action: run complete compatibility on both Pythons, build clean artifacts,
+repeat offline recovery/source/installed proofs, then merge #124 → #125 → this
+checkpoint only after their corrected exact heads qualify. Release and deferred
+context-package work remain parked.

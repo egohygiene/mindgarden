@@ -1,0 +1,219 @@
+{
+  "google": "unused",
+  "limitations": [
+    "Automated rules/keyboard checks are not full WCAG or screen-reader certification",
+    "Relay #40 action, host promotion and production publication remain unverified"
+  ],
+  "models": "unused",
+  "renderer_commit": "075afd3f712da0088a07f5284a7b3aba37dd61b6",
+  "schema": "mindgarden.rendered-browser-portal-proof/v1",
+  "status": "passed-bounded-browser-checks",
+  "variants": {
+    "empty": {
+      "browser": {
+        "browser_requests": "loopback-only",
+        "chromium": "151.0.7922.173",
+        "javascript_disabled_list": "passed",
+        "playwright": "1.62.0",
+        "unavailable_graph": "passed",
+        "viewports": [
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": []
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": []
+              }
+            ],
+            "checks": "passed",
+            "explorer_controls": "native-disclosure-state-and-controlled-content",
+            "graph_ready_seconds": 0.256,
+            "mobile_expanded_axe": {
+              "incomplete": [],
+              "version": "4.10.3",
+              "violations": []
+            },
+            "width": 320
+          },
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": []
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": []
+              }
+            ],
+            "checks": "passed",
+            "explorer_controls": "native-disclosure-state-and-controlled-content",
+            "graph_ready_seconds": 0.206,
+            "mobile_expanded_axe": null,
+            "width": 1280
+          }
+        ]
+      },
+      "render": {
+        "build_seconds": 6.486,
+        "files": 52,
+        "manifest_sha256": "58507850bed9e15aec08ed5610f68e951cf870be4d5639aae8757f128e94823c",
+        "nodes": 0,
+        "revision": "sha256:e8dd5b2dfbe8f3a6dfdd7b294ad1f4466b350376778f46ef3e5adc3d2d35d47b"
+      }
+    },
+    "large": {
+      "browser": {
+        "browser_requests": "loopback-only",
+        "chromium": "151.0.7922.173",
+        "javascript_disabled_list": "passed",
+        "playwright": "1.62.0",
+        "unavailable_graph": "passed",
+        "viewports": [
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": []
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": []
+              }
+            ],
+            "checks": "passed",
+            "explorer_controls": "native-disclosure-state-and-controlled-content",
+            "graph_ready_seconds": 0.333,
+            "mobile_expanded_axe": {
+              "incomplete": [],
+              "version": "4.10.3",
+              "violations": []
+            },
+            "width": 320
+          },
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": []
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": []
+              }
+            ],
+            "checks": "passed",
+            "explorer_controls": "native-disclosure-state-and-controlled-content",
+            "graph_ready_seconds": 0.209,
+            "mobile_expanded_axe": null,
+            "width": 1280
+          }
+        ]
+      },
+      "render": {
+        "build_seconds": 123.738,
+        "files": 262,
+        "manifest_sha256": "f47657fe4409229e41a20174c3b8146f70b8edd17b17bd91e2acecc95f096fe2",
+        "nodes": 205,
+        "revision": "sha256:0c02e84cdf5e39e43b9f6a6485ae7e8d77fdfe5150fc8d9fc585708632c6b3a2"
+      }
+    },
+    "small": {
+      "browser": {
+        "browser_requests": "loopback-only",
+        "chromium": "151.0.7922.173",
+        "javascript_disabled_list": "passed",
+        "playwright": "1.62.0",
+        "unavailable_graph": "passed",
+        "viewports": [
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": []
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": []
+              }
+            ],
+            "checks": "passed",
+            "explorer_controls": "native-disclosure-state-and-controlled-content",
+            "graph_ready_seconds": 0.229,
+            "mobile_expanded_axe": {
+              "incomplete": [],
+              "version": "4.10.3",
+              "violations": []
+            },
+            "width": 320
+          },
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": []
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": []
+              }
+            ],
+            "checks": "passed",
+            "explorer_controls": "native-disclosure-state-and-controlled-content",
+            "graph_ready_seconds": 0.193,
+            "mobile_expanded_axe": null,
+            "width": 1280
+          }
+        ]
+      },
+      "portal": {
+        "checks": [
+          "actual-renderer-manifest",
+          "receipt-failure-blocks-verification",
+          "retry-and-repeat",
+          "siblings-preserved",
+          "corrupted-candidate-denied",
+          "previous-portal-retained"
+        ],
+        "deployment": "not-invoked",
+        "owned_files": 60,
+        "receipt_sha256": "0566db7c9fe4f8ac531597f46ddbccb4d15822e90a651e5ad505c7a95efe3802",
+        "relay_action": "unavailable-at-inspected-pin"
+      },
+      "render": {
+        "build_seconds": 5.656,
+        "files": 60,
+        "manifest_sha256": "f958f61b65fb5b78db09050a87fae7200d6669aea2d0d9e6f49489b5dc54e0d8",
+        "nodes": 3,
+        "revision": "sha256:69e87b63f0b9d48c12d62c4a50fa42ad54f72d41ff7ef1e4e2ae594726b9e174"
+      }
+    }
+  }
+}

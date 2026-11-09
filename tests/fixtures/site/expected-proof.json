@@ -22,7 +22,7 @@
     "adapter": "quartz-v5",
     "commit": "075afd3f712da0088a07f5284a7b3aba37dd61b6"
   },
-  "revision": "sha256:f82c188e626ab2c4f9c86902b4cbe178a71c571d5dcedb63c2a31f5a41a85f6b",
+  "revision": "sha256:0e728141603c7a82d510c4f1f02a995dd69e8a5adf77d20af754c2ce5f6b6ea8",
   "routes": [
     {
       "path": "notes/reviewed-claim/index.html",

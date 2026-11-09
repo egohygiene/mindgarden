@@ -5,6 +5,48 @@ The operational review stack is #110 → #111 → the rendered closeout draft.
 TypeSafe is independent of the public renderer; stacking preserves one combined
 checkout rather than asserting a new semantic prerequisite.
 
+## Superseding mobile navigation checkpoint — 2026-11-09
+
+The [new receipt](evidence/overnight-rendered-browser-proof.json) supersedes the
+mobile Explorer finding in the historical #112 report below. Owned adapter code
+now assigns disclosure state and `aria-controls` to the native mobile/desktop
+buttons and removes stale state from ordinary containers. The exact pinned
+Explorer 0.1.0 controller uses the `collapsed` class; its vendor source is not
+forked or patched. A bounded observer follows that class and cleans detached
+panels on navigation. Button activation, layout and source ownership remain.
+
+The actual Quartz commit and package lock stay pinned. The Explorer artifact is
+`@quartz-community/explorer` 0.1.0, npm integrity
+`sha512-qdsXF9ivT32ct52CzOLXCFnxHJS6xHIcX/lVeT82sEmNxjivRLt8kvVK+mJQBiC/Nj8ItRFiL+e0suwNZ19vjQ==`.
+This records the existing evaluated integration; no new renderer/dependency is
+selected. Source/portal proof goldens change only derived revision/manifest hashes
+for the corrected owned script, not knowledge, source citations or stable routes.
+
+All three actual empty/small/205-note builds pass. Keyboard Enter/Space opens and
+closes mobile Explorer with synchronized native-button state and a valid controlled
+content target. Expanded mobile navigation plus light/dark mobile/desktop views
+produce **15 axe audits, zero violations and zero incomplete findings**. Skip
+focus, search, graph links/controls, reduced motion, 200% text, no-JavaScript lists,
+unavailable graph and actual portal interruption/retry proofs still pass. The
+small renderer output reproduces byte-identically across two real builds.
+
+Reproduction uses the complete prepared cache (the unrelated smaller cache
+lacks `zwitch`; its first offline attempt failed and is not counted as passing):
+
+```bash
+python scripts/site_browser_check.py \
+  --workspace /tmp/new-mindgarden-rendered-proof \
+  --renderer .cache/six-quartz --npm-cache .cache/six-npm \
+  --axe-script .cache/next-sprint/axe/node_modules/axe-core/axe.min.js \
+  --chromium /usr/bin/chromium --report /tmp/new-rendered-browser-proof.json
+```
+
+Page requests remain loopback-only; scoped rendering uses offline npm and calls
+no model or Google service. These are bounded automated/browser proofs, not a
+full WCAG 2.2 AA or screen-reader certification, hosted publication or full #17
+acceptance. Visual/manual/consumer qualification and the other parent gates
+remain. The historical evidence is preserved below with its original limits.
+
 ## Actual pinned renderer and browser
 
 [`scripts/site_browser_check.py`](../scripts/site_browser_check.py) creates only
@@ -45,12 +87,12 @@ handler keeps skip activation within the page despite SPA navigation. Theme
 Explorer links use the opaque semantic accent; the previous blended link color
 measured only 3.92:1 against its background.
 
-**Accessibility remains partial.** All mobile variants retain the pinned
+**Historical #112 accessibility was partial.** Its mobile variants retained the pinned
 Quartz Explorer's invalid `aria-expanded` attribute (`aria-allowed-attr`, critical).
 It is recorded in every applicable axe result. Automated rules cover the garden home;
 SVG contrast and broader graph reading still require manual review. No full WCAG 2.2 AA, screen-reader, all-theme
-or real-consumer acceptance is claimed. The source adapter does not suppress or
-reclassify the renderer's finding.
+or real-consumer acceptance is claimed. That receipt did not suppress or reclassify the finding; the superseding
+checkpoint above corrects native disclosure semantics and re-runs the audits.
 
 Prepare optional tools independently, then reproduce with a new workspace:
 
