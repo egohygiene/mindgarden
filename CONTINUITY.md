@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T10:10:34Z'
+  updated_at: '2026-11-09T10:11:11Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -81,8 +81,8 @@ work:
   next:
     kind: action
     id: privacy-storage-next-checkpoint
-    description: 'Open the #29 coherent checkpoint as a draft, then implement #31 whole-bundle session limits and
-      metadata/rendered-output enforcement; keep owner integration blocked.'
+    description: 'Implement #31 complete generated-bundle/session byte ceilings, final authority checks and rendered-output
+      coverage above draft #127; owner integration remains blocked.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
@@ -91,33 +91,29 @@ state:
   base:
     revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     ref: refs/heads/main
-    verified_at: '2026-11-09T10:10:34Z'
+    verified_at: '2026-11-09T10:11:11Z'
   candidate:
     branch: feature/29-export-policy-boundaries
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 1cb3a60594a678862e5bd2d167218b12b21ea87b
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#127
+      url: https://github.com/egohygiene/mindgarden/pull/127
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T10:10:34Z'
+    observed_at: '2026-11-09T10:11:11Z'
     default_branch_revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     issue_state: open
-    pull_request_state: not-applicable
-    notes: 'Main 7594921 is the merged overnight baseline; 35 issues remain open. #29 export-policy integration
-      passes 39 focused cases per Python; no new PR was open at the initial refresh. Four bounded privacy/storage
-      checkpoints are ordered in the new sprint ledger.'
+    pull_request_state: draft
+    notes: 'Main 7594921 is the merged baseline; #29 checkpoint is draft #127 at functional 1cb3a60. 39 focused
+      cases pass per Python; hosted CI is separate. 35 issues remain open and all 44 coverage rows are retained.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T10:10:34Z'
+  reviewed_at: '2026-11-09T10:11:11Z'
   reviewed_by: codex
   evidence:
-  - command: Actual learning_browser_check.py full/due; site_browser_check.py offline Quartz; focused Ruff/format,
-      Node syntax, pinned owner schemas
-    outcome: passed
-    observed_at: '2026-11-09T05:18:28Z'
-    notes: Learning keyboard/320/1280/200%/reduced-motion and 15 site axe audits pass; full manual WCAG and production
-      hosting remain open
   - command: 'Python 3.12/3.13: unittest tests.test_export_policy tests.test_scope_policy tests.test_federation
       tests.test_site --quiet; focused Ruff/format and diff checks'
     outcome: passed
@@ -127,6 +123,11 @@ review:
       tests.test_site --quiet; focused Ruff/format and diff checks'
     outcome: passed
     observed_at: '2026-11-09T10:10:34Z'
+    notes: 39 pass each, zero skips (51.261s / 43.269s); compatible public output bytes unchanged
+  - command: 'Python 3.12/3.13: unittest tests.test_export_policy tests.test_scope_policy tests.test_federation
+      tests.test_site --quiet; focused Ruff/format and diff checks'
+    outcome: passed
+    observed_at: '2026-11-09T10:11:11Z'
     notes: 39 pass each, zero skips (51.261s / 43.269s); compatible public output bytes unchanged
   environment_limitations:
   - 'Hygiene #39/#40 normative information-flow and assurance contracts unavailable at 92195e4.'
@@ -165,7 +166,7 @@ Complete dependency-ready privacy/storage checkpoints, preserve #10 completion a
 
 ## State snapshot
 
-Main 7594921 is the merged overnight baseline; 35 issues remain open. #29 export-policy integration passes 39 focused cases per Python; no new PR was open at the initial refresh. Four bounded privacy/storage checkpoints are ordered in the new sprint ledger.
+Main 7594921 is the merged baseline; #29 checkpoint is draft #127 at functional 1cb3a60. 39 focused cases pass per Python; hosted CI is separate. 35 issues remain open and all 44 coverage rows are retained.
 
 ## Completed and material changes
 
@@ -181,7 +182,7 @@ Accepted Hygiene classification/declassification/assurance, Realm encrypted-vaul
 
 ## Next dependency-ready work
 
-Open the #29 coherent checkpoint as a draft, then implement #31 whole-bundle session limits and metadata/rendered-output enforcement; keep owner integration blocked.
+Implement #31 complete generated-bundle/session byte ceilings, final authority checks and rendered-output coverage above draft #127; owner integration remains blocked.
 
 ## Parallel changes and reconciliation
 
