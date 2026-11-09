@@ -94,15 +94,18 @@ state:
     verified_at: '2026-11-09T03:48:09Z'
   candidate:
     branch: sprint/overnight-acceptance
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 041190dd9b0c805154d2e025f850b1cd9236ab2a
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#120
+      url: https://github.com/egohygiene/mindgarden/pull/120
+    handoff_state: ready-for-review
   live:
     status: verified
     observed_at: '2026-11-09T03:48:09Z'
     default_branch_revision: 2eda2f4785caf9729b2c486b87436fc894c8e685
     issue_state: open
-    pull_request_state: not-applicable
+    pull_request_state: draft
     notes: 'Mindcap #42 and Mindgarden #110–#119 merged in order. Main exactly equals tested combined tree. Acceptance
       receipt proposes six issue closures: 43 open before merge, 37 afterward; 44 rows retained.'
   parallel_changes: []

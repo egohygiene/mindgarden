@@ -114,7 +114,7 @@ closed issues; do not erase completed history to make the queue look smaller.
 
 ### Checkpoint A — acceptance receipt
 
-Branch: `sprint/overnight-acceptance`; PR recorded after push. No engine bytes
+Branch: `sprint/overnight-acceptance`; [draft #120](https://github.com/egohygiene/mindgarden/pull/120), functional receipt `041190d`. No engine bytes
 changed from merged main. The receipt closes #10, #11, #12, #26, #33 and #51
 through their actual listed criteria; #34 remains partial. Open count is 43 before
 this PR merges and 37 after those six automatic closures. All 44 rows remain.
