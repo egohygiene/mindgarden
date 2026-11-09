@@ -1,0 +1,18 @@
+{
+  "network": "disabled",
+  "notes": 2048,
+  "operations": {
+    "context_json": {
+      "match": true,
+      "seconds": 27.462088,
+      "sha256": "a64e20c26edef767cd1d56def1102b12c155d62d136dca5aa99ad5f8d99201e5"
+    },
+    "index": {
+      "match": true,
+      "seconds": 16.149901,
+      "sha256": "34e959870a79614594d17c2b9677e574ab4838671fddc8537c9cf7b06908f5a4"
+    }
+  },
+  "schema": "example.projection-repeat/1",
+  "unchanged_inputs": "fresh-query-context"
+}

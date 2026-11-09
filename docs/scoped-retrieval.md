@@ -127,3 +127,23 @@ The [asset inventory](mixed-source-vault.md) extends this matrix through an
 explicit `assets` projection/source review grant. Its private manifest, counts,
 review lineage and metadata receive the same pre-body scope filtering, budgets,
 expiry/revocation and sanitized denial contract. Public inventory is unavailable.
+
+## Explicit garden selection
+
+Application callers may use `QueryContext.load(..., garden_ids={...})` before
+probing roots or `context.select_gardens({...})` on an existing context. Both only
+narrow gardens already granted by the same unchanged session and supported policy.
+They do not mint authority, rewrite session bytes, add projections/review states,
+change budgets or extend expiration. A narrowed context cannot widen itself.
+Expiry, revocation, relevant binding changes and original represented revisions
+remain live checks. An unavailable unselected garden need not be opened.
+
+Selection has its own scope/cache digest, so its projections cannot collide with
+the broader session's cached index. Existing callers without selection keep their
+original digest and behavior. Machine paths stay in bindings, not portable records.
+
+The original exact session revisions are retained. Omitting a cross-garden
+relationship or evidence dependency can change a represented metadata view; the
+query then fails `SESSION_REVISION`. Select the complete needed set or author an
+explicitly refreshed narrower session. The engine never fabricates a replacement
+pin, drops a source grant or opens omitted bodies to make the request succeed.

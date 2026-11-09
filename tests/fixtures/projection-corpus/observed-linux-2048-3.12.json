@@ -1,0 +1,48 @@
+{
+  "budget_status": "passed",
+  "claims": 1,
+  "network": "disabled",
+  "notes": 2048,
+  "operations": {
+    "backlinks": {
+      "bytes": 2002,
+      "seconds": 28.40243,
+      "sha256": "3fbc3d83bf2412ac9fc77a24230b3102962580892101e59a0947605eebf0cde4"
+    },
+    "context_json": {
+      "bytes": 3943,
+      "seconds": 26.708757,
+      "sha256": "a64e20c26edef767cd1d56def1102b12c155d62d136dca5aa99ad5f8d99201e5"
+    },
+    "context_markdown": {
+      "bytes": 3840,
+      "seconds": 26.846971,
+      "sha256": "741925588f83b6003cbaa7a365b278f5c4ba757801c6a19a4ac80925f169037a"
+    },
+    "graph": {
+      "bytes": 4017,
+      "seconds": 28.194612,
+      "sha256": "3550522472636dc7a851c9d1d3330519da80b538a380cad64fbeaf6baf939753"
+    },
+    "index": {
+      "bytes": 4641857,
+      "seconds": 15.282109,
+      "sha256": "34e959870a79614594d17c2b9677e574ab4838671fddc8537c9cf7b06908f5a4"
+    },
+    "search": {
+      "bytes": 2509,
+      "seconds": 27.169922,
+      "sha256": "06af4f9191aaf6190f1dedc8d21866dfb5c95651d79e63534bb445e28444cdc7"
+    }
+  },
+  "peak_process_rss_bytes": 166473728,
+  "platform": "Linux",
+  "python": "3.12.14",
+  "reference_budgets": {
+    "max_process_rss_bytes": 268435456,
+    "max_projection_seconds": 60
+  },
+  "schema": "example.projection-benchmark/1",
+  "timings": "observed-not-a-performance-guarantee",
+  "typed_relationships": 1
+}

@@ -118,3 +118,24 @@ remain open. Next: #12 projection matrix, narrowing and larger measured corpus.
 
 [Draft #116](https://github.com/egohygiene/mindgarden/pull/116), functional
 `f369932`, records the #14 checkpoint. Next: #12, then #16.
+
+### #12 projection coverage and explicit narrowing
+
+Branch `feature/12-projection-selection` stacks over #116/`f9219da`. All eight
+relation types, directed/undirected backlinks, cross-garden references, exact
+claim evidence and suppressed denied/unavailable endpoints are tested. Existing
+session authority can be narrowed before root probing or body reads, with a
+selection-specific cache identity. Omitted cross-garden dependencies fail on the
+original revision pin; no new authority or replacement pin is manufactured.
+
+9 matrix/selection/corpus cases pass on Python 3.12/3.13 (19.377s/18.607s).
+`python scripts/projection_benchmark.py --workspace .cache/pipeline-next/corpus-2048
+--records 2048` passes the same 60-second/256-MiB reference limits. Six projections
+take 15.282–28.402s and peak RSS is 166,473,728 bytes. A fresh-context index and
+JSON-context repeat matches both exact hashes (16.150s/27.462s). Reports are
+committed under tests/fixtures/projection-corpus. This is observed CLI performance,
+not interactive/UI or arbitrary-hardware acceptance. No new cache/database/model
+is introduced. Next: #16 private/local discovery and progressive selected retrieval.
+
+[Draft #117](https://github.com/egohygiene/mindgarden/pull/117), functional
+`2c70c89`, records the #12 checkpoint. Next: local discovery over the same authority.
