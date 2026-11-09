@@ -24,7 +24,7 @@ python scripts/projection_benchmark.py --workspace /tmp/new-synthetic-corpus --r
 ```
 
 The script refuses a nonempty workspace and supports 2–4096 generated notes.
-The **measured reference envelope is 1024**, with 1025 query candidates, 4 KB
+The initial **measured reference envelope was 1024**, with 1025 query candidates, 4 KB
 context, at most 60 seconds per projection and 256 MiB peak process RSS. It fails
 when the reference timing/memory ceiling is exceeded. Missing platform RSS support
 is reported as `memory-unavailable`, not passing memory verification. The 4096
@@ -52,3 +52,38 @@ The private index exceeds the separate 2 MB federation-file limit. A public
 federation export must use its own bounded reviewed selection. Larger reference
 hardware/corpora, broader relationship matrices and consumer acceptance remain
 parent scope. SQLite stays optional and is not made canonical by this checkpoint.
+
+## Extended relation/selection and 2048-note checkpoint
+
+The new matrix exercises all eight existing synapse types, directed/undirected
+backlinks, exact claim citations and cross-garden references. Unavailable and
+denied targets do not change index, search, graph, backlink, outbound or either
+context format. A selected context retains the original live session and uses a
+distinct cache identity; unselected bodies and unavailable unselected roots are
+not opened. Omitted cross-garden dependencies fail closed on revision mismatch.
+
+The same benchmark ran with `--records 2048`: 2049 candidates, one claim, one typed
+edge and 4 KB context. Linux/Python 3.12.14 observations:
+
+| Projection | Seconds | Output bytes |
+| --- | ---: | ---: |
+| Index | 15.282 | 4641857 |
+| Search | 27.170 | 2509 |
+| Graph | 28.195 | 4017 |
+| Backlinks | 28.402 | 2002 |
+| JSON context | 26.709 | 3943 |
+| Markdown context | 26.847 | 3840 |
+
+Peak process RSS was 166,473,728 bytes (about 159 MiB). All six operations pass the
+same 60-second/256-MiB synthetic reference bounds, with networking blocked. This
+extends the observed envelope rather than guaranteeing interactive latency or
+arbitrary hardware/corpora. Full live authorization/integrity checks remain; no
+cache becomes authority and no database is required. The 4096 generator cap remains
+unqualified. The expanded relation matrix uses a small corpus; the 2048 benchmark
+uses the simpler recorded recipe, not every relationship at scale.
+
+The committed larger report and fresh-context repeat receipt record exact hashes.
+The fresh context reproduces the index and JSON context bytes. Existing 32-note
+full projection goldens remain unchanged. Rendered whole-site performance and
+wider real consumer acceptance are separate work. These timings justify future
+profiling for interactive use; this checkpoint makes no unsupported speedup claim.

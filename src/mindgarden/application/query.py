@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from copy import deepcopy
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -62,12 +63,14 @@ class QueryContext:
     effective_scopes: dict = field(default_factory=dict)
     retired: set = field(default_factory=set)
     storage_adapters: object = None
+    selected_gardens: tuple[str, ...] | None = None
 
     @classmethod
     def load(cls, local_config: Path, session_path: Path, *,
-             clock: Callable[[], datetime] | None = None, storage_adapters=None) -> QueryContext:
+             clock: Callable[[], datetime] | None = None, storage_adapters=None,
+             garden_ids: set[str] | None = None) -> QueryContext:
         try:
-            return cls._load(local_config, session_path, clock=clock, storage_adapters=storage_adapters)
+            return cls._load(local_config, session_path, clock=clock, storage_adapters=storage_adapters, garden_ids=garden_ids)
         except ContractError:
             raise
         except (OSError, UnicodeError, KeyError, TypeError, ValueError) as error:
@@ -75,7 +78,8 @@ class QueryContext:
 
     @classmethod
     def _load(cls, local_config: Path, session_path: Path, *,
-              clock: Callable[[], datetime] | None = None, storage_adapters=None) -> QueryContext:
+              clock: Callable[[], datetime] | None = None, storage_adapters=None,
+             garden_ids: set[str] | None = None) -> QueryContext:
         if session_path.is_symlink():
             raise ContractError("SESSION_INVALID: session must be an explicit regular file")
         session = read_object(session_path)
@@ -92,9 +96,15 @@ class QueryContext:
             raise ContractError("SESSION_REVOKED: query authority was revoked")
         verify_session_view(raw_bindings, session)
         selected = selected_garden_ids(raw_bindings, session)
+        if garden_ids is not None:
+            if (not isinstance(garden_ids, (set, frozenset)) or not garden_ids
+                    or any(not isinstance(value, str) for value in garden_ids) or not garden_ids <= selected):
+                raise ContractError("QUERY_SELECTION: select a nonempty subset of already authorized gardens")
+            selected = set(garden_ids)
         bindings = LocalBindings.load(local_config, garden_ids=selected, vault_ids=set())
         context = cls(session_path.absolute(), session, bindings,
-                      selected_clock, digest_bytes(session_path.read_bytes()), storage_adapters=storage_adapters)
+                      selected_clock, digest_bytes(session_path.read_bytes()), storage_adapters=storage_adapters,
+                      selected_gardens=tuple(sorted(garden_ids)) if garden_ids is not None else None)
         context.check_live()
         return context
 
@@ -201,8 +211,30 @@ class QueryContext:
             raise ContractError(decision["code"] + ": output policy is unavailable")
         return decision["scope"]
 
+    def select_gardens(self, garden_ids: set[str]) -> QueryContext:
+        """Narrow existing authority without creating a session or opening bodies.
+
+        Exact session revisions are retained. If omitted cross-garden dependencies
+        change a represented view, ordinary revision verification fails closed.
+        """
+        self.check_live()
+        if (not isinstance(garden_ids, (set, frozenset)) or not garden_ids
+                or any(not isinstance(value, str) for value in garden_ids)
+                or not garden_ids <= self.bindings.gardens.keys()):
+            raise ContractError("QUERY_SELECTION: select a nonempty subset of already authorized gardens")
+        bindings = LocalBindings(self.bindings.path, deepcopy(self.bindings.document),
+                                 {key:deepcopy(self.bindings.gardens[key]) for key in sorted(garden_ids)},
+                                 deepcopy(self.bindings.vaults))
+        child = QueryContext(self.session_path, deepcopy(self.session), bindings, self.clock,
+                             self.session_digest, storage_adapters=self.storage_adapters,
+                             selected_gardens=tuple(sorted(garden_ids)))
+        child.check_live()
+        return child
+
     def scope_digest(self) -> str:
-        return digest_bytes(canonical_json(self.session))
+        if self.selected_gardens is None:
+            return digest_bytes(canonical_json(self.session))
+        return digest_bytes(canonical_json({"authority":self.session, "selected_gardens":list(self.selected_gardens)}))
 
     def ensure_output(self, content: bytes) -> None:
         """Recheck live authority after serialization and before returning bytes."""
