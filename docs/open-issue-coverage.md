@@ -1,10 +1,9 @@
 # Issue coverage — 2026-11-09
 
 This ledger retains **44 tracked issues**: the original 38 and deferred #86–#91.
-Acceptance #120 merged at `2c4c465`: **37 are open and seven are closed**
-(#10/#11/#12/#26/#30/#33/#51). GitHub closure state was refreshed after merge.
-The #49 closure is proposed by its current checkpoint; the live count stays 37
-until that PR merges.
+Acceptance #120 and integration #121–#125 are merged. **35 are open and nine
+are closed** (#10/#11/#12/#26/#28/#30/#33/#49/#51). GitHub closure state was
+refreshed after the memory/learning merges.
 Preserve closed rows as evidence. [The overnight receipt](overnight-sprint.md)
 maps current listed criteria to source/tests and records the maintainer’s merge
 authority, exact #110–#119 merge commits and the next bounded checkpoints.

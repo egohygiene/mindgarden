@@ -267,3 +267,17 @@ Next action: run complete compatibility on both Pythons, build clean artifacts,
 repeat offline recovery/source/installed proofs, then merge #124 → #125 → this
 checkpoint only after their corrected exact heads qualify. Release and deferred
 context-package work remain parked.
+
+
+Combined qualification correction: detached `ffa66d4` ran 481 cases on both
+Pythons (484.985s / 463.205s): 480 passed and one nested journey golden failed.
+The actual replay differs only at `/site/revision`, because its owned script was
+corrected. That nested synthetic receipt is refreshed from the no-network demo;
+no release/version/publishing behavior changes. The first run is not passing
+qualification. Both full suites and artifact proofs are rerun after this fix.
+
+Memory #124 is merged at `412e5f74e185771cf88023c24dc2d368c710b992` after
+corrected Test 42563037646/release-preparation 42563037671 passed. Learning #125
+is merged at `b38dbc82e237309358e2b99b2163bfc75e13657c` after Test 42563253994/
+release-preparation 42563254071 passed. GitHub closes #49 and #28 respectively;
+35 original/deferred issues remain open, with all 44 coverage rows preserved.
