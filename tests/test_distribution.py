@@ -150,6 +150,7 @@ class DistributionTests(unittest.TestCase):
             "mindgarden-0.1.0/tests/test_lifecycle.py",
             "mindgarden-0.1.0/tests/fixtures/contracts/v1/valid/garden.json",
             "mindgarden-0.1.0/tests/fixtures/conversation-archives/authored-plan.json",
+            "mindgarden-0.1.0/tests/fixtures/captured-source/synthetic-source.zip",
             "mindgarden-0.1.0/tests/fixtures/conversation-archives/expected-proof.json",
             "mindgarden-0.1.0/tests/fixtures/conversation-archives/full-source/CONVERSATION.json",
             "mindgarden-0.1.0/tests/fixtures/contracts/v1/invalid/cases.json",

@@ -16,3 +16,4 @@ recursive-include tests *.json *.md *.py *.txt *.yaml *.html *.pdf *.png *.wav
 include tests/fixtures/public-garden/.garden/provenance/.gitkeep
 include tests/fixtures/federation/expected/.mindgarden-federation.json
 recursive-include examples *.py *.json *.md
+include tests/fixtures/captured-source/synthetic-source.zip
