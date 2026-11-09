@@ -3,6 +3,8 @@
 This ledger retains **44 tracked issues**: the original 38 and deferred #86–#91.
 Acceptance #120 merged at `2c4c465`: **37 are open and seven are closed**
 (#10/#11/#12/#26/#30/#33/#51). GitHub closure state was refreshed after merge.
+The #49 closure is proposed by its current checkpoint; the live count stays 37
+until that PR merges.
 Preserve closed rows as evidence. [The overnight receipt](overnight-sprint.md)
 maps current listed criteria to source/tests and records the maintainer’s merge
 authority, exact #110–#119 merge commits and the next bounded checkpoints.
@@ -178,7 +180,7 @@ links evidence to #20; no private pilot or broader parent completion is inferred
 | --- | --- | --- | --- | --- |
 | [#16](https://github.com/egohygiene/mindgarden/issues/16) — descriptors/federated discovery/agent projections | partial | Merged #66 plus merged #79 pinned rendered-site adapter, portable data-only package references and explicit catalog refresh states; Merged #118 adds never-exportable local discovery and exact selected existing read handlers under live sessions | New draft adds metadata-first private/local discovery and selected live reads; remote authentication/signatures, acquisition, package installation and real Akashic/Aether acceptance remain open | #10/#12/#14 implemented contracts; #17 bridges rendered routes, Akashic #176 and Aether #69 integration later |
 | [#18](https://github.com/egohygiene/mindgarden/issues/18) — composable portal builds | partial | Merged #71 local compositor pins represented revision and actual manifest, preserves siblings and writes checked ownership receipt; authored and actual 60-file Quartz proof | Actual 60-file rendered recovery proof added; pinned Relay #40 action (absent), Empathy migration, host promotion/rollback and production acceptance remain open | #17 output contract; Relay #4/#40 independent integration gates; B3b local checkpoint |
-| [#49](https://github.com/egohygiene/mindgarden/issues/49) — assistant-memory snippets | partial | Merged #101 versioned memory plans/projection, seven actions, budgets, copyable exports, staleness/privacy fixtures and generic publication draft | Richer interactive review, provider-specific tokenizers/integration and automatic consumer refresh/revocation | #46 owning retention contract, #16 and #15 related; R1 bounded projection active; provider-neutral, no source deletion |
+| [#49](https://github.com/egohygiene/mindgarden/issues/49) — assistant-memory snippets | completed | Reviewed seven-action memory schema/CLI, exact provenance/budgets/copyable blocks, authored incremental refresh and managed TTL/session/half-life bundles with live no-write checks; [acceptance mapping](assistant-memory.md) | Listed local projection criteria satisfied; richer UI, native provider installation and external copy recall remain optional separate integrations | #46 existing retention and #16/#15 sources; closes after managed-bundle PR merges, without source deletion or ADR ratification |
 | [#51](https://github.com/egohygiene/mindgarden/issues/51) — provider-switch recovery scenario | completed | Merged recovery scenario removes adapter/cache A and recovers exact scoped context through B; inventory, decision/correction, source/wheel golden and six regressions pass; [acceptance mapping](overnight-sprint.md) | Listed criteria satisfied; real-provider integration and identical model wording are expressly outside scope | #12/#16/#45 interfaces; #47/#49 are related later surfaces |
 
 ## Design, shared services, API and web

@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T04:12:04Z'
+  updated_at: '2026-11-09T04:20:50Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -75,56 +75,44 @@ work:
   - Merge only completed tested checkpoints; keep blocked parent scope explicit.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#37
-    url: https://github.com/egohygiene/mindgarden/issues/37
+    id: egohygiene/mindgarden#49
+    url: https://github.com/egohygiene/mindgarden/issues/49
   next:
     kind: action
     id: acceptance-then-bookmark-integration
-    description: 'Qualify/merge #121 → #122 → selected-build checkpoint in order, then implement expiring local
-      memory bundles (#49). Parent #37 private pilot remains unauthorized and open.'
+    description: 'Qualify/merge #122 → #123 → managed-memory checkpoint in order; confirm #49 closure, then implement
+      #28 bounded due-card study view and browser proof.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
     depends_on: []
 state:
   base:
-    revision: c459ee830d67803ac8879e253b3b81fdb31c2661
-    ref: refs/heads/feature/14-incoming-reference-inventory
-    verified_at: '2026-11-09T04:12:04Z'
+    revision: 4ffe8618ffee5df7177d83e035f70eea160e4b92
+    ref: refs/heads/feature/37-selected-projection-builds
+    verified_at: '2026-11-09T04:20:50Z'
   candidate:
-    branch: feature/37-selected-projection-builds
-    revision: cf963e8e8ff651a0cc08535ae3f66ba01660ca14
+    branch: feature/49-expiring-memory-bundles
+    revision: 79fa120426374073292e917e7d7070230d2b758e
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#123
-      url: https://github.com/egohygiene/mindgarden/pull/123
+      id: egohygiene/mindgarden#124
+      url: https://github.com/egohygiene/mindgarden/pull/124
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T04:12:04Z'
-    default_branch_revision: 40169589df086f4dee9d22611aa1f87c3a250e33
+    observed_at: '2026-11-09T04:20:50Z'
+    default_branch_revision: 1c01649ba333c05b42468404f243a514803b7858
     issue_state: open
     pull_request_state: draft
-    notes: 'Acceptance #120 and bookmark #121 merged after green CI; six issue closures, 37 open. Routing #122 remains
-      draft over main; selected builds #123 stack on #122. All 44 coverage rows retained.'
+    notes: 'Acceptance #120, bookmark #121 and routing #122 are merged after green CI. Selected builds #123 and
+      managed memory #124 remain draft. 37 issues live open before #49 closure; 44 rows retained.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T04:12:04Z'
+  reviewed_at: '2026-11-09T04:20:50Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: unittest tests.test_captured_bookmarks tests.test_bookmarks tests.test_captured_source
-      tests.test_extraction --verbose; pinned real Mindcap check'
-    outcome: passed
-    observed_at: '2026-11-09T03:57:01Z'
-    notes: 26 cases per interpreter; exact observation regression separately rerun. Actual synthetic producer observations
-      normalize/review with equal IDs and distinct raw lineage; no network/model.
-  - command: 'Python 3.12/3.13: unittest tests.test_routing_incoming tests.test_routing_lifecycle tests.test_routing_transfers
-      tests.test_routing --verbose'
-    outcome: passed
-    observed_at: '2026-11-09T04:04:41Z'
-    notes: 24 cases; six new incoming-reference cases, existing routing/split/supersession/rollback/idempotence
-      proofs. Pinned owner checks and exact new-head CI recorded separately.
   - command: 'Python 3.12/3.13: unittest tests.test_selected_builds tests.test_dependency_builds --verbose; focused
       Ruff/format; pinned owner checks'
     outcome: passed
@@ -135,6 +123,18 @@ review:
     outcome: passed
     observed_at: '2026-11-09T04:12:04Z'
     notes: 12 pass per interpreter, zero skips (15.986s / 15.580s); new-head automatic CI recorded separately
+  - command: 'Python 3.12/3.13: unittest tests.test_memory_validity tests.test_memory --verbose; additional one-source
+      refresh test; focused Ruff/format; pinned owner checks'
+    outcome: passed
+    observed_at: '2026-11-09T04:18:45Z'
+    notes: 16 pass per interpreter, zero skips (30.200s / 25.775s), plus one authored refresh case per interpreter;
+      new-head CI separate
+  - command: 'Python 3.12/3.13: unittest tests.test_memory_validity tests.test_memory --verbose; additional one-source
+      refresh test; focused Ruff/format; pinned owner checks'
+    outcome: passed
+    observed_at: '2026-11-09T04:20:50Z'
+    notes: 16 pass per interpreter, zero skips (30.200s / 25.775s), plus one authored refresh case per interpreter;
+      new-head CI separate
   environment_limitations:
   - 'Aether #69/Akashic #176 accepted integration contracts and real private pilots remain unavailable.'
   - OpenViking native useful-query/lifecycle acceptance incomplete; live Ollama accuracy unavailable.
@@ -166,19 +166,19 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Finish bounded dependency-ready local checkpoints and merge only tested green heads under the current sleep-session authorization.
+Finish local memory and learning criteria, preserve source/privacy boundaries, and merge only exact tested green checkpoints under the maintainer’s sleep-session authority.
 
 ## State snapshot
 
-Acceptance #120 and bookmark #121 merged after green CI; six issue closures, 37 open. Routing #122 remains draft over main; selected builds #123 stack on #122. All 44 coverage rows retained.
+Acceptance #120, bookmark #121 and routing #122 are merged after green CI. Selected builds #123 and managed memory #124 remain draft. 37 issues live open before #49 closure; 44 rows retained.
 
 ## Completed and material changes
 
-Selected builds render only explicit declared outputs, preserve full-build fingerprints, recover affected selections after missed events, snapshot caller inputs and retain reviewed apply/revocation. Earlier stack and six acceptance closures are merged.
+Managed memory binds exact source/request/authority and earliest retention/session/snippet expiry. Checks do not write missing bundles or recall external copies. One authored source refresh preserves five unaffected snippets and the old bundle.
 
 ## Validation and review evidence
 
-Python 3.12/3.13: unittest tests.test_selected_builds tests.test_dependency_builds --verbose; focused Ruff/format; pinned owner checks — 12 pass per interpreter, zero skips (15.986s / 15.580s); new-head automatic CI recorded separately. Full combined verification and exact CI remain in docs/overnight-sprint.md.
+Python 3.12/3.13: unittest tests.test_memory_validity tests.test_memory --verbose; additional one-source refresh test; focused Ruff/format; pinned owner checks — 16 pass per interpreter, zero skips (30.200s / 25.775s), plus one authored refresh case per interpreter; new-head CI separate. Full combined verification and exact CI remain in docs/overnight-sprint.md.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -186,7 +186,7 @@ Native OpenViking acceptance, real Ollama evaluation, confidential runtime, Aeth
 
 ## Next dependency-ready work
 
-Qualify/merge #121 → #122 → selected-build checkpoint in order, then implement expiring local memory bundles (#49). Parent #37 private pilot remains unauthorized and open.
+Qualify/merge #122 → #123 → managed-memory checkpoint in order; confirm #49 closure, then implement #28 bounded due-card study view and browser proof.
 
 ## Parallel changes and reconciliation
 

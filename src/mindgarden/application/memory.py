@@ -1,7 +1,7 @@
 """Authored, reviewed assistant-memory projections; never canonical storage."""
 
 from collections import Counter
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import re
 
 from ..adapters.generated_files import apply_generated, inventory
@@ -14,6 +14,7 @@ from ..domain.contracts import (
 from ..domain.scope import POLICY_REFERENCE, inherit_scope
 from ..domain.validation import ContractError
 from .curation import require_review_authority
+from .federation import export_destination
 from .query import QueryContext
 from .retrieval import build_index, record_key
 
@@ -25,7 +26,43 @@ def instant(value):
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
-def plan_memory(context, request, *, tokenizers=None):
+def validity_window(context, request, created_at):
+    context.require("context")
+    try:
+        created = instant(created_at)
+        if created.tzinfo is None:
+            raise ValueError()
+        created = created.astimezone(timezone.utc)
+        limits = [
+            created
+            + timedelta(seconds=request["retention"]["model_context"]["ttl_seconds"]),
+            instant(context.session["expires_at"]),
+        ]
+        for candidate in request["candidates"]:
+            for output in candidate["outputs"]:
+                limits.append(
+                    instant(output["last_reviewed"])
+                    + timedelta(days=output["half_life_days"])
+                )
+                if output["stale_after"] is not None:
+                    limits.append(instant(output["stale_after"]))
+        expires = min(limits)
+    except (ValueError, TypeError, AttributeError, OverflowError) as error:
+        raise ContractError(
+            "MEMORY_TIME: supply an explicit creation time with offset"
+        ) from error
+    now = context.clock()
+    if created > now or now >= expires:
+        raise ContractError(
+            "MEMORY_EXPIRED: local memory validity has ended or is not yet active; review a fresh bundle"
+        )
+    return {
+        "created_at": created.isoformat().replace("+00:00", "Z"),
+        "expires_at": expires.isoformat().replace("+00:00", "Z"),
+    }
+
+
+def plan_memory(context, request, *, tokenizers=None, created_at=None):
     if (
         ContractRegistry().errors(request, "memory-plan")
         or request["retention"]["policy"] != POLICY_REFERENCE
@@ -33,6 +70,11 @@ def plan_memory(context, request, *, tokenizers=None):
         raise ContractError(
             "MEMORY_PLAN: require the supported authored memory/retention contract"
         )
+    window = (
+        validity_window(context, request, created_at)
+        if created_at is not None
+        else None
+    )
     counters = tokenizers or {}
     profile = request["target"]
     token_limit = request["budgets"]["max_tokens"]
@@ -223,6 +265,25 @@ def plan_memory(context, request, *, tokenizers=None):
         "memory-projection.json": canonical_json(projection),
         "memory-snippets.md": markdown.encode(),
     }
+    validity = None
+    if window is not None:
+        validity = {
+            "schema": "mindgarden.memory-validity/v1",
+            "classification": "machine-local-control",
+            "publication": "never-exportable",
+            "scope": request["scope"],
+            "authority_sha256": context.scope_digest(),
+            "request_sha256": digest_bytes(canonical_json(request)),
+            "retention_sha256": digest_bytes(canonical_json(request["retention"])),
+            "projection_sha256": digest_bytes(files["memory-projection.json"]),
+            "markdown_sha256": digest_bytes(files["memory-snippets.md"]),
+            **window,
+        }
+        if ContractRegistry().errors(validity, "memory-validity"):
+            raise ContractError(
+                "MEMORY_VALIDITY: incompatible local memory validity metadata"
+            )
+        files["memory-validity.json"] = canonical_json(validity)
     total_bytes = sum(map(len, files.values()))
     byte_limit = min(
         request["budgets"]["max_total_bytes"],
@@ -259,6 +320,8 @@ def plan_memory(context, request, *, tokenizers=None):
         "request_sha256": digest_bytes(canonical_json(request)),
         "authority_sha256": context.scope_digest(),
     }
+    if validity is not None:
+        value["validity"] = validity
     preview = {**value, "plan_sha256": digest_bytes(canonical_json(value))}
     context.ensure_output(canonical_json(preview))
     return preview, files
@@ -267,8 +330,14 @@ def plan_memory(context, request, *, tokenizers=None):
 def run_memory(arguments):
     context = QueryContext.load(arguments.local_config, arguments.scope)
     request = read_object(arguments.input)
-    preview, files = plan_memory(context, request)
-    if arguments.apply:
+    created = getattr(arguments, "created_at", None)
+    checking = getattr(arguments, "check", False)
+    if checking and created is None:
+        raise ContractError(
+            "MEMORY_TIME: checking managed memory requires its explicit creation time"
+        )
+    preview, files = plan_memory(context, request, created_at=created)
+    if arguments.apply or checking:
         if preview["violations"]:
             raise ContractError(
                 "MEMORY_REVIEW_REQUIRED: revise the overflow/staleness plan before exporting; nothing was dropped"
@@ -277,24 +346,39 @@ def run_memory(arguments):
             raise ContractError("MEMORY_REVIEW: explicit human approval is required")
         require_review_authority(request["review"], request["review_authority"])
         if arguments.output_directory is None:
-            raise ContractError("MEMORY_OUTPUT: supply a new private output directory")
+            raise ContractError(
+                "MEMORY_OUTPUT: supply an explicit private output directory"
+            )
+        directory = arguments.output_directory.absolute()
+        directory = export_destination(context, directory.parent, directory.name)
+        if checking and not directory.is_dir():
+            raise ContractError(
+                "MEMORY_MISSING: local memory bundle is unavailable; no output created"
+            )
 
         def verify():
-            if plan_memory(context, read_object(arguments.input))[0] != preview:
+            if (
+                plan_memory(context, read_object(arguments.input), created_at=created)[
+                    0
+                ]
+                != preview
+            ):
                 raise ContractError(
                     "MEMORY_STALE: reviewed source, plan, policy or validity changed"
                 )
 
         changed = apply_generated(
-            arguments.output_directory,
+            directory,
             files,
-            arguments.plan_digest,
+            arguments.plan_digest or (preview["plan_sha256"] if checking else None),
             preview["plan_sha256"],
             check_live=context.check_live,
             verify_inputs=verify,
         )
         result = {
-            "status": "created" if changed else "verified-no-op",
+            "status": "verified-current"
+            if checking
+            else ("created" if changed else "verified-no-op"),
             "plan_sha256": preview["plan_sha256"],
         }
     else:
