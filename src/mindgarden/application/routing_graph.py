@@ -8,6 +8,63 @@ from ..domain.validation import ContractError
 from .records import artifact_reference
 
 
+def incoming_reference_inventory(
+    snapshots, bindings, originals, destination, scope, retired
+):
+    """Report independently reviewed incoming edges without rewriting their intent."""
+    targets = {(ref["garden"], ref["id"]) for ref in originals}
+    result = []
+    for garden, snapshot in sorted(snapshots.items()):
+        if bindings.garden(garden)["scope"] != scope:
+            continue
+        for identity, record in sorted(snapshot.records.items()):
+            if (
+                record["schema"] != "mindgarden.synapse/v1"
+                or record["status"] != "active"
+                or record["review"]["state"] != "approved"
+                or record_scope(record, scope) != scope
+                or (record["target"]["garden"], record["target"]["id"]) not in targets
+                or (record["source"]["garden"], record["source"]["id"]) in targets
+            ):
+                continue
+            source_garden, source_id = (
+                record["source"]["garden"],
+                record["source"]["id"],
+            )
+            source_owner = snapshots.get(source_garden)
+            source = source_owner.records.get(source_id) if source_owner else None
+            if (
+                source is None
+                or (source_garden, source_id) in retired
+                or bindings.garden(source_garden)["scope"] != scope
+                or source["schema"] != "mindgarden.knowledge/v1"
+                or source["status"] != "active"
+                or source["review"]["state"] != "approved"
+                or record_scope(source, scope) != scope
+            ):
+                continue
+            if len(result) >= 128:
+                raise ContractError(
+                    "ROUTE_INCOMING_BUDGET: review incoming references in a smaller transition"
+                )
+            result.append(
+                {
+                    "reference": artifact_reference(
+                        garden, identity, snapshot.hashes[identity]
+                    ),
+                    "source": record["source"],
+                    "historical_target": record["target"],
+                    "proposed_canonical_target": destination,
+                    "type": record["type"],
+                    "directed": record["directed"],
+                    "review": record["review"],
+                    "state": "separate-reviewed-reference-repair-required",
+                    "reason": "exact-historical-reference-retained-no-automatic-retarget",
+                }
+            )
+    return result
+
+
 def retain_attached_graph(
     files, original, snapshots, destination, scope, request_digest
 ):

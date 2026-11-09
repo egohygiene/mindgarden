@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T03:57:01Z'
+  updated_at: '2026-11-09T04:04:41Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -75,38 +75,38 @@ work:
   - Merge only completed tested checkpoints; keep blocked parent scope explicit.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#48
-    url: https://github.com/egohygiene/mindgarden/issues/48
+    id: egohygiene/mindgarden#14
+    url: https://github.com/egohygiene/mindgarden/issues/14
   next:
     kind: action
     id: acceptance-then-bookmark-integration
-    description: 'Qualify/merge acceptance #120 and captured-bookmark checkpoint in order, then implement a bounded
-      #14 incoming-reference move/recovery proof. Parent #48 public intake/deltas remain owner-gated.'
+    description: 'Qualify/merge bookmark #121 then incoming-reference inventory in order. Implement explicit selected-output
+      dependency builds (#37) next; general incoming-edge repair remains a separately reviewed operation.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
     depends_on: []
 state:
   base:
-    revision: cac1b4b6229205ddc4f2c045e9aff845cf7bdcc6
-    ref: refs/heads/sprint/overnight-acceptance
-    verified_at: '2026-11-09T03:57:01Z'
+    revision: bfa328a9b95583ae86dcba43a9c4a6e4c7c386cd
+    ref: refs/heads/feature/48-captured-bookmark-review
+    verified_at: '2026-11-09T04:04:41Z'
   candidate:
-    branch: feature/48-captured-bookmark-review
-    revision: 11439dc05738310229f1a5d95382305d375ff5ef
+    branch: feature/14-incoming-reference-inventory
+    revision: 559e0e15910e8d356c816c264ea18951173e1984
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#121
-      url: https://github.com/egohygiene/mindgarden/pull/121
+      id: egohygiene/mindgarden#122
+      url: https://github.com/egohygiene/mindgarden/pull/122
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T03:57:01Z'
-    default_branch_revision: 2eda2f4785caf9729b2c486b87436fc894c8e685
+    observed_at: '2026-11-09T04:04:41Z'
+    default_branch_revision: 2c4c465ef92000339eceb521f9690c531b0fcdc0
     issue_state: open
     pull_request_state: draft
-    notes: 'Existing #110–#119 stack merged. Acceptance draft #120 closes six satisfied issues after CI; captured-bookmark
-      checkpoint extends it. 43 live open before #120, 37 after closure; all 44 coverage rows retained.'
+    notes: 'Acceptance #120 merged after green automatic CI; six issues now closed, 37 open. Bookmark #121 is draft
+      over main. Routing incoming-reference inventory is the next stacked checkpoint; all 44 coverage rows remain.'
   parallel_changes: []
 review:
   status: partial
@@ -141,6 +141,12 @@ review:
     observed_at: '2026-11-09T03:57:01Z'
     notes: 26 cases per interpreter; exact observation regression separately rerun. Actual synthetic producer observations
       normalize/review with equal IDs and distinct raw lineage; no network/model.
+  - command: 'Python 3.12/3.13: unittest tests.test_routing_incoming tests.test_routing_lifecycle tests.test_routing_transfers
+      tests.test_routing --verbose'
+    outcome: passed
+    observed_at: '2026-11-09T04:04:41Z'
+    notes: 24 cases; six new incoming-reference cases, existing routing/split/supersession/rollback/idempotence
+      proofs. Pinned owner checks and exact new-head CI recorded separately.
   environment_limitations:
   - 'Aether #69/Akashic #176 accepted integration contracts and real private pilots remain unavailable.'
   - OpenViking native useful-query/lifecycle acceptance incomplete; live Ollama accuracy unavailable.
@@ -172,11 +178,11 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Acceptance #120 and #48 captured-bookmark input/review are the current bounded checkpoints; #14 incoming moves follow.
+Acceptance #120 is merged; #48 private bundle review and #14 incoming-reference inventory are the current integration checkpoints. Continue selected-output builds, memory/learning and mobile navigation independently.
 
 ## State snapshot
 
-Existing #110–#119 stack merged. Acceptance draft #120 closes six satisfied issues after CI; captured-bookmark checkpoint extends it. 43 live open before #120, 37 after closure; all 44 coverage rows retained.
+Acceptance #120 merged after green automatic CI; six issues now closed, 37 open. Bookmark #121 is draft over main. Routing incoming-reference inventory is the next stacked checkpoint; all 44 coverage rows remain.
 
 ## Completed and material changes
 
@@ -192,7 +198,7 @@ Native OpenViking acceptance, real Ollama evaluation, confidential runtime, Aeth
 
 ## Next dependency-ready work
 
-Qualify/merge acceptance #120 and captured-bookmark checkpoint in order, then implement a bounded #14 incoming-reference move/recovery proof. Parent #48 public intake/deltas remain owner-gated.
+Qualify/merge bookmark #121 then incoming-reference inventory in order. Implement explicit selected-output dependency builds (#37) next; general incoming-edge repair remains a separately reviewed operation.
 
 ## Parallel changes and reconciliation
 

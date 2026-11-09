@@ -12,7 +12,7 @@ from .changes import ChangePlan
 from .curation import require_review_authority
 from .records import artifact_reference, provenance_record
 from .routing import RoutingPlan, snapshots_for
-from .routing_graph import retain_attached_graph
+from .routing_graph import incoming_reference_inventory, retain_attached_graph
 
 
 def build_transition_plan(bindings: LocalBindings, request_path: Path) -> RoutingPlan:
@@ -117,6 +117,7 @@ def build_transition_plan(bindings: LocalBindings, request_path: Path) -> Routin
                         edge["source"] == destination and edge["type"] in {"references", "part-of"}
                         and edge["target"] == reference and edge["review"]["state"] == "approved" for edge in links):
                     raise ContractError("ROUTE_SPLIT_LINEAGE: anchor must link every exact child and each child must derive from the original")
+    incoming = incoming_reference_inventory(snapshots, bindings, request["from"], exact_target, scope, retired)
     checks = [(request_path.absolute(), request_digest), (bindings.path, digest_bytes(bindings.path.read_bytes()))]
     for reference in request["from"]:
         garden = reference["garden"]
@@ -142,5 +143,6 @@ def build_transition_plan(bindings: LocalBindings, request_path: Path) -> Routin
     return RoutingPlan(bindings, {"request_sha256":request_digest, "garden_revisions":{
         garden:garden_fingerprint(binding["root"]) for garden,binding in sorted(bindings.gardens.items())}},
         [{**({"split_targets":request["split_targets"]} if request["operation"] == "split" else {}),
+          **({"incoming_references":incoming} if incoming else {}),
           "state":"reviewed-" + request["operation"], "originals":request["from"], "canonical_home":exact_target,
           "rationale":request["rationale"], "preservation":"original records and exact references retained"}], changes)
