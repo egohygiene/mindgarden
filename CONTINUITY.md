@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T05:00:38Z'
+  updated_at: '2026-11-09T05:18:28Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -79,22 +79,22 @@ work:
     url: https://github.com/egohygiene/mindgarden/issues/17
   next:
     kind: action
-    id: acceptance-then-bookmark-integration
-    description: 'Rerun complete compatibility and clean source/wheel proofs after the nested derived-receipt correction;
-      merge #126 after exact corrected head qualification. Leave #17 broader acceptance, real private pilots, release
-      and ADR gates open.'
+    id: selective-archive-asset-and-attribution-proof
+    description: 'If #126 remains open, merge its exact final head only after green CI/comments review. Otherwise
+      start bounded #15 selected binary-diagram/scratch-caption and speaker/stance/correction fixtures, then separately
+      reviewed #14 incoming repair. Release, private pilots, ADR ratification and deferred #86–#91 remain parked.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
     depends_on: []
 state:
   base:
-    revision: 37d5adb7c19aeef3dfd025391e695a024fd482ce
-    ref: refs/heads/feature/28-due-review-queue
-    verified_at: '2026-11-09T05:00:38Z'
+    revision: b38dbc82e237309358e2b99b2163bfc75e13657c
+    ref: refs/heads/main
+    verified_at: '2026-11-09T05:18:28Z'
   candidate:
     branch: fix/17-mobile-explorer-aria
-    revision: ffa66d4ee2ce9c7c44f64b7deee227fe2e2f453d
+    revision: 32bcb3ce4a626a4edaa9ac9ad04f027ac1335e77
     pull_request:
       provider: github
       id: egohygiene/mindgarden#126
@@ -102,43 +102,37 @@ state:
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T05:00:38Z'
+    observed_at: '2026-11-09T05:18:28Z'
     default_branch_revision: b38dbc82e237309358e2b99b2163bfc75e13657c
     issue_state: open
     pull_request_state: draft
-    notes: 'Acceptance #120 and #121–#125 are merged after corrected green CI. #49 and #28 are closed; 35 issues
-      remain open and all 44 coverage rows are retained. #126 is the only open Mindgarden PR; its nested site receipt
-      is corrected before complete requalification.'
+    notes: 'Mindcap #42 and Mindgarden #110–#125 are merged. Eight overnight closures (#10/#11/#12/#26/#28/#33/#49/#51)
+      leave 35 open issues; all 44 coverage rows remain. #126 is the only open Mindgarden PR, qualified at 32bcb3c;
+      its final documentation head requires its own passing CI before the authorized merge.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T05:00:38Z'
+  reviewed_at: '2026-11-09T05:18:28Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: unittest tests.test_learning_queue tests.test_learning --verbose; actual learning_browser_check.py
-      full/due with axe 4.10.3; Ruff/format/owner checks'
+  - command: 'Frozen qualified Python 3.12/3.13: unittest discover --start-directory tests --verbose; clean local
+      wheel/sdist demos; actual pinned browser/axe; owner/continuity/diff checks'
     outcome: passed
-    observed_at: '2026-11-09T04:31:24Z'
-    notes: 20 pass per interpreter, zero skips (26.442s / 25.986s); Chromium 151/Playwright 1.62, 320/1280, keyboard/200%
-      zoom/reduced motion, zero axe violations/incompletes; CI separate
-  - command: 'Python 3.12/3.13: unittest tests.test_site tests.test_design tests.test_portal tests.test_publication_conformance
-      --verbose; actual site_browser_check.py offline; node --check; owner checks'
+    observed_at: '2026-11-09T05:18:28Z'
+    notes: 481 pass each, zero skips (493.978s/463.964s); five exact artifact goldens, zero runtime dependencies;
+      source/vault relocation/restore/rebuild exact; 15 browser audits have zero findings/incompletes; functional
+      CI 42564846322 and 42564846458 success
+  - command: Python 3.12/3.13 memory+contract and learning+contract suites; automatic parent corrected-head CI
     outcome: passed
-    observed_at: '2026-11-09T04:43:39Z'
-    notes: 33 pass per interpreter, zero skips (45.255s / 43.936s); 15 actual axe audits have zero findings/incompletes,
-      keyboard/search/fallback/portal recovery pass; full combined and corrected CI pending
-  - command: 'Python 3.12/3.13: unittest tests.test_site tests.test_design tests.test_portal tests.test_publication_conformance
-      --verbose; actual site_browser_check.py offline; node --check; owner checks'
+    observed_at: '2026-11-09T05:18:28Z'
+    notes: '#124 and #125 merged after corrected schema inventories and green exact-head CI; prior failed runs preserved
+      in docs/overnight-sprint.md'
+  - command: Actual learning_browser_check.py full/due; site_browser_check.py offline Quartz; focused Ruff/format,
+      Node syntax, pinned owner schemas
     outcome: passed
-    observed_at: '2026-11-09T04:46:50Z'
-    notes: 33 pass per interpreter, zero skips (45.255s / 43.936s); 15 actual axe audits have zero findings/incompletes,
-      keyboard/search/fallback/portal recovery pass; full combined and corrected CI pending
-  - command: 'Python 3.12/3.13: unittest tests.test_site tests.test_design tests.test_portal tests.test_publication_conformance
-      --verbose; actual site_browser_check.py offline; node --check; owner checks'
-    outcome: passed
-    observed_at: '2026-11-09T05:00:38Z'
-    notes: 33 pass per interpreter, zero skips (45.255s / 43.936s); 15 actual axe audits have zero findings/incompletes,
-      keyboard/search/fallback/portal recovery pass; full combined and corrected CI pending
+    observed_at: '2026-11-09T05:18:28Z'
+    notes: Learning keyboard/320/1280/200%/reduced-motion and 15 site axe audits pass; full manual WCAG and production
+      hosting remain open
   environment_limitations:
   - 'Aether #69/Akashic #176 accepted integration contracts and real private pilots remain unavailable.'
   - OpenViking native useful-query/lifecycle acceptance incomplete; live Ollama accuracy unavailable.
@@ -170,19 +164,19 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Qualify and merge the completed sleep queue, with honest parent limits and current issue closure state; no release, private pilot or ADR ratification.
+Finish the qualified sleep queue and its authorized merges, preserve exact acceptance evidence and limits, then resume #15 selected-asset/attribution proof without activating parked release or deferred work.
 
 ## State snapshot
 
-Acceptance #120 and #121–#125 are merged after corrected green CI. #49 and #28 are closed; 35 issues remain open and all 44 coverage rows are retained. #126 is the only open Mindgarden PR; its nested site receipt is corrected before complete requalification.
+Mindcap #42 and Mindgarden #110–#125 are merged. Eight overnight closures (#10/#11/#12/#26/#28/#33/#49/#51) leave 35 open issues; all 44 coverage rows remain. #126 is the only open Mindgarden PR, qualified at 32bcb3c; its final documentation head requires its own passing CI before the authorized merge.
 
 ## Completed and material changes
 
-Native Explorer disclosure fixed in owned code; actual empty/small/205-note builds and 15 browser/axe audits pass. Focused 33-case site/design/portal/publication suite passes per Python; source/portal goldens refreshed only for derived hashes.
+Acceptance reconciliation plus captured bookmark review, incoming-reference inventory, selected-output builds, managed memory expiry/checks, bounded due-card review and native Explorer semantics. Eight issues close; #14/#17/#37/#48 remain partial. Exact complete/source/wheel/browser qualification is in docs/evidence/overnight-qualification.json.
 
 ## Validation and review evidence
 
-Python 3.12/3.13: unittest tests.test_site tests.test_design tests.test_portal tests.test_publication_conformance --verbose; actual site_browser_check.py offline; node --check; owner checks — 33 pass per interpreter, zero skips (45.255s / 43.936s); 15 actual axe audits have zero findings/incompletes, keyboard/search/fallback/portal recovery pass; full combined and corrected CI pending. Full combined verification and exact CI remain in docs/overnight-sprint.md.
+Frozen qualified Python 3.12/3.13: unittest discover --start-directory tests --verbose; clean local wheel/sdist demos; actual pinned browser/axe; owner/continuity/diff checks — 481 pass each, zero skips (493.978s/463.964s); five exact artifact goldens, zero runtime dependencies; source/vault relocation/restore/rebuild exact; 15 browser audits have zero findings/incompletes; functional CI 42564846322 and 42564846458 success. Earlier CI/schema and nested derived-receipt failures were corrected and rerun; they are retained as failed attempts in the sprint ledger. Final documentation CI must be observed separately before merge.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -190,7 +184,7 @@ Native OpenViking acceptance, real Ollama evaluation, confidential runtime, Aeth
 
 ## Next dependency-ready work
 
-Rerun complete compatibility and clean source/wheel proofs after the nested derived-receipt correction; merge #126 after exact corrected head qualification. Leave #17 broader acceptance, real private pilots, release and ADR gates open.
+If #126 remains open, merge its exact final head only after green CI/comments review. Otherwise start bounded #15 selected binary-diagram/scratch-caption and speaker/stance/correction fixtures, then separately reviewed #14 incoming repair. Release, private pilots, ADR ratification and deferred #86–#91 remain parked.
 
 ## Parallel changes and reconciliation
 

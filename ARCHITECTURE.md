@@ -220,13 +220,13 @@ The #93–#109 checkpoint stack is merged; the
 baseline from remaining parent acceptance. Proposed decisions retain their
 existing approval state.
 
-The optional [TypeSafe read-intent seam](docs/typesafe-decisions.md), in draft
+The optional [TypeSafe read-intent seam](docs/typesafe-decisions.md), merged in
 #110, keeps the official SDK in an adapter and typed judgments in the domain.
 Application code maps closed intents to existing authorized read services.
 Model judgments cannot grant scope, choose executable code or promote review.
 The default CLI and engine require no model SDK or service.
 
-Draft #111 adds exact source grants to the existing session contract for private
+Merged #111 adds exact source grants to the existing session contract for private
 first-pass authored compaction. They do not expand knowledge review or public
 output authority. Generated private proof bundles bind evidence/session digests
 and expiry; their lifetime never authorizes source deletion. The

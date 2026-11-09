@@ -12,7 +12,7 @@ An unavailable prerequisite leaves the checkpoint draft and the parent open.
 Mindcap [#42](https://github.com/egohygiene/mindcap/pull/42) merged at
 `02d30d6eb19037b3f770aad3a12c598778b5ae22`. Mindgarden #110–#119 merged in
 ancestry order with merge commits, preserving all feature heads and the combined
-`milestone/pipeline-completion-proof` checkout. Final main is
+`milestone/pipeline-completion-proof` checkout. The merged starting main is
 `2eda2f4785caf9729b2c486b87436fc894c8e685`; its tree is exactly the tested
 `e996fb39c91964486d81cebe03d47f259d1866d4` tree.
 
@@ -281,3 +281,82 @@ corrected Test 42563037646/release-preparation 42563037671 passed. Learning #125
 is merged at `b38dbc82e237309358e2b99b2163bfc75e13657c` after Test 42563253994/
 release-preparation 42563254071 passed. GitHub closes #49 and #28 respectively;
 35 original/deferred issues remain open, with all 44 coverage rows preserved.
+
+
+## Completed sleep queue and final qualification
+
+The following status supersedes the draft-at-opening labels in the checkpoint
+history above. All eight closed issues have their GitHub checklists and linked
+acceptance receipts refreshed; no umbrella is closed by a bounded proof.
+
+| Checkpoint / PR | Result | Remaining parent scope / next action |
+| --- | --- | --- |
+| Acceptance [#120](https://github.com/egohygiene/mindgarden/pull/120) | Merged `2c4c465`; closes #10/#11/#12/#26/#33/#51 | Optional evaluations are dispositions, not dependency adoption |
+| Captured bookmarks [#121](https://github.com/egohygiene/mindgarden/pull/121) | Merged `4016958`; verified bundle→private review and authored graph handoff | #48 stays open for actual Akashic intake/publication and Mindcap recurring deltas |
+| Incoming references [#122](https://github.com/egohygiene/mindgarden/pull/122) | Merged `1c01649`; exact safe inventory | #14 stays open; separately review general repair and public/policy changes |
+| Selected builds [#123](https://github.com/egohygiene/mindgarden/pull/123) | Merged `51c29c4`; selected renderer invocation and missed-event reconciliation | #37 stays open for broader observation integration and approved pilot |
+| Managed memory [#124](https://github.com/egohygiene/mindgarden/pull/124) | Merged `412e5f7`; closes #49 | External copied snippets cannot be recalled by local expiry |
+| Due-card review [#125](https://github.com/egohygiene/mindgarden/pull/125) | Merged `b38dbc8`; closes #28 | Full hosted app remains #17/#47; notifications/sync are explicit non-goals |
+| Mobile Explorer [#126](https://github.com/egohygiene/mindgarden/pull/126) | Qualified `32bcb3c`; final documentation head merges after its own CI | #17 stays open for manual WCAG, visual/consumer and hosting acceptance |
+
+Complete frozen-source qualification is **481 tests, zero skips** on Python
+3.12.14 (**493.978s**) and 3.13.5 (**463.964s**). Both earlier failed attempts
+remain recorded above and in the [structured receipt](evidence/overnight-qualification.json).
+The corrected functional head has successful automatic Test
+[42564846322](https://github.com/egohygiene/mindgarden/actions/runs/42564846322)
+(all four Linux/macOS jobs) and release-preparation
+[42564846458](https://github.com/egohygiene/mindgarden/actions/runs/42564846458).
+These runs are distinct from the final documentation head's CI; no workflow was
+manually launched, and no release was prepared or published.
+
+Executed from the clean detached functional checkout:
+
+```bash
+../qualified-python312/bin/python -m unittest discover --start-directory tests --verbose
+../qualified-python313/bin/python -m unittest discover --start-directory tests --verbose
+../qualified-python312/bin/python -m build --no-isolation --sdist --wheel --outdir .cache/dist
+```
+
+The two interpreters resolve `mindgarden` to that frozen source before shared
+verification-only development packages. Build a new empty venv and install only
+the local wheel with `python -m pip --python EMPTY_VENV/bin/python install
+--no-index --no-deps LOCAL_WHEEL`. The installed distribution has **zero runtime
+dependencies** and imports from that venv's prefix. The unpacked source archive
+runs in another empty venv. The actual isolated commands were:
+
+```bash
+.cache/overnight/qualified-wheel/bin/python -I .cache/overnight/frozen-qualified/scripts/pipeline_completion_demo.py --workspace /tmp/mindgarden-qualified-wheel-pipeline --require-installed --report .cache/overnight/qualified-wheel-pipeline.json
+.cache/overnight/qualified-wheel/bin/python -I .cache/overnight/frozen-qualified/scripts/provider_switch_demo.py --workspace /tmp/mindgarden-qualified-wheel-provider --require-installed --report .cache/overnight/qualified-wheel-provider.json
+.cache/overnight/qualified-wheel/bin/python -I .cache/overnight/frozen-qualified/scripts/release_journey_demo.py --workspace /tmp/mindgarden-qualified-wheel-journey --require-installed --report .cache/overnight/qualified-wheel-journey.json
+.cache/overnight/qualified-source/bin/python -I .cache/overnight/qualified-sdist/mindgarden-0.1.0/scripts/pipeline_completion_demo.py --workspace /tmp/mindgarden-qualified-sdist-pipeline --require-source --report .cache/overnight/qualified-sdist-pipeline.json
+.cache/overnight/qualified-source/bin/python -I .cache/overnight/qualified-sdist/mindgarden-0.1.0/scripts/release_journey_demo.py --workspace /tmp/mindgarden-qualified-sdist-journey --require-source --report .cache/overnight/qualified-sdist-journey.json
+```
+
+All five reports match their committed golden **byte for byte**. Synthetic
+conversation/PDF/image/audio evidence produces explicitly reviewed knowledge,
+search returns its exact archive member/pointer and normalized source revision,
+and the context is **4,419 bytes within 8,192**. A private canonical-home move,
+vault relocation, export/restore and cache-free rebuild retain the exact source,
+index, graph and context. Networking/external process entry points are blocked
+inside these proofs; Google and models are unused. The journey script's name
+reflects its historical fixture, not a release action. Local artifact hashes and
+sizes are in the structured receipt; archive timestamps are not claimed
+bit-reproducible release evidence. Subsequent documentation-only commits do not
+change the tested runtime/contracts/profiles/scripts/tests/templates.
+
+Actual pinned renderer checks, 15 zero-finding axe audits and learning full/due
+browser checks are linked in [the browser receipt](rendered-closeout-evidence.md)
+and [learning evidence](learning.md). Focused changed-code Ruff/format, Node
+syntax, compileall, pinned owner schemas, all 24 proposed/null-approval ADRs,
+44 unique coverage rows and bounded continuity checks pass. Historical whole-tree
+lint findings and unavailable external evidence are not called passing checks.
+
+There are **35 open issues**. After the final #126 merge, the next bounded task
+is #15: add explicit selected binary diagram, excluded scratch/caption and
+speaker/stance/correction fixtures through the existing curation workflow.
+Then review #14's general incoming-reference repair as a distinct plan/apply
+checkpoint. Do not invent Ollama accuracy, OpenViking useful native retrieval,
+confidential runtime, accepted Aether/Akashic contracts, a real private archive
+pilot or consumer hosting. Release #19/#27, proposed ADR ratification and deferred
+#86–#91 remain parked. If #126 is still open when resuming, inspect its current
+head/comments/checks and finish that authorized merge before starting new work.

@@ -127,12 +127,12 @@ engine. Neither a tested draft nor its later merge accepts a proposed ADR.
 The [merge receipt](docs/merged-experience-checkpoints.md) records main `30a2966`
 and the exact tested-tree comparison. Broader parent acceptance remains separate.
 
-## Source-workflow draft checkpoint
+## Merged source-workflow checkpoints
 
 The [source-workflow sprint](docs/source-workflow-sprint.md) extends the same Python
 services with adapter conformance, authored curation transformations, selective
 archive attachments, private canonical-home transitions, projection coverage and
-pinned rendered discovery. Drafts #74–#79 are implemented/tested and unmerged.
+pinned rendered discovery. Checkpoints #74–#79 and #113–#119 are merged and tested.
 Original sources remain immutable private evidence; reviewed garden records own
 knowledge; catalogs, rendered artifacts and package references remain rebuildable
 data. Proposed ADR-0011's extension and ADR-0022 are not accepted by these tests.
@@ -146,11 +146,19 @@ ADRs remain unapproved; merged implementation is separate from full parent accep
 
 ## Product checkpoint status
 
-[The broader product stack](docs/product-checkpoints.md) contains tested draft
+[The broader product stack](docs/product-checkpoints.md) contains merged, tested
 checkpoints for ADR metadata, optional query storage, dependency-aware derived
 builds, reviewed assistant memory and private bookmark exports. These remain
-reviewable branches, not fully accepted parent issues. Canonical Gardens and
+bounded checkpoints, not fully accepted parent issues. Canonical Gardens and
 immutable sources retain ownership; projections can be rebuilt. Shared Decisions
-preview currently retains a native source-validation finding. Historical backfill
+preview's earlier native source-validation finding is corrected in merged #112;
+its [receipt](docs/rendered-closeout-evidence.md) retains the prior failure. Historical backfill
 and the API/web/runtime slice remain behind their respective decision gates.
 Release work is deferred pending organization release conventions.
+
+The [overnight sprint](docs/overnight-sprint.md) adds verified captured-bookmark
+cleanup, incoming-reference inventory without implicit repair, selected-output
+builds, expiring memory checks, bounded due-card study and corrected mobile
+Explorer controls. Its clean source/wheel proof preserves exact evidence through
+vault relocation and restore. No model, Google service or specialized database is
+required; eight listed issues close while broader parent gates stay explicit.
