@@ -167,6 +167,7 @@ class V1ContractTests(unittest.TestCase):
                 "retention-policy",
                 "compaction-plan",
                 "compaction-manifest",
+                "compaction-bundle",
                 "adr-projection",
                 "insight-candidate",
                 "insight-plan",

@@ -7,6 +7,7 @@ from ..domain.contracts import canonical_json, digest_bytes
 from ..domain.garden import inspect_garden
 from ..domain.publication import permits_publication
 from ..domain.scope import inherit_scope
+from ..domain.source_access import source_grants
 from ..domain.validation import ContractError
 from ..domain.routing_transitions import retired_references
 
@@ -38,6 +39,7 @@ def dependencies(record: dict) -> set[tuple[str, str]]:
 
 
 def metadata_view(context):
+    grants = source_grants(context.session)
     snapshots = {}
     public_output = (context.session.get("request_scope", {}).get("visibility") == "public"
                      and context.session["publication_authority"] == "publishable")
@@ -107,9 +109,18 @@ def metadata_view(context):
         if identity in records:
             del records[identity]
             denied.extend(dependents[identity])
+    # Exact first-pass grants become private roots only after dependency and
+    # sensitivity checks, before any bodies are opened. They confer no review.
+    for identity, revision in grants.items():
+        record = records.get(identity)
+        if (record is None or record["schema"] != "mindgarden.source/v1"
+                or record["kind"] != "normalized"
+                or revision != "sha256:" + record["artifact"]["sha256"]):
+            raise ContractError("SOURCE_GRANT: selected normalized source is unavailable or changed")
     # Apply budgets after both authorization and sensitivity inheritance.
     candidates = sorted(identity for identity, record in records.items()
                         if (record["schema"] in {"mindgarden.knowledge/v1", "mindgarden.claim/v1"}
+                            or identity in grants
                             or "assets" in context.session["projections"] and not public_output
                             and record["schema"] == "mindgarden.source/v1" and record["kind"] == "captured"
                             and context.allowed(identity[0], record))
@@ -123,6 +134,8 @@ def metadata_view(context):
             del records[identity]
             denied.extend(dependents[identity])
     roots = {identity for identity in permitted_candidates if identity in records}
+    if not grants.keys() <= roots:
+        raise ContractError("QUERY_BUDGET: exact source grants exceed the authorized candidate budget")
     if "assets" in context.session["projections"] and not public_output:
         roots.update(identity for identity, record in records.items() if "x-asset-review" in record
                      and key(record["artifact"]) in roots)

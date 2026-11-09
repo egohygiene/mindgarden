@@ -100,3 +100,13 @@ installs only filesystem; callers must explicitly register other factories. A
 control root is machine-local, and unsupported/removed adapters never fall back.
 Capability booleans cannot authorize encryption, restricted execution or network
 access. Provider credentials remain outside portable records.
+
+## Exact first-pass source grants
+
+The optional `session/v1.source_grants` extension and `source-evidence` capability
+authorize exact normalized source revisions for private first-pass compaction.
+They require a personal/machine-local/offline/never-exportable request ceiling.
+They grant no knowledge approval or public output. Unchanged sessions without
+these optional fields preserve reviewed-evidence behavior. See
+[the source-compaction contract](compaction-retention.md#first-pass-source-summaries-and-private-proof-bundles)
+for limits, private authoring, byte verification, lifetime and recovery.

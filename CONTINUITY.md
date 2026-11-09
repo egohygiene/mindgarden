@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-08T20:45:31Z'
+  updated_at: '2026-11-08T21:13:07Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -70,83 +70,79 @@ work:
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#47
-    url: https://github.com/egohygiene/mindgarden/issues/47
+    id: egohygiene/mindgarden#46
+    url: https://github.com/egohygiene/mindgarden/issues/46
   next:
     kind: action
-    id: source-compaction-46
-    description: 'Implement the bounded #46 source-only compaction and private derived-manifest persistence/expiry
-      checkpoint over the existing source/session contracts. Keep #110 draft, preserve originals, then qualify #17/#18/#20
-      against available public owner/consumer contracts.'
+    id: rendered-portal-17-18
+    description: 'Qualify actual pinned Quartz output for empty/small/larger fixtures, keyboard/mobile/reduced motion
+      and graph alternatives (#17); then prove complete rendered artifact composition/recovery (#18). Relay #40
+      is open with no reusable Mindgarden action at the pinned tree; keep that integration gap explicit.'
     readiness: ready
     references:
     - docs/closeout-sprint.md
     depends_on: []
 state:
   base:
-    revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
-    ref: refs/heads/main
-    verified_at: '2026-11-08T20:45:31Z'
+    revision: 3ac1eddea02d3cec7e9a8073ea96ff0fcae94bf0
+    ref: refs/heads/feature/typesafe-read-workflow
+    verified_at: '2026-11-08T21:13:07Z'
   candidate:
-    branch: feature/typesafe-read-workflow
-    revision: 43cdb72f481546a0355cffc9d463c3c70b07d5db
+    branch: feature/46-source-compaction
+    revision: 4d084fd34acb52d948438f9cf30adf7776d9b64e
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#110
-      url: https://github.com/egohygiene/mindgarden/pull/110
+      id: egohygiene/mindgarden#111
+      url: https://github.com/egohygiene/mindgarden/pull/111
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-08T20:45:31Z'
+    observed_at: '2026-11-08T21:13:07Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
-    notes: "All seventeen PRs #93\u2013#109 merged in order into main f3a88cc. Merged main passes actual native\
-      \ ADR collection (ready/publication denied); repaired #97 shared Decisions preview and all four Test jobs\
-      \ passed. TypeSafe #110 is a separate draft based on main. All 44 parent/deferred issues remain open."
+    notes: "Main f3a88cc contains all #93\u2013#109 merges. Draft #110 adds optional TypeSafe; Draft #111, this\
+      \ #46 checkpoint is stacked on #110/3ac1edd. Native main collection is ready/publication denied; no private\
+      \ pilot or publication is authorized."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
     url: https://github.com/egohygiene/mindgarden/pull/110
 review:
   status: partial
-  reviewed_at: '2026-11-08T20:45:31Z'
+  reviewed_at: '2026-11-08T21:13:07Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_semantic_workflow -q
+  - command: .venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_scope_bindings
+      tests.test_scoped_retrieval tests.test_output_scope -q
     outcome: passed
-    observed_at: '2026-11-08T20:45:31Z'
-    notes: 12 offline tests pass; Python 3.12
-  - command: .cache/python313/bin/python -m unittest tests.test_semantic_workflow -q
+    observed_at: '2026-11-08T21:13:07Z'
+    notes: 44 tests pass in 49.826s at the initial eight-case extension; existing reviewed/scoped/output behavior
+      preserved
+  - command: .venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_distribution
+      -q
     outcome: passed
-    observed_at: '2026-11-08T20:45:31Z'
-    notes: 12 offline tests pass; Python 3.13
-  - command: 'Optional TypeSafe 0.7.5 environments: unittest experiments.typesafe.test_sdk_contract -q'
+    observed_at: '2026-11-08T21:13:07Z'
+    notes: 22 tests pass in 33.390s after two added CLI-grant/reviewed-hierarchy cases
+  - command: .cache/python313/bin/python -m unittest tests.test_source_compaction -q
     outcome: passed
-    observed_at: '2026-11-08T20:45:31Z'
-    notes: 3 actual SDK/mock-transport tests pass on each Python; no paid/model calls
-  - command: .venv/bin/python -m unittest tests.test_distribution -q
+    observed_at: '2026-11-08T21:13:07Z'
+    notes: 10 source-compaction cases pass; no credentials, model or acquisition
+  - command: Ruff E9/F; git diff --check; pinned owner handoff/ADR/44-row checks
     outcome: passed
-    observed_at: '2026-11-08T20:45:31Z'
-    notes: 2 distribution checks pass; no default runtime dependencies added
-  - command: Source -S synthetic example and dataset audit; one-case live setup probe
+    observed_at: '2026-11-08T21:13:07Z'
+    notes: Focused syntax/import/style and pinned authority/continuity/coverage checks pass
+  - command: .venv/bin/ruff check --select E9,F src
     outcome: limited
-    observed_at: '2026-11-08T20:45:31Z'
-    notes: disabled/unconfigured behavior pass; 16 labels, zero model-evaluated cases and accuracy null; live credential
-      unavailable
-  - command: Unmodified Relay collect at merged main f3a88cc; git diff old combined fdce5df..main
+    observed_at: '2026-11-08T21:13:07Z'
+    notes: '4 unchanged baseline findings: unused imports in scope_cache/routing_transitions/site, and site base
+      variable. Focused changed-file scan passes.'
+  - command: .venv/bin/python -m unittest tests.test_v1_contracts tests.test_source_compaction -q
     outcome: passed
-    observed_at: '2026-11-08T20:45:31Z'
-    notes: Native status ready; publication denied with honest unknown coverage. Only three ADR body structures
-      differ; runtime/test files unchanged.
-  - command: .venv/bin/python -m unittest discover -s tests -q
-    outcome: passed
-    observed_at: '2026-11-08T20:45:31Z'
-    notes: 393 tests pass in 361.764s; exact merged-main plus TypeSafe implementation, Python 3.12
-  - command: .cache/python313/bin/python -m unittest discover -s tests -q
-    outcome: passed
-    observed_at: '2026-11-08T20:45:31Z'
-    notes: 393 tests pass in 350.318s; same implementation, Python 3.13
+    observed_at: '2026-11-08T21:13:07Z'
+    notes: 16 tests pass in 14.276s, including explicit new schema inventory and rejection of vault output targets.
+      A full 403-test run found only the omitted inventory entry and downstream UI golden hash; both are corrected
+      before final 404-test qualification.
   environment_limitations:
   - TYPESAFE_API_KEY is not configured; live smoke and model accuracy/calibration remain unverified. Thresholds
     are provisional.
@@ -185,15 +181,15 @@ Merge the authorized stack, deliver one optional TypeSafe intent checkpoint, and
 
 ## State snapshot
 
-All seventeen PRs #93–#109 merged in order into main f3a88cc. Merged main passes actual native ADR collection (ready/publication denied); repaired #97 shared Decisions preview and all four Test jobs passed. TypeSafe #110 is a separate draft based on main. All 44 parent/deferred issues remain open.
+Main f3a88cc contains all #93–#109 merges. Draft #110 adds optional TypeSafe; Draft #111, this #46 checkpoint is stacked on #110/3ac1edd. Native main collection is ready/publication denied; no private pilot or publication is authorized.
 
 ## Completed and material changes
 
-TypeSafe 0.7.5 typed Choice + applicability Noul seam suggests search/graph/backlinks only. Explicit caller request permission, static authorized handlers, server-side key/model/timeout/retry settings, safe metadata logging and disabled/unconfigured fallbacks are implemented. Sixteen labeled synthetic examples, executable fixed-input example and model-independent evaluation audit are included. No SDK is required by the normal engine. Native #43 repair normalizes three ADR body structures, retaining all proposed/null metadata.
+Optional TypeSafe #110 passes 393 local tests on each supported Python. The #46 extension adds exact private source grants to session/v1, authored first segment/summary without reviewed knowledge, and private create/repeat/check proof bundles with input/session digests, TTL/revocation checks and retained partial outputs. Original objects and review authority remain unchanged.
 
 ## Validation and review evidence
 
-.venv/bin/python -m unittest tests.test_semantic_workflow -q — 12 offline tests pass; Python 3.12. .cache/python313/bin/python -m unittest tests.test_semantic_workflow -q — 12 offline tests pass; Python 3.13. Optional TypeSafe 0.7.5 environments: unittest experiments.typesafe.test_sdk_contract -q — 3 actual SDK/mock-transport tests pass on each Python; no paid/model calls. .venv/bin/python -m unittest tests.test_distribution -q — 2 distribution checks pass; no default runtime dependencies added. Source -S synthetic example and dataset audit; one-case live setup probe — disabled/unconfigured behavior pass; 16 labels, zero model-evaluated cases and accuracy null; live credential unavailable. Unmodified Relay collect at merged main f3a88cc; git diff old combined fdce5df..main — Native status ready; publication denied with honest unknown coverage. Only three ADR body structures differ; runtime/test files unchanged.. .venv/bin/python -m unittest discover -s tests -q — 393 tests pass in 361.764s; exact merged-main plus TypeSafe implementation, Python 3.12. .cache/python313/bin/python -m unittest discover -s tests -q — 393 tests pass in 350.318s; same implementation, Python 3.13.
+.venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_scope_bindings tests.test_scoped_retrieval tests.test_output_scope -q — 44 tests pass in 49.826s at the initial eight-case extension; existing reviewed/scoped/output behavior preserved. .venv/bin/python -m unittest tests.test_source_compaction tests.test_compaction tests.test_distribution -q — 22 tests pass in 33.390s after two added CLI-grant/reviewed-hierarchy cases. .cache/python313/bin/python -m unittest tests.test_source_compaction -q — 10 source-compaction cases pass; no credentials, model or acquisition. Ruff E9/F; git diff --check; pinned owner handoff/ADR/44-row checks — Focused syntax/import/style and pinned authority/continuity/coverage checks pass. .venv/bin/ruff check --select E9,F src — 4 unchanged baseline findings: unused imports in scope_cache/routing_transitions/site, and site base variable. Focused changed-file scan passes.. .venv/bin/python -m unittest tests.test_v1_contracts tests.test_source_compaction -q — 16 tests pass in 14.276s, including explicit new schema inventory and rejection of vault output targets. A full 403-test run found only the omitted inventory entry and downstream UI golden hash; both are corrected before final 404-test qualification..
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -201,7 +197,7 @@ TYPESAFE_API_KEY is not configured; live smoke and model accuracy/calibration re
 
 ## Next dependency-ready work
 
-Implement the bounded #46 source-only compaction and private derived-manifest persistence/expiry checkpoint over the existing source/session contracts. Keep #110 draft, preserve originals, then qualify #17/#18/#20 against available public owner/consumer contracts.
+Qualify actual pinned Quartz output for empty/small/larger fixtures, keyboard/mobile/reduced motion and graph alternatives (#17); then prove complete rendered artifact composition/recovery (#18). Relay #40 is open with no reusable Mindgarden action at the pinned tree; keep that integration gap explicit.
 
 ## Parallel changes and reconciliation
 
