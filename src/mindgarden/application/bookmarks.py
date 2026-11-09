@@ -5,6 +5,7 @@ import ipaddress
 import re
 from urllib.parse import urlsplit, parse_qsl
 
+from ..adapters.captured_source import CapturedSourceAdapter
 from ..adapters.generated_files import apply_generated, inventory
 from ..adapters.registry_files import control_path, private_parent
 from ..domain.contracts import (
@@ -12,12 +13,15 @@ from ..domain.contracts import (
     canonical_json,
     digest_bytes,
     read_object,
+    strict_json,
 )
 from ..domain.scope import POLICY_REFERENCE, local_scope
+from ..domain.sources import normalize_source
 from ..domain.validation import ContractError
 from .curation import require_review_authority
 
 SOURCE_PROFILE = "mindcap.chrome-bookmarks.normalized/v0.1"
+BUNDLE_PROFILE = "mindcap.captured-source-bundle/v1"
 HANDOFF = {
     "schema": "mindgarden.bookmark-handoff-status/v1",
     "state": "unavailable",
@@ -34,16 +38,54 @@ def require_personal(classification):
         )
 
 
-def read_metadata(path, classification):
+def _bookmark_input(path, classification, input_format):
     require_personal(classification)
-    if any(p.is_symlink() for p in (path, *path.parents)):
+    if any(p.is_symlink() for p in (path, *path.parents)) or not path.is_file():
         raise ContractError("BOOKMARK_INPUT: captured metadata must be a regular file")
-    source = read_object(path)
-    if source.get("schema") != SOURCE_PROFILE or not isinstance(
-        source.get("bookmark_records"), list
+    if input_format not in {"normalized-json", "captured-source-bundle"}:
+        raise ContractError(
+            "BOOKMARK_INCOMPATIBLE: select an explicit supported input format"
+        )
+    maximum = (
+        100 * 1024 * 1024 if input_format == "captured-source-bundle" else 2_000_000
+    )
+    with path.open("rb") as stream:
+        captured = stream.read(maximum + 1)
+    if len(captured) > maximum:
+        raise ContractError(
+            "BOOKMARK_BUDGET: captured input exceeds the selected format limit"
+        )
+    units = None
+    if input_format == "captured-source-bundle":
+        bundle = normalize_source(CapturedSourceAdapter(), captured, {})
+        if bundle.metadata["source_type"] != "bookmark-collection":
+            raise ContractError(
+                "BOOKMARK_INCOMPATIBLE: explicit bookmark-collection units required"
+            )
+        units = bundle.units
+        if any(
+            unit.media_type != "application/json"
+            or not {"json:/title", "json:/url"}.issubset(unit.locators)
+            for unit in units
+        ):
+            raise ContractError(
+                "BOOKMARK_EVIDENCE: exact JSON title and URL evidence required"
+            )
+        source = {
+            "schema": BUNDLE_PROFILE,
+            "capture": bundle.metadata,
+            "bookmark_records": [strict_json(unit.content) for unit in units],
+        }
+    else:
+        source = strict_json(captured)
+    expected_profile = BUNDLE_PROFILE if units is not None else SOURCE_PROFILE
+    if (
+        not isinstance(source, dict)
+        or source.get("schema") != expected_profile
+        or not isinstance(source.get("bookmark_records"), list)
     ):
         raise ContractError(
-            "BOOKMARK_INCOMPATIBLE: only the tested normalized metadata subset is supported; source-bundle/delta verification is unavailable"
+            "BOOKMARK_INCOMPATIBLE: require the selected tested bookmark metadata profile"
         )
     records = []
     seen = set()
@@ -85,6 +127,10 @@ def read_metadata(path, classification):
                 )
             )[:24]
         )
+        if units is not None:
+            identity = (
+                "bookmark-" + digest_bytes(units[position].identity.encode())[:24]
+            )
         if identity in seen:
             raise ContractError(
                 "BOOKMARK_IDENTITY: conflicting provider identities require review"
@@ -99,6 +145,23 @@ def read_metadata(path, classification):
                 "source_locator": "json:/bookmark_records/" + str(position),
             }
         )
+        if units is not None:
+            unit = units[position]
+            records[-1].update(
+                source_locator="json:/url",
+                page_content="not-captured",
+                evidence={
+                    "source_identity": unit.identity,
+                    "sha256": digest_bytes(unit.content),
+                    "locators": list(unit.locators),
+                    **unit.metadata,
+                },
+            )
+    return source, records, captured
+
+
+def read_metadata(path, classification, *, input_format="normalized-json"):
+    source, records, _captured = _bookmark_input(path, classification, input_format)
     return source, records
 
 
@@ -177,6 +240,7 @@ def plan_bookmarks(
     request,
     *,
     classification="restricted",
+    input_format="normalized-json",
     previous=None,
     previous_sha256=None,
 ):
@@ -188,7 +252,9 @@ def plan_bookmarks(
         raise ContractError(
             "BOOKMARK_PLAN: explicit compatible local review contract is required"
         )
-    source, records = read_metadata(source_path, classification)
+    source, records, captured = _bookmark_input(
+        source_path, classification, input_format
+    )
     catalog = read_object(catalog_path)
     if (
         catalog.get("schema") != "mindgarden.local-bookmark-catalog/v1"
@@ -200,10 +266,10 @@ def plan_bookmarks(
             "BOOKMARK_CATALOG: require an explicit local exact-URL comparison selection"
         )
     inputs = {
-        "source_sha256": digest_bytes(source_path.read_bytes()),
+        "source_sha256": digest_bytes(captured),
         "catalog_sha256": digest_bytes(catalog_path.read_bytes()),
         "policy": POLICY_REFERENCE,
-        "source_profile": SOURCE_PROFILE,
+        "source_profile": source["schema"],
     }
     if (
         request["source_sha256"] != inputs["source_sha256"]
@@ -317,6 +383,8 @@ def plan_bookmarks(
                 "source_locator": record["source_locator"],
             }
         )
+        if "evidence" in record:
+            trail[-1]["evidence"] = record["evidence"]
     if len({r["url"] for r in cleaned}) != len(cleaned):
         raise ContractError(
             "BOOKMARK_DUPLICATE: exact duplicates need an explicit merge disposition"
@@ -336,12 +404,17 @@ def plan_bookmarks(
         "publication": "never-exportable",
     }
     files = {
-        "captured-normalized.json": source_path.read_bytes(),
+        (
+            "captured-source.zip"
+            if input_format == "captured-source-bundle"
+            else "captured-normalized.json"
+        ): captured,
         "cleaned-bookmarks.json": canonical_json(
             {
                 "schema": "mindgarden.cleaned-bookmarks/v1",
                 "records": sorted(cleaned, key=lambda r: r["id"]),
-                "complete_review": next_offset is None,
+                "complete_review": next_offset is None
+                and source.get("capture", {}).get("status", "complete") == "complete",
             }
         ),
         "cleaned-bookmarks.html": bookmark_html(cleaned),
@@ -349,6 +422,10 @@ def plan_bookmarks(
         "quarantine.json": canonical_json({"items": quarantine}),
         "akashic-handoff-status.json": canonical_json(HANDOFF),
     }
+    if sum(map(len, files.values())) > 16 * 1024 * 1024:
+        raise ContractError(
+            "BOOKMARK_BUDGET: private export exceeds the 16 MiB generated-bundle limit"
+        )
     value = {
         "schema": "mindgarden.bookmark-review-plan/v1",
         "inputs": inputs,
@@ -362,7 +439,7 @@ def plan_bookmarks(
         "handoff": HANDOFF,
         "capabilities": {
             "raw_capture_verification": False,
-            "source_bundle": False,
+            "source_bundle": input_format == "captured-source-bundle",
             "deltas": False,
             "observations": False,
             "url_identity": "exact-string-only",
@@ -371,6 +448,11 @@ def plan_bookmarks(
             "public_packet": False,
         },
     }
+    if input_format == "captured-source-bundle":
+        value["capture"] = source["capture"]
+        value["capabilities"].update(
+            member_checksums=True, producer_authentication=False
+        )
     return {**value, "plan_sha256": digest_bytes(canonical_json(value))}, files
 
 
@@ -393,14 +475,18 @@ def private_write(path, content):
 def _run_bookmarks(arguments):
     require_personal(arguments.classification)
     if arguments.inspect:
-        _source, records = read_metadata(arguments.input, arguments.classification)
+        _source, records, captured = _bookmark_input(
+            arguments.input, arguments.classification, arguments.input_format
+        )
         document = {
             "schema": "mindgarden.bookmark-private-inventory/v1",
             "records": records,
-            "source_sha256": digest_bytes(arguments.input.read_bytes()),
+            "source_sha256": digest_bytes(captured),
             "catalog_sha256": digest_bytes(arguments.catalog.read_bytes()),
             "publication": "never-exportable",
         }
+        if arguments.input_format == "captured-source-bundle":
+            document["capture"] = _source["capture"]
         private_write(arguments.plan_file, canonical_json(document))
         result = {
             "status": "private-inventory-written",
@@ -427,6 +513,7 @@ def _run_bookmarks(arguments):
             arguments.catalog,
             request,
             classification=arguments.classification,
+            input_format=arguments.input_format,
             previous=previous,
             previous_sha256=previous_sha,
         )
@@ -459,6 +546,7 @@ def _run_bookmarks(arguments):
                         arguments.catalog,
                         current,
                         classification=arguments.classification,
+                        input_format=arguments.input_format,
                         previous=prior,
                         previous_sha256=prior_sha,
                     )[0]

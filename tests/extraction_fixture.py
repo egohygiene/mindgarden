@@ -15,7 +15,7 @@ from tests.support_v1 import TIME, write_json, write_session
 FIXTURES = Path(__file__).parent / "fixtures/extraction"
 
 
-def initialize(test):
+def initialize(test, *, bookmark_bytes=None):
     inputs = []
     for name, captured, media, adapter, version in (
         (
@@ -27,7 +27,11 @@ def initialize(test):
         ),
         (
             "bookmarks",
-            (FIXTURES.parent / "captured-source/synthetic-source.zip").read_bytes(),
+            bookmark_bytes
+            if bookmark_bytes is not None
+            else (
+                FIXTURES.parent / "captured-source/synthetic-source.zip"
+            ).read_bytes(),
             "application/vnd.mindcap.captured-source+zip",
             "captured-source-bundle",
             "1",

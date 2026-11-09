@@ -678,6 +678,7 @@ def build_parser() -> ArgumentParser:
 
     bookmarks = commands.add_parser("bookmarks", help="Inspect or review captured normalized bookmarks privately without browser mutation")
     bookmarks.add_argument("--input", type=Path, required=True)
+    bookmarks.add_argument("--input-format", choices=("normalized-json", "captured-source-bundle"), default="normalized-json", help="Select legacy metadata or the pinned verified source-bundle profile")
     bookmarks.add_argument("--catalog", type=Path, required=True)
     bookmarks.add_argument("--classification", choices=("personal", "restricted"), default="restricted")
     bookmark_mode = bookmarks.add_mutually_exclusive_group()
