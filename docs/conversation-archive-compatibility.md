@@ -1,6 +1,6 @@
 # Conversation archive adapter checkpoint
 
-`conversation-archive` 1.1.0 consumes an explicitly supplied ZIP. It performs no
+`conversation-archive` 1.2.0 consumes an explicitly supplied ZIP. It performs no
 acquisition, model calls, remote routing, persistence, publication, or execution of
 transcript instructions. Human curation remains a separate authored plan.
 
@@ -74,12 +74,27 @@ they do not imply cross-export continuity. Observed IDs use the caller's explici
 source namespace. Unknown timestamps stay unknown. Original runtime asset paths
 stay inside the preserved ZIP, outside portable catalog metadata.
 
-The v2.0.1 document is a delivery patch requiring v2.0.0. Both were read: envelope
-`2.0`, preservation `2.0`, mandatory source/asset/validation controls, and the
-non-recursive two-pass SHA-256 packaging contract differ from v1. A conforming
-v2.0.1 reader and fixture matrix are **not implemented**. Selection fails with
-`ADAPTER_UNSUPPORTED`; availability of the specifications is no longer the
-blocker. Do not reinterpret it as v3.2 or claim v2 producer compatibility.
+The authoritative v2.0.0 baseline, v2.0.1 delivery patch and standalone v2.0.2
+were reread on 2026-11-08 (maintainer timezone). All three are now tested with
+envelope/preservation `2.0`, required nonempty source/asset/validation controls,
+exact inventories and independent attachment selection. No v3 compression or
+routing fields are fabricated. The synthetic fixture reopens both packaging
+passes, includes the final validation bytes in the rebuilt inventory, and keeps
+the final ZIP digest external. Observing a valid ZIP does not prove which
+packaging steps its producer actually ran.
+
+Known knowledge and visual layers must have their required files unless the
+producer explicitly disables them. They and v2.0.2's optional follow-up records
+remain untrusted preserved source data; no instructions create issues, run tools,
+apply knowledge or grant publication authority. Aggregates whose complete wire
+shape is unspecified remain opaque. Tests cover only the source-preservation
+profile, not complete editorial/knowledge output or upstream producer accuracy.
+
+Unchanged messages retain the same adapter namespace/content identities across
+v2.0.0 → v2.0.2 → v3.2.3 observations. Separate original ZIPs remain immutable.
+Explicit version mismatch, unknown versions, failed validation, missing enabled
+layers, unsafe paths, stale plans and even unselected corrupted assets fail before
+vault writes. Collections and multipart packages remain unsupported.
 
 Current and legacy readers accept an explicit `attachment_selection` with mode
 `all`, `catalog-only` or `selected` and `asset_ids`. Legacy asset IDs are their

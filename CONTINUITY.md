@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T01:55:06Z'
+  updated_at: '2026-11-09T02:01:30Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -72,41 +72,40 @@ work:
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#11
-    url: https://github.com/egohygiene/mindgarden/issues/11
+    id: egohygiene/mindgarden#15
+    url: https://github.com/egohygiene/mindgarden/issues/15
   next:
     kind: action
-    id: archive-and-extraction
-    description: Implement the v2 archive reader against the reread v2.0.0/2.0.1/2.0.2 specifications, then the
-      optional evidence-bound curation producer/batch checkpoint. Preserve all tested v1/v3 semantics and no-model
-      operation.
+    id: optional-extraction-producer
+    description: 'Implement #13 optional versioned evidence-bound extraction proposals and recoverable batches,
+      using the new synthetic archive profile. Keep authored review separate and optional model accuracy unclaimed.'
     readiness: ready
     references:
     - docs/pipeline-completion-sprint.md
     depends_on: []
 state:
   base:
-    revision: 83e553d5fddb42583f8e9b3e1875c02286294cd6
-    ref: refs/heads/feature/17-rendered-portal-proof
-    verified_at: '2026-11-09T01:55:06Z'
+    revision: 7230118f2237b1ad0c35f99bb3a586c2ef848603
+    ref: refs/heads/feature/11-captured-bundle-handoff
+    verified_at: '2026-11-09T02:01:30Z'
   candidate:
-    branch: feature/11-captured-bundle-handoff
-    revision: b661dc2da882e3e5225341daf54a8ddea80795a3
+    branch: feature/15-archive-v2
+    revision: cc385830e9ac3704310d7626896b27b2e6ca8466
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#113
-      url: https://github.com/egohygiene/mindgarden/pull/113
+      id: egohygiene/mindgarden#114
+      url: https://github.com/egohygiene/mindgarden/pull/114
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T01:55:06Z'
+    observed_at: '2026-11-09T02:01:30Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
     notes: "Main f3a88cc; existing green #110\u2013#112 drafts remain open. Current branch stacks over #112/83e553d.\
       \ Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner\
       \ contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered. Consumer\
-      \ draft #113 functional b661dc2 is pushed over #112."
+      \ draft #113 functional b661dc2 is pushed over #112. Archive draft #114 functional cc38583 stacks over #113."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -119,29 +118,28 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T01:55:06Z'
+  reviewed_at: '2026-11-09T02:01:30Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_captured_source tests.test_source_adapters tests.test_adapter_conformance
-      tests.test_v1_contracts -q
+  - command: python -m unittest tests.test_archive_v2 tests.test_conversation_archives tests.test_archive_selection
+      -q
     outcome: passed
-    observed_at: '2026-11-09T01:55:06Z'
-    notes: 24 pass, 3.857s; 6 new cases separately pass on both supported Python versions
-  - command: 'Owner: pytest -q; ruff check .'
+    observed_at: '2026-11-09T02:01:30Z'
+    notes: 18 pass on Python 3.12 (5.860s) and 3.13 (6.052s); first run exposed and then updated the obsolete unsupported-v2
+      assertion to an actually untested 2.1.0
+  - command: .venv/bin/python -m unittest tests.test_private_garden_workflow tests.test_compaction -q
     outcome: passed
-    observed_at: '2026-11-09T01:55:06Z'
-    notes: 622 pass, 4.82s, with loopback allowed; initial restricted run 620 pass/2 socket failures. All source
-      fixtures synthetic.
-  - command: Optional real producer/consumer check with pinned Mindcap source
+    observed_at: '2026-11-09T02:01:30Z'
+    notes: 12 pass, 28.972s; exact evidence and original-vault golden fields unchanged
+  - command: Ruff E9/F; git diff --check
     outcome: passed
-    observed_at: '2026-11-09T01:55:06Z'
-    notes: 2 observations, 2 units each; original packages distinct, normalized units equal; network blocked in-process
-      and no model.
-  - command: Ruff E9/F, format and schema inventory
+    observed_at: '2026-11-09T02:01:30Z'
+    notes: Pass; only new preservation/reader/test files formatted. Mixed-vault metadata hashes are explicitly reconciled
+      and checked.
+  - command: .venv/bin/python -m unittest tests.test_mixed_vault_workflow -q
     outcome: passed
-    observed_at: '2026-11-09T01:55:06Z'
-    notes: Focused checks pass; owner schema is pinned, not redefined. Full combined checks follow later sprint
-      checkpoints.
+    observed_at: '2026-11-09T02:01:30Z'
+    notes: 1 pass, 18.956s; backup/evidence unchanged after metadata-only inventory reconciliation
   environment_limitations:
   - 'Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain
     open. Mindcap #48 is unavailable; no missing contract is invented.'
@@ -180,15 +178,15 @@ Advance #11–#16 through required producer contracts, authored extraction, arch
 
 ## State snapshot
 
-Main f3a88cc; existing green #110–#112 drafts remain open. Current branch stacks over #112/83e553d. Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered. Consumer draft #113 functional b661dc2 is pushed over #112.
+Main f3a88cc; existing green #110–#112 drafts remain open. Current branch stacks over #112/83e553d. Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered. Consumer draft #113 functional b661dc2 is pushed over #112. Archive draft #114 functional cc38583 stacks over #113.
 
 ## Completed and material changes
 
-Mindcap provider-neutral captured-source schema/ZIP and explicit bookmark exporter are drafted; 622 owner tests and repository Ruff pass. Mindgarden vendors the exact schema and normalizes captured units through existing plan/apply, checking all bytes/lineage, duplicate identity, partial/empty states and inert URLs. Two actual synthetic captures have distinct original packages and identical normalized evidence.
+Added direct v2.0.0/2.0.1/2.0.2 source-profile reader with shared preservation checks, selective assets, overlap identity and independently reopened two-pass packaging fixtures. Existing v1/v3 profiles remain tested. Exact original/source identities, bodies and recovery results are unchanged; only documented adapter metadata/view hashes are reconciled.
 
 ## Validation and review evidence
 
-.venv/bin/python -m unittest tests.test_captured_source tests.test_source_adapters tests.test_adapter_conformance tests.test_v1_contracts -q — 24 pass, 3.857s; 6 new cases separately pass on both supported Python versions. Owner: pytest -q; ruff check . — 622 pass, 4.82s, with loopback allowed; initial restricted run 620 pass/2 socket failures. All source fixtures synthetic.. Optional real producer/consumer check with pinned Mindcap source — 2 observations, 2 units each; original packages distinct, normalized units equal; network blocked in-process and no model.. Ruff E9/F, format and schema inventory — Focused checks pass; owner schema is pinned, not redefined. Full combined checks follow later sprint checkpoints..
+python -m unittest tests.test_archive_v2 tests.test_conversation_archives tests.test_archive_selection -q — 18 pass on Python 3.12 (5.860s) and 3.13 (6.052s); first run exposed and then updated the obsolete unsupported-v2 assertion to an actually untested 2.1.0. .venv/bin/python -m unittest tests.test_private_garden_workflow tests.test_compaction -q — 12 pass, 28.972s; exact evidence and original-vault golden fields unchanged. Ruff E9/F; git diff --check — Pass; only new preservation/reader/test files formatted. Mixed-vault metadata hashes are explicitly reconciled and checked.. .venv/bin/python -m unittest tests.test_mixed_vault_workflow -q — 1 pass, 18.956s; backup/evidence unchanged after metadata-only inventory reconciliation.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -196,7 +194,7 @@ Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and rea
 
 ## Next dependency-ready work
 
-Implement the v2 archive reader against the reread v2.0.0/2.0.1/2.0.2 specifications, then the optional evidence-bound curation producer/batch checkpoint. Preserve all tested v1/v3 semantics and no-model operation.
+Implement #13 optional versioned evidence-bound extraction proposals and recoverable batches, using the new synthetic archive profile. Keep authored review separate and optional model accuracy unclaimed.
 
 ## Parallel changes and reconciliation
 
@@ -213,6 +211,14 @@ At each checkpoint record functional revision, branch/PR, exact tests/results, p
 ## Compaction and supersession
 
 Keep the twelve required headings and the 16384-byte/240-line bounds. This supersedes the closeout regroup with the newly selected #11–#16 completion sprint. Historical ledgers retain prior evidence; deferred #86–#91 and release work remain parked.
+
+Archive CI follow-up: the full Linux run 42548628131 at `4c80d08` failed the
+nested release-journey copy of two metadata hashes. The constrained correction
+changes only its embedded index/context hashes. `PYTHONPATH=src python -m unittest
+tests.test_release_journey -q` passes 2 cases on Python 3.12/3.13
+(11.536s/11.037s). Earlier candidate pins describe the prior functional checkpoint;
+this branch head includes the repair. Next: carry this source fix through the
+#115–#118 stack and record final full combined checks. No release publication.
 
 Captured fixture artifact follow-up: MANIFEST.in explicitly includes the single
 committed synthetic-source ZIP, and the distribution inventory test requires it.

@@ -1,0 +1,82 @@
+{
+  "archive_id": "synthetic-conversation",
+  "archive_revision": 1,
+  "capabilities": {
+    "model": false,
+    "network": false
+  },
+  "classification": {
+    "coverage": "limited",
+    "readiness": "review-required",
+    "reasons": [
+      "Authored fixture."
+    ],
+    "value": "synthetic"
+  },
+  "counts": {
+    "limitations": [
+      "Wire shape for producer counts is not standardized in the available prose; retained opaquely."
+    ]
+  },
+  "coverage_detail": {
+    "limitations": [
+      "No claim about an upstream producer, remote execution, or complete source history."
+    ]
+  },
+  "created_at": "2026-11-04T00:00:00Z",
+  "delivery": {
+    "limitations": [],
+    "method": "synthetic-local-packager",
+    "status": "validated",
+    "type": "zip"
+  },
+  "disabled_layers": [
+    "external-persistence",
+    "creative",
+    "knowledge-handoff",
+    "visuals"
+  ],
+  "options": {
+    "editorial_follow_up": "off",
+    "mindgarden": "off",
+    "privacy_mode": "private",
+    "repository_follow_up": "off",
+    "visuals": "off"
+  },
+  "provenance": {
+    "extracted_at": "2026-11-04T00:00:00Z",
+    "extractor": "synthetic-fixture",
+    "prior_archive_ids": [],
+    "transformations": []
+  },
+  "schema_version": "2.0",
+  "source_inputs": [
+    {
+      "adapter": "synthetic-fixture",
+      "adapter_version": "1.0.0",
+      "archive_path": null,
+      "byte_fidelity": "derived",
+      "capture_method": "synthetic-fixture",
+      "format": "authored-json",
+      "locator": "urn:synthetic:conversation",
+      "observed_metadata": {
+        "synthetic": true
+      },
+      "product": "synthetic-fixture",
+      "provider": "synthetic",
+      "source_id": "synthetic-input"
+    }
+  ],
+  "source_scope": {
+    "limitations": [
+      "Synthetic fixture only; producer scope serialization is not standardized by the available prose."
+    ]
+  },
+  "spec_version": "2.0.2",
+  "title": "Synthetic conversation archive",
+  "unit_kind": "conversation",
+  "updated_at": "2026-11-04T00:00:00Z",
+  "warnings": [
+    "Synthetic data only."
+  ]
+}
