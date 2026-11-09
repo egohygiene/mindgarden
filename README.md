@@ -12,8 +12,9 @@ repository's `.garden/` directory. Obsidian vaults, agent context, search
 indexes, and published sites are projections of that committed knowledge, not
 competing sources of truth.
 
-The local workflow includes the [overnight checkpoints](docs/overnight-sprint.md),
-with 481 tests passing on each supported Python. Captured conversations, bookmarks,
+The local workflow includes the [overnight checkpoints](docs/overnight-sprint.md).
+The current [privacy/storage draft stack](docs/privacy-storage-followthrough.md)
+passes 515 tests on each supported Python. Captured conversations, bookmarks,
 documents and opaque assets feed reviewed knowledge with exact source references.
 Those references survive restore, relocation and clean projection rebuilds.
 Optional extraction producers, authored learning, private compaction and local
@@ -225,7 +226,7 @@ exact-evidence preview and synthetic curation handoff; originals are preserved.
 
 The merged [broader product stack](docs/product-checkpoints.md) adds ADR metadata,
 optional SQLite, dependency-build, reviewed memory and private bookmark workflows.
-The [latest qualification](docs/evidence/overnight-qualification.json) passes 481
+The [latest checkpoint qualification](docs/evidence/privacy-storage-qualification.json) passes 515
 tests per supported Python, clean source/wheel recovery and actual browser checks.
 Parent acceptance, historical ADR migration and the framework-dependent API/web
 slice remain separate. Managed memory bundles, bounded due-card study, captured

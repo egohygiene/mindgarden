@@ -162,3 +162,8 @@ builds, expiring memory checks, bounded due-card study and corrected mobile
 Explorer controls. Its clean source/wheel proof preserves exact evidence through
 vault relocation and restore. No model, Google service or specialized database is
 required; eight listed issues close while broader parent gates stay explicit.
+
+
+## Privacy/storage checkpoint qualification
+
+Drafts #127–#130 extend the same services with shared export policy, whole-bundle session limits, managed ordinary PDF process lifetimes and reviewed local adapter migration. The combined functional source `e789c0c` passes 515 tests per Python, 80 publication cases and clean source/wheel migration and mixed-pipeline proofs. [The ledger](docs/privacy-storage-followthrough.md) preserves implemented/tested/draft states and exact remaining contracts. No normative policy, encryption/runtime, publication or proposed ADR is accepted by these checks; main and full parent acceptance remain separate.

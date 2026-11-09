@@ -8,17 +8,18 @@ Preserve closed rows as evidence. [The overnight receipt](overnight-sprint.md)
 maps current listed criteria to source/tests and records the maintainer’s merge
 authority, exact stack merge commits and the next bounded checkpoints.
 
-Mindcap #42 and Mindgarden #110–#125 are merged. Final mobile checkpoint #126
-is qualified at `32bcb3c`: **481 tests per Python, zero skips**, exact clean
-source/wheel pipeline/provider/journey goldens and actual browser/axe checks.
-[The structured receipt](evidence/overnight-qualification.json) records exact
-commands, artifacts, earlier corrected failures and passing functional-head CI.
-Any following documentation head requires its own CI before merge. ADRs stay
-proposed; release and deferred-package work stay parked.
+Mindcap #42 and Mindgarden #110–#126 are merged at main `7594921`.
+The [overnight receipt](overnight-sprint.md) preserves its 481-case source/wheel
+and browser evidence. Current privacy/storage drafts #127–#130 qualify combined
+functional `e789c0c`: **515 tests per Python, zero skips**, the 80-case publication
+pack and four exact clean wheel/source goldens. [The current structured receipt](evidence/privacy-storage-qualification.json)
+records exact results, earlier corrected attempts and green functional-head CI;
+following handoff-only CI is separate. ADRs stay proposed, and release/deferred
+package work stays parked.
 
 ## Active privacy and storage follow-through
 
-The maintainer selected #10/#29/#31/#35/#45. [The bounded checkpoint ledger](privacy-storage-followthrough.md) records the live owner contracts, corrected Realm dependencies and proposed stack. #10 remains closed; 35 issues remain open. Local implementation is independent of unavailable confidential-runtime assurance.
+The maintainer selected #10/#29/#31/#35/#45. [The bounded checkpoint ledger](privacy-storage-followthrough.md) records live owner contracts, corrected Realm dependencies and draft stack #127–#130, with 515 full cases per Python and exact clean artifact proofs. #10 remains closed; 35 issues remain open. Local implementation is independent of unavailable confidential-runtime assurance.
 
 ## Observed baseline and authority
 
@@ -157,12 +158,12 @@ not one serial gate over all work.
 
 | Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
 | --- | --- | --- | --- | --- |
-| [#10](https://github.com/egohygiene/mindgarden/issues/10) — validation/private publication | completed | Version-aware validation; reusable 80-test publication/preview conformance, stable text/JSON diagnostics, complete leak-surface matrix; v0 preserved; [acceptance mapping](overnight-sprint.md) | Listed criteria satisfied; future adapters, confidential runtime and real consumer pilots remain with #35/#45/#20 | #7/#8/#9 and public projection contracts; acceptance receipt, then independent #48 |
-| [#29](https://github.com/egohygiene/mindgarden/issues/29) — independent scope/sensitivity axes | partial | #55/#62 local versioned contract; merged #80 shared decision API/schema/CLI and inheritance fixtures | Shared export policy now checks destination axes before bodies and after inheritance; accepted organization policy, declassification protocol and verified restricted runtime remain open | Hygiene #39, Realm #25 → #60, #10/#14/#16; local contract usable, external assurance blocked |
+| [#10](https://github.com/egohygiene/mindgarden/issues/10) — validation/private publication | completed | Existing listed criteria closed through #120; [privacy follow-through](privacy-storage-followthrough.md) re-verifies 80-case publication/preview conformance, 515 full cases per Python and installed v0 compatibility | No reopened scope; future adapter/confidential/public-consumer criteria stay with their owners | #7/#8/#9; retain completion and consume the conformance pack in later checkpoints |
+| [#29](https://github.com/egohygiene/mindgarden/issues/29) — independent scope/sensitivity axes | partial | Merged local policy plus draft [#127](https://github.com/egohygiene/mindgarden/pull/127): federation/site export consumes shared destination decisions before bodies and after inheritance; 39 focused cases per Python, stable compatible bytes | Accepted normative classification/declassification and governed lower-sensitivity derivatives remain unavailable | Hygiene #39; Realm #28/#29/#30 for actual confidential integration; existing #10/#14/#16 contracts suffice for the bounded local checkpoint |
 | [#30](https://github.com/egohygiene/mindgarden/issues/30) — local registry/private overlays | closed in GitHub; bounded evidence | #55/#62 bindings/scoped queries; merged #67 Linux lifecycle/views/recovery; merged #82 owned cache recovery; merged [#93](registry-native-platforms.md) adds ACL/path controls, 44 tests per native macOS job and clean installed-wheel goldens | Closed 2026-11-08; Windows mutation, broader native hosts and restricted/organization assurance remain unclaimed follow-up scope | #29/#14/#16 contracts available; ordinary native proof independent of confidential assurance; Hygiene #39/#40 and Realm #25/#60 gate assurance; preserve originals |
-| [#31](https://github.com/egohygiene/mindgarden/issues/31) — scoped retrieval/sensitivity | partial | #62/#64 filter before bodies/ranking; merged #81 output byte ceilings, live authority, sanitized diagnostics and owned caches; private asset output follows the same contract | Complete session byte ceilings now include federation/site/rendered bundles and private generated ownership metadata; normative assurance/declassification and external consumer/runtime integration remain open | #29/#10/#12/#14, Hygiene #40 and Realm #25/#60; carry invariants into B1/B2/Q |
-| [#35](https://github.com/egohygiene/mindgarden/issues/35) — confidential document/PDF ingestion | partial | Merged #83 ordinary synthetic PDF checkpoint: versioned bundles/page spans, explicit initial classification, optional Poppler 25.03.0 and six real parser states | Managed process-group cleanup, private child defaults and native six-state proof added; confidential encrypted runtime, OCR/office/complex layout and real consumer proof remain open | #29/#10/#11 local boundary usable; Hygiene #39/#40 and Realm #25/#60 still gate restricted processing |
-| [#45](https://github.com/egohygiene/mindgarden/issues/45) — portable private source/media vault | partial | #56/#63/#64 immutable vault/recovery; merged #84 adds versioned asset manifests, opaque media, retained-original review, explicit storage factories and archive/PDF/media recovery golden | Approved-copy rights policy, timed/destructive retention, encrypted/provider/platform/power-loss acceptance and real private consumer integration | #11/#15/#30/#31/#35/#40/#42; R0 early, later local/media checkpoints and independent adapter proofs |
+| [#31](https://github.com/egohygiene/mindgarden/issues/31) — scoped retrieval/sensitivity | partial | Draft [#128](https://github.com/egohygiene/mindgarden/pull/128): complete federation/site/rendered bundles and seven private generated writers obey live session/byte limits, including ownership metadata; 98 focused cases per Python and full leak-negative pack | Normative assurance and runtime-supplied provider/confidential boundaries; external consumer adoption remains separate | Existing #29/#10/#12/#14 reference contracts; Hygiene #40 and Realm #30 supply real runtime assurance, not local capability flags |
+| [#35](https://github.com/egohygiene/mindgarden/issues/35) — confidential document/PDF ingestion | partial | Merged ordinary PDF adapter plus draft [#129](https://github.com/egohygiene/mindgarden/pull/129): managed process groups/private child defaults; 19 focused cases per Python and actual six-state Poppler proof | Positive confidential processing, encrypted temp/cache/swap/egress and runtime assurance unavailable; real documents and OCR/office formats are not invented first-slice prerequisites | Hygiene #39/#40 and Realm #28/#29/#30; existing #11 adapter and explicit ordinary initial review support synthetic local verification |
+| [#45](https://github.com/egohygiene/mindgarden/issues/45) — portable private source/media vault | partial | Draft [#130](https://github.com/egohygiene/mindgarden/pull/130): reviewed local adapter copy/verify/rebind, retained objects/private history and exact partial retry; 35 focused cases per Python, clean wheel/sdist migration and existing mixed-pipeline goldens | Approved-copy/declassification/GC contracts and wider provider/durability/platform proof remain unimplemented; remote/encrypted adapters remain optional and unavailable, full #45 not claimed | Existing #11/#15/#30/#31/#35 contracts; #46 owns destructive retention, owner policy/runtime gates remain explicit; review the four-PR stack first |
 
 The active #11–#16 continuation is recorded in the
 [pipeline completion ledger](pipeline-completion-sprint.md), including exact draft
