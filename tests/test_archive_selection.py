@@ -105,4 +105,4 @@ class ArchiveSelectionTests(unittest.TestCase):
         with self.assertRaisesRegex(ContractError, "ARCHIVE_PATH"):
             LegacyConversationArchiveAdapter().normalize(package_bytes(members, inventory=False), self.metadata)
         with self.assertRaisesRegex(ContractError, "ADAPTER_UNSUPPORTED"):
-            default_registry().select("application/zip", "2.0.1")
+            default_registry().select("application/zip", "2.1.0")

@@ -26,3 +26,15 @@ The two affected proof suites passed 3 tests on each supported Python version.
 The correction is propagated from #76 through the dependent drafts using normal
 merges. Final combined full-test/CI receipts are recorded in the sprint map;
 failed attempts are superseded there, not relabeled as passing.
+
+## Adapter 1.2.0 source-profile expansion
+
+The v2 reader shares unchanged preservation-schema 2.0 checks with v3. The adapter
+version and transformation now declare 1.2.0. Regeneration is constrained to the
+private workflow's index/context hashes, compaction's context hash and mixed-vault
+workflow's index/context/inventory hashes. The inventory carries represented
+view revisions and captured provenance metadata; those inputs include the adapter
+version. Original content and the vault backup hash remain unchanged. Every other report field must match before a
+golden is replaced. This preserves exact original/source hashes, IDs, review,
+bodies, budgets and recovery assertions. Focused tests verify the existing v1/v3
+profiles as well as v2; no checksum or schema check is relaxed.

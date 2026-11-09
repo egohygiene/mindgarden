@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T01:55:06Z'
+  updated_at: '2026-11-09T02:01:02Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -72,34 +72,30 @@ work:
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#11
-    url: https://github.com/egohygiene/mindgarden/issues/11
+    id: egohygiene/mindgarden#15
+    url: https://github.com/egohygiene/mindgarden/issues/15
   next:
     kind: action
-    id: archive-and-extraction
-    description: Implement the v2 archive reader against the reread v2.0.0/2.0.1/2.0.2 specifications, then the
-      optional evidence-bound curation producer/batch checkpoint. Preserve all tested v1/v3 semantics and no-model
-      operation.
+    id: optional-extraction-producer
+    description: 'Implement #13 optional versioned evidence-bound extraction proposals and recoverable batches,
+      using the new synthetic archive profile. Keep authored review separate and optional model accuracy unclaimed.'
     readiness: ready
     references:
     - docs/pipeline-completion-sprint.md
     depends_on: []
 state:
   base:
-    revision: 83e553d5fddb42583f8e9b3e1875c02286294cd6
-    ref: refs/heads/feature/17-rendered-portal-proof
-    verified_at: '2026-11-09T01:55:06Z'
+    revision: 7230118f2237b1ad0c35f99bb3a586c2ef848603
+    ref: refs/heads/feature/11-captured-bundle-handoff
+    verified_at: '2026-11-09T02:01:02Z'
   candidate:
-    branch: feature/11-captured-bundle-handoff
-    revision: b661dc2da882e3e5225341daf54a8ddea80795a3
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#113
-      url: https://github.com/egohygiene/mindgarden/pull/113
+    branch: feature/15-archive-v2
+    revision: 7230118f2237b1ad0c35f99bb3a586c2ef848603
+    pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T01:55:06Z'
+    observed_at: '2026-11-09T02:01:02Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
@@ -119,29 +115,24 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T01:55:06Z'
+  reviewed_at: '2026-11-09T02:01:02Z'
   reviewed_by: codex
   evidence:
-  - command: .venv/bin/python -m unittest tests.test_captured_source tests.test_source_adapters tests.test_adapter_conformance
-      tests.test_v1_contracts -q
+  - command: python -m unittest tests.test_archive_v2 tests.test_conversation_archives tests.test_archive_selection
+      -q
     outcome: passed
-    observed_at: '2026-11-09T01:55:06Z'
-    notes: 24 pass, 3.857s; 6 new cases separately pass on both supported Python versions
-  - command: 'Owner: pytest -q; ruff check .'
+    observed_at: '2026-11-09T02:01:02Z'
+    notes: 18 pass on Python 3.12 (5.860s) and 3.13 (6.052s); first run exposed and then updated the obsolete unsupported-v2
+      assertion to an actually untested 2.1.0
+  - command: .venv/bin/python -m unittest tests.test_private_garden_workflow tests.test_compaction -q
     outcome: passed
-    observed_at: '2026-11-09T01:55:06Z'
-    notes: 622 pass, 4.82s, with loopback allowed; initial restricted run 620 pass/2 socket failures. All source
-      fixtures synthetic.
-  - command: Optional real producer/consumer check with pinned Mindcap source
+    observed_at: '2026-11-09T02:01:02Z'
+    notes: 12 pass, 28.972s; exact evidence and original-vault golden fields unchanged
+  - command: Ruff E9/F; git diff --check
     outcome: passed
-    observed_at: '2026-11-09T01:55:06Z'
-    notes: 2 observations, 2 units each; original packages distinct, normalized units equal; network blocked in-process
-      and no model.
-  - command: Ruff E9/F, format and schema inventory
-    outcome: passed
-    observed_at: '2026-11-09T01:55:06Z'
-    notes: Focused checks pass; owner schema is pinned, not redefined. Full combined checks follow later sprint
-      checkpoints.
+    observed_at: '2026-11-09T02:01:02Z'
+    notes: Pass; only new preservation/reader/test files formatted. Mixed-vault metadata hashes are explicitly reconciled
+      and checked.
   environment_limitations:
   - 'Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain
     open. Mindcap #48 is unavailable; no missing contract is invented.'
@@ -184,11 +175,11 @@ Main f3a88cc; existing green #110–#112 drafts remain open. Current branch stac
 
 ## Completed and material changes
 
-Mindcap provider-neutral captured-source schema/ZIP and explicit bookmark exporter are drafted; 622 owner tests and repository Ruff pass. Mindgarden vendors the exact schema and normalizes captured units through existing plan/apply, checking all bytes/lineage, duplicate identity, partial/empty states and inert URLs. Two actual synthetic captures have distinct original packages and identical normalized evidence.
+Added direct v2.0.0/2.0.1/2.0.2 source-profile reader with shared preservation checks, selective assets, overlap identity and independently reopened two-pass packaging fixtures. Existing v1/v3 profiles remain tested. Exact original/source identities, bodies and recovery results are unchanged; only documented adapter metadata/view hashes are reconciled.
 
 ## Validation and review evidence
 
-.venv/bin/python -m unittest tests.test_captured_source tests.test_source_adapters tests.test_adapter_conformance tests.test_v1_contracts -q — 24 pass, 3.857s; 6 new cases separately pass on both supported Python versions. Owner: pytest -q; ruff check . — 622 pass, 4.82s, with loopback allowed; initial restricted run 620 pass/2 socket failures. All source fixtures synthetic.. Optional real producer/consumer check with pinned Mindcap source — 2 observations, 2 units each; original packages distinct, normalized units equal; network blocked in-process and no model.. Ruff E9/F, format and schema inventory — Focused checks pass; owner schema is pinned, not redefined. Full combined checks follow later sprint checkpoints..
+python -m unittest tests.test_archive_v2 tests.test_conversation_archives tests.test_archive_selection -q — 18 pass on Python 3.12 (5.860s) and 3.13 (6.052s); first run exposed and then updated the obsolete unsupported-v2 assertion to an actually untested 2.1.0. .venv/bin/python -m unittest tests.test_private_garden_workflow tests.test_compaction -q — 12 pass, 28.972s; exact evidence and original-vault golden fields unchanged. Ruff E9/F; git diff --check — Pass; only new preservation/reader/test files formatted. Mixed-vault metadata hashes are explicitly reconciled and checked..
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -196,7 +187,7 @@ Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and rea
 
 ## Next dependency-ready work
 
-Implement the v2 archive reader against the reread v2.0.0/2.0.1/2.0.2 specifications, then the optional evidence-bound curation producer/batch checkpoint. Preserve all tested v1/v3 semantics and no-model operation.
+Implement #13 optional versioned evidence-bound extraction proposals and recoverable batches, using the new synthetic archive profile. Keep authored review separate and optional model accuracy unclaimed.
 
 ## Parallel changes and reconciliation
 

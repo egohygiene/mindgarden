@@ -62,3 +62,18 @@ is vendored with its exact SHA; core dependency metadata is unchanged.
 `feature/11-captured-bundle-handoff`, functional `b661dc2`, stacks over #112.
 The 24-case combined adapter/conformance/contract run passes in 3.857s.
 Next: v2 archive compatibility, followed by the optional extraction producer.
+
+### #15 direct historical-profile reader
+
+Branch `feature/15-archive-v2` stacks over #113/`7230118`. Authoritative v2.0.0,
+v2.0.1 and v2.0.2 were reread through the authorized source connector; private
+specification bodies are excluded. Tests use an authored v2 envelope over the
+existing synthetic preservation-schema 2.0 records. Both ZIP packaging passes
+are reopened and inventories verified. All three versions support independent
+asset selection; overlapping v2/v3 observations retain evidence identities.
+
+18 archive cases pass on Python 3.12/3.13 (5.860s/6.052s). The 12-case private
+workflow/compaction run passes (28.972s). Adapter version 1.2.0 changes only the
+documented derived metadata/view hashes in three proof goldens. No evidence,
+body, review, byte budget or vault backup fact changes. Full producer conformance,
+collections/multipart and real consumer adoption remain open. Next: #13 producer.
