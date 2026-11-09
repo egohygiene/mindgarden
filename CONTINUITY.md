@@ -7,13 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T05:18:28Z'
+  updated_at: '2026-11-09T10:10:34Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Resume authorized overnight acceptance closeout and dependency-ready local integrations.
+  purpose: 'Resume the authorized #10/#29/#31/#35/#45 privacy and storage follow-through.'
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -67,76 +67,73 @@ scope:
   - docs/local-federation.md
   - docs/extraction-producers.md
   - docs/overnight-sprint.md
+  - docs/privacy-storage-followthrough.md
 work:
-  objective: 'Close satisfied listed criteria, then advance #48/#14/#37/#49/#28/#17 through small independently
-    verified checkpoints.'
+  objective: 'Complete dependency-ready privacy/storage checkpoints, preserve #10 completion and record unavailable
+    external assurance honestly.'
   success_conditions:
   - Preserve Python/v0, exact evidence, scope and proposed ADR status.
   - Merge only completed tested checkpoints; keep blocked parent scope explicit.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#17
-    url: https://github.com/egohygiene/mindgarden/issues/17
+    id: egohygiene/mindgarden#29
+    url: https://github.com/egohygiene/mindgarden/issues/29
   next:
     kind: action
-    id: selective-archive-asset-and-attribution-proof
-    description: 'If #126 remains open, merge its exact final head only after green CI/comments review. Otherwise
-      start bounded #15 selected binary-diagram/scratch-caption and speaker/stance/correction fixtures, then separately
-      reviewed #14 incoming repair. Release, private pilots, ADR ratification and deferred #86–#91 remain parked.'
+    id: privacy-storage-next-checkpoint
+    description: 'Open the #29 coherent checkpoint as a draft, then implement #31 whole-bundle session limits and
+      metadata/rendered-output enforcement; keep owner integration blocked.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
     depends_on: []
 state:
   base:
-    revision: b38dbc82e237309358e2b99b2163bfc75e13657c
+    revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     ref: refs/heads/main
-    verified_at: '2026-11-09T05:18:28Z'
+    verified_at: '2026-11-09T10:10:34Z'
   candidate:
-    branch: fix/17-mobile-explorer-aria
-    revision: 32bcb3ce4a626a4edaa9ac9ad04f027ac1335e77
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#126
-      url: https://github.com/egohygiene/mindgarden/pull/126
-    handoff_state: ready-for-review
+    branch: feature/29-export-policy-boundaries
+    revision: null
+    pull_request: null
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-09T05:18:28Z'
-    default_branch_revision: b38dbc82e237309358e2b99b2163bfc75e13657c
+    observed_at: '2026-11-09T10:10:34Z'
+    default_branch_revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     issue_state: open
-    pull_request_state: draft
-    notes: 'Mindcap #42 and Mindgarden #110–#125 are merged. Eight overnight closures (#10/#11/#12/#26/#28/#33/#49/#51)
-      leave 35 open issues; all 44 coverage rows remain. #126 is the only open Mindgarden PR, qualified at 32bcb3c;
-      its final documentation head requires its own passing CI before the authorized merge.'
+    pull_request_state: not-applicable
+    notes: 'Main 7594921 is the merged overnight baseline; 35 issues remain open. #29 export-policy integration
+      passes 39 focused cases per Python; no new PR was open at the initial refresh. Four bounded privacy/storage
+      checkpoints are ordered in the new sprint ledger.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T05:18:28Z'
+  reviewed_at: '2026-11-09T10:10:34Z'
   reviewed_by: codex
   evidence:
-  - command: 'Frozen qualified Python 3.12/3.13: unittest discover --start-directory tests --verbose; clean local
-      wheel/sdist demos; actual pinned browser/axe; owner/continuity/diff checks'
-    outcome: passed
-    observed_at: '2026-11-09T05:18:28Z'
-    notes: 481 pass each, zero skips (493.978s/463.964s); five exact artifact goldens, zero runtime dependencies;
-      source/vault relocation/restore/rebuild exact; 15 browser audits have zero findings/incompletes; functional
-      CI 42564846322 and 42564846458 success
-  - command: Python 3.12/3.13 memory+contract and learning+contract suites; automatic parent corrected-head CI
-    outcome: passed
-    observed_at: '2026-11-09T05:18:28Z'
-    notes: '#124 and #125 merged after corrected schema inventories and green exact-head CI; prior failed runs preserved
-      in docs/overnight-sprint.md'
   - command: Actual learning_browser_check.py full/due; site_browser_check.py offline Quartz; focused Ruff/format,
       Node syntax, pinned owner schemas
     outcome: passed
     observed_at: '2026-11-09T05:18:28Z'
     notes: Learning keyboard/320/1280/200%/reduced-motion and 15 site axe audits pass; full manual WCAG and production
       hosting remain open
+  - command: 'Python 3.12/3.13: unittest tests.test_export_policy tests.test_scope_policy tests.test_federation
+      tests.test_site --quiet; focused Ruff/format and diff checks'
+    outcome: passed
+    observed_at: '2026-11-09T10:10:10Z'
+    notes: 39 pass each, zero skips (51.261s / 43.269s); compatible public output bytes unchanged
+  - command: 'Python 3.12/3.13: unittest tests.test_export_policy tests.test_scope_policy tests.test_federation
+      tests.test_site --quiet; focused Ruff/format and diff checks'
+    outcome: passed
+    observed_at: '2026-11-09T10:10:34Z'
+    notes: 39 pass each, zero skips (51.261s / 43.269s); compatible public output bytes unchanged
   environment_limitations:
-  - 'Aether #69/Akashic #176 accepted integration contracts and real private pilots remain unavailable.'
-  - OpenViking native useful-query/lifecycle acceptance incomplete; live Ollama accuracy unavailable.
-  - 'No release, private data, publication, destructive cleanup, ADR ratification or deferred #86–#91 activation.'
+  - 'Hygiene #39/#40 normative information-flow and assurance contracts unavailable at 92195e4.'
+  - 'Realm #28/#29/#30 still own encrypted-vault selection/implementation and confidential runtime; #60 only consolidates
+    its listed platform/distribution work.'
+  - 'No real private data, credentials, destructive retention, publication/release, proposed ADR ratification or
+    deferred #86–#91 activation.'
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -156,7 +153,7 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer authorized the existing stack and completed, tested sleep-queue checkpoints to merge. Preserve Python/v0, canonical ownership, privacy and proposed ADRs. Release/publication, private pilots and deferred #86–#91 remain parked.
+The maintainer selected #10/#29/#31/#35/#45 after the overnight stack merged. Preserve Python/v0, canonical ownership and privacy. Implement bounded local checkpoints; distinguish proposed policy from accepted organization/runtime assurance. Release and deferred context packages stay parked.
 
 ## Resume protocol
 
@@ -164,27 +161,27 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Finish the qualified sleep queue and its authorized merges, preserve exact acceptance evidence and limits, then resume #15 selected-asset/attribution proof without activating parked release or deferred work.
+Complete dependency-ready privacy/storage checkpoints, preserve #10 completion and record unavailable external assurance honestly.
 
 ## State snapshot
 
-Mindcap #42 and Mindgarden #110–#125 are merged. Eight overnight closures (#10/#11/#12/#26/#28/#33/#49/#51) leave 35 open issues; all 44 coverage rows remain. #126 is the only open Mindgarden PR, qualified at 32bcb3c; its final documentation head requires its own passing CI before the authorized merge.
+Main 7594921 is the merged overnight baseline; 35 issues remain open. #29 export-policy integration passes 39 focused cases per Python; no new PR was open at the initial refresh. Four bounded privacy/storage checkpoints are ordered in the new sprint ledger.
 
 ## Completed and material changes
 
-Acceptance reconciliation plus captured bookmark review, incoming-reference inventory, selected-output builds, managed memory expiry/checks, bounded due-card review and native Explorer semantics. Eight issues close; #14/#17/#37/#48 remain partial. Exact complete/source/wheel/browser qualification is in docs/evidence/overnight-qualification.json.
+Federation and site export profiles consume shared policy before content and after inheritance; incompatible execution/persistence and unknown policy fail closed. Unsupported operation diagnostics are constant. Owner dependency shorthand is corrected to Realm #28/#29/#30.
 
 ## Validation and review evidence
 
-Frozen qualified Python 3.12/3.13: unittest discover --start-directory tests --verbose; clean local wheel/sdist demos; actual pinned browser/axe; owner/continuity/diff checks — 481 pass each, zero skips (493.978s/463.964s); five exact artifact goldens, zero runtime dependencies; source/vault relocation/restore/rebuild exact; 15 browser audits have zero findings/incompletes; functional CI 42564846322 and 42564846458 success. Earlier CI/schema and nested derived-receipt failures were corrected and rerun; they are retained as failed attempts in the sprint ledger. Final documentation CI must be observed separately before merge.
+Python 3.12/3.13: unittest tests.test_export_policy tests.test_scope_policy tests.test_federation tests.test_site --quiet; focused Ruff/format and diff checks — 39 pass each, zero skips (51.261s / 43.269s); compatible public output bytes unchanged. Exact CI and combined qualification remain separate observations in docs/privacy-storage-followthrough.md.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Native OpenViking acceptance, real Ollama evaluation, confidential runtime, Aether/Akashic intake contracts and approved private consumer pilots remain open. No architecture proposal is ratified. Release and deferred package work stay parked.
+Accepted Hygiene classification/declassification/assurance, Realm encrypted-vault and confidential-runtime proofs, real consumer/private pilots and broader provider/platform acceptance remain unavailable. No capability flag supplies encryption or isolation. ADRs stay proposed/null approval.
 
 ## Next dependency-ready work
 
-If #126 remains open, merge its exact final head only after green CI/comments review. Otherwise start bounded #15 selected binary-diagram/scratch-caption and speaker/stance/correction fixtures, then separately reviewed #14 incoming repair. Release, private pilots, ADR ratification and deferred #86–#91 remain parked.
+Open the #29 coherent checkpoint as a draft, then implement #31 whole-bundle session limits and metadata/rendered-output enforcement; keep owner integration blocked.
 
 ## Parallel changes and reconciliation
 
@@ -200,4 +197,4 @@ At each checkpoint update branch/PR, functional revision, exact checks, remainin
 
 ## Compaction and supersession
 
-Keep the twelve required headings and 16384-byte/240-line limits. This supersedes the #11–#16 review handoff with the authorized sleep queue. Historical ledgers retain exact prior observations.
+Keep all twelve headings and 16384-byte/240-line limits. This current privacy/storage task supersedes the completed overnight queue as active work; its merge and test evidence remain historical in docs/overnight-sprint.md.

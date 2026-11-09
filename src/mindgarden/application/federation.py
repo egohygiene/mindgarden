@@ -16,6 +16,7 @@ from ..domain.federation import (
 )
 from ..domain.publication import permits_publication
 from ..domain.scope import inherit_scope, local_scope, validate_scope
+from ..domain.scope_policy import require_destination
 from ..domain.validation import ContractError
 from .query import QueryContext, authority_bytes
 from .retrieval import build_index, record_key
@@ -116,6 +117,10 @@ def _build_federation(context: QueryContext, profile: dict, *, profile_sha256: s
         require_public_scope(profile["scope"])
     binding = context.bindings.garden(profile["garden"])
     require_public_scope(binding["scope"])
+    destination_scope = profile.get("scope", context.session["request_scope"])
+    # Publication review cannot weaken execution, persistence or input policy.
+    require_destination([binding["scope"], context.session["request_scope"]],
+                        destination_scope, operation="export")
     base = public_url(profile["base_uri"], base=True)
     index = build_index(context)
     require_public_scope(index["scope"])
@@ -145,6 +150,7 @@ def _build_federation(context: QueryContext, profile: dict, *, profile_sha256: s
                 raise ContractError("FEDERATION_SELECTION: selected claim requires its reviewed subject")
     scope = context.output_scope([record["scope"] for record in selected.values()])
     require_public_scope(scope)
+    require_destination([scope], destination_scope, operation="export")
     public_records = []
     for key, record in sorted(selected.items()):
         original = snapshots[record["garden"]].records[record["id"]]

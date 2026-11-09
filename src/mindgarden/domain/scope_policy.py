@@ -48,7 +48,7 @@ def decide_scope(operation: str, scopes: list[dict], *, destination: dict | None
             selected = joined
     except ContractError as error:
         outcome, code = "deny", str(error).partition(":")[0]
-    return {"schema":"mindgarden.scope-decision/v1", "operation":operation,
+    return {"schema":"mindgarden.scope-decision/v1", "operation":operation if operation in OPERATIONS else "unsupported",
             "policy":dict(POLICY_REFERENCE), "outcome":outcome, "code":code, "scope":selected,
             "assurance":"not-asserted", "inputs_sha256":digest_bytes(canonical_json({
                 "operation":operation, "scopes":scopes, "destination":destination,
