@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-05
+updated: 2026-11-08
 governed_by:
   - architecture-architecture
 depends_on:
@@ -225,6 +225,14 @@ The optional [TypeSafe read-intent seam](docs/typesafe-decisions.md), in draft
 Application code maps closed intents to existing authorized read services.
 Model judgments cannot grant scope, choose executable code or promote review.
 The default CLI and engine require no model SDK or service.
+
+Draft #111 adds exact source grants to the existing session contract for private
+first-pass authored compaction. They do not expand knowledge review or public
+output authority. Generated private proof bundles bind evidence/session digests
+and expiry; their lifetime never authorizes source deletion. The
+[public rendered proof](docs/rendered-closeout-evidence.md) preserves the pinned,
+replaceable renderer and caller-owned portal boundaries, including explicit
+external accessibility and owner-action gaps.
 
 The [product ledger](docs/product-checkpoints.md) retains the original implementation
 and acceptance evidence. Merged checkpoints add a public-only ADR

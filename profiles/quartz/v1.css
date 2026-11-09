@@ -12,4 +12,7 @@ article pre code { white-space: pre-wrap; }
 .mindgarden-node { fill: var(--secondary); }
 .mindgarden-node-label { fill: var(--dark); font: 14px sans-serif; }
 :focus-visible { outline: 3px solid var(--secondary); outline-offset: 3px; }
+.mindgarden-skip-link { position: fixed; top: .5rem; left: .5rem; z-index: 10000; padding: .75rem; background: var(--light); color: var(--dark); border: 2px solid var(--secondary); transform: translateY(-200%); }
+.mindgarden-skip-link:focus { transform: translateY(0); }
+#mindgarden-graph button:disabled { cursor: default; opacity: .65; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }

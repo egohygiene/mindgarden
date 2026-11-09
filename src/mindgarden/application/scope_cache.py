@@ -3,7 +3,7 @@
 from pathlib import Path
 import re
 
-from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes, read_object, safe_path
+from ..domain.contracts import ContractRegistry, digest_bytes, read_object, safe_path
 from ..domain.validation import ContractError
 
 CACHE_MARKER = ".mindgarden-scope-cache.json"

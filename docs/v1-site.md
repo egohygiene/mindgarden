@@ -123,3 +123,9 @@ negative matrix; #18 proves portal composition. Hostile-writer, process/network
 isolation, native runtime and actual deployment assurance remain separate.
 See [the six-PR checkpoint map](garden-experience-milestone.md) and proposed
 [ADR-0013](decisions/ADR-0013-reviewed-v1-site-projections.md).
+
+The [rendered closeout evidence](rendered-closeout-evidence.md) adds real
+0/3/205-record browser/recovery checks, a main landmark and keyboard skip target,
+opaque themed Explorer links and disabled empty/unavailable/oversized graph
+controls. It retains the pinned mobile Explorer ARIA finding and measured larger
+build cost; it does not claim complete WCAG or deployed consumer acceptance.

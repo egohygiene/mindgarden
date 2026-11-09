@@ -95,3 +95,8 @@ authority. Actions and external renderers must use immutable pins. The local
 contract and fixtures can advance before that independent owner proof. Actual
 Relay/Empathy migration, hosting, promotion/rollback and production idempotence
 remain open #18 criteria.
+
+The [rendered closeout proof](rendered-closeout-evidence.md#actual-artifact-composition-and-recovery-18)
+now exercises the actual 60-file pinned Quartz output, failed receipt/retry,
+sibling preservation and corrupted-candidate denial. Relay #40 remains open and
+absent from the inspected tree; no production promotion or rollback is claimed.

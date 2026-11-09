@@ -6,7 +6,7 @@ import json
 from pathlib import PurePosixPath
 import re
 
-from .contracts import ContractRegistry, canonical_json, digest_bytes, strict_json
+from .contracts import ContractRegistry, canonical_json, strict_json
 from .federation import file_entry, public_url
 from .validation import ContractError
 
@@ -38,7 +38,7 @@ def frontmatter(title: str, *, tags: list[str], description: str) -> str:
 
 
 def content_files(descriptor: dict, index: dict, graph: dict, settings: dict) -> tuple[dict[str, bytes], list[dict]]:
-    base = public_url(descriptor["base_uri"], base=True)
+    public_url(descriptor["base_uri"], base=True)
     records = {item["reference"]["id"]: item for item in index["records"]}
     routes = []
     files = {}
@@ -84,9 +84,10 @@ def content_files(descriptor: dict, index: dict, graph: dict, settings: dict) ->
             + "\n".join(f"- [[notes/{identity}/index|{label(record['title'])}]]" for identity, record in sorted(records.items())) + "\n").encode("utf8")
     relationships = frontmatter("Relationships", tags=[], description="Selected reviewed knowledge and typed connections.")
     relationships += ('<section id="mindgarden-graph" aria-label="Interactive relationships">\n'
-        '<div class="mindgarden-controls"><button type="button" data-zoom="in">Zoom in</button>'
-        '<button type="button" data-zoom="out">Zoom out</button><button type="button" data-zoom="reset">Reset zoom</button></div>\n'
+        '<div class="mindgarden-controls"><button type="button" data-zoom="in" disabled>Zoom in</button>'
+        '<button type="button" data-zoom="out" disabled>Zoom out</button><button type="button" data-zoom="reset" disabled>Reset zoom</button></div>\n'
         '<p role="status">Loading the selected public graph. The complete relationship list is below.</p>\n'
+        '<noscript><p>The interactive view needs JavaScript. The complete relationship list remains below.</p></noscript>\n'
         '<svg viewBox="0 0 800 520" role="group" aria-label="Reviewed knowledge nodes and relationships"></svg>\n</section>\n\n')
     relationships += "## Complete relationship list\n\n"
     for identity, record in sorted(records.items()):

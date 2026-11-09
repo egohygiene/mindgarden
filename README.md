@@ -21,7 +21,9 @@ OpenAleph, CozoDB and OpenViking are not adopted default services.
 
 The [active closeout sprint](docs/closeout-sprint.md) records new drafts and
 remaining parent criteria. [Optional TypeSafe decisions](docs/typesafe-decisions.md)
-are implemented in draft #110; the existing CLI needs no model service. Proposed
+are implemented in draft #110; #111 adds source-first private compaction and
+#112 records rendered garden/portal/consumer proofs. The existing CLI needs no
+model service. Proposed
 ADRs, confidential provider integration and broader consumer acceptance remain open.
 
 ## System at a glance

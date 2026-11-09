@@ -1,0 +1,17 @@
+{
+  "schema": "mindgarden.installed-source-compaction-proof/v1",
+  "source_commit": "2b800f516296abb3116a317f9a149a1e1ca81d45",
+  "wheel_sha256": "859f59611d13389e1fc2a08c86be6bbbbe829235dc3957fdc2214ccdb539b8bf",
+  "engine_version": "0.1.0",
+  "engine_location": "installed-interpreter-prefix",
+  "default_dependencies": [],
+  "exact_citations_verified": 1,
+  "source_review": "unreviewed",
+  "bundle_schema": "mindgarden.compaction-bundle/v1",
+  "create_and_check": "passed",
+  "canonical_originals": "unchanged",
+  "knowledge_anchors": 0,
+  "network": "restricted-during-proof",
+  "model": "unused",
+  "google": "unused"
+}

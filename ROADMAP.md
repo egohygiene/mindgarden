@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-06
+updated: 2026-11-08
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -33,9 +33,9 @@ repository: egohygiene/mindgarden
 visibility: public
 publication: central
 route: /roadmap/mindgarden/
-updated: 2026-11-06
+updated: 2026-11-08
 -->
-## 2026-11-06 execution snapshot
+## 2026-11-08 execution snapshot
 
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
