@@ -706,6 +706,7 @@ def build_parser() -> ArgumentParser:
     dependency_build.add_argument("--local-config", type=Path, required=True)
     dependency_build.add_argument("--scope", type=Path, required=True)
     dependency_build.add_argument("--input", type=Path, required=True)
+    dependency_build.add_argument("--select-output", action="append", help="Build only this declared output; repeat for a reviewed subset")
     dependency_mode = dependency_build.add_mutually_exclusive_group()
     dependency_mode.add_argument("--previous-manifest", type=Path)
     dependency_mode.add_argument("--apply", action="store_true")

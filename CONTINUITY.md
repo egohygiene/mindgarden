@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T04:04:41Z'
+  updated_at: '2026-11-09T04:12:04Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -75,66 +75,44 @@ work:
   - Merge only completed tested checkpoints; keep blocked parent scope explicit.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#14
-    url: https://github.com/egohygiene/mindgarden/issues/14
+    id: egohygiene/mindgarden#37
+    url: https://github.com/egohygiene/mindgarden/issues/37
   next:
     kind: action
     id: acceptance-then-bookmark-integration
-    description: 'Qualify/merge bookmark #121 then incoming-reference inventory in order. Implement explicit selected-output
-      dependency builds (#37) next; general incoming-edge repair remains a separately reviewed operation.'
+    description: 'Qualify/merge #121 → #122 → selected-build checkpoint in order, then implement expiring local
+      memory bundles (#49). Parent #37 private pilot remains unauthorized and open.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
     depends_on: []
 state:
   base:
-    revision: bfa328a9b95583ae86dcba43a9c4a6e4c7c386cd
-    ref: refs/heads/feature/48-captured-bookmark-review
-    verified_at: '2026-11-09T04:04:41Z'
+    revision: c459ee830d67803ac8879e253b3b81fdb31c2661
+    ref: refs/heads/feature/14-incoming-reference-inventory
+    verified_at: '2026-11-09T04:12:04Z'
   candidate:
-    branch: feature/14-incoming-reference-inventory
-    revision: 559e0e15910e8d356c816c264ea18951173e1984
+    branch: feature/37-selected-projection-builds
+    revision: cf963e8e8ff651a0cc08535ae3f66ba01660ca14
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#122
-      url: https://github.com/egohygiene/mindgarden/pull/122
+      id: egohygiene/mindgarden#123
+      url: https://github.com/egohygiene/mindgarden/pull/123
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T04:04:41Z'
-    default_branch_revision: 2c4c465ef92000339eceb521f9690c531b0fcdc0
+    observed_at: '2026-11-09T04:12:04Z'
+    default_branch_revision: 40169589df086f4dee9d22611aa1f87c3a250e33
     issue_state: open
     pull_request_state: draft
-    notes: 'Acceptance #120 merged after green automatic CI; six issues now closed, 37 open. Bookmark #121 is draft
-      over main. Routing incoming-reference inventory is the next stacked checkpoint; all 44 coverage rows remain.'
+    notes: 'Acceptance #120 and bookmark #121 merged after green CI; six issue closures, 37 open. Routing #122 remains
+      draft over main; selected builds #123 stack on #122. All 44 coverage rows retained.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T03:48:09Z'
+  reviewed_at: '2026-11-09T04:12:04Z'
   reviewed_by: codex
   evidence:
-  - command: 'Frozen b2ee9c7: python -m unittest discover --start-directory tests --verbose'
-    outcome: passed
-    observed_at: '2026-11-09T03:19:58Z'
-    notes: 446 pass, zero skips on Python 3.12.14 (451.000s) and 3.13.5 (422.874s); loopback for server fixtures
-  - command: 'Clean source/wheel: python -m build --no-isolation --sdist --wheel --outdir .cache/dist'
-    outcome: passed
-    observed_at: '2026-11-09T03:19:58Z'
-    notes: Build and exact golden source/isolated-wheel proofs pass; 0 runtime dependencies. Socket/HTTP/subprocess
-      blocked during journey.
-  - command: Compileall; Node v24.19.0; focused E9/F; 18-file format; pinned owner/continuity checks
-    outcome: passed
-    observed_at: '2026-11-09T03:19:58Z'
-    notes: Pass; historical broader scripts/tests have 35 existing unused import/variable findings, documented separately.
-  - command: 'Automatic CI: feature heads #113–#118; combined b2ee9c7; Mindcap #42'
-    outcome: passed
-    observed_at: '2026-11-09T03:19:58Z'
-    notes: All green; combined Test run 42554228478 has four successful jobs. No manual workflow. Any handoff-only
-      successor has separate CI.
-  - command: Fresh publication pack; Python 3.13 adapter/projection/provider suites; actual Cozo 0.7.6 native suite
-    outcome: passed
-    observed_at: '2026-11-09T03:48:09Z'
-    notes: 80 + 27 + 5 cases, zero skips; exact prior merged-tree equality. New-head hosted CI recorded separately.
   - command: 'Python 3.12/3.13: unittest tests.test_captured_bookmarks tests.test_bookmarks tests.test_captured_source
       tests.test_extraction --verbose; pinned real Mindcap check'
     outcome: passed
@@ -147,6 +125,16 @@ review:
     observed_at: '2026-11-09T04:04:41Z'
     notes: 24 cases; six new incoming-reference cases, existing routing/split/supersession/rollback/idempotence
       proofs. Pinned owner checks and exact new-head CI recorded separately.
+  - command: 'Python 3.12/3.13: unittest tests.test_selected_builds tests.test_dependency_builds --verbose; focused
+      Ruff/format; pinned owner checks'
+    outcome: passed
+    observed_at: '2026-11-09T04:11:09Z'
+    notes: 12 pass per interpreter, zero skips (15.986s / 15.580s); new-head automatic CI recorded separately
+  - command: 'Python 3.12/3.13: unittest tests.test_selected_builds tests.test_dependency_builds --verbose; focused
+      Ruff/format; pinned owner checks'
+    outcome: passed
+    observed_at: '2026-11-09T04:12:04Z'
+    notes: 12 pass per interpreter, zero skips (15.986s / 15.580s); new-head automatic CI recorded separately
   environment_limitations:
   - 'Aether #69/Akashic #176 accepted integration contracts and real private pilots remain unavailable.'
   - OpenViking native useful-query/lifecycle acceptance incomplete; live Ollama accuracy unavailable.
@@ -178,19 +166,19 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Acceptance #120 is merged; #48 private bundle review and #14 incoming-reference inventory are the current integration checkpoints. Continue selected-output builds, memory/learning and mobile navigation independently.
+Finish bounded dependency-ready local checkpoints and merge only tested green heads under the current sleep-session authorization.
 
 ## State snapshot
 
-Acceptance #120 merged after green automatic CI; six issues now closed, 37 open. Bookmark #121 is draft over main. Routing incoming-reference inventory is the next stacked checkpoint; all 44 coverage rows remain.
+Acceptance #120 and bookmark #121 merged after green CI; six issue closures, 37 open. Routing #122 remains draft over main; selected builds #123 stack on #122. All 44 coverage rows retained.
 
 ## Completed and material changes
 
-Merged main 2eda2f4 is byte-identical to combined e996fb3. The 446-case per-Python baseline and exact source/wheel relocation/restore/rebuild proof remain valid. Fresh acceptance checks pass; six criteria-complete issues have explicit mappings.
+Selected builds render only explicit declared outputs, preserve full-build fingerprints, recover affected selections after missed events, snapshot caller inputs and retain reviewed apply/revocation. Earlier stack and six acceptance closures are merged.
 
 ## Validation and review evidence
 
-Fresh 80-case publication pack, 27 Python 3.13 adapter/projection/provider cases and five actual Cozo cases pass. Full unchanged baseline: 446 tests, zero skips on Python 3.12/3.13. All original exact feature heads have green automatic CI. New-head CI is separate.
+Python 3.12/3.13: unittest tests.test_selected_builds tests.test_dependency_builds --verbose; focused Ruff/format; pinned owner checks — 12 pass per interpreter, zero skips (15.986s / 15.580s); new-head automatic CI recorded separately. Full combined verification and exact CI remain in docs/overnight-sprint.md.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -198,7 +186,7 @@ Native OpenViking acceptance, real Ollama evaluation, confidential runtime, Aeth
 
 ## Next dependency-ready work
 
-Qualify/merge bookmark #121 then incoming-reference inventory in order. Implement explicit selected-output dependency builds (#37) next; general incoming-edge repair remains a separately reviewed operation.
+Qualify/merge #121 → #122 → selected-build checkpoint in order, then implement expiring local memory bundles (#49). Parent #37 private pilot remains unauthorized and open.
 
 ## Parallel changes and reconciliation
 
