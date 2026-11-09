@@ -188,6 +188,7 @@ class V1ContractTests(unittest.TestCase):
                 "learning-review-event",
                 "learning-review-history",
                 "learning-plan",
+                "learning-review-queue",
                 "learning-schedule",
                 "learning-projection",
                 "memory-plan",

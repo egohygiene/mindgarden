@@ -135,3 +135,8 @@ existing renderer/application boundary supports this private static study adapte
 a finished public garden or hosted account is not required to render accessible
 learning states. Notifications, email, browser capture and hosted sync are explicit
 non-goals in #28. The full #17 experience retains its own acceptance criteria.
+
+Conformance inventory: the new private queue and managed-memory validity schemas
+are explicitly listed in the registry test. The parent #124 qualification caught
+the missing validity inventory entry; its correction is merged into this branch
+before this checkpoint qualifies. Failed earlier heads are not passing evidence.
