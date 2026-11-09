@@ -72,3 +72,15 @@ Retain versioned transition readers and all original records. A successor can re
 ## Follow-up work
 
 Mindgarden #14 owns public/policy-changing transfers, attached graph migration and broader recovery proofs. The maintainer owns disposition of this proposal; no historical decision is ratified by section normalization.
+
+## Proposed lifecycle extension — 2026-11-08
+
+The next bounded implementation retains exact outgoing graph records during
+matching-policy personal moves, including their independent review state.
+Explicit v2 transition/event schemas leave v1 unchanged and add reviewed split
+anchors and replacements. One canonical successor preserves old references;
+children are distinct authored units. Split segmentation and human approval are
+not inferred. See tests/test_routing_transfers.py and the routing checkpoint for
+lineage, stale/collision, policy and second-cutover rollback proofs. Incoming edge
+retargeting and public/policy-changing migration remain open. This extends the
+proposal only: status remains proposed and approval remains null.

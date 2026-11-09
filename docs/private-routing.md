@@ -96,8 +96,10 @@ creation time, rationale and a separate human authority/approved review.
 
 A move creates a reviewed derivative with the same body, source evidence,
 authors, classifications, aliases, tags and qualifications. It preserves the
-original record and bytes. Attached claims/relationships/contradictions need an
-explicit curation proposal and currently fail with `ROUTE_TRANSITION_COMPLEX`.
+original record and bytes. The later transfer checkpoint copies up to 128 exact
+outgoing claims/synapses, retaining their original review, authors, evidence,
+confidence and qualifications. Unreviewed attached claims remain unreviewed;
+external targets and incoming relationships are not silently rewritten.
 A merge first needs an existing reviewed authored merge with exact lineage to
 every input, then records retirement of those inputs. No source is deleted.
 
@@ -110,9 +112,36 @@ derivative. Transition metadata participates in session revisions, expiration
 and revocation checks; it never grants additional access.
 
 This bounded implementation requires matching ordinary personal policies. Public
-moves, policy-changing transfers, attached-graph migration and wider filesystem/
+moves, policy-changing transfers, incoming graph retargeting and wider filesystem/
 power-loss behavior remain parent scope. A missing permitted target is an error,
 never an implicit public destination. Tests preserve every old file, prove one
 searchable home, exact aliases and authored merge lineage, reject stale authority,
 and recover both gardens after a simulated second cutover failure. New plan/event
 semantics remain a proposed decision, separate from implementation evidence.
+
+## Reviewed split and replacement proposals
+
+`mindgarden.routing-transition/v2` and its explicit v2 event add `split` and
+`supersede`; the v1 schemas remain unchanged. Both operations require one exact
+reviewed original. A replacement must already be authored and approved, carry
+exact original lineage, and explicitly list the original in `supersedes`.
+
+For a split, first curate two to sixteen distinct reviewed children, each deriving
+from the exact original. Then curate one reviewed map/reference anchor with exact
+approved links to those child revisions and original lineage. The request's `to`
+names that anchor; `split_targets` names every child. Only after validation does
+an append-only event retire the original. Old references resolve to the anchor,
+which explains the new units. A split does not give one unit several canonical
+homes and does not automatically segment source text or approve proposals.
+
+All original bytes, evidence and identities stay available. Exact graph metadata
+copies record their original reference and request digest. Copies keep graph
+review unchanged rather than approving attachments during a move. Conflicting
+output files, stale endpoints, mismatched policy and unreviewed/missing split
+lineage fail before cutover. Existing multi-garden staging/journaling rolls back
+both gardens if a simulated second cutover fails; retry is idempotent.
+
+These are bounded implementation proofs under proposed ADR-0022. General incoming
+edge migration, alias/entity reconciliation, declassification, public/organization
+policy transitions and wider platform/power-loss recovery remain parent scope.
+No owner or ADR approval is inferred from tests or a merged implementation.

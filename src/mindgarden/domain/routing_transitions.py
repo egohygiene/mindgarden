@@ -8,8 +8,12 @@ def transition_event(record: dict) -> dict | None:
     event = record.get("x-routing-transition")
     if event is None:
         return None
+    if not isinstance(event, dict):
+        raise ContractError("ROUTE_TRANSITION_INVALID: malformed canonical transition")
+    contract = ("urn:egohygiene:mindgarden:routing-transition-event:v2"
+                if event.get("schema") == "mindgarden.routing-transition-event/v2" else "routing-transition-event")
     if (record.get("schema") != "mindgarden.provenance/v1"
-            or ContractRegistry().errors(event, "routing-transition-event")
+            or ContractRegistry().errors(event, contract)
             or event["review"]["state"] != "approved" or event["authority"]["kind"] != "human"
             or event["authority"]["id"] not in event["review"]["reviewers"]
             or not event["review"]["rationale"] or event["from"] != record["artifact"]
