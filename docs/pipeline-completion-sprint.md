@@ -77,3 +77,6 @@ workflow/compaction run passes (28.972s). Adapter version 1.2.0 changes only the
 documented derived metadata/view hashes in three proof goldens. No evidence,
 body, review, byte budget or vault backup fact changes. Full producer conformance,
 collections/multipart and real consumer adoption remain open. Next: #13 producer.
+
+[Draft #114](https://github.com/egohygiene/mindgarden/pull/114), functional
+`cc38583`, records the #15 checkpoint. Mixed-vault proof passes (1 case,18.956s).

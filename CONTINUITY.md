@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T02:01:02Z'
+  updated_at: '2026-11-09T02:01:30Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -87,22 +87,25 @@ state:
   base:
     revision: 7230118f2237b1ad0c35f99bb3a586c2ef848603
     ref: refs/heads/feature/11-captured-bundle-handoff
-    verified_at: '2026-11-09T02:01:02Z'
+    verified_at: '2026-11-09T02:01:30Z'
   candidate:
     branch: feature/15-archive-v2
-    revision: 7230118f2237b1ad0c35f99bb3a586c2ef848603
-    pull_request: null
+    revision: cc385830e9ac3704310d7626896b27b2e6ca8466
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#114
+      url: https://github.com/egohygiene/mindgarden/pull/114
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T02:01:02Z'
+    observed_at: '2026-11-09T02:01:30Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
     notes: "Main f3a88cc; existing green #110\u2013#112 drafts remain open. Current branch stacks over #112/83e553d.\
       \ Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner\
       \ contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered. Consumer\
-      \ draft #113 functional b661dc2 is pushed over #112."
+      \ draft #113 functional b661dc2 is pushed over #112. Archive draft #114 functional cc38583 stacks over #113."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -115,24 +118,28 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T02:01:02Z'
+  reviewed_at: '2026-11-09T02:01:30Z'
   reviewed_by: codex
   evidence:
   - command: python -m unittest tests.test_archive_v2 tests.test_conversation_archives tests.test_archive_selection
       -q
     outcome: passed
-    observed_at: '2026-11-09T02:01:02Z'
+    observed_at: '2026-11-09T02:01:30Z'
     notes: 18 pass on Python 3.12 (5.860s) and 3.13 (6.052s); first run exposed and then updated the obsolete unsupported-v2
       assertion to an actually untested 2.1.0
   - command: .venv/bin/python -m unittest tests.test_private_garden_workflow tests.test_compaction -q
     outcome: passed
-    observed_at: '2026-11-09T02:01:02Z'
+    observed_at: '2026-11-09T02:01:30Z'
     notes: 12 pass, 28.972s; exact evidence and original-vault golden fields unchanged
   - command: Ruff E9/F; git diff --check
     outcome: passed
-    observed_at: '2026-11-09T02:01:02Z'
+    observed_at: '2026-11-09T02:01:30Z'
     notes: Pass; only new preservation/reader/test files formatted. Mixed-vault metadata hashes are explicitly reconciled
       and checked.
+  - command: .venv/bin/python -m unittest tests.test_mixed_vault_workflow -q
+    outcome: passed
+    observed_at: '2026-11-09T02:01:30Z'
+    notes: 1 pass, 18.956s; backup/evidence unchanged after metadata-only inventory reconciliation
   environment_limitations:
   - 'Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain
     open. Mindcap #48 is unavailable; no missing contract is invented.'
@@ -171,7 +178,7 @@ Advance #11–#16 through required producer contracts, authored extraction, arch
 
 ## State snapshot
 
-Main f3a88cc; existing green #110–#112 drafts remain open. Current branch stacks over #112/83e553d. Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered. Consumer draft #113 functional b661dc2 is pushed over #112.
+Main f3a88cc; existing green #110–#112 drafts remain open. Current branch stacks over #112/83e553d. Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered. Consumer draft #113 functional b661dc2 is pushed over #112. Archive draft #114 functional cc38583 stacks over #113.
 
 ## Completed and material changes
 
@@ -179,7 +186,7 @@ Added direct v2.0.0/2.0.1/2.0.2 source-profile reader with shared preservation c
 
 ## Validation and review evidence
 
-python -m unittest tests.test_archive_v2 tests.test_conversation_archives tests.test_archive_selection -q — 18 pass on Python 3.12 (5.860s) and 3.13 (6.052s); first run exposed and then updated the obsolete unsupported-v2 assertion to an actually untested 2.1.0. .venv/bin/python -m unittest tests.test_private_garden_workflow tests.test_compaction -q — 12 pass, 28.972s; exact evidence and original-vault golden fields unchanged. Ruff E9/F; git diff --check — Pass; only new preservation/reader/test files formatted. Mixed-vault metadata hashes are explicitly reconciled and checked..
+python -m unittest tests.test_archive_v2 tests.test_conversation_archives tests.test_archive_selection -q — 18 pass on Python 3.12 (5.860s) and 3.13 (6.052s); first run exposed and then updated the obsolete unsupported-v2 assertion to an actually untested 2.1.0. .venv/bin/python -m unittest tests.test_private_garden_workflow tests.test_compaction -q — 12 pass, 28.972s; exact evidence and original-vault golden fields unchanged. Ruff E9/F; git diff --check — Pass; only new preservation/reader/test files formatted. Mixed-vault metadata hashes are explicitly reconciled and checked.. .venv/bin/python -m unittest tests.test_mixed_vault_workflow -q — 1 pass, 18.956s; backup/evidence unchanged after metadata-only inventory reconciliation.
 
 ## Blockers, risks, unknowns, and deferred work
 
