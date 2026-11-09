@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T02:41:58Z'
+  updated_at: '2026-11-09T03:19:58Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -63,6 +63,9 @@ scope:
   - docs/typesafe-decisions.md
   - docs/rendered-closeout-evidence.md
   - docs/pipeline-completion-sprint.md
+  - docs/pipeline-completion-proof.md
+  - docs/local-federation.md
+  - docs/extraction-producers.md
 work:
   objective: "Advance #11\u2013#16 through required producer contracts, authored extraction, archive compatibility,\
     \ reviewed routing, scoped projections and local federation. Keep every checkpoint reviewable and all broader\
@@ -76,37 +79,38 @@ work:
     url: https://github.com/egohygiene/mindgarden/issues/16
   next:
     kind: action
-    id: combined-offline-proof
-    description: "Complete the combined #11\u2013#16 offline proof linked to #20, propagate the #114 nested metadata\
-      \ golden repair through the stack, then build source/wheel and run both Python full suites. Leave all new\
-      \ drafts for review."
+    id: maintainer-review-stack
+    description: "Review Mindcap #42 and Mindgarden #110 \u2192 #111 \u2192 #112 \u2192 #113 \u2192 #114 \u2192\
+      \ #115 \u2192 #116 \u2192 #117 \u2192 #118 \u2192 #119 in documented order. Retarget dependent bases only\
+      \ after reviewed merges; preserve the combined checkout. New drafts stay for maintainer review. External owner/model/consumer\
+      \ gates remain open."
     readiness: ready
     references:
     - docs/pipeline-completion-sprint.md
     depends_on: []
 state:
   base:
-    revision: e061b905d6712e72b6fa3d1fba08327f9684373d
-    ref: refs/heads/feature/12-projection-selection
-    verified_at: '2026-11-09T02:41:58Z'
+    revision: 2799944cecc073741be95ad80304686e86983acf
+    ref: refs/heads/feature/16-local-federation
+    verified_at: '2026-11-09T03:19:58Z'
   candidate:
-    branch: feature/16-local-federation
-    revision: f2d2248566de9e5579de9ed197a11deed8b27a61
+    branch: milestone/pipeline-completion-proof
+    revision: b2ee9c774ea7c64200632104b62b53509cff497b
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#118
-      url: https://github.com/egohygiene/mindgarden/pull/118
+      id: egohygiene/mindgarden#119
+      url: https://github.com/egohygiene/mindgarden/pull/119
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T02:41:58Z'
+    observed_at: '2026-11-09T03:19:58Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
-    notes: "Main remains f3a88cc; #110\u2013#117 drafts are open, with five new functional checkpoints pushed. #16\
-      \ stacks over #117/e061b90. Source pins remain provisional where owners are unmerged. 43 open issues plus\
-      \ closed #30 covered. Draft #118 functional f2d2248 is pushed. All six requested issues have bounded draft\
-      \ checkpoints."
+    notes: "Remote main f3a88cc freshly verified; no merge/publication. Combined milestone/pipeline-completion-proof\
+      \ #119 functional b2ee9c7 stacks over #118/2799944. Feature drafts #113\u2013#118 and Mindcap #42 have green\
+      \ CI, unreviewed/unmerged. 43 open issues plus closed #30 remain covered. #111 source grants are a required\
+      \ #13 contract; other operational ancestors/gates are explicit."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -119,31 +123,34 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T02:41:58Z'
+  reviewed_at: '2026-11-09T03:19:58Z'
   reviewed_by: codex
   evidence:
-  - command: python -m unittest tests.test_local_federation tests.test_archive_v2 -q
+  - command: 'Frozen b2ee9c7: python -m unittest discover --start-directory tests --verbose'
     outcome: passed
-    observed_at: '2026-11-09T02:41:58Z'
-    notes: 13 pass on Python 3.12/3.13 (12.650s/11.943s); earlier 37-case run caught and then fixed mixed-output
-      refusal
-  - command: Focused Ruff E9/F; formatting; git diff --check; pinned owner checks
+    observed_at: '2026-11-09T03:19:58Z'
+    notes: 446 pass, zero skips on Python 3.12.14 (451.000s) and 3.13.5 (422.874s); loopback for server fixtures
+  - command: 'Clean source/wheel: python -m build --no-isolation --sdist --wheel --outdir .cache/dist'
     outcome: passed
-    observed_at: '2026-11-09T02:41:58Z'
-    notes: Pass. Original public federation contracts/goldens unchanged; local organization assurance is draft-policy-only.
-  - command: Automatic PR CI refresh
+    observed_at: '2026-11-09T03:19:58Z'
+    notes: Build and exact golden source/isolated-wheel proofs pass; 0 runtime dependencies. Socket/HTTP/subprocess
+      blocked during journey.
+  - command: Compileall; Node v24.19.0; focused E9/F; 18-file format; pinned owner/continuity checks
     outcome: passed
-    observed_at: '2026-11-09T02:41:58Z'
-    notes: "Source #113 passes. #114\u2013#116 full Linux suites failed on the nested release-journey copy of two\
-      \ metadata hashes; an owning-branch repair is being propagated. macOS registry and release-preparation jobs\
-      \ pass. No manually launched workflow."
+    observed_at: '2026-11-09T03:19:58Z'
+    notes: Pass; historical broader scripts/tests have 35 existing unused import/variable findings, documented separately.
+  - command: "Automatic CI: feature heads #113\u2013#118; combined b2ee9c7; Mindcap #42"
+    outcome: passed
+    observed_at: '2026-11-09T03:19:58Z'
+    notes: All green; combined Test run 42554228478 has four successful jobs. No manual workflow. Any handoff-only
+      successor has separate CI.
   environment_limitations:
-  - 'Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain
-    open. Mindcap #48 is unavailable; no missing contract is invented.'
-  - 'Aether #69/Akashic #176 and organization/confidential policy gates remain separate. No accepted runtime, declassification
-    or provider conformance is implied.'
-  - "No real private gardens/archives, model service, production publication, release or deferred #86\u2013#91 activation.\
-    \ New drafts remain for review."
+  - 'Mindcap #42 is proposed/unmerged; full capture deltas/recurrence and wider owner adoption remain open. Aether
+    #69/Akashic #176 accepted integration contracts/fixtures remain unavailable.'
+  - Live Ollama accuracy, confidential organization/runtime assurance, public/policy-changing/incoming graph transfers
+    and wider real consumer proofs remain open; ordinary local operation is tested.
+  - "No private data/archives, production publication, release, ADR ratification or deferred #86\u2013#91 activation.\
+    \ All new drafts stay for maintainer review."
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -175,27 +182,27 @@ Advance #11–#16 through required producer contracts, authored extraction, arch
 
 ## State snapshot
 
-Main remains f3a88cc; #110–#117 drafts are open, with five new functional checkpoints pushed. #16 stacks over #117/e061b90. Source pins remain provisional where owners are unmerged. 43 open issues plus closed #30 covered. Draft #118 functional f2d2248 is pushed. All six requested issues have bounded draft checkpoints.
+Remote main f3a88cc freshly verified; no merge/publication. Combined milestone/pipeline-completion-proof #119 functional b2ee9c7 stacks over #118/2799944. Feature drafts #113–#118 and Mindcap #42 have green CI, unreviewed/unmerged. 43 open issues plus closed #30 remain covered. #111 source grants are a required #13 contract; other operational ancestors/gates are explicit.
 
 ## Completed and material changes
 
-Private local discovery and closed exact selected-read requests now reuse existing garden/session/scope/application services. Catalogs open no bodies, keep private metadata outside public artifacts and declare body/remote/AI capabilities honestly. Retrieval keeps exact pins, provenance/review, budgets and live expiration/revocation. Mixed organization/personal outputs fail without confidential assurance. Aether/Akashic owner mains and open contract gates refreshed.
+Six bounded #11–#16 checkpoints and the combined #20-linked proof are drafted. Functional b2ee9c7 passes all 446 tests on Python 3.12/3.13 with no skips, clean empty-environment source and isolated wheel proofs, exact index/graph/context after vault relocation/restore/clean rebuild, source/owner checks and all four automatic CI jobs. 4419/8192-byte context, four inputs, eight authored proposals. Source fixes e7baa73/9c66b0f are propagated through #118/2799944.
 
 ## Validation and review evidence
 
-python -m unittest tests.test_local_federation tests.test_archive_v2 -q — 13 pass on Python 3.12/3.13 (12.650s/11.943s); earlier 37-case run caught and then fixed mixed-output refusal. Focused Ruff E9/F; formatting; git diff --check; pinned owner checks — Pass. Original public federation contracts/goldens unchanged; local organization assurance is draft-policy-only.. Automatic PR CI refresh — Source #113 passes. #114–#116 full Linux suites failed on the nested release-journey copy of two metadata hashes; an owning-branch repair is being propagated. macOS registry and release-preparation jobs pass. No manually launched workflow..
+Frozen b2ee9c7: python -m unittest discover --start-directory tests --verbose — 446 pass, zero skips on Python 3.12.14 (451.000s) and 3.13.5 (422.874s); loopback for server fixtures. Clean source/wheel: python -m build --no-isolation --sdist --wheel --outdir .cache/dist — Build and exact golden source/isolated-wheel proofs pass; 0 runtime dependencies. Socket/HTTP/subprocess blocked during journey.. Compileall; Node v24.19.0; focused E9/F; 18-file format; pinned owner/continuity checks — Pass; historical broader scripts/tests have 35 existing unused import/variable findings, documented separately.. Automatic CI: feature heads #113–#118; combined b2ee9c7; Mindcap #42 — All green; combined Test run 42554228478 has four successful jobs. No manual workflow. Any handoff-only successor has separate CI..
 
 ## Blockers, risks, unknowns, and deferred work
 
-Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain open. Mindcap #48 is unavailable; no missing contract is invented. Aether #69/Akashic #176 and organization/confidential policy gates remain separate. No accepted runtime, declassification or provider conformance is implied. No real private gardens/archives, model service, production publication, release or deferred #86–#91 activation. New drafts remain for review.
+Mindcap #42 is proposed/unmerged; full capture deltas/recurrence and wider owner adoption remain open. Aether #69/Akashic #176 accepted integration contracts/fixtures remain unavailable. Live Ollama accuracy, confidential organization/runtime assurance, public/policy-changing/incoming graph transfers and wider real consumer proofs remain open; ordinary local operation is tested. No private data/archives, production publication, release, ADR ratification or deferred #86–#91 activation. All new drafts stay for maintainer review.
 
 ## Next dependency-ready work
 
-Complete the combined #11–#16 offline proof linked to #20, propagate the #114 nested metadata golden repair through the stack, then build source/wheel and run both Python full suites. Leave all new drafts for review.
+Review Mindcap #42 and Mindgarden #110 → #111 → #112 → #113 → #114 → #115 → #116 → #117 → #118 → #119 in documented order. Retarget dependent bases only after reviewed merges; preserve the combined checkout. New drafts stay for maintainer review. External owner/model/consumer gates remain open.
 
 ## Parallel changes and reconciliation
 
-Existing stack merges are authorized in order; native #43 findings must be genuinely fixed. New checkpoints stay draft. See docs/pipeline-completion-sprint.md for exact edges, source, dependency corrections and owner gaps. Core dependencies and canonical ownership remain unchanged.
+Previously authorized #93–#109 merges are complete. Existing #110–#112 and new #113–#119 stay draft for maintainer review. Do not infer merge, ADR ratification or publication authority from this handoff. See docs/pipeline-completion-sprint.md for exact edges, source, dependency corrections and owner gaps. Core dependencies and canonical ownership remain unchanged.
 
 ## Privacy and redaction
 
@@ -208,18 +215,3 @@ At each checkpoint record functional revision, branch/PR, exact tests/results, p
 ## Compaction and supersession
 
 Keep the twelve required headings and the 16384-byte/240-line bounds. This supersedes the closeout regroup with the newly selected #11–#16 completion sprint. Historical ledgers retain prior evidence; deferred #86–#91 and release work remain parked.
-
-Archive CI follow-up: the full Linux run 42548628131 at `4c80d08` failed the
-nested release-journey copy of two metadata hashes. The constrained correction
-changes only its embedded index/context hashes. `PYTHONPATH=src python -m unittest
-tests.test_release_journey -q` passes 2 cases on Python 3.12/3.13
-(11.536s/11.037s). Earlier candidate pins describe the prior functional checkpoint;
-this branch head includes the repair. Next: carry this source fix through the
-#115–#118 stack and record final full combined checks. No release publication.
-
-Captured fixture artifact follow-up: MANIFEST.in explicitly includes the single
-committed synthetic-source ZIP, and the distribution inventory test requires it.
-The existing recursive source-data rule did not include ZIPs. A clean sdist must
-carry this conformance input; arbitrary archives remain excluded. This is local
-artifact verification, with release/version/publication behavior otherwise
-unchanged. The combined sprint ledger records final build/test receipts.

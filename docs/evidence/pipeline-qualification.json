@@ -1,0 +1,123 @@
+{
+  "artifact_proofs": {
+    "google": "unused",
+    "model": "unused",
+    "network": "socket-http-subprocess-blocked-in-process",
+    "source": {
+      "command": "python -I scripts/pipeline_completion_demo.py --workspace PRIVATE_NEW_DIRECTORY --require-source",
+      "mode": "unpacked-sdist-in-empty-venv",
+      "result": "exact-golden-match"
+    },
+    "wheel": {
+      "command": "python -I scripts/pipeline_completion_demo.py --workspace PRIVATE_NEW_DIRECTORY --require-installed",
+      "install": "pip install --no-index --find-links ARTIFACT_DIRECTORY mindgarden==0.1.0",
+      "mode": "isolated-wheel-run-from-unpacked-sdist",
+      "result": "exact-golden-match"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "mindgarden-0.1.0-py3-none-any.whl",
+      "sha256": "8228b514e99a062788b85e0f88b5b15670ae4d3e701589a6f1391b999d146602",
+      "size_bytes": 380391
+    },
+    {
+      "path": "mindgarden-0.1.0.tar.gz",
+      "sha256": "991f01ff0fe4ce272f7d0b0626f8812da81c06d039ece5f92914a9545138b9b9",
+      "size_bytes": 741065
+    }
+  ],
+  "base_revision": "2799944cecc073741be95ad80304686e86983acf",
+  "build_command": "python -m build --no-isolation --sdist --wheel --outdir .cache/dist",
+  "build_mode": "local verification only; no release preparation, tag or publication",
+  "checks": {
+    "compileall": "passed",
+    "focused_ruff_E9_F": "passed",
+    "new_file_format_check": "18 passed",
+    "node": "v24.19.0",
+    "owner_schemas_and_continuity": "passed; proposed/null approval remains",
+    "tracked_frozen_checkout": "clean"
+  },
+  "ci": {
+    "combined_functional": {
+      "jobs": [
+        "Python 3.12 / Node 24",
+        "Python 3.13 / Node 24",
+        "macOS registry / Python 3.12",
+        "macOS registry / Python 3.13"
+      ],
+      "run_id": 42554228478,
+      "status": "success"
+    },
+    "feature_pull_requests": {
+      "113": {
+        "run_id": 42552976710,
+        "status": "success"
+      },
+      "114": {
+        "run_id": 42553043469,
+        "status": "success"
+      },
+      "115": {
+        "run_id": 42553044586,
+        "status": "success"
+      },
+      "116": {
+        "run_id": 42553046049,
+        "status": "success"
+      },
+      "117": {
+        "run_id": 42553048249,
+        "status": "success"
+      },
+      "118": {
+        "run_id": 42553050120,
+        "status": "success"
+      }
+    },
+    "mindcap_contract": {
+      "revision": "7ee766c1c34adad239fc602499f624979a2d9cac",
+      "run_id": 42547007196,
+      "status": "success"
+    }
+  },
+  "context": {
+    "bytes": 4419,
+    "max_bytes": 8192,
+    "sha256": "2396d6433aa7814ac6c6afdac17d16d7d39dc241b0b7d3375aaec42c1f6b3488"
+  },
+  "default_branch_revision": "f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973",
+  "draft_pull_request": 119,
+  "functional_revision": "b2ee9c774ea7c64200632104b62b53509cff497b",
+  "limitations": [
+    "Authored extraction outputs are not measured live model accuracy.",
+    "Owner contract/ADR acceptance, remote federation, confidential runtime and real private consumer proofs remain open.",
+    "Existing whole-tree Ruff over historical scripts/tests has 35 unused import/variable findings; focused changed-code lint passes.",
+    "Artifact hashes describe this local build, not bit-reproducible release evidence.",
+    "Any following handoff-only commit has its own automatic CI status."
+  ],
+  "projection_rebuild": {
+    "graph_sha256": "89b47fdd6c78f058f6a6d7e883a2eadd97edce6f26f0727adabb55630469ff43",
+    "index_sha256": "fb4aa1ff8d0b95f0aa33e7546c72f6028c6a59030a4fb3d09eb221dd0b9695be",
+    "relocation_restore_clean_rebuild": "exact"
+  },
+  "python_tests": {
+    "3.12": {
+      "count": 446,
+      "seconds": 451.0,
+      "skipped": 0,
+      "status": "passed"
+    },
+    "3.13": {
+      "count": 446,
+      "seconds": 422.874,
+      "skipped": 0,
+      "status": "passed"
+    }
+  },
+  "runtime_dependencies": 0,
+  "schema": "mindgarden.pipeline-qualification/v1",
+  "status": "passed",
+  "test_command": "python -m unittest discover --start-directory tests --verbose",
+  "test_environment": "two interpreters fixed to the clean frozen functional source; loopback permitted for server fixtures"
+}
