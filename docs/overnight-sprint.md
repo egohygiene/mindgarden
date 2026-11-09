@@ -217,7 +217,7 @@ due-card review view and verify its actual accessible static-web criteria.
 
 ### Checkpoint F — #28 bounded due-card review
 
-Branch: `feature/28-due-review-queue`, stacked after managed-memory #124.
+Branch: `feature/28-due-review-queue`, [draft #125](https://github.com/egohygiene/mindgarden/pull/125), functional `31f46e5`, stacked after managed-memory #124.
 Adds an explicit bounded/paged due view, exact item-revision queue, transparent
 remaining counts and private grade-history round trip. The complete deck JSON
 remains intact; edits/superseded sources do not inherit an old grade. Invalid

@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T04:28:55Z'
+  updated_at: '2026-11-09T04:31:24Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -90,15 +90,18 @@ state:
   base:
     revision: 5af4065f0516fddbed06606f619ca6cd2537b3a0
     ref: refs/heads/feature/49-expiring-memory-bundles
-    verified_at: '2026-11-09T04:28:55Z'
+    verified_at: '2026-11-09T04:31:24Z'
   candidate:
     branch: feature/28-due-review-queue
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 31f46e540ffc79d2ab0c4b85440ca5924588094d
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#125
+      url: https://github.com/egohygiene/mindgarden/pull/125
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T04:28:55Z'
+    observed_at: '2026-11-09T04:31:24Z'
     default_branch_revision: 51c29c43a2a815918b54deef4688dd42afaf77a1
     issue_state: open
     pull_request_state: draft
@@ -107,14 +110,9 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T04:28:55Z'
+  reviewed_at: '2026-11-09T04:31:24Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: unittest tests.test_selected_builds tests.test_dependency_builds --verbose; focused
-      Ruff/format; pinned owner checks'
-    outcome: passed
-    observed_at: '2026-11-09T04:12:04Z'
-    notes: 12 pass per interpreter, zero skips (15.986s / 15.580s); new-head automatic CI recorded separately
   - command: 'Python 3.12/3.13: unittest tests.test_memory_validity tests.test_memory --verbose; additional one-source
       refresh test; focused Ruff/format; pinned owner checks'
     outcome: passed
@@ -131,6 +129,12 @@ review:
       full/due with axe 4.10.3; Ruff/format/owner checks'
     outcome: passed
     observed_at: '2026-11-09T04:28:55Z'
+    notes: 20 pass per interpreter, zero skips (26.442s / 25.986s); Chromium 151/Playwright 1.62, 320/1280, keyboard/200%
+      zoom/reduced motion, zero axe violations/incompletes; CI separate
+  - command: 'Python 3.12/3.13: unittest tests.test_learning_queue tests.test_learning --verbose; actual learning_browser_check.py
+      full/due with axe 4.10.3; Ruff/format/owner checks'
+    outcome: passed
+    observed_at: '2026-11-09T04:31:24Z'
     notes: 20 pass per interpreter, zero skips (26.442s / 25.986s); Chromium 151/Playwright 1.62, 320/1280, keyboard/200%
       zoom/reduced motion, zero axe violations/incompletes; CI separate
   environment_limitations:
