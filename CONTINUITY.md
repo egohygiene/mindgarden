@@ -93,9 +93,12 @@ state:
     verified_at: '2026-11-09T04:04:41Z'
   candidate:
     branch: feature/14-incoming-reference-inventory
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 559e0e15910e8d356c816c264ea18951173e1984
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#122
+      url: https://github.com/egohygiene/mindgarden/pull/122
+    handoff_state: ready-for-review
   live:
     status: verified
     observed_at: '2026-11-09T04:04:41Z'

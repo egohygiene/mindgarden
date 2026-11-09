@@ -152,7 +152,7 @@ bounded checkpoint, then inspect #14 incoming-reference move semantics.
 
 ### Checkpoint C — #14 incoming-reference review inventory
 
-Branch: `feature/14-incoming-reference-inventory`, stacked on bookmark #121 until
+Branch: `feature/14-incoming-reference-inventory`, [draft #122](https://github.com/egohygiene/mindgarden/pull/122), functional `559e0e1`, stacked on bookmark #121 until
 it merges. The private transition preview now records exact independently
 reviewed incoming links requiring separate repair, without changing original
 links or their meaning. Inventory is limited to matching ordinary personal
