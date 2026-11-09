@@ -113,6 +113,8 @@ class V1ContractTests(unittest.TestCase):
                 "source",
                 "source-adapter",
                 "captured-source-bundle",
+                "extraction-request",
+                "extraction-output",
                 "synapse",
                 "scope",
                 "scope-request",

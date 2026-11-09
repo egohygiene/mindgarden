@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:extraction-output:v1",
+  "title": "Mindgarden extraction-output v1",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "mindgarden.extraction-output/v1"
+    },
+    "status": {
+      "enum": [
+        "success",
+        "partial",
+        "failed",
+        "unsupported"
+      ]
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "incomplete-input",
+          "ambiguous-entity",
+          "unsupported-relation",
+          "provider-unavailable",
+          "unsupported-format",
+          "partial-output"
+        ]
+      },
+      "maxItems": 16
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "maxItems": 16
+          },
+          "resolution": {
+            "enum": [
+              "new",
+              "ambiguous"
+            ]
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "aliases",
+          "resolution",
+          "rationale",
+          "quote"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 32
+    },
+    "assertions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "subject": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "predicate": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "object": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "context": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "stance": {
+            "enum": [
+              "report",
+              "suggestion",
+              "question",
+              "hypothesis",
+              "quotation"
+            ]
+          },
+          "polarity": {
+            "enum": [
+              "positive",
+              "negative"
+            ]
+          },
+          "temporal": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 1000
+          },
+          "uncertainty": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "maxItems": 16
+          },
+          "contradicts": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+            },
+            "maxItems": 16
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          }
+        },
+        "required": [
+          "id",
+          "subject",
+          "predicate",
+          "object",
+          "statement",
+          "context",
+          "stance",
+          "polarity",
+          "temporal",
+          "uncertainty",
+          "contradicts",
+          "quote"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 64
+    }
+  },
+  "required": [
+    "schema",
+    "status",
+    "diagnostics",
+    "entities",
+    "assertions"
+  ],
+  "additionalProperties": false
+}

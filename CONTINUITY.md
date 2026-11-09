@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T02:01:30Z'
+  updated_at: '2026-11-09T02:13:48Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -72,40 +72,39 @@ work:
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#15
-    url: https://github.com/egohygiene/mindgarden/issues/15
+    id: egohygiene/mindgarden#13
+    url: https://github.com/egohygiene/mindgarden/issues/13
   next:
     kind: action
-    id: optional-extraction-producer
-    description: 'Implement #13 optional versioned evidence-bound extraction proposals and recoverable batches,
-      using the new synthetic archive profile. Keep authored review separate and optional model accuracy unclaimed.'
+    id: reviewed-routing-lifecycle
+    description: 'Implement #14 reviewed attached-graph transfer and explicit split/supersession reconciliation,
+      preserving originals and transaction recovery. Keep public/policy-changing routes behind owner contracts.'
     readiness: ready
     references:
     - docs/pipeline-completion-sprint.md
     depends_on: []
 state:
   base:
-    revision: 7230118f2237b1ad0c35f99bb3a586c2ef848603
-    ref: refs/heads/feature/11-captured-bundle-handoff
-    verified_at: '2026-11-09T02:01:30Z'
+    revision: 4c80d080137f892ade61c97faad5437d8e7da60e
+    ref: refs/heads/feature/15-archive-v2
+    verified_at: '2026-11-09T02:13:48Z'
   candidate:
-    branch: feature/15-archive-v2
-    revision: cc385830e9ac3704310d7626896b27b2e6ca8466
+    branch: feature/13-extraction-producer
+    revision: 82f83fec5328d99a1593a9a13d81a6a00e52ba3b
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#114
-      url: https://github.com/egohygiene/mindgarden/pull/114
+      id: egohygiene/mindgarden#115
+      url: https://github.com/egohygiene/mindgarden/pull/115
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T02:01:30Z'
+    observed_at: '2026-11-09T02:13:48Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
-    notes: "Main f3a88cc; existing green #110\u2013#112 drafts remain open. Current branch stacks over #112/83e553d.\
-      \ Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner\
-      \ contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered. Consumer\
-      \ draft #113 functional b661dc2 is pushed over #112. Archive draft #114 functional cc38583 stacks over #113."
+    notes: "Existing #110\u2013#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13\
+      \ stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional\
+      \ 82f83fe is pushed."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -118,28 +117,24 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T02:01:30Z'
+  reviewed_at: '2026-11-09T02:13:48Z'
   reviewed_by: codex
   evidence:
-  - command: python -m unittest tests.test_archive_v2 tests.test_conversation_archives tests.test_archive_selection
-      -q
+  - command: python -m unittest tests.test_extraction tests.test_ollama_extraction tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-09T02:01:30Z'
-    notes: 18 pass on Python 3.12 (5.860s) and 3.13 (6.052s); first run exposed and then updated the obsolete unsupported-v2
-      assertion to an actually untested 2.1.0
-  - command: .venv/bin/python -m unittest tests.test_private_garden_workflow tests.test_compaction -q
+    observed_at: '2026-11-09T02:13:48Z'
+    notes: 13 pass on Python 3.12/3.13 (28.043s/26.264s); includes six end-to-end extraction, two wire and five
+      schema cases
+  - command: .venv/bin/python experiments/ollama_extraction/evaluate.py --model unselected-live-model
     outcome: passed
-    observed_at: '2026-11-09T02:01:30Z'
-    notes: 12 pass, 28.972s; exact evidence and original-vault golden fields unchanged
-  - command: Ruff E9/F; git diff --check
+    observed_at: '2026-11-09T02:13:48Z'
+    notes: Dry run passes; no Ollama executable or operator-selected model. Live model accuracy unmeasured, not
+      passing.
+  - command: Focused Ruff E9/F; format; owner checks; git diff --check
     outcome: passed
-    observed_at: '2026-11-09T02:01:30Z'
-    notes: Pass; only new preservation/reader/test files formatted. Mixed-vault metadata hashes are explicitly reconciled
-      and checked.
-  - command: .venv/bin/python -m unittest tests.test_mixed_vault_workflow -q
-    outcome: passed
-    observed_at: '2026-11-09T02:01:30Z'
-    notes: 1 pass, 18.956s; backup/evidence unchanged after metadata-only inventory reconciliation
+    observed_at: '2026-11-09T02:13:48Z'
+    notes: Pass. Broader Ruff over scripts/tests reports 35 pre-existing unused imports/variables; no repository-wide
+      clean lint claim.
   environment_limitations:
   - 'Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain
     open. Mindcap #48 is unavailable; no missing contract is invented.'
@@ -178,15 +173,15 @@ Advance #11–#16 through required producer contracts, authored extraction, arch
 
 ## State snapshot
 
-Main f3a88cc; existing green #110–#112 drafts remain open. Current branch stacks over #112/83e553d. Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered. Consumer draft #113 functional b661dc2 is pushed over #112. Archive draft #114 functional cc38583 stacks over #113.
+Existing #110–#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13 stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional 82f83fe is pushed.
 
 ## Completed and material changes
 
-Added direct v2.0.0/2.0.1/2.0.2 source-profile reader with shared preservation checks, selective assets, overlap identity and independently reopened two-pass packaging fixtures. Existing v1/v3 profiles remain tested. Exact original/source identities, bodies and recovery results are unchanged; only documented adapter metadata/view hashes are reconciled.
+Versioned optional extraction contracts, offline recording producer and bounded private source-grant batches now map entities/assertions to unreviewed existing curation plans. Synthetic archive/bookmarks/page proof preserves assistant attribution, negation, uncertainty, conflicts and ambiguity, then uses authored human review for exact-source search/graph. Resume avoids completed-unit replay. Pure Ollama wire mapping and synthetic opt-in evaluation remain separate from private offline sessions.
 
 ## Validation and review evidence
 
-python -m unittest tests.test_archive_v2 tests.test_conversation_archives tests.test_archive_selection -q — 18 pass on Python 3.12 (5.860s) and 3.13 (6.052s); first run exposed and then updated the obsolete unsupported-v2 assertion to an actually untested 2.1.0. .venv/bin/python -m unittest tests.test_private_garden_workflow tests.test_compaction -q — 12 pass, 28.972s; exact evidence and original-vault golden fields unchanged. Ruff E9/F; git diff --check — Pass; only new preservation/reader/test files formatted. Mixed-vault metadata hashes are explicitly reconciled and checked.. .venv/bin/python -m unittest tests.test_mixed_vault_workflow -q — 1 pass, 18.956s; backup/evidence unchanged after metadata-only inventory reconciliation.
+python -m unittest tests.test_extraction tests.test_ollama_extraction tests.test_v1_contracts -q — 13 pass on Python 3.12/3.13 (28.043s/26.264s); includes six end-to-end extraction, two wire and five schema cases. .venv/bin/python experiments/ollama_extraction/evaluate.py --model unselected-live-model — Dry run passes; no Ollama executable or operator-selected model. Live model accuracy unmeasured, not passing.. Focused Ruff E9/F; format; owner checks; git diff --check — Pass. Broader Ruff over scripts/tests reports 35 pre-existing unused imports/variables; no repository-wide clean lint claim..
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -194,7 +189,7 @@ Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and rea
 
 ## Next dependency-ready work
 
-Implement #13 optional versioned evidence-bound extraction proposals and recoverable batches, using the new synthetic archive profile. Keep authored review separate and optional model accuracy unclaimed.
+Implement #14 reviewed attached-graph transfer and explicit split/supersession reconciliation, preserving originals and transaction recovery. Keep public/policy-changing routes behind owner contracts.
 
 ## Parallel changes and reconciliation
 
