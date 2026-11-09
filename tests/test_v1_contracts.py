@@ -112,6 +112,7 @@ class V1ContractTests(unittest.TestCase):
                 "provenance",
                 "source",
                 "source-adapter",
+                "captured-source-bundle",
                 "synapse",
                 "scope",
                 "scope-request",

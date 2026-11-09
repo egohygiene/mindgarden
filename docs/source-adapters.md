@@ -117,3 +117,28 @@ reader after initial classification; default restricted processing is unavailabl
 [Opaque media](mixed-source-vault.md) is registered as the fourth default adapter,
 preserving supplied PNG/JPEG/WAV/MP4/octet-stream bytes without decoding or model
 calls. Captured observations and canonical normalized identities remain separate.
+
+## Pinned captured-source handoff completion checkpoint
+
+`captured-source-bundle` 1.0.0 consumes
+`application/vnd.mindcap.captured-source+zip` with manifest version `1`, through
+the ordinary `ingest --plan` / `--apply --plan-digest` commands. It verifies exact
+payload membership, sizes/hashes, normalized/raw lineage, identity and evidence
+locators before writes. It never imports Mindcap, acquires a URL, runs a
+bookmarklet or promotes source review. Partial and empty captures stay explicit.
+
+The byte-for-byte vendored schema belongs to proposed
+[Mindcap #42](https://github.com/egohygiene/mindcap/pull/42), source
+`7ee766c1c34adad239fc602499f624979a2d9cac`, SHA-256
+`bdc8d83a75ee8e6510ff97aecb943451a42e13a59f764cc6109d36ea558840a6`.
+This is draft compatibility, not ratification or a released upstream interface.
+Prior digests are asserted capture lineage; delta, deletion, remote fetching and
+knowledge approval are unavailable capabilities.
+
+[The synthetic receipt](evidence/capture-handoff-proof.json) proves two actual
+Mindcap bookmark captures normalize to identical unchanged units despite distinct
+immutable packages. The optional verification environment imports the producer;
+the dependency-free engine does not. Register any other trusted adapter through
+the same `SourceAdapter`/`AdapterRegistry` interface, media/version declaration and
+conformance harness. See [the active sprint](pipeline-completion-sprint.md) for
+external dependencies, version boundaries and exact verification.
