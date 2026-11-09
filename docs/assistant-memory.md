@@ -59,3 +59,59 @@ Richer interactive review, provider-specific adapters and automatic refresh rema
 follow-up scope. ADR impact: this projection follows existing human-review,
 source/projection and retention boundaries; no provider or canonical store is
 selected or ratified.
+
+
+## Expiring local bundles and current-state checks
+
+Pass an explicit timestamp to opt into a managed local export:
+
+```bash
+mindgarden memory --local-config "/private/bindings.json" \
+  --scope "/private/session.json" --input "/private/authored-memory-plan.json" \
+  --created-at "2026-11-09T00:00:00Z"
+```
+
+Review that preview, then use the same arguments with `--apply`,
+`--output-directory` and its exact `--plan-digest`. The additional private
+`memory-validity.json` binds creation/expiration, authority, exact authored request,
+retention policy and both content checksums. Its bytes count toward the existing
+complete-bundle limits. Expiration is the earliest of model-context TTL, session
+expiry, snippet stale-after or review half-life. Creation must not be in the
+future; an ended window fails before source bodies/index access.
+
+Before reuse, supply the same plan, creation timestamp and directory with
+`--check` instead of `--apply`. The check recomputes current authorized sources
+and validity, verifies every immutable bundle member and returns only a small
+status. Missing bundles are never created by checks. Changed/denied sources,
+revocation, expiration, altered content and unknown files fail; prior output and
+canonical records stay intact. Outputs cannot overlap a declared source vault.
+A new timestamp changes the reviewed digest and cannot renew an existing bundle
+in place. Review a new bundle at a fresh private location.
+
+Legacy JSON/Markdown exports without `--created-at` retain their original format
+and command behavior. They have no managed validity receipt and cannot use this
+check. Migrate by reviewing a newly managed export. Copied snippets and external
+providers remain outside local enforcement; refresh/remove those copies in the
+consumer. A checksum is integrity evidence, not encryption or producer identity.
+No automatic deletion, silent rewrite, provider permission or recall is claimed.
+
+Incremental refresh is authored: use current exact references for changed
+candidates, review their wording/rationale, and generate a fresh projection.
+Unchanged source/snippet records retain their bytes; old bundles remain available
+for inspection. The synthetic refresh test updates one source/candidate, keeps
+all five unaffected snippets identical and preserves the prior private bundle.
+No model has to infer or approve the new preference.
+
+## Listed #49 acceptance and deliverables
+
+| Listed requirement | Implemented evidence |
+| --- | --- |
+| Disposable projection; every snippet traces to reviewed sources (AC 1–2) | Versioned memory plan/projection and exact evidence/qualification records; existing memory tests |
+| Transient expiry, explicit duplicate merge, bounded size/count (AC 3–5) | Seven reviewed actions, category quotas, exact tokenizer adapter, byte/count ceilings; managed TTL/half-life checks |
+| Copyable blocks; deterministic rebuild; no implicit sensitivity lowering (AC 6–8) | JSON/Markdown golden metrics, scoped source selection, unchanged-input byte checks and privacy negatives |
+| Memory removal differs from source deletion; providers remain adapters (AC 9–10) | Demote/expire preserve canonical detail; generic profile and explicit tokenizers; external copies require consumer refresh |
+| All ten deliverables | Schemas/taxonomy/actions/budgets, provenance/rendering, authored refresh rules, synthetic compaction, digest-bound CLI review and [generic unpublished outline/brief](memory-hygiene-publication-draft.md) |
+
+These satisfy the issue's listed local projection scope. Richer UI, native
+provider installation and automatic remote revocation are optional integrations,
+not added closure gates. Proposed architecture/retention ADRs remain proposed.

@@ -191,3 +191,25 @@ Focused Ruff, changed-file formatting, pinned owner/continuity and diff checks
 pass. No worker, canonical observation migration or private pilot is claimed.
 Next action: qualify/merge this bounded checkpoint, then add live-expiring local
 assistant-memory bundles (#49) and audit that issue against its actual criteria.
+
+
+### Checkpoint E — #49 expiring assistant-memory bundles
+
+Branch: `feature/49-expiring-memory-bundles`, stacked after selected-build #123.
+Optional explicit `--created-at` binds a managed validity receipt; `--check`
+revalidates sources, authority, expiry and immutable bytes without creating a
+missing bundle or changing old output. Expiry is bounded by the existing #46
+retention/session/snippet windows and is checked before source body access.
+Legacy unqualified exports remain compatible and are not claimed managed.
+
+The 16-case memory/validity suite passes on Python 3.12.14 (30.200s) and 3.13.5
+(25.775s), zero skips. An additional authored one-source refresh case passes on
+both: five unaffected snippets and the old bundle remain exact. Nine new cases
+cover deterministic managed metadata, strict schema/checksums, expiry/session/
+half-life, no-write checks, corruption, denied sources, revocation and vault
+separation. Focused Ruff/format, pinned owner/continuity and diff checks pass.
+New-head CI is separate. [The acceptance mapping](assistant-memory.md) covers all
+#49 deliverables/criteria; this checkpoint closes that local issue after merge.
+Provider copying/recall and richer UI are not silently claimed implemented.
+Next action: qualify/merge, confirm the new live count, then finish #28's bounded
+due-card review view and verify its actual accessible static-web criteria.
