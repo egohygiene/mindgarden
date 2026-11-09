@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T02:29:42Z'
+  updated_at: '2026-11-09T02:30:17Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -88,21 +88,25 @@ state:
   base:
     revision: f9219dafc486f86f0ea5a7efaef6d77f9ebda115
     ref: refs/heads/feature/14-routing-lifecycle-v2
-    verified_at: '2026-11-09T02:29:42Z'
+    verified_at: '2026-11-09T02:30:17Z'
   candidate:
     branch: feature/12-projection-selection
-    revision: f9219dafc486f86f0ea5a7efaef6d77f9ebda115
-    pull_request: null
+    revision: 2c70c89819a606024de2ccf7b125db93c808aa1b
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#117
+      url: https://github.com/egohygiene/mindgarden/pull/117
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T02:29:42Z'
+    observed_at: '2026-11-09T02:30:17Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
     notes: "Existing #110\u2013#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13\
       \ stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional\
-      \ 82f83fe is pushed. Draft #116 functional f369932 stacks over #115/eed15a1."
+      \ 82f83fe is pushed. Draft #116 functional f369932 stacks over #115/eed15a1. Draft #117 functional 2c70c89\
+      \ stacks over #116/f9219da."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -115,24 +119,24 @@ state:
     url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-09T02:29:42Z'
+  reviewed_at: '2026-11-09T02:30:17Z'
   reviewed_by: codex
   evidence:
   - command: python -m unittest tests.test_projection_selection tests.test_projection_corpus -q
     outcome: passed
-    observed_at: '2026-11-09T02:29:42Z'
+    observed_at: '2026-11-09T02:30:17Z'
     notes: 9 pass on Python 3.12/3.13 (19.377s/18.607s)
   - command: python scripts/projection_benchmark.py --workspace .cache/pipeline-next/corpus-2048 --records 2048
     outcome: passed
-    observed_at: '2026-11-09T02:29:42Z'
+    observed_at: '2026-11-09T02:30:17Z'
     notes: "6 projections pass; 15.282\u201328.402s, peak 166473728 bytes, same 60s/256MiB limits; network blocked"
   - command: 'Fresh QueryContext on unchanged corpus: build_index and render_context JSON'
     outcome: passed
-    observed_at: '2026-11-09T02:29:42Z'
+    observed_at: '2026-11-09T02:30:17Z'
     notes: Exact hashes match in 16.150s/27.462s; receipt committed. Existing 32-note full goldens unchanged.
   - command: Focused Ruff E9/F; format; pinned owner checks; git diff --check
     outcome: passed
-    observed_at: '2026-11-09T02:29:42Z'
+    observed_at: '2026-11-09T02:30:17Z'
     notes: Pass; default unselected session behavior/digest remains unchanged.
   environment_limitations:
   - 'Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain
@@ -172,7 +176,7 @@ Advance #11–#16 through required producer contracts, authored extraction, arch
 
 ## State snapshot
 
-Existing #110–#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13 stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional 82f83fe is pushed. Draft #116 functional f369932 stacks over #115/eed15a1.
+Existing #110–#114 drafts remain open. #113/b661dc2 and #114/cc38583 contain source/archives; #13 stacks over #114/4c80d08. Main remains f3a88cc; 43 open issues plus closed #30 covered. Draft #115 functional 82f83fe is pushed. Draft #116 functional f369932 stacks over #115/eed15a1. Draft #117 functional 2c70c89 stacks over #116/f9219da.
 
 ## Completed and material changes
 

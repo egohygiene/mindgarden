@@ -136,3 +136,6 @@ JSON-context repeat matches both exact hashes (16.150s/27.462s). Reports are
 committed under tests/fixtures/projection-corpus. This is observed CLI performance,
 not interactive/UI or arbitrary-hardware acceptance. No new cache/database/model
 is introduced. Next: #16 private/local discovery and progressive selected retrieval.
+
+[Draft #117](https://github.com/egohygiene/mindgarden/pull/117), functional
+`2c70c89`, records the #12 checkpoint. Next: local discovery over the same authority.
