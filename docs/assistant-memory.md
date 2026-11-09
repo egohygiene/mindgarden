@@ -115,3 +115,9 @@ No model has to infer or approve the new preference.
 These satisfy the issue's listed local projection scope. Richer UI, native
 provider installation and automatic remote revocation are optional integrations,
 not added closure gates. Proposed architecture/retention ADRs remain proposed.
+
+Qualification correction: the first automatic #124 Test run (42561324762)
+ran 473 cases and failed its schema-inventory assertion because this new validity
+schema was missing from that explicit test inventory. Both Linux matrix jobs
+failed; macOS registry jobs passed. The inventory is corrected before merge;
+that failed run is not passing qualification evidence.
