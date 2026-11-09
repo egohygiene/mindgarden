@@ -1,0 +1,170 @@
+{
+  "assistant": {
+    "assertions": [
+      {
+        "context": "Synthetic source-only review exercise.",
+        "contradicts": [],
+        "id": "suggestion",
+        "object": "uncertainty",
+        "polarity": "positive",
+        "predicate": "supports",
+        "quote": "Cite exact evidence; preserve uncertainty.",
+        "stance": "suggestion",
+        "statement": "Exact evidence may support explicit uncertainty.",
+        "subject": "evidence",
+        "temporal": null,
+        "uncertainty": [
+          "No independent verification."
+        ]
+      }
+    ],
+    "diagnostics": [],
+    "entities": [
+      {
+        "aliases": [],
+        "id": "evidence",
+        "label": "Exact evidence",
+        "quote": "Cite exact evidence",
+        "rationale": "Authored synthetic identity proposal; no existing entity match is asserted.",
+        "resolution": "new"
+      },
+      {
+        "aliases": [],
+        "id": "uncertainty",
+        "label": "Uncertainty",
+        "quote": "preserve uncertainty",
+        "rationale": "Authored synthetic identity proposal; no existing entity match is asserted.",
+        "resolution": "new"
+      }
+    ],
+    "schema": "mindgarden.extraction-output/v1",
+    "status": "success"
+  },
+  "bookmark": {
+    "assertions": [],
+    "diagnostics": [],
+    "entities": [
+      {
+        "aliases": [],
+        "id": "guide",
+        "label": "Synthetic evidence guide",
+        "quote": "Synthetic evidence guide",
+        "rationale": "Authored synthetic identity proposal; no existing entity match is asserted.",
+        "resolution": "new"
+      }
+    ],
+    "schema": "mindgarden.extraction-output/v1",
+    "status": "success"
+  },
+  "inert": {
+    "assertions": [],
+    "diagnostics": [],
+    "entities": [],
+    "schema": "mindgarden.extraction-output/v1",
+    "status": "success"
+  },
+  "page": {
+    "assertions": [
+      {
+        "context": "Synthetic source-only review exercise.",
+        "contradicts": [
+          "report-b"
+        ],
+        "id": "report-a",
+        "object": "accuracy",
+        "polarity": "positive",
+        "predicate": "supports",
+        "quote": "Report A: Daily review improves accuracy.",
+        "stance": "quotation",
+        "statement": "Daily review improves accuracy.",
+        "subject": "review",
+        "temporal": null,
+        "uncertainty": [
+          "No independent verification."
+        ]
+      },
+      {
+        "context": "Synthetic source-only review exercise.",
+        "contradicts": [
+          "report-a"
+        ],
+        "id": "report-b",
+        "object": "accuracy",
+        "polarity": "negative",
+        "predicate": "contradicts",
+        "quote": "Report B: Daily review does not improve accuracy.",
+        "stance": "quotation",
+        "statement": "Daily review does not improve accuracy.",
+        "subject": "review",
+        "temporal": null,
+        "uncertainty": [
+          "No independent verification."
+        ]
+      },
+      {
+        "context": "Synthetic source-only review exercise.",
+        "contradicts": [],
+        "id": "unknown-relation",
+        "object": "accuracy",
+        "polarity": "positive",
+        "predicate": "guarantees",
+        "quote": "Daily review improves accuracy.",
+        "stance": "hypothesis",
+        "statement": "An unsupported relationship stays unresolved.",
+        "subject": "review",
+        "temporal": null,
+        "uncertainty": [
+          "No independent verification."
+        ]
+      },
+      {
+        "context": "Synthetic source-only review exercise.",
+        "contradicts": [],
+        "id": "ambiguous-alex",
+        "object": "review",
+        "polarity": "positive",
+        "predicate": "references",
+        "quote": "Alex may mean a person or a project.",
+        "stance": "hypothesis",
+        "statement": "Alex may refer to a person or project.",
+        "subject": "alex",
+        "temporal": null,
+        "uncertainty": [
+          "No independent verification."
+        ]
+      }
+    ],
+    "diagnostics": [
+      "ambiguous-entity",
+      "unsupported-relation"
+    ],
+    "entities": [
+      {
+        "aliases": [],
+        "id": "alex",
+        "label": "Alex",
+        "quote": "Alex",
+        "rationale": "Authored synthetic identity proposal; no existing entity match is asserted.",
+        "resolution": "ambiguous"
+      },
+      {
+        "aliases": [],
+        "id": "review",
+        "label": "Daily review",
+        "quote": "Daily review",
+        "rationale": "Authored synthetic identity proposal; no existing entity match is asserted.",
+        "resolution": "new"
+      },
+      {
+        "aliases": [],
+        "id": "accuracy",
+        "label": "Accuracy",
+        "quote": "accuracy",
+        "rationale": "Authored synthetic identity proposal; no existing entity match is asserted.",
+        "resolution": "new"
+      }
+    ],
+    "schema": "mindgarden.extraction-output/v1",
+    "status": "partial"
+  }
+}

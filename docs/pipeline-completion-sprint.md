@@ -80,3 +80,20 @@ collections/multipart and real consumer adoption remain open. Next: #13 producer
 
 [Draft #114](https://github.com/egohygiene/mindgarden/pull/114), functional
 `cc38583`, records the #15 checkpoint. Mixed-vault proof passes (1 case,18.956s).
+
+### #13 optional extraction checkpoint
+
+Branch `feature/13-extraction-producer` stacks over #114/`4c80d08`. Versioned
+requests and outputs connect an optional producer to existing unreviewed curation
+plans. The offline recording adapter, exact source grants, six-state recovery,
+per-unit checkpoint callback and immutable private CLI bundle preserve review
+separation. A synthetic v2 conversation, two captured bookmarks and a page excerpt
+prove attributed proposals → authored review → rebuilt search/graph. Ambiguous
+entities/unknown predicates stay unresolved, with conflicts and negation retained.
+
+13 extraction/wire/schema cases pass on Python 3.12/3.13 (28.043s/26.264s).
+Ollama's current official docs were read; pure schema/chat mapping and a synthetic
+loopback-only opt-in probe are provided. No executable or operator-selected local
+model exists here, so only the dry run is tested and accuracy remains unmeasured.
+Private source grants remain offline; network-provider policy is an explicit gate.
+No new runtime dependency or ADR acceptance is introduced. Next: #14 lifecycle.

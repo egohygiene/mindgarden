@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:extraction-request:v1",
+  "title": "Mindgarden extraction-request v1",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "mindgarden.extraction-request/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "garden": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "producer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "prompt_revision": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+        },
+        "schema_revision": {
+          "const": "mindgarden.extraction-output/v1"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "model",
+        "prompt_revision",
+        "schema_revision"
+      ],
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+      },
+      "maxItems": 16,
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "limits": {
+      "type": "object",
+      "properties": {
+        "max_input_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65536
+        },
+        "max_output_bytes": {
+          "type": "integer",
+          "minimum": 256,
+          "maximum": 262144
+        }
+      },
+      "required": [
+        "max_input_bytes",
+        "max_output_bytes"
+      ],
+      "additionalProperties": false
+    },
+    "domains": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/domains"
+    },
+    "topics": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/topics"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "garden",
+    "created_at",
+    "producer",
+    "sources",
+    "limits",
+    "domains",
+    "topics"
+  ],
+  "additionalProperties": false
+}

@@ -582,6 +582,23 @@ def add_document_command(commands: ParserCollection) -> None:
     command.set_defaults(handler=run_document, scoped_output_command=True)
 
 
+def add_extraction_command(commands: ParserCollection) -> None:
+    from ..application.extraction import run_extraction
+
+    command = commands.add_parser("extraction", help="Produce unreviewed evidence-bound candidates from recorded optional producer outputs")
+    command.add_argument("--local-config", type=Path, required=True)
+    command.add_argument("--scope", type=Path, required=True)
+    command.add_argument("--input", type=Path, required=True)
+    command.add_argument("--recorded-output", type=Path, required=True)
+    command.add_argument("--resume", type=Path)
+    command.add_argument("--max-new-units", type=int)
+    command.add_argument("--output-directory", type=Path)
+    command.add_argument("--apply", action="store_true")
+    command.add_argument("--plan-digest")
+    command.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
+    command.set_defaults(handler=run_extraction, scoped_output_command=True)
+
+
 def build_parser() -> ArgumentParser:
     """Build the stable package command contract."""
     parser = ArgumentParser(prog="mindgarden", description=__doc__)
@@ -608,6 +625,7 @@ def build_parser() -> ArgumentParser:
     add_site_command(commands)
     add_federation_command(commands)
     add_compaction_command(commands)
+    add_extraction_command(commands)
     add_registry_command(commands)
     from ..application.insights import run_insights
 
