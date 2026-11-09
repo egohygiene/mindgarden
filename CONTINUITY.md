@@ -213,3 +213,10 @@ At each checkpoint record functional revision, branch/PR, exact tests/results, p
 ## Compaction and supersession
 
 Keep the twelve required headings and the 16384-byte/240-line bounds. This supersedes the closeout regroup with the newly selected #11–#16 completion sprint. Historical ledgers retain prior evidence; deferred #86–#91 and release work remain parked.
+
+Captured fixture artifact follow-up: MANIFEST.in explicitly includes the single
+committed synthetic-source ZIP, and the distribution inventory test requires it.
+The existing recursive source-data rule did not include ZIPs. A clean sdist must
+carry this conformance input; arbitrary archives remain excluded. This is local
+artifact verification, with release/version/publication behavior otherwise
+unchanged. The combined sprint ledger records final build/test receipts.
