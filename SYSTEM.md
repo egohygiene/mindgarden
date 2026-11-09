@@ -49,6 +49,8 @@ This document identifies Mindgarden's logical systems and responsibilities. It a
 | V1 public preview | Merged #68; responsive correction #69 | Reuses scoped public selection for literal reviewed content, exact citations, typed links and pinned offline Quartz; broader UI/consumer acceptance remains open. |
 | First-pass compaction | Merged #111 | Extends existing sessions with exact private source grants and authored first summaries; expiring private proof bundles preserve originals and grant no knowledge approval. |
 | Optional semantic decisions | Merged #110 | Official TypeSafe SDK suggests a closed read intent; ordinary application code owns handlers, source access and permissions. Default commands require no model service. |
+| Assistant-memory projection | Local reviewed checkpoint implemented | Provider-neutral seven-action compaction, bounded copyable snippets and optional live-checked expiring bundles; canonical sources stay independent. |
+| Learning projection | Local authored/static-web checkpoint implemented | Reviewed factual/cloze cards, summaries, private history, versioned schedules and bounded due-card views with exact source revisions. |
 
 The [rendered closeout checkpoint](docs/rendered-closeout-evidence.md) adds actual
 browser and portal recovery evidence. Pinned renderer accessibility, shared Relay

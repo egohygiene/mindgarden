@@ -63,5 +63,75 @@ remote images or model service. `python3 scripts/learning_browser_check.py
 --report tests/fixtures/learning/observed-browser.json` checks Chromium at
 320/1280 pixels, 200% zoom and reduced motion. This is a static adapter proof,
 not the full #17 application, screen-reader certification or Realm runtime
-assurance. Review-history editing/sync, automated proposal generation, notification
-scheduling and richer hosted study interfaces remain parent scope.
+assurance. Richer hosted interfaces and optional proposal generators remain later integrations.
+Notifications, hosted accounts and sync stay outside this issue’s core scope;
+they are not added acceptance gates for the authored local workflow.
+
+
+## Bounded due-card review
+
+Use `--due-only` to render only approved cards due at the explicit `--as-of`
+view boundary. `--review-limit` defaults to 20 (maximum 100), and
+`--review-offset` selects a later page of that exact view. Unknown/invalid queue
+options fail before source selection. Due dates sort by actual time instants,
+including explicit offsets, before pagination.
+
+```bash
+mindgarden learning --local-config "/private/bindings.json" \
+  --scope "/private/session.json" --input "/private/reviewed-deck.json" \
+  --due-only --review-limit 20 --review-offset 0
+```
+
+Review the preview and apply with the same flags, a new private output directory
+and the exact digest. The view/digest binds its limit and offset. The additional
+`study-queue.json` gives exact item revisions, due times, scheduling reasons and
+transparent selected/remaining counts within the explicit approved deck. HTML
+and Markdown render only those cards, with answer disclosure, qualifications and
+due states. Rejected/suspended cards and summaries are not scheduled as due cards.
+An empty queue has a useful empty state. All bytes count toward existing budgets.
+Outputs cannot overlap canonical storage or declared source vaults.
+
+`learning-projection.json` still preserves the **complete** selected deck and
+provenance for import; the smaller display is not canonical deletion. Review a
+card and author its ordinary `learning-review-event/v1` using the queue's exact
+`item_revision`, grade, operator, timestamp, scheduler/version and previous-event
+identity. Supply `--review-event` and existing `--events` to preview/review a new
+immutable export. Its grade advances only that exact card. An edited/source-changed
+card keeps the old event as historical and needs current review. Changing history
+or `as_of` changes the view; re-plan before paging/applying it.
+
+Actual optional browser checks cover both full and due views:
+
+```bash
+python scripts/learning_browser_check.py --due-only \
+  --axe-script .cache/next-sprint/axe/node_modules/axe-core/axe.min.js \
+  --report /tmp/new-learning-due-browser.json
+```
+
+Omit `--due-only` for the full deck. The prepared optional axe script is pinned
+at 4.10.3; no tool is downloaded during scoped generation. The
+[due-view receipt](evidence/learning-due-browser.json) and
+[full-view receipt](evidence/learning-full-browser.json) record Chromium
+151.0.7922.173 / Playwright 1.62.0, 320/1280 pixels, native keyboard disclosure,
+200% zoom, reduced motion and semantic landmarks. WCAG A/AA automated tag sets
+report **zero violations and zero incomplete findings** for these static views.
+Page networking is offline; no model, account or private data is used.
+These are bounded browser/semantics proofs, not screen-reader certification or
+acceptance of the broader hosted #17/#47 product.
+
+## Listed #28 acceptance
+
+| Criteria in issue order | Evidence |
+| --- | --- |
+| Versioned candidates/summaries/cards/events/schedules (1) | Existing closed learning schemas plus private queue schema |
+| Reviewed sources, exact claim provenance and private history (2–4) | Shared scoped selection, source digests/qualifications and negative fixtures |
+| Reject/edit/suspend/regenerate/remove without canonical writes (5) | Lifecycle/source-revision tests, immutable exports and complete JSON round trip |
+| Replaceable explainable scheduling and qualified answers (6–7) | Versioned scheduler port, history/upgrade/staleness/contradiction cases |
+| Deterministic exports and accessible web states (8–9) | JSON/Markdown goldens, due/empty states and actual full/due browser receipts |
+| Useful authored no-model mode (10) | Factual/cloze/summary fixtures, missing-model/empty mode and CLI grade/import round trip |
+
+The listed learning-projection scope is complete. Dependency correction: the
+existing renderer/application boundary supports this private static study adapter;
+a finished public garden or hosted account is not required to render accessible
+learning states. Notifications, email, browser capture and hosted sync are explicit
+non-goals in #28. The full #17 experience retains its own acceptance criteria.

@@ -1,0 +1,33 @@
+{
+  "axe_audits": [
+    {
+      "incomplete": [],
+      "version": "4.10.3",
+      "violations": [],
+      "width": 320
+    },
+    {
+      "incomplete": [],
+      "version": "4.10.3",
+      "violations": [],
+      "width": 1280
+    }
+  ],
+  "chromium": "151.0.7922.173",
+  "external_resources": "none",
+  "keyboard_reveal": "passed",
+  "limitations": [
+    "static projection only; not full hosted review UI or screen-reader certification"
+  ],
+  "page_network": "offline",
+  "playwright": "1.62.0",
+  "reduced_motion": "passed",
+  "schema": "mindgarden.learning-browser-check/v1",
+  "semantic_landmarks": "passed",
+  "study_selection": "one-due-card-with-private-history-and-exact-provenance",
+  "viewports": [
+    320,
+    1280
+  ],
+  "zoom_200_percent": "passed"
+}

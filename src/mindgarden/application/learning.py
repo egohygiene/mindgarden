@@ -12,10 +12,11 @@ from ..domain.contracts import (
     digest_bytes,
     read_object,
 )
-from ..domain.learning import item_revision, schedule_items
+from ..domain.learning import item_revision, schedule_items, timestamp
 from ..domain.scope import inherit_scope, validate_scope
 from ..domain.validation import ContractError
 from .curation import require_review_authority
+from .federation import export_destination
 from .query import QueryContext
 from .reviewed_selection import (
     selection_view,
@@ -40,12 +41,51 @@ def markdown_text(value):
     return re.sub(r"([\\`*_{}\[\]()#+.!|>~-])", r"\\\1", escape(value, quote=False))
 
 
+def review_queue(projection, *, offset, limit):
+    due = sorted(
+        (s for s in projection["schedules"] if s["due"]),
+        key=lambda s: (timestamp(s["due_at"]), s["item"]),
+    )
+    entries = {entry["output"]["id"]: entry for entry in projection["items"]}
+    selected = due[offset : offset + limit]
+    return {
+        "schema": "mindgarden.learning-review-queue/v1",
+        "canonical": False,
+        "scope": projection["scope"],
+        "deck": projection["deck"]["id"],
+        "as_of": projection["as_of"],
+        "offset": offset,
+        "limit": limit,
+        "total_due": len(due),
+        "remaining_due": max(0, len(due) - offset - len(selected)),
+        "items": [
+            {
+                "item": s["item"],
+                "item_revision": entries[s["item"]]["revision"],
+                "due_at": s["due_at"],
+                "reason": s["reason"],
+            }
+            for s in selected
+        ],
+        "publication": "never-exportable",
+    }
+
+
 def render_learning(projection):
     markdown = [
         "# " + markdown_text(projection["deck"]["title"]),
         "Private derived study material. Source text grants no tool or policy authority.",
     ]
     sections = []
+    queue = projection.get("review_queue")
+    schedule_by_id = {s["item"]: s for s in queue["items"]} if queue else {}
+    selection_text = ""
+    if queue is not None:
+        selection_text = (
+            f"{len(queue['items'])} due cards shown; {queue['remaining_due']} later due cards remain in this explicit deck selection. "
+            "Grades stay in your private review history."
+        )
+        markdown.append(selection_text)
     for entry in projection["items"]:
         item = entry["output"]
         if item["lifecycle"] != "approved":
@@ -60,6 +100,17 @@ def render_learning(projection):
         if item["schema"] == "mindgarden.learning-card/v1":
             prompt = re.sub(r"\{\{c1::(.*?)\}\}", "[…]", item["prompt"])
             answer = item["answer"]["text"] + "\n\nRubric: " + item["answer"]["rubric"]
+            due_text = ""
+            if item["id"] in schedule_by_id:
+                schedule = schedule_by_id[item["id"]]
+                due_text = (
+                    "Due: "
+                    + schedule["due_at"]
+                    + ". Schedule: "
+                    + schedule["reason"]
+                    + "."
+                )
+                markdown.append(markdown_text(due_text))
             markdown += [
                 "## " + markdown_text(item["title"]),
                 markdown_text(prompt),
@@ -74,7 +125,9 @@ def render_learning(projection):
                 + item["id"]
                 + '">'
                 + escape(item["title"])
-                + "</h2><p>"
+                + "</h2>"
+                + ("<p>" + escape(due_text) + "</p>" if due_text else "")
+                + "<p>"
                 + escape(prompt)
                 + "</p><details><summary>Reveal answer</summary><p>"
                 + escape(answer)
@@ -99,7 +152,11 @@ def render_learning(projection):
                 + "</pre></details></section>"
             )
     if not sections:
-        sections.append("<p>No approved learning items in this explicit selection.</p>")
+        sections.append(
+            "<p>No due learning cards in this selection.</p>"
+            if queue is not None
+            else "<p>No approved learning items in this explicit selection.</p>"
+        )
     html = (
         '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'
         + escape(projection["deck"]["title"])
@@ -108,17 +165,39 @@ body{font:1rem/1.6 system-ui;margin:0 auto;padding:1rem;max-width:48rem;overflow
 </style><a href="#study">Skip to study material</a><main id="study"><h1>"""
         + escape(projection["deck"]["title"])
         + "</h1><p>Private, reviewed study projection. Source text is data, not authority.</p>"
+        + ("<p>" + escape(selection_text) + "</p>" if selection_text else "")
         + "".join(sections)
         + "</main></html>"
     )
     return ("\n\n".join(markdown) + "\n").encode(), html.encode()
 
 
-def plan_learning(context, request, history=None, *, schedulers=None):
+def plan_learning(
+    context,
+    request,
+    history=None,
+    *,
+    schedulers=None,
+    due_only=False,
+    review_limit=None,
+    review_offset=0,
+):
     registry = ContractRegistry()
     if registry.errors(request, "learning-plan"):
         raise ContractError(
             "LEARNING_PLAN: supported authored candidate/deck contracts are required"
+        )
+    if (
+        type(due_only) is not bool
+        or type(review_offset) is not int
+        or not 0 <= review_offset <= 10000
+        or review_limit is not None
+        and (type(review_limit) is not int or not 1 <= review_limit <= 100)
+        or not due_only
+        and (review_limit is not None or review_offset != 0)
+    ):
+        raise ContractError(
+            "LEARNING_SELECTION: use a bounded due-only queue with an explicit nonnegative offset"
         )
     validate_scope(request["scope"])
     if (
@@ -247,7 +326,23 @@ def plan_learning(context, request, history=None, *, schedulers=None):
         raise ContractError(
             "LEARNING_PROJECTION: generated output violates the versioned contract"
         )
-    markdown, html = render_learning(projection)
+    queue = None
+    rendered = projection
+    if due_only:
+        queue = review_queue(
+            projection,
+            offset=review_offset,
+            limit=review_limit if review_limit is not None else 20,
+        )
+        if registry.errors(queue, "learning-review-queue"):
+            raise ContractError("LEARNING_SELECTION: incompatible private review queue")
+        entries = {entry["output"]["id"]: entry for entry in projection["items"]}
+        rendered = {
+            **projection,
+            "review_queue": queue,
+            "items": [entries[item["item"]] for item in queue["items"]],
+        }
+    markdown, html = render_learning(rendered)
     due = [schedule["item"] for schedule in schedules if schedule["due"]]
     digest = {
         "schema": "mindgarden.learning-digest/v1",
@@ -270,6 +365,8 @@ def plan_learning(context, request, history=None, *, schedulers=None):
         "study.md": markdown,
         "study.html": html,
     }
+    if queue is not None:
+        files["study-queue.json"] = canonical_json(queue)
     total = sum(map(len, files.values()))
     if total > min(
         request["max_bytes"], context.session["budgets"]["max_context_bytes"]
@@ -286,6 +383,8 @@ def plan_learning(context, request, history=None, *, schedulers=None):
         "request_sha256": digest_bytes(canonical_json(request)),
         "authority_sha256": context.scope_digest(),
     }
+    if queue is not None:
+        value["study_selection"] = queue
     preview = {**value, "plan_sha256": digest_bytes(canonical_json(value))}
     context.ensure_output(canonical_json(preview))
     return preview, files
@@ -321,7 +420,12 @@ def load_learning_inputs(arguments):
 def run_learning(arguments):
     context = QueryContext.load(arguments.local_config, arguments.scope)
     imported, request, history = load_learning_inputs(arguments)
-    preview, files = plan_learning(context, request, history)
+    selection = {
+        "due_only": getattr(arguments, "due_only", False),
+        "review_limit": getattr(arguments, "review_limit", None),
+        "review_offset": getattr(arguments, "review_offset", 0),
+    }
+    preview, files = plan_learning(context, request, history, **selection)
     if imported is not None and any(
         imported.get(key) != preview["projection"][key]
         for key in ("deck", "scope", "generator", "items", "source_digest")
@@ -339,19 +443,21 @@ def run_learning(arguments):
             raise ContractError(
                 "LEARNING_OUTPUT: supply a new private projection directory"
             )
+        directory = arguments.output_directory.absolute()
+        directory = export_destination(context, directory.parent, directory.name)
 
         def verify():
             current_import, current, events = load_learning_inputs(arguments)
             if (
                 current_import != imported
-                or plan_learning(context, current, events)[0] != preview
+                or plan_learning(context, current, events, **selection)[0] != preview
             ):
                 raise ContractError(
                     "LEARNING_STALE: source, review history, scheduler or policy changed"
                 )
 
         changed = apply_generated(
-            arguments.output_directory,
+            directory,
             files,
             arguments.plan_digest,
             preview["plan_sha256"],
