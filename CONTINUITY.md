@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T10:21:15Z'
+  updated_at: '2026-11-09T10:24:34Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -81,8 +81,8 @@ work:
   next:
     kind: action
     id: privacy-storage-next-checkpoint
-    description: 'Open #35 draft above #128, then implement #45 reviewed initialized-adapter migration with exact
-      inventory/bytes, retained sources, failure retry and unchanged garden references; finish combined compatibility/conformance.'
+    description: 'Implement #45 reviewed local adapter migration above #129, then freeze and qualify the combined
+      privacy/storage source with full compatibility, publication negatives and no-service recovery proofs.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
@@ -91,33 +91,30 @@ state:
   base:
     revision: 5548976ba4fb3c2eb63c3d643faf45631d677fd2
     ref: refs/heads/feature/31-bounded-generated-bundles
-    verified_at: '2026-11-09T10:21:15Z'
+    verified_at: '2026-11-09T10:24:34Z'
   candidate:
     branch: fix/35-pdf-process-lifecycle
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 6d31e75fd76fccaa27c82cf32eba81914815e30a
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#129
+      url: https://github.com/egohygiene/mindgarden/pull/129
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T10:21:15Z'
+    observed_at: '2026-11-09T10:24:34Z'
     default_branch_revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     issue_state: open
-    pull_request_state: not-applicable
-    notes: 'Draft #127 → #128 is tested locally. Corrected frozen #31 qualification passes 98 cases per Python.
-      #35 adds five process lifecycle regressions: 19 focused cases per Python and the real six-state Poppler proof
-      pass; the new coherent draft opens next. 35 issues remain open.'
+    pull_request_state: draft
+    notes: 'Draft #127 → #128 → #129 is the active stack. Corrected #31 suites pass 98 per Python; #35 passes 19
+      per Python and the actual six-state native PDF proof. Main remains 7594921; parent assurance acceptance and
+      hosted CI are separate.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T10:21:15Z'
+  reviewed_at: '2026-11-09T10:24:34Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12.14: unittest tests.test_scope_bundle_outputs --quiet; focused changed-code Ruff, format
-      and diff checks'
-    outcome: passed
-    observed_at: '2026-11-09T10:16:18Z'
-    notes: 8 pass, zero skips, 12.063s; initial test fixtures below the existing 256-byte minimum were corrected
-      without weakening the session schema
   - command: 'Python 3.12.14: unittest tests.test_scope_bundle_outputs --quiet; focused changed-code Ruff, format
       and diff checks'
     outcome: passed
@@ -128,6 +125,12 @@ review:
       tests.test_mixed_vault_workflow --quiet; document_demo.py with explicit /usr/bin tools'
     outcome: passed
     observed_at: '2026-11-09T10:21:15Z'
+    notes: '19 pass each, zero skips (28.681s / 28.293s); real Poppler six-state proof passed, owned temporary state
+      removed; corrected #31 suites 98 pass each (205.507s / 195.094s)'
+  - command: 'Python 3.12/3.13: unittest tests.test_pdf_process_lifecycle tests.test_documents tests.test_storage_adapters
+      tests.test_mixed_vault_workflow --quiet; document_demo.py with explicit /usr/bin tools'
+    outcome: passed
+    observed_at: '2026-11-09T10:24:34Z'
     notes: '19 pass each, zero skips (28.681s / 28.293s); real Poppler six-state proof passed, owned temporary state
       removed; corrected #31 suites 98 pass each (205.507s / 195.094s)'
   environment_limitations:
@@ -167,7 +170,7 @@ Finish bounded privacy/storage integration: retain #10 completion, qualify compl
 
 ## State snapshot
 
-Draft #127 → #128 is tested locally. Corrected frozen #31 qualification passes 98 cases per Python. #35 adds five process lifecycle regressions: 19 focused cases per Python and the real six-state Poppler proof pass; the new coherent draft opens next. 35 issues remain open.
+Draft #127 → #128 → #129 is the active stack. Corrected #31 suites pass 98 per Python; #35 passes 19 per Python and the actual six-state native PDF proof. Main remains 7594921; parent assurance acceptance and hosted CI are separate.
 
 ## Completed and material changes
 
@@ -183,7 +186,7 @@ Accepted Hygiene classification/declassification/assurance, Realm encrypted-vaul
 
 ## Next dependency-ready work
 
-Open #35 draft above #128, then implement #45 reviewed initialized-adapter migration with exact inventory/bytes, retained sources, failure retry and unchanged garden references; finish combined compatibility/conformance.
+Implement #45 reviewed local adapter migration above #129, then freeze and qualify the combined privacy/storage source with full compatibility, publication negatives and no-service recovery proofs.
 
 ## Parallel changes and reconciliation
 

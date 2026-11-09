@@ -98,3 +98,5 @@ These controls govern the started process group. They cannot contain a hostile
 executable that escapes that group or prove host/network/swap/encryption security.
 Restricted processing still stops before parsing; no ordinary-file label grants
 confidential authority. Additional formats remain separate adapters.
+
+Draft [#129](https://github.com/egohygiene/mindgarden/pull/129), functional `6d31e75fd76fccaa27c82cf32eba81914815e30a`, is stacked on #128. Qualification and parent gates remain distinct from merge or acceptance.
