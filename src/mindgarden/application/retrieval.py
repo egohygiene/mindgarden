@@ -24,7 +24,7 @@ def record_key(reference: dict) -> str:
 
 
 def build_index(context: QueryContext, *, include_unreviewed: bool = False,
-                projection: str = "index") -> dict:
+                projection: str = "index", enforce_bytes: bool = True) -> dict:
     context.require(projection)
     snapshots = context.snapshots()
     records: dict[str, dict] = {}
@@ -158,7 +158,7 @@ def build_index(context: QueryContext, *, include_unreviewed: bool = False,
                          if key in snapshots],
               "records": [records[key] for key in sorted(records)], "edges": edges,
               "backlinks": backlinks}
-    return context.finalize(result, enforce_bytes=projection == "index")
+    return context.finalize(result, enforce_bytes=projection == "index" and enforce_bytes)
 
 
 def rank(index: dict, query: str) -> list[dict]:

@@ -112,6 +112,7 @@ def run_compaction_bundle(arguments):
             preview["plan_sha256"] if arguments.check else arguments.plan_digest,
             preview["plan_sha256"],
             check_live=context.check_live,
+            validate_output=context.ensure_bundle,
             verify_inputs=verify,
         )
         result = {

@@ -147,3 +147,20 @@ relationship or evidence dependency can change a represented metadata view; the
 query then fails `SESSION_REVISION`. Select the complete needed set or author an
 explicitly refreshed narrower session. The engine never fabricates a replacement
 pin, drops a source grant or opens omitted bodies to make the request succeed.
+
+
+## Complete generated-bundle enforcement
+
+The same session byte ceiling now bounds complete federation/site artifacts,
+including manifests and rendered files. Private memory, learning, compaction,
+dependency, insight, extraction and local-discovery writes pass their complete
+create-or-verify inventory, including the ownership marker, to the same live
+validator before creating an output directory. Expired or revoked authority is
+checked before budget diagnostics and again at output selection.
+
+A larger internal authorized index does not consume a selected public export's
+response budget; its complete selected bundle does. Compatible bytes and existing
+session policy identities remain unchanged. The optional `max_output_bytes`
+retains its legacy 16 MiB default. Public-only catalog requests over supplied
+public bundles keep their separate bounded input contract; they mint no session
+or private authority. Parser/model/runtime isolation is not claimed here.

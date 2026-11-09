@@ -238,9 +238,21 @@ class QueryContext:
 
     def ensure_output(self, content: bytes) -> None:
         """Recheck live authority after serialization and before returning bytes."""
+        self.check_live()
         maximum = self.session["budgets"].get("max_output_bytes", 16 * 1024 * 1024)
         if len(content) > maximum:
             raise ContractError("QUERY_BUDGET: serialized output exceeds the explicit session byte ceiling")
+        self.check_live()
+
+    def ensure_bundle(self, files: dict[str, bytes]) -> None:
+        """Bound the complete output, including generated ownership metadata."""
+        self.check_live()
+        if not isinstance(files, dict) or any(not isinstance(name, str) or not isinstance(content, bytes)
+                                              for name, content in files.items()):
+            raise ContractError("QUERY_OUTPUT: supply a complete byte-valued output inventory")
+        maximum = self.session["budgets"].get("max_output_bytes", 16 * 1024 * 1024)
+        if sum(map(len, files.values())) > maximum:
+            raise ContractError("QUERY_BUDGET: complete generated output exceeds the explicit session byte ceiling")
         self.check_live()
 
     def finalize(self, payload: dict, *, enforce_bytes: bool = True) -> dict:

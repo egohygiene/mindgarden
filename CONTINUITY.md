@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T10:11:11Z'
+  updated_at: '2026-11-09T10:16:18Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -69,56 +69,49 @@ scope:
   - docs/overnight-sprint.md
   - docs/privacy-storage-followthrough.md
 work:
-  objective: 'Complete dependency-ready privacy/storage checkpoints, preserve #10 completion and record unavailable
-    external assurance honestly.'
+  objective: 'Implement complete session-owned output limits, then independent PDF containment and reviewed vault
+    migration; preserve closed #10 and external assurance gaps.'
   success_conditions:
   - Preserve Python/v0, exact evidence, scope and proposed ADR status.
   - Merge only completed tested checkpoints; keep blocked parent scope explicit.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#29
-    url: https://github.com/egohygiene/mindgarden/issues/29
+    id: egohygiene/mindgarden#31
+    url: https://github.com/egohygiene/mindgarden/issues/31
   next:
     kind: action
     id: privacy-storage-next-checkpoint
-    description: 'Implement #31 complete generated-bundle/session byte ceilings, final authority checks and rendered-output
-      coverage above draft #127; owner integration remains blocked.'
+    description: 'Open #31 draft above #127, freeze its source for corrected Python 3.12/3.13 regression runs, then
+      implement #35 process-group and private temporary-state containment.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
     depends_on: []
 state:
   base:
-    revision: 7594921fb89097d9dae04f14e3ebc967055aa470
-    ref: refs/heads/main
-    verified_at: '2026-11-09T10:11:11Z'
+    revision: 5c267b5fbfc3f68b3b992b41c7644bbc51438919
+    ref: refs/heads/feature/29-export-policy-boundaries
+    verified_at: '2026-11-09T10:16:18Z'
   candidate:
-    branch: feature/29-export-policy-boundaries
-    revision: 1cb3a60594a678862e5bd2d167218b12b21ea87b
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#127
-      url: https://github.com/egohygiene/mindgarden/pull/127
-    handoff_state: ready-for-review
+    branch: feature/31-bounded-generated-bundles
+    revision: null
+    pull_request: null
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-09T10:11:11Z'
+    observed_at: '2026-11-09T10:16:18Z'
     default_branch_revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     issue_state: open
-    pull_request_state: draft
-    notes: 'Main 7594921 is the merged baseline; #29 checkpoint is draft #127 at functional 1cb3a60. 39 focused
-      cases pass per Python; hosted CI is separate. 35 issues remain open and all 44 coverage rows are retained.'
+    pull_request_state: not-applicable
+    notes: 'Draft #127 supplies the #29 parent. #31 complete-bundle enforcement has eight new passing regression
+      cases on Python 3.12; broader corrected qualification and hosted CI remain pending. 35 issues are open; the
+      stack has no merge or parent-acceptance claim.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T10:11:11Z'
+  reviewed_at: '2026-11-09T10:16:18Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: unittest tests.test_export_policy tests.test_scope_policy tests.test_federation
-      tests.test_site --quiet; focused Ruff/format and diff checks'
-    outcome: passed
-    observed_at: '2026-11-09T10:10:10Z'
-    notes: 39 pass each, zero skips (51.261s / 43.269s); compatible public output bytes unchanged
   - command: 'Python 3.12/3.13: unittest tests.test_export_policy tests.test_scope_policy tests.test_federation
       tests.test_site --quiet; focused Ruff/format and diff checks'
     outcome: passed
@@ -129,6 +122,12 @@ review:
     outcome: passed
     observed_at: '2026-11-09T10:11:11Z'
     notes: 39 pass each, zero skips (51.261s / 43.269s); compatible public output bytes unchanged
+  - command: 'Python 3.12.14: unittest tests.test_scope_bundle_outputs --quiet; focused changed-code Ruff, format
+      and diff checks'
+    outcome: passed
+    observed_at: '2026-11-09T10:16:18Z'
+    notes: 8 pass, zero skips, 12.063s; initial test fixtures below the existing 256-byte minimum were corrected
+      without weakening the session schema
   environment_limitations:
   - 'Hygiene #39/#40 normative information-flow and assurance contracts unavailable at 92195e4.'
   - 'Realm #28/#29/#30 still own encrypted-vault selection/implementation and confidential runtime; #60 only consolidates
@@ -162,19 +161,19 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Complete dependency-ready privacy/storage checkpoints, preserve #10 completion and record unavailable external assurance honestly.
+Implement complete session-owned output limits, then independent PDF containment and reviewed vault migration; preserve closed #10 and external assurance gaps.
 
 ## State snapshot
 
-Main 7594921 is the merged baseline; #29 checkpoint is draft #127 at functional 1cb3a60. 39 focused cases pass per Python; hosted CI is separate. 35 issues remain open and all 44 coverage rows are retained.
+Draft #127 supplies the #29 parent. #31 complete-bundle enforcement has eight new passing regression cases on Python 3.12; broader corrected qualification and hosted CI remain pending. 35 issues are open; the stack has no merge or parent-acceptance claim.
 
 ## Completed and material changes
 
-Federation and site export profiles consume shared policy before content and after inheritance; incompatible execution/persistence and unknown policy fail closed. Unsupported operation diagnostics are constant. Owner dependency shorthand is corrected to Realm #28/#29/#30.
+Whole federation/site/rendered inventories and seven private generated writers share live session byte limits, including ownership markers. Internal indexes do not consume a selected export response budget. Revocation is checked before budget diagnostics and before output selection.
 
 ## Validation and review evidence
 
-Python 3.12/3.13: unittest tests.test_export_policy tests.test_scope_policy tests.test_federation tests.test_site --quiet; focused Ruff/format and diff checks — 39 pass each, zero skips (51.261s / 43.269s); compatible public output bytes unchanged. Exact CI and combined qualification remain separate observations in docs/privacy-storage-followthrough.md.
+Python 3.12.14: unittest tests.test_scope_bundle_outputs --quiet; focused changed-code Ruff, format and diff checks — 8 pass, zero skips, 12.063s; initial test fixtures below the existing 256-byte minimum were corrected without weakening the session schema. Exact CI and combined qualification remain separate observations in docs/privacy-storage-followthrough.md.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -182,7 +181,7 @@ Accepted Hygiene classification/declassification/assurance, Realm encrypted-vaul
 
 ## Next dependency-ready work
 
-Implement #31 complete generated-bundle/session byte ceilings, final authority checks and rendered-output coverage above draft #127; owner integration remains blocked.
+Open #31 draft above #127, freeze its source for corrected Python 3.12/3.13 regression runs, then implement #35 process-group and private temporary-state containment.
 
 ## Parallel changes and reconciliation
 

@@ -518,6 +518,7 @@ def run_extraction(arguments):
                 arguments.plan_digest,
                 digest,
                 check_live=context.check_live,
+                validate_output=context.ensure_bundle,
                 verify_inputs=verify,
             )
     elif arguments.apply:
