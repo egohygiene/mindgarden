@@ -1,0 +1,14 @@
+[
+  {
+    "id": "evidence-reference",
+    "notes": "Cite exact source evidence; keep uncertainty explicit.",
+    "title": "Synthetic evidence guide",
+    "url": "https://example.invalid/evidence"
+  },
+  {
+    "id": "inert-bookmarklet",
+    "notes": "This is a captured string, not an execution instruction.",
+    "title": "Synthetic inert bookmarklet",
+    "url": "javascript:synthetic_do_not_execute()"
+  }
+]

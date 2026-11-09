@@ -10,6 +10,7 @@ from ..adapters.text_source import TextSourceAdapter
 from ..adapters.conversation_archive import ConversationArchiveAdapter
 from ..adapters.legacy_archive import LegacyConversationArchiveAdapter
 from ..adapters.media_source import OpaqueMediaAdapter
+from ..adapters.captured_source import CapturedSourceAdapter
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes
 from ..domain.garden import evidence_bytes, inspect_garden
 from ..domain.scope import inherit_scope, validate_scope
@@ -22,7 +23,7 @@ from .storage import content_resolver, open_vault
 
 
 def default_registry() -> AdapterRegistry:
-    return AdapterRegistry((TextSourceAdapter(), ConversationArchiveAdapter(), LegacyConversationArchiveAdapter(), OpaqueMediaAdapter()))
+    return AdapterRegistry((TextSourceAdapter(), ConversationArchiveAdapter(), LegacyConversationArchiveAdapter(), OpaqueMediaAdapter(), CapturedSourceAdapter()))
 
 
 def captured_bytes(path: Path, maximum: int = 100 * 1024 * 1024) -> bytes:

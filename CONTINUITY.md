@@ -7,18 +7,17 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-08T21:28:42Z'
+  updated_at: '2026-11-09T01:55:06Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Resume the authorized PR merge and original-roadmap closeout sprint, including one optional TypeSafe
-    decision checkpoint.
+  purpose: "Resume the authorized #11\u2013#16 completion sprint and required capture/curation dependencies."
   includes:
-  - existing PR stack merge and native Decisions repair
-  - 'bounded closeout work for #43/#46/#17/#18/#20'
-  - one optional typed TypeSafe read-intent seam
+  - "bounded #11\u2013#16 completion checkpoints"
+  - required Mindcap capture contract and optional extraction boundary
+  - exact synthetic evidence, compatibility and private fallback
   excludes:
   - conversation transcripts
   - duplicated architecture, roadmap, and changelog content
@@ -63,51 +62,51 @@ scope:
   - docs/closeout-sprint.md
   - docs/typesafe-decisions.md
   - docs/rendered-closeout-evidence.md
+  - docs/pipeline-completion-sprint.md
 work:
-  objective: 'Merge the authorized stack, deliver one optional TypeSafe intent checkpoint, and advance bounded #43/#46/#17/#18/#20
-    acceptance while preserving genuine owner/private-pilot gates.'
+  objective: "Advance #11\u2013#16 through required producer contracts, authored extraction, archive compatibility,\
+    \ reviewed routing, scoped projections and local federation. Keep every checkpoint reviewable and all broader\
+    \ owner/runtime gates explicit."
   success_conditions:
   - Keep exact citations, reviewed routing, bounded output and relocation proof.
   - Park release work and preserve small reviewable drafts.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#17
-    url: https://github.com/egohygiene/mindgarden/issues/17
+    id: egohygiene/mindgarden#11
+    url: https://github.com/egohygiene/mindgarden/issues/11
   next:
     kind: action
-    id: review-closeout-stack
-    description: "Review draft #110\u2192#111\u2192#112 in order; combined checkout feature/17-rendered-portal-proof,\
-      \ functional 2b800f516296abb3116a317f9a149a1e1ca81d45. Resolve the pinned mobile Explorer ARIA finding and\
-      \ larger-build cost before full #17 acceptance. Relay #40 action, Empathy full holistic/canonical cutover/deployment\
-      \ and approved private pilot remain separate owner/maintainer gates; no automatic release or deferred cohort\
-      \ activation."
+    id: archive-and-extraction
+    description: Implement the v2 archive reader against the reread v2.0.0/2.0.1/2.0.2 specifications, then the
+      optional evidence-bound curation producer/batch checkpoint. Preserve all tested v1/v3 semantics and no-model
+      operation.
     readiness: ready
     references:
-    - docs/closeout-sprint.md
+    - docs/pipeline-completion-sprint.md
     depends_on: []
 state:
   base:
-    revision: 55393de49611090e4c40c62c2c881bfecd77f494
-    ref: refs/heads/feature/46-source-compaction
-    verified_at: '2026-11-08T21:28:42Z'
+    revision: 83e553d5fddb42583f8e9b3e1875c02286294cd6
+    ref: refs/heads/feature/17-rendered-portal-proof
+    verified_at: '2026-11-09T01:55:06Z'
   candidate:
-    branch: feature/17-rendered-portal-proof
-    revision: 2b800f516296abb3116a317f9a149a1e1ca81d45
+    branch: feature/11-captured-bundle-handoff
+    revision: b661dc2da882e3e5225341daf54a8ddea80795a3
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#112
-      url: https://github.com/egohygiene/mindgarden/pull/112
+      id: egohygiene/mindgarden#113
+      url: https://github.com/egohygiene/mindgarden/pull/113
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-08T21:28:42Z'
+    observed_at: '2026-11-09T01:55:06Z'
     default_branch_revision: f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973
     issue_state: open
     pull_request_state: draft
-    notes: "Main f3a88cc contains all #93\u2013#109 merges. New drafts: #110 TypeSafe; #111 exact private source\
-      \ compaction (55393de); draft #112 is the public rendered/portal checkpoint over #111. Empathy draft #120\
-      \ is updated at 6d6630c. Live refresh: 43 open issues plus retained closed #30; 44 tracked coverage rows;\
-      \ no release or site publication."
+    notes: "Main f3a88cc; existing green #110\u2013#112 drafts remain open. Current branch stacks over #112/83e553d.\
+      \ Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner\
+      \ contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered. Consumer\
+      \ draft #113 functional b661dc2 is pushed over #112."
   parallel_changes:
   - provider: github
     id: egohygiene/mindgarden#110
@@ -115,47 +114,41 @@ state:
   - provider: github
     id: egohygiene/mindgarden#111
     url: https://github.com/egohygiene/mindgarden/pull/111
+  - provider: github
+    id: egohygiene/mindgarden#112
+    url: https://github.com/egohygiene/mindgarden/pull/112
 review:
   status: partial
-  reviewed_at: '2026-11-08T21:28:42Z'
+  reviewed_at: '2026-11-09T01:55:06Z'
   reviewed_by: codex
   evidence:
-  - command: 'Frozen 2b800f5: python -m unittest discover -s tests -q'
+  - command: .venv/bin/python -m unittest tests.test_captured_source tests.test_source_adapters tests.test_adapter_conformance
+      tests.test_v1_contracts -q
     outcome: passed
-    observed_at: '2026-11-08T21:28:42Z'
-    notes: '3.12: 404 discovered, 402 pass/2 distribution skips, 320.686s. 3.13: same, 303.261s. Missing artifact
-      prerequisites supplied; separate distribution checks pass.'
-  - command: python -m unittest tests.test_distribution -q
+    observed_at: '2026-11-09T01:55:06Z'
+    notes: 24 pass, 3.857s; 6 new cases separately pass on both supported Python versions
+  - command: 'Owner: pytest -q; ruff check .'
     outcome: passed
-    observed_at: '2026-11-08T21:28:42Z'
-    notes: 2 pass on each Python, 0.035s; exact frozen source/wheel built and tested. Installed first-pass proof
-      preserves sources/review with zero default dependencies.
-  - command: python -m unittest experiments.typesafe.test_sdk_contract -q
+    observed_at: '2026-11-09T01:55:06Z'
+    notes: 622 pass, 4.82s, with loopback allowed; initial restricted run 620 pass/2 socket failures. All source
+      fixtures synthetic.
+  - command: Optional real producer/consumer check with pinned Mindcap source
     outcome: passed
-    observed_at: '2026-11-08T21:28:42Z'
-    notes: 3 actual SDK/mock-HTTP cases pass per Python. Disabled example and 16-label audit pass; no live model
-      cases or accuracy.
-  - command: python scripts/site_browser_check.py --workspace NEW --renderer PREPARED --npm-cache PREPARED --axe-script
-      AXE --report REPORT
-    outcome: limited
-    observed_at: '2026-11-08T21:28:42Z'
-    notes: Actual 0/3/205 fixture behavior and 60-file portal recovery pass. Mobile Explorer ARIA remains critical;
-      larger build 125.323s.
-  - command: Unmodified native collect; Ruff E9/F; compileall; owner schemas; live coverage; Empathy checks
-    outcome: limited
-    observed_at: '2026-11-08T21:28:42Z'
-    notes: "Native ready/publication denied; code/owners pass. 43 open + closed #30 covered. Empathy 12 pass, staged\
-      \ strict 3\u21920. CI and exact commands: docs/closeout-sprint.md. Hosted #110/#111 Test succeeded; #112 Test\
-      \ pending at last observation."
+    observed_at: '2026-11-09T01:55:06Z'
+    notes: 2 observations, 2 units each; original packages distinct, normalized units equal; network blocked in-process
+      and no model.
+  - command: Ruff E9/F, format and schema inventory
+    outcome: passed
+    observed_at: '2026-11-09T01:55:06Z'
+    notes: Focused checks pass; owner schema is pinned, not redefined. Full combined checks follow later sprint
+      checkpoints.
   environment_limitations:
-  - 'TYPESAFE_API_KEY is unavailable: no live model smoke, accuracy or calibrated thresholds. Optional SDK wire
-    tests use mock transport.'
-  - Pinned Quartz Explorer mobile ARIA is critical; full WCAG and graph/screen-reader/consumer acceptance remain
-    open. The 205-record build cost remains a performance follow-up.
-  - 'Relay #40 is open and the inspected tree has no Mindgarden action. Empathy full holistic/canonical cutover/deployment,
-    approved private #20/#46 pilot and #41/#42/#47 decisions remain separate gates.'
-  - "No manual paid workflow is dispatched; no release, production publication, private-data access or deferred\
-    \ #86\u2013#91 implementation. New checkpoint drafts remain for review."
+  - 'Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain
+    open. Mindcap #48 is unavailable; no missing contract is invented.'
+  - 'Aether #69/Akashic #176 and organization/confidential policy gates remain separate. No accepted runtime, declassification
+    or provider conformance is implied.'
+  - "No real private gardens/archives, model service, production publication, release or deferred #86\u2013#91 activation.\
+    \ New drafts remain for review."
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -175,7 +168,7 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer explicitly authorized merging the existing #93–#109 stack and implementing the next #43/#46/#17/#18/#20 checkpoints, plus one bounded Jev/TypeSafe integration. Preserve Python/v0, source/privacy boundaries and proposed ADR status. No release, production publication or real private pilot is authorized.
+The maintainer selected #11–#16 and necessary dependencies. Extend the merged pipeline and preserve the existing #110–#112 review stack. Preserve Python/v0, source/privacy boundaries and proposed ADR status. No release, production publication or real private pilot is authorized.
 
 ## Resume protocol
 
@@ -183,31 +176,31 @@ Read live status, issues/comments/PRs, README, AI_CONSTITUTION, ROADMAP, coverag
 
 ## Current objective and success conditions
 
-Merge the authorized stack, deliver one optional TypeSafe intent checkpoint, and advance bounded #43/#46/#17/#18/#20 acceptance while preserving genuine owner/private-pilot gates.
+Advance #11–#16 through required producer contracts, authored extraction, archive compatibility, reviewed routing, scoped projections and local federation. Keep every checkpoint reviewable and all broader owner/runtime gates explicit.
 
 ## State snapshot
 
-Main f3a88cc contains all #93–#109 merges. New drafts: #110 TypeSafe; #111 exact private source compaction (55393de); draft #112 is the public rendered/portal checkpoint over #111. Empathy draft #120 is updated at 6d6630c. Live refresh: 43 open issues plus retained closed #30; 44 tracked coverage rows; no release or site publication.
+Main f3a88cc; existing green #110–#112 drafts remain open. Current branch stacks over #112/83e553d. Mindcap dependency draft #42 at 7ee766c supplies the proposed captured-source handoff; no accepted owner contract or full incremental capture is claimed. 43 live open issues plus closed #30 remain covered. Consumer draft #113 functional b661dc2 is pushed over #112.
 
 ## Completed and material changes
 
-Actual pinned Quartz/browser proof passes owned behavior at 0/3/205 selected notes/claims, 320/1280px, reduced motion, 200% text, keyboard activation, search focus, no-JS list and unavailable/oversized graph fallbacks; mobile Explorer ARIA remains a recorded critical external finding. Actual 60-file portal proof preserves siblings, blocks missing receipts, retries unchanged data and rejects corruption. Fresh installed merged-engine Empathy rehearsal validates five public notes and passes strict verification after regenerating only its staged entrypoint; actual consumer files and publication authority remain unchanged.
+Mindcap provider-neutral captured-source schema/ZIP and explicit bookmark exporter are drafted; 622 owner tests and repository Ruff pass. Mindgarden vendors the exact schema and normalizes captured units through existing plan/apply, checking all bytes/lineage, duplicate identity, partial/empty states and inert URLs. Two actual synthetic captures have distinct original packages and identical normalized evidence.
 
 ## Validation and review evidence
 
-Frozen 2b800f5: python -m unittest discover -s tests -q — 3.12: 404 discovered, 402 pass/2 distribution skips, 320.686s. 3.13: same, 303.261s. Missing artifact prerequisites supplied; separate distribution checks pass.. python -m unittest tests.test_distribution -q — 2 pass on each Python, 0.035s; exact frozen source/wheel built and tested. Installed first-pass proof preserves sources/review with zero default dependencies.. python -m unittest experiments.typesafe.test_sdk_contract -q — 3 actual SDK/mock-HTTP cases pass per Python. Disabled example and 16-label audit pass; no live model cases or accuracy.. python scripts/site_browser_check.py --workspace NEW --renderer PREPARED --npm-cache PREPARED --axe-script AXE --report REPORT — Actual 0/3/205 fixture behavior and 60-file portal recovery pass. Mobile Explorer ARIA remains critical; larger build 125.323s.. Unmodified native collect; Ruff E9/F; compileall; owner schemas; live coverage; Empathy checks — Native ready/publication denied; code/owners pass. 43 open + closed #30 covered. Empathy 12 pass, staged strict 3→0. CI and exact commands: docs/closeout-sprint.md. Hosted #110/#111 Test succeeded; #112 Test pending at last observation..
+.venv/bin/python -m unittest tests.test_captured_source tests.test_source_adapters tests.test_adapter_conformance tests.test_v1_contracts -q — 24 pass, 3.857s; 6 new cases separately pass on both supported Python versions. Owner: pytest -q; ruff check . — 622 pass, 4.82s, with loopback allowed; initial restricted run 620 pass/2 socket failures. All source fixtures synthetic.. Optional real producer/consumer check with pinned Mindcap source — 2 observations, 2 units each; original packages distinct, normalized units equal; network blocked in-process and no model.. Ruff E9/F, format and schema inventory — Focused checks pass; owner schema is pinned, not redefined. Full combined checks follow later sprint checkpoints..
 
 ## Blockers, risks, unknowns, and deferred work
 
-TYPESAFE_API_KEY is unavailable: no live model smoke, accuracy or calibrated thresholds. Optional SDK wire tests use mock transport. Pinned Quartz Explorer mobile ARIA is critical; full WCAG and graph/screen-reader/consumer acceptance remain open. The 205-record build cost remains a performance follow-up. Relay #40 is open and the inspected tree has no Mindgarden action. Empathy full holistic/canonical cutover/deployment, approved private #20/#46 pilot and #41/#42/#47 decisions remain separate gates. No manual paid workflow is dispatched; no release, production publication, private-data access or deferred #86–#91 implementation. New checkpoint drafts remain for review.
+Mindcap #42 contract is proposed and unmerged; full #35 delta/recurrence and real consumer acceptance remain open. Mindcap #48 is unavailable; no missing contract is invented. Aether #69/Akashic #176 and organization/confidential policy gates remain separate. No accepted runtime, declassification or provider conformance is implied. No real private gardens/archives, model service, production publication, release or deferred #86–#91 activation. New drafts remain for review.
 
 ## Next dependency-ready work
 
-Review draft #110→#111→#112 in order; combined checkout feature/17-rendered-portal-proof, functional 2b800f516296abb3116a317f9a149a1e1ca81d45. Resolve the pinned mobile Explorer ARIA finding and larger-build cost before full #17 acceptance. Relay #40 action, Empathy full holistic/canonical cutover/deployment and approved private pilot remain separate owner/maintainer gates; no automatic release or deferred cohort activation.
+Implement the v2 archive reader against the reread v2.0.0/2.0.1/2.0.2 specifications, then the optional evidence-bound curation producer/batch checkpoint. Preserve all tested v1/v3 semantics and no-model operation.
 
 ## Parallel changes and reconciliation
 
-Existing stack merges are authorized in order; native #43 findings must be genuinely fixed. New checkpoints stay draft. See docs/closeout-sprint.md for exact edges, source, dependency corrections and owner gaps. Core dependencies and canonical ownership remain unchanged.
+Existing stack merges are authorized in order; native #43 findings must be genuinely fixed. New checkpoints stay draft. See docs/pipeline-completion-sprint.md for exact edges, source, dependency corrections and owner gaps. Core dependencies and canonical ownership remain unchanged.
 
 ## Privacy and redaction
 
@@ -219,4 +212,11 @@ At each checkpoint record functional revision, branch/PR, exact tests/results, p
 
 ## Compaction and supersession
 
-Keep the twelve required headings and the 16384-byte/240-line bounds. This supersedes the morning regroup with the newly authorized merge/closeout sprint and one narrow semantic decision. Historical ledgers retain prior evidence; deferred #86–#91 and release work remain parked.
+Keep the twelve required headings and the 16384-byte/240-line bounds. This supersedes the closeout regroup with the newly selected #11–#16 completion sprint. Historical ledgers retain prior evidence; deferred #86–#91 and release work remain parked.
+
+Captured fixture artifact follow-up: MANIFEST.in explicitly includes the single
+committed synthetic-source ZIP, and the distribution inventory test requires it.
+The existing recursive source-data rule did not include ZIPs. A clean sdist must
+carry this conformance input; arbitrary archives remain excluded. This is local
+artifact verification, with release/version/publication behavior otherwise
+unchanged. The combined sprint ledger records final build/test receipts.
