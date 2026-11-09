@@ -208,3 +208,11 @@ At each checkpoint record functional revision, branch/PR, exact tests/results, p
 ## Compaction and supersession
 
 Keep the twelve required headings and the 16384-byte/240-line bounds. This supersedes the closeout regroup with the newly selected #11–#16 completion sprint. Historical ledgers retain prior evidence; deferred #86–#91 and release work remain parked.
+
+Archive CI follow-up: the full Linux run 42548628131 at `4c80d08` failed the
+nested release-journey copy of two metadata hashes. The constrained correction
+changes only its embedded index/context hashes. `PYTHONPATH=src python -m unittest
+tests.test_release_journey -q` passes 2 cases on Python 3.12/3.13
+(11.536s/11.037s). Earlier candidate pins describe the prior functional checkpoint;
+this branch head includes the repair. Next: carry this source fix through the
+#115–#118 stack and record final full combined checks. No release publication.
