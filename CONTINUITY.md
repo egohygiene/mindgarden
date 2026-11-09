@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T03:48:09Z'
+  updated_at: '2026-11-09T03:57:01Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -80,34 +80,33 @@ work:
   next:
     kind: action
     id: acceptance-then-bookmark-integration
-    description: 'Merge the acceptance receipt after CI, refresh six closure states, then implement #48 producer-bundle
-      review integration. The maintainer authorized completed tested merges while away; no release, private pilot
-      or ADR ratification.'
+    description: 'Qualify/merge acceptance #120 and captured-bookmark checkpoint in order, then implement a bounded
+      #14 incoming-reference move/recovery proof. Parent #48 public intake/deltas remain owner-gated.'
     readiness: ready
     references:
     - docs/overnight-sprint.md
     depends_on: []
 state:
   base:
-    revision: 2eda2f4785caf9729b2c486b87436fc894c8e685
-    ref: refs/heads/main
-    verified_at: '2026-11-09T03:48:09Z'
+    revision: cac1b4b6229205ddc4f2c045e9aff845cf7bdcc6
+    ref: refs/heads/sprint/overnight-acceptance
+    verified_at: '2026-11-09T03:57:01Z'
   candidate:
-    branch: sprint/overnight-acceptance
-    revision: 041190dd9b0c805154d2e025f850b1cd9236ab2a
+    branch: feature/48-captured-bookmark-review
+    revision: 11439dc05738310229f1a5d95382305d375ff5ef
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#120
-      url: https://github.com/egohygiene/mindgarden/pull/120
+      id: egohygiene/mindgarden#121
+      url: https://github.com/egohygiene/mindgarden/pull/121
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-09T03:48:09Z'
+    observed_at: '2026-11-09T03:57:01Z'
     default_branch_revision: 2eda2f4785caf9729b2c486b87436fc894c8e685
     issue_state: open
     pull_request_state: draft
-    notes: 'Mindcap #42 and Mindgarden #110–#119 merged in order. Main exactly equals tested combined tree. Acceptance
-      receipt proposes six issue closures: 43 open before merge, 37 afterward; 44 rows retained.'
+    notes: 'Existing #110–#119 stack merged. Acceptance draft #120 closes six satisfied issues after CI; captured-bookmark
+      checkpoint extends it. 43 live open before #120, 37 after closure; all 44 coverage rows retained.'
   parallel_changes: []
 review:
   status: partial
@@ -136,6 +135,12 @@ review:
     outcome: passed
     observed_at: '2026-11-09T03:48:09Z'
     notes: 80 + 27 + 5 cases, zero skips; exact prior merged-tree equality. New-head hosted CI recorded separately.
+  - command: 'Python 3.12/3.13: unittest tests.test_captured_bookmarks tests.test_bookmarks tests.test_captured_source
+      tests.test_extraction --verbose; pinned real Mindcap check'
+    outcome: passed
+    observed_at: '2026-11-09T03:57:01Z'
+    notes: 26 cases per interpreter; exact observation regression separately rerun. Actual synthetic producer observations
+      normalize/review with equal IDs and distinct raw lineage; no network/model.
   environment_limitations:
   - 'Aether #69/Akashic #176 accepted integration contracts and real private pilots remain unavailable.'
   - OpenViking native useful-query/lifecycle acceptance incomplete; live Ollama accuracy unavailable.
@@ -167,11 +172,11 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Close satisfied listed criteria, then advance #48/#14/#37/#49/#28/#17 through small independently verified checkpoints.
+Acceptance #120 and #48 captured-bookmark input/review are the current bounded checkpoints; #14 incoming moves follow.
 
 ## State snapshot
 
-Mindcap #42 and Mindgarden #110–#119 merged in order. Main exactly equals tested combined tree. Acceptance receipt proposes six issue closures: 43 open before merge, 37 afterward; 44 rows retained.
+Existing #110–#119 stack merged. Acceptance draft #120 closes six satisfied issues after CI; captured-bookmark checkpoint extends it. 43 live open before #120, 37 after closure; all 44 coverage rows retained.
 
 ## Completed and material changes
 
@@ -187,7 +192,7 @@ Native OpenViking acceptance, real Ollama evaluation, confidential runtime, Aeth
 
 ## Next dependency-ready work
 
-Merge the acceptance receipt after CI, refresh six closure states, then implement #48 producer-bundle review integration. The maintainer authorized completed tested merges while away; no release, private pilot or ADR ratification.
+Qualify/merge acceptance #120 and captured-bookmark checkpoint in order, then implement a bounded #14 incoming-reference move/recovery proof. Parent #48 public intake/deltas remain owner-gated.
 
 ## Parallel changes and reconciliation
 

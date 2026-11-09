@@ -193,7 +193,7 @@ links evidence to #20; no private pilot or broader parent completion is inferred
 
 | Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
 | --- | --- | --- | --- | --- |
-| [#48](https://github.com/egohygiene/mindgarden/issues/48) — private bookmark cleanup/separate Akashic publication | partial | Merged #102 bounded v0.1 metadata cleanup, digest-bound resume, preserved originals, cleaned JSON/HTML and unavailable public handoff | Accepted source-bundle/delta and Akashic intake/freshness contracts, raw capture verification, real canonical URL integration and cross-source knowledge proof | #42/#11/#13/#14/#16/#29/#30/#31, Mindcap #35, Akashic #173–#176; J contracts/fixtures first; metadata-only mode remains useful |
+| [#48](https://github.com/egohygiene/mindgarden/issues/48) — reviewed bookmark cleanup/Akashic journey | partial | Legacy private cleanup plus captured-source-bundle plan/apply, exact immutable package/metadata evidence, partial-state/stale-approval negatives and authored bookmark↔conversation graph proof; [checkpoint](bookmark-cleanup.md) | Accepted Akashic #173–#176 identity/intake/public wire, full public journey and Mindcap #35 recurring deltas remain unavailable | Merged #11/#13 adapter/curation; private bundle checkpoint ready, public export stays blocked |
 
 ## Consumer, packaging and release readiness
 

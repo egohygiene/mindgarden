@@ -130,3 +130,21 @@ Automatic CI for this new head is recorded separately after it completes; the
 previous passing head runs are not substituted for it. Next action: merge this
 receipt after CI, refresh live closure state, then implement the #48 captured
 bookmark checkpoint. No optional library is added to the core.
+
+
+### Checkpoint B — #48 captured bookmark review
+
+Branch: `feature/48-captured-bookmark-review`, [draft #121](https://github.com/egohygiene/mindgarden/pull/121), functional `11439dc`, stacked on acceptance #120 until
+it merges. Implements explicit bundle input, exact evidence/observation lineage,
+private immutable export, incomplete-capture reporting and reviewed graph proof.
+No schema, canonical format, publication authority or runtime dependency changes.
+The parent remains open for actual owner intake/publication and recurring deltas.
+
+`python -m unittest tests.test_captured_bookmarks tests.test_bookmarks tests.test_captured_source tests.test_extraction --verbose`
+passes **26 cases** on Python 3.12.14 and 3.13.5. The later-observation regression
+also passes separately after extending it to changed raw observation bytes.
+Focused Ruff E9/F and formatting pass. The actual pinned Mindcap producer check
+passes with networking blocked and two distinct synthetic observations; exact
+receipt and command are in [the bookmark checkpoint](bookmark-cleanup.md).
+New-head automatic CI is recorded separately. Next action: qualify/merge this
+bounded checkpoint, then inspect #14 incoming-reference move semantics.
