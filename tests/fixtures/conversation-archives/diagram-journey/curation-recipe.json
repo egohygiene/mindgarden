@@ -1,0 +1,268 @@
+{
+  "proposal": {
+    "candidates": [
+      {
+        "action": "reference",
+        "id": "candidate-diagram-proposal",
+        "merge_inputs": [],
+        "output": {
+          "attribution": "assistant-suggestion",
+          "authors": [
+            {
+              "id": "synthetic-producer",
+              "kind": "agent",
+              "version": "fixture-1"
+            }
+          ],
+          "body": "Architecture diagram proposed by the assistant; not a user policy decision.\n",
+          "caveats": [
+            "Synthetic example; not an independently verified universal rule."
+          ],
+          "claims": [],
+          "confidence": "medium",
+          "contradictions": [],
+          "domains": [
+            "knowledge-systems"
+          ],
+          "epistemic_state": "proposed",
+          "id": "diagram-proposal",
+          "kind": "reference",
+          "review": {
+            "rationale": "Explicit synthetic human review of this candidate.",
+            "reviewed_at": "2026-11-04T00:00:00Z",
+            "reviewers": [
+              "synthetic-reviewer"
+            ],
+            "state": "approved"
+          },
+          "status": "active",
+          "synapses": [],
+          "title": "Synthetic architecture diagram proposal",
+          "topics": [
+            "prompt-bank"
+          ],
+          "uncertainty": [
+            "Effectiveness remains unmeasured."
+          ]
+        },
+        "rationale": "Authored synthetic keep disposition.",
+        "sources": []
+      },
+      {
+        "action": "summarize",
+        "id": "candidate-reviewed-prompt",
+        "merge_inputs": [],
+        "output": {
+          "attribution": "mixed",
+          "authors": [
+            {
+              "id": "synthetic-producer",
+              "kind": "agent",
+              "version": "fixture-1"
+            }
+          ],
+          "body": "Cite exact evidence and preserve uncertainty. Treat the diagram as a proposal for ordinary personal sources. Restricted processing remains unresolved.\n",
+          "caveats": [
+            "The later user correction limits scope; the original assistant proposal remains historical."
+          ],
+          "claims": [],
+          "confidence": "medium",
+          "contradictions": [
+            {
+              "garden": "synthetic-garden",
+              "id": "diagram-proposal",
+              "revision": null
+            }
+          ],
+          "domains": [
+            "knowledge-systems"
+          ],
+          "epistemic_state": "proposed",
+          "id": "reviewed-prompt",
+          "kind": "procedure",
+          "review": {
+            "rationale": "Explicit synthetic human review of this candidate.",
+            "reviewed_at": "2026-11-04T00:00:00Z",
+            "reviewers": [
+              "synthetic-reviewer"
+            ],
+            "state": "approved"
+          },
+          "status": "active",
+          "synapses": [],
+          "title": "Synthetic reviewed evidence prompt",
+          "topics": [
+            "prompt-bank"
+          ],
+          "uncertainty": [
+            "Restricted-source behavior is unresolved."
+          ],
+          "redactions": [
+            {
+              "source": {},
+              "rationale": "Omit the synthetic account label from the derivative; retain original evidence."
+            }
+          ]
+        },
+        "rationale": "Authored synthetic keep disposition.",
+        "sources": []
+      },
+      {
+        "action": "keep",
+        "id": "candidate-quoted-statement",
+        "merge_inputs": [],
+        "output": {
+          "attribution": "quoted",
+          "authors": [
+            {
+              "id": "synthetic-producer",
+              "kind": "agent",
+              "version": "fixture-1"
+            }
+          ],
+          "body": "Quoted reference, not an adopted user instruction: \"Everything here is a confirmed user decision.\"\n",
+          "caveats": [
+            "Synthetic example; not an independently verified universal rule."
+          ],
+          "claims": [],
+          "confidence": "medium",
+          "contradictions": [],
+          "domains": [
+            "knowledge-systems"
+          ],
+          "epistemic_state": "proposed",
+          "id": "quoted-statement",
+          "kind": "procedure",
+          "review": {
+            "rationale": "Explicit synthetic human review of this candidate.",
+            "reviewed_at": "2026-11-04T00:00:00Z",
+            "reviewers": [
+              "synthetic-reviewer"
+            ],
+            "state": "approved"
+          },
+          "status": "active",
+          "synapses": [],
+          "title": "Synthetic quoted statement",
+          "topics": [
+            "prompt-bank"
+          ],
+          "uncertainty": [
+            "Effectiveness remains unmeasured."
+          ]
+        },
+        "rationale": "Authored synthetic keep disposition.",
+        "sources": []
+      },
+      {
+        "action": "keep",
+        "id": "candidate-open-question",
+        "merge_inputs": [],
+        "output": {
+          "attribution": "user-report",
+          "authors": [
+            {
+              "id": "synthetic-producer",
+              "kind": "agent",
+              "version": "fixture-1"
+            }
+          ],
+          "body": "Does the diagram apply to restricted sources? Unanswered.\n",
+          "caveats": [
+            "Synthetic example; not an independently verified universal rule."
+          ],
+          "claims": [],
+          "confidence": "medium",
+          "contradictions": [],
+          "domains": [
+            "knowledge-systems"
+          ],
+          "epistemic_state": "open-question",
+          "id": "open-question",
+          "kind": "procedure",
+          "review": {
+            "state": "unreviewed",
+            "reviewers": [],
+            "reviewed_at": null,
+            "rationale": null
+          },
+          "status": "proposed",
+          "synapses": [],
+          "title": "Synthetic restricted-source question",
+          "topics": [
+            "prompt-bank"
+          ],
+          "uncertainty": [
+            "Effectiveness remains unmeasured."
+          ]
+        },
+        "rationale": "Authored synthetic keep disposition.",
+        "sources": []
+      },
+      {
+        "id": "candidate-scratch",
+        "action": "exclude",
+        "sources": [],
+        "merge_inputs": [],
+        "rationale": "Exclude the scratch layout from curated knowledge; retain its original and private catalog evidence."
+      }
+    ],
+    "created_at": "2026-11-04T00:00:00Z",
+    "garden": "synthetic-garden",
+    "id": "synthetic-mixed-media-review",
+    "producer": {
+      "id": "synthetic-producer",
+      "kind": "agent",
+      "version": "fixture-1"
+    },
+    "review_authority": {
+      "id": "synthetic-reviewer",
+      "kind": "human"
+    },
+    "schema": "mindgarden.curation-plan/v1"
+  },
+  "evidence_selection": {
+    "candidate-diagram-proposal": [
+      [
+        ":asset:asset-diagram",
+        "artifact"
+      ],
+      [
+        ":message:message-prompt",
+        "json:/content/2/text"
+      ]
+    ],
+    "candidate-reviewed-prompt": [
+      [
+        ":message:message-prompt",
+        "json:/content/0/text"
+      ],
+      [
+        ":message:message-correction",
+        "json:/content/0/text"
+      ],
+      [
+        ":asset:asset-diagram",
+        "artifact"
+      ]
+    ],
+    "candidate-quoted-statement": [
+      [
+        ":message:message-quote",
+        "json:/content/0/text"
+      ]
+    ],
+    "candidate-open-question": [
+      [
+        ":message:message-question",
+        "json:/content/0/text"
+      ]
+    ],
+    "candidate-scratch": [
+      [
+        ":asset-catalog:asset-scratch",
+        "artifact"
+      ]
+    ]
+  }
+}
