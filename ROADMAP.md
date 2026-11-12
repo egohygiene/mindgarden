@@ -49,7 +49,7 @@ updated: 2026-11-12
 The [architecture overview](docs/architecture-overview.md) now preserves the
 founder-requested infographic, a text guide and editable diagram. It includes
 current draft behavior without accepting proposed ADRs. After reviewing
-#133–#136 and this documentation follow-through, the proposed next bounded batch
+#133–#136 and documentation [#137](https://github.com/egohygiene/mindgarden/pull/137), the proposed next bounded batch
 is **#37 → #46 → #32**: connect dependency manifests to real context/memory
 outputs; extend authored compaction to a multi-source refresh proof; then add
 incremental refresh and larger-corpus evidence to the optional SQLite adapter.

@@ -11,6 +11,8 @@ This is a reading guide to [ARCHITECTURE.md](../ARCHITECTURE.md) and
 [SYSTEM.md](../SYSTEM.md), not a new decision or replacement contract. It includes
 the current foundation and the [draft reading/recovery checkpoints](journey-sprint.md).
 Proposed ADRs remain proposed; a working implementation does not ratify them.
+The image and this guide are preserved in documentation draft
+[#137](https://github.com/egohygiene/mindgarden/pull/137), stacked on #136.
 
 ## Read the diagram from left to right
 
