@@ -16,6 +16,10 @@ commands, artifacts, earlier corrected failures and passing functional-head CI.
 Any following documentation head requires its own CI before merge. ADRs stay
 proposed; release and deferred-package work stay parked.
 
+## Active privacy and storage follow-through
+
+The maintainer selected #10/#29/#31/#35/#45. [The bounded checkpoint ledger](privacy-storage-followthrough.md) records the live owner contracts, corrected Realm dependencies and proposed stack. #10 remains closed; 35 issues remain open. Local implementation is independent of unavailable confidential-runtime assurance.
+
 ## Observed baseline and authority
 
 Historical main was `f3a88ccf7d67deb8ecf188d10d9cd496ed6a4973` after the authorized
@@ -154,7 +158,7 @@ not one serial gate over all work.
 | Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
 | --- | --- | --- | --- | --- |
 | [#10](https://github.com/egohygiene/mindgarden/issues/10) — validation/private publication | completed | Version-aware validation; reusable 80-test publication/preview conformance, stable text/JSON diagnostics, complete leak-surface matrix; v0 preserved; [acceptance mapping](overnight-sprint.md) | Listed criteria satisfied; future adapters, confidential runtime and real consumer pilots remain with #35/#45/#20 | #7/#8/#9 and public projection contracts; acceptance receipt, then independent #48 |
-| [#29](https://github.com/egohygiene/mindgarden/issues/29) — independent scope/sensitivity axes | partial | #55/#62 local versioned contract; merged #80 shared decision API/schema/CLI and inheritance fixtures | Normative organization policy, declassification/federation integration and verified restricted runtime | Hygiene #39, Realm #25 → #60, #10/#14/#16; local contract usable, external assurance blocked |
+| [#29](https://github.com/egohygiene/mindgarden/issues/29) — independent scope/sensitivity axes | partial | #55/#62 local versioned contract; merged #80 shared decision API/schema/CLI and inheritance fixtures | Shared export policy now checks destination axes before bodies and after inheritance; accepted organization policy, declassification protocol and verified restricted runtime remain open | Hygiene #39, Realm #25 → #60, #10/#14/#16; local contract usable, external assurance blocked |
 | [#30](https://github.com/egohygiene/mindgarden/issues/30) — local registry/private overlays | closed in GitHub; bounded evidence | #55/#62 bindings/scoped queries; merged #67 Linux lifecycle/views/recovery; merged #82 owned cache recovery; merged [#93](registry-native-platforms.md) adds ACL/path controls, 44 tests per native macOS job and clean installed-wheel goldens | Closed 2026-11-08; Windows mutation, broader native hosts and restricted/organization assurance remain unclaimed follow-up scope | #29/#14/#16 contracts available; ordinary native proof independent of confidential assurance; Hygiene #39/#40 and Realm #25/#60 gate assurance; preserve originals |
 | [#31](https://github.com/egohygiene/mindgarden/issues/31) — scoped retrieval/sensitivity | partial | #62/#64 filter before bodies/ranking; merged #81 output byte ceilings, live authority, sanitized diagnostics and owned caches; private asset output follows the same contract | Full federation/consumer projections, normative assurance/declassification and runtime integration | #29/#10/#12/#14, Hygiene #40 and Realm #25/#60; carry invariants into B1/B2/Q |
 | [#35](https://github.com/egohygiene/mindgarden/issues/35) — confidential document/PDF ingestion | partial | Merged #83 ordinary synthetic PDF checkpoint: versioned bundles/page spans, explicit initial classification, optional Poppler 25.03.0 and six real parser states | Confidential encrypted runtime/temp assurance, OCR/office/complex layout and real consumer proof | #29/#10/#11 local boundary usable; Hygiene #39/#40 and Realm #25/#60 still gate restricted processing |
