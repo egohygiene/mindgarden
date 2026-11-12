@@ -33,7 +33,7 @@ checks are distinct evidence. No workflows were manually dispatched.
 | --- | --- | --- | --- | --- |
 | 1 | #15 | Binary diagram and source caption selection, scratch catalog, immutable full original | [#131](https://github.com/egohygiene/mindgarden/pull/131), `feature/15-selective-diagram-journey` / #130 | Merged; 21 focused tests each, hosted CI passes |
 | 2 | #13 | Mixed text/attachment authored curation, attribution and reviewed destination handoff | [#132](https://github.com/egohygiene/mindgarden/pull/132), `test/13-mixed-media-curation` / #131 | Merged; corrected hosted CI and post-recovery local checks pass |
-| 3 | #14 | Independently reviewed private incoming-reference repair and recovery | `feature/14-reviewed-reference-repair` / main | Focused checks pass; open draft |
+| 3 | #14 | Independently reviewed private incoming-reference repair and recovery | [#133](https://github.com/egohygiene/mindgarden/pull/133), `feature/14-reviewed-reference-repair` / main | Focused checks pass; draft for review |
 | 4 | #16 | Explicit public bundle discovery to bounded cited context | Next / #14 draft | Existing descriptor/catalog/session contracts; no remote acquisition |
 | 5 | #17 | Actual Quartz note, backlinks and provenance reading journey | Next / #16 draft | Reuse the pinned renderer and existing accessibility checks |
 | 6 | #20 | Composed clean-checkout journey, migration/restore and exact rebuild | Next / #17 draft | Reuse all checkpoints; model and Google services disabled |
@@ -236,3 +236,5 @@ is present. New draft-head CI is not yet observed.
 Next: open the bounded #14 draft, then implement explicit public-bundle discovery
 to lexical selection and bounded cited context (#16). Parent #14 still owns public/
 policy-changing routes, unpinned-reference review and wider recovery acceptance.
+
+Draft #133 functional commit: `b5a61f3d144fe854a83f45b26efe1057f6fbd059`.

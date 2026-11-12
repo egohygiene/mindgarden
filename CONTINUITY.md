@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T18:42:32Z'
+  updated_at: '2026-11-12T18:46:13Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -81,8 +81,8 @@ work:
   next:
     kind: action
     id: journey-next-checkpoint
-    description: 'Open the bounded #14 draft, then implement #16 explicit public bundle discovery and bounded cited
-      context above it; #17 reading and #20 composition follow. Keep new drafts for review.'
+    description: 'Implement #16 explicit public bundle discovery and bounded cited context above draft #133; #17
+      reading and #20 composition follow. Keep new drafts for review.'
     readiness: ready
     references:
     - docs/journey-sprint.md
@@ -91,32 +91,30 @@ state:
   base:
     revision: f5baa3dac3f7624bea94f5224e136de6ef5482b0
     ref: refs/remotes/origin/main
-    verified_at: '2026-11-12T18:42:32Z'
+    verified_at: '2026-11-12T18:46:13Z'
   candidate:
     branch: feature/14-reviewed-reference-repair
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: b5a61f3d144fe854a83f45b26efe1057f6fbd059
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#133
+      url: https://github.com/egohygiene/mindgarden/pull/133
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-12T18:42:32Z'
+    observed_at: '2026-11-12T18:46:13Z'
     default_branch_revision: f5baa3dac3f7624bea94f5224e136de6ef5482b0
     issue_state: open
-    pull_request_state: not-applicable
+    pull_request_state: draft
     notes: 'Main f5baa3d has the exact combined #132 tree; all six original PR heads have passing hosted CI. Execution
       recovered, original WIP untouched. #14 exact reviewed incoming-reference repair is implemented and focused-tested;
       35 open issues and 44 coverage rows remain.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-12T18:42:32Z'
+  reviewed_at: '2026-11-12T18:46:13Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: python -m unittest tests.test_archive_diagrams tests.test_archive_v2 tests.test_archive_selection
-      tests.test_conversation_archives; Ruff E9/F and new-file format'
-    outcome: passed
-    observed_at: '2026-11-12T18:02:22Z'
-    notes: 21 pass each, zero skips (7.579s / 7.714s); lint/format passed; CI not yet observed
   - command: 'Python 3.12/3.13: python -m unittest tests.test_archive_diagrams tests.test_archive_v2 tests.test_archive_selection
       tests.test_conversation_archives; Ruff E9/F and new-file format'
     outcome: passed
@@ -126,6 +124,12 @@ review:
       cases; changed-code Ruff E9/F and new-file formatting'
     outcome: passed
     observed_at: '2026-11-12T18:42:32Z'
+    notes: 37 pass on 3.12, zero skips (30.500s); 35+2 pass on 3.13 (28.319s+2.669s), zero skips; Ruff/format pass.
+      Broader full discovery and act deferred by maintainer
+  - command: 'Python 3.12: 37-case reference/routing/mixed/schema suite; Python 3.13: same prior 35 plus two added
+      cases; changed-code Ruff E9/F and new-file formatting'
+    outcome: passed
+    observed_at: '2026-11-12T18:46:13Z'
     notes: 37 pass on 3.12, zero skips (30.500s); 35+2 pass on 3.13 (28.319s+2.669s), zero skips; Ruff/format pass.
       Broader full discovery and act deferred by maintainer
   environment_limitations:
@@ -180,7 +184,7 @@ Execution recovered; original root WIP is preserved and work continues in an iso
 
 ## Next dependency-ready work
 
-Open the bounded #14 draft, then implement #16 explicit public bundle discovery and bounded cited context above it; #17 reading and #20 composition follow. Keep new drafts for review.
+Implement #16 explicit public bundle discovery and bounded cited context above draft #133; #17 reading and #20 composition follow. Keep new drafts for review.
 
 ## Parallel changes and reconciliation
 
