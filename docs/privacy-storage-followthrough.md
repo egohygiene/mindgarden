@@ -29,13 +29,15 @@ their parent acceptance open; no encryption product, runtime or model is selecte
 
 ## Checkpoints
 
+Final review stack: **#127 → #128 → #129 → #130**, all draft and unmerged. Combined branch: `feature/45-reviewed-adapter-migration`; qualified functional source: `e789c0c`. #10 stays closed; no parent issue is silently closed by these local proofs.
+
 | Issue | Implemented checkpoint | Remaining parent scope | Verification / next action |
 | --- | --- | --- | --- |
 | #10 | Existing version-aware validation and reusable publication conformance | Future integrations retain their own criteria | Rerun the 80-case conformance and relevant v0/negative tests on the final combined source |
 | #29 | Public federation and site profiles consume the shared destination-policy decision before body access and after inheritance | Accepted owner classification/declassification and runtime integration | Five new export/inheritance/diagnostic cases; qualify first draft, then #31 |
-| #31 | Planned whole-bundle limits, including generated metadata and rendered output | External assurance, provider/consumer acceptance | Implement against the existing session and authorized view |
-| #35 | Planned process-group cleanup, private temporary state and explicit reader failures | Confidential storage/runtime, approved restricted processing | Use synthetic process/PDF fixtures and actual optional local Poppler |
-| #45 | Planned exact content migration between explicitly configured initialized adapters, retained source and retry | Encrypted/remote/platform/consumer and destructive retention acceptance | Reuse stable vault identities, reviewed plans, private binding history and core checksum verification |
+| #31 | Complete output/session limits, including ownership metadata and actual rendered artifacts | External assurance, provider/consumer acceptance | Draft #128; 98 focused cases per Python, final combined qualification below |
+| #35 | Managed process-group cleanup, owner-only child defaults and bounded private temporary output | Confidential storage/runtime, approved restricted processing | Draft #129; 19 focused cases per Python plus actual six-state Poppler proof |
+| #45 | Reviewed local copy/verify/rebind, private binding history, retained stores and same-digest partial retry | Approved-copy/GC policy and verified encrypted/provider/platform integration when selected | Draft #130; 35 focused cases per Python plus clean source/wheel migration goldens |
 
 ### #29 export policy
 
@@ -100,3 +102,106 @@ Restricted processing still stops before parsing; no ordinary-file label grants
 confidential authority. Additional formats remain separate adapters.
 
 Draft [#129](https://github.com/egohygiene/mindgarden/pull/129), functional `6d31e75fd76fccaa27c82cf32eba81914815e30a`, is stacked on #128. Qualification and parent gates remain distinct from merge or acceptance.
+
+
+### #45 reviewed initialized-adapter migration
+
+Branch `feature/45-reviewed-adapter-migration`, based on draft #129. The new
+`vault migrate --target-local-config` plan/apply and versioned private control
+schema bind configurations, capabilities, complete inventoried objects and garden
+revisions. Copy includes unreferenced originals; target extras are retained and
+never adopted as knowledge. Independent target reopen and core checksums precede
+private binding history and durable rebind. Partial retries keep the same digest;
+stale, corrupt, unsupported or unavailable inputs fail without source loss.
+See [the operation/recovery contract](vault-migration.md), including completed-CLI
+verification and explicit single-writer/provider limits.
+
+`python -m unittest tests.test_vault_migration tests.test_vault_recovery tests.test_storage_adapters tests.test_v1_contracts --quiet` — **35 pass, zero skips**, Python 3.12.14 (14.181s) and 3.13.5 (14.091s). Sixteen new cases include exact CLI review, retained source/target objects, private controls, partial retry, stale input, changed capabilities, dishonest read/put, absent adapters, unknown commit state, isolated factory bindings and complete golden recovery. The explicit schema inventory and valid fixture include the new contract.
+
+`python scripts/vault_migration_demo.py --workspace /tmp/mindgarden-adapter-migration-source-v2 --require-source --report .cache/privacy-storage/45-migration-proof.json` passes with networking/HTTP/process entry points blocked. Two immutable objects (including an unreferenced original) survive migration, extension removal and clean restore. Exact index, context and source evidence match the committed golden. The extension uses actual filesystem bytes behind a synthetic adapter ID; no real provider is claimed.
+
+The first 20-case migration run had one test expecting unavailable for an initialized target whose descriptor was removed; that is correctly corrupted. The corrected test proves both corrupted and genuinely absent states. The first standalone workflow reached its report serialization with a mistaken bytes index; the corrected complete workflow was rerun in a new workspace and is now covered by the golden test. Neither earlier attempt is passing qualification.
+
+#127 head `5c267b5fbfc3f68b3b992b41c7644bbc51438919` has successful automatic Test **42599031839** and release-preparation **42599031929**. #128 head `5548976ba4fb3c2eb63c3d643faf45631d677fd2` has successful Test **42599887053** and release-preparation **42599886961**. No run was returned for current #129 head `3893c399e3b96cb56868b7f573c9de30b7d40cfd` when inspected; that is unavailable CI evidence, not a pass. Final combined and new-head qualification follows. No workflow was manually dispatched.
+
+
+## Final combined qualification and resume action
+
+The immutable combined functional source is
+`e789c0c2a27f477b52f96529236966ad1c962ea4`. The final handoff commit changes
+only documentation/evidence; compare runtime/contracts/scripts/tests/profiles to
+that source before interpreting a newer branch tip. All four drafts preserve
+explicit stack ancestry. Main remains `7594921`; all 44 coverage rows and 35 open
+issues are retained.
+
+| Verification | Actual result |
+| --- | --- |
+| Frozen Python 3.12.14 full discovery | **515 pass, zero skips**, 707.932s |
+| Frozen Python 3.13.5 full discovery | **515 pass, zero skips**, 681.235s |
+| Reusable source publication/preview conformance | **80 pass, zero skips**, all eight leak surfaces |
+| Clean local wheel and unpacked source archive | Four exact migration/pipeline goldens; zero runtime dependencies |
+| Installed v0 CLI/library | Version 0.1.0; three-note validation, three-note/one-context verification, two-note public verification and library validation pass |
+| Ordinary native PDF | Poppler 25.03.0; six parser states pass; owned temporary work removed |
+| Focused lint/format/compilation | Ruff E9/F on all 26 changed Python files; eight new-file format checks; compileall pass |
+| Pinned owner contracts | 24 proposed/null-approval ADRs, exact 44 issue rows and bounded continuity schema/headings pass |
+
+Full commands execute from the frozen checkout with its `src` first on
+`PYTHONPATH`, using the corresponding prepared interpreter:
+
+```bash
+python -m unittest discover --start-directory tests --verbose
+python scripts/publication_conformance.py --require-source --report /tmp/new-publication-report.json
+python -m build --no-isolation --sdist --wheel --outdir .cache/dist
+```
+
+The test launcher must permit loopback for the public preview HTTP fixture. The
+first conformance attempt and unqualified full runs lacked that permission:
+conformance was incomplete and each full run had one `PermissionError` at socket
+creation. They are not passing evidence. The corrected 80-case pack and both
+full runs pass with the proper test permissions. The migration and pipeline
+proofs independently block socket/HTTP/external process entry points in-process;
+no Google, model service, real private archive or provider credential is used.
+
+The wheel is installed into an empty venv with global pip using
+`python -m pip --python EMPTY_VENV/bin/python install --no-index --no-deps LOCAL_WHEEL`.
+Its module resolves inside that venv and metadata declares no runtime dependencies.
+The sdist is extracted with the data filter and uses a separate empty venv.
+Actual isolated commands from the repository root:
+
+```bash
+.cache/privacy-storage/wheel-proof/bin/python -I .cache/privacy-storage/unpacked-sdist/mindgarden-0.1.0/scripts/vault_migration_demo.py --workspace /tmp/mindgarden-privacy-wheel-migration --require-installed --report .cache/privacy-storage/wheel-migration.json
+.cache/privacy-storage/wheel-proof/bin/python -I .cache/privacy-storage/unpacked-sdist/mindgarden-0.1.0/scripts/pipeline_completion_demo.py --workspace /tmp/mindgarden-privacy-wheel-pipeline --require-installed --report .cache/privacy-storage/wheel-pipeline.json
+.cache/privacy-storage/source-proof/bin/python -I .cache/privacy-storage/unpacked-sdist/mindgarden-0.1.0/scripts/vault_migration_demo.py --workspace /tmp/mindgarden-privacy-sdist-migration --require-source --report .cache/privacy-storage/sdist-migration.json
+.cache/privacy-storage/source-proof/bin/python -I .cache/privacy-storage/unpacked-sdist/mindgarden-0.1.0/scripts/pipeline_completion_demo.py --workspace /tmp/mindgarden-privacy-sdist-pipeline --require-source --report .cache/privacy-storage/sdist-pipeline.json
+```
+
+All four reports match committed fixture bytes. Migration retains original
+objects, preserves exact evidence/index/context, recovers a partial copy using
+the same digest, returns to filesystem after removing the extension and restores
+into a clean root. The existing mixed conversation/PDF/image/audio pipeline still
+produces reviewed prompt knowledge and the exact archive member/pointer, with a
+**4,419-byte context inside 8,192**, relocation/restore and clean projection rebuild.
+
+[The structured qualification](evidence/privacy-storage-qualification.json)
+records source/wheel hashes, limits, failed attempts and exact functional-head CI.
+The four functional/current parent heads have successful Test and
+release-preparation runs; #129/#130 Decisions preview also passes. The earlier
+empty #129 run listing was not passing evidence; subsequent runs are now
+observed. No workflow was manually dispatched. Following documentation-head CI
+is a separate observation recorded on #130, not substituted with earlier green CI.
+
+Dependency correction: #35's first slice explicitly uses synthetic documents.
+Real employment/personal records, an approved real-data pilot and OCR/office
+adapters are not added acceptance gates for that synthetic slice. The remaining
+confidential positive path does require the missing normative policy and actual
+restricted storage/runtime. The real legacy-archive pilot remains #20 scope.
+Likewise optional remote/encrypted providers need evidence when selected; the
+filesystem baseline does not become dependent on those services.
+
+Exact next action: refresh review/comments and current heads, review the four
+bounded drafts in order **#127 → #128 → #129 → #130**, and qualify the final
+handoff head separately before any merge. Then adopt an actual accepted
+Hygiene/Realm policy/assurance contract when supplied. Keep #29/#31/#35/#45 open
+for their unimplemented owner-dependent scope; do not ratify ADRs, activate
+release/deferred context packages, process real private records, delete originals
+or infer confidential assurance from adapter booleans.

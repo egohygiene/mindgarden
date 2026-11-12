@@ -88,4 +88,10 @@ Discard and rebuild generated asset inventories from authorized records and immu
 
 ## Follow-up work
 
+The [2026-11-09 local migration checkpoint](../vault-migration.md) implements
+reviewed copy/verify/rebind for explicit initialized local adapters. It preserves
+canonical references, source stores and private binding history, with independent
+byte verification and retry fixtures. It does not accept this ADR, select a new
+provider or claim encrypted/remote/runtime or destructive recovery assurance.
+
 Mindgarden #45 owns remaining provider/platform/power-loss and real-consumer acceptance; #46 owns approved retention and destructive recovery policy. Cross-garden review reconciliation and approved-copy rights require their own contracts and human review.

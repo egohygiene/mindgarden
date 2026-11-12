@@ -1,0 +1,29 @@
+{
+  "adapter": "synthetic-local-filesystem-port",
+  "adapter_removed_after_return": true,
+  "clean_restore": "exact-projections-and-backup",
+  "context_sha256": "e2579123a562cb65c929bd082a4d180ab36ba01b92781fc14cdc87d04de4b504",
+  "copied_objects": 2,
+  "full_parent_acceptance": false,
+  "google": "unused",
+  "index_sha256": "4fbb7335ca8cf5bab7ab3c30b987680549a0fcc895259e4651e74a133c4dde9d",
+  "model": "unused",
+  "network": "blocked-in-process",
+  "original_backup_sha256": "3dbcb5521e7a4088421b7e5e7e458808fc1cd6c09a6d5bea6db7eeef5e4ede58",
+  "partial_failure": "bindings-unchanged",
+  "retry": "same-reviewed-digest",
+  "schema": "mindgarden.vault-migration-proof/v1",
+  "source_reference": {
+    "content_sha256": "26dca7d8728a2060e7142d8eca0261319d7dcc8836519726caaf9aacadc7a053",
+    "locator": "artifact",
+    "source": {
+      "garden": "synthetic-garden",
+      "id": "source-0960846a929b96ae8a57fcca-26dca7d8728a2060",
+      "revision": "sha256:26dca7d8728a2060e7142d8eca0261319d7dcc8836519726caaf9aacadc7a053"
+    }
+  },
+  "source_retained": true,
+  "status": "passed",
+  "vault_identity": "synthetic-vault",
+  "verification": "independent-reopen-and-core-checksums"
+}

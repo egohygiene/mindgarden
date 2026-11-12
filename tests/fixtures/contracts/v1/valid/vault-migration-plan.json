@@ -1,0 +1,27 @@
+{
+  "schema": "mindgarden.vault-migration-plan/v1",
+  "vault": "synthetic-vault",
+  "publication": "never-exportable",
+  "retains_original": true,
+  "target_existing": "verify-and-retain",
+  "source_adapter": "filesystem",
+  "target_adapter": "synthetic-local",
+  "source_configuration_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "target_configuration_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "source_capabilities_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "target_capabilities_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "objects": [
+    {
+      "content_id": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "size_bytes": 12
+    }
+  ],
+  "total_bytes": 12,
+  "garden_revisions": [
+    {
+      "garden": "synthetic-garden",
+      "revision": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    }
+  ],
+  "plan_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+}

@@ -156,6 +156,11 @@ content and explicit location bindings remain separate; ordinary application
 services require no hosting, model provider, web framework or specialized store.
 The merged [private-storage sprint](docs/private-storage-sprint.md) adds bounded
 ordinary PDF/media preservation, private inventory and append-only asset triage.
+The [privacy/storage follow-through](docs/privacy-storage-followthrough.md) adds
+shared export policy, complete session-owned output limits, managed PDF process
+lifetimes and reviewed local adapter migration through the same services/ports.
+These are bounded review checkpoints; external policy/runtime acceptance remains
+separate and all architecture decisions retain proposed status.
 Confidential/provider/platform assurance, destructive retention and consumer
 publication remain unverified integration scope. Proposed ADRs remain proposed after implementation.
 

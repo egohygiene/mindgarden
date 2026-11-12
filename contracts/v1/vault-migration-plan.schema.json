@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:vault-migration-plan:v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "vault",
+    "publication",
+    "retains_original",
+    "target_existing",
+    "source_adapter",
+    "target_adapter",
+    "source_configuration_sha256",
+    "target_configuration_sha256",
+    "source_capabilities_sha256",
+    "target_capabilities_sha256",
+    "objects",
+    "total_bytes",
+    "garden_revisions",
+    "plan_sha256"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.vault-migration-plan/v1"
+    },
+    "vault": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "publication": {
+      "const": "never-exportable"
+    },
+    "retains_original": {
+      "const": true
+    },
+    "target_existing": {
+      "const": "verify-and-retain"
+    },
+    "source_adapter": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,79}$"
+    },
+    "target_adapter": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,79}$"
+    },
+    "source_configuration_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "target_configuration_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "source_capabilities_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "target_capabilities_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "objects": {
+      "type": "array",
+      "maxItems": 4093,
+      "items": {
+        "type": "object",
+        "required": [
+          "content_id",
+          "size_bytes"
+        ],
+        "properties": {
+          "content_id": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 104857600
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "total_bytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 268435456
+    },
+    "garden_revisions": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "type": "object",
+        "required": [
+          "garden",
+          "revision"
+        ],
+        "properties": {
+          "garden": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "revision": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "plan_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "applied": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

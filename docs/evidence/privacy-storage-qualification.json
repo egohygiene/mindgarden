@@ -1,0 +1,247 @@
+{
+  "artifact_proofs": [
+    {
+      "golden": "tests/fixtures/assets/migration-proof.json",
+      "mode": "wheel-migration",
+      "result": "exact-byte-match",
+      "sha256": "8cb212f71fba8580cc071bfdb5053bb88fdf4e31fda5d8d122583fd2902c7845"
+    },
+    {
+      "golden": "tests/fixtures/assets/migration-proof.json",
+      "mode": "sdist-migration",
+      "result": "exact-byte-match",
+      "sha256": "8cb212f71fba8580cc071bfdb5053bb88fdf4e31fda5d8d122583fd2902c7845"
+    },
+    {
+      "golden": "tests/fixtures/extraction/pipeline-proof.json",
+      "mode": "wheel-pipeline",
+      "result": "exact-byte-match",
+      "sha256": "917ecf0596f3f7ba91c9389769e73f3a69f0102d5face701b829872baac4627d"
+    },
+    {
+      "golden": "tests/fixtures/extraction/pipeline-proof.json",
+      "mode": "sdist-pipeline",
+      "result": "exact-byte-match",
+      "sha256": "917ecf0596f3f7ba91c9389769e73f3a69f0102d5face701b829872baac4627d"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "mindgarden-0.1.0-py3-none-any.whl",
+      "sha256": "19c9dd5400b476d74583aaccd5ce217f798ab15e08f7c615a7f98d63636394c6",
+      "size_bytes": 391709
+    },
+    {
+      "path": "mindgarden-0.1.0.tar.gz",
+      "sha256": "c9104355e381a43eebd5822735fc7b69b965e46af95d5232c0407331551fd2cf",
+      "size_bytes": 793438
+    }
+  ],
+  "build_command": "python -m build --no-isolation --sdist --wheel --outdir .cache/dist",
+  "build_mode": "local verification only; no release version, tag, upload or publication",
+  "checks": {
+    "changed_python_ruff_E9_F": "26 passed",
+    "compileall": "passed",
+    "new_python_format": "8 passed",
+    "owner_schemas_continuity": "passed; all 24 ADRs proposed/null approval, 44 unique coverage rows"
+  },
+  "ci": {
+    "127": [
+      {
+        "conclusion": "success",
+        "id": 42599031929,
+        "name": "Check release preparation",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 42599031839,
+        "name": "Test",
+        "status": "completed"
+      }
+    ],
+    "128": [
+      {
+        "conclusion": "success",
+        "id": 42599886961,
+        "name": "Check release preparation",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 42599887053,
+        "name": "Test",
+        "status": "completed"
+      }
+    ],
+    "129": [
+      {
+        "conclusion": "success",
+        "id": 42603183779,
+        "name": "Check release preparation",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 42603184626,
+        "name": "Decisions preview",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 42603184234,
+        "name": "Test",
+        "status": "completed"
+      }
+    ],
+    "130": [
+      {
+        "conclusion": "success",
+        "id": 42603428352,
+        "name": "Check release preparation",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 42603428927,
+        "name": "Decisions preview",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 42603428143,
+        "name": "Test",
+        "status": "completed"
+      }
+    ]
+  },
+  "ci_scope": "exact listed functional/parent heads passed; following documentation-only head requires separate CI observation",
+  "combined_branch": "feature/45-reviewed-adapter-migration",
+  "default_branch_revision": "7594921fb89097d9dae04f14e3ebc967055aa470",
+  "functional_revision": "e789c0c2a27f477b52f96529236966ad1c962ea4",
+  "installed_v0": {
+    "library_validate_notes": 3,
+    "public_projection_notes": 2,
+    "status": "passed",
+    "validate_notes": 3,
+    "verify_context_packs": 1,
+    "verify_notes": 3,
+    "version": "0.1.0"
+  },
+  "issue_state": {
+    "10": "previously-closed-reverified",
+    "29": "partial",
+    "31": "partial",
+    "35": "partial",
+    "45": "partial"
+  },
+  "limitations": [
+    "The local policy remains a proposed reference; no ADR, organization classification policy or declassification contract is ratified.",
+    "Restricted processing, encryption and remote-provider assurance remain unavailable; trusted local process-group controls are not a host/network sandbox.",
+    "Migration is the local single-writer content-port checkpoint; actual provider durability, complete-inventory conformance and wider platforms need independent evidence.",
+    "The synthetic extension wraps real filesystem bytes and is not an implemented Google/S3/encrypted backend.",
+    "After a fully committed CLI migration use audit; retained application-plan replay can reconcile an uncertain commit without reopening the old provider.",
+    "Approved media copies, destructive retention/GC and owner-policy integrations remain separate unresolved work.",
+    "Real employment/personal documents, real archive pilot and OCR/office adapters are not prerequisites for #35 synthetic first-slice validation; no such data is accessed.",
+    "Local artifact hashes do not claim reproducible release archives; later handoff-only commits do not change the qualified code.",
+    "Full parent closure, release #19/#27 and deferred #86\u2013#91 are not claimed."
+  ],
+  "merge_state": "open-drafts-unmerged",
+  "native_pdf": {
+    "receipt": "docs/evidence/privacy-pdf-native.json",
+    "states": [
+      "complete",
+      "encrypted",
+      "malformed",
+      "ocr-needed",
+      "partial",
+      "unsupported"
+    ],
+    "status": "passed-ordinary-synthetic",
+    "temporary_state": "owned-vault-removed",
+    "tool": "Poppler 25.03.0"
+  },
+  "observed_at": "2026-11-09T11:07:25Z",
+  "owner_contracts": {
+    "classification_information_flow": "unavailable: Hygiene #39",
+    "confidential_assurance": "unavailable: Hygiene #40",
+    "hygiene_main": "92195e49b50778517ef670a7ec97c922dbdf9cec",
+    "realm_60": "platform/distribution follow-through, not the vault contract",
+    "vault_selection_implementation_runtime": [
+      "Realm #28",
+      "Realm #29",
+      "Realm #30"
+    ]
+  },
+  "publication_conformance": {
+    "coverage": "bounded-synthetic-publication-and-preview",
+    "engine_version": "0.1.0",
+    "failed_tests": [],
+    "retained_gates": [
+      "consumer-acceptance",
+      "restricted-runtime-assurance",
+      "full-media-coverage"
+    ],
+    "schema": "mindgarden.publication-conformance/v1",
+    "skipped": 0,
+    "status": "passed",
+    "surfaces": [
+      "frontmatter",
+      "markdown-body",
+      "attachments",
+      "links",
+      "indexes",
+      "errors",
+      "build-logs",
+      "metadata"
+    ],
+    "tests_run": 80
+  },
+  "python_tests": {
+    "3.12.14": {
+      "count": 515,
+      "seconds": 707.932,
+      "skipped": 0,
+      "status": "passed"
+    },
+    "3.13.5": {
+      "count": 515,
+      "seconds": 681.235,
+      "skipped": 0,
+      "status": "passed"
+    }
+  },
+  "runtime_dependencies": 0,
+  "schema": "mindgarden.privacy-storage-qualification/v1",
+  "selected_issues": [
+    10,
+    29,
+    31,
+    35,
+    45
+  ],
+  "source_pipeline": {
+    "context_bytes": 4419,
+    "google": "unused",
+    "max_context_bytes": 8192,
+    "model": "unused",
+    "network": "blocked-in-process",
+    "recovery": "exact-vault-relocation-restore-and-projection-rebuild"
+  },
+  "stack": [
+    127,
+    128,
+    129,
+    130
+  ],
+  "status": "passed-local-functional-checkpoints",
+  "superseded_attempts": [
+    "Initial continuity enum rejected locally; corrected to the pinned owner vocabulary before push.",
+    "Initial 88-case scope runs had two out-of-contract test budgets and a nonexistent test module; corrected frozen runs pass 98 each.",
+    "An initial migration test confused a removed descriptor with an absent vault; corrected fixtures cover corrupted and unavailable states.",
+    "An initial standalone migration receipt indexed bytes incorrectly; the complete corrected proof was rerun in a fresh workspace and golden-tested.",
+    "Initial source conformance was incomplete solely because loopback socket creation was denied; a diagnostic case confirmed PermissionError. Unqualified full runs each had that one error. Correctly permitted full runs and the 80-case pack pass."
+  ],
+  "test_command": "python -m unittest discover --start-directory tests --verbose",
+  "test_environment": "frozen functional source first on PYTHONPATH; loopback permitted for preview fixtures"
+}
