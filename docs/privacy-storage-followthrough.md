@@ -73,3 +73,30 @@ and full verification results follow after their commands finish. Branch
 Initial new-case verification: **8 pass, zero skips**, Python 3.12.14 (12.063s). Two initial fixture budgets were below the existing 256-byte schema minimum; corrected fixtures keep that contract unchanged. The first broader command also named nonexistent `tests.test_compaction_bundles`; it is not passing evidence. Corrected broader runs use `tests.test_source_compaction`, followed by final full discovery. Focused changed-code Ruff and diff checks pass.
 
 Draft [#128](https://github.com/egohygiene/mindgarden/pull/128), functional `177dad83a4c54d47b57f5ba9ff8d7caed5e9eb45`, is based on #127. Corrected broader suites run from an immutable worktree; new implementation cannot change those tested bytes.
+
+
+Corrected #31 command: `python -m unittest tests.test_scope_bundle_outputs tests.test_output_scope tests.test_federation tests.test_site tests.test_memory_validity tests.test_learning_queue tests.test_selected_builds tests.test_extraction tests.test_insights tests.test_source_compaction tests.test_local_federation --quiet` — **98 pass, zero skips** on frozen `177dad8`, Python 3.12.14 (205.507s) and 3.13.5 (195.094s). The superseded 88-case invocations each ended with three errors (two invalid test budgets and the nonexistent module); those attempts are not passing evidence.
+
+### #35 bounded local process lifetime
+
+Branch `fix/35-pdf-process-lifecycle`, based on #128. The runner now kills its
+started process group in a bounded cleanup step even when the parent completes,
+so children cannot keep the owned work files open after normal completion or
+timeout. Child-created files use umask 077; standard home/temp/cache/config/data/
+state locations are confined to the supplied vault work root. Parser output and
+errors remain bounded private temporary files, with constant shareable failures.
+
+`python -m unittest tests.test_pdf_process_lifecycle tests.test_documents tests.test_storage_adapters tests.test_mixed_vault_workflow --quiet` — **19 pass, zero skips**, Python 3.12.14 (28.681s) and 3.13.5 (28.293s).
+Five new cases exercise normal-exit descendants, timeout descendants, environment/
+permissions, resource failure and unavailable tools. The committed synthetic
+probe contains no document or credential data. The two interpreter runs are
+software behavior checks, not a confidential-runtime attestation.
+
+Actual `python scripts/document_demo.py --workspace /tmp/mindgarden-privacy-pdf-native --tool-directory /usr/bin --require-source --report .cache/privacy-storage/35-native.json` also passes with Poppler 25.03.0: complete, encrypted, malformed, OCR-needed, partial and unsupported. [The native receipt](evidence/privacy-pdf-native.json) preserves exact original/page hashes, duplicate handling and removed owned temporary state. Focused Ruff/format and diff checks pass.
+
+These controls govern the started process group. They cannot contain a hostile
+executable that escapes that group or prove host/network/swap/encryption security.
+Restricted processing still stops before parsing; no ordinary-file label grants
+confidential authority. Additional formats remain separate adapters.
+
+Draft [#129](https://github.com/egohygiene/mindgarden/pull/129), functional `6d31e75fd76fccaa27c82cf32eba81914815e30a`, is stacked on #128. Qualification and parent gates remain distinct from merge or acceptance.
