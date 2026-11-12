@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:reference-repair:v1",
+  "type": "object",
+  "required": [
+    "id",
+    "created_at",
+    "review",
+    "authority",
+    "schema",
+    "repairs"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "human"
+        },
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "schema": {
+      "const": "mindgarden.reference-repair/v1"
+    },
+    "repairs": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "properties": {
+          "edge": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+          },
+          "source": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+          },
+          "historical_target": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+          },
+          "canonical_target": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+          },
+          "replacement_id": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "edge",
+          "source",
+          "historical_target",
+          "canonical_target",
+          "replacement_id",
+          "rationale"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

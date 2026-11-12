@@ -1,19 +1,39 @@
 # Reading and evidence journey — 2026-11-12
 
-The maintainer authorized six bounded checkpoints in small draft PRs. Main is
-`7594921fb89097d9dae04f14e3ebc967055aa470`. Existing privacy/storage drafts
-#127 → #128 → #129 → #130 remain unchanged and unmerged; this sprint stacks on
-#130 (`f92d4160fff63e70c21ca46a2bdabdd6a66ea8a5`). The combined checkout always
-uses the last branch in the table. No issue closure, ADR acceptance, release,
-private-data ingestion or deployment is implied.
+The maintainer authorized the six checkpoints, then explicitly authorized merging
+existing work and deferring broader local CI/`act` testing. PRs #127–#132 are now
+merged in dependency order. Main is `f5baa3dac3f7624bea94f5224e136de6ef5482b0`;
+its tree exactly equals the combined #132 head `0a675fde19dd746f4af98bf946521a93b247a3be`.
+All six original PR heads have passing automatic Test/preparation CI. Execution
+recovered; original uncommitted WIP is untouched and new work uses a clean
+worktree. The current table and continued checkpoints supersede historical outage
+observations below. Parent acceptance, private pilots, ADR ratification and
+publication/release remain separate.
+
+## Authorized merge receipt
+
+| PR | Merge commit |
+| --- | --- |
+| #127 | `904809083a06a3bcb7f514122cbfb5ec53a4c900` |
+| #128 | `e849d30f4e88f4089358128a3182d2a82ee4a6e3` |
+| #129 | `4b547abdb73d9572596e8c9b2da3e72ec9a5334d` |
+| #130 | `80a2e16dc6ac452db1b82eb55ff74725b315b538` |
+| #131 | `ae8f438082997cdbe95d3c281323e89b5373f639` |
+| #132 | `f5baa3dac3f7624bea94f5224e136de6ef5482b0` |
+
+#132 Test **43278711469** and preparation **43278711575** completed successfully
+on corrected head `0a675fd`. Post-recovery focused mixed-curation/diagram command
+`python -m unittest tests.test_mixed_curation tests.test_archive_diagrams --quiet`
+also passes **6 tests, zero skips**, Python 3.12.14 (4.062s). Hosted checks and local
+checks are distinct evidence. No workflows were manually dispatched.
 
 ## Dependency reconciliation and bounded scope
 
 | Order | Issue | Checkpoint | Branch / base | Verification / next action |
 | --- | --- | --- | --- | --- |
-| 1 | #15 | Binary diagram and source caption selection, scratch catalog, immutable full original | [#131](https://github.com/egohygiene/mindgarden/pull/131), `feature/15-selective-diagram-journey` / #130 | 21 focused tests on each Python; next #13 |
-| 2 | #13 | Mixed text/attachment authored curation, attribution and reviewed destination handoff | [#132](https://github.com/egohygiene/mindgarden/pull/132), `test/13-mixed-media-curation` / #131 | Implementation preserved; local tests blocked by unavailable environment |
-| 3 | #14 | Independently reviewed private incoming-reference repair and recovery | Next / #13 draft | Existing incoming inventory is a prerequisite; never auto-retarget |
+| 1 | #15 | Binary diagram and source caption selection, scratch catalog, immutable full original | [#131](https://github.com/egohygiene/mindgarden/pull/131), `feature/15-selective-diagram-journey` / #130 | Merged; 21 focused tests each, hosted CI passes |
+| 2 | #13 | Mixed text/attachment authored curation, attribution and reviewed destination handoff | [#132](https://github.com/egohygiene/mindgarden/pull/132), `test/13-mixed-media-curation` / #131 | Merged; corrected hosted CI and post-recovery local checks pass |
+| 3 | #14 | Independently reviewed private incoming-reference repair and recovery | `feature/14-reviewed-reference-repair` / main | Focused checks pass; open draft |
 | 4 | #16 | Explicit public bundle discovery to bounded cited context | Next / #14 draft | Existing descriptor/catalog/session contracts; no remote acquisition |
 | 5 | #17 | Actual Quartz note, backlinks and provenance reading journey | Next / #16 draft | Reuse the pinned renderer and existing accessibility checks |
 | 6 | #20 | Composed clean-checkout journey, migration/restore and exact rebuild | Next / #17 draft | Reuse all checkpoints; model and Google services disabled |
@@ -67,7 +87,7 @@ Draft #131 functional commit: `5a8a2b52bd9efed8ca58a0f21ce702e07d2a0105`.
 Next: qualify the recovered mixed-media draft #132 when execution is available,
 then continue with #14. Both drafts remain for review.
 
-## #13 interrupted mixed-media checkpoint
+## Historical #13 interruption and recovery
 
 The authored recipe binds five dispositions to exact normalized evidence: diagram
 reference, corrected prompt summary, quotation, unanswered question and scratch
@@ -151,7 +171,8 @@ authorized six checkpoints.
   context identities after rebuild. Never substitute earlier partial goldens
   for this new composition or claim the real private pilot is complete.
 
-The next four rows remain **unimplemented in this sprint**. These notes are
+At the outage, the next four rows were unimplemented. Current checkpoints above
+and below supersede that observation. These notes are
 implementation guidance, not accepted new architecture or completed acceptance.
 
 ### Corrected preliminary assertions
@@ -171,3 +192,47 @@ the 8192-byte bound. These corrections still require local and full CI
 qualification; no product rule was weakened. Inspect the current PR head for the
 corrected revision. Later superseded runs and pending current-head CI are not
 passing evidence.
+
+## Continued #14 reviewed incoming-reference repair
+
+The versioned `reference-repair` request and event extend the existing garden,
+provenance, relationship and recoverable group-transaction contracts. New CLI:
+
+```sh
+mindgarden route --local-config bindings.json --reference-repair repair.json --plan
+mindgarden route --local-config bindings.json --reference-repair repair.json --apply --plan-digest SHA256
+```
+
+Each selected edge names exact original/source/historical-target/current-successor
+revisions, a new replacement ID and rationale. Explicit human approval is required.
+Only matching ordinary personal policies are supported. The replacement preserves
+relationship type/direction, evidence, authors and qualifications. Originals and
+source-owner bytes stay unchanged. A new provenance review and exact canonical
+transition lineage enter the authorized evidence closure; missing or denied review
+cannot leave a visible replacement. Historical repair stays valid if its successor
+moves later; another explicit repair is required to follow that later move.
+
+Conflicting repairs, duplicate selections, missing/unpinned evidence, changed
+requests, inputs or policy fail closed. Two-owner cutover failure restores both
+gardens; the same plan can retry. Normal CLI and owner validation verify the
+append-only review, and session revisions bind the event before graph/backlink
+retrieval. No automatic relationship reinterpretation or public transition is added.
+
+Focused commands:
+
+```sh
+python -m unittest tests.test_reference_repairs tests.test_routing_incoming tests.test_routing_transfers tests.test_routing_lifecycle tests.test_mixed_curation tests.test_v1_contracts --quiet
+python -m ruff check --select E9,F src/mindgarden/domain/reference_repairs.py src/mindgarden/domain/garden.py src/mindgarden/application/reference_repairs.py src/mindgarden/application/routing.py src/mindgarden/application/query_view.py src/mindgarden/interfaces/cli.py tests/test_reference_repairs.py tests/test_v1_contracts.py
+```
+
+Python 3.12.14: **37 pass, zero skips**, 30.500s. Python 3.13.5: the unchanged
+35-case selection passed (28.319s), then both added cases passed (2.669s).
+Ruff/new-file formatting pass. The initial 15-case run exposed missing transition
+lineage in the authorized closure and two test setup/diagnostic assumptions;
+those were corrected before this passing qualification. Full discovery and `act`
+are intentionally deferred per the maintainer; `act` is not installed and Docker
+is present. New draft-head CI is not yet observed.
+
+Next: open the bounded #14 draft, then implement explicit public-bundle discovery
+to lexical selection and bounded cited context (#16). Parent #14 still owns public/
+policy-changing routes, unpinned-reference review and wider recovery acceptance.

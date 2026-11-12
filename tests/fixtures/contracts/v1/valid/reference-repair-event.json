@@ -1,0 +1,42 @@
+{
+  "schema": "mindgarden.reference-repair-event/v1",
+  "request_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "original": {
+    "garden": "personal",
+    "id": "old-edge",
+    "revision": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "replacement": {
+    "garden": "personal",
+    "id": "repaired-edge",
+    "revision": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "source": {
+    "garden": "personal",
+    "id": "source-note",
+    "revision": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "historical_target": {
+    "garden": "personal",
+    "id": "old-target",
+    "revision": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "canonical_target": {
+    "garden": "project",
+    "id": "new-target",
+    "revision": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "review": {
+    "state": "approved",
+    "reviewers": [
+      "synthetic-reviewer"
+    ],
+    "reviewed_at": "2026-11-12T00:00:00Z",
+    "rationale": "Explicit synthetic human review."
+  },
+  "authority": {
+    "kind": "human",
+    "id": "synthetic-reviewer"
+  },
+  "rationale": "Human reviewed this exact successor."
+}

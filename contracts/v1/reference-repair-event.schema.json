@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:reference-repair-event:v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "request_sha256",
+    "original",
+    "replacement",
+    "source",
+    "historical_target",
+    "canonical_target",
+    "review",
+    "authority",
+    "rationale"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.reference-repair-event/v1"
+    },
+    "request_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "original": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    },
+    "replacement": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    },
+    "source": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    },
+    "historical_target": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    },
+    "canonical_target": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/artifactReference"
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "human"
+        },
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

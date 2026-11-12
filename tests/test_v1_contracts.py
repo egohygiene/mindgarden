@@ -141,6 +141,8 @@ class V1ContractTests(unittest.TestCase):
                 "routing-transition-v2",
                 "routing-transition-event-v2",
                 "routing-transition-event",
+                "reference-repair",
+                "reference-repair-event",
                 "routing-receipt",
                 "vault-export",
                 "vault-recovery-plan",
