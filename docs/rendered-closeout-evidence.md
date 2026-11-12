@@ -159,3 +159,7 @@ proves that the new source/bundle contracts ship in a dependency-free wheel and
 work through normal commands, with zero reviewed knowledge anchors and unchanged
 originals. This complements the [complete synthetic journey](consumer-journey.md)
 and relocation/rebuild evidence; it does not complete #20's broader acceptance.
+
+## Subsequent selected-note reading checkpoint — 2026-11-12
+
+The continued journey extends actual browser qualification beyond home/graph pages. Native static routes, theme action labels and table-of-contents controls/contrast were corrected after note-level findings. The [current reading receipt](evidence/journey-reading-browser.json) and [exact checkpoint](journey-sprint.md) record two viewports, two note pages, light/dark, keyboard links, exact source/record references and no-JavaScript reading. Thirteen axe audits have zero violations; eight note audits retain manual color-contrast/duplicate-id-aria items. This does not establish full manual WCAG, screen-reader or hosting acceptance. The earlier broad empty/205-note matrix remains historical evidence, not a rerun claim.

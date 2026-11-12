@@ -4,6 +4,50 @@
   window.mindgardenGraphInstalled = true;
   const base = new URL("../../", document.currentScript.src);
   const namespace = "http://www.w3.org/2000/svg";
+  // Native Quartz plugins use full slugs ending in /index. Keep their IDs and
+  // backlink metadata while translating owned URLs to ordinary static routes.
+  function canonicalLocation(value) {
+    let url;
+    try { url = new URL(value, location.href); } catch (_) { return null; }
+    if (url.origin !== base.origin || !url.pathname.startsWith(base.pathname)) return null;
+    const previous = url.pathname;
+    if (/\/index(?:\.html)?$/.test(previous)) url.pathname = previous.replace(/index(?:\.html)?$/, "");
+    else if (previous === new URL("relationships", base).pathname) url.pathname += ".html";
+    return url.pathname === previous ? null : url.href;
+  }
+  function canonicalLinks(root) {
+    if (!(root instanceof Element)) return;
+    const anchors = root.matches("a[href]") ? [root] : [];
+    anchors.push(...root.querySelectorAll("a[href]"));
+    for (const anchor of anchors) {
+      if (anchor.getAttribute("href").startsWith("#")) continue;
+      const next = canonicalLocation(anchor.href);
+      if (next) anchor.href = next;
+    }
+  }
+  const navigation = new MutationObserver(records => {
+    for (const record of records) {
+      if (record.type === "attributes") canonicalLinks(record.target);
+      else for (const node of record.addedNodes) canonicalLinks(node);
+    }
+  });
+  navigation.observe(document.documentElement, {subtree: true, childList: true, attributes: true, attributeFilter: ["href"]});
+  canonicalLinks(document.documentElement);
+  const originalFetch = window.fetch.bind(window);
+  window.fetch = (input, options) => {
+    const method = options?.method || (input instanceof Request ? input.method : "GET");
+    const next = /^(GET|HEAD)$/i.test(method) ? canonicalLocation(input instanceof Request ? input.url : input) : null;
+    return originalFetch(next ? (input instanceof Request ? new Request(next, input) : next) : input, options);
+  };
+  function prepareThemeNavigation() {
+    const dark = document.documentElement.getAttribute("saved-theme") === "dark";
+    for (const button of document.querySelectorAll("button.darkmode")) {
+      const icon = button.querySelector(dark ? ".nightIcon" : ".dayIcon");
+      const label = icon?.getAttribute("aria-label") || icon?.querySelector("title")?.textContent;
+      if (label && button.getAttribute("aria-label") !== label) button.setAttribute("aria-label", label);
+    }
+  }
+  new MutationObserver(prepareThemeNavigation).observe(document.documentElement, {attributes: true, attributeFilter: ["saved-theme"]});
   const explorers = new Map();
   function prepareExplorerNavigation() {
     for (const [panel, observer] of explorers) {
@@ -36,6 +80,7 @@
     return node;
   }
   async function render() {
+    prepareThemeNavigation();
     prepareExplorerNavigation();
     const skip = document.querySelector(".mindgarden-skip-link");
     if (skip && !skip.dataset.bound) {

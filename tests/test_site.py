@@ -14,11 +14,11 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
 
 from mindgarden.adapters.site_files import read_site
+from mindgarden.adapters.quartz import accessible_navigation, canonical_navigation
 from mindgarden.application.bindings import garden_fingerprint
-from mindgarden.application.query import QueryContext
 from mindgarden.application.site import build_site
-from mindgarden.domain.contracts import ContractRegistry, canonical_json
-from mindgarden.domain.site import SITE_MARKER, literal, verify_site
+from mindgarden.domain.contracts import ContractRegistry
+from mindgarden.domain.site import literal, verify_site
 from mindgarden.domain.validation import ContractError
 from mindgarden.interfaces.cli import main
 from tests.site_fixture import create_fixture
@@ -27,6 +27,28 @@ from tests import test_v1_contracts as contract_tests
 
 
 class SiteTests(unittest.TestCase):
+    def test_table_of_contents_controls_the_rendered_list(self):
+        html = ('<html><body><article><div class="toc"><button class="toc-header" '
+                'aria-controls="toc-1" aria-expanded="true">Contents</button>'
+                '<ul id="list-0" class="toc-content overflow"><li>Evidence</li></ul>'
+                '</div></article></body></html>')
+        output = accessible_navigation(html)
+        self.assertIn('aria-controls="list-0"', output)
+        self.assertNotIn('aria-controls="toc-1"', output)
+
+    def test_native_static_links_keep_canonical_routes_and_url_boundaries(self):
+        html = ('<a href="../../notes/other/index?x=1&amp;y=2#evidence">note</a>'
+                '<a href="/garden/relationships">graph</a>'
+                '<a href="#content">section</a>'
+                '<a href="https://elsewhere.example.test/notes/other/index">external</a>'
+                '<a href="/outside/index">outside</a>')
+        output = canonical_navigation(html, "notes/reviewed-prompt/index.html", "/garden/")
+        self.assertIn('href="/garden/notes/other/?x=1&amp;y=2#evidence"', output)
+        self.assertIn('href="/garden/relationships.html"', output)
+        self.assertIn('href="#content"', output)
+        self.assertIn('href="https://elsewhere.example.test/notes/other/index"', output)
+        self.assertIn('href="/outside/index"', output)
+
     def setUp(self):
         temporary = TemporaryDirectory(); self.addCleanup(temporary.cleanup)
         self.root = Path(temporary.name)

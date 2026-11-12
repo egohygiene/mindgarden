@@ -1,5 +1,5 @@
 {
-  "catalog_sha256": "7665f2fc46450abe47fc2e822f46449cc519d5e36bafd5b2826fca1e466a49db",
+  "catalog_sha256": "3b4d15888b64ba90a7b97500b9c763d2de7ff52ad264841a5a0ad6794ec881d5",
   "checks": [
     "exact-rendered-and-public-revision-pins",
     "exact-canonical-routes",
@@ -22,8 +22,8 @@
       "garden": "repository-garden"
     },
     "rendering": {
-      "manifest_sha256": "d78d41e19a0112b887b8d3a804a62e2c4a1c55eb2f84db7acb324128b1a9029f",
-      "revision": "sha256:e1faa061b5bb245793c2289c42adae525629f118de29efc418dbce43084045cb"
+      "manifest_sha256": "238d5b7381ee4809db5173940de62350b42c009ada25443788fef1c57f8b7789",
+      "revision": "sha256:86934c97a63113e1c6a5671bceaffe5e52b6304d7382d216cfc92a947b10945d"
     },
     "revision": "sha256:5ec1622bd2f1d2de2bcbf6d178033548824bbb444f9f763a6459bb01d6114ead",
     "schema": "mindgarden.garden-package/v1",

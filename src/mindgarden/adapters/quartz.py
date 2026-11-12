@@ -52,7 +52,49 @@ def accessible_navigation(html: str) -> str:
     )
     if articles != 1 or bodies != 1:
         raise ContractError("SITE_RENDERER: pinned page lacks the expected article/body landmarks")
+    pending, replacements = None, []
+    for match in re.finditer(r"<(?:button|ul)\b[^>]*>", html):
+        classes = re.search(r'class="([^"]*)"', match[0])
+        names = classes[1].split() if classes else []
+        if "toc-header" in names:
+            pending = match
+        elif "toc-content" in names and pending is not None:
+            target = re.search(r'\bid="([^"]+)"', match[0])
+            if target:
+                fixed = re.sub(r'aria-controls="[^"]*"', 'aria-controls="' + target[1] + '"', pending[0])
+                replacements.append((pending.start(), pending.end(), fixed))
+            pending = None
+    for start, end, fixed in reversed(replacements):
+        html = html[:start] + fixed + html[end:]
     return html
+
+
+def canonical_navigation(html: str, path: str, base_path: str) -> str:
+    """Make native Quartz links work on ordinary static servers without rewrites."""
+    from html import escape, unescape
+    import re
+    from urllib.parse import urljoin, urlsplit, urlunsplit
+
+    def replace(match):
+        raw = unescape(match[1])
+        if raw.startswith("#"):
+            return match[0]
+        parts = urlsplit(raw)
+        if parts.scheme or parts.netloc:
+            return match[0]
+        target = urlsplit(urljoin(base_path + path, raw))
+        if not target.path.startswith(base_path):
+            return match[0]
+        route = target.path
+        if route.endswith(("/index", "/index.html")):
+            route = route.rsplit("/", 1)[0] + "/"
+        elif route == base_path + "relationships":
+            route += ".html"
+        if route == target.path:
+            return match[0]
+        return 'href="' + escape(urlunsplit(("", "", route, target.query, target.fragment)), quote=True) + '"'
+
+    return re.sub(r'href="([^"]*)"', replace, html)
 
 
 def render_public_site(projection, engine_root: Path) -> dict[str, bytes]:
@@ -135,13 +177,13 @@ def render_public_site(projection, engine_root: Path) -> dict[str, bytes]:
             files[name] = content
     for name in list(files):
         if name.endswith(".html"):
-            html = accessible_navigation(files[name].decode("utf8"))
+            html = canonical_navigation(accessible_navigation(files[name].decode("utf8")), name, base_path)
             html = html.replace('<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/>', "")
             html = html.replace("</head>", '<link rel="stylesheet" href="' + base_path + 'static/mindgarden/site.css"/>'
                 + ('<link rel="stylesheet" href="' + base_path + 'static/mindgarden/theme.css"/>' if "static/mindgarden/theme.css" in files else '')
                 + '<script id="mindgarden-graph-script" defer src="' + base_path + 'static/mindgarden/graph.js"></script></head>')
             files[name] = html.encode("utf8")
-    canonical = {"index.html": projection.manifest["base_uri"], "relationships.html": projection.manifest["base_uri"] + "relationships",
+    canonical = {"index.html": projection.manifest["base_uri"], "relationships.html": projection.manifest["base_uri"] + "relationships.html",
                  **{item["path"]: item["url"] for item in projection.manifest["routes"]}}
     for name, url in canonical.items():
         if name not in files:

@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T18:56:14Z'
+  updated_at: '2026-11-12T19:27:59Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -70,57 +70,49 @@ scope:
   - docs/privacy-storage-followthrough.md
   - docs/journey-sprint.md
 work:
-  objective: 'Continue #16/#17/#20 journey checkpoints above reviewed-reference repair draft #133.'
+  objective: Complete the selected native reading checkpoint, then compose the offline recovery journey (#20).
   success_conditions:
   - Preserve Python/v0, exact evidence, privacy and proposed ADR status.
   - Leave bounded reviewable checkpoints with actual verification and an explicit stack.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#16
-    url: https://github.com/egohygiene/mindgarden/issues/16
+    id: egohygiene/mindgarden#17
+    url: https://github.com/egohygiene/mindgarden/issues/17
   next:
     kind: action
     id: journey-next-checkpoint
-    description: 'Implement #17 actual Quartz note/backlink/provenance reading above draft #134, then #20 composed
-      recovery. Broader full/act checks remain deferred; keep drafts for review.'
+    description: 'Open #17 draft above #134, then complete #20 archive→authored review→exact search/context→private
+      move/repair→initialized vault migration→restore/clean rebuild. Keep new drafts for review; do not claim real
+      private pilot, manual WCAG or deployment.'
     readiness: ready
     references:
     - docs/journey-sprint.md
     depends_on: []
 state:
   base:
-    revision: 297c0749dff0a3a5bb8a483621f3afb06d895587
-    ref: refs/heads/feature/14-reviewed-reference-repair
-    verified_at: '2026-11-12T18:56:14Z'
+    revision: 81979b33d845396e621b60aaa4d92525b8f25d02
+    ref: refs/heads/feature/16-public-bundle-context
+    verified_at: '2026-11-12T19:27:59Z'
   candidate:
-    branch: feature/16-public-bundle-context
-    revision: 8012a10a54b2ebfdb9c60f9ebbea67d5765a75d0
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#134
-      url: https://github.com/egohygiene/mindgarden/pull/134
-    handoff_state: ready-for-review
+    branch: test/17-rendered-reading-journey
+    revision: null
+    pull_request: null
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-12T18:56:14Z'
+    observed_at: '2026-11-12T19:27:59Z'
     default_branch_revision: f5baa3dac3f7624bea94f5224e136de6ef5482b0
     issue_state: open
-    pull_request_state: draft
-    notes: 'Main f5baa3d includes authorized #127–#132 merges. #133 is the reviewed private repair draft; the current
-      dependent branch adds supplied public-bundle context under existing live authority. All real private/consumer
-      and broad parent gates remain separate.'
+    pull_request_state: not-applicable
+    notes: 'Main f5baa3d contains #127–#132. Draft stack #133 → #134 supplies repair and public context. Current
+      #17 branch fixes native static routes, theme action labels and ToC controls/contrast and proves selected reading
+      on the real pinned renderer.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-12T18:56:14Z'
+  reviewed_at: '2026-11-12T19:27:59Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12: 37-case reference/routing/mixed/schema suite; Python 3.13: same prior 35 plus two added
-      cases; changed-code Ruff E9/F and new-file formatting'
-    outcome: passed
-    observed_at: '2026-11-12T18:46:13Z'
-    notes: 37 pass on 3.12, zero skips (30.500s); 35+2 pass on 3.13 (28.319s+2.669s), zero skips; Ruff/format pass.
-      Broader full discovery and act deferred by maintainer
   - command: Python 3.12 public-reader/federation/schema 32 plus added revocation 1; scoped/local regression 23;
       Python 3.13 public/federation/scoped/schema 47 plus added revocation 1; Ruff E9/F and new-file formatting
     outcome: passed
@@ -133,6 +125,13 @@ review:
     observed_at: '2026-11-12T18:56:14Z'
     notes: 32+1 and 23 pass on 3.12 (51.791s+1.619s;24.845s); 47+1 pass on 3.13 (61.794s+1.407s), zero skips. Initial
       schema/diagnostic assumptions corrected; invalid exploratory module invocation is not passing evidence
+  - command: site_browser_check.py --variant small with prepared pinned renderer/offline npm/axe/Chromium; Python
+      3.12/3.13 unittest tests.test_site tests.test_rendered_federation tests.test_design tests.test_portal; Ruff
+      E9/F and node --check
+    outcome: passed
+    observed_at: '2026-11-12T19:27:59Z'
+    notes: Actual 320/1280px reading passes; 13 axe audits have zero violations, eight retain manual contrast/duplicate-id-aria
+      items. 30 focused cases pass per Python, zero skips (85.893s/81.976s); lint/syntax pass. Full/act deferred
   environment_limitations:
   - Broader full discovery and local act qualification deferred by maintainer; focused results remain distinct.
   - Accepted organization/confidential-runtime/provider assurance remains separate from the implemented ordinary
@@ -165,19 +164,19 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Continue #16/#17/#20 journey checkpoints above reviewed-reference repair draft #133.
+Complete the selected native reading checkpoint, then compose the offline recovery journey (#20).
 
 ## State snapshot
 
-Main f5baa3d includes authorized #127–#132 merges. #133 is the reviewed private repair draft; the current dependent branch adds supplied public-bundle context under existing live authority. All real private/consumer and broad parent gates remain separate.
+Main f5baa3d contains #127–#132. Draft stack #133 → #134 supplies repair and public context. Current #17 branch fixes native static routes, theme action labels and ToC controls/contrast and proves selected reading on the real pinned renderer.
 
 ## Completed and material changes
 
-Versioned public context request/result contracts, metadata/descriptor-first explicit selection, current approval/scope/revision filtering before lexical ranking, exact citations and bounded JSON/Markdown, expiry/revocation and read-only CLI.
+Actual three-note double render, keyboard search/note/relationship/backlink, exact citations and record revisions, mobile long citation, 200% reflow, no-JavaScript note, native GET preview and portal preservation. Owned asset goldens rebuilt with source references unchanged.
 
 ## Validation and review evidence
 
-Python 3.12 public-reader/federation/schema 32 plus added revocation 1; scoped/local regression 23; Python 3.13 public/federation/scoped/schema 47 plus added revocation 1; Ruff E9/F and new-file formatting — 32+1 and 23 pass on 3.12 (51.791s+1.619s;24.845s); 47+1 pass on 3.13 (61.794s+1.407s), zero skips. Initial schema/diagnostic assumptions corrected; invalid exploratory module invocation is not passing evidence. Hosted checks, local focused tests and deferred full/act checks remain distinct in docs/journey-sprint.md.
+site_browser_check.py --variant small with prepared pinned renderer/offline npm/axe/Chromium; Python 3.12/3.13 unittest tests.test_site tests.test_rendered_federation tests.test_design tests.test_portal; Ruff E9/F and node --check — Actual 320/1280px reading passes; 13 axe audits have zero violations, eight retain manual contrast/duplicate-id-aria items. 30 focused cases pass per Python, zero skips (85.893s/81.976s); lint/syntax pass. Full/act deferred. Hosted checks, local focused tests and deferred full/act checks remain distinct in docs/journey-sprint.md.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -185,7 +184,7 @@ Execution recovered; original root WIP is preserved and work continues in an iso
 
 ## Next dependency-ready work
 
-Implement #17 actual Quartz note/backlink/provenance reading above draft #134, then #20 composed recovery. Broader full/act checks remain deferred; keep drafts for review.
+Open #17 draft above #134, then complete #20 archive→authored review→exact search/context→private move/repair→initialized vault migration→restore/clean rebuild. Keep new drafts for review; do not claim real private pilot, manual WCAG or deployment.
 
 ## Parallel changes and reconciliation
 

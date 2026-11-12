@@ -35,7 +35,7 @@ checks are distinct evidence. No workflows were manually dispatched.
 | 2 | #13 | Mixed text/attachment authored curation, attribution and reviewed destination handoff | [#132](https://github.com/egohygiene/mindgarden/pull/132), `test/13-mixed-media-curation` / #131 | Merged; corrected hosted CI and post-recovery local checks pass |
 | 3 | #14 | Independently reviewed private incoming-reference repair and recovery | [#133](https://github.com/egohygiene/mindgarden/pull/133), `feature/14-reviewed-reference-repair` / main | Focused checks pass; draft for review |
 | 4 | #16 | Explicit public bundle discovery to bounded cited context | [#134](https://github.com/egohygiene/mindgarden/pull/134), `feature/16-public-bundle-context` / #133 | Focused public-reader/schema/scope checks pass; draft for review |
-| 5 | #17 | Actual Quartz note, backlinks and provenance reading journey | Next / #16 draft | Reuse the pinned renderer and existing accessibility checks |
+| 5 | #17 | Actual Quartz note, backlinks and provenance reading journey | `test/17-rendered-reading-journey` / #134 | Actual selected browser journey and focused regressions pass; open draft |
 | 6 | #20 | Composed clean-checkout journey, migration/restore and exact rebuild | Next / #17 draft | Reuse all checkpoints; model and Google services disabled |
 
 These are review-stack dependencies, not new blanket issue gates. #15 and #13
@@ -287,3 +287,51 @@ Next: open this draft on #133, then test actual note/backlink/provenance reading
 on the pinned Quartz renderer (#17), followed by the composed recovery proof.
 
 Draft #134 functional commit: `8012a10a54b2ebfdb9c60f9ebbea67d5765a75d0`.
+
+## Continued #17 actual reading checkpoint
+
+The actual pinned Quartz reader now has a keyboard search → selected note →
+typed link → backlink journey. Both note pages compare rendered source locators,
+content hashes, represented records and qualifications to the verified served
+index. A committed synthetic long source identity exercises mobile citation
+wrapping. The owned adapter normalizes native full-slug links/GET reads to static
+folder routes, preserves query/fragment boundaries and external links, synchronizes
+the localized theme action label after navigation, repairs table-of-contents
+control targets and gives all contents links sufficient contrast. Native theme
+behavior and logical note identities remain owned by their existing contracts.
+
+[Actual Chromium evidence](evidence/journey-reading-browser.json): prepared pinned
+renderer `075afd3f712da0088a07f5284a7b3aba37dd61b6`, offline npm cache,
+Chromium 151 / Playwright 1.62.0 / axe 4.10.3, 320px and 1280px, light/dark and
+200% text. The selected three-note garden renders twice to identical bytes; 60
+artifacts verify. Keyboard reading, exact evidence, Request-based preview reads,
+no-JavaScript note/backlink navigation, unavailable graph and portal preservation
+pass. **13 axe audits report zero violations. Eight note audits still have manual
+`color-contrast`/`duplicate-id-aria` review items.** They are not passing manual
+WCAG evidence. Auxiliary Quartz routes, broader page variants, screen-reader and
+real hosting/consumer acceptance remain open in #17.
+
+```sh
+python scripts/site_browser_check.py --workspace /tmp/mindgarden-note-reading-v4 --renderer /workspace/mindgarden/.cache/six-quartz --npm-cache /workspace/mindgarden/.cache/six-npm --axe-script /workspace/mindgarden/.cache/next-sprint/axe/node_modules/axe-core/axe.min.js --variant small --report /workspace/mindgarden/.cache/journey-sprint/17-reading-v4.json
+python -m unittest tests.test_site tests.test_rendered_federation tests.test_design tests.test_portal --quiet
+node --check profiles/quartz/v1.graph.js
+```
+
+The first command is the actual bounded run. It uses only prepared software and
+loopback browser traffic; its paths are local execution controls, not portable
+garden records. Omit `--variant` for the historical empty/small/large matrix; this
+checkpoint reruns the changed small reading slice rather than claiming new empty/
+205-note evidence. Focused tests: **30 pass, zero skips** on Python 3.12.14
+(85.893s) and 3.13.5 (81.976s). Ruff, Node syntax and format checks pass. Static
+site/reference/portal goldens were rebuilt: only owned layout revision, package/
+catalog fingerprints and portal manifest changed; citations stay unchanged.
+
+Earlier browser attempts exposed the static route and native action/ToC issues;
+they also corrected an overly narrow URL glob and an initial interaction timing
+assumption. The first post-asset 29-case regression selection had one stale portal
+golden and is not passing evidence. Superseded Ruff unused-import findings were
+removed. The final command and evidence above supersede those attempts; full
+combined discovery and `act` remain deferred per the maintainer.
+
+Next: open the #17 draft above #134, then finish the single no-provider archive/
+review/search/context/private-reference/migration/restore/clean-rebuild proof (#20).
