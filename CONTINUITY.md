@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T19:27:59Z'
+  updated_at: '2026-11-12T19:30:27Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -81,9 +81,9 @@ work:
   next:
     kind: action
     id: journey-next-checkpoint
-    description: 'Open #17 draft above #134, then complete #20 archive→authored review→exact search/context→private
-      move/repair→initialized vault migration→restore/clean rebuild. Keep new drafts for review; do not claim real
-      private pilot, manual WCAG or deployment.'
+    description: 'Finish #20 composed archive/review/search/context/private repair/vault migration/relocation/restore/clean-rebuild
+      proof above draft #135, then qualify clean wheel/source artifacts. Broader full/act testing remains deferred;
+      keep new drafts for review.'
     readiness: ready
     references:
     - docs/journey-sprint.md
@@ -92,33 +92,30 @@ state:
   base:
     revision: 81979b33d845396e621b60aaa4d92525b8f25d02
     ref: refs/heads/feature/16-public-bundle-context
-    verified_at: '2026-11-12T19:27:59Z'
+    verified_at: '2026-11-12T19:30:27Z'
   candidate:
     branch: test/17-rendered-reading-journey
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 3b794ddbc28f18f52187effec4101c672cec7586
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#135
+      url: https://github.com/egohygiene/mindgarden/pull/135
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-12T19:27:59Z'
+    observed_at: '2026-11-12T19:30:27Z'
     default_branch_revision: f5baa3dac3f7624bea94f5224e136de6ef5482b0
     issue_state: open
-    pull_request_state: not-applicable
+    pull_request_state: draft
     notes: 'Main f5baa3d contains #127–#132. Draft stack #133 → #134 supplies repair and public context. Current
       #17 branch fixes native static routes, theme action labels and ToC controls/contrast and proves selected reading
       on the real pinned renderer.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-12T19:27:59Z'
+  reviewed_at: '2026-11-12T19:30:27Z'
   reviewed_by: codex
   evidence:
-  - command: Python 3.12 public-reader/federation/schema 32 plus added revocation 1; scoped/local regression 23;
-      Python 3.13 public/federation/scoped/schema 47 plus added revocation 1; Ruff E9/F and new-file formatting
-    outcome: passed
-    observed_at: '2026-11-12T18:54:42Z'
-    notes: 32+1 and 23 pass on 3.12 (51.791s+1.619s;24.845s); 47+1 pass on 3.13 (61.794s+1.407s), zero skips. Initial
-      schema/diagnostic assumptions corrected; invalid exploratory module invocation is not passing evidence
   - command: Python 3.12 public-reader/federation/schema 32 plus added revocation 1; scoped/local regression 23;
       Python 3.13 public/federation/scoped/schema 47 plus added revocation 1; Ruff E9/F and new-file formatting
     outcome: passed
@@ -130,6 +127,13 @@ review:
       E9/F and node --check
     outcome: passed
     observed_at: '2026-11-12T19:27:59Z'
+    notes: Actual 320/1280px reading passes; 13 axe audits have zero violations, eight retain manual contrast/duplicate-id-aria
+      items. 30 focused cases pass per Python, zero skips (85.893s/81.976s); lint/syntax pass. Full/act deferred
+  - command: site_browser_check.py --variant small with prepared pinned renderer/offline npm/axe/Chromium; Python
+      3.12/3.13 unittest tests.test_site tests.test_rendered_federation tests.test_design tests.test_portal; Ruff
+      E9/F and node --check
+    outcome: passed
+    observed_at: '2026-11-12T19:30:27Z'
     notes: Actual 320/1280px reading passes; 13 axe audits have zero violations, eight retain manual contrast/duplicate-id-aria
       items. 30 focused cases pass per Python, zero skips (85.893s/81.976s); lint/syntax pass. Full/act deferred
   environment_limitations:
@@ -184,7 +188,7 @@ Execution recovered; original root WIP is preserved and work continues in an iso
 
 ## Next dependency-ready work
 
-Open #17 draft above #134, then complete #20 archive→authored review→exact search/context→private move/repair→initialized vault migration→restore/clean rebuild. Keep new drafts for review; do not claim real private pilot, manual WCAG or deployment.
+Finish #20 composed archive/review/search/context/private repair/vault migration/relocation/restore/clean-rebuild proof above draft #135, then qualify clean wheel/source artifacts. Broader full/act testing remains deferred; keep new drafts for review.
 
 ## Parallel changes and reconciliation
 

@@ -35,7 +35,7 @@ checks are distinct evidence. No workflows were manually dispatched.
 | 2 | #13 | Mixed text/attachment authored curation, attribution and reviewed destination handoff | [#132](https://github.com/egohygiene/mindgarden/pull/132), `test/13-mixed-media-curation` / #131 | Merged; corrected hosted CI and post-recovery local checks pass |
 | 3 | #14 | Independently reviewed private incoming-reference repair and recovery | [#133](https://github.com/egohygiene/mindgarden/pull/133), `feature/14-reviewed-reference-repair` / main | Focused checks pass; draft for review |
 | 4 | #16 | Explicit public bundle discovery to bounded cited context | [#134](https://github.com/egohygiene/mindgarden/pull/134), `feature/16-public-bundle-context` / #133 | Focused public-reader/schema/scope checks pass; draft for review |
-| 5 | #17 | Actual Quartz note, backlinks and provenance reading journey | `test/17-rendered-reading-journey` / #134 | Actual selected browser journey and focused regressions pass; open draft |
+| 5 | #17 | Actual Quartz note, backlinks and provenance reading journey | [#135](https://github.com/egohygiene/mindgarden/pull/135), `test/17-rendered-reading-journey` / #134 | Actual selected reading and focused checks pass; manual a11y items remain |
 | 6 | #20 | Composed clean-checkout journey, migration/restore and exact rebuild | Next / #17 draft | Reuse all checkpoints; model and Google services disabled |
 
 These are review-stack dependencies, not new blanket issue gates. #15 and #13
@@ -335,3 +335,5 @@ combined discovery and `act` remain deferred per the maintainer.
 
 Next: open the #17 draft above #134, then finish the single no-provider archive/
 review/search/context/private-reference/migration/restore/clean-rebuild proof (#20).
+
+Draft #135 functional commit: `3b794ddbc28f18f52187effec4101c672cec7586`.
