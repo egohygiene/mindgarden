@@ -36,7 +36,7 @@ checks are distinct evidence. No workflows were manually dispatched.
 | 3 | #14 | Independently reviewed private incoming-reference repair and recovery | [#133](https://github.com/egohygiene/mindgarden/pull/133), `feature/14-reviewed-reference-repair` / main | Focused checks pass; draft for review |
 | 4 | #16 | Explicit public bundle discovery to bounded cited context | [#134](https://github.com/egohygiene/mindgarden/pull/134), `feature/16-public-bundle-context` / #133 | Focused public-reader/schema/scope checks pass; draft for review |
 | 5 | #17 | Actual Quartz note, backlinks and provenance reading journey | [#135](https://github.com/egohygiene/mindgarden/pull/135), `test/17-rendered-reading-journey` / #134 | Actual selected reading and focused checks pass; manual a11y items remain |
-| 6 | #20 | Composed clean-checkout journey, migration/restore and exact rebuild | `test/20-composed-reading-recovery` / #135 | Source golden and 22 focused cases pass; qualify clean artifacts |
+| 6 | #20 | Composed clean-checkout journey, migration/restore and exact rebuild | [#136](https://github.com/egohygiene/mindgarden/pull/136), `test/20-composed-reading-recovery` / #135 | Source, installed wheel and unpacked source match; draft for review |
 
 These are review-stack dependencies, not new blanket issue gates. #15 and #13
 already have working source/curation contracts; this adds their missing mixed
@@ -70,8 +70,7 @@ Exact focused command, using each supported interpreter:
 python -m unittest tests.test_archive_diagrams tests.test_archive_v2 tests.test_archive_selection tests.test_conversation_archives
 ```
 
-Python 3.12.14: **21 pass, zero skips**, 7.579s. Python 3.13.5: **21 pass, zero skips**, 7.714s. New-head CI remains unobserved;
-it is not inferred from prior CI.
+Python 3.12.14: **21 pass, zero skips**, 7.579s. Python 3.13.5: **21 pass, zero skips**, 7.714s. The original draft observation did not establish CI; the later merged-state receipt above records its completed checks.
 
 ## Remaining parent scope and handoff
 
@@ -84,8 +83,9 @@ deferred #86–#91 cohort remain parked.
 
 Draft #131 functional commit: `5a8a2b52bd9efed8ca58a0f21ce702e07d2a0105`.
 
-Next: qualify the recovered mixed-media draft #132 when execution is available,
-then continue with #14. Both drafts remain for review.
+Historical next action, now completed: qualify the recovered mixed-media draft
+#132 when execution returns, then continue with #14. The current stack table and
+final qualification below supersede this earlier handoff.
 
 ## Historical #13 interruption and recovery
 
@@ -396,3 +396,76 @@ variants, remote integrations, manual a11y review and full parent acceptance sta
 open. This checkpoint is evidence for #20, not closure of those responsibilities.
 Next: qualify clean artifacts, open #136 on #135 and leave the complete new stack
 for review; broader full discovery and local `act` can follow as authorized.
+
+## Final clean-artifact qualification and current handoff
+
+Draft stack: **#133 → #134 → #135 → #136**, above merged main `f5baa3d`.
+The reproducible combined checkout is `test/20-composed-reading-recovery`.
+Qualified functional source is **`46674aef098f89ba05ade282644ad13e025b182c`**;
+later handoff changes are documentation only. No new draft is merged or accepted.
+
+The broader automatic #135 Test **43290873943** found one failure among **543**
+cases on each Linux Python: the older composed release-journey fixture retained
+the old generated site revision. The recursive report comparison changed **only
+`site/revision`**; source records, citations and knowledge were unchanged. Fix
+**`43fb4bc04a0484f7be598f2c9acbe82c115e9f41`** belongs to #135 and was merged
+normally into #136. Its focused `tests.test_release_journey` rerun passes **2
+tests, zero skips**, Python 3.12 (17.215s) and 3.13 (16.360s). This corrects the
+failure; it does not reclassify the failed automatic run as passing.
+
+A fresh detached checkout at the qualified functional revision built both local
+artifacts with no build isolation or dependency downloads. The source proof uses
+`-S`; the wheel runs with `-I` from `/tmp` in a new interpreter environment with no
+pip or extra runtime packages. The unpacked source runs with `-S` from `/tmp`.
+All three complete reports match the committed golden **byte for byte**, SHA-256
+**`f4bc545d26a35061609c27e92854e21cf6d4a7a8f389a417a0607ace48fda23a`**.
+The previous `d2a1f60` artifact proofs also passed that golden; these refreshed
+artifacts additionally include the corrected legacy fixture.
+
+Exact final commands (the checkout was clean before building):
+
+```sh
+git worktree add --detach /workspace/mindgarden/.cache/journey-qualified-final 46674aef098f89ba05ade282644ad13e025b182c
+cd /workspace/mindgarden/.cache/journey-qualified-final
+/workspace/mindgarden/.venv/bin/python -m build --sdist --wheel --no-isolation --outdir .cache/dist
+/workspace/mindgarden/.venv/bin/python -S scripts/reading_journey_demo.py --workspace /tmp/mindgarden-reading-final-git --require-source --check-golden --report /workspace/mindgarden/.cache/journey-sprint/20-final-git.json
+/workspace/mindgarden/.venv/bin/python -m unittest tests.test_distribution tests.test_scope_bundle_outputs --quiet
+/workspace/mindgarden/.venv/bin/python -m venv --without-pip /workspace/mindgarden/.cache/journey-sprint/final-wheel-venv
+python3 -m pip --python /workspace/mindgarden/.cache/journey-sprint/final-wheel-venv/bin/python install --no-index --no-deps --disable-pip-version-check /workspace/mindgarden/.cache/journey-qualified-final/.cache/dist/mindgarden-0.1.0-py3-none-any.whl
+cd /tmp
+/workspace/mindgarden/.cache/journey-sprint/final-wheel-venv/bin/python -I /workspace/mindgarden/.cache/journey-qualified-final/scripts/reading_journey_demo.py --workspace /tmp/mindgarden-reading-final-wheel --require-installed --check-golden --report /workspace/mindgarden/.cache/journey-sprint/20-final-wheel.json
+/workspace/mindgarden/.venv/bin/python -S /workspace/mindgarden/.cache/journey-sprint/final-unpacked-source/mindgarden-0.1.0/scripts/reading_journey_demo.py --workspace /tmp/mindgarden-reading-final-sdist --require-source --check-golden --report /workspace/mindgarden/.cache/journey-sprint/20-final-sdist.json
+```
+
+The source archive was unpacked into a fresh directory with Python
+`tarfile.extractall(..., filter="data")`; no existing files were overwritten.
+The [qualification receipt](evidence/journey-artifact-qualification.json) records
+artifact hashes, sizes, exact evidence, limitations and corrected-test lineage.
+The refreshed distribution/complete-output selection passes **10 tests, zero
+skips** (10.844s). The installed wheel has **zero runtime dependencies**. Its
+`version` and `validate --repository-root .../tests/fixtures/public-garden`
+commands pass, and public `mindgarden.validate_repository` returns **3** v0 notes.
+These are local qualification artifacts, not a release or published package.
+
+Hosted observation after the correction: #135 `43fb4bc` Test **43295629172** is
+in progress, preparation **43295629177** passes. #136 `46674ae` Test
+**43295843611** is in progress and preparation **43295843627** is queued when
+inspected. Current-head CI is not claimed passing. #133/#134 application CI and
+the separate #134 upstream acquisition denial are recorded above. No workflows
+were manually dispatched; final documentation commits trigger their ordinary
+automatic checks independently of this functional-source qualification.
+
+The [browser receipt](evidence/journey-reading-browser.json) establishes the
+separate actual rendered reading proof; its eight manual accessibility review
+items remain unresolved. Broader combined local discovery and `act` are deferred
+per the maintainer. `act` is absent; Docker's executable exists, but daemon
+availability has not been checked. All 24 ADRs remain proposed/null approval,
+all 44 coverage rows remain present, and real pilot/Empathy/publication/release
+gates remain open. The original root checkout's interrupted files are untouched.
+
+**Next action:** review #133 → #134 → #135 → #136 in dependency order, refresh
+exact-head CI and resolve the upstream Decisions-preview acquisition failure.
+Keep the stack in draft until that review. Later run the deferred broad/`act`
+checks and manual note accessibility review; an approved private pilot and
+consumer publication require their own evidence. This is a qualified synthetic
+workflow checkpoint supporting #20, not full parent acceptance.

@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T19:42:31Z'
+  updated_at: '2026-11-12T20:02:24Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -70,8 +70,8 @@ scope:
   - docs/privacy-storage-followthrough.md
   - docs/journey-sprint.md
 work:
-  objective: Complete and qualify the bounded composed offline reading/recovery proof, then leave the four-draft
-    stack ready for review.
+  objective: Leave the qualified four-draft reading/recovery stack ready for review, with current evidence and explicit
+    remaining gates.
   success_conditions:
   - Preserve Python/v0, exact evidence, privacy and proposed ADR status.
   - Leave bounded reviewable checkpoints with actual verification and an explicit stack.
@@ -82,46 +82,43 @@ work:
   next:
     kind: action
     id: journey-next-checkpoint
-    description: 'Commit/open #20 draft on #135, build clean wheel and unpacked source artifacts and reproduce the
-      same golden without providers. Update exact artifact/CI evidence, then leave #133–#136 for review and later
-      full/act/manual-a11y qualification; do not claim real pilot or publication acceptance.'
+    description: 'Review #133 → #134 → #135 → #136 in dependency order; refresh exact-head CI and resolve the upstream
+      Decisions-preview acquisition failure. Keep the new stack in draft until review, then complete deferred full/act
+      and manual accessibility checks. Approved private pilot, Empathy publication, ADR ratification and release
+      remain separate.'
     readiness: ready
     references:
     - docs/journey-sprint.md
     depends_on: []
 state:
   base:
-    revision: 38d2cd4d3333f16d74f540578f4984a175485311
+    revision: 43fb4bc04a0484f7be598f2c9acbe82c115e9f41
     ref: refs/heads/test/17-rendered-reading-journey
-    verified_at: '2026-11-12T19:42:31Z'
+    verified_at: '2026-11-12T20:02:24Z'
   candidate:
     branch: test/20-composed-reading-recovery
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 46674aef098f89ba05ade282644ad13e025b182c
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#136
+      url: https://github.com/egohygiene/mindgarden/pull/136
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-12T19:42:31Z'
+    observed_at: '2026-11-12T20:02:24Z'
     default_branch_revision: f5baa3dac3f7624bea94f5224e136de6ef5482b0
     issue_state: open
-    pull_request_state: not-applicable
-    notes: 'Main f5baa3d contains merged #127–#132; new stack #133 → #134 → #135 implements repair, public context
-      and actual reading. Current #20 branch composes one selected archive through review, cited retrieval/context
-      and initialized migration/relocation/restore/clean rebuild. Source and focused checks pass; clean artifacts
-      are next.'
+    pull_request_state: draft
+    notes: 'Main f5baa3d contains merged #127–#132. Drafts #133 → #134 → #135 → #136 implement reviewed repair,
+      supplied-public context, actual reading and the composed offline archive/recovery proof. Qualified functional
+      source 46674ae includes the #135 stale derived-site golden correction; source/wheel/sdist match exactly. Current-head
+      hosted checks remain separate.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-12T19:42:31Z'
+  reviewed_at: '2026-11-12T20:02:24Z'
   reviewed_by: codex
   evidence:
-  - command: site_browser_check.py --variant small with prepared pinned renderer/offline npm/axe/Chromium; Python
-      3.12/3.13 unittest tests.test_site tests.test_rendered_federation tests.test_design tests.test_portal; Ruff
-      E9/F and node --check
-    outcome: passed
-    observed_at: '2026-11-12T19:27:59Z'
-    notes: Actual 320/1280px reading passes; 13 axe audits have zero violations, eight retain manual contrast/duplicate-id-aria
-      items. 30 focused cases pass per Python, zero skips (85.893s/81.976s); lint/syntax pass. Full/act deferred
   - command: site_browser_check.py --variant small with prepared pinned renderer/offline npm/axe/Chromium; Python
       3.12/3.13 unittest tests.test_site tests.test_rendered_federation tests.test_design tests.test_portal; Ruff
       E9/F and node --check
@@ -136,6 +133,15 @@ review:
     notes: 'Source workflow passes; 22 focused cases pass each, zero skips (61.512s/59.780s); Ruff/format pass.
       Clean artifact proof pending; full/act deferred. #134 app Test passes but upstream acquisition denies separate
       Decisions preview'
+  - command: reading_journey_demo.py --require-source/--require-installed --check-golden in clean Git, isolated
+      wheel (-I), unpacked source (-S); unittest tests.test_distribution tests.test_scope_bundle_outputs; tests.test_release_journey
+      on Python 3.12/3.13
+    outcome: passed
+    observed_at: '2026-11-12T20:02:24Z'
+    notes: Three exact core proofs pass; final distribution/output 10 cases pass zero skips (10.844s); corrected
+      legacy fixture 2 cases each (17.215s/16.360s). Prior 22 composition cases each and 30 rendered cases each
+      pass. Artifact hashes in docs/evidence/journey-artifact-qualification.json. Full/act intentionally deferred,
+      eight manual a11y items and separate upstream preview acquisition denial remain.
   environment_limitations:
   - Broader full discovery and local act qualification deferred by maintainer; focused results remain distinct.
   - Accepted organization/confidential-runtime/provider assurance remains separate from the implemented ordinary
@@ -168,19 +174,19 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Complete and qualify the bounded composed offline reading/recovery proof, then leave the four-draft stack ready for review.
+Leave the qualified four-draft reading/recovery stack ready for review, with current evidence and explicit remaining gates.
 
 ## State snapshot
 
-Main f5baa3d contains merged #127–#132; new stack #133 → #134 → #135 implements repair, public context and actual reading. Current #20 branch composes one selected archive through review, cited retrieval/context and initialized migration/relocation/restore/clean rebuild. Source and focused checks pass; clean artifacts are next.
+Main f5baa3d contains merged #127–#132. Drafts #133 → #134 → #135 → #136 implement reviewed repair, supplied-public context, actual reading and the composed offline archive/recovery proof. Qualified functional source 46674ae includes the #135 stale derived-site golden correction; source/wheel/sdist match exactly. Current-head hosted checks remain separate.
 
 ## Completed and material changes
 
-Committed synthetic source golden: 11 retained immutable objects, exact CONVERSATION.json /messages/1 evidence, approved mixed-attribution/proposed prompt, JSON4539 and Markdown4664 within8192, current private graph reference, exact clean rebuild and separate public/context/static route slice. Original sources and source-review state survive.
+Synthetic selected archive/caption → authored review → exact assistant-message evidence → bounded context → reviewed private reference repair → initialized migration/relocation/export/restore/cache-free rebuild. Eleven immutable objects retained. JSON4539/Markdown4664 within8192. Separate public context and actual native reading proof. Clean Git/wheel/unpacked source match the complete committed golden; v0 CLI/library and dependency-free metadata pass.
 
 ## Validation and review evidence
 
-reading_journey_demo.py --require-source; Python 3.12/3.13 unittest tests.test_reading_journey tests.test_reference_repairs tests.test_public_bundle_context --quiet; new-file Ruff/format — Source workflow passes; 22 focused cases pass each, zero skips (61.512s/59.780s); Ruff/format pass. Clean artifact proof pending; full/act deferred. #134 app Test passes but upstream acquisition denies separate Decisions preview. Hosted checks, local focused tests and deferred full/act checks remain distinct in docs/journey-sprint.md.
+reading_journey_demo.py --require-source/--require-installed --check-golden in clean Git, isolated wheel (-I), unpacked source (-S); unittest tests.test_distribution tests.test_scope_bundle_outputs; tests.test_release_journey on Python 3.12/3.13 — Three exact core proofs pass; final distribution/output 10 cases pass zero skips (10.844s); corrected legacy fixture 2 cases each (17.215s/16.360s). Prior 22 composition cases each and 30 rendered cases each pass. Artifact hashes in docs/evidence/journey-artifact-qualification.json. Full/act intentionally deferred, eight manual a11y items and separate upstream preview acquisition denial remain.. Hosted checks, local focused tests and deferred full/act checks remain distinct in docs/journey-sprint.md.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -188,7 +194,7 @@ Execution recovered; original root WIP is preserved and work continues in an iso
 
 ## Next dependency-ready work
 
-Commit/open #20 draft on #135, build clean wheel and unpacked source artifacts and reproduce the same golden without providers. Update exact artifact/CI evidence, then leave #133–#136 for review and later full/act/manual-a11y qualification; do not claim real pilot or publication acceptance.
+Review #133 → #134 → #135 → #136 in dependency order; refresh exact-head CI and resolve the upstream Decisions-preview acquisition failure. Keep the new stack in draft until review, then complete deferred full/act and manual accessibility checks. Approved private pilot, Empathy publication, ADR ratification and release remain separate.
 
 ## Parallel changes and reconciliation
 

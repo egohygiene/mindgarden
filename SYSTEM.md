@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-09
+updated: 2026-11-12
 governed_by:
   - architecture-system
 depends_on:

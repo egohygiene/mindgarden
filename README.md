@@ -13,12 +13,18 @@ indexes, and published sites are projections of that committed knowledge, not
 competing sources of truth.
 
 The local workflow includes the [overnight checkpoints](docs/overnight-sprint.md).
-The current [privacy/storage draft stack](docs/privacy-storage-followthrough.md)
+The merged [privacy/storage checkpoints](docs/privacy-storage-followthrough.md)
 passes 515 tests on each supported Python. Captured conversations, bookmarks,
 documents and opaque assets feed reviewed knowledge with exact source references.
 Those references survive restore, relocation and clean projection rebuilds.
 Optional extraction producers, authored learning, private compaction and local
 federation remain bounded capabilities; the CLI needs no model or hosted database.
+
+The [reading/evidence journey](docs/journey-sprint.md) adds reviewed private
+reference repair, selected public-bundle context, actual static note reading and
+a composed archive-to-context/recovery proof in draft PRs #133–#136. The same
+synthetic proof matches from a clean checkout, installed wheel and unpacked source
+archive; real private-pilot and publication acceptance remain separate.
 
 The [active overnight roadmap](docs/overnight-sprint.md) reconciles completed
 acceptance criteria and orders the next integration checkpoints. OpenAleph and
