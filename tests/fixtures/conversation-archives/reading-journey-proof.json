@@ -1,0 +1,88 @@
+{
+  "archive_version": "2.0.2-source-profile",
+  "attribution": "mixed",
+  "checks": [
+    "private-cli-init-validation",
+    "stale-import-rejected-before-writes",
+    "repeat-and-overlap-deduplication",
+    "selected-binary-caption-and-retained-scratch-original",
+    "authored-human-review-and-attribution",
+    "reviewed-private-move-and-independent-reference-repair",
+    "exact-search-evidence-and-bounded-context",
+    "initialized-vault-migration-with-original-retained",
+    "filesystem-relocation-with-old-location-retained",
+    "export-restore-clean-rebuild-exact",
+    "supplied-public-bundle-context-and-static-reading-projection",
+    "no-physical-paths-in-records"
+  ],
+  "context_bytes": 4539,
+  "context_markdown_bytes": 4664,
+  "context_markdown_sha256": "20b195c728295fa787721419e48c193e5bec34da81c8181ace6d966de0fb6001",
+  "context_max_bytes": 8192,
+  "context_sha256": "fe57f0376e17a06aeca0f3615d1064654f58dbd58b56866b00f54cde97096cd4",
+  "empathy_publication": "unclaimed",
+  "engine_version": "0.1.0",
+  "epistemic_state": "proposed",
+  "excluded_asset": "asset-scratch",
+  "full_parent_acceptance": false,
+  "google": "unused",
+  "graph_sha256": "bc4c2cf8d1fd241264dcbb9ae53bdf1e15910d1c136395664eb933bccaa8fc39",
+  "index_sha256": "58c31fbccbbb4a54d6434a5ce364d87072ac3e704ce525ddc62efd99cab25de3",
+  "knowledge_review": "approved",
+  "models": "unused",
+  "network": "blocked-in-process",
+  "original_archive_sha256": "c5dcd8fe439f87c72107a9f58beecd6d6e543b463d7d765ea1bea7860b59ff9b",
+  "original_selector": {
+    "json_pointer": "/messages/1",
+    "member": "CONVERSATION.json",
+    "member_sha256": "cad29bc6a35b237a1bc50cd84ec5aaa784e431037da63f079e9dd92f2937d84f"
+  },
+  "overlapping_archive_sha256": "49a000e9628238aa93b9c623977f36d8de9755c789a057dcff7d04ec53b34a3b",
+  "private_diagram_home": {
+    "garden": "project-garden",
+    "id": "architecture-diagram",
+    "revision": "sha256:1dbdeb11bcc7fc2b83fce977ae1adac012923be68d8320c6384cd6086abde97f"
+  },
+  "public_reference_slice": {
+    "canonical_reference": {
+      "garden": "repository-garden",
+      "id": "reviewed-prompt",
+      "revision": "sha256:e1ce2bc9126281033e190c9607bff98c9cd38534c09a9e7d48216c8e2ca13a02"
+    },
+    "context_bytes": 5192,
+    "context_sha256": "91d4ee513d2a379403a8223176a68ed80e74579f4b7170a56d55572f29bb9167",
+    "descriptor_revision": "sha256:5ec1622bd2f1d2de2bcbf6d178033548824bbb444f9f763a6459bb01d6114ead",
+    "rendering": "static-projection-only; actual browser proof is separately recorded",
+    "site_revision": "sha256:2ff3e596fd27fccb8913a410bc79e5c8f45598e6bde102138f6a942c62ee88c4",
+    "source_reference": {
+      "content_sha256": "844d4581e4f19e74c4417bc1ecc32e5646f75a584c60505e7bfdc88b7ea2152e",
+      "locator": "lines:1-1",
+      "source": {
+        "garden": "repository-garden",
+        "id": "public-source",
+        "revision": "sha256:1581c5901aadd064d9077a519dbda5a903b5cb5ea9f9be7b4864ec95f3345d32"
+      }
+    }
+  },
+  "real_private_pilot": "unclaimed",
+  "reviewed_prompt": {
+    "garden": "synthetic-garden",
+    "id": "reviewed-prompt",
+    "revision": "sha256:626f7bf167e2206846046fa178d992c4922f55cd89360a5f1f535a93e530b294"
+  },
+  "schema": "mindgarden.reading-journey-proof/v1",
+  "selected_asset": "asset-diagram",
+  "source_reference": {
+    "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+    "locator": "json:/content/0/text",
+    "source": {
+      "garden": "synthetic-garden",
+      "id": "source-49101f6a41f4768b98734604-85e3ac6fa6ea418f",
+      "revision": "sha256:85e3ac6fa6ea418f7d686a812970fde2284966a2b08ab8d862ebb6948cfab55d"
+    }
+  },
+  "source_review": "unreviewed",
+  "status": "passed-bounded-synthetic-journey",
+  "vault_backup_sha256": "4555859baba955f4a54d8ba7292385f1db39cd2618aabedfc72af364f6499cd8",
+  "vault_objects": 11
+}

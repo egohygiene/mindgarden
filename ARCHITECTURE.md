@@ -247,3 +247,7 @@ records and source originals stay authoritative; the reference engine remains
 the default. The [shared-service proposal](docs/shared-service-slice-proposal.md)
 records current callables and required CLI/API/web/worker parity. Framework, HTTP
 identity and runtime disposition remain gated; no proposed ADR is self-ratified.
+
+## Draft journey follow-through — 2026-11-12
+
+The authorized #127–#132 stack is merged at `f5baa3d`. Dependent drafts #133–#136 extend the same boundaries: exact private incoming-reference repairs, public bundle context under existing live authority, native static reading corrections and one composed synthetic archive-to-recovery proof. Reviewed replacements retain originals and bind their canonical lineage into authorization closure; catalogs grant no access. Source identities and checksums survive physical relocation because machine bindings remain outside portable records. No new garden/session model, mandatory model, database, hosting or acquisition service is introduced. [The current ledger](docs/journey-sprint.md) separates implemented draft checkpoints, actual verification and deferred full/local `act`, manual accessibility, confidential-runtime and real consumer gates. All ADRs retain proposed status and null approval.

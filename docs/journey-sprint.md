@@ -36,7 +36,7 @@ checks are distinct evidence. No workflows were manually dispatched.
 | 3 | #14 | Independently reviewed private incoming-reference repair and recovery | [#133](https://github.com/egohygiene/mindgarden/pull/133), `feature/14-reviewed-reference-repair` / main | Focused checks pass; draft for review |
 | 4 | #16 | Explicit public bundle discovery to bounded cited context | [#134](https://github.com/egohygiene/mindgarden/pull/134), `feature/16-public-bundle-context` / #133 | Focused public-reader/schema/scope checks pass; draft for review |
 | 5 | #17 | Actual Quartz note, backlinks and provenance reading journey | [#135](https://github.com/egohygiene/mindgarden/pull/135), `test/17-rendered-reading-journey` / #134 | Actual selected reading and focused checks pass; manual a11y items remain |
-| 6 | #20 | Composed clean-checkout journey, migration/restore and exact rebuild | Next / #17 draft | Reuse all checkpoints; model and Google services disabled |
+| 6 | #20 | Composed clean-checkout journey, migration/restore and exact rebuild | `test/20-composed-reading-recovery` / #135 | Source golden and 22 focused cases pass; qualify clean artifacts |
 
 These are review-stack dependencies, not new blanket issue gates. #15 and #13
 already have working source/curation contracts; this adds their missing mixed
@@ -337,3 +337,62 @@ Next: open the #17 draft above #134, then finish the single no-provider archive/
 review/search/context/private-reference/migration/restore/clean-rebuild proof (#20).
 
 Draft #135 functional commit: `3b794ddbc28f18f52187effec4101c672cec7586`.
+
+## Continued #20 composed offline proof
+
+[The committed synthetic golden](../tests/fixtures/conversation-archives/reading-journey-proof.json)
+and `scripts/reading_journey_demo.py` compose the supported checkpoints through
+normal initialization, validation, review, routing, retrieval and vault commands.
+A tested v2.0.2 source-profile archive contains a selected binary diagram/caption
+and a scratch image. Repeat/overlap imports reuse unchanged normalized evidence;
+a changed input invalidates application before writes. Authored review preserves
+assistant attribution, the later user correction, quotation, unanswered question
+and redaction rationale. Only the reviewed prompt enters the private context.
+
+The prompt's exact normalized citation resolves to `CONVERSATION.json`
+`/messages/1`, speaker assistant; source review remains **unreviewed**, knowledge
+review is **approved**, and the mixed-attribution knowledge stays epistemically
+**proposed**. JSON is **4,539 bytes** and Markdown **4,664 bytes**, each within
+**8,192**. The diagram gets its reviewed private project home and an independent
+incoming-reference repair. Eleven immutable vault objects, including both original
+archives and the retained scratch original inside them, survive initialized vault
+migration, explicit filesystem relocation, export and clean restore. The source
+and former target vaults are retained. A cache-free clean garden reproduces the
+exact index, graph, JSON/Markdown context and evidence response with changed
+physical bindings and no paths in portable records.
+
+A separate explicitly public synthetic slice proves catalog → supplied bundle →
+bounded cited context (**5,192 bytes**) and matching static note routes. It does
+not publish private knowledge or run a renderer; the actual renderer/browser
+proof is separately linked above. Networking, HTTP and external process/model
+entry points are blocked in the core proof; Google/model credentials are absent.
+There is no mandatory database, model, Node or hosting dependency for this proof.
+
+```sh
+python scripts/reading_journey_demo.py --workspace /tmp/mindgarden-reading-journey-v3 --require-source --report /workspace/mindgarden/.cache/journey-sprint/20-journey-v3.json
+python -m unittest tests.test_reading_journey tests.test_reference_repairs tests.test_public_bundle_context --quiet
+```
+
+Source proof passes. The focused composition/repair/public-reader selection passes
+**22 tests, zero skips**, Python 3.12.14 (61.512s) and 3.13.5 (59.780s). Ruff and
+new-file formatting pass. The first workflow attempt used the filesystem vault's
+low-level initializer without its required reviewed plan; the corrected proof
+uses the ordinary digest-bound `vault init` command and completes all steps.
+That first attempt is not passing evidence. Clean wheel/unpacked-source artifact
+qualification is the remaining independent verification at this checkpoint.
+
+Hosted observations: #133 head `297c074` Test **43283297807**, preparation
+**43283297519** and Decisions preview **43283298469** pass. #134 head
+`81979b3` Test **43284993040** and preparation **43284993053** pass; Decisions
+preview **43284993775** failed at generation with `RIW-004` / `ADR build:
+acquisition: denied` while acquiring upstream inputs. This is an observed
+external preview failure, not passing CI or a reason to weaken native ADR checks.
+Local pinned owner validation passes. #135 head `38d2cd4` Test **43290873943**
+was in progress and preparation **43290873617** passed when inspected. No workflow
+was manually dispatched. Current-head checks must be refreshed before merging.
+
+The real private archive/pilot, Empathy promotion/publication, untested archive
+variants, remote integrations, manual a11y review and full parent acceptance stay
+open. This checkpoint is evidence for #20, not closure of those responsibilities.
+Next: qualify clean artifacts, open #136 on #135 and leave the complete new stack
+for review; broader full discovery and local `act` can follow as authorized.
