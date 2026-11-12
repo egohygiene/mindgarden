@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T18:46:13Z'
+  updated_at: '2026-11-12T18:54:42Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -70,56 +70,49 @@ scope:
   - docs/privacy-storage-followthrough.md
   - docs/journey-sprint.md
 work:
-  objective: 'Complete the four remaining bounded journey checkpoints after the authorized #127–#132 merges.'
+  objective: 'Continue #16/#17/#20 journey checkpoints above reviewed-reference repair draft #133.'
   success_conditions:
   - Preserve Python/v0, exact evidence, privacy and proposed ADR status.
   - Leave bounded reviewable checkpoints with actual verification and an explicit stack.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#14
-    url: https://github.com/egohygiene/mindgarden/issues/14
+    id: egohygiene/mindgarden#16
+    url: https://github.com/egohygiene/mindgarden/issues/16
   next:
     kind: action
     id: journey-next-checkpoint
-    description: 'Implement #16 explicit public bundle discovery and bounded cited context above draft #133; #17
-      reading and #20 composition follow. Keep new drafts for review.'
+    description: 'Open the #16 draft on #133, then implement focused actual Quartz note/backlink/provenance reading
+      proof (#17) and composed synthetic recovery (#20). Broader full/act checks remain deferred; keep drafts for
+      review.'
     readiness: ready
     references:
     - docs/journey-sprint.md
     depends_on: []
 state:
   base:
-    revision: f5baa3dac3f7624bea94f5224e136de6ef5482b0
-    ref: refs/remotes/origin/main
-    verified_at: '2026-11-12T18:46:13Z'
+    revision: 297c0749dff0a3a5bb8a483621f3afb06d895587
+    ref: refs/heads/feature/14-reviewed-reference-repair
+    verified_at: '2026-11-12T18:54:42Z'
   candidate:
-    branch: feature/14-reviewed-reference-repair
-    revision: b5a61f3d144fe854a83f45b26efe1057f6fbd059
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#133
-      url: https://github.com/egohygiene/mindgarden/pull/133
-    handoff_state: ready-for-review
+    branch: feature/16-public-bundle-context
+    revision: null
+    pull_request: null
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-12T18:46:13Z'
+    observed_at: '2026-11-12T18:54:42Z'
     default_branch_revision: f5baa3dac3f7624bea94f5224e136de6ef5482b0
     issue_state: open
-    pull_request_state: draft
-    notes: 'Main f5baa3d has the exact combined #132 tree; all six original PR heads have passing hosted CI. Execution
-      recovered, original WIP untouched. #14 exact reviewed incoming-reference repair is implemented and focused-tested;
-      35 open issues and 44 coverage rows remain.'
+    pull_request_state: not-applicable
+    notes: 'Main f5baa3d includes authorized #127–#132 merges. #133 is the reviewed private repair draft; the current
+      dependent branch adds supplied public-bundle context under existing live authority. All real private/consumer
+      and broad parent gates remain separate.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-12T18:46:13Z'
+  reviewed_at: '2026-11-12T18:54:42Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: python -m unittest tests.test_archive_diagrams tests.test_archive_v2 tests.test_archive_selection
-      tests.test_conversation_archives; Ruff E9/F and new-file format'
-    outcome: passed
-    observed_at: '2026-11-12T18:03:36Z'
-    notes: 21 pass each, zero skips (7.579s / 7.714s); lint/format passed; CI not yet observed
   - command: 'Python 3.12: 37-case reference/routing/mixed/schema suite; Python 3.13: same prior 35 plus two added
       cases; changed-code Ruff E9/F and new-file formatting'
     outcome: passed
@@ -132,6 +125,12 @@ review:
     observed_at: '2026-11-12T18:46:13Z'
     notes: 37 pass on 3.12, zero skips (30.500s); 35+2 pass on 3.13 (28.319s+2.669s), zero skips; Ruff/format pass.
       Broader full discovery and act deferred by maintainer
+  - command: Python 3.12 public-reader/federation/schema 32 plus added revocation 1; scoped/local regression 23;
+      Python 3.13 public/federation/scoped/schema 47 plus added revocation 1; Ruff E9/F and new-file formatting
+    outcome: passed
+    observed_at: '2026-11-12T18:54:42Z'
+    notes: 32+1 and 23 pass on 3.12 (51.791s+1.619s;24.845s); 47+1 pass on 3.13 (61.794s+1.407s), zero skips. Initial
+      schema/diagnostic assumptions corrected; invalid exploratory module invocation is not passing evidence
   environment_limitations:
   - Broader full discovery and local act qualification deferred by maintainer; focused results remain distinct.
   - Accepted organization/confidential-runtime/provider assurance remains separate from the implemented ordinary
@@ -164,19 +163,19 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Complete the four remaining bounded journey checkpoints after the authorized #127–#132 merges.
+Continue #16/#17/#20 journey checkpoints above reviewed-reference repair draft #133.
 
 ## State snapshot
 
-Main f5baa3d has the exact combined #132 tree; all six original PR heads have passing hosted CI. Execution recovered, original WIP untouched. #14 exact reviewed incoming-reference repair is implemented and focused-tested; 35 open issues and 44 coverage rows remain.
+Main f5baa3d includes authorized #127–#132 merges. #133 is the reviewed private repair draft; the current dependent branch adds supplied public-bundle context under existing live authority. All real private/consumer and broad parent gates remain separate.
 
 ## Completed and material changes
 
-Twelve new repair cases, request/event schemas, append-only replacements with exact transition lineage in the authorized closure, CLI preview/apply, two-owner rollback/retry and later-successor history validation. Recovered #13 mixed/diagram checks pass.
+Versioned public context request/result contracts, metadata/descriptor-first explicit selection, current approval/scope/revision filtering before lexical ranking, exact citations and bounded JSON/Markdown, expiry/revocation and read-only CLI.
 
 ## Validation and review evidence
 
-Python 3.12: 37-case reference/routing/mixed/schema suite; Python 3.13: same prior 35 plus two added cases; changed-code Ruff E9/F and new-file formatting — 37 pass on 3.12, zero skips (30.500s); 35+2 pass on 3.13 (28.319s+2.669s), zero skips; Ruff/format pass. Broader full discovery and act deferred by maintainer. Hosted checks, local focused tests and deferred full/act checks remain distinct in docs/journey-sprint.md.
+Python 3.12 public-reader/federation/schema 32 plus added revocation 1; scoped/local regression 23; Python 3.13 public/federation/scoped/schema 47 plus added revocation 1; Ruff E9/F and new-file formatting — 32+1 and 23 pass on 3.12 (51.791s+1.619s;24.845s); 47+1 pass on 3.13 (61.794s+1.407s), zero skips. Initial schema/diagnostic assumptions corrected; invalid exploratory module invocation is not passing evidence. Hosted checks, local focused tests and deferred full/act checks remain distinct in docs/journey-sprint.md.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -184,7 +183,7 @@ Execution recovered; original root WIP is preserved and work continues in an iso
 
 ## Next dependency-ready work
 
-Implement #16 explicit public bundle discovery and bounded cited context above draft #133; #17 reading and #20 composition follow. Keep new drafts for review.
+Open the #16 draft on #133, then implement focused actual Quartz note/backlink/provenance reading proof (#17) and composed synthetic recovery (#20). Broader full/act checks remain deferred; keep drafts for review.
 
 ## Parallel changes and reconciliation
 

@@ -282,6 +282,19 @@ def run_federation(arguments) -> int:
 
 
 def _run_federation(arguments) -> int:
+    if arguments.operation == "query":
+        from .public_bundle_context import public_bundle_context
+
+        request = read_object(arguments.input)
+        if ContractRegistry().errors(request, "federation-context-request"):
+            raise ContractError("FEDERATION_QUERY_REQUEST: supply an explicit public catalog selection")
+        context = QueryContext.load(arguments.local_config, arguments.scope,
+                                    garden_ids={item["garden"] for item in request["bundles"]})
+        output = public_bundle_context(context, request, arguments.format)
+        import sys
+
+        sys.stdout.write(output.decode())
+        return 0
     if arguments.operation == "catalog":
         try:
             request = read_object(arguments.input)

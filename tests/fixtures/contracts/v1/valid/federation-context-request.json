@@ -1,0 +1,75 @@
+{
+  "schema": "mindgarden.federation-context-request/v1",
+  "id": "synthetic-public-context",
+  "catalog": {
+    "schema": "mindgarden.federation-catalog/v1",
+    "status": "complete",
+    "trust": "untrusted-evidence",
+    "scope": {
+      "execution": "offline",
+      "persistence": "machine-local",
+      "policy": {
+        "id": "mindgarden-local-single-user/v1",
+        "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+      },
+      "publication": "publishable",
+      "schema": "mindgarden.scope/v1",
+      "visibility": "public"
+    },
+    "gardens": [
+      {
+        "garden": "repository-garden",
+        "canonical_uri": "urn:mindgarden:garden:repository-garden",
+        "base_uri": "https://repository-garden.example.test/garden/",
+        "revision": "sha256:5ec1622bd2f1d2de2bcbf6d178033548824bbb444f9f763a6459bb01d6114ead",
+        "descriptor_sha256": "5ecc961674e5f41f736922b451612b9a99e2ad0e2c20ccabf70e718bcc515532"
+      }
+    ],
+    "records": [
+      {
+        "reference": {
+          "garden": "repository-garden",
+          "id": "reviewed-claim",
+          "revision": "sha256:9041afa5aeb9f972a62717e7dca71524b79dd73c1c0a357266f6971a10d38b18"
+        },
+        "canonical_url": "https://repository-garden.example.test/garden/notes/reviewed-claim/",
+        "title": "Exact evidence is retained in the synthetic prompt.",
+        "kind": "claim",
+        "review_state": "approved"
+      },
+      {
+        "reference": {
+          "garden": "repository-garden",
+          "id": "reviewed-prompt",
+          "revision": "sha256:e1ce2bc9126281033e190c9607bff98c9cd38534c09a9e7d48216c8e2ca13a02"
+        },
+        "canonical_url": "https://repository-garden.example.test/garden/notes/reviewed-prompt/",
+        "title": "Synthetic prompt bank entry",
+        "kind": "procedure",
+        "review_state": "approved"
+      },
+      {
+        "reference": {
+          "garden": "repository-garden",
+          "id": "reviewed-reference",
+          "revision": "sha256:108c4cd4985f2149128df1478b61582798253bac06c6dfe369446f88c763d4d7"
+        },
+        "canonical_url": "https://repository-garden.example.test/garden/notes/reviewed-reference/",
+        "title": "Synthetic prompt bank entry",
+        "kind": "procedure",
+        "review_state": "approved"
+      }
+    ],
+    "diagnostics": []
+  },
+  "bundles": [
+    {
+      "garden": "repository-garden",
+      "directory": "SYNTHETIC_SUPPLIED_DIRECTORY",
+      "expected_revision": "sha256:5ec1622bd2f1d2de2bcbf6d178033548824bbb444f9f763a6459bb01d6114ead"
+    }
+  ],
+  "query": "evidence",
+  "max_items": 3,
+  "max_bytes": 8192
+}

@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:federation-context:v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "trust",
+    "scope",
+    "inputs",
+    "budget",
+    "included"
+  ],
+  "properties": {
+    "schema": {
+      "const": "mindgarden.federation-context/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "trust": {
+      "const": "untrusted-evidence"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "inputs": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "required": [
+          "garden",
+          "revision"
+        ],
+        "properties": {
+          "garden": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "revision": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "budget": {
+      "type": "object",
+      "required": [
+        "max_bytes",
+        "max_items",
+        "matched_candidates"
+      ],
+      "properties": {
+        "max_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_items": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "matched_candidates": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "included": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "object",
+        "required": [
+          "record",
+          "score",
+          "selection_reason",
+          "selection_reasons"
+        ],
+        "properties": {
+          "record": {
+            "$ref": "urn:egohygiene:mindgarden:federation-descriptor:v1#/$defs/record"
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0
+          },
+          "selection_reason": {
+            "const": "lexical-query"
+          },
+          "selection_reasons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "term",
+                "score"
+              ],
+              "properties": {
+                "term": {
+                  "type": "string"
+                },
+                "field": {
+                  "type": "string"
+                },
+                "score": {
+                  "type": "number"
+                },
+                "bodyFrequency": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "title": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "boolean"
+                },
+                "heading": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false,
+              "anyOf": [
+                {
+                  "required": [
+                    "field"
+                  ]
+                },
+                {
+                  "required": [
+                    "bodyFrequency",
+                    "title",
+                    "tag",
+                    "heading"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
