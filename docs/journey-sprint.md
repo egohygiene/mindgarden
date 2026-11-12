@@ -11,7 +11,7 @@ private-data ingestion or deployment is implied.
 
 | Order | Issue | Checkpoint | Branch / base | Verification / next action |
 | --- | --- | --- | --- | --- |
-| 1 | #15 | Binary diagram and source caption selection, scratch catalog, immutable full original | `feature/15-selective-diagram-journey` / #130 | 21 focused tests on each Python; open draft |
+| 1 | #15 | Binary diagram and source caption selection, scratch catalog, immutable full original | [#131](https://github.com/egohygiene/mindgarden/pull/131), `feature/15-selective-diagram-journey` / #130 | 21 focused tests on each Python; next #13 |
 | 2 | #13 | Mixed text/attachment authored curation, attribution and reviewed destination handoff | Next / #15 draft | Reuse exact normalized evidence; do not require a model |
 | 3 | #14 | Independently reviewed private incoming-reference repair and recovery | Next / #13 draft | Existing incoming inventory is a prerequisite; never auto-retarget |
 | 4 | #16 | Explicit public bundle discovery to bounded cited context | Next / #14 draft | Existing descriptor/catalog/session contracts; no remote acquisition |
@@ -62,5 +62,7 @@ open in their owning issues. Hygiene/Realm policy and confidential-runtime gates
 are unchanged. All 24 ADRs remain proposed with null approval. #19/#27 and the
 deferred #86–#91 cohort remain parked.
 
-Next: open the first draft, then bind the diagram, caption and scratch disposition
+Draft #131 functional commit: `5a8a2b52bd9efed8ca58a0f21ce702e07d2a0105`.
+
+Next: bind the diagram, caption and scratch disposition
 into an authored curation proof using exact independent evidence selectors.

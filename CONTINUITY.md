@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T18:02:22Z'
+  updated_at: '2026-11-12T18:03:36Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -82,8 +82,8 @@ work:
   next:
     kind: action
     id: journey-next-checkpoint
-    description: 'Open the #15 draft above #130, then implement #13 mixed evidence authored review and destination
-      handoff. Keep public transitions/private pilot and release deferred.'
+    description: 'Implement #13 mixed text/diagram authored review and independent private destinations above draft
+      #131.'
     readiness: ready
     references:
     - docs/journey-sprint.md
@@ -92,32 +92,29 @@ state:
   base:
     revision: f92d4160fff63e70c21ca46a2bdabdd6a66ea8a5
     ref: refs/heads/feature/45-reviewed-adapter-migration
-    verified_at: '2026-11-12T18:02:22Z'
+    verified_at: '2026-11-12T18:03:36Z'
   candidate:
     branch: feature/15-selective-diagram-journey
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 5a8a2b52bd9efed8ca58a0f21ce702e07d2a0105
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#131
+      url: https://github.com/egohygiene/mindgarden/pull/131
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-12T18:02:22Z'
+    observed_at: '2026-11-12T18:03:36Z'
     default_branch_revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     issue_state: open
-    pull_request_state: not-applicable
+    pull_request_state: draft
     notes: 'Main 7594921 and drafts #127–#130 unchanged. First journey branch adds exact binary/caption selection
       proof. 35 open issues; 44 coverage rows; no merges authorized for this sprint.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-12T18:02:22Z'
+  reviewed_at: '2026-11-12T18:03:36Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: unittest tests.test_vault_migration tests.test_vault_recovery tests.test_storage_adapters
-      tests.test_v1_contracts --quiet; vault_migration_demo.py --require-source'
-    outcome: passed
-    observed_at: '2026-11-09T10:44:31Z'
-    notes: 35 pass each, zero skips (14.181s / 14.091s); exact no-network migration/removal/restore golden; new
-      contract schema/inventory fixture passes
   - command: Frozen Python 3.12/3.13 unittest discovery; 80-case publication conformance; clean wheel/sdist migration
       and mixed pipeline demos; installed v0 CLI/library; changed-code Ruff/new-file format/compileall and pinned
       owner checks
@@ -129,6 +126,11 @@ review:
       tests.test_conversation_archives; Ruff E9/F and new-file format'
     outcome: passed
     observed_at: '2026-11-12T18:02:22Z'
+    notes: 21 pass each, zero skips (7.579s / 7.714s); lint/format passed; CI not yet observed
+  - command: 'Python 3.12/3.13: python -m unittest tests.test_archive_diagrams tests.test_archive_v2 tests.test_archive_selection
+      tests.test_conversation_archives; Ruff E9/F and new-file format'
+    outcome: passed
+    observed_at: '2026-11-12T18:03:36Z'
     notes: 21 pass each, zero skips (7.579s / 7.714s); lint/format passed; CI not yet observed
   environment_limitations:
   - 'Hygiene #39/#40 normative information-flow and assurance contracts unavailable at 92195e4.'
@@ -183,7 +185,7 @@ Accepted Hygiene classification/declassification/assurance, Realm encrypted-vaul
 
 ## Next dependency-ready work
 
-Open the #15 draft above #130, then implement #13 mixed evidence authored review and destination handoff. Keep public transitions/private pilot and release deferred.
+Implement #13 mixed text/diagram authored review and independent private destinations above draft #131.
 
 ## Parallel changes and reconciliation
 
