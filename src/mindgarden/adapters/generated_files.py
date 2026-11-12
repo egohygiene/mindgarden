@@ -18,14 +18,14 @@ def inventory(files):
 
 
 def apply_generated(
-    directory, files, reviewed_digest, current_digest, *, check_live, verify_inputs
+    directory, files, reviewed_digest, current_digest, *, check_live, verify_inputs,
+    validate_output=None,
 ):
     if reviewed_digest != current_digest:
         raise ContractError(
             "GENERATED_PLAN_STALE: review current source, policy, request and output digests"
         )
-    control_path(directory / MARKER)
-    private_parent(directory.parent / (directory.name + ".control"))
+    files = dict(files)
     if (
         MARKER in files
         or len(files) > 256
@@ -51,6 +51,10 @@ def apply_generated(
             }
         ),
     }
+    if validate_output is not None:
+        validate_output(complete)
+    control_path(directory / MARKER)
+    private_parent(directory.parent / (directory.name + ".control"))
     check_live()
     verify_inputs()
     if directory.exists():

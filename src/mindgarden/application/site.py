@@ -40,6 +40,7 @@ class SiteProjection:
 
     def check_live(self, context):
         self.bundle.check_live(context)
+        context.ensure_bundle(self.files)
         if self.profile_path is not None and digest_bytes(authority_bytes(self.profile_path)) != self.profile_sha256:
             raise ContractError("SITE_PLAN_STALE: reviewed site profile changed")
 
@@ -85,7 +86,9 @@ class SiteProjection:
                    "revision": self.manifest["revision"], "renderer": self.settings,
                    "configuration_sha256": digest_bytes(self.configuration),
                    "files": self.manifest["artifacts"]}
-        return {**payload, "plan_sha256": digest_bytes(canonical_json(payload))}
+        result = {**payload, "plan_sha256": digest_bytes(canonical_json(payload))}
+        context.ensure_output(canonical_json(result))
+        return result
 
     def apply(self, context, parent, digest, *, operation="project", engine_directory=None):
         if self.plan(context, parent, operation=operation, engine_directory=engine_directory)["plan_sha256"] != digest:
@@ -96,6 +99,7 @@ class SiteProjection:
         expected = {**self.manifest, "kind": "content" if operation == "project" else "site"}
         if destination.exists():
             observed = read_site(destination)
+            context.ensure_bundle(observed)
             verify_site(observed, expected=expected)
             if operation == "project" and observed != self.files:
                 raise ContractError("SITE_OUTPUT_CONFLICT: existing content differs; choose a fresh destination")
@@ -111,6 +115,7 @@ class SiteProjection:
             manifest = artifact_manifest("site", self.manifest["revision"], self.manifest["base_uri"], self.settings,
                                          self.manifest["routes"], files)
             files[SITE_MARKER] = canonical_json(manifest)
+        context.ensure_bundle(files)
         self.check_live(context); context.snapshots()
         return write_site(destination, files, check_live=lambda: self.check_live(context), verify_inputs=context.snapshots)
 
@@ -151,6 +156,7 @@ def build_site(context: QueryContext, profile: dict, *, profile_path: Path | Non
     manifest = artifact_manifest("content", revision, descriptor["base_uri"], settings, routes, files)
     files[SITE_MARKER] = canonical_json(manifest)
     verify_site(files)
+    context.ensure_bundle(files)
     return SiteProjection(bundle, deepcopy(settings), configuration, files, manifest, profile_path, digest_bytes(raw))
 
 
@@ -169,8 +175,11 @@ def run_site(arguments, *, operation):
     plan = projection.plan(context, parent, operation=operation, engine_directory=engine)
     if arguments.check:
         expected = {**projection.manifest, "kind": "content" if operation == "project" else "site"}
-        manifest = verify_site(read_site(projection.destination(context, parent)), expected=expected)
+        observed = read_site(projection.destination(context, parent))
+        context.ensure_bundle(observed)
+        manifest = verify_site(observed, expected=expected)
         projection.check_live(context)
+        context.ensure_output(canonical_json(manifest))
         print(canonical_json(manifest).decode(), end="")
     elif arguments.apply:
         changed = projection.apply(context, parent, arguments.plan_digest, operation=operation, engine_directory=engine)

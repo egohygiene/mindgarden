@@ -313,6 +313,7 @@ def run_dependency_build(arguments):
             arguments.plan_digest,
             plan.document()["plan_sha256"],
             check_live=context.check_live,
+            validate_output=context.ensure_bundle,
             verify_inputs=verify,
         )
         result = {

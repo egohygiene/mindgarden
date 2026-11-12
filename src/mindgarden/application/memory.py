@@ -373,6 +373,7 @@ def run_memory(arguments):
             arguments.plan_digest or (preview["plan_sha256"] if checking else None),
             preview["plan_sha256"],
             check_live=context.check_live,
+            validate_output=context.ensure_bundle,
             verify_inputs=verify,
         )
         result = {

@@ -57,6 +57,7 @@ class FederationBundle:
 
     def check_live(self, context: QueryContext) -> None:
         context.check_live()
+        context.ensure_bundle(self.files)
         for path, expected in self.source_checks:
             if digest_bytes(authority_bytes(path)) != expected:
                 raise ContractError("PLAN_STALE: reviewed federation profile changed")
@@ -70,7 +71,9 @@ class FederationBundle:
                    "destination_sha256": digest_bytes(str(destination).encode("utf8")),
                    "descriptor_revision": self.descriptor["revision"],
                    "files": [file_entry(name, content) for name, content in sorted(self.files.items())]}
-        return {**payload, "plan_sha256": digest_bytes(canonical_json(payload))}
+        result = {**payload, "plan_sha256": digest_bytes(canonical_json(payload))}
+        context.ensure_output(canonical_json(result))
+        return result
 
     def apply(self, context: QueryContext, output_directory: Path, reviewed_digest: str) -> bool:
         plan = self.plan(context, output_directory)
@@ -122,7 +125,7 @@ def _build_federation(context: QueryContext, profile: dict, *, profile_sha256: s
     require_destination([binding["scope"], context.session["request_scope"]],
                         destination_scope, operation="export")
     base = public_url(profile["base_uri"], base=True)
-    index = build_index(context)
+    index = build_index(context, enforce_bytes=False)
     require_public_scope(index["scope"])
     revision = next((item["revision"] for item in index["inputs"] if item["garden"] == profile["garden"]), None)
     if profile["source_revision"] != revision:
@@ -190,7 +193,7 @@ def _build_federation(context: QueryContext, profile: dict, *, profile_sha256: s
     if any(len(value) > MAX_FILE_BYTES for value in files.values()) or sum(map(len, files.values())) > MAX_BUNDLE_BYTES:
         raise ContractError("FEDERATION_BUDGET: public projection exceeds the bounded artifact size")
     verify_bundle(files)
-    context.check_live()
+    context.ensure_bundle(files)
     digest = profile_sha256 or digest_bytes(canonical_json(profile))
     return FederationBundle(profile["garden"], descriptor, files, digest, profile["output_root"],
                             ((profile_path, digest),) if profile_path is not None else ())

@@ -259,6 +259,7 @@ def run_local_federation(arguments):
                     digest if arguments.check else arguments.plan_digest,
                     digest,
                     check_live=context.check_live,
+                    validate_output=context.ensure_bundle,
                     verify_inputs=verify,
                 )
             content = canonical_json({**preview, "plan_sha256": digest})

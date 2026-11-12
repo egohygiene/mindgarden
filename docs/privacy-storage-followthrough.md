@@ -52,3 +52,24 @@ declassification implementation or organization assurance.
 Verification: `python -m unittest tests.test_export_policy tests.test_scope_policy tests.test_federation tests.test_site --quiet` passes **39 cases, zero skips** on Python 3.12.14 (51.261s) and 3.13.5 (43.269s). Five new cases cover independent destination axes, unchanged compatible output, untrusted policy/publication, mixed-input joins and non-echoing diagnostics. Focused Ruff E9/F, new-file formatting and diff checks pass. Branch: `feature/29-export-policy-boundaries`, base `main`; hosted CI is separate.
 
 Draft [#127](https://github.com/egohygiene/mindgarden/pull/127) preserves functional `1cb3a60594a678862e5bd2d167218b12b21ea87b` above main `7594921`. The first local continuity check rejected a non-owner status enum; the corrected owner enum, schemas and bounds pass before push. New-head CI is separate.
+
+
+### #31 complete output inventories
+
+Federation and site content, actual rendered artifacts and all session-owned
+private generated bundles now share `QueryContext.ensure_bundle`. The validator
+sums the complete inventory and checks live authority before directory creation.
+Generated ownership metadata counts too. Reuse/check/preview paths cannot select
+an older oversized site under a smaller session. The authorized internal index
+is not charged as an exported response when a reviewed projection selects only
+a small subset. Default compatible bytes and session identities remain stable.
+
+Eight new cases cover aggregate federation output, small selection over a larger
+corpus, site metadata, oversized renderer output, mid-render revocation, generated
+markers, authority-first errors and constant invalid-value diagnostics. Focused
+and full verification results follow after their commands finish. Branch
+`feature/31-bounded-generated-bundles` is stacked on draft #127.
+
+Initial new-case verification: **8 pass, zero skips**, Python 3.12.14 (12.063s). Two initial fixture budgets were below the existing 256-byte schema minimum; corrected fixtures keep that contract unchanged. The first broader command also named nonexistent `tests.test_compaction_bundles`; it is not passing evidence. Corrected broader runs use `tests.test_source_compaction`, followed by final full discovery. Focused changed-code Ruff and diff checks pass.
+
+Draft [#128](https://github.com/egohygiene/mindgarden/pull/128), functional `177dad83a4c54d47b57f5ba9ff8d7caed5e9eb45`, is based on #127. Corrected broader suites run from an immutable worktree; new implementation cannot change those tested bytes.
