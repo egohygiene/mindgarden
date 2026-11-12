@@ -7,13 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-09T11:07:25Z'
+  updated_at: '2026-11-12T18:02:22Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: 'Resume the authorized #10/#29/#31/#35/#45 privacy and storage follow-through.'
+  purpose: 'Resume the authorized #15/#13/#14/#16/#17/#20 privacy and storage follow-through.'
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -68,62 +68,50 @@ scope:
   - docs/extraction-producers.md
   - docs/overnight-sprint.md
   - docs/privacy-storage-followthrough.md
+  - docs/journey-sprint.md
 work:
-  objective: 'Leave the complete tested privacy/storage stack reviewable, retain #10 completion and document actual
-    owner-dependent gaps without claiming full parent closure.'
+  objective: Deliver six bounded reading/evidence journey checkpoints in small draft PRs, preserving the existing
+    unmerged stack.
   success_conditions:
   - Preserve Python/v0, exact evidence, scope and proposed ADR status.
-  - Merge only completed tested checkpoints; keep blocked parent scope explicit.
+  - Leave small tested draft checkpoints and an explicit dependency stack for review.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#45
-    url: https://github.com/egohygiene/mindgarden/issues/45
+    id: egohygiene/mindgarden#15
+    url: https://github.com/egohygiene/mindgarden/issues/15
   next:
     kind: action
-    id: privacy-storage-next-checkpoint
-    description: 'Review current #127 → #128 → #129 → #130 heads/comments and final documentation-head CI before
-      any merge. Preserve combined branch and adopt only actual accepted Hygiene #39/#40 and Realm #28/#29/#30 contracts;
-      no real private data, destructive retention, ADR ratification, release or deferred phase activation.'
+    id: journey-next-checkpoint
+    description: 'Open the #15 draft above #130, then implement #13 mixed evidence authored review and destination
+      handoff. Keep public transitions/private pilot and release deferred.'
     readiness: ready
     references:
-    - docs/privacy-storage-followthrough.md
-    - docs/vault-migration.md
+    - docs/journey-sprint.md
     depends_on: []
 state:
   base:
-    revision: 3893c399e3b96cb56868b7f573c9de30b7d40cfd
-    ref: refs/heads/fix/35-pdf-process-lifecycle
-    verified_at: '2026-11-09T11:07:25Z'
+    revision: f92d4160fff63e70c21ca46a2bdabdd6a66ea8a5
+    ref: refs/heads/feature/45-reviewed-adapter-migration
+    verified_at: '2026-11-12T18:02:22Z'
   candidate:
-    branch: feature/45-reviewed-adapter-migration
-    revision: e789c0c2a27f477b52f96529236966ad1c962ea4
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#130
-      url: https://github.com/egohygiene/mindgarden/pull/130
-    handoff_state: ready-for-review
+    branch: feature/15-selective-diagram-journey
+    revision: null
+    pull_request: null
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-09T11:07:25Z'
+    observed_at: '2026-11-12T18:02:22Z'
     default_branch_revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     issue_state: open
-    pull_request_state: draft
-    notes: 'Main 7594921 is unchanged. Draft #127 → #128 → #129 → #130 is the combined privacy/storage stack, functional
-      e789c0c. Full frozen suites pass 515 each, zero skips; publication conformance 80 and four clean source/wheel
-      goldens pass. All four functional/current parent heads have green CI; following handoff-only head is separate.
-      35 issues remain open.'
+    pull_request_state: not-applicable
+    notes: 'Main 7594921 and drafts #127–#130 unchanged. First journey branch adds exact binary/caption selection
+      proof. 35 open issues; 44 coverage rows; no merges authorized for this sprint.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-09T11:07:25Z'
+  reviewed_at: '2026-11-12T18:02:22Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12/3.13: unittest tests.test_pdf_process_lifecycle tests.test_documents tests.test_storage_adapters
-      tests.test_mixed_vault_workflow --quiet; document_demo.py with explicit /usr/bin tools'
-    outcome: passed
-    observed_at: '2026-11-09T10:24:34Z'
-    notes: '19 pass each, zero skips (28.681s / 28.293s); real Poppler six-state proof passed, owned temporary state
-      removed; corrected #31 suites 98 pass each (205.507s / 195.094s)'
   - command: 'Python 3.12/3.13: unittest tests.test_vault_migration tests.test_vault_recovery tests.test_storage_adapters
       tests.test_v1_contracts --quiet; vault_migration_demo.py --require-source'
     outcome: passed
@@ -137,6 +125,11 @@ review:
     observed_at: '2026-11-09T11:07:25Z'
     notes: 515 pass each, zero skips (707.932s / 681.235s); 80 pass; four exact artifact goldens, zero runtime dependencies;
       native PDF six states pass; functional heads CI success; later docs-only CI must be observed separately
+  - command: 'Python 3.12/3.13: python -m unittest tests.test_archive_diagrams tests.test_archive_v2 tests.test_archive_selection
+      tests.test_conversation_archives; Ruff E9/F and new-file format'
+    outcome: passed
+    observed_at: '2026-11-12T18:02:22Z'
+    notes: 21 pass each, zero skips (7.579s / 7.714s); lint/format passed; CI not yet observed
   environment_limitations:
   - 'Hygiene #39/#40 normative information-flow and assurance contracts unavailable at 92195e4.'
   - 'Realm #28/#29/#30 still own encrypted-vault selection/implementation and confidential runtime; #60 only consolidates
@@ -162,7 +155,7 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer selected #10/#29/#31/#35/#45 after the overnight stack merged. Preserve Python/v0, canonical ownership and privacy. Implement bounded local checkpoints; distinguish proposed policy from accepted organization/runtime assurance. Release and deferred context packages stay parked.
+The maintainer selected #15/#13/#14/#16/#17/#20 above the unchanged privacy/storage drafts #127–#130. Preserve Python/v0, canonical ownership and privacy. Implement bounded local checkpoints; distinguish proposed policy from accepted organization/runtime assurance. Release and deferred context packages stay parked.
 
 ## Resume protocol
 
@@ -170,19 +163,19 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Leave the complete tested privacy/storage stack reviewable, retain #10 completion and document actual owner-dependent gaps without claiming full parent closure.
+Deliver six bounded reading/evidence journey checkpoints in small draft PRs, preserving the existing unmerged stack.
 
 ## State snapshot
 
-Main 7594921 is unchanged. Draft #127 → #128 → #129 → #130 is the combined privacy/storage stack, functional e789c0c. Full frozen suites pass 515 each, zero skips; publication conformance 80 and four clean source/wheel goldens pass. All four functional/current parent heads have green CI; following handoff-only head is separate. 35 issues remain open.
+Main 7594921 and drafts #127–#130 unchanged. First journey branch adds exact binary/caption selection proof. 35 open issues; 44 coverage rows; no merges authorized for this sprint.
 
 ## Completed and material changes
 
-Shared destination policy, complete output/session limits, managed PDF process groups/private defaults, and reviewed local adapter migration with retained originals, exact retry and private binding history. #10 is reverified; #29/#31/#35/#45 remain partial. All code/contract/proof evidence is in docs/evidence/privacy-storage-qualification.json.
+Synthetic diagram/scratch PNG fixtures, exact separate caption locators, selected-byte and catalog assertions, retained full original, overlap/fallback deduplication and corrupt/stale rejection.
 
 ## Validation and review evidence
 
-Frozen Python 3.12/3.13 unittest discovery; 80-case publication conformance; clean wheel/sdist migration and mixed pipeline demos; installed v0 CLI/library; changed-code Ruff/new-file format/compileall and pinned owner checks — 515 pass each, zero skips (707.932s / 681.235s); 80 pass; four exact artifact goldens, zero runtime dependencies; native PDF six states pass; functional heads CI success; later docs-only CI must be observed separately. Exact CI and combined qualification remain separate observations in docs/privacy-storage-followthrough.md.
+Python 3.12/3.13: python -m unittest tests.test_archive_diagrams tests.test_archive_v2 tests.test_archive_selection tests.test_conversation_archives; Ruff E9/F and new-file format — 21 pass each, zero skips (7.579s / 7.714s); lint/format passed; CI not yet observed. Exact CI and combined qualification remain separate observations in docs/journey-sprint.md.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -190,7 +183,7 @@ Accepted Hygiene classification/declassification/assurance, Realm encrypted-vaul
 
 ## Next dependency-ready work
 
-Review current #127 → #128 → #129 → #130 heads/comments and final documentation-head CI before any merge. Preserve combined branch and adopt only actual accepted Hygiene #39/#40 and Realm #28/#29/#30 contracts; no real private data, destructive retention, ADR ratification, release or deferred phase activation.
+Open the #15 draft above #130, then implement #13 mixed evidence authored review and destination handoff. Keep public transitions/private pilot and release deferred.
 
 ## Parallel changes and reconciliation
 
@@ -206,4 +199,4 @@ At each checkpoint update branch/PR, functional revision, exact checks, remainin
 
 ## Compaction and supersession
 
-Keep all twelve headings and 16384-byte/240-line limits. This current privacy/storage task supersedes the completed overnight queue as active work; its merge and test evidence remain historical in docs/overnight-sprint.md.
+Keep all twelve headings and 16384-byte/240-line limits. This current journey task supersedes the completed overnight queue as active work; its merge and test evidence remain historical in docs/overnight-sprint.md.

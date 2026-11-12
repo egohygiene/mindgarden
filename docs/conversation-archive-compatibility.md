@@ -116,3 +116,12 @@ The adapter 1.1.0 metadata revision required an explicit
 [golden reconciliation](archive-version-golden-note.md). Evidence identities and
 vault bytes remain exact; the authorized metadata-view hashes change for new
 imports. Initial CI failures and their correction are recorded separately.
+# Selective binary diagram evidence
+
+The synthetic `diagram-journey` fixture exercises the tested v2.0.0–2.0.2 source
+profiles with two PNG attachments. `asset-diagram` is selected; `asset-scratch`
+remains catalog-only. The caption is observed message text at
+`json:/content/2/text`, linked to the image through the same message and asset
+source references. No inferred caption or vision claim is added. Full original
+ZIPs retain both images and every declared attachment checksum is still verified.
+See [the journey checkpoint](journey-sprint.md) and `tests/test_archive_diagrams.py`.
