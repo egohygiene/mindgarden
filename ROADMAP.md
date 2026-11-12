@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-09
+updated: 2026-11-12
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -33,14 +33,15 @@ repository: egohygiene/mindgarden
 visibility: public
 publication: central
 route: /roadmap/mindgarden/
-updated: 2026-11-09
+updated: 2026-11-12
 -->
-## 2026-11-09 execution snapshot
+## 2026-11-12 execution snapshot
 
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** seed, extraction stage  
-**Current gate (2026-11-09):** Main `7594921` contains merged #110–#126. The selected [privacy/storage follow-through](docs/privacy-storage-followthrough.md) is reviewable as drafts #127 → #128 → #129 → #130, combined functional `e789c0c`: 515 tests per Python, 80 publication cases and exact clean wheel/source proofs pass. #10 remains closed; #29/#31/#35/#45 keep their actual owner-dependent scope open. Hygiene #39/#40 and Realm #28/#29/#30 remain unavailable integration contracts; #60 is platform/distribution follow-through. There are 35 open issues. Review the bounded stack before any merge; release work, proposed ADR ratification and deferred #86–#91 stay parked.
+**Current gate (2026-11-12):** Main `7594921` contains merged #110–#126. The selected [privacy/storage follow-through](docs/privacy-storage-followthrough.md) is reviewable as drafts #127 → #128 → #129 → #130, combined functional `e789c0c`: 515 tests per Python, 80 publication cases and exact clean wheel/source proofs pass. #10 remains closed; #29/#31/#35/#45 keep their actual owner-dependent scope open. Hygiene #39/#40 and Realm #28/#29/#30 remain unavailable integration contracts; #60 is platform/distribution follow-through. There are 35 open issues. Review the bounded stack before any merge; release work, proposed ADR ratification and deferred #86–#91 stay parked.
+**Selected follow-through:** [The reading/evidence journey](docs/journey-sprint.md) adds drafts #131 (#15 selected diagram/caption, 21 focused tests per Python) → #132 (#13 mixed-media WIP recovered after runtime loss). Required #13 local verification is blocked; new #14/#16/#17/#20 checkpoints remain unimplemented. Full hosted Python jobs are pending, not inferred passing. Preserve all drafts for review and the combined checkout; no merges or parent closure are claimed.
 **North-star outcome:** A private-by-default personal knowledge garden with versioned ingestion, indexing, context-pack, and publication boundaries.
 
 ### Complete open-issue coverage and next batches

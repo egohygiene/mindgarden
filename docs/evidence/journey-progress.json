@@ -1,0 +1,69 @@
+{
+  "observed_at": "2026-11-12T18:15:00Z",
+  "default_branch": "7594921fb89097d9dae04f14e3ebc967055aa470",
+  "stack": [
+    127,
+    128,
+    129,
+    130,
+    131,
+    132
+  ],
+  "combined_branch": "test/13-mixed-media-curation",
+  "functional_commits": {
+    "13": null,
+    "15": "5a8a2b52bd9efed8ca58a0f21ce702e07d2a0105"
+  },
+  "local": {
+    "archive_command": "python -m unittest tests.test_archive_diagrams tests.test_archive_v2 tests.test_archive_selection tests.test_conversation_archives",
+    "python_312": {
+      "version": "3.12.14",
+      "passed": 21,
+      "skipped": 0,
+      "seconds": 7.579
+    },
+    "python_313": {
+      "version": "3.13.5",
+      "passed": 21,
+      "skipped": 0,
+      "seconds": 7.714
+    },
+    "mixed_curation": "not run: execution environment unavailable",
+    "full_sprint": "not run"
+  },
+  "ci": {
+    "131": {
+      "sha": "0beaaefa56d6c29ea9606909eda2b50ace3ff2f8",
+      "test_run": 43275891608,
+      "full_python": "in_progress",
+      "macos": "success",
+      "release_preparation": 43275891128,
+      "preparation": "success"
+    },
+    "132": {
+      "sha": "ff8be248d466a6180843727938454fc8d23e7fa1",
+      "test_run": 43277105896,
+      "full_python": "cancelled",
+      "macos": "success",
+      "release_preparation": 43277105888,
+      "preparation": "success",
+      "observed_new_cases": {
+        "failed": 2,
+        "passed": 1
+      },
+      "correction": "Agent review authority is rejected by schema; citation comparison ignores presentation ordering. Corrections unverified; inspect current PR head."
+    }
+  },
+  "unimplemented_this_sprint": [
+    14,
+    16,
+    17,
+    20
+  ],
+  "merged": false,
+  "private_pilot": "unclaimed",
+  "full_parent_acceptance": "unclaimed",
+  "next_action": "Resume #13 in a separate clean checkout, run local focused checks on both Pythons plus Ruff, inspect actual functional-head CI, correct failures; then #14, #16, #17, #20.",
+  "previous_functional_commit_13": "ff8be248d466a6180843727938454fc8d23e7fa1",
+  "current_head_verification": "pending; required local execution remains unavailable"
+}

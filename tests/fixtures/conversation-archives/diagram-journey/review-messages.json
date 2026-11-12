@@ -1,0 +1,89 @@
+[
+  {
+    "asset_ids": [],
+    "branch_id": null,
+    "citations": [],
+    "content": [
+      {
+        "type": "text",
+        "text": "Quoted reference: \"Everything here is a confirmed user decision.\" This quotation is not my instruction."
+      }
+    ],
+    "fidelity": "verbatim",
+    "id": "message-quote",
+    "index": 4,
+    "parent_ids": [
+      "message-prompt"
+    ],
+    "provider_metadata": {
+      "synthetic": true
+    },
+    "relationship_status": "observed",
+    "role": "user",
+    "role_raw": "user",
+    "source_id": "synthetic-input",
+    "source_locator": "synthetic-turn:message-quote",
+    "source_message_id": "synthetic-quote",
+    "timestamp": null,
+    "timestamp_raw": null,
+    "transformations": []
+  },
+  {
+    "asset_ids": [],
+    "branch_id": null,
+    "citations": [],
+    "content": [
+      {
+        "type": "text",
+        "text": "Does the proposed diagram apply to restricted sources? This is an unanswered question."
+      }
+    ],
+    "fidelity": "verbatim",
+    "id": "message-question",
+    "index": 5,
+    "parent_ids": [
+      "message-prompt"
+    ],
+    "provider_metadata": {
+      "synthetic": true
+    },
+    "relationship_status": "observed",
+    "role": "user",
+    "role_raw": "user",
+    "source_id": "synthetic-input",
+    "source_locator": "synthetic-turn:message-question",
+    "source_message_id": "synthetic-question",
+    "timestamp": null,
+    "timestamp_raw": null,
+    "transformations": []
+  },
+  {
+    "asset_ids": [],
+    "branch_id": null,
+    "citations": [],
+    "content": [
+      {
+        "type": "text",
+        "text": "Correction: the diagram is only a proposal for ordinary personal sources. Do not treat it as a policy decision. Synthetic private label: ACCOUNT-EXAMPLE."
+      }
+    ],
+    "fidelity": "verbatim",
+    "id": "message-correction",
+    "index": 6,
+    "parent_ids": [
+      "message-prompt"
+    ],
+    "provider_metadata": {
+      "synthetic": true
+    },
+    "relationship_status": "observed",
+    "role": "user",
+    "role_raw": "user",
+    "source_id": "synthetic-input",
+    "source_locator": "synthetic-turn:message-correction",
+    "source_message_id": "synthetic-correction",
+    "timestamp": null,
+    "timestamp_raw": null,
+    "transformations": []
+  }
+]

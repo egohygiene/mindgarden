@@ -22,7 +22,9 @@ package work stays parked.
 The authorized #15/#13/#14/#16/#17/#20 checkpoints now stack on the unchanged
 privacy/storage drafts. [The journey ledger](journey-sprint.md) records dependency
 corrections, draft order, exact tests and remaining parent scope. The first binary
-diagram/caption selection proof passes 21 focused cases on each Python.
+diagram/caption selection proof passes 21 focused cases on each Python (#131).
+The #13 mixed-media recipe/test checkpoint is preserved on draft #132 above #131;
+local verification is blocked by unavailable execution. No completion is inferred.
 
 ## Prior privacy and storage follow-through
 

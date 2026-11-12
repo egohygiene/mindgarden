@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T18:03:36Z'
+  updated_at: '2026-11-12T18:15:00Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -77,38 +77,36 @@ work:
   - Leave small tested draft checkpoints and an explicit dependency stack for review.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#15
-    url: https://github.com/egohygiene/mindgarden/issues/15
+    id: egohygiene/mindgarden#13
+    url: https://github.com/egohygiene/mindgarden/issues/13
   next:
     kind: action
     id: journey-next-checkpoint
-    description: 'Implement #13 mixed text/diagram authored review and independent private destinations above draft
-      #131.'
+    description: 'Resume and verify recovered #13 draft #132 when execution is usable, then implement #14.'
     readiness: ready
     references:
     - docs/journey-sprint.md
     depends_on: []
 state:
   base:
-    revision: f92d4160fff63e70c21ca46a2bdabdd6a66ea8a5
-    ref: refs/heads/feature/45-reviewed-adapter-migration
-    verified_at: '2026-11-12T18:03:36Z'
+    revision: 0beaaefa56d6c29ea9606909eda2b50ace3ff2f8
+    ref: refs/heads/feature/15-selective-diagram-journey
+    verified_at: '2026-11-12T18:15:00Z'
   candidate:
-    branch: feature/15-selective-diagram-journey
-    revision: 5a8a2b52bd9efed8ca58a0f21ce702e07d2a0105
+    branch: test/13-mixed-media-curation
+    revision: null
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#131
-      url: https://github.com/egohygiene/mindgarden/pull/131
-    handoff_state: ready-for-review
+      id: egohygiene/mindgarden#132
+      url: https://github.com/egohygiene/mindgarden/pull/132
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-12T18:03:36Z'
+    observed_at: '2026-11-12T18:15:00Z'
     default_branch_revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     issue_state: open
     pull_request_state: draft
-    notes: 'Main 7594921 and drafts #127–#130 unchanged. First journey branch adds exact binary/caption selection
-      proof. 35 open issues; 44 coverage rows; no merges authorized for this sprint.'
+    notes: 'Drafts #131/#132 stack on unchanged #127–#130. #131 archive tests pass 21 per Python locally. #132 recovered through GitHub after runtime outage; local checks unavailable. Superseded #132 logs show two new assertion failures, now corrected from schema/citation ordering evidence; corrected-head local/CI qualification pending. Prior macOS/preparation jobs pass. Remaining four checkpoints unimplemented; no merges.'
   parallel_changes: []
 review:
   status: partial
@@ -133,6 +131,7 @@ review:
     observed_at: '2026-11-12T18:03:36Z'
     notes: 21 pass each, zero skips (7.579s / 7.714s); lint/format passed; CI not yet observed
   environment_limitations:
+  - 'Managed execution environment unavailable during #13; local tests/format checks did not run. GitHub recovery preserves WIP only.'
   - 'Hygiene #39/#40 normative information-flow and assurance contracts unavailable at 92195e4.'
   - 'Realm #28/#29/#30 still own encrypted-vault selection/implementation and confidential runtime; #60 only consolidates
     its listed platform/distribution work.'
@@ -169,15 +168,15 @@ Deliver six bounded reading/evidence journey checkpoints in small draft PRs, pre
 
 ## State snapshot
 
-Main 7594921 and drafts #127–#130 unchanged. First journey branch adds exact binary/caption selection proof. 35 open issues; 44 coverage rows; no merges authorized for this sprint.
+Main 7594921 and drafts #127–#130 are unchanged. #131 (0beaaefa56d6c29ea9606909eda2b50ace3ff2f8) preserves the locally tested #15 proof. Mixed-media #13 files are recovered on test/13-mixed-media-curation above #131. Runtime unavailable; local verification and subsequent checkpoints remain incomplete. 35 open issues, 44 coverage rows; no merges.
 
 ## Completed and material changes
 
-Synthetic diagram/scratch PNG fixtures, exact separate caption locators, selected-byte and catalog assertions, retained full original, overlap/fallback deduplication and corrupt/stale rejection.
+Draft #131: binary diagram/caption selection, scratch catalog, immutable original, overlap/fallback and stale/corrupt rejection; 21 tests per Python. #13 authored mixed-evidence recipes and three intended regression cases preserved through GitHub after runtime loss; unverified, with no new core engine behavior.
 
 ## Validation and review evidence
 
-Python 3.12/3.13: python -m unittest tests.test_archive_diagrams tests.test_archive_v2 tests.test_archive_selection tests.test_conversation_archives; Ruff E9/F and new-file format — 21 pass each, zero skips (7.579s / 7.714s); lint/format passed; CI not yet observed. Exact CI and combined qualification remain separate observations in docs/journey-sprint.md.
+Completed #15 qualification remains 21 tests per Python, zero skips (7.579s / 7.714s), plus lint/format and pinned owner/continuity/coverage checks. #13 test execution failed to start because the managed environment became unavailable; no local result or format pass is claimed. Superseded #132 CI logs show two failed test assumptions and one passing destination case on both Pythons; corrected assertions await qualification. Inspect the current head separately.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -185,7 +184,7 @@ Accepted Hygiene classification/declassification/assurance, Realm encrypted-vaul
 
 ## Next dependency-ready work
 
-Implement #13 mixed text/diagram authored review and independent private destinations above draft #131.
+Restore usable execution, fetch test/13-mixed-media-curation and inspect any retained local WIP before checkout. Run the exact focused Python 3.12/3.13 and Ruff commands in docs/journey-sprint.md, correct failures and update receipt/continuity. Then #14 independently reviewed incoming-reference repair, #16 public supplied-bundle context, #17 real note/backlink reading and #20 composed recovery proof. Keep drafts for review.
 
 ## Parallel changes and reconciliation
 
