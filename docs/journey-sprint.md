@@ -12,7 +12,7 @@ private-data ingestion or deployment is implied.
 | Order | Issue | Checkpoint | Branch / base | Verification / next action |
 | --- | --- | --- | --- | --- |
 | 1 | #15 | Binary diagram and source caption selection, scratch catalog, immutable full original | [#131](https://github.com/egohygiene/mindgarden/pull/131), `feature/15-selective-diagram-journey` / #130 | 21 focused tests on each Python; next #13 |
-| 2 | #13 | Mixed text/attachment authored curation, attribution and reviewed destination handoff | `test/13-mixed-media-curation` / #131 | Implementation preserved; local tests blocked by unavailable environment |
+| 2 | #13 | Mixed text/attachment authored curation, attribution and reviewed destination handoff | [#132](https://github.com/egohygiene/mindgarden/pull/132), `test/13-mixed-media-curation` / #131 | Implementation preserved; local tests blocked by unavailable environment |
 | 3 | #14 | Independently reviewed private incoming-reference repair and recovery | Next / #13 draft | Existing incoming inventory is a prerequisite; never auto-retarget |
 | 4 | #16 | Explicit public bundle discovery to bounded cited context | Next / #14 draft | Existing descriptor/catalog/session contracts; no remote acquisition |
 | 5 | #17 | Actual Quartz note, backlinks and provenance reading journey | Next / #16 draft | Reuse the pinned renderer and existing accessibility checks |
@@ -64,8 +64,8 @@ deferred #86–#91 cohort remain parked.
 
 Draft #131 functional commit: `5a8a2b52bd9efed8ca58a0f21ce702e07d2a0105`.
 
-Next: bind the diagram, caption and scratch disposition
-into an authored curation proof using exact independent evidence selectors.
+Next: qualify the recovered mixed-media draft #132 when execution is available,
+then continue with #14. Both drafts remain for review.
 
 ## #13 interrupted mixed-media checkpoint
 
@@ -97,3 +97,59 @@ Run the tests on Python 3.12 and 3.13, correct failures, update this receipt and
 CONTINUITY, then proceed to independently reviewed incoming-reference repair
 (#14). The broader #13 multi-target proposal protocol and model evaluation remain
 open; this uses existing reviewed private transitions as the destination handoff.
+
+## Recovery receipt and exact next action
+
+Draft #131 head `0beaaefa56d6c29ea9606909eda2b50ace3ff2f8` is the tested
+archive checkpoint plus its documentation handoff. Draft #132 functional head
+`ff8be248d466a6180843727938454fc8d23e7fa1` preserves the interrupted curation
+work. Both are unmerged and unreviewed. Later documentation commits do not imply
+new software verification.
+
+Automatic CI observed at 2026-11-12 18:15:00 UTC: #131 Test **43275891608** and #132 Test
+**43277105896** have passing macOS 3.12/3.13 jobs, with both full Linux Python
+jobs still running. Release-preparation runs **43275891128** and **43277105888**
+pass. Full Test runs are **pending**, not passing evidence. No workflows were
+manually dispatched. Required #13 local checks remain unavailable.
+
+The managed execution environment reported unavailable, and exec rejected new
+commands with “No usable execution environment is available.” Runtime status
+metadata separately reported running; that observation did not restore command
+execution. Existing local uncommitted files may differ from the recovered remote
+branch. Preserve them; do not reset or clean the original workspace. When usable
+execution returns, fetch and create a separate checkout:
+
+```sh
+git fetch origin
+git worktree add --detach .cache/journey-resume origin/test/13-mixed-media-curation
+```
+
+From that checkout, run the #13 commands above with both interpreters and inspect
+the exact functional-head CI logs. Fix any failures and record actual results
+before extending the stack. No further user approval is needed for the already
+authorized six checkpoints.
+
+### Implementation resumption notes
+
+- **#14:** extend the existing incoming inventory with a separately reviewed,
+  exact-edge/target operation. Preserve the old edge and its intent; explicitly
+  model how projections select the reviewed replacement. Reuse group transaction
+  rollback/recovery and fingerprint checks. Include changed edges, targets,
+  evidence, unsupported policy transitions and partial-failure retry cases.
+- **#16:** consume only explicitly supplied, checksum/revision-verified public
+  bundles through the descriptor/catalog boundary. Existing private local read
+  handlers already work; avoid duplicating them. Enforce live output budgets and
+  exact represented citations without treating producer assertions as authority.
+- **#17:** extend `scripts/site_browser_check.py` on the already pinned Quartz
+  renderer with note-page search, backlinks, exact provenance, keyboard/mobile
+  and long-citation checks. Reuse prepared offline npm/axe caches. Full manual
+  WCAG, private app and hosting acceptance remain separate.
+- **#20:** compose the selected image/caption review, prompt retrieval, bounded
+  context and new routing/discovery with existing vault migration and restore
+  services. Run a fresh standalone proof and isolated wheel/source proofs with
+  networking, Google and model calls blocked; compare exact source/index/graph/
+  context identities after rebuild. Never substitute earlier partial goldens
+  for this new composition or claim the real private pilot is complete.
+
+The next four rows remain **unimplemented in this sprint**. These notes are
+implementation guidance, not accepted new architecture or completed acceptance.

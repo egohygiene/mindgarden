@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T18:20:00Z'
+  updated_at: '2026-11-12T18:15:00Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -82,30 +82,31 @@ work:
   next:
     kind: action
     id: journey-next-checkpoint
-    description: 'Implement #13 mixed text/diagram authored review and independent private destinations above draft
-      #131.'
+    description: 'Resume and verify recovered #13 draft #132 when execution is usable, then implement #14.'
     readiness: ready
     references:
     - docs/journey-sprint.md
     depends_on: []
 state:
   base:
-    revision: f92d4160fff63e70c21ca46a2bdabdd6a66ea8a5
-    ref: refs/heads/feature/45-reviewed-adapter-migration
-    verified_at: '2026-11-12T18:03:36Z'
+    revision: 0beaaefa56d6c29ea9606909eda2b50ace3ff2f8
+    ref: refs/heads/feature/15-selective-diagram-journey
+    verified_at: '2026-11-12T18:15:00Z'
   candidate:
     branch: test/13-mixed-media-curation
-    revision: null
-    pull_request: null
+    revision: ff8be248d466a6180843727938454fc8d23e7fa1
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#132
+      url: https://github.com/egohygiene/mindgarden/pull/132
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-12T18:03:36Z'
+    observed_at: '2026-11-12T18:15:00Z'
     default_branch_revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     issue_state: open
     pull_request_state: draft
-    notes: 'Main 7594921 and drafts #127–#130 unchanged. First journey branch adds exact binary/caption selection
-      proof. 35 open issues; 44 coverage rows; no merges authorized for this sprint.'
+    notes: 'Drafts #131/#132 stack on unchanged #127–#130. #131 archive tests pass 21 per Python locally. #132 recovered through GitHub after runtime outage; local checks unavailable. Hosted full Python jobs pending; macOS and preparation jobs pass. Remaining four checkpoints unimplemented; no merges.'
   parallel_changes: []
 review:
   status: partial
