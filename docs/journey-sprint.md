@@ -153,3 +153,21 @@ authorized six checkpoints.
 
 The next four rows remain **unimplemented in this sprint**. These notes are
 implementation guidance, not accepted new architecture or completed acceptance.
+
+### Corrected preliminary assertions
+
+The superseded #132 functional Test run **43277105896** was cancelled by the
+following documentation push. Its retained logs show two failed new assertions
+on both Python jobs and the reviewed-destination case passing. This is failure
+evidence, not a passing suite. Source review identified the two test assumptions:
+the curation schema rejects an agent review authority as `CURATION_INVALID`
+before the human-review guard; the index deterministically orders citations
+independently of authored proposal order.
+
+The corrected tests separately require agent-schema rejection and
+`REVIEW_AUTHORITY` when human authority is absent, and compare complete exact
+citation sets without imposing proposal order. The context assertion also checks
+the 8192-byte bound. These corrections still require local and full CI
+qualification; no product rule was weakened. Inspect the current PR head for the
+corrected revision. Later superseded runs and pending current-head CI are not
+passing evidence.

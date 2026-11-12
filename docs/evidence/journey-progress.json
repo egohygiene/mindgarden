@@ -11,7 +11,7 @@
   ],
   "combined_branch": "test/13-mixed-media-curation",
   "functional_commits": {
-    "13": "ff8be248d466a6180843727938454fc8d23e7fa1",
+    "13": null,
     "15": "5a8a2b52bd9efed8ca58a0f21ce702e07d2a0105"
   },
   "local": {
@@ -43,10 +43,15 @@
     "132": {
       "sha": "ff8be248d466a6180843727938454fc8d23e7fa1",
       "test_run": 43277105896,
-      "full_python": "in_progress",
+      "full_python": "cancelled",
       "macos": "success",
       "release_preparation": 43277105888,
-      "preparation": "success"
+      "preparation": "success",
+      "observed_new_cases": {
+        "failed": 2,
+        "passed": 1
+      },
+      "correction": "Agent review authority is rejected by schema; citation comparison ignores presentation ordering. Corrections unverified; inspect current PR head."
     }
   },
   "unimplemented_this_sprint": [
@@ -58,5 +63,7 @@
   "merged": false,
   "private_pilot": "unclaimed",
   "full_parent_acceptance": "unclaimed",
-  "next_action": "Resume #13 in a separate clean checkout, run local focused checks on both Pythons plus Ruff, inspect actual functional-head CI, correct failures; then #14, #16, #17, #20."
+  "next_action": "Resume #13 in a separate clean checkout, run local focused checks on both Pythons plus Ruff, inspect actual functional-head CI, correct failures; then #14, #16, #17, #20.",
+  "previous_functional_commit_13": "ff8be248d466a6180843727938454fc8d23e7fa1",
+  "current_head_verification": "pending; required local execution remains unavailable"
 }

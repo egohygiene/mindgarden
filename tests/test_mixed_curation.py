@@ -59,10 +59,11 @@ class MixedCurationTests(unittest.TestCase):
         write_session(session, self.configuration)
         query = QueryContext.load(self.configuration, session)
         result = search_payload(query, "evidence")
-        self.assertEqual(result["results"][0]["sources"], prompt["sources"])
+        self.assertCountEqual(result["results"][0]["sources"], prompt["sources"])
         profile = read_object(root / "context-packs/default.json")
         profile.update(query="evidence", max_bytes=8192)
         context = render_context(query, profile, "json")
+        self.assertLessEqual(len(context), 8192)
         self.assertIn(b"reviewed-prompt", context)
         self.assertNotIn(b"ACCOUNT-EXAMPLE", context)
         self.assertNotIn(b"open-question", context)
@@ -71,6 +72,9 @@ class MixedCurationTests(unittest.TestCase):
         self.proposal["review_authority"] = {
             "kind": "agent", "id": "synthetic-producer", "version": "fixture-1"
         }
+        with self.assertRaisesRegex(ContractError, "CURATION_INVALID"):
+            self.plan()
+        self.proposal["review_authority"] = None
         with self.assertRaisesRegex(ContractError, "REVIEW_AUTHORITY"):
             self.plan()
         self.proposal["review_authority"] = {

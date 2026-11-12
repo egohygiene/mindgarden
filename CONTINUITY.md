@@ -94,7 +94,7 @@ state:
     verified_at: '2026-11-12T18:15:00Z'
   candidate:
     branch: test/13-mixed-media-curation
-    revision: ff8be248d466a6180843727938454fc8d23e7fa1
+    revision: null
     pull_request:
       provider: github
       id: egohygiene/mindgarden#132
@@ -106,7 +106,7 @@ state:
     default_branch_revision: 7594921fb89097d9dae04f14e3ebc967055aa470
     issue_state: open
     pull_request_state: draft
-    notes: 'Drafts #131/#132 stack on unchanged #127–#130. #131 archive tests pass 21 per Python locally. #132 recovered through GitHub after runtime outage; local checks unavailable. Hosted full Python jobs pending; macOS and preparation jobs pass. Remaining four checkpoints unimplemented; no merges.'
+    notes: 'Drafts #131/#132 stack on unchanged #127–#130. #131 archive tests pass 21 per Python locally. #132 recovered through GitHub after runtime outage; local checks unavailable. Superseded #132 logs show two new assertion failures, now corrected from schema/citation ordering evidence; corrected-head local/CI qualification pending. Prior macOS/preparation jobs pass. Remaining four checkpoints unimplemented; no merges.'
   parallel_changes: []
 review:
   status: partial
@@ -176,7 +176,7 @@ Draft #131: binary diagram/caption selection, scratch catalog, immutable origina
 
 ## Validation and review evidence
 
-Completed #15 qualification remains 21 tests per Python, zero skips (7.579s / 7.714s), plus lint/format and pinned owner/continuity/coverage checks. #13 test execution failed to start because the managed environment became unavailable; no local result or format pass is claimed. Automatic new-head CI must be inspected separately.
+Completed #15 qualification remains 21 tests per Python, zero skips (7.579s / 7.714s), plus lint/format and pinned owner/continuity/coverage checks. #13 test execution failed to start because the managed environment became unavailable; no local result or format pass is claimed. Superseded #132 CI logs show two failed test assumptions and one passing destination case on both Pythons; corrected assertions await qualification. Inspect the current head separately.
 
 ## Blockers, risks, unknowns, and deferred work
 
