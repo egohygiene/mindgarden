@@ -84,3 +84,15 @@ def v2_members(version="2.0.2", revision=1, fallback=False):
         )
     members["ARCHIVE-MANIFEST.json"] = canonical_json(manifest)
     return members
+
+
+def diagram_members(version="2.0.2", revision=1, fallback=False):
+    """Selected binary diagram/caption plus an independently excluded scratch image."""
+    members = v2_members(version, revision, fallback)
+    members.pop("assets/attachment.txt")
+    root = FIXTURE_ROOT / "diagram-journey"
+    for name in ("CONVERSATION.json", "ASSET-MANIFEST.json"):
+        members[name] = (root / name).read_bytes()
+    for name in ("diagram.png", "scratch.png"):
+        members["assets/" + name] = (root / name).read_bytes()
+    return members

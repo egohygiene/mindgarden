@@ -17,7 +17,14 @@ records exact results, earlier corrected attempts and green functional-head CI;
 following handoff-only CI is separate. ADRs stay proposed, and release/deferred
 package work stays parked.
 
-## Active privacy and storage follow-through
+## Active reading and evidence journey
+
+The authorized #15/#13/#14/#16/#17/#20 checkpoints now stack on the unchanged
+privacy/storage drafts. [The journey ledger](journey-sprint.md) records dependency
+corrections, draft order, exact tests and remaining parent scope. The first binary
+diagram/caption selection proof passes 21 focused cases on each Python.
+
+## Prior privacy and storage follow-through
 
 The maintainer selected #10/#29/#31/#35/#45. [The bounded checkpoint ledger](privacy-storage-followthrough.md) records live owner contracts, corrected Realm dependencies and draft stack #127–#130, with 515 full cases per Python and exact clean artifact proofs. #10 remains closed; 35 issues remain open. Local implementation is independent of unavailable confidential-runtime assurance.
 
@@ -178,7 +185,7 @@ links evidence to #20; no private pilot or broader parent completion is inferred
 | [#12](https://github.com/egohygiene/mindgarden/issues/12) — graph/search/bounded context | completed | Merged #78/#117/#119: all eight typed relations, complete projection schema/goldens, exact evidence, denied-target suppression, measured/repeated 2048-note envelope and clean rebuild; [acceptance mapping](overnight-sprint.md) | Listed criteria satisfied; faster interactive queries and wider hardware are future improvements, not added acceptance gates | #8/#9/#10; optional #32 and targeted #37 can advance independently |
 | [#13](https://github.com/egohygiene/mindgarden/issues/13) — reviewable curation/extraction plans | partial | #59/#64 plus merged #75: merge qualification/author inheritance, exact relationships, selected claim evidence and authored redactions; Merged #115 adds versioned optional producer contracts, evidence-bound unreviewed entity/claim mapping and recoverable authored batches | Merged checkpoint adds versioned source-grant producer, attributed entity/triple mapping, failure/resume and authored review proof; live Ollama accuracy, broader media/multi-route and consumer acceptance remain open | #9/#10/#11; J and optional producer checkpoint; no model prerequisite for authored plans |
 | [#14](https://github.com/egohygiene/mindgarden/issues/14) — routing, transitions and private fallback | partial | Reviewed initial routing, private moves/merges/splits/replacements and graph transfer/recovery; new exact incoming-reference inventory preserves independent review and historical edges; [checkpoint](private-routing.md) | Explicit general incoming-reference repair, public/policy-changing transfers and wider platform recovery remain open | Existing #10–#13 interfaces; independent #37/#49 checkpoints need no incoming-repair contract |
-| [#15](https://github.com/egohygiene/mindgarden/issues/15) — conversation archives/selective assets | partial | #60/#64 plus merged #76: v1.2.1 minimal reader, v3.2.2/v3.2.3 profiles, selective attachment catalogs/bytes, opaque JSON attachment proof; Merged #114 adds reread v2.0.0/2.0.1/2.0.2 source profiles, selective assets and cross-version deduplication | Implemented v2.0.0/2.0.1/2.0.2 source-profile reader/fixtures now added; collections/multipart, wider media, owner adoption and full producer conformance remain | #11/#13, Mindcap #31; B4 historical compatibility only after authoritative specs; do not infer old-version support |
+| [#15](https://github.com/egohygiene/mindgarden/issues/15) — conversation archives/selective assets | partial | #60/#64 plus merged #76: v1.2.1 minimal reader, v3.2.2/v3.2.3 profiles, selective attachment catalogs/bytes, opaque JSON attachment proof; Merged #114 adds reread v2.0.0/2.0.1/2.0.2 source profiles, selective assets and cross-version deduplication | Implemented v2.0.0/2.0.1/2.0.2 source-profile reader/fixtures now added; selected binary diagram/caption and independent scratch catalog proof added in the journey draft; collections/multipart, wider media, owner adoption and full producer conformance remain | #11/#13, Mindcap #31; B4 historical compatibility only after authoritative specs; do not infer old-version support |
 
 ## Projections, federation and portability
 
