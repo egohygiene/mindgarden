@@ -46,6 +46,17 @@ updated: 2026-11-12
 
 ### Complete open-issue coverage and next batches
 
+The [architecture overview](docs/architecture-overview.md) now preserves the
+founder-requested infographic, a text guide and editable diagram. It includes
+current draft behavior without accepting proposed ADRs. After reviewing
+#133–#136 and this documentation follow-through, the proposed next bounded batch
+is **#37 → #46 → #32**: connect dependency manifests to real context/memory
+outputs; extend authored compaction to a multi-source refresh proof; then add
+incremental refresh and larger-corpus evidence to the optional SQLite adapter.
+Existing retention/scope contracts are prerequisites already available, not new
+blanket gates. Private pilots, confidential assurance and permanent store
+disposition remain separate; this is a proposal, not newly started runtime work.
+
 The [open-issue coverage ledger](docs/open-issue-coverage.md) records every current
 open issue's purpose, implementation/PR evidence, unmet acceptance, dependencies,
 status and proposed batch. It also records proposed dependency corrections and

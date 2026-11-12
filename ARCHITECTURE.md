@@ -30,6 +30,11 @@ Mindgarden is a local-first knowledge substrate. A repository's `.garden/`
 directory is canonical; every user interface, search index, agent integration,
 and published site is an adapter or derived projection.
 
+The [illustrated architecture overview](docs/architecture-overview.md) explains
+these boundaries with a high-level infographic, text alternative and editable
+diagram. It distinguishes the current foundation, unmerged draft checkpoints
+and optional future integrations without ratifying proposed decisions.
+
 ## Layers
 
 1. **Knowledge contract** — versioned manifests, Markdown notes, YAML

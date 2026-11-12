@@ -31,6 +31,36 @@ corrected preliminary failures and remaining parent scope. #14 now adds a bounde
 reviewed incoming-reference repair; #16/#17/#20 follow. Broader full/local `act`
 qualification is deferred per the maintainer; focused checks remain recorded.
 
+## Architecture illustration and proposed freshness batch
+
+The founder requested the saved [architecture infographic and companion guide](architecture-overview.md).
+The guide supplies a complete text alternative, editable Mermaid source, image
+provenance and links to the actual architecture/status contracts. README uses the
+new image; the older product-vision illustration is retained. This is a bounded
+documentation checkpoint for #38/#42, not ADR ratification, #21 pipeline acceptance
+or closure of a parent issue. The queue remains **35 open / 44 tracked**.
+
+Live Test/preparation observations: #133 head `297c074` passes **43283297807 /
+43283297519**; #134 head `81979b3` passes **43284993040 / 43284993053**;
+#135 corrected head `43fb4bc` passes **43295629172 / 43295629177**; #136 final
+handoff head `ba507fe` passes **43296852666 / 43296852563**. These supersede
+earlier pending observations for those exact heads, not later documentation CI.
+#134 Decisions preview **43284993775** still fails upstream acquisition; no
+automatic checks were manually dispatched. New drafts remain unmerged.
+
+| Proposed order | Issue | Next bounded addition, beyond existing checkpoints | Remaining parent gate |
+| --- | --- | --- | --- |
+| 1 | #37 | Connect exact dependency manifests to actual context/memory consumers, with explicit refresh of affected outputs and unchanged unrelated outputs; reconcile missed updates without requiring a daemon. | Broader capture/observation adoption and the approved private pilot. |
+| 2 | #46 | Extend the authored hierarchy to a multi-source refresh/quality fixture; retain corrections, contradictions, uncertainty, exact citations and downstream expiry without deleting originals. | Semantic model-quality evidence, real pilot and destructive retention policy are separate. |
+| 3 | #32 | Add incremental refresh to the opt-in SQLite adapter with reference-result parity, recovery and larger-corpus runtime/memory measurements. | Native/confidential runtime assurance and permanent store disposition; no replacement of canonical files. |
+
+This batch is proposed for the next sync, not started. #46's existing retention
+contract already informs #37, and SQLite remains optional rather than a gate on
+the earlier work. Review #133 → #134 → #135 → #136 and the illustration follow-up
+first; resolve the upstream preview acquisition failure before claiming a green
+merge candidate. Full local/`act` and manual accessibility remain deferred as
+recorded. #19/#27 and the #86–#91 post-reconciliation cohort stay parked.
+
 ## Prior privacy and storage follow-through
 
 The maintainer selected #10/#29/#31/#35/#45. [The bounded checkpoint ledger](privacy-storage-followthrough.md) records live owner contracts, corrected Realm dependencies and draft stack #127–#130, with 515 full cases per Python and exact clean artifact proofs. #10 remains closed; 35 issues remain open. Local implementation is independent of unavailable confidential-runtime assurance.
