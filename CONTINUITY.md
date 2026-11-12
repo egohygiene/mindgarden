@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T18:54:42Z'
+  updated_at: '2026-11-12T18:56:14Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -81,9 +81,8 @@ work:
   next:
     kind: action
     id: journey-next-checkpoint
-    description: 'Open the #16 draft on #133, then implement focused actual Quartz note/backlink/provenance reading
-      proof (#17) and composed synthetic recovery (#20). Broader full/act checks remain deferred; keep drafts for
-      review.'
+    description: 'Implement #17 actual Quartz note/backlink/provenance reading above draft #134, then #20 composed
+      recovery. Broader full/act checks remain deferred; keep drafts for review.'
     readiness: ready
     references:
     - docs/journey-sprint.md
@@ -92,33 +91,30 @@ state:
   base:
     revision: 297c0749dff0a3a5bb8a483621f3afb06d895587
     ref: refs/heads/feature/14-reviewed-reference-repair
-    verified_at: '2026-11-12T18:54:42Z'
+    verified_at: '2026-11-12T18:56:14Z'
   candidate:
     branch: feature/16-public-bundle-context
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 8012a10a54b2ebfdb9c60f9ebbea67d5765a75d0
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#134
+      url: https://github.com/egohygiene/mindgarden/pull/134
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-12T18:54:42Z'
+    observed_at: '2026-11-12T18:56:14Z'
     default_branch_revision: f5baa3dac3f7624bea94f5224e136de6ef5482b0
     issue_state: open
-    pull_request_state: not-applicable
+    pull_request_state: draft
     notes: 'Main f5baa3d includes authorized #127–#132 merges. #133 is the reviewed private repair draft; the current
       dependent branch adds supplied public-bundle context under existing live authority. All real private/consumer
       and broad parent gates remain separate.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-12T18:54:42Z'
+  reviewed_at: '2026-11-12T18:56:14Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12: 37-case reference/routing/mixed/schema suite; Python 3.13: same prior 35 plus two added
-      cases; changed-code Ruff E9/F and new-file formatting'
-    outcome: passed
-    observed_at: '2026-11-12T18:42:32Z'
-    notes: 37 pass on 3.12, zero skips (30.500s); 35+2 pass on 3.13 (28.319s+2.669s), zero skips; Ruff/format pass.
-      Broader full discovery and act deferred by maintainer
   - command: 'Python 3.12: 37-case reference/routing/mixed/schema suite; Python 3.13: same prior 35 plus two added
       cases; changed-code Ruff E9/F and new-file formatting'
     outcome: passed
@@ -129,6 +125,12 @@ review:
       Python 3.13 public/federation/scoped/schema 47 plus added revocation 1; Ruff E9/F and new-file formatting
     outcome: passed
     observed_at: '2026-11-12T18:54:42Z'
+    notes: 32+1 and 23 pass on 3.12 (51.791s+1.619s;24.845s); 47+1 pass on 3.13 (61.794s+1.407s), zero skips. Initial
+      schema/diagnostic assumptions corrected; invalid exploratory module invocation is not passing evidence
+  - command: Python 3.12 public-reader/federation/schema 32 plus added revocation 1; scoped/local regression 23;
+      Python 3.13 public/federation/scoped/schema 47 plus added revocation 1; Ruff E9/F and new-file formatting
+    outcome: passed
+    observed_at: '2026-11-12T18:56:14Z'
     notes: 32+1 and 23 pass on 3.12 (51.791s+1.619s;24.845s); 47+1 pass on 3.13 (61.794s+1.407s), zero skips. Initial
       schema/diagnostic assumptions corrected; invalid exploratory module invocation is not passing evidence
   environment_limitations:
@@ -183,7 +185,7 @@ Execution recovered; original root WIP is preserved and work continues in an iso
 
 ## Next dependency-ready work
 
-Open the #16 draft on #133, then implement focused actual Quartz note/backlink/provenance reading proof (#17) and composed synthetic recovery (#20). Broader full/act checks remain deferred; keep drafts for review.
+Implement #17 actual Quartz note/backlink/provenance reading above draft #134, then #20 composed recovery. Broader full/act checks remain deferred; keep drafts for review.
 
 ## Parallel changes and reconciliation
 

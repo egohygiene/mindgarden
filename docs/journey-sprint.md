@@ -34,7 +34,7 @@ checks are distinct evidence. No workflows were manually dispatched.
 | 1 | #15 | Binary diagram and source caption selection, scratch catalog, immutable full original | [#131](https://github.com/egohygiene/mindgarden/pull/131), `feature/15-selective-diagram-journey` / #130 | Merged; 21 focused tests each, hosted CI passes |
 | 2 | #13 | Mixed text/attachment authored curation, attribution and reviewed destination handoff | [#132](https://github.com/egohygiene/mindgarden/pull/132), `test/13-mixed-media-curation` / #131 | Merged; corrected hosted CI and post-recovery local checks pass |
 | 3 | #14 | Independently reviewed private incoming-reference repair and recovery | [#133](https://github.com/egohygiene/mindgarden/pull/133), `feature/14-reviewed-reference-repair` / main | Focused checks pass; draft for review |
-| 4 | #16 | Explicit public bundle discovery to bounded cited context | `feature/16-public-bundle-context` / #133 | Focused public-reader/schema/scope checks pass; open draft |
+| 4 | #16 | Explicit public bundle discovery to bounded cited context | [#134](https://github.com/egohygiene/mindgarden/pull/134), `feature/16-public-bundle-context` / #133 | Focused public-reader/schema/scope checks pass; draft for review |
 | 5 | #17 | Actual Quartz note, backlinks and provenance reading journey | Next / #16 draft | Reuse the pinned renderer and existing accessibility checks |
 | 6 | #20 | Composed clean-checkout journey, migration/restore and exact rebuild | Next / #17 draft | Reuse all checkpoints; model and Google services disabled |
 
@@ -285,3 +285,5 @@ Ruff/new-file format, owner/continuity/coverage and diff checks pass. Broader fu
 
 Next: open this draft on #133, then test actual note/backlink/provenance reading
 on the pinned Quartz renderer (#17), followed by the composed recovery proof.
+
+Draft #134 functional commit: `8012a10a54b2ebfdb9c60f9ebbea67d5765a75d0`.
