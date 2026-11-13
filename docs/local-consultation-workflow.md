@@ -11,7 +11,7 @@ issue dispositions; no parent is closed by changing the schedule.
 
 | Step | Selected checkpoint | Status and next action |
 | --- | --- | --- |
-| 1 | Review and merge #133 → #134 → #135 → #136 → #137. | #133 merged at `db497f3`. #134's normal main reconciliation retains the exact old tree; its new Decisions preview passes. Wait for current-head Test, then finish ordered merges with expected-head checks. |
+| 1 | Review and merge #133 → #134 → #135 → #136 → #137. | Completed: #133–#137 merged in order at main `9c94245`. Every selected head has passing Test/preparation; #134 reconciled normally with identical source tree and a passing new preview. See the merge receipt below. |
 | 2 | Activate the bounded local phase under #86. | Selected #87/#89/#90 scheduling is updated; #88/#91 remain deferred. This document maps existing owners rather than adding a competing garden or session model. |
 | 3 | Produce a synthetic, reviewed, source-backed preparation packet (#90). | Implement a strict declared CSV adapter, explicit reconciliation/review, exact-decimal calculations, coverage and questions. Prove local/model-disabled operation before live acquisition. |
 | 4 | Connect explicitly selected Drive capture and the scoped Codex workflow (#87/#89). | Verify current official provider contracts. Reuse normalization, source storage, review and retrieval services. Codex can use the existing CLI; a private web app, MCP server, second model and new query database are not prerequisites. |
@@ -63,3 +63,7 @@ schemas, v0 behavior and all proposed/null-approval ADRs are unchanged. Existing
 source/wheel, browser and recovery evidence remains in [the journey ledger](journey-sprint.md).
 Each implementation PR will append its actual commits, commands, results,
 remaining criteria and next action here and update CONTINUITY.md.
+
+## Ordered merge and activation receipt
+
+[#138](https://github.com/egohygiene/mindgarden/pull/138) preserves the bounded activation and owner map. Its branch is `docs/86-local-workflow-activation`, reconciled normally onto main `9c94245`; initial documentation commit `e77a395` is retained. [The machine-readable merge receipt](evidence/consultation-merge-receipt.json) records each expected head, merge and automatic passing run. Main is byte-equivalent to the qualified #137 combined tree (`git diff --exit-code 0697145 origin/main`). #134 failed preview 43284993775 remains historical evidence; normal main reconciliation `0a6a387` preserved its exact prior tree and new preview 43345132986, Test 43345132543 and preparation 43345132522 pass. Nothing was manually dispatched or weakened. No new implementation draft is authorized for automatic merge by this receipt.

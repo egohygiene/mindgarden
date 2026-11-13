@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T01:33:54Z'
+  updated_at: '2026-11-13T01:45:32Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -86,47 +86,41 @@ work:
   next:
     kind: action
     id: local-workflow-next-checkpoint
-    description: 'Open the activation draft, finish #134–#137 ordered merges after exact-head qualification, then
-      implement strict synthetic ledger normalization/review/calculations/packet using the existing source/session/storage
-      services.'
+    description: 'Retarget activation #138 onto main, leave it for review, then finish the strict synthetic ledger
+      and reviewed deterministic packet in the dependent #90 draft. Preserve real pilot configuration/runtime gaps.'
     readiness: ready
     references:
     - docs/local-consultation-workflow.md
     depends_on: []
 state:
   base:
-    revision: 069714503a318356a2746acd15bec3070ef8fa28
-    ref: refs/remotes/origin/docs/high-level-architecture-overview
-    verified_at: '2026-11-13T01:33:54Z'
+    revision: 9c94245e0838da74a760cbc43e63b0faf6a3d756
+    ref: refs/remotes/origin/main
+    verified_at: '2026-11-13T01:45:32Z'
   candidate:
     branch: docs/86-local-workflow-activation
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: e77a395f5c11fd3ec5ec5c6c7707104fc26a5a2e
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#138
+      url: https://github.com/egohygiene/mindgarden/pull/138
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-13T01:33:54Z'
-    default_branch_revision: db497f3158996946336f7ec0eb6d13758146191c
+    observed_at: '2026-11-13T01:45:32Z'
+    default_branch_revision: 9c94245e0838da74a760cbc43e63b0faf6a3d756
     issue_state: open
-    pull_request_state: not-applicable
-    notes: '#133 merged at db497f3. #134 reconciled to main at 0a6a387 with identical prior tree; new Decisions
-      preview 43345132986 and preparation pass, new Test is running. #135–#137 remain reviewed drafts on the explicit
-      stack. #86/#87/#89/#90 scheduling is activated; #88/#91 remain deferred.'
+    pull_request_state: draft
+    notes: 'Authorized #133–#137 merges are complete at main 9c94245, with exact #137 combined tree and passing
+      selected-head Test/preparation. #134 acquisition preview recovered on same-tree main reconciliation 0a6a387;
+      new preview 43345132986 passes. Activation draft #138 selects bounded #86/#87/#89/#90 work; #88/#91 remain
+      deferred.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T01:33:54Z'
+  reviewed_at: '2026-11-13T01:45:32Z'
   reviewed_by: codex
   evidence:
-  - command: reading_journey_demo.py --require-source/--require-installed --check-golden in clean Git, isolated
-      wheel (-I), unpacked source (-S); unittest tests.test_distribution tests.test_scope_bundle_outputs; tests.test_release_journey
-      on Python 3.12/3.13
-    outcome: passed
-    observed_at: '2026-11-12T20:02:24Z'
-    notes: Three exact core proofs pass; final distribution/output 10 cases pass zero skips (10.844s); corrected
-      legacy fixture 2 cases each (17.215s/16.360s). Prior 22 composition cases each and 30 rendered cases each
-      pass. Artifact hashes in docs/evidence/journey-artifact-qualification.json. Full/act intentionally deferred,
-      eight manual a11y items and separate upstream preview acquisition denial remain.
   - command: PNG signature/dimensions/SHA-256 and exact-byte comparison; local Markdown/image target check across
       six documentation files; pinned Hygiene/Aether owner checks; git diff --check; runtime-tree equality to ba507fe
     outcome: passed
@@ -137,6 +131,12 @@ review:
   - command: 'git diff --check; pinned Hygiene/Aether ADR/continuity/coverage checks; exact #134 tree comparison'
     outcome: passed
     observed_at: '2026-11-13T01:33:54Z'
+    notes: 'Documentation and owner checks pass; #134 reconciliation has no file changes. Existing focused/full
+      hosted evidence remains distinct from pending new-head CI. No runtime implementation or private pilot is claimed
+      at this activation checkpoint.'
+  - command: 'git diff --check; pinned Hygiene/Aether ADR/continuity/coverage checks; exact #134 tree comparison'
+    outcome: passed
+    observed_at: '2026-11-13T01:45:32Z'
     notes: 'Documentation and owner checks pass; #134 reconciliation has no file changes. Existing focused/full
       hosted evidence remains distinct from pending new-head CI. No runtime implementation or private pilot is claimed
       at this activation checkpoint.'
@@ -176,11 +176,11 @@ Reconcile the existing stack and activate the selected synthetic-first local sou
 
 ## State snapshot
 
-#133 merged at db497f3. #134 reconciled to main at 0a6a387 with identical prior tree; new Decisions preview 43345132986 and preparation pass, new Test is running. #135–#137 remain reviewed drafts on the explicit stack. #86/#87/#89/#90 scheduling is activated; #88/#91 remain deferred.
+Authorized #133–#137 merges are complete at main 9c94245, with exact #137 combined tree and passing selected-head Test/preparation. #134 acquisition preview recovered on same-tree main reconciliation 0a6a387; new preview 43345132986 passes. Activation draft #138 selects bounded #86/#87/#89/#90 work; #88/#91 remain deferred.
 
 ## Completed and material changes
 
-Fresh instructions/issues/comments/PR/CI review; expected-head #133 merge; explicit #134 base reconciliation; selective scheduling updates and five-step ownership/dependency plan; all original issue dispositions retained.
+Expected-head ordered merges, exact main/#137 tree comparison, retained old/new preview lineage and machine-readable merge receipt; selective scheduling/owner plan with no parent closure, runtime change or ADR ratification.
 
 ## Validation and review evidence
 
@@ -192,7 +192,7 @@ Actual pilot OS/workspace/folder selection is requested asynchronously; no crede
 
 ## Next dependency-ready work
 
-Open the activation draft, finish #134–#137 ordered merges after exact-head qualification, then implement strict synthetic ledger normalization/review/calculations/packet using the existing source/session/storage services.
+Retarget activation #138 onto main, leave it for review, then finish the strict synthetic ledger and reviewed deterministic packet in the dependent #90 draft. Preserve real pilot configuration/runtime gaps.
 
 ## Parallel changes and reconciliation
 

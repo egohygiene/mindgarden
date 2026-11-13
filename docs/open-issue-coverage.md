@@ -6,6 +6,8 @@ The maintainer selected the [five-step source-to-reviewed-packet plan](local-con
 Bounded #86/#87/#89/#90 work is active before the old queue is complete; #88/#91
 stay deferred. The earlier proposed #37/#46/#32 batch becomes supporting later
 work. No issue closure or ADR acceptance follows from this scheduling change.
+Activation draft [#138](https://github.com/egohygiene/mindgarden/pull/138) records the selected owner map. #133–#137 are merged in order at main `9c94245`; the [merge receipt](evidence/consultation-merge-receipt.json) preserves exact heads and green automatic CI. #134 upstream preview acquisition recovered after a normal, same-tree main reconciliation; its failed earlier run remains historical evidence. No issue is closed by these merges.
+
 Original issue criteria, all 44 coverage rows, the 35-open count and real private
 input/runtime requirements remain explicit. The original root WIP is preserved.
 
