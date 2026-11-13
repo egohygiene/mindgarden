@@ -3,7 +3,7 @@
   "base_main": "9c94245e0838da74a760cbc43e63b0faf6a3d756",
   "merged_main": "5ec7ae017002f84e1dc36c2aaed3c76a00b079f3",
   "tree_equals_qualified_handoff": "54875495dabfcf4f8b57ec51dbb34ed404aa5374",
-  "authority": "Explicit maintainer instruction to merge #138–#141 in dependency order",
+  "authority": "Explicit maintainer instruction to merge #138\u2013#141 in dependency order",
   "method": "Merge commits with expected head SHA; retarget each descendant after its predecessor; no force pushes or manual workflow dispatch",
   "merges": [
     {
@@ -49,7 +49,15 @@
     "selected_head_ci": "Every exact head has passing automatic Test and preparation; earlier pending #141 is now successful",
     "qualification_receipt": "local-workflow-qualification.json",
     "repeat_runtime_tests": "Not rerun for identical tree; prior exact qualification and passing head CI retained",
-    "main_push_ci": "Separate automatic runs, not equated to already passing PR-head runs"
+    "main_push_ci": "Separate automatic runs, not equated to already passing PR-head runs",
+    "documentation_handoff": {
+      "branch": "docs/local-workflow-merge-handoff",
+      "pr": 142,
+      "local_links_checked": 163,
+      "changed_markdown_files": 7,
+      "owner_checks": "passed; 24 proposed/null-approval ADRs, twelve bounded continuity sections, 44 coverage rows and five native child links",
+      "runtime_comparison": "git diff --exit-code origin/main -- src contracts scripts profiles requirements pyproject.toml MANIFEST.in tests; exit0"
+    }
   },
   "privacy": {
     "real_source_access": false,

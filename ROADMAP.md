@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-12
+updated: 2026-11-13
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -33,9 +33,9 @@ repository: egohygiene/mindgarden
 visibility: public
 publication: central
 route: /roadmap/mindgarden/
-updated: 2026-11-12
+updated: 2026-11-13
 -->
-## 2026-11-12 execution snapshot
+## 2026-11-13 execution snapshot
 
 **2026-11-13 selected follow-through:** The maintainer selected the five-step
 [local source-to-reviewed-packet journey](docs/local-consultation-workflow.md):
@@ -45,13 +45,22 @@ the private pilot. This supersedes the proposed #37/#46/#32-first batch and the
 old end-of-queue scheduling gate for these selected checkpoints. #88/#91 and
 release work remain deferred; architecture/privacy gates retain their authority.
 
-Main is `9c94245` after the ordered merges. Draft #138 activates the selected
-phase, #139 supplies reviewed ledger packets, #140 adds selected Drive
-capture/refresh and #141 adds bounded caller research, the Codex profile and
-private-pilot preflight. Review this explicit stack in order. All nine complete
-synthetic source/wheel/archive goldens pass; live/private/model acceptance remains
-unperformed. The local workflow guide and qualification receipt record exact
-tests, remaining setup and the distinction between mock and live proof.
+Main is `5ec7ae0` after authorized ordered merges #138 → #139 → #140 → #141.
+Every exact head has passing Test/preparation, and main equals the qualified
+`5487549` combined tree. Declared ledger packets, selected Drive capture/refresh,
+bounded caller research, the Codex profile and private-pilot preflight are merged.
+All nine complete synthetic source/wheel/archive goldens pass; actual private/
+live/model acceptance remains unperformed. The [merge receipt](docs/evidence/local-workflow-stack-merge.json)
+records exact heads/checks and preserves the original qualification.
+
+The proposed next bounded batch is **#37 → #46 → #90**: connect manifests to
+actual context/report freshness, compose multi-source summary refresh/quality,
+then add reviewed mappings for two synthetic CSV layouts. These can use synthetic
+fixtures before private setup. Mapping itself is independent of refresh work;
+#32's optional incremental/performance follow-up can follow. This recommendation
+prioritizes import friction for the preparation-packet goal; it is not newly
+started implementation or acceptance of broader parent scope. See the
+[local workflow handoff](docs/local-consultation-workflow.md).
 The 2026-11-12 gate and proposed freshness batch below are historical.
 
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
