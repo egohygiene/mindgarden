@@ -96,3 +96,7 @@ optional chart/PDF/UI consumers and an approved real private pilot. Drive and
 Codex integrations consume these same services in subsequent checkpoints. The
 restricted-document/runtime gate remains unchanged; personal documents are not
 silently reclassified to make this demonstration pass.
+
+## Reviewed alternate CSV layouts
+
+The [explicit mapping adapter](csv-ledger-mappings.md) now feeds the same ledger and packet services from two authored synthetic layouts. It preserves exact original spans and reviewed configuration, while the packet retains independent source grants, classifications, revisions and export review. Strict declared CSV remains compatible; arbitrary bank/PDF formats and real pilot acceptance remain open.

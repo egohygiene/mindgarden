@@ -210,6 +210,7 @@ class V1ContractTests(unittest.TestCase):
                 "memory-projection",
                 "observation",
                 "dependency-build-request",
+                "ledger-csv-mapping",
                 "projection-dependencies",
             },
         )

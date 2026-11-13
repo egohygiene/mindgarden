@@ -99,6 +99,7 @@ def add_ingest_command(commands: ParserCollection) -> None:
     parser.add_argument("--vault-id", help="Logical private source vault for v1")
     parser.add_argument("--adapter", help="Explicit registered source adapter")
     parser.add_argument("--source-scope", type=Path, help="Exact declared captured scope for a v1 source adapter")
+    parser.add_argument("--ledger-mapping", type=Path, help="Explicit reviewed ledger-csv-mapping/v1 file for mapped-ledger-csv")
     parser.add_argument("--manifest-version", help="Declared captured-package contract version")
     parser.add_argument("--attachment-mode", choices=("all", "catalog-only", "selected"),
                         help="Normalize all attachment bytes, catalog metadata only, or selected asset identities")

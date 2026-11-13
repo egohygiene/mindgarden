@@ -88,3 +88,25 @@ format pass. Initial old-only canary used an invalid uppercase identifier; it wa
 corrected to the existing identifier contract, without weakening validation.
 
 Draft [#146](https://github.com/egohygiene/mindgarden/pull/146) pins qualified functional `e7e7fa2` on #145. The next handoff changes documentation only; hosted CI remains distinct.
+
+## Checkpoint 3 — reviewed CSV mappings
+
+Branch `feature/90-reviewed-csv-mapping` stacks on #146 (`25b3bba`). A separate
+`mapped-ledger-csv` adapter consumes reviewed `ledger-csv-mapping/v1` with the
+explicit `mapping-v1` input profile. Signed ISO dates and debit/credit padded US
+dates map to the existing ledger, with exact raw UTF-8 spans, canonical mapping
+revision/provenance and supplied-file apply guards. Transaction identity, content
+identity and normalized configuration identity remain distinct. Strict CSV/v0
+behavior is preserved; unknown layouts and ambiguous values fail closed.
+
+Two layouts plus overlap yield eight packet transactions and the independently
+expected 2259.76 movement. Seven final mapping cases pass per Python, including
+restoring/rebinding a clean vault and producing byte-identical packet files after
+the old vault and mapping filenames are moved aside and retained. The broader
+40-case adapter/packet/schema/v0 selection also passes (85.007s / 83.178s); after
+adding the restore assertion, the seven final mapping cases pass again (12.566s /
+12.104s). New-code lint/format passes after removing one unused test import.
+
+[Mapping format, supported cases and exact CLI](csv-ledger-mappings.md). No real
+records, credential/model calls, authority changes, source deletion or full parent
+closure. Combined artifact checks and final CI observations follow separately.
