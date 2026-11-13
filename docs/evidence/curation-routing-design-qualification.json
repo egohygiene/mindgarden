@@ -1,0 +1,211 @@
+{
+  "schema": "mindgarden.curation-routing-design-qualification/v1",
+  "qualified_source": "e63c7f15fb5d630261778d9a3446c495cb3c2262",
+  "base_main": "6c9954bfa8ac65c94aa1db87c679a66227f736d8",
+  "branch": "test/13-14-38-acceptance-closeout",
+  "draft_pr": 144,
+  "observation": "2026-11-13",
+  "source_authority": "Synthetic authored inputs only; no real archive, account, credential or model access.",
+  "merges": [
+    {
+      "pr": 142,
+      "head": "eecb69b158abb4617938eb40b095cbc00c014088",
+      "merge": "0fbf153916a00c668af6c6bc85d06d06dd6bd416",
+      "test": 43370663295,
+      "preparation": 43370663318,
+      "all_success": true
+    },
+    {
+      "pr": 143,
+      "head": "846cd765bafee4804941dba19ea623b1fbf4e105",
+      "merge": "6c9954bfa8ac65c94aa1db87c679a66227f736d8",
+      "test": 43374246462,
+      "preparation": 43374246517,
+      "all_success": true
+    }
+  ],
+  "merge_verification": {
+    "command": "git diff --exit-code 846cd765bafee4804941dba19ea623b1fbf4e105 origin/main",
+    "exit_code": 0,
+    "method": "Ordered merge commits with expected-head checks; refreshed empty comments/reviews/threads; no workflow dispatch or force push."
+  },
+  "scope": {
+    "implementation": "Persist routing defer/exclude evidence and rationale through existing curation receipts in an explicit personal controller; include history scope and group recovery.",
+    "schemas_changed": false,
+    "new_dependencies": false,
+    "proposed_adrs": 24,
+    "approvals_changed": 0,
+    "private_data_access": false,
+    "network_or_model_calls": false
+  },
+  "local_checks": {
+    "baseline": {
+      "python312": {
+        "cases": 72,
+        "seconds": 92.56
+      },
+      "python313": {
+        "cases": 72,
+        "seconds": 88.768
+      },
+      "skips": 0
+    },
+    "focused": {
+      "modules": [
+        "tests.test_curation",
+        "tests.test_curation_transformations",
+        "tests.test_mixed_curation",
+        "tests.test_routing",
+        "tests.test_routing_dispositions",
+        "tests.test_routing_lifecycle",
+        "tests.test_routing_transfers",
+        "tests.test_routing_incoming",
+        "tests.test_reference_repairs",
+        "tests.test_assets",
+        "tests.test_design",
+        "tests.test_extraction",
+        "tests.test_ollama_extraction",
+        "tests.test_archive_diagrams",
+        "tests.test_pipeline_completion"
+      ],
+      "arguments": "-m unittest <modules above> --quiet",
+      "python312": {
+        "executable": "/workspace/mindgarden/.venv/bin/python",
+        "cases": 84,
+        "seconds": 139.909
+      },
+      "python313": {
+        "executable": "/workspace/mindgarden/.cache/python313/bin/python",
+        "cases": 84,
+        "seconds": 136.288
+      },
+      "skips": 0,
+      "complete_pipeline_golden": "passed, including exact relocation/restore/clean rebuild"
+    },
+    "regression_before_fix": {
+      "result": "Expected failure reproduced against merged main routing module in an isolated namespace: missing private history changes.",
+      "checked_out_file_changed": false
+    },
+    "initial_new_selection": {
+      "result": "One test expected CAPABILITY_UNDECLARED but stale explicit catalog correctly raised earlier ROUTE_CATALOG. Both manifest and catalog are now updated before testing the undeclared capability.",
+      "corrected_cases_per_python": 15,
+      "corrected_python312_seconds": 13.382,
+      "corrected_python313_seconds": 12.79
+    },
+    "package": {
+      "command": "-m unittest tests.test_distribution tests.test_package --quiet",
+      "python312": {
+        "cases": 8,
+        "seconds": 0.337
+      },
+      "python313": {
+        "cases": 8,
+        "seconds": 0.366
+      },
+      "skips": 0
+    },
+    "build": {
+      "command": "git archive e63c7f15fb5d630261778d9a3446c495cb3c2262; python -m build --no-isolation --sdist --wheel --outdir <private-qualified-dist>",
+      "result": "passed from clean Git snapshot; not a publication"
+    },
+    "artifacts": [
+      {
+        "file": "mindgarden-0.1.0-py3-none-any.whl",
+        "sha256": "3996ea6bad7d8e7ac5d3887a2f48c356bf14ecbcfe4b5ca4a74e1bceac30805f",
+        "bytes": 443847,
+        "runtime_dependencies": 0
+      },
+      {
+        "file": "mindgarden-0.1.0.tar.gz",
+        "sha256": "14c6729ad986d17407abf780c05122c879544f2282baddd36cff33aa498094a6",
+        "bytes": 943670
+      }
+    ],
+    "clean_install_checks": {
+      "modules": [
+        "tests.test_routing_dispositions",
+        "tests.test_routing_lifecycle"
+      ],
+      "clean_git": {
+        "cases": 10,
+        "seconds": 11.17
+      },
+      "installed_wheel": {
+        "cases": 10,
+        "seconds": 10.922
+      },
+      "unpacked_source": {
+        "cases": 10,
+        "seconds": 11.347
+      },
+      "skips": 0,
+      "design_cli_exports_per_mode": 3,
+      "module_origin": "Preimport selected package before test helpers; assert every loaded Mindgarden module remains within selected installed/source root."
+    },
+    "static": {
+      "ruff": "new routing-disposition test passes; existing broad legacy findings are not claimed repaired",
+      "format": "new routing-disposition test passes",
+      "compile": "python -m compileall -q src tests passed",
+      "whitespace": "git diff --check passed",
+      "owner_contracts": "Pinned Hygiene/Aether checks pass; 24 proposed/null-approval ADRs, 12 bounded continuity headings, 44 unique issue coverage rows and five native child links.",
+      "local_markdown_targets": {
+        "links": 112,
+        "markdown_files": 9,
+        "result": "passed"
+      },
+      "qualified_runtime_unchanged": {
+        "command": "git diff --exit-code e63c7f15fb5d630261778d9a3446c495cb3c2262 -- src tests contracts scripts profiles requirements pyproject.toml MANIFEST.in design/tokens design/schemas",
+        "exit_code": 0
+      }
+    },
+    "ollama": {
+      "command": "python experiments/ollama_extraction/evaluate.py --model synthetic-wire-probe-not-installed",
+      "mode": "dry-run",
+      "actual_model": null,
+      "model_accuracy": null,
+      "accuracy_status": "unmeasured",
+      "request_sha256": "6888738d993aad35a28d91bc004e72222292c2561920ef6d5c8876ba8a685e44",
+      "limitation": "No Ollama executable on PATH or explicitly selected installed model. No live request."
+    }
+  },
+  "automatic_ci": {
+    "qualified_head": "e63c7f15fb5d630261778d9a3446c495cb3c2262",
+    "observed_runs": [
+      {
+        "id": 43499058456,
+        "name": "Test",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 43499058406,
+        "name": "Check release preparation",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "manual_dispatch": false,
+    "handoff": "Later documentation-only commit CI is separate; current PR checks are authoritative for its exact head."
+  },
+  "issue_disposition": {
+    "tracked": 44,
+    "open": 34,
+    "closed": 10,
+    "closed_by_batch": [
+      38
+    ],
+    "kept_open": [
+      13,
+      14
+    ],
+    "design_closure": "All seven actual design-source criteria already merged; no new framework, accessibility certification, publication or ADR approval inferred."
+  },
+  "remaining": [
+    "#13 actual local Ollama evaluation and wider producer/consumer scope.",
+    "#14 public/policy-changing lifecycle, policy/decision gate and broader durability/platform proof.",
+    "Live #29/#42 and Hygiene #39 remain open; accepted normative declassification specification unavailable.",
+    "Full local/act, manual accessibility, private pilot, actual model/consumer integration and release remain separate and unperformed."
+  ],
+  "next_action": "Review draft #144 and synchronize this selected batch. Independent #37 -> #46 -> #90 synthetic freshness/mapping can follow; do not silently activate it or access real sources.",
+  "root_wip": "Four original interrupted pending entries preserved untouched."
+}

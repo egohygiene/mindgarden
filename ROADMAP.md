@@ -41,8 +41,8 @@ updated: 2026-11-13
 `6c9954bfa8ac65c94aa1db87c679a66227f736d8`, exactly the qualified mock-garden
 tree. Both exact heads pass automatic Test/preparation. The maintainer selected
 **#13 → #14 → #38** next. [The full acceptance audit](docs/curation-routing-design-acceptance.md)
-maps all original criteria and #13's later extraction requirements. The draft
-fix retains routed defer/exclude evidence and rationale in a private controller,
+maps all original criteria and #13's later extraction requirements. Draft [#144](https://github.com/egohygiene/mindgarden/pull/144)
+retains routed defer/exclude evidence and rationale in a private controller,
 proves renamed garden mounts, and tests design exports without binary assets.
 #38 is closed against its already merged design-source requirements; #13/#14
 remain partial for actual local-model evaluation and broader policy transfers.

@@ -8,7 +8,7 @@ checks and the exact qualified #143 tree. The selected next batch is
 **#13 → #14 → #38**. [The complete acceptance audit](curation-routing-design-acceptance.md)
 records all criteria, the missing private routing-history fix, synthetic
 disposition/rename/design proofs, remaining live-model and policy-transfer gaps,
-and exact next actions. New changes remain a reviewable draft. Only #38 is closed
+and exact next actions. New changes remain in draft [#144](https://github.com/egohygiene/mindgarden/pull/144). Only #38 is closed
 against already merged requirements; all 44 coverage rows remain.
 
 **Live disposition: 34 open / ten closed.** Additional consumers, full app

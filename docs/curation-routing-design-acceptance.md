@@ -22,8 +22,8 @@ evidence. No workflow was manually dispatched and no history was rewritten.
 
 | Issue | Disposition | Exact next action |
 | --- | --- | --- |
-| #13 | Partial: existing authored/recorded extraction workflow; this draft fixes discarded-candidate history in composed routing | Review the fix, then run the existing synthetic-only Ollama evaluation with an explicitly selected available local model; no live model accuracy is claimed |
-| #14 | Partial: explained routing, reviewed private lifecycle/reference repair and local recovery; this draft retains history-only decisions and proves renamed physical mounts | Review the local fix; public/policy-changing transitions still need the policy/decision gate and their own recovery proof |
+| #13 | Partial: existing authored/recorded extraction workflow; draft [#144](https://github.com/egohygiene/mindgarden/pull/144) fixes discarded-candidate history in composed routing | Review the fix, then run the existing synthetic-only Ollama evaluation with an explicitly selected available local model; no live model accuracy is claimed |
+| #14 | Partial: explained routing, reviewed private lifecycle/reference repair and local recovery; draft #144 retains history-only decisions and proves renamed physical mounts | Review the local fix; public/policy-changing transitions still need the policy/decision gate and their own recovery proof |
 | #38 | Completed and closed against its seven listed criteria on already merged main | Future consumers/accessibility belong to #17/#47; ADR-0014 disposition belongs to #42 |
 
 There are **34 open issues / 44 tracked rows / ten closed rows**. Only #38 was
@@ -50,6 +50,8 @@ closed by this acceptance audit. The new code remains a reviewable draft; #13 an
   proposed ADR-0022 and the #29/#42 policy/decision process. Passing private
   recovery tests supplies neither declassification authority nor wider filesystem
   durability assurance.
+  Live #29/#42 and Hygiene #39 were refreshed: all remain open, and Hygiene #39
+  still has no accepted versioned classification/declassification specification.
 - #38's former ledger gates (human design disposition, more consumers and full
   accessibility) exceeded its actual design-source criteria and explicit non-goals.
   Closure corrects that ledger, without accepting ADR-0014 or claiming full WCAG.
@@ -182,8 +184,25 @@ and `git diff --check` pass. The Ollama dry run uses the deliberately fictional
 `synthetic-wire-probe-not-installed` identifier and records `accuracy: unmeasured`.
 It makes no provider call and selects no real model.
 
-The final artifact/checkpoint receipt records subsequent packaging and exact-head
-CI observations separately. Full local/`act`, manual accessibility,
+The clean functional source is **`e63c7f15fb5d630261778d9a3446c495cb3c2262`**;
+subsequent handoff changes affect documentation only. Source/wheel builds succeed
+with `python -m build --no-isolation --sdist --wheel`. Eight package cases pass
+per Python (0.337s / 0.366s), zero skips; the source manifest includes the new
+fixture JSON/text and tests. A second build from `git archive e63c7f1` pins the
+qualified artifacts to a clean committed source, without relying on the worktree.
+Ten routing cases then pass separately from clean Git (11.170s), its installed
+dependency-free wheel (10.922s) and unpacked source archive (11.347s), zero skips.
+Each mode also runs all three design CLI exports. The driver imports the selected
+package before test helpers and verifies every loaded Mindgarden module belongs
+to that package, so a source import cannot conceal a missing wheel module.
+
+The [structured receipt](evidence/curation-routing-design-qualification.json)
+pins artifacts, commands, results, unavailable evidence and automatic CI. The
+current combined checkout is branch `test/13-14-38-acceptance-closeout`, draft
+[#144](https://github.com/egohygiene/mindgarden/pull/144), based directly on merged
+main `6c9954b`; it has no unmerged prerequisite. Read CONTINUITY.md before resuming.
+
+Full local/`act`, manual accessibility,
 actual private pilot, actual model quality, public/policy-changing transitions and
 release work are separate and remain unperformed. No real source/credential is
 read and no proposed ADR is accepted by this draft.
