@@ -7,6 +7,11 @@ orbital ring, thin horizontal traces and quiet, widely spaced lettering. The
 architecture image uses lime-green outlines, thin icons, restrained panels and
 clear input-to-output structure over a dark botanical ground.
 
+The [high-level architecture overview](../../docs/architecture-overview.md) adds a
+current-foundation diagram in the same palette, with text and editable Mermaid
+alternatives. Its [PNG](../../docs/assets/mindgarden-architecture-overview.png)
+is a generated consumer of the design source, not a replacement token catalog.
+
 The token palette is an interpretation for usable interfaces, not sampled image
 pixels. Dark colors use deep green-black backgrounds, pale text and a lime accent.
 The companion light palette uses pale botanical surfaces and dark forest links.

@@ -14,7 +14,7 @@ competing sources of truth.
 
 The local workflow includes the [overnight checkpoints](docs/overnight-sprint.md).
 The merged [privacy/storage checkpoints](docs/privacy-storage-followthrough.md)
-passes 515 tests on each supported Python. Captured conversations, bookmarks,
+passed 515 tests on each supported Python. Captured conversations, bookmarks,
 documents and opaque assets feed reviewed knowledge with exact source references.
 Those references survive restore, relocation and clean projection rebuilds.
 Optional extraction producers, authored learning, private compaction and local
@@ -35,12 +35,15 @@ assurance and real private-consumer pilots retain their explicit gates.
 ## System at a glance
 
 <p align="center">
-  <img src="docs/assets/mindgarden-architecture.png" alt="Mindgarden architecture: input, knowledge, structure, agent, view, and output layers on a local-first, versioned, portable, open, observable, secure, and extensible foundation" width="100%" />
+  <img src="docs/assets/mindgarden-architecture-overview.png" alt="Mindgarden architecture: supplied sources become reviewed portable knowledge, then authorized retrieval produces cited context for people and AI. Private originals, rebuildable views and optional integrations stay separate." width="100%" />
 </p>
 
-The diagram captures the product vision. The repository documents below remain
-the authoritative source for implemented boundaries and contract status as the
-v1 roadmap advances.
+Read the [architecture overview](docs/architecture-overview.md) for a plain-language
+guide, an editable diagram and links to current evidence. This image includes
+implemented draft checkpoints; Drive sync and the private app are labelled future.
+[ARCHITECTURE.md](ARCHITECTURE.md) and [SYSTEM.md](SYSTEM.md) remain authoritative
+for boundaries and implementation state. The earlier
+[product-vision illustration](docs/assets/mindgarden-architecture.png) is retained.
 
 The optional [design source](design/README.md) captures this visual identity as
 validated stack-neutral tokens, visual references and reusable prompt guidance.
