@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-12
+updated: 2026-11-13
 governed_by:
   - architecture-system
 depends_on:
@@ -57,6 +57,12 @@ browser and portal recovery evidence. Pinned renderer accessibility, shared Rela
 action adoption and complete consumer acceptance remain open.
 
 ## External systems
+
+The selected [local source-to-packet checkpoint](docs/local-consultation-workflow.md)
+adds draft declared-CSV normalization and reviewed private preparation packets
+through the existing source/session/storage services. It does not introduce a
+bank connector, web framework, model service, permanent query store or new policy
+owner. Live capture and the actual private pilot retain their separate gates.
 
 - Mindcap capture
 - Aether agents

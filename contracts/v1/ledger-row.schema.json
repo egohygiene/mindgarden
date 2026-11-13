@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:ledger-row:v1",
+  "title": "Mindgarden declared ledger row v1",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "mindgarden.ledger-row/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "transaction_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "account_id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "amount": {
+      "type": "string",
+      "pattern": "^-?(0|[1-9][0-9]{0,15})(\\.[0-9]{1,6})?$"
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 4096
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "transaction_id",
+    "account_id",
+    "date",
+    "amount",
+    "currency",
+    "description"
+  ],
+  "additionalProperties": false
+}

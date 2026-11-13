@@ -7,6 +7,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from ..adapters.text_source import TextSourceAdapter
+from ..adapters.ledger_csv import LedgerCSVAdapter
 from ..adapters.conversation_archive import ConversationArchiveAdapter
 from ..adapters.legacy_archive import LegacyConversationArchiveAdapter
 from ..adapters.media_source import OpaqueMediaAdapter
@@ -23,7 +24,7 @@ from .storage import content_resolver, open_vault
 
 
 def default_registry() -> AdapterRegistry:
-    return AdapterRegistry((TextSourceAdapter(), ConversationArchiveAdapter(), LegacyConversationArchiveAdapter(), OpaqueMediaAdapter(), CapturedSourceAdapter()))
+    return AdapterRegistry((TextSourceAdapter(), ConversationArchiveAdapter(), LegacyConversationArchiveAdapter(), OpaqueMediaAdapter(), CapturedSourceAdapter(), LedgerCSVAdapter()))
 
 
 def captured_bytes(path: Path, maximum: int = 100 * 1024 * 1024) -> bytes:

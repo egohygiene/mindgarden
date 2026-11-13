@@ -1,0 +1,6 @@
+transaction_id,account_id,date,amount,currency,description
+payroll,account-a,2026-01-02,2500.00,USD,Synthetic payroll
+groceries,account-a,2026-01-03,-80.25,USD,Synthetic groceries
+transfer-out,account-a,2026-01-05,-300.00,USD,Synthetic transfer candidate
+unclear,account-a,2026-01-07,-19.99,USD,Synthetic unclassified service
+refund,account-a,2026-01-08,10.00,USD,Synthetic merchant refund

@@ -17,14 +17,8 @@ def inventory(files):
     ]
 
 
-def apply_generated(
-    directory, files, reviewed_digest, current_digest, *, check_live, verify_inputs,
-    validate_output=None,
-):
-    if reviewed_digest != current_digest:
-        raise ContractError(
-            "GENERATED_PLAN_STALE: review current source, policy, request and output digests"
-        )
+def complete_generated(files, current_digest):
+    """Expose the exact owned inventory for side-effect-free budget checks."""
     files = dict(files)
     if (
         MARKER in files
@@ -39,7 +33,10 @@ def apply_generated(
             raise ContractError(
                 "GENERATED_PATH: flat portable output names are required"
             )
-        safe_path(directory, name)
+        if any(character in name for character in ("\\", ":", "\x00")):
+            raise ContractError("PATH_UNSAFE: use a relative POSIX path")
+        if name == "..":
+            raise ContractError("PATH_UNSAFE: path must stay within its declared root")
     complete = {
         **files,
         MARKER: canonical_json(
@@ -51,6 +48,27 @@ def apply_generated(
             }
         ),
     }
+    return complete
+
+
+def apply_generated(
+    directory,
+    files,
+    reviewed_digest,
+    current_digest,
+    *,
+    check_live,
+    verify_inputs,
+    validate_output=None,
+):
+    if reviewed_digest != current_digest:
+        raise ContractError(
+            "GENERATED_PLAN_STALE: review current source, policy, request and output digests"
+        )
+    complete = complete_generated(files, current_digest)
+    files = dict(files)
+    for name in files:
+        safe_path(directory, name)
     if validate_output is not None:
         validate_output(complete)
     control_path(directory / MARKER)
