@@ -7,14 +7,21 @@ the remaining acceptance of those parents. #88/#91 and release #19/#27 stay
 deferred. The [44-row coverage ledger](open-issue-coverage.md) retains the original
 issue dispositions; no parent is closed by changing the schedule.
 
+**Current merge state:** The maintainer subsequently authorized #138–#141.
+All four merged in order at main `5ec7ae0`, with passing Test/preparation on each
+exact head and no outstanding reviews/threads. Main is byte-equivalent to the
+qualified `5487549` combined tree. The [stack merge receipt](evidence/local-workflow-stack-merge.json)
+supersedes the draft/CI-pending observations below; those retain their historical
+source identities. Real Drive/Codex operation and the private pilot remain unrun.
+
 ## Delivery order and dependency corrections
 
 | Step | Selected checkpoint | Status and next action |
 | --- | --- | --- |
 | 1 | Review and merge #133 → #134 → #135 → #136 → #137. | Completed: #133–#137 merged in order at main `9c94245`. Every selected head has passing Test/preparation; #134 reconciled normally with identical source tree and a passing new preview. See the merge receipt below. |
 | 2 | Activate the bounded local phase under #86. | Selected #87/#89/#90 scheduling is updated; #88/#91 remain deferred. This document maps existing owners rather than adding a competing garden or session model. |
-| 3 | Produce a synthetic, reviewed, source-backed preparation packet (#90). | Draft #139 supplies strict CSV normalization, pinned source grants, explicit reconciliation/review and exact-decimal calculations. The combined stack through #141 passes all three clean artifact forms; #141 includes the necessary CSV source-manifest correction. |
-| 4 | Connect explicitly selected Drive capture and the scoped Codex workflow (#87/#89). | Draft #140 implements capture/refresh, separate normalization and optional private OAuth. Draft #141 supplies the bounded read-only research CLI and packaged Codex profile. Mocked software proof is separate from live Drive/Codex acceptance. |
+| 3 | Produce a synthetic, reviewed, source-backed preparation packet (#90). | Merged #139 supplies strict CSV normalization, pinned source grants, explicit reconciliation/review and exact-decimal calculations. The combined stack through merged #141 passes all three clean artifact forms, including the CSV source-manifest correction. |
+| 4 | Connect explicitly selected Drive capture and the scoped Codex workflow (#87/#89). | Merged #140 implements capture/refresh, separate normalization and optional private OAuth. Merged #141 supplies the bounded read-only research CLI and packaged Codex profile. Mocked software proof is separate from live Drive/Codex acceptance. |
 | 5 | Prepare and run the selected private pilot where authorized and available. | Metadata-only `pilot preflight` and the concrete operator guide are implemented; the composed synthetic fixture reports ready-to-attempt. Actual execution remains blocked on the unanswered OS/workspace/folder selection, credentials and applicable classification/consumer/runtime authority. |
 
 The synthetic packet is independent of Drive: acquisition supplies captured
@@ -169,7 +176,7 @@ archive can satisfy the composed clean-artifact checkpoint. Packaging/release
 guidance, declaration, changelog and pinned owner inventory were read before this
 change; version, publication workflow and release policy are unchanged.
 
-## Final combined qualification and handoff
+## Prior combined qualification and handoff
 
 Review order is [#138](https://github.com/egohygiene/mindgarden/pull/138) →
 [#139](https://github.com/egohygiene/mindgarden/pull/139) →
@@ -216,3 +223,34 @@ missing OS/private workspace/selected Drive folder configuration and actual
 classification/runtime/credential setup. Then run the private preflight and a
 small approved capture. No private pilot, real account, actual Codex/model
 execution or broader #20 consumer/Empathy/publication acceptance is complete.
+
+## Proposed work before private setup
+
+The live refresh still has 35 open issues. More software work can use synthetic
+fixtures while the actual OS/workspace/folder/credential and applicable runtime
+setup is unavailable. This is a proposed next batch, not new implementation or
+acceptance of an entire parent issue.
+
+| Order | Owner | Existing checkpoint | Next bounded checkpoint and proof |
+| --- | --- | --- | --- |
+| 1 | #37 | Generic dependency manifests, full reconciliation and explicit selected rendering already work. | Connect the existing manifests to actual context/memory consumers and preparation-packet freshness. A synthetic correction identifies affected outputs, leaves unrelated output bytes unchanged and refuses stale reuse until fresh review/authority; missed events still reconcile without a daemon. |
+| 2 | #46 | Authored hierarchy, exact evidence, node invalidation and retention classes already work. | Compose multi-source summary refresh with those real consumers. Preserve contradictions, uncertainty and old revisions; measure authored fixture fact coverage, citation preservation, compression and denied-data exclusion. No model-quality or source-deletion claim. |
+| 3 | #90 | The normalized ledger, reviewed reconciliation and private packet already work, using one declared six-column CSV. | Add an explicit reviewed mapping from two synthetic CSV layouts, including declared date/amount conventions. Preserve original bytes, row spans and mapping revision; do not infer transaction IDs or silently collapse similar transactions. Changed mappings invalidate plans; ambiguous fields remain unresolved. |
+
+Proposed dependency adjustment: prioritize #90's import friction before the
+earlier optional #32 performance follow-up because the immediate consumer goal is
+the private preparation packet. The mapping portion can proceed independently of
+#37/#46; refresh composition reuses them. Existing retention contracts inform #37
+now. #20's approved real pilot and Mindcap's live acquisition remain later
+integration proofs, rather than blanket gates on these synthetic checkpoints.
+
+#32 can then add incremental SQLite refresh, reference-result parity and larger
+synthetic workload measurements. It remains optional; current measurements do
+not establish a performance win. A private web application still requires #42/#47's
+actual ADR/runtime gates. #88/#91, release work, confidential assurance, live model
+quality and real-data acceptance retain their separate disposition.
+
+The next operator-dependent action remains the [private preflight](private-pilot.md)
+with explicit OS, private workspace, selected Drive folder and local credentials,
+using the actual content classification and consumer/runtime authority. None of
+the proposed three software checkpoints requires private account content.

@@ -1,0 +1,92 @@
+{
+  "schema": "mindgarden.local-workflow-stack-merge/v1",
+  "base_main": "9c94245e0838da74a760cbc43e63b0faf6a3d756",
+  "merged_main": "5ec7ae017002f84e1dc36c2aaed3c76a00b079f3",
+  "tree_equals_qualified_handoff": "54875495dabfcf4f8b57ec51dbb34ed404aa5374",
+  "authority": "Explicit maintainer instruction to merge #138\u2013#141 in dependency order",
+  "method": "Merge commits with expected head SHA; retarget each descendant after its predecessor; no force pushes or manual workflow dispatch",
+  "merges": [
+    {
+      "pr": 138,
+      "head": "36e4de84b55195591ec95d9ea08b76abd53ec478",
+      "merge": "80aa8be8751748f9ff4b2d0190cdb4519fa0f533",
+      "test": 43347280977,
+      "preparation": 43347280805,
+      "reviews": 0,
+      "unresolved_threads": 0
+    },
+    {
+      "pr": 139,
+      "head": "9db4c202ec166a9a887db3d4c834919dff426f0b",
+      "merge": "6489cc4a33b134c6a8ce1a04da40f5a5fafb7b62",
+      "test": 43349432329,
+      "preparation": 43349432315,
+      "reviews": 0,
+      "unresolved_threads": 0
+    },
+    {
+      "pr": 140,
+      "head": "69a5999e0be2c74951c79bdeb979909544442c15",
+      "merge": "c0059876bd6c71cb707e24a86838aad1e1229de1",
+      "test": 43356190952,
+      "preparation": 43356190922,
+      "reviews": 0,
+      "unresolved_threads": 0
+    },
+    {
+      "pr": 141,
+      "head": "54875495dabfcf4f8b57ec51dbb34ed404aa5374",
+      "merge": "5ec7ae017002f84e1dc36c2aaed3c76a00b079f3",
+      "test": 43359542172,
+      "preparation": 43359542152,
+      "reviews": 0,
+      "unresolved_threads": 0
+    }
+  ],
+  "verification": {
+    "command": "git diff --exit-code 54875495dabfcf4f8b57ec51dbb34ed404aa5374 origin/main",
+    "result": "exit 0",
+    "selected_head_ci": "Every exact head has passing automatic Test and preparation; earlier pending #141 is now successful",
+    "qualification_receipt": "local-workflow-qualification.json",
+    "repeat_runtime_tests": "Not rerun for identical tree; prior exact qualification and passing head CI retained",
+    "main_push_ci": "Separate automatic runs, not equated to already passing PR-head runs",
+    "documentation_handoff": {
+      "branch": "docs/local-workflow-merge-handoff",
+      "pr": 142,
+      "local_links_checked": 163,
+      "changed_markdown_files": 7,
+      "owner_checks": "passed; 24 proposed/null-approval ADRs, twelve bounded continuity sections, 44 coverage rows and five native child links",
+      "runtime_comparison": "git diff --exit-code origin/main -- src contracts scripts profiles requirements pyproject.toml MANIFEST.in tests; exit0"
+    }
+  },
+  "privacy": {
+    "real_source_access": false,
+    "credential_access": false,
+    "private_pilot": "unperformed; actual configuration/classification/consumer/runtime authority required"
+  },
+  "issue_counts": {
+    "open": 35,
+    "tracked": 44,
+    "closed_by_these_merges": 0
+  },
+  "decisions": {
+    "proposed_adrs": 24,
+    "approvals_changed": 0
+  },
+  "next_batch": {
+    "state": "proposed; implementation not started",
+    "order": [
+      37,
+      46,
+      90
+    ],
+    "optional_followup": 32,
+    "reason": "Connect actual context/report freshness, refresh cross-source summaries, then remove declared-CSV friction before optional cache optimization; real data is unnecessary for these bounded fixtures"
+  },
+  "deferred": [
+    19,
+    27,
+    88,
+    91
+  ]
+}

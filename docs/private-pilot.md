@@ -1,6 +1,7 @@
 # Run the selected local pilot
 
-The software checkpoints are reviewable on the selected local workflow stack.
+The software checkpoints are merged through #141 at main `5ec7ae0`; the
+[merge receipt](evidence/local-workflow-stack-merge.json) preserves exact evidence.
 The actual private pilot has **not run**: the operating system, private workspace,
 selected Drive folder IDs, local credentials and applicable classification/runtime
 authority have not been supplied. No real account, original or financial content

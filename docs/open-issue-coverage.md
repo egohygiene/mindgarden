@@ -6,13 +6,16 @@ The maintainer selected the [five-step source-to-reviewed-packet plan](local-con
 Bounded #86/#87/#89/#90 work is active before the old queue is complete; #88/#91
 stay deferred. The earlier proposed #37/#46/#32 batch becomes supporting later
 work. No issue closure or ADR acceptance follows from this scheduling change.
-Activation draft [#138](https://github.com/egohygiene/mindgarden/pull/138) records the selected owner map. #133–#137 are merged in order at main `9c94245`; the [merge receipt](evidence/consultation-merge-receipt.json) preserves exact heads and green automatic CI. #134 upstream preview acquisition recovered after a normal, same-tree main reconciliation; its failed earlier run remains historical evidence. No issue is closed by these merges.
+Merged activation [#138](https://github.com/egohygiene/mindgarden/pull/138) records the selected owner map. #133–#137 are merged in order at main `9c94245`; the [merge receipt](evidence/consultation-merge-receipt.json) preserves exact heads and green automatic CI. #134 upstream preview acquisition recovered after a normal, same-tree main reconciliation; its failed earlier run remains historical evidence. No issue is closed by these merges.
 
 Original issue criteria, all 44 coverage rows, the 35-open count and real private
 input/runtime requirements remain explicit. The original root WIP is preserved.
 
-The current review stack is #138 → #139 → #140 → #141, combined branch
-`feature/89-scoped-research-pilot`, qualified packaging source `1ad9818`.
+The selected stack #138 → #139 → #140 → #141 is merged at main `5ec7ae0`,
+byte-equivalent to qualified handoff `5487549`; packaging source is `1ad9818`.
+[The merge receipt](evidence/local-workflow-stack-merge.json) records exact passing
+head checks. Proposed next work is #37 → #46 → #90 using synthetic fixtures;
+optional #32 follows. The roadmap records the change in proposed priority.
 [The exact receipt](evidence/local-workflow-qualification.json) records 111 focused
 cases per Python, eight corrected package cases per Python and all nine complete
 source/wheel/archive goldens. Live OAuth/Drive, actual Codex/model quality and the
@@ -27,7 +30,7 @@ maps current listed criteria to source/tests and records the maintainer’s merg
 authority, exact stack merge commits and the next bounded checkpoints.
 
 Historical baseline: Mindcap #42 and Mindgarden #110–#132 were merged at `f5baa3d`.
-Current main is `9c94245` after #133–#137; the older observations below are retained
+Current main is `5ec7ae0` after #138–#141; the older observations below are retained
 as historical qualification, not current unmerged status.
 The [overnight receipt](overnight-sprint.md) preserves its 481-case source/wheel
 and browser evidence. The merged privacy/storage checkpoints #127–#130 qualified combined
@@ -297,10 +300,10 @@ links evidence to #20; no private pilot or broader parent completion is inferred
 | Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and proposed later batch |
 | --- | --- | --- | --- | --- |
 | [#86](https://github.com/egohygiene/mindgarden/issues/86) — reconcile composed AI/context-package phase | umbrella; selected local checkpoint | 2026-11-13 maintainer activation and explicit five-step owner/dependency plan; current core contracts reused | Disposition the remaining selected child acceptance and keep #88/#91 deferred | Selected local capture/packet/Codex checkpoints now; wider context-package phase remains separate |
-| [#87](https://github.com/egohygiene/mindgarden/issues/87) — Drive capture/refresh and chosen garden locations | partial; selected local checkpoint | Draft #140 at 69a5999: reviewed bounded My Drive capture/refresh, immutable checkpoints, private optional OAuth, supplied capture normalization; 38 focused cases per Python and exact synthetic report/recovery proof | Live OAuth/Drive, wider platforms/private Git, confidential assurance and full freshness integration | #11/#13/#30/#35/#45 services available; provider capture separate from normalization |
+| [#87](https://github.com/egohygiene/mindgarden/issues/87) — Drive capture/refresh and chosen garden locations | partial; selected local checkpoint | Merged #140 at 69a5999: reviewed bounded My Drive capture/refresh, immutable checkpoints, private optional OAuth, supplied capture normalization; 38 focused cases per Python and exact synthetic report/recovery proof | Live OAuth/Drive, wider platforms/private Git, confidential assurance and full freshness integration | #11/#13/#30/#35/#45 services available; provider capture separate from normalization |
 | [#88](https://github.com/egohygiene/mindgarden/issues/88) — installable data-only context packages | deferred | #16 supplies pinned package/reference primitives; lifecycle not implemented | Versioned selection/lock, reviewed update/remove, conflict/permission and two-project proof | #14/#16/#29/#30/#31/#45/#51; D2a; Drive/RDF/model not mandatory |
-| [#89](https://github.com/egohygiene/mindgarden/issues/89) — scoped AI research broker | partial; selected local checkpoint | Draft #141 at 1ad9818: versioned bounded caller plans/results, seven existing read tools, cumulative/live checks, two scripted clients and direct fallback; packaged Codex profile and metadata-only pilot preflight | Actual authorized model/Codex runtime, semantic/graph quality comparisons, confidential assurance and private pilot | #12/#13/#31/#47/#51; initial CLI path independent of Drive/packages/private web |
-| [#90](https://github.com/egohygiene/mindgarden/issues/90) — synthetic structured analysis and reviewed preparation packet | partial; active local checkpoint | Draft feature/90-reviewed-ledger-packet: declared CSV/source adapter, pinned source grants, reviewed revision/transfer choices, exact decimals, coverage, private packet and searchable authored summary with exact recovery proof; 61 final-source cases per Python, green exact-head CI and three official schema fixtures | Arbitrary bank formats, richer reconciliation/categories, balances/assets, raw/PDF/charts exports and real pilot | #11/#13/#29/#31/#35/#45; local synthetic first, no database/model/Drive prerequisite |
+| [#89](https://github.com/egohygiene/mindgarden/issues/89) — scoped AI research broker | partial; selected local checkpoint | Merged #141; qualified packaging 1ad9818: versioned bounded caller plans/results, seven existing read tools, cumulative/live checks, two scripted clients and direct fallback; packaged Codex profile and metadata-only pilot preflight | Actual authorized model/Codex runtime, semantic/graph quality comparisons, confidential assurance and private pilot | #12/#13/#31/#47/#51; initial CLI path independent of Drive/packages/private web |
+| [#90](https://github.com/egohygiene/mindgarden/issues/90) — synthetic structured analysis and reviewed preparation packet | partial; active local checkpoint | Merged #139: declared CSV/source adapter, pinned source grants, reviewed revision/transfer choices, exact decimals, coverage, private packet and searchable authored summary with exact recovery proof; 61 final-source cases per Python, green exact-head CI and three official schema fixtures | Arbitrary bank formats, richer reconciliation/categories, balances/assets, raw/PDF/charts exports and real pilot | #11/#13/#29/#31/#35/#45; local synthetic first, no database/model/Drive prerequisite |
 | [#91](https://github.com/egohygiene/mindgarden/issues/91) — RDF/JSON-LD and PROV scoped packet evaluation | deferred | Captured standards/mapping proposal; current canonical formats unchanged | Versioned loss-aware mapping, offline contexts, scoped overview, denied graph/provenance and adopt/adapt/reject evidence | #12/#13/#16/#29/#31/#42/#45/#46/#49/#88; D2b; no automatic replacement or clearance certification |
 
 ## Retention requirements carried forward now

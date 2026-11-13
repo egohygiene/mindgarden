@@ -59,14 +59,14 @@ action adoption and complete consumer acceptance remain open.
 ## External systems
 
 The selected [local source-to-packet checkpoint](docs/local-consultation-workflow.md)
-adds draft declared-CSV normalization and reviewed private preparation packets
+includes merged declared-CSV normalization and reviewed private preparation packets
 through the existing source/session/storage services. It does not introduce a
 bank connector, web framework, model service, permanent query store or new policy
-owner. A draft [selected Drive capture](docs/drive-capture.md) adds bounded
+owner. The merged [selected Drive capture](docs/drive-capture.md) adds bounded
 read-only acquisition/refresh and a private optional OAuth helper; live account
 proof and the actual private pilot retain their separate gates.
 
-Draft [scoped research](docs/scoped-research.md) composes the existing read-only
+Merged [scoped research](docs/scoped-research.md) composes the existing read-only
 services with explicit caller plans, exact revisions and cumulative/live budgets.
 The packaged Codex profile changes no global runtime or permissions. Metadata-only
 `pilot preflight` supports the [operator guide](docs/private-pilot.md); local read
@@ -100,7 +100,7 @@ Systems fail closed at destructive, publication, privacy, and security boundarie
 
 | Concern | Owner | Milestone state |
 | --- | --- | --- |
-| Faithful capture and captured bundles | Mindcap or supplying capture tool | Supplied input plus draft selected Drive acquisition; no claim of every capture integration |
+| Faithful capture and captured bundles | Mindcap or supplying capture tool | Supplied input plus merged selected Drive acquisition; no claim of every capture integration |
 | Source normalization and exact evidence selectors | Mindgarden adapters/application | Text and bounded v3.2.2/v3.2.3 archive adapters implemented in the merged checkpoint; full producer conformance unclaimed |
 | Immutable original bytes | Explicit private vault, owned by consumer | Bounded filesystem identity/checksum/audit/export/restore/relocation implemented in the merged checkpoint; merged ordinary PDF/media inventory/triage follow-up supplied; encrypted/provider acceptance open |
 | Reviewed knowledge and typed relationships | Consumer garden; Mindgarden contracts/services | General v1 validation and reviewed projections implemented in the merged checkpoint |
