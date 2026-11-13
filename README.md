@@ -37,6 +37,11 @@ let an authorized caller use bounded existing read services. The
 [private-pilot guide](docs/private-pilot.md) includes non-destructive preflight;
 actual account/model proof and private execution remain unperformed.
 
+Explore a [fictional mock garden](examples/mock-garden/README.md) before connecting
+personal sources. One offline launcher leaves sample finances, business/career/
+household notes, an attributed conversation, exact citations, a contradiction and
+an unapplied correction ready for ordinary CLI exploration.
+
 The [active overnight roadmap](docs/overnight-sprint.md) reconciles completed
 acceptance criteria and orders the next integration checkpoints. OpenAleph and
 CozoDB evaluations recommend deferring service adoption; OpenViking native

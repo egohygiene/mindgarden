@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T05:12:40Z'
+  updated_at: '2026-11-13T05:34:50Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -74,8 +74,8 @@ scope:
   - docs/local-consultation-workflow.md
   - docs/evidence/local-workflow-stack-merge.json
 work:
-  objective: Record the authorized local-workflow merges and distinguish proposed synthetic follow-through from
-    operator-dependent private execution.
+  objective: Deliver a reusable fictional garden over the existing engine for exploration and the proposed freshness/summary/import
+    checkpoints.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
@@ -87,52 +87,39 @@ work:
   next:
     kind: action
     id: local-workflow-next-checkpoint
-    description: 'Review documentation draft #142 and select the proposed #37 → #46 → #90 synthetic batch: connect
-      real context/report consumers to freshness manifests, then multi-source refresh/quality and explicit CSV mappings.
-      Mapping is independently ready; optional #32 follows. Actual pilot still needs OS/private workspace/folder
-      configuration and real classification/consumer/runtime/credential setup. #88/#91 and release remain deferred.'
+    description: 'Open this bounded mock-garden checkpoint draft on #142; freeze its source and qualify source/installed-wheel/unpacked-source
+      plus generated commands. Record actual PR/commits/results. The correction stays unapplied for future proposed
+      #37/#46/#90 work; private OS/workspace/folder/credential/runtime setup remains independent.'
     readiness: ready
     references:
     - docs/local-consultation-workflow.md
     depends_on: []
 state:
   base:
-    revision: 5ec7ae017002f84e1dc36c2aaed3c76a00b079f3
-    ref: refs/remotes/origin/main
-    verified_at: '2026-11-13T05:12:40Z'
+    revision: eecb69b158abb4617938eb40b095cbc00c014088
+    ref: refs/heads/docs/local-workflow-merge-handoff
+    verified_at: '2026-11-13T05:34:50Z'
   candidate:
-    branch: docs/local-workflow-merge-handoff
-    revision: ff1d3c5af9d444580e1b384fb0d6c344e69848a9
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#142
-      url: https://github.com/egohygiene/mindgarden/pull/142
-    handoff_state: ready-for-review
+    branch: feature/86-fictional-mock-garden
+    revision: null
+    pull_request: null
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-13T05:12:40Z'
+    observed_at: '2026-11-13T05:34:50Z'
     default_branch_revision: 5ec7ae017002f84e1dc36c2aaed3c76a00b079f3
     issue_state: open
-    pull_request_state: draft
-    notes: '#138 → #139 → #140 → #141 are merged in order at main 5ec7ae0. Every selected head has passing Test/preparation
-      and no review comments or threads; main exactly equals qualified combined head 5487549. Documentation-only
-      draft #142 records this receipt and a proposed #37/#46/#90 batch. 35 issues remain open / 44 tracked; 24 ADRs
-      retain proposed/null approval. The original root retains four interrupted entries.'
+    pull_request_state: not-applicable
+    notes: '#138–#141 merged. Documentation #142 is an unmerged draft on main; this fixture branch stacks on #142
+      for continuity only, not a new runtime prerequisite. New fixed synthetic seed and launcher leave five reviewed
+      knowledge entries, four graph links, eight ledger rows, exact evidence, bounded context, packet and staged
+      correction outside Git. No private source or live account accessed.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T05:12:40Z'
+  reviewed_at: '2026-11-13T05:34:50Z'
   reviewed_by: codex
   evidence:
-  - command: python -m unittest tests.test_research tests.test_pilot tests.test_v1_contracts tests.test_scope_bundle_outputs
-      tests.test_local_federation --quiet (3.12/3.13); python -S scripts/research_demo.py --require-source --check-golden;
-      Ruff/format/owner/diff
-    outcome: passed
-    observed_at: '2026-11-13T03:17:13Z'
-    notes: 37 focused cases per Python, zero skips (41.487s/40.138s); complete composed research golden matches
-      twice with two caller plans and direct fallback. Engine model/network calls zero. Codex binary version 0.159.0-alpha.3
-      observed locally; no Codex runtime/model/private-data execution or quality claim. Clean combined distribution
-      qualification follows.
   - command: 14-module focused unittest selection on frozen f8b2695 (both Pythons); runtime identity diff to 1ad9818;
       eight package/distribution cases per Python at corrected source; nine exact complete source/wheel/sdist goldens;
       eight isolated installed v0 smoke commands; compile/scoped Ruff/format/owner/176 links
@@ -152,6 +139,15 @@ review:
       checks and all 163 local links across seven changed Markdown files pass; runtime/contracts/fixtures are unchanged
       from main. Current main-push/draft CI remain separate. Private/live/model acceptance and broader parents are
       unclaimed.'
+  - command: python -S scripts/mock_garden_demo.py --require-source (3.12); Python3.13 same --check-golden; unittest
+      tests.test_mock_garden both Pythons; generated CLI commands; scoped Ruff/format; source/wheel build
+    outcome: passed
+    observed_at: '2026-11-13T05:34:50Z'
+    notes: 'Source proofs pass; complete 3.13 golden matches: five knowledge entries, four links, context15509,
+      eight transactions/net2259.76, unchanged selected packet. Four safe-path/seed-review/command tests pass per
+      Python (0.002s/0.003s). Four initial generated commands pass; final five-command and clean artifact qualification
+      follows. Initial contradiction field fixture mismatch corrected to existing exact-reference contract, without
+      weakening runtime.'
   environment_limitations:
   - Full local/act and manual accessibility remain deferred; focused evidence is distinct.
   - Actual private workspace, source selection, credentials and confidential-runtime assurance must exist before
@@ -176,7 +172,7 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer authorized ordered merges #138–#141. Those are complete at main 5ec7ae0 with the exact qualified tree. Draft #142 records the receipt and proposes #37/#46/#90 synthetic follow-through without starting it. This supplies no private-source authority or ADR ratification; #88/#91 and release work remain deferred.
+The maintainer selected the five-step local workflow on 2026-11-13, superseding the old end-of-queue scheduling gate for bounded #86/#87/#89/#90 work. This does not ratify ADRs or supply private-source authority. #88/#91 and release work remain deferred.
 
 ## Resume protocol
 
@@ -184,19 +180,19 @@ Refresh live issue/PR state and comments; read README, AI_CONSTITUTION, ROADMAP,
 
 ## Current objective and success conditions
 
-Record the authorized local-workflow merges and distinguish proposed synthetic follow-through from operator-dependent private execution.
+Deliver a reusable fictional garden over the existing engine for exploration and the proposed freshness/summary/import checkpoints.
 
 ## State snapshot
 
-#138 → #139 → #140 → #141 are merged in order at main 5ec7ae0. Every selected head has passing Test/preparation and no review comments or threads; main exactly equals qualified combined head 5487549. Documentation-only draft #142 records this receipt and a proposed #37/#46/#90 batch. 35 issues remain open / 44 tracked; 24 ADRs retain proposed/null approval. The original root retains four interrupted entries.
+#138–#141 merged. Documentation #142 is an unmerged draft on main; this fixture branch stacks on #142 for continuity only, not a new runtime prerequisite. New fixed synthetic seed and launcher leave five reviewed knowledge entries, four graph links, eight ledger rows, exact evidence, bounded context, packet and staged correction outside Git. No private source or live account accessed.
 
 ## Completed and material changes
 
-Merged activation, reviewed ledger packets, selected Drive capture/refresh and scoped research/Codex/preflight capabilities without changing their qualified tree. Preserved merge heads/commits/green CI and earlier nine artifact goldens. Refreshed current status and proposed ready synthetic work: actual context/report freshness, cross-source summary refresh/quality, explicit CSV mapping; optional SQLite follows. No new runtime implementation or private execution.
+Reused the composed capture/review/research/recovery proof and normal ingest/gardenize/search/graph/context/evidence/packet services. Fictional business/career/household/dialogue source hashes, explicit authored summary/relationship plan, preserved conflicting dates and unreviewed sources, fresh local session, copyable commands, safe new-workspace guards and a complete golden. Engine and canonical contracts unchanged.
 
 ## Validation and review evidence
 
-git diff --exit-code 54875495dabfcf4f8b57ec51dbb34ed404aa5374 origin/main; inspect all four exact-head automatic CI/reviews/threads; pinned owner and changed-document link/diff checks — Merge tree comparison exit0. All four exact heads have passing Test/preparation; #141 prior pending Test43359542172 now passes. No runtime tests repeated for identical source. Pinned owner/continuity/44-row checks and all 163 local links across seven changed Markdown files pass; runtime/contracts/fixtures are unchanged from main. Current main-push/draft CI remain separate. Private/live/model acceptance and broader parents are unclaimed.
+python -S scripts/mock_garden_demo.py --require-source (3.12); Python3.13 same --check-golden; unittest tests.test_mock_garden both Pythons; generated CLI commands; scoped Ruff/format; source/wheel build — Source proofs pass; complete 3.13 golden matches: five knowledge entries, four links, context15509, eight transactions/net2259.76, unchanged selected packet. Four safe-path/seed-review/command tests pass per Python (0.002s/0.003s). Four initial generated commands pass; final five-command and clean artifact qualification follows. Initial contradiction field fixture mismatch corrected to existing exact-reference contract, without weakening runtime.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -204,7 +200,7 @@ Actual pilot OS/workspace/folder selection is requested asynchronously; no crede
 
 ## Next dependency-ready work
 
-Review documentation draft #142 and select the proposed #37 → #46 → #90 synthetic batch: connect real context/report consumers to freshness manifests, then multi-source refresh/quality and explicit CSV mappings. Mapping is independently ready; optional #32 follows. Actual pilot still needs OS/private workspace/folder configuration and real classification/consumer/runtime/credential setup. #88/#91 and release remain deferred.
+Open this bounded mock-garden checkpoint draft on #142; freeze its source and qualify source/installed-wheel/unpacked-source plus generated commands. Record actual PR/commits/results. The correction stays unapplied for future proposed #37/#46/#90 work; private OS/workspace/folder/credential/runtime setup remains independent.
 
 ## Parallel changes and reconciliation
 

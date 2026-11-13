@@ -61,6 +61,11 @@ fixtures before private setup. Mapping itself is independent of refresh work;
 prioritizes import friction for the preparation-packet goal; it is not newly
 started implementation or acceptance of broader parent scope. See the
 [local workflow handoff](docs/local-consultation-workflow.md).
+
+The maintainer's mock-garden follow-through supplies a
+[fictional reusable instance](examples/mock-garden/README.md) for that proposed
+batch. It uses the existing engine with invented sources and authored reviews;
+new freshness/mapping implementation and private/live acceptance remain separate.
 The 2026-11-12 gate and proposed freshness batch below are historical.
 
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.

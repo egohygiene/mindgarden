@@ -1,0 +1,33 @@
+{
+  "baseline_recovery_proof_sha256": "74f7d1e874e359bf5deed47393d477419402646493fc4d3fea7ee2e86e7d3102",
+  "context_bytes": 15509,
+  "context_ids": [
+    "mock-business",
+    "mock-career",
+    "mock-conversation",
+    "mock-household",
+    "synthetic-financial-summary"
+  ],
+  "context_sha256": "2b5ce6b120ebf3c4c02459dafb58b64b5fe2bf2b146de2b6542bb7e655470ff0",
+  "fictional": true,
+  "graph_edges": 4,
+  "graph_sha256": "9984ae8bcf1725854a45f244dcc65be68ec726b738879dfd98129e39d42bdf83",
+  "index_sha256": "6bfd771664fb0ee6e4811f6425a68e8ec5256eeb5d6e0a318dc5b27bd6459917",
+  "knowledge_ids": [
+    "mock-business",
+    "mock-career",
+    "mock-conversation",
+    "mock-household",
+    "synthetic-financial-summary"
+  ],
+  "knowledge_review": "authored-fictional-review",
+  "model_calls": 0,
+  "net_movement": "2259.76",
+  "network": "blocked",
+  "packet_sha256": "5b2a9569702ccaa1a34c311d4dc7222d4d2b617587959e960d16e8e6077c437b",
+  "schema": "mindgarden.mock-garden-proof/v1",
+  "source_review": "unreviewed",
+  "staged_changes": "not imported or applied",
+  "status": "passed-fictional-garden",
+  "transactions": 8
+}
