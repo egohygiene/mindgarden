@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T21:41:21Z'
+  updated_at: '2026-11-13T21:42:17Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -58,9 +58,8 @@ work:
   next:
     kind: action
     id: freshness-mapping-next-checkpoint
-    description: 'Push/open the #37 draft on #144, record exact PR/head, then implement the selected #46 multi-source
-      refresh/quality/expiry checkpoint. #90 explicit CSV mapping can proceed independently; keep parent/private/model/ADR
-      gates explicit.'
+    description: "Continue #46 on the explicit #144 \u2192 #145 stack, then independent #90 mapping. Keep drafts\
+      \ for review; no real private input or model is required."
     readiness: ready
     references:
     - docs/freshness-mapping-sprint.md
@@ -69,36 +68,31 @@ state:
   base:
     revision: 3c61db41c97151b9022820bdfdfeca409cfe38e4
     ref: refs/heads/test/13-14-38-acceptance-closeout
-    verified_at: '2026-11-13T21:41:21Z'
+    verified_at: '2026-11-13T21:42:17Z'
   candidate:
     branch: feature/37-consumer-freshness
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: eb4280a6f9cabfd7b85f4e400bafd53a1f09e704
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#145
+      url: https://github.com/egohygiene/mindgarden/pull/145
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-13T21:41:21Z'
+    observed_at: '2026-11-13T21:42:17Z'
     default_branch_revision: 6c9954bfa8ac65c94aa1db87c679a66227f736d8
     issue_state: open
-    pull_request_state: not-applicable
+    pull_request_state: draft
     notes: '#144 remains draft at 3c61db4 with passing Test 43500532675/preparation 43500532550. Main 6c9954b is
       unchanged; 34 issues open / 44 tracked / ten closed. New #37 context integration is ready on its isolated
-      branch; no merge or private execution.'
+      branch; no merge or private execution. Draft #145 is open on #144; functional eb4280a is qualified locally,
+      hosted CI is separate.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T21:41:21Z'
+  reviewed_at: '2026-11-13T21:42:17Z'
   reviewed_by: codex
   evidence:
-  - command: 'Both supported Pythons: -m unittest tests.test_curation tests.test_curation_transformations tests.test_mixed_curation
-      tests.test_routing tests.test_routing_dispositions tests.test_routing_lifecycle tests.test_routing_transfers
-      tests.test_routing_incoming tests.test_reference_repairs tests.test_assets tests.test_design tests.test_extraction
-      tests.test_ollama_extraction tests.test_archive_diagrams tests.test_pipeline_completion --quiet'
-    outcome: passed
-    observed_at: '2026-11-13T20:09:21Z'
-    notes: 84 tests pass on Python 3.12.14 (139.909s) and 3.13.5 (136.288s), zero skips. Initial stale-catalog fixture
-      expectation corrected; 15-case checks passed before full selection. Scoped Ruff/format, compileall and diff
-      whitespace pass. Ollama dry-run records unmeasured accuracy; no live/private/model call.
   - command: Clean git archive e63c7f1; python -m build --no-isolation --sdist --wheel; installed/unpacked unittest
       tests.test_routing_dispositions tests.test_routing_lifecycle; three design exports per mode; pinned owner
       checks.
@@ -112,6 +106,13 @@ review:
       new-test Ruff/format; git diff --check.'
     outcome: passed
     observed_at: '2026-11-13T21:41:21Z'
+    notes: 41 tests pass per Python, zero skips (51.052s / 48.656s). Initial command included nonexistent tests.test_scope
+      and is not counted as passing; corrected suite passes. Scoped lint/format and whitespace pass.
+  - command: 'Python 3.12.14 and 3.13.5: -m unittest tests.test_context_dependencies tests.test_dependency_builds
+      tests.test_selected_builds tests.test_v1_retrieval tests.test_scoped_retrieval tests.test_v1_contracts --quiet;
+      new-test Ruff/format; git diff --check.'
+    outcome: passed
+    observed_at: '2026-11-13T21:42:17Z'
     notes: 41 tests pass per Python, zero skips (51.052s / 48.656s). Initial command included nonexistent tests.test_scope
       and is not counted as passing; corrected suite passes. Scoped lint/format and whitespace pass.
   environment_limitations:
@@ -149,7 +150,7 @@ Connect actual bounded context packs to existing reviewed dependency builds, wit
 
 ## State snapshot
 
-#144 remains draft at 3c61db4 with passing Test 43500532675/preparation 43500532550. Main 6c9954b is unchanged; 34 issues open / 44 tracked / ten closed. New #37 context integration is ready on its isolated branch; no merge or private execution.
+#144 remains draft at 3c61db4 with passing Test 43500532675/preparation 43500532550. Main 6c9954b is unchanged; 34 issues open / 44 tracked / ten closed. New #37 context integration is ready on its isolated branch; no merge or private execution. Draft #145 is open on #144; functional eb4280a is qualified locally, hosted CI is separate.
 
 ## Completed and material changes
 
@@ -165,7 +166,7 @@ No private inputs or selected live local model are available. Normative declassi
 
 ## Next dependency-ready work
 
-Push/open the #37 draft on #144, record exact PR/head, then implement the selected #46 multi-source refresh/quality/expiry checkpoint. #90 explicit CSV mapping can proceed independently; keep parent/private/model/ADR gates explicit.
+Continue #46 on the explicit #144 → #145 stack, then independent #90 mapping. Keep drafts for review; no real private input or model is required.
 
 ## Parallel changes and reconciliation
 

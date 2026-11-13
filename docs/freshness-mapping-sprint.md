@@ -62,3 +62,5 @@ PR and retain all 44 coverage rows. Local evidence and exact-head hosted CI are
 separate. No real account, archive, credential or model is accessed by this batch.
 
 Checkpoint 1 qualification: **41 tests per Python**, zero skips (3.12.14 51.052s / 3.13.5 48.656s): `tests.test_context_dependencies`, `tests.test_dependency_builds`, `tests.test_selected_builds`, `tests.test_v1_retrieval`, `tests.test_scoped_retrieval`, `tests.test_v1_contracts`. New-test Ruff/format and whitespace pass. No complete-parent or private-pilot claim.
+
+Draft [#145](https://github.com/egohygiene/mindgarden/pull/145) pins qualified functional `eb4280a6f9cabfd7b85f4e400bafd53a1f09e704` on #144. Initial owner checks lacked the new worktree's ignored inventory files; restoring the two existing pinned inventories makes all owner/bounds/44-row/native-child checks pass. The follow-up handoff changes documentation only.
