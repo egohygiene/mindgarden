@@ -14,8 +14,8 @@ issue dispositions; no parent is closed by changing the schedule.
 | 1 | Review and merge #133 → #134 → #135 → #136 → #137. | Completed: #133–#137 merged in order at main `9c94245`. Every selected head has passing Test/preparation; #134 reconciled normally with identical source tree and a passing new preview. See the merge receipt below. |
 | 2 | Activate the bounded local phase under #86. | Selected #87/#89/#90 scheduling is updated; #88/#91 remain deferred. This document maps existing owners rather than adding a competing garden or session model. |
 | 3 | Produce a synthetic, reviewed, source-backed preparation packet (#90). | Implemented on `feature/90-reviewed-ledger-packet`: strict CSV normalization, pinned source grants, explicit reconciliation/review and exact-decimal calculations. The source demonstration passes; clean artifact qualification follows. |
-| 4 | Connect explicitly selected Drive capture and the scoped Codex workflow (#87/#89). | The selected Drive capture/refresh adapter, separate normalization and private OAuth helper have bounded offline proof. The Codex/research interface follows on this stack. A private web app, MCP server, second model and new query database are not prerequisites. |
-| 5 | Prepare and run the selected private pilot where authorized and available. | Build a concrete preflight/runner and operator guide first. The actual OS, private workspace, selected Drive folders, credentials and classification/runtime evidence must be supplied outside public fixtures before real execution. |
+| 4 | Connect explicitly selected Drive capture and the scoped Codex workflow (#87/#89). | Draft #140 implements capture/refresh, separate normalization and optional private OAuth. `feature/89-scoped-research-pilot` supplies the bounded read-only research CLI and packaged Codex profile. Mocked software proof is separate from live Drive/Codex acceptance. |
+| 5 | Prepare and run the selected private pilot where authorized and available. | Metadata-only `pilot preflight` and the concrete operator guide are implemented; the composed synthetic fixture reports ready-to-attempt. Actual execution remains blocked on the unanswered OS/workspace/folder selection, credentials and applicable classification/consumer/runtime authority. |
 
 The synthetic packet is independent of Drive: acquisition supplies captured
 artifacts to the existing adapter boundary. Existing #13 authored/extraction
@@ -106,6 +106,8 @@ model-quality evidence, actual private pilot or parent completion is claimed.
 
 ## #87 selected capture and refresh checkpoint
 
+Draft [#140](https://github.com/egohygiene/mindgarden/pull/140), functional source
+`69a5999e0be2c74951c79bdeb979909544442c15`, stacks on #139.
 [The Drive guide](drive-capture.md) describes the current official v3 contract,
 private optional OAuth setup and the separate captured-package adapter. Capture
 requires controlled-import scope and an explicit reviewed operation/network flag;
@@ -127,3 +129,33 @@ is account-wide while the application narrows actual reads. Capture refresh does
 not silently approve/retire knowledge or assert that a packet is the latest/full
 account history. Live Drive, Windows credential mutation, confidential assurance,
 broader freshness and the actual private pilot remain separate acceptance.
+
+## #89 bounded caller research and pilot preparation
+
+The [research contract](scoped-research.md) composes the existing selected local
+read handlers and exact reviewed/source-granted evidence. All steps, tool choices
+and source grants are checked before any body; cumulative budgets, exact revisions,
+request changes, expiry and revocation gate every step and final output. No model,
+executable planner, write handler or persisted trace/cache is introduced. Caller
+interpretations stay separate from observations and never approve knowledge.
+
+Two distinguishable synthetic caller plans, provider removal/direct search and
+all seven read tools work without a model. The focused research/pilot/schema/
+scope/local-federation selection passes **37 cases per Python**, zero skips:
+3.12 in 41.487s and 3.13 in 40.138s. Final clean artifacts follow qualification.
+The composed `research_demo.py` golden reuses the entire Drive/packet/recovery
+proof, exercises the ordinary CLI with all three clients and performs metadata-only
+local pilot preflight. The [packaged Codex profile](../profiles/agent/codex.md)
+requires actual caller/runtime authority; local offline reads do not authorize
+forwarding private context to a hosted model. Actual Codex/model execution and
+semantic-quality evaluation remain unperformed.
+
+The [private-pilot guide](private-pilot.md) supplies initialization, existing local
+bindings/sessions, optional OAuth/capture, separate import/review, packets, assistant
+authority and non-destructive recovery steps. Preflight opens no original, network
+or model, changes no file and reports cached credentials separately from live
+authentication. It cannot certify unseen classification, integrity or completeness.
+The actual private pilot has not run because the required user-specific setup is
+unavailable; no parent issue, legal/financial conclusion or confidential assurance
+is claimed. Initial fixture attempts used a nonexistent adapter ID and invalid empty
+session fields; corrected tests retain the real contracts rather than weakening them.

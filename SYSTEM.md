@@ -66,6 +66,12 @@ owner. A draft [selected Drive capture](docs/drive-capture.md) adds bounded
 read-only acquisition/refresh and a private optional OAuth helper; live account
 proof and the actual private pilot retain their separate gates.
 
+Draft [scoped research](docs/scoped-research.md) composes the existing read-only
+services with explicit caller plans, exact revisions and cumulative/live budgets.
+The packaged Codex profile changes no global runtime or permissions. Metadata-only
+`pilot preflight` supports the [operator guide](docs/private-pilot.md); local read
+authority does not authorize hosted-model access or certify confidential execution.
+
 - Mindcap capture
 - Aether agents
 - repository-local .garden directories

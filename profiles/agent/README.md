@@ -4,10 +4,17 @@ The agent profile exposes a dependency-free CLI over the same committed
 Mindgarden Markdown used by humans. It is the portable baseline for Codex,
 Claude Code, Copilot, local scripts, and future MCP adapters.
 
-The core performs no model calls, remote fetching, embedding, or background
-writes. Agents may acquire and interpret material outside Mindgarden, but every
+Ordinary local agent reads perform no model calls, remote fetching, embedding,
+or background writes. Optional selected capture is a separate explicit adapter.
+Agents may acquire and interpret material outside Mindgarden, but every
 durable operation crossing into the garden is explicit, validated, and
 reproducible.
+
+For the current v1 private workflow, use the [Codex workspace profile](codex.md)
+and the repository's `docs/scoped-research.md` / `docs/private-pilot.md` guides.
+They require explicit local bindings, exact scoped authority and bounded requests.
+The commands and YAML layouts below preserve the v0 compatibility baseline;
+v1 source/package/ledger adapters and JSON context profiles have separate contracts.
 
 ## Verify
 

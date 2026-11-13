@@ -1,0 +1,241 @@
+{
+  "callers": [
+    {
+      "id": "search-first",
+      "operations": [
+        "search",
+        "context",
+        "source-evidence",
+        "evidence"
+      ],
+      "request_sha256": "359bf893768111b6f1c53ea9fe6b727c6c0c275356ece8271ffb0370539f1bb9",
+      "result_sha256": "36e4808ed7c0907cf63131f13b684abd8bc9323a8ffe0122266aa429ea0b6f23",
+      "usage": {
+        "model_calls": 0,
+        "results": 4,
+        "steps": 4
+      }
+    },
+    {
+      "id": "graph-first",
+      "operations": [
+        "graph",
+        "search",
+        "backlinks",
+        "outbound",
+        "source-evidence",
+        "evidence"
+      ],
+      "request_sha256": "7fdb62617b05df21605888d0b1bd67c81151db902e4952143b99c6710816d1ac",
+      "result_sha256": "cc4c1ec0f9c357fa0f83bec6899c5c82cfd806927d0bb9642db268770ff32527",
+      "usage": {
+        "model_calls": 0,
+        "results": 4,
+        "steps": 6
+      }
+    },
+    {
+      "id": "provider-removed-direct-search",
+      "operations": [
+        "search"
+      ],
+      "request_sha256": "72c0b633a109542f9d24e04a94df17ffd7f8d6e61957fffd1ffedcb63e2dde96",
+      "result_sha256": "17cb3ffe37373710080dbfae433afdce30d60ac98ac165f3d781aa118512392f",
+      "usage": {
+        "model_calls": 0,
+        "results": 1,
+        "steps": 1
+      }
+    }
+  ],
+  "codex_interface": "ordinary CLI exercised; Codex runtime/model unperformed",
+  "evidence": {
+    "content_sha256": "8398a957636b59d73ff4d276b75bf29f1fb050ec3ada3a181ac46ce4130f40d8",
+    "locator": "artifact",
+    "source": {
+      "garden": "synthetic-garden",
+      "id": "source-02fd8e660c3569d7015de5c1-8398a957636b59d7",
+      "revision": "sha256:8398a957636b59d73ff4d276b75bf29f1fb050ec3ada3a181ac46ce4130f40d8"
+    }
+  },
+  "model_accuracy": "not evaluated",
+  "packet_proof": {
+    "capture": {
+      "api": "Drive v3 fixture",
+      "capture_execution": "controlled-import",
+      "garden_execution": "offline",
+      "native_export_smoke": "not performed",
+      "oauth_setup": "not performed",
+      "old_snapshot": "retained",
+      "provider_reads": 4,
+      "snapshots": 2,
+      "unchanged_evidence_reused": 8
+    },
+    "context_bytes": 6129,
+    "context_sha256": "b2d4764c04eca26f933233cc8223a2a30c168a71b78dd26f5cca794132575a03",
+    "coverage": [
+      {
+        "account": "account-a",
+        "missing_declared_intervals": [],
+        "observed_first": "2026-01-02",
+        "observed_last": "2026-01-11",
+        "status": "transactions-present-coverage-unverified"
+      },
+      {
+        "account": "account-b",
+        "missing_declared_intervals": [
+          {
+            "end": "2026-01-09",
+            "start": "2026-01-01"
+          }
+        ],
+        "observed_first": "2026-01-05",
+        "observed_last": "2026-01-12",
+        "status": "transactions-present-coverage-unverified"
+      },
+      {
+        "account": "missing-account",
+        "missing_declared_intervals": [
+          {
+            "end": "2026-01-31",
+            "start": "2026-01-01"
+          }
+        ],
+        "observed_first": null,
+        "observed_last": null,
+        "status": "no-supplied-transactions"
+      }
+    ],
+    "evidence": {
+      "content_sha256": "8398a957636b59d73ff4d276b75bf29f1fb050ec3ada3a181ac46ce4130f40d8",
+      "locator": "artifact",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-02fd8e660c3569d7015de5c1-8398a957636b59d7",
+        "revision": "sha256:8398a957636b59d73ff4d276b75bf29f1fb050ec3ada3a181ac46ce4130f40d8"
+      }
+    },
+    "google": "synthetic-provider-only; no real account",
+    "immutable_objects": [
+      {
+        "content_id": "sha256:1cafd594bd57e0f3042b0e9853a09669f0c912723bbc62f7a2ed137549d79a22",
+        "state": "available"
+      },
+      {
+        "content_id": "sha256:58067b8a4903e088f28317659b39b69da646b23bf431ba20ad35762b8c5f6c60",
+        "state": "available"
+      },
+      {
+        "content_id": "sha256:61362b820d8d966382f0ad45715716e54adc94396f9b2f51a114b608fde7bd3c",
+        "state": "available"
+      },
+      {
+        "content_id": "sha256:6b791383155e8baf6f80c0be11941fba00d5483b67ff2d0541d4dbf4ad5cba21",
+        "state": "available"
+      },
+      {
+        "content_id": "sha256:7267c7be71270fd2012f23eb6fb74834cfc27df0c47141c157a51c415d82652a",
+        "state": "available"
+      },
+      {
+        "content_id": "sha256:8398a957636b59d73ff4d276b75bf29f1fb050ec3ada3a181ac46ce4130f40d8",
+        "state": "available"
+      },
+      {
+        "content_id": "sha256:868c589484f3b1dfbb014b4b617bc6fd6eb95ac05f0239c228e8167efce59137",
+        "state": "available"
+      },
+      {
+        "content_id": "sha256:aa4162a718f99467af2a2f7d4d2ba7ba08222b1913d1e770cba8a38ad8889620",
+        "state": "available"
+      },
+      {
+        "content_id": "sha256:b9e06150aa36e21886c415146faca61cfec255783aa20d467152d2a46cbdacb8",
+        "state": "available"
+      },
+      {
+        "content_id": "sha256:d608a386696ed74353dc071c9f97ad478ebb0e3683c5a2bd3a7b0d946d6cbd76",
+        "state": "available"
+      },
+      {
+        "content_id": "sha256:d67ccd5dc233354dff9ac9c975b151e33c680cb224c874ac8830004dbbe39c6a",
+        "state": "available"
+      },
+      {
+        "content_id": "sha256:e211ff508682cf0d2bb05781774f088db32decdb65deef793fa3923784b07fff",
+        "state": "available"
+      },
+      {
+        "content_id": "sha256:e4f3bfc141bb7b03799b4e1622ba21ac337d3a2285cabe6f95ef64eb99c76e48",
+        "state": "available"
+      }
+    ],
+    "knowledge_epistemic_state": "proposed",
+    "knowledge_review": "approved",
+    "markdown_sha256": "1646ae7f3eb5f165bc744232952e0bbdbde5f5283505e7f666c3d748a84cb8f0",
+    "models": "unused",
+    "network": "blocked",
+    "originals": "retained",
+    "packet_sha256": "5b2a9569702ccaa1a34c311d4dc7222d4d2b617587959e960d16e8e6077c437b",
+    "private_pilot": "not performed",
+    "recovery": "exact packet, index, context and evidence after relocation/restore/clean rebuild",
+    "schema": "mindgarden.synthetic-drive-consultation-proof/v1",
+    "source_review": "unreviewed",
+    "status": "passed-bounded-synthetic-workflow",
+    "totals": [
+      {
+        "currency": "USD",
+        "expense": "-230.25",
+        "income": "2500.00",
+        "month": "2026-01",
+        "net_movement": "2259.76",
+        "refund": "10.00",
+        "transfer": "0.00",
+        "uncategorized": "-19.99"
+      }
+    ],
+    "unique_transactions": 8
+  },
+  "preflight": {
+    "checks": [
+      {
+        "check": "private-control-paths",
+        "status": "passed"
+      },
+      {
+        "check": "exact-live-session",
+        "status": "passed"
+      },
+      {
+        "check": "personal-offline-policy",
+        "status": "passed"
+      },
+      {
+        "check": "private-untracked-roots",
+        "status": "passed"
+      },
+      {
+        "check": "filesystem-vault-metadata",
+        "status": "passed"
+      }
+    ],
+    "classification": "personal",
+    "limitations": [
+      "Readiness is not live account authentication, source integrity audit or approval of unseen content.",
+      "Folder selection and classification must be supplied by the operator; no account scan or downgrade.",
+      "Real restricted processing and external/hosted assistant access require their actual policy/runtime authority.",
+      "No private pilot, financial completeness, legal interpretation or confidential-runtime assurance is certified.",
+      "This first pilot excludes Git-tracked roots and unverified platform/private-Git storage."
+    ],
+    "model_calls": 0,
+    "network_calls": 0,
+    "original_reads": 0,
+    "schema": "mindgarden.local-pilot-preflight/v1",
+    "status": "ready-to-attempt",
+    "writes": 0
+  },
+  "private_pilot": "not performed",
+  "schema": "mindgarden.synthetic-research-proof/v1",
+  "source_instructions": "untrusted data; no execution or publication authority",
+  "status": "passed-bounded-synthetic-workflow"
+}

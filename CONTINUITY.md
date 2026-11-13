@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T03:01:28Z'
+  updated_at: '2026-11-13T03:17:13Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -73,56 +73,52 @@ scope:
   - docs/architecture-overview.md
   - docs/local-consultation-workflow.md
 work:
-  objective: Preserve the bounded selected Drive capture/refresh and separate normalization checkpoint, then finish
-    the scoped Codex and private-pilot handoff.
+  objective: Preserve the bounded read-only Codex/research and private-pilot preparation checkpoint, then qualify
+    the complete stack from clean source, wheel and sdist.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#87
-    url: https://github.com/egohygiene/mindgarden/issues/87
+    id: egohygiene/mindgarden#89
+    url: https://github.com/egohygiene/mindgarden/issues/89
   next:
     kind: action
     id: local-workflow-next-checkpoint
-    description: 'Open the Drive checkpoint as a draft on #139. Implement the bounded read-only research/Codex interface
-      and concrete private-pilot preflight on this combined stack; qualify both synthetic journeys from clean checkout/wheel/sdist.
-      Actual private execution needs the still-missing workspace/folder/credential/classification/runtime configuration.'
+    description: 'Open the Codex/pilot implementation as a draft on #140, freeze its functional commit and qualify
+      combined source/wheel/sdist plus focused Python/v0 checks. Update issue evidence and handoff. Actual private
+      execution remains blocked on OS/workspace/folder/credential/classification/runtime setup; no relabeling or
+      hosted-model grant is implied.'
     readiness: ready
     references:
     - docs/local-consultation-workflow.md
     depends_on: []
 state:
   base:
-    revision: 9db4c202ec166a9a887db3d4c834919dff426f0b
-    ref: refs/heads/feature/90-reviewed-ledger-packet
-    verified_at: '2026-11-13T03:01:28Z'
+    revision: 69a5999e0be2c74951c79bdeb979909544442c15
+    ref: refs/heads/feature/87-selected-drive-capture
+    verified_at: '2026-11-13T03:17:13Z'
   candidate:
-    branch: feature/87-selected-drive-capture
+    branch: feature/89-scoped-research-pilot
     revision: null
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-13T03:01:28Z'
+    observed_at: '2026-11-13T03:17:13Z'
     default_branch_revision: 9c94245e0838da74a760cbc43e63b0faf6a3d756
     issue_state: open
     pull_request_state: not-applicable
-    notes: '#133–#137 merged; #138 activation and #139 ledger packet remain drafts. Current Drive branch stacks
-      on qualified #139 source 9db4c20. No live account or private inputs accessed.'
+    notes: '#133–#137 merged; #138 activation → #139 ledger → #140 Drive are open drafts. This branch stacks on
+      Drive functional 69a5999. Real OS/workspace/folder selection remains unanswered; no actual account or private
+      original accessed.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T03:01:28Z'
+  reviewed_at: '2026-11-13T03:17:13Z'
   reviewed_by: codex
   evidence:
-  - command: 'git diff --check; pinned Hygiene/Aether ADR/continuity/coverage checks; exact #134 tree comparison'
-    outcome: passed
-    observed_at: '2026-11-13T01:45:32Z'
-    notes: 'Documentation and owner checks pass; #134 reconciliation has no file changes. Existing focused/full
-      hosted evidence remains distinct from pending new-head CI. No runtime implementation or private pilot is claimed
-      at this activation checkpoint.'
   - command: unittest tests.test_consultation; tests.test_v1_contracts tests.test_scope_bundle_outputs tests.test_source_adapters;
       source consultation_demo.py --require-source; Ruff/format; pinned owner/diff checks
     outcome: passed
@@ -140,6 +136,15 @@ review:
       objects, 6129-byte context and net2259.76. SDK 1.5.0 constructor works offline; actual OAuth, Drive, private
       pilot and model accuracy unperformed. #139 exact 61-case per-Python qualification and hosted Test/preparation
       pass.'
+  - command: python -m unittest tests.test_research tests.test_pilot tests.test_v1_contracts tests.test_scope_bundle_outputs
+      tests.test_local_federation --quiet (3.12/3.13); python -S scripts/research_demo.py --require-source --check-golden;
+      Ruff/format/owner/diff
+    outcome: passed
+    observed_at: '2026-11-13T03:17:13Z'
+    notes: 37 focused cases per Python, zero skips (41.487s/40.138s); complete composed research golden matches
+      twice with two caller plans and direct fallback. Engine model/network calls zero. Codex binary version 0.159.0-alpha.3
+      observed locally; no Codex runtime/model/private-data execution or quality claim. Clean combined distribution
+      qualification follows.
   environment_limitations:
   - Full local/act and manual accessibility remain deferred; focused evidence is distinct.
   - Actual private workspace, source selection, credentials and confidential-runtime assurance must exist before
@@ -172,19 +177,19 @@ Refresh live issue/PR state and comments; read README, AI_CONSTITUTION, ROADMAP,
 
 ## Current objective and success conditions
 
-Preserve the bounded selected Drive capture/refresh and separate normalization checkpoint, then finish the scoped Codex and private-pilot handoff.
+Preserve the bounded read-only Codex/research and private-pilot preparation checkpoint, then qualify the complete stack from clean source, wheel and sdist.
 
 ## State snapshot
 
-#133–#137 merged; #138 activation and #139 ledger packet remain drafts. Current Drive branch stacks on qualified #139 source 9db4c20. No live account or private inputs accessed.
+#133–#137 merged; #138 activation → #139 ledger → #140 Drive are open drafts. This branch stacks on Drive functional 69a5999. Real OS/workspace/folder selection remains unanswered; no actual account or private original accessed.
 
 ## Completed and material changes
 
-Explicit controlled-import scope, reviewed selection/budgets, fixed-host read-only Drive v3, immutable vault/checkpoint reuse, partial recovery, strict capture package and separate offline normalization. Optional private OAuth/refresh uses the verified official SDK API and bounded endpoints. Two synthetic snapshots retain old history and reuse eight unchanged evidence rows through exact report/context/relocation/restore/rebuild proof.
+Versioned caller request/result, seven existing read handlers, complete prevalidation, exact scope/revisions/source grants, cumulative budgets and no-partial-output/live expiry/revocation. Two distinct scripted callers and provider-removed direct search retain citations with no engine model call or stored trace. Packaged Codex workspace profile and non-destructive metadata-only pilot preflight/operator guide. Composed synthetic Drive/packet/recovery/research/preflight golden passes.
 
 ## Validation and review evidence
 
-python -m unittest tests.test_drive_capture tests.test_drive_credentials tests.test_v1_contracts tests.test_scope_bundle_outputs tests.test_source_adapters --quiet (3.12/3.13); python -S scripts/drive_consultation_demo.py --require-source --check-golden; optional OAuth SDK constructor probe offline; Ruff/format/owner/diff — 38 cases per Python, zero skips (16.349s/15.824s); complete Drive golden passes twice, with 13 retained objects, 6129-byte context and net2259.76. SDK 1.5.0 constructor works offline; actual OAuth, Drive, private pilot and model accuracy unperformed. #139 exact 61-case per-Python qualification and hosted Test/preparation pass.
+python -m unittest tests.test_research tests.test_pilot tests.test_v1_contracts tests.test_scope_bundle_outputs tests.test_local_federation --quiet (3.12/3.13); python -S scripts/research_demo.py --require-source --check-golden; Ruff/format/owner/diff — 37 focused cases per Python, zero skips (41.487s/40.138s); complete composed research golden matches twice with two caller plans and direct fallback. Engine model/network calls zero. Codex binary version 0.159.0-alpha.3 observed locally; no Codex runtime/model/private-data execution or quality claim. Clean combined distribution qualification follows.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -192,7 +197,7 @@ Actual pilot OS/workspace/folder selection is requested asynchronously; no crede
 
 ## Next dependency-ready work
 
-Open the Drive checkpoint as a draft on #139. Implement the bounded read-only research/Codex interface and concrete private-pilot preflight on this combined stack; qualify both synthetic journeys from clean checkout/wheel/sdist. Actual private execution needs the still-missing workspace/folder/credential/classification/runtime configuration.
+Open the Codex/pilot implementation as a draft on #140, freeze its functional commit and qualify combined source/wheel/sdist plus focused Python/v0 checks. Update issue evidence and handoff. Actual private execution remains blocked on OS/workspace/folder/credential/classification/runtime setup; no relabeling or hosted-model grant is implied.
 
 ## Parallel changes and reconciliation
 

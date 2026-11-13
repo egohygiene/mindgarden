@@ -836,6 +836,27 @@ def build_parser() -> ArgumentParser:
     scope.add_argument("--expires-at", required=True)
     scope.add_argument("--output", type=Path, help="Create a new private session file; omission previews JSON")
     scope.set_defaults(handler=run_scope)
+    from ..application.research import run_research
+
+    research = commands.add_parser("research", help="Run an explicit bounded read plan for a calling assistant")
+    research.add_argument("--input", type=Path, required=True, help="Versioned research-request/v1 with closed tools")
+    research.add_argument("--local-config", type=Path, required=True)
+    research.add_argument("--scope", type=Path, required=True)
+    research.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
+    research.set_defaults(handler=run_research, scoped_output_command=True)
+    from ..application.pilot import run_pilot
+
+    pilot = commands.add_parser("pilot", help="Check an explicitly selected private local pilot without reading originals")
+    pilot_operations = pilot.add_subparsers(dest="operation", required=True)
+    preflight = pilot_operations.add_parser("preflight", help="Inspect private configuration and metadata only")
+    preflight.add_argument("--local-config", type=Path, required=True)
+    preflight.add_argument("--scope", type=Path, required=True)
+    preflight.add_argument("--garden-id", required=True)
+    preflight.add_argument("--vault-id", required=True)
+    preflight.add_argument("--classification", choices=("personal", "restricted"), required=True)
+    preflight.add_argument("--drive-binding", type=Path, help="Optional explicit reviewed capture selection")
+    preflight.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
+    preflight.set_defaults(handler=run_pilot, scoped_output_command=True)
     from ..application.evidence import run_evidence
 
     evidence = commands.add_parser("evidence", help="Resolve one exact citation authorized by reviewed knowledge")

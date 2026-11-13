@@ -31,8 +31,11 @@ adds a draft [declared-ledger preparation packet](docs/consultation-packets.md):
 exact decimal calculations, explicit overlap/transfer review, coverage gaps and
 private evidence export. Its synthetic proof keeps exact citations through vault
 recovery. The draft [selected Drive adapter](docs/drive-capture.md) adds bounded
-read-only acquisition, explicit refresh and optional private OAuth setup. Live
-account proof, Codex setup and the real private pilot remain separate steps.
+read-only acquisition, explicit refresh and optional private OAuth setup. The
+draft [scoped research CLI](docs/scoped-research.md) and packaged Codex profile
+let an authorized caller use bounded existing read services. The
+[private-pilot guide](docs/private-pilot.md) includes non-destructive preflight;
+actual account/model proof and private execution remain unperformed.
 
 The [active overnight roadmap](docs/overnight-sprint.md) reconciles completed
 acceptance criteria and orders the next integration checkpoints. OpenAleph and
