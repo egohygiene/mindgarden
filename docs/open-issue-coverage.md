@@ -1,5 +1,22 @@
 # Issue coverage — 2026-11-13
 
+## Current acceptance batch
+
+The maintainer authorized #142 → #143 merges, completed in order at main
+`6c9954bfa8ac65c94aa1db87c679a66227f736d8` with passing exact-head automatic
+checks and the exact qualified #143 tree. The selected next batch is
+**#13 → #14 → #38**. [The complete acceptance audit](curation-routing-design-acceptance.md)
+records all criteria, the missing private routing-history fix, synthetic
+disposition/rename/design proofs, remaining live-model and policy-transfer gaps,
+and exact next actions. New changes remain in draft [#144](https://github.com/egohygiene/mindgarden/pull/144). Only #38 is closed
+against already merged requirements; all 44 coverage rows remain.
+
+**Live disposition: 34 open / ten closed.** Additional consumers, full app
+accessibility and ADR ratification are not unlisted blockers for #38's completed
+design-source criteria. #13/#14 remain open. Proposed #37/#46/#90 work follows
+the selected batch; it has not been silently started. Older counts and draft
+statuses below are explicitly historical observations.
+
 ## Selected local workflow — 2026-11-13
 
 The maintainer selected the [five-step source-to-reviewed-packet plan](local-consultation-workflow.md).
@@ -8,7 +25,7 @@ stay deferred. The earlier proposed #37/#46/#32 batch becomes supporting later
 work. No issue closure or ADR acceptance follows from this scheduling change.
 Merged activation [#138](https://github.com/egohygiene/mindgarden/pull/138) records the selected owner map. #133–#137 are merged in order at main `9c94245`; the [merge receipt](evidence/consultation-merge-receipt.json) preserves exact heads and green automatic CI. #134 upstream preview acquisition recovered after a normal, same-tree main reconciliation; its failed earlier run remains historical evidence. No issue is closed by these merges.
 
-Original issue criteria, all 44 coverage rows, the 35-open count and real private
+Original issue criteria, all 44 coverage rows, the current open count and real private
 input/runtime requirements remain explicit. The original root WIP is preserved.
 
 The selected stack #138 → #139 → #140 → #141 is merged at main `5ec7ae0`,
@@ -28,15 +45,15 @@ It provides reusable inputs for the proposed #37/#46/#90 batch without starting
 its remaining runtime features or changing any parent issue's disposition.
 
 This ledger retains **44 tracked issues**: the original 38 and deferred #86–#91.
-Acceptance #120 and integration #121–#125 are merged. **35 are open and nine
-are closed** (#10/#11/#12/#26/#28/#30/#33/#49/#51). GitHub closure state was
-refreshed after merging #127–#132; no parent issue was closed by this continuation.
+Acceptance #120 and integration #121–#125 are merged. **34 are open and ten
+are closed** (#10/#11/#12/#26/#28/#30/#33/#38/#49/#51). GitHub closure state was
+refreshed after merging #142/#143 and closing the listed #38 design criteria.
 Preserve closed rows as evidence. [The overnight receipt](overnight-sprint.md)
 maps current listed criteria to source/tests and records the maintainer’s merge
 authority, exact stack merge commits and the next bounded checkpoints.
 
 Historical baseline: Mindcap #42 and Mindgarden #110–#132 were merged at `f5baa3d`.
-Current main is `5ec7ae0` after #138–#141; the older observations below are retained
+Current main is `6c9954b` after #142/#143; the older observations below are retained
 as historical qualification, not current unmerged status.
 The [overnight receipt](overnight-sprint.md) preserves its 481-case source/wheel
 and browser evidence. The merged privacy/storage checkpoints #127–#130 qualified combined
@@ -249,8 +266,8 @@ links evidence to #20; no private pilot or broader parent completion is inferred
 | --- | --- | --- | --- | --- |
 | [#11](https://github.com/egohygiene/mindgarden/issues/11) — normalized-source extension boundary | completed | Merged #74/#113: versioned adapter declarations, text/archive/captured-bookmark consumers, digest-bound plans, immutable observations and custom reference adapter; [acceptance mapping](overnight-sprint.md) | Listed criteria satisfied; Mindcap #42 merged; recurring capture/deletion is upstream scope, not normalization | #8/#9/#10; #48 uses the shared adapter, no model/provider requirement |
 | [#12](https://github.com/egohygiene/mindgarden/issues/12) — graph/search/bounded context | completed | Merged #78/#117/#119: all eight typed relations, complete projection schema/goldens, exact evidence, denied-target suppression, measured/repeated 2048-note envelope and clean rebuild; [acceptance mapping](overnight-sprint.md) | Listed criteria satisfied; faster interactive queries and wider hardware are future improvements, not added acceptance gates | #8/#9/#10; optional #32 and targeted #37 can advance independently |
-| [#13](https://github.com/egohygiene/mindgarden/issues/13) — reviewable curation/extraction plans | partial | Merged #132 adds authored mixed text/image curation with exact captions, correction/quotation attribution, evidence-bound redaction, unreviewed questions and a separately reviewed private destination; earlier producer/source-grant and transformation checkpoints remain; [journey](journey-sprint.md) | Full multi-target proposal protocol, wider media, live producer accuracy and consumer acceptance remain open | #9/#10/#11; J and optional producer checkpoint; no model prerequisite for authored plans |
-| [#14](https://github.com/egohygiene/mindgarden/issues/14) — routing, transitions and private fallback | partial | Merged private routing/transitions/inventory plus draft [#133](https://github.com/egohygiene/mindgarden/pull/133): independent exact reviewed reference repairs, append-only historical edges/events and two-owner rollback/retry; 37 focused cases on 3.12 and matching coverage on 3.13 | Public/policy-changing transfers, unpinned-reference review and wider platform recovery remain open | Existing #10–#13 interfaces; independent #37/#49 checkpoints need no incoming-repair contract |
+| [#13](https://github.com/egohygiene/mindgarden/issues/13) — reviewable curation/extraction plans | partial | Merged authored transformations, mixed-media selections, optional recorded producer and full resumed archive/bookmark/page proof; current draft retains five explicit defer/exclude categories through multi-target routing with exact private evidence/rationale; [full acceptance map](curation-routing-design-acceptance.md) | Actual local Ollama model evaluation remains unavailable/unmeasured; wider producer/media and consumer adoption remain distinct; review the private-history integration fix | #9/#10/#11; multi-target composition uses #14, not a competing curation schema; live model evaluation is not a prerequisite for authored routing |
+| [#14](https://github.com/egohygiene/mindgarden/issues/14) — routing, transitions and private fallback | partial | Merged private routing/transitions/inventory plus merged #133 exact reviewed reference repair; current draft adds private history-only receipts, mixed public/private rollback and renamed physical-mount proof; [full acceptance map](curation-routing-design-acceptance.md) | Public/policy-changing lifecycle and broader durability/platform recovery remain open; unpinned historical targets fail closed rather than being silently repaired | Existing #10–#13 authored interfaces; public transfers retain #29/#42 and proposed ADR-0022 gates; independent work need not wait for local model quality |
 | [#15](https://github.com/egohygiene/mindgarden/issues/15) — conversation archives/selective assets | partial | Merged #131 adds selected synthetic binary diagram/caption, catalog-only scratch and retained complete original ZIP; v2.0.0/2.0.1/2.0.2 source profiles, repeat/overlap/stale/corrupt fixtures, 21 focused cases per Python; earlier historical profiles remain separately scoped | Collections/multipart, untested media/versions, owner adoption and full producer conformance remain open | #11/#13, Mindcap #31; B4 historical compatibility only after authoritative specs; do not infer old-version support |
 
 ## Projections, federation and portability
@@ -266,7 +283,7 @@ links evidence to #20; no private pilot or broader parent completion is inferred
 
 | Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
 | --- | --- | --- | --- | --- |
-| [#38](https://github.com/egohygiene/mindgarden/issues/38) — stack-neutral design tokens | partial | Versioned token/schema source, visual/image/diagram references, offline CLI exports and optional revision-bound Quartz/CSS consumer merged through #69; draft #137 saves the requested overview image, text/diagram guide and design-source links | Human design disposition, additional consumers and complete accessibility evidence | Independent P/design checkpoint after #68 for review convenience; selects no frontend framework |
+| [#38](https://github.com/egohygiene/mindgarden/issues/38) — stack-neutral design tokens | completed | All seven listed criteria already merged: token/schema source, visual/image/diagram references, optional README link, text-only validation and deterministic CLI/Quartz/CSS consumers; current draft adds two-JSON-file conformance proof; [acceptance map](curation-routing-design-acceptance.md) | Closed 2026-11-13; additional consumers and complete application accessibility belong to #17/#47, decision disposition to #42; no framework/publication claim | Independent source-foundation issue; ADR-0014 remains proposed/null approval and is not silently ratified by closure |
 | [#17](https://github.com/egohygiene/mindgarden/issues/17) — accessible Obsidian-like garden web projection | partial | Pinned real Quartz builds plus draft [#135](https://github.com/egohygiene/mindgarden/pull/135): actual note/search/relationship/backlink/provenance journey, static routes and native theme/ToC fixes; 30 focused cases per Python and 13 axe audits with zero violations; [browser receipt](evidence/journey-reading-browser.json) | Eight note audits retain manual color-contrast/duplicate-id-aria findings; full manual WCAG/screen-reader, auxiliary routes, real consumer and hosting acceptance remain open | #10/#12/#16 contracts available; local rendering is independent of optional model services and hosted #47 |
 | [#47](https://github.com/egohygiene/mindgarden/issues/47) — shared CLI/API/web product slice | blocked | Merged #103 shared-service/transport/parity proposal; merged #110 optional typed intent example; existing services retained; no HTTP/web/worker adoption | Accepted runtime/framework/identity ADRs, API/web/worker parity, editing/media, Compose lifecycle/accessibility and two-organization canaries; the separately authorized [optional TypeSafe seam](typesafe-decisions.md) adds no HTTP/web framework | #40/#42/#43/#44/#45/#46/#10–#15/#29–#32; Realm #20/#34, Relay #40, Aether #69; P in bounded slices after actual contracts |
 

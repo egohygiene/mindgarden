@@ -72,6 +72,33 @@ class RoutingLifecycleTests(unittest.TestCase):
         write_session(session, self.configuration, readable_ids=["synthetic-garden"])
         self.assertEqual(search_payload(QueryContext.load(self.configuration, session), "evidence")["results"], [])
 
+    def test_renamed_destination_keeps_logical_home_and_exact_evidence(self):
+        plan = self.plan()
+        self.assertTrue(plan.apply(plan.digest))
+        before = garden_fingerprint(self.destination)
+        vault = self.vault.audit()
+        renamed = self.root / "renamed-private-mount"
+        self.destination.rename(renamed)
+        configuration = json.loads(self.configuration.read_text())
+        for binding in configuration["gardens"]:
+            if binding["id"] == "other-garden":
+                binding["root"] = str(renamed)
+        write_json(self.configuration, configuration)
+        self.bindings = LocalBindings.load(self.configuration)
+        self.assertEqual(garden_fingerprint(renamed), before)
+        snapshots = snapshots_for(self.bindings)
+        records = [record for snapshot in snapshots.values() for record in snapshot.records.values()]
+        self.assertEqual(canonical_reference(self.request["from"][0], records)["garden"], "other-garden")
+        self.assertNotIn(str(renamed).encode(), canonical_json(records))
+        session = self.root / "renamed-session.json"
+        write_session(session, self.configuration)
+        result = search_payload(QueryContext.load(self.configuration, session), "evidence")
+        self.assertEqual([item["reference"]["id"] for item in result["results"]], ["moved-prompt"])
+        self.assertEqual(result["results"][0]["sources"], self.evidence)
+        repeated = self.plan()
+        self.assertFalse(repeated.apply(repeated.digest))
+        self.assertEqual(self.vault.audit(), vault)
+
     def test_stale_request_and_second_cutover_failure_leave_original_state(self):
         plan = self.plan(); self.request["rationale"] = "Changed review."; write_json(self.request_path, self.request)
         before = {garden:garden_fingerprint(binding["root"]) for garden,binding in self.bindings.gardens.items()}

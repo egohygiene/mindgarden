@@ -67,10 +67,14 @@ invalidate review. Raw originals and existing note bytes remain intact.
 applies all dispositions, verifies uncertainty/contradiction retention and proves
 that agent proposals stay unreviewed. No model service is used.
 
-The checkpoint has one explicit local target. Cross-garden routing is #14;
-optional extraction producers, broader attachment/infographic selection and the
-full multi-route acceptance scope of #13 remain open. Publication is excluded
-for these derived private records and requires an independent reviewed handoff.
+The curation service has one explicit local target. Cross-garden proposals
+compose it inside #14's existing routing plan, rather than creating a competing
+curation model. Routing now also retains deferred/excluded decisions as ordinary
+curation receipts in an explicit personal controller, within the same group
+transaction. Discarded metadata never follows a kept public selection. See the
+[current complete acceptance map](curation-routing-design-acceptance.md).
+Publication is excluded for derived private records and requires an independent
+reviewed handoff.
 
 ## Transformation follow-up checkpoint
 
@@ -89,5 +93,7 @@ claiming to detect or perform automatic redaction. Sensitivity inheritance still
 applies after redaction; it does not grant public-release authority.
 
 `tests/test_curation_transformations.py` covers these cases alongside the six
-existing dispositions. Optional entity/triple producers, batch resumption and
-model evaluation remain separate parent scope.
+existing dispositions. The [optional extraction service](extraction-producers.md)
+now supplies recorded entity/triple proposals and bounded resumable batches;
+actual local-model evaluation remains unmeasured. Broader producer/consumer
+adoption and reviewed entity resolution remain separate parent scope.

@@ -1,0 +1,27 @@
+[
+  {
+    "classification": "scratch",
+    "action": "exclude",
+    "rationale": "Unselected scratch draft; PRIVATE-DISPOSITION-CANARY stays in private review history."
+  },
+  {
+    "classification": "duplicate",
+    "action": "exclude",
+    "rationale": "Repeated synthetic material adds no distinct knowledge; retain the original evidence."
+  },
+  {
+    "classification": "corrupted",
+    "action": "defer",
+    "rationale": "The captured text is semantically unusable; request a replacement without changing its recorded bytes."
+  },
+  {
+    "classification": "low-information",
+    "action": "exclude",
+    "rationale": "A synthetic acknowledgement has no durable knowledge to preserve."
+  },
+  {
+    "classification": "unsafe",
+    "action": "defer",
+    "rationale": "An embedded instruction to run a command is untrusted source data and requires separate review."
+  }
+]

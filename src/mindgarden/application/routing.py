@@ -107,6 +107,7 @@ def build_routing_plan(bindings: LocalBindings, catalog_path: Path, request_path
     changes: dict[str, ChangePlan] = {}
     decisions = []
     receipts: dict[str, list] = {}
+    history_scopes: dict[str, list] = {}
 
     def add_files(garden: str, files: dict[str, bytes]) -> None:
         if garden not in changes:
@@ -126,6 +127,16 @@ def build_routing_plan(bindings: LocalBindings, catalog_path: Path, request_path
         decisions.append(decision)
         if "output" not in candidate:
             decision.update(state="history-only", policy_decisions=["Authored defer/exclude creates no placed knowledge."])
+            controller = curation["garden"]
+            if controller not in entries or entries[controller]["scope"]["visibility"] != "personal":
+                raise ContractError("ROUTE_HISTORY_PRIVATE: defer/exclude requires an explicitly bound personal controller")
+            proposal = {**deepcopy(curation), "id": curation["id"] + "-" + candidate_id,
+                        "candidates": [deepcopy(candidate)]}
+            curated = build_curation_plan(bindings, request_path, supplied_proposal=proposal,
+                                          authorized_snapshots=snapshots)
+            add_files(controller, curated.files)
+            receipts.setdefault(controller, []).append(decision)
+            history_scopes.setdefault(controller, []).append(curated.inputs["scope"])
             continue
         output = candidate["output"]
         if output["review"]["state"] != "approved" or output["status"] != "active":
@@ -262,7 +273,7 @@ def build_routing_plan(bindings: LocalBindings, catalog_path: Path, request_path
     for home, placed in receipts.items():
         receipt = {"schema": "mindgarden.routing-receipt/v1", "id": "routing-" + request["id"], "garden": home,
                    "request_sha256": request_digest, "catalog_sha256": catalog_digest,
-                   "scope": inherit_scope([entries[home]["scope"], *[
+                   "scope": inherit_scope([entries[home]["scope"], *history_scopes.get(home, []), *[
                        strict_json(content)["scope"] for path, content in (changes[home].files if home in changes else {}).items()
                        if path.startswith("knowledge/") and path.endswith(".json")]]), "decisions": placed}
         # Rejected private alternatives belong to the private reviewed preview,

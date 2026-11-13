@@ -37,6 +37,22 @@ updated: 2026-11-13
 -->
 ## 2026-11-13 execution snapshot
 
+**Current selected batch:** #142 → #143 are merged in order at main
+`6c9954bfa8ac65c94aa1db87c679a66227f736d8`, exactly the qualified mock-garden
+tree. Both exact heads pass automatic Test/preparation. The maintainer selected
+**#13 → #14 → #38** next. [The full acceptance audit](docs/curation-routing-design-acceptance.md)
+maps all original criteria and #13's later extraction requirements. Draft [#144](https://github.com/egohygiene/mindgarden/pull/144)
+retains routed defer/exclude evidence and rationale in a private controller,
+proves renamed garden mounts, and tests design exports without binary assets.
+#38 is closed against its already merged design-source requirements; #13/#14
+remain partial for actual local-model evaluation and broader policy transfers.
+There are **34 open issues / 44 tracked / ten closed**. ADRs remain proposed.
+
+The prior recommended #37 → #46 → #90 freshness/mapping batch remains independent
+next work after this selected batch is synced. #88/#91, release, private pilot
+and live/provider acceptance retain their existing gates. The dated five-step
+activation and earlier snapshots below are historical context for those choices.
+
 **2026-11-13 selected follow-through:** The maintainer selected the five-step
 [local source-to-reviewed-packet journey](docs/local-consultation-workflow.md):
 retain completed #133–#137 merges, activate bounded #86/#87/#89/#90 work, prove synthetic
@@ -45,7 +61,7 @@ the private pilot. This supersedes the proposed #37/#46/#32-first batch and the
 old end-of-queue scheduling gate for these selected checkpoints. #88/#91 and
 release work remain deferred; architecture/privacy gates retain their authority.
 
-Main is `5ec7ae0` after authorized ordered merges #138 → #139 → #140 → #141.
+Earlier main was `5ec7ae0` after authorized ordered merges #138 → #139 → #140 → #141.
 Every exact head has passing Test/preparation, and main equals the qualified
 `5487549` combined tree. Declared ledger packets, selected Drive capture/refresh,
 bounded caller research, the Codex profile and private-pilot preflight are merged.

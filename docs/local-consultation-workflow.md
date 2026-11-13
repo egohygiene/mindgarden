@@ -7,7 +7,17 @@ the remaining acceptance of those parents. #88/#91 and release #19/#27 stay
 deferred. The [44-row coverage ledger](open-issue-coverage.md) retains the original
 issue dispositions; no parent is closed by changing the schedule.
 
-**Current merge state:** The maintainer subsequently authorized #138–#141.
+**Current follow-through:** #142 → #143 are merged in order at main `6c9954b`,
+with the exact qualified mock-garden tree and passing exact-head automatic checks.
+The maintainer selected #13 → #14 → #38 next. Draft
+[#144](https://github.com/egohygiene/mindgarden/pull/144) retains routed defer/exclude
+history privately and records the complete [acceptance audit](curation-routing-design-acceptance.md).
+#38 is closed against its already merged design-source criteria; #13/#14 remain
+open for the actual local-model evaluation and broader policy-transfer/recovery
+scope. The independent proposed #37/#46/#90 freshness/mapping batch follows this
+sync; real private/Drive/model operation remains unperformed.
+
+**Earlier merge state:** The maintainer subsequently authorized #138–#141.
 All four merged in order at main `5ec7ae0`, with passing Test/preparation on each
 exact head and no outstanding reviews/threads. Main is byte-equivalent to the
 qualified `5487549` combined tree. The [stack merge receipt](evidence/local-workflow-stack-merge.json)
@@ -282,8 +292,8 @@ exact artifact references. The fixture was corrected without changing the engine
 Final exact source/artifact verification, branch/PR and next action are recorded
 in CONTINUITY.md and the example's complete golden.
 
-Draft [#143](https://github.com/egohygiene/mindgarden/pull/143) stacks on documentation
-#142. Qualified source `881bb14d082c69c618fb4af74a1fa3f2fbb3ce07` passes 12 focused
+Merged [#143](https://github.com/egohygiene/mindgarden/pull/143) originally stacked on
+documentation #142; both are now merged. Qualified source `881bb14d082c69c618fb4af74a1fa3f2fbb3ce07` passes 12 focused
 mock/distribution/v0 package cases per Python, zero skips (0.581s / 0.566s).
 Clean source, an isolated installed wheel and unpacked source match the complete
 mock golden; all five generated CLI commands pass in each mode. The

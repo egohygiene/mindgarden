@@ -7,14 +7,14 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T05:43:10Z'
+  updated_at: '2026-11-13T20:18:16Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Deliver the selected five-step local source-to-reviewed-packet checkpoint with preserved privacy and
-    source contracts.
+  purpose: Complete the selected curation/routing/design acceptance batch while preserving privacy, source identity
+    and human decision authority.
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -75,89 +75,87 @@ scope:
   - docs/evidence/local-workflow-stack-merge.json
   - examples/mock-garden/README.md
   - docs/evidence/mock-garden-qualification.json
+  - docs/curation-routing-design-acceptance.md
+  - docs/evidence/curation-routing-design-qualification.json
 work:
-  objective: Hand off the usable fictional garden and exact qualified source/artifacts as the shared synthetic dataset
-    for the next proposed batch.
+  objective: 'Finish the selected #13/#14/#38 acceptance audit, retain exact private curation history during multi-garden
+    routing, and preserve a reviewable bounded checkpoint.'
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#86
-    url: https://github.com/egohygiene/mindgarden/issues/86
+    id: egohygiene/mindgarden#13
+    url: https://github.com/egohygiene/mindgarden/issues/13
   next:
     kind: action
-    id: local-workflow-next-checkpoint
-    description: 'Review draft #142 → #143 and explore the generated START-HERE.md instance. Use its unapplied correction
-      and shared fictional world for the proposed #37 freshness → #46 multi-source refresh/quality → #90 explicit
-      CSV mapping checkpoints. Do not silently import the correction, approve real knowledge or infer actual financial/legal
-      facts. Private configuration remains independent.'
+    id: curation-routing-design-review
+    description: 'Review the draft acceptance fix and exact evidence; #13 still needs an actual selected local-model
+      evaluation, and #14 broader public/policy-changing transfer and recovery scope remains gated by #29/#42/proposed
+      ADR-0022. After syncing this batch, #37 then #46 then #90 synthetic freshness/mapping work is independent
+      and ready. Do not start it silently or merge the new draft without review.'
     readiness: ready
     references:
-    - docs/local-consultation-workflow.md
+    - docs/curation-routing-design-acceptance.md
     depends_on: []
 state:
   base:
-    revision: eecb69b158abb4617938eb40b095cbc00c014088
-    ref: refs/heads/docs/local-workflow-merge-handoff
-    verified_at: '2026-11-13T05:43:10Z'
+    revision: 6c9954bfa8ac65c94aa1db87c679a66227f736d8
+    ref: refs/remotes/origin/main
+    verified_at: '2026-11-13T20:09:21Z'
   candidate:
-    branch: feature/86-fictional-mock-garden
-    revision: 881bb14d082c69c618fb4af74a1fa3f2fbb3ce07
+    branch: test/13-14-38-acceptance-closeout
+    revision: e63c7f15fb5d630261778d9a3446c495cb3c2262
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#143
-      url: https://github.com/egohygiene/mindgarden/pull/143
+      id: egohygiene/mindgarden#144
+      url: https://github.com/egohygiene/mindgarden/pull/144
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-13T05:43:10Z'
-    default_branch_revision: 5ec7ae017002f84e1dc36c2aaed3c76a00b079f3
+    observed_at: '2026-11-13T20:18:16Z'
+    default_branch_revision: 6c9954bfa8ac65c94aa1db87c679a66227f736d8
     issue_state: open
     pull_request_state: draft
-    notes: 'Main remains 5ec7ae0 with #138–#141 merged. Documentation #142 → fictional demo #143 is the new draft
-      stack; functional fixture/client source881bb14. All three complete source/wheel/archive goldens match; 15
-      generated commands work. Five knowledge entries, four links, context15509 and eight transactions are wholly
-      invented. No user data, account, registry or credentials accessed.'
+    notes: 'Authorized #142 then #143 merges completed with green exact-head automatic checks; main exactly equals
+      qualified #143. #38 is closed against its seven already merged design-source criteria. There are 34 open /
+      44 tracked / ten closed. #13/#14 remain partial. New fix/tests/docs are on the isolated acceptance branch;
+      original root WIP remains untouched. Draft #144 pins qualified functional e63c7f1; following handoff is documentation
+      only. Functional Test 43499058456 is running; preparation 43499058406 passes; macOS jobs pass. Final PR-head
+      checks are separate.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T05:43:10Z'
+  reviewed_at: '2026-11-13T20:18:16Z'
   reviewed_by: codex
   evidence:
-  - command: git diff --exit-code 54875495dabfcf4f8b57ec51dbb34ed404aa5374 origin/main; inspect all four exact-head
-      automatic CI/reviews/threads; pinned owner and changed-document link/diff checks
+  - command: 'Both supported Pythons: -m unittest tests.test_curation tests.test_curation_transformations tests.test_mixed_curation
+      tests.test_routing tests.test_routing_dispositions tests.test_routing_lifecycle tests.test_routing_transfers
+      tests.test_routing_incoming tests.test_reference_repairs tests.test_assets tests.test_design tests.test_extraction
+      tests.test_ollama_extraction tests.test_archive_diagrams tests.test_pipeline_completion --quiet'
     outcome: passed
-    observed_at: '2026-11-13T05:12:40Z'
-    notes: 'Merge tree comparison exit0. All four exact heads have passing Test/preparation; #141 prior pending
-      Test43359542172 now passes. No runtime tests repeated for identical source. Pinned owner/continuity/44-row
-      checks and all 163 local links across seven changed Markdown files pass; runtime/contracts/fixtures are unchanged
-      from main. Current main-push/draft CI remain separate. Private/live/model acceptance and broader parents are
-      unclaimed.'
-  - command: python -S scripts/mock_garden_demo.py --require-source (3.12); Python3.13 same --check-golden; unittest
-      tests.test_mock_garden both Pythons; generated CLI commands; scoped Ruff/format; source/wheel build
+    observed_at: '2026-11-13T20:09:21Z'
+    notes: 84 tests pass on Python 3.12.14 (139.909s) and 3.13.5 (136.288s), zero skips. Initial stale-catalog fixture
+      expectation corrected; 15-case checks passed before full selection. Scoped Ruff/format, compileall and diff
+      whitespace pass. Ollama dry-run records unmeasured accuracy; no live/private/model call.
+  - command: Clean git archive e63c7f1; python -m build --no-isolation --sdist --wheel; installed/unpacked unittest
+      tests.test_routing_dispositions tests.test_routing_lifecycle; three design exports per mode; pinned owner
+      checks.
     outcome: passed
-    observed_at: '2026-11-13T05:34:50Z'
-    notes: 'Source proofs pass; complete 3.13 golden matches: five knowledge entries, four links, context15509,
-      eight transactions/net2259.76, unchanged selected packet. Four safe-path/seed-review/command tests pass per
-      Python (0.002s/0.003s). Four initial generated commands pass; final five-command and clean artifact qualification
-      follows. Initial contradiction field fixture mismatch corrected to existing exact-reference contract, without
-      weakening runtime.'
-  - command: python -m unittest tests.test_mock_garden tests.test_distribution tests.test_package --quiet (3.12/3.13);
-      mock_garden_demo.py --check-golden using frozen source(-S)/isolated wheel(-I)/unpacked source(-S); five generated
-      CLI commands per mode; scoped Ruff/format; owner/link/diff checks
-    outcome: passed
-    observed_at: '2026-11-13T05:43:10Z'
-    notes: 12 cases pass per Python, zero skips (0.581s/0.566s). Three complete goldens and all15 generated commands
-      pass. Scoped lint/format and pinned owner checks pass; all 145 local links across eleven changed Markdown
-      files resolve; compilation and owner/bounds checks pass. Domain/runtime/contracts/requirements unchanged;
-      no model-quality, real pilot or new freshness/mapping completion is claimed.
+    observed_at: '2026-11-13T20:18:16Z'
+    notes: Eight package cases per Python, zero skips. Ten routing cases each from clean Git (11.170s), installed
+      wheel (10.922s), unpacked source (11.347s); nine design exports total. Every loaded Mindgarden module stays
+      within the selected package. Artifact hashes and exact commands in structured receipt.
   environment_limitations:
-  - Full local/act and manual accessibility remain deferred; focused evidence is distinct.
-  - Actual private workspace, source selection, credentials and confidential-runtime assurance must exist before
-    real processing.
-  - No release/publication, destructive source operation, private data commit or proposed ADR ratification.
+  - 'Actual local Ollama evaluation unavailable: no executable on PATH or selected installed model; dry-run and
+    mocks are not model accuracy.'
+  - Public/policy-changing lifecycle and wider durability/platform proofs remain open; proposed ADR-0022 is not
+    ratified.
+  - Full local/act, manual accessibility, actual private pilot, live provider/consumer acceptance and release remain
+    separate and unperformed.
+  - No private content/credentials accessed or committed; all fixtures synthetic; original root's four pending entries
+    preserved.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -177,7 +175,7 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer requested mock data for an explorable fictional garden after the #138–#141 merges. Draft #142 → #143 preserves the handoff and this bounded fixture/client. The proposed #37/#46/#90 runtime work is not started; no private data, actual account or model is accessed. ADRs stay proposed, and #88/#91 plus release remain deferred.
+The maintainer authorized #142 then #143 merges and selected #13, #14 and #38 for acceptance follow-through. Earlier selected local-workflow checkpoints remain merged. This authority does not ratify ADRs or authorize unspecified private-source access. #88/#91 and release work remain deferred.
 
 ## Resume protocol
 
@@ -185,27 +183,27 @@ Refresh live issue/PR state and comments; read README, AI_CONSTITUTION, ROADMAP,
 
 ## Current objective and success conditions
 
-Hand off the usable fictional garden and exact qualified source/artifacts as the shared synthetic dataset for the next proposed batch.
+Finish the selected #13/#14/#38 acceptance audit, retain exact private curation history during multi-garden routing, and preserve a reviewable bounded checkpoint.
 
 ## State snapshot
 
-Main remains 5ec7ae0 with #138–#141 merged. Documentation #142 → fictional demo #143 is the new draft stack; functional fixture/client source881bb14. All three complete source/wheel/archive goldens match; 15 generated commands work. Five knowledge entries, four links, context15509 and eight transactions are wholly invented. No user data, account, registry or credentials accessed.
+Authorized #142 then #143 merges completed with green exact-head automatic checks; main exactly equals qualified #143. #38 is closed against its seven already merged design-source criteria. There are 34 open / 44 tracked / ten closed. #13/#14 remain partial. Draft #144 qualifies functional e63c7f1; following handoff changes documentation only; original root WIP remains untouched.
 
 ## Completed and material changes
 
-Committed fictional source files, checksum/review manifest and complete golden; persistent real-engine sandbox with business/career/household/dialogue, disputed dates, exact evidence and unapplied correction. Ordinary source/curation/retrieval/packet services and earlier recovery fixtures reused. Source/isolated wheel/unpacked source produce identical proof and five working commands each; fake review remains explicitly artificial and sources unreviewed.
+Read full live issue scope, including #13's seven later extraction requirements. Fixed routing's skipped defer/exclude history with existing curation receipts in an explicit personal controller, scope inheritance and group rollback. Added five synthetic disposition categories, public/private canaries, stale evidence, capability guards, renamed physical-mount and text-only design proofs. Reproduced the missing-history failure against merged main; ten cases pass per clean Git/wheel/source and all nine design exports work. Updated all 44 coverage rows without ratifying ADRs.
 
 ## Validation and review evidence
 
-python -m unittest tests.test_mock_garden tests.test_distribution tests.test_package --quiet (3.12/3.13); mock_garden_demo.py --check-golden using frozen source(-S)/isolated wheel(-I)/unpacked source(-S); five generated CLI commands per mode; scoped Ruff/format; owner/link/diff checks — 12 cases pass per Python, zero skips (0.581s/0.566s). Three complete goldens and all15 generated commands pass. Scoped lint/format and pinned owner checks pass; all 145 local links across eleven changed Markdown files resolve; compilation and owner/bounds checks pass. Domain/runtime/contracts/requirements unchanged; no model-quality, real pilot or new freshness/mapping completion is claimed.
+Both supported Pythons: -m unittest tests.test_curation tests.test_curation_transformations tests.test_mixed_curation tests.test_routing tests.test_routing_dispositions tests.test_routing_lifecycle tests.test_routing_transfers tests.test_routing_incoming tests.test_reference_repairs tests.test_assets tests.test_design tests.test_extraction tests.test_ollama_extraction tests.test_archive_diagrams tests.test_pipeline_completion --quiet — 84 tests pass on Python 3.12.14 (139.909s) and 3.13.5 (136.288s), zero skips. Initial stale-catalog fixture expectation corrected; 15-case checks passed before full selection. Scoped Ruff/format, compileall and diff whitespace pass. Ollama dry-run records unmeasured accuracy; no live/private/model call.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Actual pilot OS/workspace/folder selection is requested asynchronously; no credential or financial content belongs in chat/public fixtures. Restricted processing remains blocked without real confidential contracts/runtime. Full local/act, manual a11y, model accuracy, private pilot/publication and broader parent acceptance remain distinct.
+Actual local-model evaluation remains unavailable without an installed selected model. Public/policy-changing lifecycle and broader durability/platform proof remain open. Private pilot requires explicit local configuration, classification and runtime/consumer authority. Full local/act, manual accessibility, publication and release remain deferred. No credentials or financial content belong in chat/public fixtures.
 
 ## Next dependency-ready work
 
-Review draft #142 → #143 and explore the generated START-HERE.md instance. Use its unapplied correction and shared fictional world for the proposed #37 freshness → #46 multi-source refresh/quality → #90 explicit CSV mapping checkpoints. Do not silently import the correction, approve real knowledge or infer actual financial/legal facts. Private configuration remains independent.
+Review draft #144 and its exact evidence; #13 still needs an actual selected local-model evaluation, and #14 broader public/policy-changing transfer and recovery scope remains gated by #29/#42/proposed ADR-0022. After syncing this batch, #37 then #46 then #90 synthetic freshness/mapping work is independent and ready. Do not start it silently or merge the new draft without review.
 
 ## Parallel changes and reconciliation
 
