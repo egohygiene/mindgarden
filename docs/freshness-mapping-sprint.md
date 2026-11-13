@@ -64,3 +64,25 @@ separate. No real account, archive, credential or model is accessed by this batc
 Checkpoint 1 qualification: **41 tests per Python**, zero skips (3.12.14 51.052s / 3.13.5 48.656s): `tests.test_context_dependencies`, `tests.test_dependency_builds`, `tests.test_selected_builds`, `tests.test_v1_retrieval`, `tests.test_scoped_retrieval`, `tests.test_v1_contracts`. New-test Ruff/format and whitespace pass. No complete-parent or private-pilot claim.
 
 Draft [#145](https://github.com/egohygiene/mindgarden/pull/145) pins qualified functional `eb4280a6f9cabfd7b85f4e400bafd53a1f09e704` on #144. Initial owner checks lacked the new worktree's ignored inventory files; restoring the two existing pinned inventories makes all owner/bounds/44-row/native-child checks pass. The follow-up handoff changes documentation only.
+
+## Checkpoint 2 — multi-source refresh
+
+Branch `feature/46-multisource-refresh` stacks on #145 (`dcf6943`). The existing
+`compaction preview` now accepts `--previous-manifest`, compares current authorized
+node revisions and explains selected downstream staleness. Historical-only IDs
+are omitted; full response bytes obey retention and session limits. Live validity
+checks close the old-plan-date gap for facts incorrectly still marked current.
+
+The committed quality case reuses the fictional business/correction/conversation/
+career sources. Four nodes become stale, five remain current and old vault objects
+remain present. Exact citation coverage is three sources; selected text is smaller
+than source selections, while attribution, uncertainty and the unresolved agreement
+remain explicit. Existing private proof TTL/revocation is exercised separately.
+No actual model accuracy or real private pilot is claimed.
+
+**43 cases pass per Python**, zero skips (3.12.14 105.284s / 3.13.5 102.118s):
+`tests.test_compaction_refresh`, `tests.test_compaction`,
+`tests.test_source_compaction`, `tests.test_context_dependencies`,
+`tests.test_dependency_builds`, `tests.test_selected_builds`. New-fixture lint and
+format pass. Initial old-only canary used an invalid uppercase identifier; it was
+corrected to the existing identifier contract, without weakening validation.

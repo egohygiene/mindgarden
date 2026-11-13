@@ -181,3 +181,27 @@ not this early non-destructive contract checkpoint.
 
 This is additional bounded synthetic evidence for #20 through draft #73; its
 broader publication and consumer acceptance criteria remain open.
+
+## Multi-source refresh and live fact validity
+
+Use `compaction preview --previous-manifest /private/previous/manifest.json` with
+the newly authored hierarchy and freshly bound session. The existing manifest
+contract compares node/parent revisions and returns current/stale reasons for
+current authorized nodes, including selected context outputs. Old-only IDs,
+counts and content from the untrusted previous manifest are not echoed. The
+complete response obeys both session and retention/detail byte budgets.
+
+Facts authored as `current` must also be valid at the live check date. An expired
+`valid_until` or future `valid_from` requires a new authored validity decision;
+the old plan creation timestamp cannot keep a fact current indefinitely. This
+fails with `COMPACTION_EXPIRED`, without changing the source or inventing a new
+review. Existing private proof bundles independently enforce TTL and revocation.
+
+The [active sprint](freshness-mapping-sprint.md) reuses the fictional garden's
+business brief, staged correction, client dialogue and career source. Nine nodes
+retain exact line evidence, disputed dates, quoted attribution and uncertainty.
+A business correction changes only its segment, summary, synthesis and downstream
+context; the career branch stays unchanged. Fixture quality measures exact
+citation coverage, retained qualifications and compression ratio, not actual
+model interpretation accuracy. This is read-only reconciliation, not a daemon,
+automatic semantic rewrite, retention job or permission to delete originals.

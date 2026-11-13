@@ -1,0 +1,19 @@
+{
+  "fictional": true,
+  "sources": {
+    "business": {"file": "business.md", "lines": [7, 8]},
+    "conversation": {"file": "conversation.md", "lines": [5, 7]},
+    "career": {"file": "career.md", "lines": [5, 6]}
+  },
+  "correction": {"file": "business-corrected.md", "lines": [5, 6]},
+  "summary": {
+    "business": "The brief gives May 15; delivery remains unresolved.",
+    "business-corrected": "A later note gives May 22, without the supporting agreement.",
+    "conversation": "The client reports May 22; both dates need verification.",
+    "career": "A fictional accessibility experiment remains a career proposal."
+  },
+  "expected_affected": ["business-segment", "business-summary", "context", "synthesis"],
+  "expected_current": ["career-segment", "career-summary", "conversation-segment", "conversation-summary", "unrelated-context"],
+  "exact_source_coverage": 3,
+  "semantic_model_accuracy": "unmeasured; authored fixture invariants only"
+}
