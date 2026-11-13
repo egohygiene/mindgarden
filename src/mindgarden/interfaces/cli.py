@@ -497,6 +497,7 @@ def add_compaction_command(commands: ParserCollection) -> None:
     preview.add_argument("--scope", type=Path, required=True)
     preview.add_argument("--curation-plan", type=Path, help="Exact existing curation-plan/v1 proposal pinned by the hierarchy")
     preview.add_argument("--source-only", action="store_true", help="Use exact private session grants for first-pass proposed summaries")
+    preview.add_argument("--previous-manifest", type=Path, help="Reconcile an explicit prior private hierarchy against current authorized evidence")
     preview.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
     preview.set_defaults(handler=run_compaction, public_artifact_command=True)
     from ..application.compaction_bundles import run_compaction_bundle

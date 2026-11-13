@@ -1,6 +1,6 @@
 """Read-only compaction proof over existing scoped evidence and curation contracts."""
 
-from ..domain.compaction import evaluate_compaction, node_sources, qualifications, render_node, validate_plan
+from ..domain.compaction import evaluate_compaction, invalidated_nodes, node_sources, qualifications, render_node, validate_plan
 from ..domain.contracts import ContractRegistry, canonical_json, digest_bytes, read_object
 from ..domain.validation import ContractError
 from .curation import require_review_authority
@@ -73,6 +73,14 @@ def preview_compaction(context, plan, *, curation=None, source_only=False):
     if context.output_scope([item["scope"] for item in evidence.values()]) != plan["scope"]:
         raise ContractError("COMPACTION_SCOPE: declared output must equal effective authorized input restrictions")
     report = evaluate_compaction(plan, evidence)
+    today = context.clock().date().isoformat()
+    if any(statement["validity"]["state"] == "current"
+           and ((statement["validity"]["valid_until"] is not None
+                 and statement["validity"]["valid_until"] < today)
+                or (statement["validity"]["valid_from"] is not None
+                    and statement["validity"]["valid_from"] > today))
+           for node in nodes.values() for statement in node["statements"]):
+        raise ContractError("COMPACTION_EXPIRED: refresh authored validity before deriving context from noncurrent facts")
     report["curation"] = validate_curation_bridge(context, plan, curation)
     report["evidence"] = [{key: value for key, value in item.items() if key in {
         "source", "locator", "content_sha256", "trust", "source_identity", "source_review", "origin", "lineage", "authorization"}}
@@ -86,9 +94,31 @@ def preview_compaction(context, plan, *, curation=None, source_only=False):
     return context.finalize(report)
 
 
+def refresh_compaction(context, plan, previous_manifest, *, curation=None, source_only=False):
+    """Reconcile supplied history against current authorized evidence; no writes."""
+    current = preview_compaction(context, plan, curation=curation, source_only=source_only)
+    changed = set(invalidated_nodes(previous_manifest, current["manifest"]))
+    # Historical manifests are untrusted. Never echo old-only node identities,
+    # counts or content outside the current authorized authored hierarchy.
+    selected = set(plan["outputs"])
+    result = {"schema": "mindgarden.compaction-refresh/v1", "current": current,
+              "nodes": [{"id": node["id"], "state": "stale" if node["id"] in changed else "current",
+                         "reason": "dependency-or-authored-node-changed" if node["id"] in changed else "inputs-unchanged",
+                         "selected_output": node["id"] in selected}
+                        for node in current["manifest"]["nodes"]]}
+    maximum = min(context.session["budgets"]["max_context_bytes"], plan["retention"]["model_context"]["max_bytes"],
+                  plan["retention"]["detail_budgets"][plan["budget_profile"]]["max_bytes"])
+    if len(canonical_json(result)) > maximum:
+        raise ContractError("COMPACTION_BUDGET: complete refresh metadata exceeds the explicit retention budget")
+    return context.finalize(result)
+
+
 def run_compaction(arguments):
     context = QueryContext.load(arguments.local_config, arguments.scope)
     plan = read_object(arguments.input)
     curation = read_object(arguments.curation_plan) if arguments.curation_plan is not None else None
-    print(canonical_json(preview_compaction(context, plan, curation=curation, source_only=arguments.source_only)).decode(), end="")
+    previous = getattr(arguments, "previous_manifest", None)
+    result = (refresh_compaction(context, plan, read_object(previous), curation=curation, source_only=arguments.source_only)
+              if previous is not None else preview_compaction(context, plan, curation=curation, source_only=arguments.source_only))
+    print(canonical_json(result).decode(), end="")
     return 0

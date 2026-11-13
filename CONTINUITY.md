@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T21:42:17Z'
+  updated_at: '2026-11-13T21:51:17Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -45,69 +45,55 @@ scope:
   - examples/mock-garden/README.md
   - docs/curation-routing-design-acceptance.md
 work:
-  objective: Connect actual bounded context packs to existing reviewed dependency builds, with exact selective freshness
-    and no ambient records.
+  objective: Deliver a read-only multi-source compaction refresh/quality checkpoint with live fact validity, exact
+    evidence and preserved originals.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#37
-    url: https://github.com/egohygiene/mindgarden/issues/37
+    id: egohygiene/mindgarden#46
+    url: https://github.com/egohygiene/mindgarden/issues/46
   next:
     kind: action
     id: freshness-mapping-next-checkpoint
-    description: "Continue #46 on the explicit #144 \u2192 #145 stack, then independent #90 mapping. Keep drafts\
-      \ for review; no real private input or model is required."
+    description: "Continue #90 reviewed CSV mapping on the explicit #144 \u2192 #145 \u2192 #146 stack; retain every\
+      \ draft for review and original source bytes."
     readiness: ready
     references:
     - docs/freshness-mapping-sprint.md
     depends_on: []
 state:
   base:
-    revision: 3c61db41c97151b9022820bdfdfeca409cfe38e4
-    ref: refs/heads/test/13-14-38-acceptance-closeout
-    verified_at: '2026-11-13T21:42:17Z'
+    revision: dcf69430cfd52162e5e509b79e2e4c6cdd668de4
+    ref: refs/heads/feature/37-consumer-freshness
+    verified_at: '2026-11-13T21:51:17Z'
   candidate:
-    branch: feature/37-consumer-freshness
-    revision: eb4280a6f9cabfd7b85f4e400bafd53a1f09e704
+    branch: feature/46-multisource-refresh
+    revision: e7e7fa2f0e5a0508e33f68a6efa1a505ea2a099c
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#145
-      url: https://github.com/egohygiene/mindgarden/pull/145
+      id: egohygiene/mindgarden#146
+      url: https://github.com/egohygiene/mindgarden/pull/146
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-13T21:42:17Z'
+    observed_at: '2026-11-13T21:51:17Z'
     default_branch_revision: 6c9954bfa8ac65c94aa1db87c679a66227f736d8
     issue_state: open
     pull_request_state: draft
-    notes: '#144 remains draft at 3c61db4 with passing Test 43500532675/preparation 43500532550. Main 6c9954b is
-      unchanged; 34 issues open / 44 tracked / ten closed. New #37 context integration is ready on its isolated
-      branch; no merge or private execution. Draft #145 is open on #144; functional eb4280a is qualified locally,
-      hosted CI is separate.'
+    notes: 'Draft #144 remains green and unmerged; #145 adds qualified context consumers at eb4280a with documentation
+      handoff dcf6943. New #46 work is stacked on #145. Main remains 6c9954b; 34 open / 44 tracked / ten closed.
+      No real source/model or automatic merge. Draft #146 is open; functional e7e7fa2 is locally qualified; hosted
+      CI remains separate. Corrected an abbreviated candidate revision to the required full commit ID; qualified
+      runtime remains unchanged.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T21:42:17Z'
+  reviewed_at: '2026-11-13T21:51:17Z'
   reviewed_by: codex
   evidence:
-  - command: Clean git archive e63c7f1; python -m build --no-isolation --sdist --wheel; installed/unpacked unittest
-      tests.test_routing_dispositions tests.test_routing_lifecycle; three design exports per mode; pinned owner
-      checks.
-    outcome: passed
-    observed_at: '2026-11-13T20:18:16Z'
-    notes: Eight package cases per Python, zero skips. Ten routing cases each from clean Git (11.170s), installed
-      wheel (10.922s), unpacked source (11.347s); nine design exports total. Every loaded Mindgarden module stays
-      within the selected package. Artifact hashes and exact commands in structured receipt.
-  - command: 'Python 3.12.14 and 3.13.5: -m unittest tests.test_context_dependencies tests.test_dependency_builds
-      tests.test_selected_builds tests.test_v1_retrieval tests.test_scoped_retrieval tests.test_v1_contracts --quiet;
-      new-test Ruff/format; git diff --check.'
-    outcome: passed
-    observed_at: '2026-11-13T21:41:21Z'
-    notes: 41 tests pass per Python, zero skips (51.052s / 48.656s). Initial command included nonexistent tests.test_scope
-      and is not counted as passing; corrected suite passes. Scoped lint/format and whitespace pass.
   - command: 'Python 3.12.14 and 3.13.5: -m unittest tests.test_context_dependencies tests.test_dependency_builds
       tests.test_selected_builds tests.test_v1_retrieval tests.test_scoped_retrieval tests.test_v1_contracts --quiet;
       new-test Ruff/format; git diff --check.'
@@ -115,6 +101,20 @@ review:
     observed_at: '2026-11-13T21:42:17Z'
     notes: 41 tests pass per Python, zero skips (51.052s / 48.656s). Initial command included nonexistent tests.test_scope
       and is not counted as passing; corrected suite passes. Scoped lint/format and whitespace pass.
+  - command: 'Both supported Pythons: -m unittest tests.test_compaction_refresh tests.test_compaction tests.test_source_compaction
+      tests.test_context_dependencies tests.test_dependency_builds tests.test_selected_builds --quiet; new-fixture
+      Ruff/format; pinned owner/whitespace checks.'
+    outcome: passed
+    observed_at: '2026-11-13T21:50:47Z'
+    notes: 43 tests pass per Python, zero skips (105.284s / 102.118s). Initial invalid uppercase historical-only
+      canary corrected to the existing identifier contract. No live/model accuracy or private pilot claim.
+  - command: 'Both supported Pythons: -m unittest tests.test_compaction_refresh tests.test_compaction tests.test_source_compaction
+      tests.test_context_dependencies tests.test_dependency_builds tests.test_selected_builds --quiet; new-fixture
+      Ruff/format; pinned owner/whitespace checks.'
+    outcome: passed
+    observed_at: '2026-11-13T21:51:17Z'
+    notes: 43 tests pass per Python, zero skips (105.284s / 102.118s). Initial invalid uppercase historical-only
+      canary corrected to the existing identifier contract. No live/model accuracy or private pilot claim.
   environment_limitations:
   - Real private pilot, credentials, live Drive/model quality and confidential runtime remain unavailable/unperformed.
   - Full local/act, manual accessibility, destructive retention and release remain deferred.
@@ -146,19 +146,19 @@ Refresh issues/comments/PRs/CI, read current contracts and the sprint ledger. Us
 
 ## Current objective and success conditions
 
-Connect actual bounded context packs to existing reviewed dependency builds, with exact selective freshness and no ambient records.
+Deliver a read-only multi-source compaction refresh/quality checkpoint with live fact validity, exact evidence and preserved originals.
 
 ## State snapshot
 
-#144 remains draft at 3c61db4 with passing Test 43500532675/preparation 43500532550. Main 6c9954b is unchanged; 34 issues open / 44 tracked / ten closed. New #37 context integration is ready on its isolated branch; no merge or private execution. Draft #145 is open on #144; functional eb4280a is qualified locally, hosted CI is separate.
+Draft #144 remains green and unmerged; #145 adds qualified context consumers at eb4280a with documentation handoff dcf6943. New #46 work is stacked on #145. Main remains 6c9954b; 34 open / 44 tracked / ten closed. No real source/model or automatic merge. Draft #146 is open; functional e7e7fa2 is locally qualified; hosted CI remains separate.
 
 ## Completed and material changes
 
-Added context-pack/v1 consumer to the existing dependency request and renderer boundary. Explicit selected context inputs carry exact references and indexed metadata hashes. Missed updates stale only affected context/profile consumers; unrelated context bytes remain identical. Added five synthetic conformance/privacy/CLI cases and preserved original context/v0 behavior.
+Added --previous-manifest compaction reconciliation with current-authorized-node diagnostics and complete retention/byte budgets. Current facts now fail on expired/future live validity, independently of old plan creation. Reused fictional business correction/dialogue/career inputs; four nodes affected and five unchanged, exact source/attribution/uncertainty retained, originals retained and existing TTL checked.
 
 ## Validation and review evidence
 
-Python 3.12.14 and 3.13.5: -m unittest tests.test_context_dependencies tests.test_dependency_builds tests.test_selected_builds tests.test_v1_retrieval tests.test_scoped_retrieval tests.test_v1_contracts --quiet; new-test Ruff/format; git diff --check. — 41 tests pass per Python, zero skips (51.052s / 48.656s). Initial command included nonexistent tests.test_scope and is not counted as passing; corrected suite passes. Scoped lint/format and whitespace pass.
+Both supported Pythons: -m unittest tests.test_compaction_refresh tests.test_compaction tests.test_source_compaction tests.test_context_dependencies tests.test_dependency_builds tests.test_selected_builds --quiet; new-fixture Ruff/format; pinned owner/whitespace checks. — 43 tests pass per Python, zero skips (105.284s / 102.118s). Initial invalid uppercase historical-only canary corrected to the existing identifier contract. No live/model accuracy or private pilot claim.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -166,7 +166,7 @@ No private inputs or selected live local model are available. Normative declassi
 
 ## Next dependency-ready work
 
-Continue #46 on the explicit #144 → #145 stack, then independent #90 mapping. Keep drafts for review; no real private input or model is required.
+Continue #90 reviewed CSV mapping on the explicit #144 → #145 → #146 stack; retain every draft for review and original source bytes.
 
 ## Parallel changes and reconciliation
 
