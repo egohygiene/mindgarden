@@ -71,7 +71,7 @@ state:
     verified_at: '2026-11-13T21:51:17Z'
   candidate:
     branch: feature/46-multisource-refresh
-    revision: e7e7fa2
+    revision: e7e7fa2f0e5a0508e33f68a6efa1a505ea2a099c
     pull_request:
       provider: github
       id: egohygiene/mindgarden#146
@@ -86,7 +86,8 @@ state:
     notes: 'Draft #144 remains green and unmerged; #145 adds qualified context consumers at eb4280a with documentation
       handoff dcf6943. New #46 work is stacked on #145. Main remains 6c9954b; 34 open / 44 tracked / ten closed.
       No real source/model or automatic merge. Draft #146 is open; functional e7e7fa2 is locally qualified; hosted
-      CI remains separate.'
+      CI remains separate. Corrected an abbreviated candidate revision to the required full commit ID; qualified
+      runtime remains unchanged.'
   parallel_changes: []
 review:
   status: partial
