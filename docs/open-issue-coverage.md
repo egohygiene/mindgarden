@@ -2,7 +2,7 @@
 
 ## Selected freshness and mapping batch
 
-The maintainer selected #37 → #46 → #90. [The active sprint](freshness-mapping-sprint.md) records exact contract dependencies, draft ancestry and remaining acceptance. #144 has passing exact-head automatic CI and remains unmerged. New #37 work connects actual bounded contexts to dependency manifests, rather than another record-only view; 41 focused cases pass per Python. No parent closure: 34 open / 44 tracked.
+The maintainer selected #37 → #46 → #90. [The active sprint](freshness-mapping-sprint.md) records exact contract dependencies, draft ancestry and remaining acceptance. #144 has passing exact-head automatic CI and remains unmerged. Drafts #145 → #146 → #147 add actual context dependencies, multi-source refresh/live validity and reviewed CSV mappings. Combined source b7b279a passes 102 focused cases per Python and the 17 new boundaries from clean Git/wheel/source. No parent closure: 34 open / 44 tracked.
 
 ## Current acceptance batch
 

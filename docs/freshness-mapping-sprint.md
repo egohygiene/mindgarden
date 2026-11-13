@@ -91,7 +91,7 @@ Draft [#146](https://github.com/egohygiene/mindgarden/pull/146) pins qualified f
 
 ## Checkpoint 3 — reviewed CSV mappings
 
-Branch `feature/90-reviewed-csv-mapping` stacks on #146 (`25b3bba`). A separate
+Branch `feature/90-reviewed-csv-mapping` stacks on corrected #146 (`ac0e4ad`). A separate
 `mapped-ledger-csv` adapter consumes reviewed `ledger-csv-mapping/v1` with the
 explicit `mapping-v1` input profile. Signed ISO dates and debit/credit padded US
 dates map to the existing ledger, with exact raw UTF-8 spans, canonical mapping
@@ -110,3 +110,54 @@ adding the restore assertion, the seven final mapping cases pass again (12.566s 
 [Mapping format, supported cases and exact CLI](csv-ledger-mappings.md). No real
 records, credential/model calls, authority changes, source deletion or full parent
 closure. Combined artifact checks and final CI observations follow separately.
+
+## Combined qualification and review handoff
+
+Review order is [#144](https://github.com/egohygiene/mindgarden/pull/144) →
+[#145](https://github.com/egohygiene/mindgarden/pull/145) →
+[#146](https://github.com/egohygiene/mindgarden/pull/146) →
+[#147](https://github.com/egohygiene/mindgarden/pull/147). All remain drafts.
+The reproducible combined branch is `feature/90-reviewed-csv-mapping`. Qualified
+runtime/fixture/schema source is **`b7b279aab1ec3c38b77b7f3885374f5ca64f27fc`**;
+following evidence/handoff changes are documentation only. Main is unchanged.
+
+The combined 13-module selection passes **102 tests per Python, zero skips**:
+3.12.14 in 237.252s; 3.13.5 in 234.681s. Command (use either supported interpreter):
+
+```sh
+python -m unittest tests.test_context_dependencies tests.test_dependency_builds tests.test_selected_builds tests.test_v1_retrieval tests.test_scoped_retrieval tests.test_v1_contracts tests.test_compaction_refresh tests.test_compaction tests.test_source_compaction tests.test_mapped_ledger tests.test_consultation tests.test_source_adapters tests.test_package --quiet
+```
+
+Both source and wheel build successfully with `python -m build --no-isolation
+--sdist --wheel --outdir .cache/dist` using the prepared build environment. The
+wheel remains dependency-free. Two distribution cases additionally pass per
+Python (0.112s / 0.105s), covering new schema/module and all CSV/quality fixtures.
+
+The **17 new boundary tests** pass independently from clean Git (74.145s), an
+isolated installed wheel with no runtime dependencies (75.018s) and unpacked
+source archive (74.651s), zero skips. These are `tests.test_context_dependencies`,
+`tests.test_compaction_refresh` and `tests.test_mapped_ledger`. The driver imports
+the selected package before helpers and verifies every loaded Mindgarden module
+stays under its source/install root; source fallback cannot conceal wheel gaps.
+The mapping packet includes the clean-vault restore proof in every artifact mode.
+
+[The machine-readable receipt](evidence/freshness-mapping-qualification.json)
+pins source/stack identities, artifact hashes, commands, results and CI. Scoped
+lint/format, compilation, all 184 local targets across 16 Markdown files, pinned owner contracts and
+unchanged-runtime comparison complete the handoff. An abbreviated candidate
+revision in #146's first handoff failed the continuity schema; corrected metadata
+commit `ac0e4ad` records its full qualified SHA and the child was fast-forwarded.
+No runtime changed during that repair. An optional tool-version probe found no
+separately installed wheel distribution; the successful build uses setuptools'
+wheel generator, rather than claiming an unavailable tool version.
+
+Exact-head automatic Test/preparation for #144 and #145 pass. The #146/#147
+observations are recorded separately as they complete, and the later #147
+handoff head has its own CI. No workflow was manually dispatched. Earlier
+canceled or incomplete heads are not passing evidence.
+
+**Next action:** review the stack in order and sync this batch. The next proposed
+independent checkpoint is explicit reviewed source-correction → preparation-packet
+freshness; broader #37/#46/#90 criteria, the actual private pilot and normative
+policy/runtime gates remain open. #32 is optional. No further batch, real account
+or private source is started by this handoff.

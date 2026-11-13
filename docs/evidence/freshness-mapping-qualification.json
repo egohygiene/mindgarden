@@ -1,0 +1,258 @@
+{
+  "schema": "mindgarden.freshness-mapping-qualification/v1",
+  "qualified_source": "b7b279aab1ec3c38b77b7f3885374f5ca64f27fc",
+  "combined_branch": "feature/90-reviewed-csv-mapping",
+  "main": "6c9954bfa8ac65c94aa1db87c679a66227f736d8",
+  "state": "implemented on draft stack; no new merge or parent closure",
+  "stack": [
+    {
+      "pr": 144,
+      "head": "3c61db41c97151b9022820bdfdfeca409cfe38e4",
+      "base": "main",
+      "test": 43500532675,
+      "preparation": 43500532550,
+      "ci": "passed"
+    },
+    {
+      "pr": 145,
+      "head": "dcf69430cfd52162e5e509b79e2e4c6cdd668de4",
+      "qualified_functional": "eb4280a6f9cabfd7b85f4e400bafd53a1f09e704",
+      "base": "test/13-14-38-acceptance-closeout",
+      "checks": [
+        {
+          "id": 43513063173,
+          "name": "Check release preparation",
+          "status": "completed",
+          "conclusion": "success",
+          "run_number": 165,
+          "jobs_url": "https://api.github.com/repos/egohygiene/mindgarden/actions/runs/43513063173/jobs",
+          "logs_url": "https://api.github.com/repos/egohygiene/mindgarden/actions/runs/43513063173/logs",
+          "workflow_id": 409846777
+        },
+        {
+          "id": 43513063211,
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "success",
+          "run_number": 295,
+          "jobs_url": "https://api.github.com/repos/egohygiene/mindgarden/actions/runs/43513063211/jobs",
+          "logs_url": "https://api.github.com/repos/egohygiene/mindgarden/actions/runs/43513063211/logs",
+          "workflow_id": 344227901
+        }
+      ]
+    },
+    {
+      "pr": 146,
+      "head": "ac0e4ad4f30a55e0b8096bf816c719f0460912c0",
+      "qualified_functional": "e7e7fa2f0e5a0508e33f68a6efa1a505ea2a099c",
+      "base": "feature/37-consumer-freshness",
+      "checks": [
+        {
+          "id": 43515852017,
+          "name": "Test",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_number": 298,
+          "jobs_url": "https://api.github.com/repos/egohygiene/mindgarden/actions/runs/43515852017/jobs",
+          "logs_url": "https://api.github.com/repos/egohygiene/mindgarden/actions/runs/43515852017/logs",
+          "workflow_id": 344227901
+        },
+        {
+          "id": 43515852050,
+          "name": "Check release preparation",
+          "status": "completed",
+          "conclusion": "success",
+          "run_number": 168,
+          "jobs_url": "https://api.github.com/repos/egohygiene/mindgarden/actions/runs/43515852050/jobs",
+          "logs_url": "https://api.github.com/repos/egohygiene/mindgarden/actions/runs/43515852050/logs",
+          "workflow_id": 409846777
+        }
+      ]
+    },
+    {
+      "pr": 147,
+      "head": "b7b279aab1ec3c38b77b7f3885374f5ca64f27fc",
+      "base": "feature/46-multisource-refresh",
+      "checks": [
+        {
+          "id": 43515997128,
+          "name": "Test",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_number": 299,
+          "jobs_url": "https://api.github.com/repos/egohygiene/mindgarden/actions/runs/43515997128/jobs",
+          "logs_url": "https://api.github.com/repos/egohygiene/mindgarden/actions/runs/43515997128/logs",
+          "workflow_id": 344227901
+        },
+        {
+          "id": 43515996870,
+          "name": "Check release preparation",
+          "status": "completed",
+          "conclusion": "success",
+          "run_number": 169,
+          "jobs_url": "https://api.github.com/repos/egohygiene/mindgarden/actions/runs/43515996870/jobs",
+          "logs_url": "https://api.github.com/repos/egohygiene/mindgarden/actions/runs/43515996870/logs",
+          "workflow_id": 409846777
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    "#144 routing fix is integration ancestry, not a semantic prerequisite for #37.",
+    "#37 uses existing authored dependency and context contracts; #46 reuses existing compaction/evidence/retention services.",
+    "#90 mapping correctness is independent of refresh and uses existing private normalization/ledger/packet contracts.",
+    "No database, model, provider, background worker, private data or normative policy adoption is required for these synthetic checkpoints."
+  ],
+  "changes": {
+    "37": "Real bounded JSON/Markdown context consumer with explicit reviewed records, exact indexed-record metadata, missed-update reconciliation and unchanged unrelated artifacts.",
+    "46": "Current-authorized-node compaction refresh, full retention byte budget, live fact validity, three-source authored correction/quality and existing downstream proof expiry.",
+    "90": "Versioned reviewed mappings for signed ISO/debit-credit padded US layouts; exact UTF-8 spans, canonical mapping/provenance, raw configuration guards, distinct identities and identical existing packet after clean vault restore."
+  },
+  "verification": {
+    "combined": {
+      "modules": [
+        "tests.test_context_dependencies",
+        "tests.test_dependency_builds",
+        "tests.test_selected_builds",
+        "tests.test_v1_retrieval",
+        "tests.test_scoped_retrieval",
+        "tests.test_v1_contracts",
+        "tests.test_compaction_refresh",
+        "tests.test_compaction",
+        "tests.test_source_compaction",
+        "tests.test_mapped_ledger",
+        "tests.test_consultation",
+        "tests.test_source_adapters",
+        "tests.test_package"
+      ],
+      "arguments": "-m unittest <modules above> --quiet",
+      "python312": {
+        "executable": "/workspace/mindgarden/.venv/bin/python",
+        "cases": 102,
+        "seconds": 237.252
+      },
+      "python313": {
+        "executable": "/workspace/mindgarden/.cache/python313/bin/python",
+        "cases": 102,
+        "seconds": 234.681
+      },
+      "skips": 0
+    },
+    "checkpoint37": {
+      "cases_per_python": 41,
+      "python312_seconds": 51.052,
+      "python313_seconds": 48.656
+    },
+    "checkpoint46": {
+      "cases_per_python": 43,
+      "python312_seconds": 105.284,
+      "python313_seconds": 102.118
+    },
+    "checkpoint90": {
+      "broader_cases_per_python": 40,
+      "python312_seconds": 85.007,
+      "python313_seconds": 83.178,
+      "final_mapping_cases_per_python": 7,
+      "final_python312_seconds": 12.566,
+      "final_python313_seconds": 12.104
+    },
+    "distribution": {
+      "arguments": "-m unittest tests.test_distribution --quiet",
+      "cases_per_python": 2,
+      "python312_seconds": 0.112,
+      "python313_seconds": 0.105,
+      "skips": 0
+    },
+    "build": {
+      "command": "python -m build --no-isolation --sdist --wheel --outdir .cache/dist",
+      "source": "clean committed worktree b7b279a; clean Git execution independently qualified",
+      "build": "1.3.0",
+      "setuptools": "80.9.0",
+      "wheel_generator": "setuptools (80.9.0); no separately installed wheel distribution"
+    },
+    "artifacts": [
+      {
+        "file": "mindgarden-0.1.0-py3-none-any.whl",
+        "sha256": "c7006eb169921d9606620e9663878e2d8699dc994cac3a3c5431bcff10d3759c",
+        "bytes": 448460,
+        "runtime_dependencies": 0
+      },
+      {
+        "file": "mindgarden-0.1.0.tar.gz",
+        "sha256": "290850d5904398e084ad78453e8e595a0cf344a081e1c57b6754c446ce67afac",
+        "bytes": 962284
+      }
+    ],
+    "artifact_checks": {
+      "modules": [
+        "tests.test_context_dependencies",
+        "tests.test_compaction_refresh",
+        "tests.test_mapped_ledger"
+      ],
+      "clean_git": {
+        "cases": 17,
+        "seconds": 74.145
+      },
+      "installed_wheel": {
+        "cases": 17,
+        "seconds": 75.018
+      },
+      "unpacked_source": {
+        "cases": 17,
+        "seconds": 74.651
+      },
+      "skips": 0,
+      "module_origin": "Preimport selected library before test helpers; assert every loaded Mindgarden module stays in selected root.",
+      "mapped_packet_restore": "byte-identical output with old vault and mapping filenames retained at different locations"
+    },
+    "static": {
+      "new_code_ruff": "passed",
+      "new_file_format": "passed",
+      "compilation": "passed",
+      "pinned_owners": "passed after correcting missing ignored inventory and abbreviated parent handoff revision",
+      "whitespace": "passed",
+      "local_links": {
+        "targets": 184,
+        "markdown_files": 16,
+        "result": "passed"
+      },
+      "unchanged_runtime": {
+        "command": "git diff --exit-code b7b279a -- src tests contracts scripts profiles requirements pyproject.toml MANIFEST.in design/tokens design/schemas",
+        "exit_code": 0
+      }
+    }
+  },
+  "corrected_attempts": [
+    "First #37 suite named nonexistent tests.test_scope; corrected scoped-retrieval suite qualifies.",
+    "New worktree lacked ignored pinned owner inventory; copied original pinned inventories before complete validation.",
+    "#46 historical-only canary used invalid uppercase identifier; corrected fixture to existing grammar.",
+    "#46 first handoff used short candidate revision; metadata-only ac0e4ad fixes full SHA and child fast-forward preserves ancestry.",
+    "Removed one unused test import before mapping qualification.",
+    "Optional build-tool probe found no standalone wheel metadata; actual setuptools generator recorded instead."
+  ],
+  "authority": {
+    "fixtures": "synthetic committed fictional garden and account data only",
+    "real_sources": false,
+    "credentials": false,
+    "model_calls": false,
+    "manual_workflow_dispatch": false,
+    "proposed_adrs": 24,
+    "adr_approvals_changed": 0,
+    "source_deletion": false,
+    "root_wip_entries_preserved": 4
+  },
+  "parent_status": {
+    "tracked": 44,
+    "open": 34,
+    "closed": 10,
+    "new_closures": 0,
+    "remaining": [
+      "#37 broader observation/domain consumers and approved private pilot.",
+      "#46 semantic quality, large corpora, broader incremental execution/destructive retention and private pilot.",
+      "#90 arbitrary layouts, richer reconciliation/accounting, source-correction freshness, UI/PDF outputs and real pilot."
+    ]
+  },
+  "next": "Review #144 -> #145 -> #146 -> #147 and sync. Next proposed independent checkpoint: reviewed source-correction to packet freshness; #32 optional. No next batch or private processing silently started.",
+  "ci_note": "Observations apply to exact heads above. Later documentation-only #147 handoff has separate automatic CI; earlier canceled/incomplete heads are not passing evidence.",
+  "observed_at": "2026-11-13T22:13:43.033469+00:00"
+}

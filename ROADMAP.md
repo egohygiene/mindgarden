@@ -37,7 +37,7 @@ updated: 2026-11-13
 -->
 ## 2026-11-13 execution snapshot
 
-**Active continuation:** The maintainer selected **#37 → #46 → #90**. [The sprint ledger](docs/freshness-mapping-sprint.md) records actual context dependency integration, multi-source summary refresh/quality and explicit reviewed CSV mapping. Draft #144 is green and stays unmerged; subsequent drafts preserve its tree in an explicit stack. Parent acceptance and 34-open / 44-tracked counts remain unchanged.
+**Active continuation:** The maintainer selected **#37 → #46 → #90**, delivered as drafts #145 → #146 → #147 on #144. Qualified combined source `b7b279a` passes 102 focused tests per Python and all 17 new boundary checks from clean Git, wheel and source archive. [The sprint ledger](docs/freshness-mapping-sprint.md) records actual context dependency integration, multi-source summary refresh/quality and explicit reviewed CSV mapping. Draft #144 is green and stays unmerged; subsequent drafts preserve its tree in an explicit stack. Parent acceptance and 34-open / 44-tracked counts remain unchanged.
 
 **Current selected batch:** #142 → #143 are merged in order at main
 `6c9954bfa8ac65c94aa1db87c679a66227f736d8`, exactly the qualified mock-garden

@@ -1,5 +1,7 @@
 # Local source-to-reviewed-packet workflow
 
+**Active continuation:** Draft #144 → #145 → #146 → #147 now adds actual context dependencies, multi-source compaction refresh/live validity and reviewed alternate CSV mappings. [The combined sprint/evidence](freshness-mapping-sprint.md) pins functional `b7b279a`, 102 tests per Python and clean Git/wheel/archive boundary proofs. Main and parent closure states are unchanged; real/private/model acceptance stays separate.
+
 The maintainer selected these five steps on 2026-11-13. This changes the earlier
 end-of-original-queue scheduling gate for bounded work under #86/#87/#89/#90.
 It does not ratify proposed ADRs, authorize unspecified private inputs or replace
