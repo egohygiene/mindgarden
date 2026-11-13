@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-09
+updated: 2026-11-12
 governed_by:
   - architecture-system
 depends_on:
@@ -42,11 +42,11 @@ This document identifies Mindgarden's logical systems and responsibilities. It a
 | Validation | V0 preserved; general v1 checkpoint merged | Fails closed on version/schema, paths, relationships, provenance, scope and private-by-default publication, including empty allowlists. |
 | Package and command interface | Implemented 0.1 | Provides a dependency-free installable Python package, unified `mindgarden` command, stable exit codes, public library surface, and temporary 0.x script shims. |
 | Initialization and migration | V1 lifecycle implemented | Creates deterministic gardens and applies digest-bound, identity-preserving, provenance-safe migration with an exact v0 rollback tree. |
-| Candidate routing | Local checkpoint merged | Places authored reviewed candidates with private fallback, one home, typed references and recoverable multi-garden writes. |
-| Source storage | Filesystem checkpoint merged | Preserves immutable content identities, verifies checksums and supports bounded audit/export/restore/relocation independently from location. |
-| Federation | Local public checkpoint merged through #66 (#16) | Builds reviewed checksum-bound descriptor/index/graph/agent artifacts and supplied-directory catalogs; hosting, private federation and external adoption remain open. |
+| Candidate routing | Core merged; exact reference repair draft #133 | Places authored reviewed candidates with private fallback, one home, typed references and recoverable multi-garden writes; independent exact repairs retain historical edges. |
+| Source storage | Filesystem recovery and adapter migration merged #130 | Preserves immutable content identities, verifies checksums and supports bounded audit/export/restore/relocation independently from location. |
+| Federation | Public/local discovery merged; supplied-context draft #134 | Builds reviewed checksum-bound public bundles and catalogs; selected live-authorized public reads add bounded cited context without fetching. Hosting, remote/private protocols and real external adoption remain open. |
 | Local registry | Linux lifecycle merged #67; owned cache recovery merged #82; [native macOS checkpoint merged #93](docs/registry-native-platforms.md) | Saved plans, named scope selections, non-destructive unregister, private restore and native ACL/path checks have bounded evidence; Windows, restricted/host assurance and destructive cleanup remain open. |
-| V1 public preview | Merged #68; responsive correction #69 | Reuses scoped public selection for literal reviewed content, exact citations, typed links and pinned offline Quartz; broader UI/consumer acceptance remains open. |
+| V1 public preview | Merged baseline; native reading correction draft #135 | Reuses scoped public selection for literal reviewed content, exact citations, typed links and pinned offline Quartz; broader UI/consumer acceptance remains open. |
 | First-pass compaction | Merged #111 | Extends existing sessions with exact private source grants and authored first summaries; expiring private proof bundles preserve originals and grant no knowledge approval. |
 | Optional semantic decisions | Merged #110 | Official TypeSafe SDK suggests a closed read intent; ordinary application code owns handlers, source access and permissions. Default commands require no model service. |
 | Assistant-memory projection | Local reviewed checkpoint implemented | Provider-neutral seven-action compaction, bounded copyable snippets and optional live-checked expiring bundles; canonical sources stay independent. |
@@ -167,3 +167,7 @@ required; eight listed issues close while broader parent gates stay explicit.
 ## Privacy/storage checkpoint qualification
 
 Drafts #127–#130 extend the same services with shared export policy, whole-bundle session limits, managed ordinary PDF process lifetimes and reviewed local adapter migration. The combined functional source `e789c0c` passes 515 tests per Python, 80 publication cases and clean source/wheel migration and mixed-pipeline proofs. [The ledger](docs/privacy-storage-followthrough.md) preserves implemented/tested/draft states and exact remaining contracts. No normative policy, encryption/runtime, publication or proposed ADR is accepted by these checks; main and full parent acceptance remain separate.
+
+## Continued reading and recovery evidence
+
+[The journey ledger](docs/journey-sprint.md) records authorized merges #127–#132 and the dependent #133–#136 checkpoints. The #20 composed synthetic proof imports a selected diagram/caption, records authored review and scratch exclusion, retrieves exact evidence, builds bounded context, repairs a reviewed private reference, migrates/relocates/restores the vault and rebuilds identical projections in a clean garden. It requires no model, Google, specialized database or hosted service. The native reading proof remains a bounded public fixture; manual accessibility, real private-pilot and consumer publication acceptance remain separate. Draft implementation is distinct from merged/accepted behavior.

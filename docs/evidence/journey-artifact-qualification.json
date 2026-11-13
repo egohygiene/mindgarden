@@ -1,0 +1,119 @@
+{
+  "schema": "mindgarden.journey-artifact-qualification/v1",
+  "functional_commit": "46674aef098f89ba05ade282644ad13e025b182c",
+  "engine_version": "0.1.0",
+  "artifacts": [
+    {
+      "file": "mindgarden-0.1.0-py3-none-any.whl",
+      "bytes": 404976,
+      "sha256": "984bd4c4158ae81c5bb7f13b16f5c1173a66400d91e6e21334419a7481d9e9a0"
+    },
+    {
+      "file": "mindgarden-0.1.0.tar.gz",
+      "bytes": 837032,
+      "sha256": "2aac1cfb27c29086648948e5c609659e07bf70f3d87beda9f7519759868982dd"
+    }
+  ],
+  "proof_report_sha256": "f4bc545d26a35061609c27e92854e21cf6d4a7a8f389a417a0607ace48fda23a",
+  "isolated_proofs": [
+    {
+      "kind": "clean-git-source",
+      "command": "python -S scripts/reading_journey_demo.py --workspace /tmp/mindgarden-reading-final-git --require-source --check-golden",
+      "result": "matches-complete-committed-golden"
+    },
+    {
+      "kind": "installed-wheel",
+      "command": "final-wheel-venv/bin/python -I journey-qualified-final/scripts/reading_journey_demo.py --workspace /tmp/mindgarden-reading-final-wheel --require-installed --check-golden",
+      "result": "matches-complete-committed-golden"
+    },
+    {
+      "kind": "unpacked-source",
+      "command": "python -S final-unpacked-source/mindgarden-0.1.0/scripts/reading_journey_demo.py --workspace /tmp/mindgarden-reading-final-sdist --require-source --check-golden",
+      "result": "matches-complete-committed-golden"
+    }
+  ],
+  "context_bytes": 4539,
+  "markdown_bytes": 4664,
+  "max_bytes": 8192,
+  "vault_objects": 11,
+  "source_reference": {
+    "content_sha256": "d427af01c5be2e4de5e41a0cb363c58cd0c1cdd0a0af1577bcfd78f6b8f2d83f",
+    "locator": "json:/content/0/text",
+    "source": {
+      "garden": "synthetic-garden",
+      "id": "source-49101f6a41f4768b98734604-85e3ac6fa6ea418f",
+      "revision": "sha256:85e3ac6fa6ea418f7d686a812970fde2284966a2b08ab8d862ebb6948cfab55d"
+    }
+  },
+  "original_selector": {
+    "json_pointer": "/messages/1",
+    "member": "CONVERSATION.json",
+    "member_sha256": "cad29bc6a35b237a1bc50cd84ec5aaa784e431037da63f079e9dd92f2937d84f"
+  },
+  "runtime_dependencies": 0,
+  "v0": {
+    "cli_version": "0.1.0",
+    "cli_validation": "valid",
+    "library_validated_notes": 3
+  },
+  "focused_tests": {
+    "python_312": {
+      "passed": 22,
+      "skipped": 0,
+      "seconds": 61.512
+    },
+    "python_313": {
+      "passed": 22,
+      "skipped": 0,
+      "seconds": 59.78
+    },
+    "distribution_and_bundle_outputs": {
+      "passed": 10,
+      "skipped": 0,
+      "seconds": 10.844
+    },
+    "legacy_site_golden_correction": {
+      "python_312": {
+        "passed": 2,
+        "skipped": 0,
+        "seconds": 17.215
+      },
+      "python_313": {
+        "passed": 2,
+        "skipped": 0,
+        "seconds": 16.36
+      }
+    }
+  },
+  "network": "blocked in each core proof",
+  "google": "unused",
+  "models": "unused",
+  "deferred": [
+    "full combined local discovery",
+    "act workflow replay",
+    "manual note color/duplicate-id a11y review",
+    "real private pilot and consumer publication"
+  ],
+  "ci_limitation": {
+    "pr": 134,
+    "workflow": "Decisions preview",
+    "run": 43284993775,
+    "code": "RIW-004",
+    "reason": "ADR build: acquisition: denied"
+  },
+  "full_parent_acceptance": false,
+  "legacy_site_golden_correction": {
+    "failed_pr": 135,
+    "failed_head": "38d2cd4d3333f16d74f540578f4984a175485311",
+    "failed_test_run": 43290873943,
+    "changed_value": "release-journey site/revision only",
+    "fix_commit": "43fb4bc04a0484f7be598f2c9acbe82c115e9f41",
+    "merged_into_functional_commit": true,
+    "correction_test_run": 43295629172,
+    "correction_test_status": "in_progress_when_observed"
+  },
+  "previous_qualification": {
+    "functional_commit": "d2a1f60668364e7184dec9537de9ee3412feb4aa",
+    "core_proofs": "passed same complete golden; superseded by the qualification including the legacy fixture correction"
+  }
+}
