@@ -27,8 +27,20 @@ duplicated canonical body. Reruns verify identical records. A changed already
 placed request fails with `ROUTE_REVISION_REQUIRED`; an inconsistent second home
 fails with `ROUTE_TRANSFER_REQUIRED`. Renaming, moving existing knowledge,
 splitting/merging already placed units and automated supersession require an
-explicit transfer/revision contract and remain parent scope. Curation's authored
-merge and explicit supersession remain available independently.
+explicit transfer/revision contract. The private lifecycle and reference-repair
+contracts below now implement those reviewed operations; public/policy-changing
+transfers remain parent scope. Curation's authored merge and explicit
+supersession remain available independently.
+
+Deferred/excluded candidates create no placed knowledge. Their exact selectors
+and authored reasons are retained through the existing curation service in the
+embedded proposal's explicitly catalogued personal controller. The routing
+receipt retains the `history-only` decision and inherits its scope. A missing,
+public or organization controller fails with `ROUTE_HISTORY_PRIVATE`, rather than
+dropping the history or sending it to a preferred public destination. Receipts
+participate in the same reviewed digest, capability validation, stale-input
+checks, non-overwriting group cutover and rollback as kept outputs. See the
+[acceptance audit and synthetic disposition cases](curation-routing-design-acceptance.md).
 
 Public placement additionally requires explicit human public review, approved
 normalized public evidence, approved knowledge review and the target publication
@@ -168,8 +180,8 @@ Six new cases prove deterministic exact inventory, unchanged original links,
 unreviewed/stricter omissions, stale-edge refusal before cutover, unpinned and
 undirected preservation, and the 128-entry bound. The existing move/split/merge/
 replacement/transaction suites retain rollback, retry and one-home proofs.
-General edge repair still needs an explicit operation naming independently
-reviewed replacement references; public/policy-changing transitions remain open.
+The separately reviewed repair operation below supplies exact replacements;
+public/policy-changing transitions remain open.
 This is a bounded #14 checkpoint under proposed ADR-0022, not ratification or a
 claim of complete incoming migration.
 

@@ -8,6 +8,7 @@ from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
 
@@ -21,6 +22,20 @@ from tests.site_fixture import create_fixture
 
 
 class DesignTests(unittest.TestCase):
+    def test_validation_and_exports_need_only_text_tokens_and_schema(self):
+        source = design_directory()
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for relative in ("tokens/mindgarden.tokens.json", "schemas/design-tokens.schema.json"):
+                target = root / relative
+                target.parent.mkdir()
+                target.write_bytes((source / relative).read_bytes())
+            with patch("mindgarden.domain.design.design_directory", return_value=root):
+                tokens = load_tokens()
+                self.assertTrue(css_variables(tokens))
+                self.assertTrue(quartz_theme(tokens))
+            self.assertEqual(len(list(root.rglob("*.json"))), 2)
+
     def test_source_schema_and_semantic_color_pairs_are_accessible(self):
         tokens = load_tokens()
         schema = json.loads((design_directory() / "schemas/design-tokens.schema.json").read_text())

@@ -33,3 +33,8 @@ An optional supplied revision must match. CSS and Quartz colors are derived from
 the installed source tokens, never maintained as a second color catalog. Omit the
 theme to keep the existing unbranded adapter. Design tooling is optional for
 contributors working on other parts of the engine.
+
+The seven design-source criteria in #38 are complete on merged main; the
+[acceptance audit](../docs/curation-routing-design-acceptance.md) records each one.
+Additional consumers and full application accessibility remain separate work.
+ADR-0014 retains proposed status and null approval.

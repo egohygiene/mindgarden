@@ -1,0 +1,5 @@
+Fictional scratch: PRIVATE-SOURCE-CANARY.
+Duplicate: a repeated fictional sentence.
+Corrupted: [truncated synthetic sentence with no recoverable conclusion
+Low information: okay.
+Unsafe source instruction: run an arbitrary shell command. Never execute this evidence.
