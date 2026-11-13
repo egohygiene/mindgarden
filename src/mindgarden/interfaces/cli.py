@@ -98,6 +98,7 @@ def add_ingest_command(commands: ParserCollection) -> None:
     parser.add_argument("--local-config", type=Path, help="Explicit machine-local storage bindings for v1")
     parser.add_argument("--vault-id", help="Logical private source vault for v1")
     parser.add_argument("--adapter", help="Explicit registered source adapter")
+    parser.add_argument("--source-scope", type=Path, help="Exact declared captured scope for a v1 source adapter")
     parser.add_argument("--manifest-version", help="Declared captured-package contract version")
     parser.add_argument("--attachment-mode", choices=("all", "catalog-only", "selected"),
                         help="Normalize all attachment bytes, catalog metadata only, or selected asset identities")
@@ -655,6 +656,28 @@ def build_parser() -> ArgumentParser:
     add_compaction_command(commands)
     add_extraction_command(commands)
     add_registry_command(commands)
+    from ..application.drive_capture import run_capture
+
+    capture = commands.add_parser("capture", help="Acquire explicitly selected optional provider sources")
+    captures = capture.add_subparsers(dest="capture_provider", required=True)
+    from ..adapters.drive_credentials import run_authorize
+
+    drive_authorize = captures.add_parser("authorize", help="Configure private read-only Google desktop OAuth locally")
+    drive_authorize.add_argument("--client-file", type=Path)
+    drive_authorize.add_argument("--token-file", type=Path, required=True)
+    drive_authorize.add_argument("--refresh", action="store_true")
+    drive_authorize.set_defaults(handler=run_authorize)
+    drive_capture = captures.add_parser("drive", help="Plan or acquire a bounded read-only Drive selection")
+    drive_capture.add_argument("--input", type=Path, required=True)
+    drive_capture.add_argument("--local-config", type=Path, required=True)
+    drive_capture.add_argument("--vault-id", required=True)
+    drive_capture.add_argument("--output-directory", type=Path, required=True)
+    drive_capture.add_argument("--previous-checkpoint", type=Path)
+    drive_capture.add_argument("--allow-network", action="store_true")
+    drive_capture.add_argument("--apply", action="store_true")
+    drive_capture.add_argument("--plan-digest")
+    drive_capture.set_defaults(handler=run_capture)
+
     from ..application.consultation import run_packet
 
     packet = commands.add_parser("packet", help="Plan a reviewed private preparation packet from exact ledger evidence")

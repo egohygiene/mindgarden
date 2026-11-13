@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-11-04T00:00:00Z",
+  "coverage": "stable-selected-enumeration-and-per-file-versions",
+  "files": [
+    {
+      "file_id": "file-a",
+      "losses": [],
+      "media_type": "text/csv",
+      "name": "file-a.csv",
+      "sha256": "58067b8a4903e088f28317659b39b69da646b23bf431ba20ad35762b8c5f6c60",
+      "size_bytes": 390,
+      "source_mime_type": "text/csv",
+      "version": "1"
+    },
+    {
+      "file_id": "file-b",
+      "losses": [],
+      "media_type": "text/csv",
+      "name": "file-b.csv",
+      "sha256": "d608a386696ed74353dc071c9f97ad478ebb0e3683c5a2bd3a7b0d946d6cbd76",
+      "size_bytes": 192,
+      "source_mime_type": "text/csv",
+      "version": "1"
+    },
+    {
+      "file_id": "file-overlap",
+      "losses": [],
+      "media_type": "text/csv",
+      "name": "file-overlap.csv",
+      "sha256": "6b791383155e8baf6f80c0be11941fba00d5483b67ff2d0541d4dbf4ad5cba21",
+      "size_bytes": 184,
+      "source_mime_type": "text/csv",
+      "version": "1"
+    }
+  ],
+  "id": "synthetic-drive-collection",
+  "provider": "google-drive-v3",
+  "schema": "mindgarden.drive-capture/v1",
+  "scope": {
+    "execution": "controlled-import",
+    "persistence": "machine-local",
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": "never-exportable",
+    "schema": "mindgarden.scope/v1",
+    "visibility": "personal"
+  },
+  "selection_sha256": "0a1e4578305c963659579284e4a7ce87e4ccb5b4a8d75d57434e9949ffa2417a",
+  "unavailable_previous": []
+}

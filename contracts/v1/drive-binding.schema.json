@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:drive-binding:v1",
+  "title": "Mindgarden drive-binding v1",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "mindgarden.drive-binding/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "folders": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{1,200}$"
+      },
+      "minItems": 1,
+      "maxItems": 16,
+      "uniqueItems": true
+    },
+    "file_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{1,200}$"
+      },
+      "minItems": 0,
+      "maxItems": 64,
+      "uniqueItems": true
+    },
+    "recursive": {
+      "type": "boolean"
+    },
+    "media_types": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "text/plain",
+          "text/markdown",
+          "text/csv",
+          "application/pdf",
+          "image/png",
+          "image/jpeg"
+        ]
+      },
+      "minItems": 0,
+      "maxItems": 6,
+      "uniqueItems": true
+    },
+    "exports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_type": {
+            "enum": [
+              "application/vnd.google-apps.document",
+              "application/vnd.google-apps.spreadsheet"
+            ]
+          },
+          "export_type": {
+            "enum": [
+              "text/plain",
+              "text/csv"
+            ]
+          }
+        },
+        "required": [
+          "source_type",
+          "export_type"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 2,
+      "uniqueItems": true
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "review_authority": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/author"
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "limits": {
+      "type": "object",
+      "properties": {
+        "max_files": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "max_depth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "max_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 16000000
+        },
+        "max_file_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000000
+        },
+        "max_requests": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 512
+        },
+        "max_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 300
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30
+        }
+      },
+      "required": [
+        "max_files",
+        "max_depth",
+        "max_bytes",
+        "max_file_bytes",
+        "max_requests",
+        "max_seconds",
+        "timeout_seconds"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "captured_at",
+    "folders",
+    "file_ids",
+    "recursive",
+    "media_types",
+    "exports",
+    "scope",
+    "review_authority",
+    "review",
+    "limits"
+  ],
+  "additionalProperties": false
+}

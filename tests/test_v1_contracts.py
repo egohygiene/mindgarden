@@ -135,6 +135,8 @@ class V1ContractTests(unittest.TestCase):
                 "context-profile",
                 "curation-plan",
                 "ledger-row",
+                "drive-binding",
+                "drive-capture",
                 "consultation-request",
                 "consultation-packet",
                 "curation-receipt",

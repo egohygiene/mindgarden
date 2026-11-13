@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T02:02:57Z'
+  updated_at: '2026-11-13T03:01:28Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -73,58 +73,50 @@ scope:
   - docs/architecture-overview.md
   - docs/local-consultation-workflow.md
 work:
-  objective: Qualify and preserve the strict synthetic ledger/reviewed packet checkpoint, then implement selected
-    Drive capture and the bounded Codex/pilot handoff.
+  objective: Preserve the bounded selected Drive capture/refresh and separate normalization checkpoint, then finish
+    the scoped Codex and private-pilot handoff.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#90
-    url: https://github.com/egohygiene/mindgarden/issues/90
+    id: egohygiene/mindgarden#87
+    url: https://github.com/egohygiene/mindgarden/issues/87
   next:
     kind: action
     id: local-workflow-next-checkpoint
-    description: 'Commit/open #90 draft on #138, pin final functional source and finish exact 61-case qualification
-      on both Pythons. Then add bounded Drive acquisition/refresh through an explicit adapter and scoped Codex CLI
-      tooling; prepare the private-pilot preflight without accessing unspecified real inputs.'
+    description: 'Open the Drive checkpoint as a draft on #139. Implement the bounded read-only research/Codex interface
+      and concrete private-pilot preflight on this combined stack; qualify both synthetic journeys from clean checkout/wheel/sdist.
+      Actual private execution needs the still-missing workspace/folder/credential/classification/runtime configuration.'
     readiness: ready
     references:
     - docs/local-consultation-workflow.md
     depends_on: []
 state:
   base:
-    revision: 36e4de84b55195591ec95d9ea08b76abd53ec478
-    ref: refs/heads/docs/86-local-workflow-activation
-    verified_at: '2026-11-13T02:02:57Z'
+    revision: 9db4c202ec166a9a887db3d4c834919dff426f0b
+    ref: refs/heads/feature/90-reviewed-ledger-packet
+    verified_at: '2026-11-13T03:01:28Z'
   candidate:
-    branch: feature/90-reviewed-ledger-packet
+    branch: feature/87-selected-drive-capture
     revision: null
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-13T02:02:57Z'
+    observed_at: '2026-11-13T03:01:28Z'
     default_branch_revision: 9c94245e0838da74a760cbc43e63b0faf6a3d756
     issue_state: open
     pull_request_state: not-applicable
-    notes: '#133–#137 are merged at main 9c94245 with exact qualified combined tree and all selected-head checks
-      passing. Activation #138 is a draft on main. The dependent #90 branch implements declared CSV normalization,
-      exact source grants, reviewed calculations/selection, private packet and authored searchable knowledge; source
-      recovery proof passes.'
+    notes: '#133–#137 merged; #138 activation and #139 ledger packet remain drafts. Current Drive branch stacks
+      on qualified #139 source 9db4c20. No live account or private inputs accessed.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T02:02:57Z'
+  reviewed_at: '2026-11-13T03:01:28Z'
   reviewed_by: codex
   evidence:
-  - command: 'git diff --check; pinned Hygiene/Aether ADR/continuity/coverage checks; exact #134 tree comparison'
-    outcome: passed
-    observed_at: '2026-11-13T01:33:54Z'
-    notes: 'Documentation and owner checks pass; #134 reconciliation has no file changes. Existing focused/full
-      hosted evidence remains distinct from pending new-head CI. No runtime implementation or private pilot is claimed
-      at this activation checkpoint.'
   - command: 'git diff --check; pinned Hygiene/Aether ADR/continuity/coverage checks; exact #134 tree comparison'
     outcome: passed
     observed_at: '2026-11-13T01:45:32Z'
@@ -139,6 +131,15 @@ review:
       pass per Python (153.156s/147.059s) before the final null-pin hardening; exact final-source 61-case reruns
       and clean artifact qualification follow. Source proof passes net2259.76, context6128 bytes and 11 retained
       objects; no live provider/private pilot claimed.
+  - command: python -m unittest tests.test_drive_capture tests.test_drive_credentials tests.test_v1_contracts tests.test_scope_bundle_outputs
+      tests.test_source_adapters --quiet (3.12/3.13); python -S scripts/drive_consultation_demo.py --require-source
+      --check-golden; optional OAuth SDK constructor probe offline; Ruff/format/owner/diff
+    outcome: passed
+    observed_at: '2026-11-13T03:01:28Z'
+    notes: '38 cases per Python, zero skips (16.349s/15.824s); complete Drive golden passes twice, with 13 retained
+      objects, 6129-byte context and net2259.76. SDK 1.5.0 constructor works offline; actual OAuth, Drive, private
+      pilot and model accuracy unperformed. #139 exact 61-case per-Python qualification and hosted Test/preparation
+      pass.'
   environment_limitations:
   - Full local/act and manual accessibility remain deferred; focused evidence is distinct.
   - Actual private workspace, source selection, credentials and confidential-runtime assurance must exist before
@@ -171,19 +172,19 @@ Refresh live issue/PR state and comments; read README, AI_CONSTITUTION, ROADMAP,
 
 ## Current objective and success conditions
 
-Qualify and preserve the strict synthetic ledger/reviewed packet checkpoint, then implement selected Drive capture and the bounded Codex/pilot handoff.
+Preserve the bounded selected Drive capture/refresh and separate normalization checkpoint, then finish the scoped Codex and private-pilot handoff.
 
 ## State snapshot
 
-#133–#137 are merged at main 9c94245 with exact qualified combined tree and all selected-head checks passing. Activation #138 is a draft on main. The dependent #90 branch implements declared CSV normalization, exact source grants, reviewed calculations/selection, private packet and authored searchable knowledge; source recovery proof passes.
+#133–#137 merged; #138 activation and #139 ledger packet remain drafts. Current Drive branch stacks on qualified #139 source 9db4c20. No live account or private inputs accessed.
 
 ## Completed and material changes
 
-Three versioned schemas/official fixtures, CSV exact UTF-8 spans and stable IDs, explicit overlap/correction/transfer review, decimal totals/coverage, literal Markdown, complete budgets including ownership, scope-before-read/null-pin hardening and fresh batch source snapshots. Synthetic packet/context/evidence survives relocation/restore/clean rebuild; originals and source-unreviewed state remain.
+Explicit controlled-import scope, reviewed selection/budgets, fixed-host read-only Drive v3, immutable vault/checkpoint reuse, partial recovery, strict capture package and separate offline normalization. Optional private OAuth/refresh uses the verified official SDK API and bounded endpoints. Two synthetic snapshots retain old history and reuse eight unchanged evidence rows through exact report/context/relocation/restore/rebuild proof.
 
 ## Validation and review evidence
 
-unittest tests.test_consultation; tests.test_v1_contracts tests.test_scope_bundle_outputs tests.test_source_adapters; source consultation_demo.py --require-source; Ruff/format; pinned owner/diff checks — 15 focused cases pass (63.497s); initial 20 contract/source cases pass (12.644s). Prior combined 60 cases pass per Python (153.156s/147.059s) before the final null-pin hardening; exact final-source 61-case reruns and clean artifact qualification follow. Source proof passes net2259.76, context6128 bytes and 11 retained objects; no live provider/private pilot claimed.
+python -m unittest tests.test_drive_capture tests.test_drive_credentials tests.test_v1_contracts tests.test_scope_bundle_outputs tests.test_source_adapters --quiet (3.12/3.13); python -S scripts/drive_consultation_demo.py --require-source --check-golden; optional OAuth SDK constructor probe offline; Ruff/format/owner/diff — 38 cases per Python, zero skips (16.349s/15.824s); complete Drive golden passes twice, with 13 retained objects, 6129-byte context and net2259.76. SDK 1.5.0 constructor works offline; actual OAuth, Drive, private pilot and model accuracy unperformed. #139 exact 61-case per-Python qualification and hosted Test/preparation pass.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -191,7 +192,7 @@ Actual pilot OS/workspace/folder selection is requested asynchronously; no crede
 
 ## Next dependency-ready work
 
-Commit/open #90 draft on #138, pin final functional source and finish exact 61-case qualification on both Pythons. Then add bounded Drive acquisition/refresh through an explicit adapter and scoped Codex CLI tooling; prepare the private-pilot preflight without accessing unspecified real inputs.
+Open the Drive checkpoint as a draft on #139. Implement the bounded read-only research/Codex interface and concrete private-pilot preflight on this combined stack; qualify both synthetic journeys from clean checkout/wheel/sdist. Actual private execution needs the still-missing workspace/folder/credential/classification/runtime configuration.
 
 ## Parallel changes and reconciliation
 

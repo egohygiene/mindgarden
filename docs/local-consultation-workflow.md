@@ -14,7 +14,7 @@ issue dispositions; no parent is closed by changing the schedule.
 | 1 | Review and merge #133 → #134 → #135 → #136 → #137. | Completed: #133–#137 merged in order at main `9c94245`. Every selected head has passing Test/preparation; #134 reconciled normally with identical source tree and a passing new preview. See the merge receipt below. |
 | 2 | Activate the bounded local phase under #86. | Selected #87/#89/#90 scheduling is updated; #88/#91 remain deferred. This document maps existing owners rather than adding a competing garden or session model. |
 | 3 | Produce a synthetic, reviewed, source-backed preparation packet (#90). | Implemented on `feature/90-reviewed-ledger-packet`: strict CSV normalization, pinned source grants, explicit reconciliation/review and exact-decimal calculations. The source demonstration passes; clean artifact qualification follows. |
-| 4 | Connect explicitly selected Drive capture and the scoped Codex workflow (#87/#89). | Verify current official provider contracts. Reuse normalization, source storage, review and retrieval services. Codex can use the existing CLI; a private web app, MCP server, second model and new query database are not prerequisites. |
+| 4 | Connect explicitly selected Drive capture and the scoped Codex workflow (#87/#89). | The selected Drive capture/refresh adapter, separate normalization and private OAuth helper have bounded offline proof. The Codex/research interface follows on this stack. A private web app, MCP server, second model and new query database are not prerequisites. |
 | 5 | Prepare and run the selected private pilot where authorized and available. | Build a concrete preflight/runner and operator guide first. The actual OS, private workspace, selected Drive folders, credentials and classification/runtime evidence must be supplied outside public fixtures before real execution. |
 
 The synthetic packet is independent of Drive: acquisition supplies captured
@@ -79,11 +79,12 @@ USD net movement **2259.76**; transfer pairs, unclassified movement, missing acc
 and declared coverage gaps remain explicit. A new ordinary `packet` command
 previews the computed report and binds reviewed application to exact inputs.
 
-Fifteen focused ledger/packet cases pass (Python 3.12, 63.497s), including a
-discovered null-pin guard before any source body access. The preceding combined
-60-case source/schema/scope/compaction/memory/extraction selection passes both
-Pythons (153.156s / 147.059s); final-source combined qualification is repeated
-after that null-pin hardening. A batch source resolver prechecks every exact grant,
+At qualified source `9db4c202ec166a9a887db3d4c834919dff426f0b`, the combined
+ledger/schema/scope/source/compaction/memory/extraction selection passes **61 cases
+per Python**, zero skips: 3.12 in 157.739s and 3.13 in 154.728s. Automatic Test
+43349432329 and preparation 43349432315 pass for that exact head of draft
+[#139](https://github.com/egohygiene/mindgarden/pull/139). This includes a
+discovered null-pin guard before any source body access. A batch source resolver prechecks every exact grant,
 uses one fresh verified snapshot per plan, and checks live authority for each
 row/output. No cache crosses plan/session boundaries. Existing single-source
 evidence bytes and authority semantics are retained.
@@ -102,3 +103,27 @@ mutated test baseline. These were corrected; they are not passing evidence.
 The complete request ceiling now covers ownership metadata as well as report,
 review and selected normalized evidence. No raw statement/PDF export, live Drive,
 model-quality evidence, actual private pilot or parent completion is claimed.
+
+## #87 selected capture and refresh checkpoint
+
+[The Drive guide](drive-capture.md) describes the current official v3 contract,
+private optional OAuth setup and the separate captured-package adapter. Capture
+requires controlled-import scope and an explicit reviewed operation/network flag;
+normalization inherits the garden's stronger offline policy. An offline capture
+is denied before provider access. Exact provider IDs/versions and verified bytes
+survive rename, unchanged replay and partial recovery without deleting old evidence.
+
+The focused Drive/credential/schema/scope/source selection passes **38 cases per
+Python**, zero skips: 3.12 in 16.349s and 3.13 in 15.824s. The full synthetic Drive
+journey matches its complete golden: two retained snapshots, eight reused evidence
+rows, 13 immutable objects, a 6,129-byte context and exact report/evidence after
+relocation/restore/clean rebuild. The original CSV golden remains a separate
+qualification target. The optional official OAuth SDK 1.5.0 constructor was
+checked offline; no consent/account or live provider request was performed.
+
+This is selected My Drive capture of supported text/declared CSV. Native exports
+have explicit losses; PDF/images are preserved-only. OAuth read-only permission
+is account-wide while the application narrows actual reads. Capture refresh does
+not silently approve/retire knowledge or assert that a packet is the latest/full
+account history. Live Drive, Windows credential mutation, confidential assurance,
+broader freshness and the actual private pilot remain separate acceptance.

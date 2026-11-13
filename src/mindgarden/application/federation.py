@@ -29,12 +29,17 @@ def require_public_scope(scope: dict) -> None:
 
 
 def export_destination(context: QueryContext, output_directory: Path, relative: str) -> Path:
+    return protected_export_destination(context.bindings, output_directory, relative)
+
+
+def protected_export_destination(bindings, output_directory: Path, relative: str) -> Path:
+    """Shared filesystem boundary check; it grants no read or export authority."""
     target = safe_path(explicit_directory(output_directory), relative)
     target = explicit_directory(target)
     # Compare declared paths without probing denied roots. Canonical records,
     # private vaults and ancestors of registered roots are never export targets.
     for field in ("gardens", "vaults"):
-        for item in context.bindings.document.get(field, []):
+        for item in bindings.document.get(field, []):
             if not isinstance(item, dict) or not isinstance(item.get("root"), str):
                 continue
             root = Path(item["root"])

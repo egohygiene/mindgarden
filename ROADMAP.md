@@ -39,11 +39,17 @@ updated: 2026-11-12
 
 **2026-11-13 selected follow-through:** The maintainer selected the five-step
 [local source-to-reviewed-packet journey](docs/local-consultation-workflow.md):
-finish #133–#137 merges, activate bounded #86/#87/#89/#90 work, prove synthetic
+retain completed #133–#137 merges, activate bounded #86/#87/#89/#90 work, prove synthetic
 calculations and packet review, connect selected capture/Codex reads, then prepare
 the private pilot. This supersedes the proposed #37/#46/#32-first batch and the
 old end-of-queue scheduling gate for these selected checkpoints. #88/#91 and
 release work remain deferred; architecture/privacy gates retain their authority.
+
+Main is `9c94245` after the ordered merges. Draft #138 activates the selected
+phase and #139 supplies reviewed ledger packets; selected Drive capture/refresh
+follows on that explicit stack. The local workflow guide records exact tests,
+remaining Codex/pilot work and the distinction between mock and live proof.
+The 2026-11-12 gate and proposed freshness batch below are historical.
 
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
