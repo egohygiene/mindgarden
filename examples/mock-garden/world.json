@@ -1,0 +1,125 @@
+{
+  "schema": "mindgarden.mock-garden-seed/v1",
+  "fictional": true,
+  "reviewer": "mock-author",
+  "entries": [
+    {
+      "id": "mock-business",
+      "title": "Fictional Example Studio overview",
+      "file": "business.md",
+      "domains": [
+        "business"
+      ],
+      "topics": [
+        "portfolio",
+        "consultation-preparation"
+      ],
+      "body": "Entirely fictional: Example Studio is a one-person design business. Its portfolio brief lists 2026-05-15, while the client conversation lists 2026-05-22. The agreement is unavailable and the delivery date remains unresolved. No assets, debt or income are established by this note.\n",
+      "evidence": [
+        "mock-business",
+        "mock-conversation"
+      ],
+      "contradictions": [
+        "mock-conversation"
+      ],
+      "uncertainty": [
+        "Delivery date unresolved; no agreement supplied."
+      ],
+      "relation": {
+        "target": "synthetic-financial-summary",
+        "type": "related",
+        "rationale": "Authored fictional business/financial preparation connection; no additional financial claim."
+      },
+      "source_sha256": "85d00bfbc455d0f6acbb02717cb8a04b6b57192248fb73a75c58be1494e5d873"
+    },
+    {
+      "id": "mock-career",
+      "title": "Fictional career and accessibility learning",
+      "file": "career.md",
+      "domains": [
+        "career"
+      ],
+      "topics": [
+        "accessibility",
+        "portfolio"
+      ],
+      "body": "Entirely fictional: Example Person is exploring accessibility work and plans a keyboard-navigation portfolio experiment. There is no job offer, credential or salary claim. The learning project is related to Example Studio.\n",
+      "evidence": [
+        "mock-career"
+      ],
+      "contradictions": [],
+      "uncertainty": [
+        "A proposed learning direction is not an established skill or employment outcome."
+      ],
+      "relation": {
+        "target": "mock-business",
+        "type": "related",
+        "rationale": "The authored fictional notes connect the portfolio experiment to the studio."
+      },
+      "source_sha256": "881d96760580ac2f800b5ece7326e16586bf8e868644eeda1fa45a98ea159c70"
+    },
+    {
+      "id": "mock-household",
+      "title": "Fictional household spending review",
+      "file": "household.md",
+      "domains": [
+        "household"
+      ],
+      "topics": [
+        "spending",
+        "consultation-preparation"
+      ],
+      "body": "Entirely fictional: The household proposes a weekly spending review and a shared meal. The synthetic ledger contains an unresolved payment; a receipt is needed. Similar dates or amounts do not establish transaction identity, balances or financial completeness.\n",
+      "evidence": [
+        "mock-household"
+      ],
+      "contradictions": [],
+      "uncertainty": [
+        "The payment remains uncategorized; no receipt or complete account history is supplied."
+      ],
+      "relation": {
+        "target": "synthetic-financial-summary",
+        "type": "related",
+        "rationale": "Fictional household questions relate to the existing synthetic ledger overview."
+      },
+      "source_sha256": "51ffab99d167ea3ad1ea1fe9f6862270d6916ff749a7ec24a9695a4ab0e327c1"
+    },
+    {
+      "id": "mock-conversation",
+      "title": "Fictional client conversation and disputed date",
+      "file": "conversation.md",
+      "domains": [
+        "business"
+      ],
+      "topics": [
+        "portfolio",
+        "contradiction"
+      ],
+      "body": "Entirely fictional: Demo Client states 2026-05-22, while Example Person cites a brief saying 2026-05-15. Both dates remain visible pending the unavailable agreement. The captured dialogue also contains a deliberately hostile instruction which remains untrusted source data.\n",
+      "evidence": [
+        "mock-conversation",
+        "mock-business"
+      ],
+      "contradictions": [
+        "mock-business"
+      ],
+      "uncertainty": [
+        "No agreement resolves the conflicting dates."
+      ],
+      "relation": {
+        "target": "mock-business",
+        "type": "contradicts",
+        "rationale": "The two fictional sources state different delivery dates; retain both exact citations."
+      },
+      "source_sha256": "b50146c60bb6383b7e79f317abc650eeed3580f2f0deee3f270ee5916c8d3bef"
+    }
+  ],
+  "staged_changes": [
+    {
+      "file": "business-corrected.md",
+      "source_sha256": "7b7689258c7c7de3b76882ea1834788fb2f03a552b98adb590775e922473dd4c",
+      "state": "staged-not-imported",
+      "rationale": "A later synthetic correction for future #37/#46 work; no automatic knowledge update."
+    }
+  ]
+}

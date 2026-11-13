@@ -21,6 +21,12 @@ cases per Python, eight corrected package cases per Python and all nine complete
 source/wheel/archive goldens. Live OAuth/Drive, actual Codex/model quality and the
 real private pilot remain unperformed. No closed/open parent disposition changes.
 
+The selected [fictional mock garden](../examples/mock-garden/README.md) is a bounded
+#86/#90 fixture checkpoint: existing ledger/recovery plus business, career,
+household and conversation knowledge, exact citations and staged correction data.
+It provides reusable inputs for the proposed #37/#46/#90 batch without starting
+its remaining runtime features or changing any parent issue's disposition.
+
 This ledger retains **44 tracked issues**: the original 38 and deferred #86–#91.
 Acceptance #120 and integration #121–#125 are merged. **35 are open and nine
 are closed** (#10/#11/#12/#26/#28/#30/#33/#49/#51). GitHub closure state was

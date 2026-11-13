@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T05:12:40Z'
+  updated_at: '2026-11-13T05:43:10Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -73,9 +73,11 @@ scope:
   - docs/architecture-overview.md
   - docs/local-consultation-workflow.md
   - docs/evidence/local-workflow-stack-merge.json
+  - examples/mock-garden/README.md
+  - docs/evidence/mock-garden-qualification.json
 work:
-  objective: Record the authorized local-workflow merges and distinguish proposed synthetic follow-through from
-    operator-dependent private execution.
+  objective: Hand off the usable fictional garden and exact qualified source/artifacts as the shared synthetic dataset
+    for the next proposed batch.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
@@ -87,62 +89,43 @@ work:
   next:
     kind: action
     id: local-workflow-next-checkpoint
-    description: 'Review documentation draft #142 and select the proposed #37 → #46 → #90 synthetic batch: connect
-      real context/report consumers to freshness manifests, then multi-source refresh/quality and explicit CSV mappings.
-      Mapping is independently ready; optional #32 follows. Actual pilot still needs OS/private workspace/folder
-      configuration and real classification/consumer/runtime/credential setup. #88/#91 and release remain deferred.'
+    description: 'Review draft #142 → #143 and explore the generated START-HERE.md instance. Use its unapplied correction
+      and shared fictional world for the proposed #37 freshness → #46 multi-source refresh/quality → #90 explicit
+      CSV mapping checkpoints. Do not silently import the correction, approve real knowledge or infer actual financial/legal
+      facts. Private configuration remains independent.'
     readiness: ready
     references:
     - docs/local-consultation-workflow.md
     depends_on: []
 state:
   base:
-    revision: 5ec7ae017002f84e1dc36c2aaed3c76a00b079f3
-    ref: refs/remotes/origin/main
-    verified_at: '2026-11-13T05:12:40Z'
+    revision: eecb69b158abb4617938eb40b095cbc00c014088
+    ref: refs/heads/docs/local-workflow-merge-handoff
+    verified_at: '2026-11-13T05:43:10Z'
   candidate:
-    branch: docs/local-workflow-merge-handoff
-    revision: ff1d3c5af9d444580e1b384fb0d6c344e69848a9
+    branch: feature/86-fictional-mock-garden
+    revision: 881bb14d082c69c618fb4af74a1fa3f2fbb3ce07
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#142
-      url: https://github.com/egohygiene/mindgarden/pull/142
+      id: egohygiene/mindgarden#143
+      url: https://github.com/egohygiene/mindgarden/pull/143
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-13T05:12:40Z'
+    observed_at: '2026-11-13T05:43:10Z'
     default_branch_revision: 5ec7ae017002f84e1dc36c2aaed3c76a00b079f3
     issue_state: open
     pull_request_state: draft
-    notes: '#138 → #139 → #140 → #141 are merged in order at main 5ec7ae0. Every selected head has passing Test/preparation
-      and no review comments or threads; main exactly equals qualified combined head 5487549. Documentation-only
-      draft #142 records this receipt and a proposed #37/#46/#90 batch. 35 issues remain open / 44 tracked; 24 ADRs
-      retain proposed/null approval. The original root retains four interrupted entries.'
+    notes: 'Main remains 5ec7ae0 with #138–#141 merged. Documentation #142 → fictional demo #143 is the new draft
+      stack; functional fixture/client source881bb14. All three complete source/wheel/archive goldens match; 15
+      generated commands work. Five knowledge entries, four links, context15509 and eight transactions are wholly
+      invented. No user data, account, registry or credentials accessed.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T05:12:40Z'
+  reviewed_at: '2026-11-13T05:43:10Z'
   reviewed_by: codex
   evidence:
-  - command: python -m unittest tests.test_research tests.test_pilot tests.test_v1_contracts tests.test_scope_bundle_outputs
-      tests.test_local_federation --quiet (3.12/3.13); python -S scripts/research_demo.py --require-source --check-golden;
-      Ruff/format/owner/diff
-    outcome: passed
-    observed_at: '2026-11-13T03:17:13Z'
-    notes: 37 focused cases per Python, zero skips (41.487s/40.138s); complete composed research golden matches
-      twice with two caller plans and direct fallback. Engine model/network calls zero. Codex binary version 0.159.0-alpha.3
-      observed locally; no Codex runtime/model/private-data execution or quality claim. Clean combined distribution
-      qualification follows.
-  - command: 14-module focused unittest selection on frozen f8b2695 (both Pythons); runtime identity diff to 1ad9818;
-      eight package/distribution cases per Python at corrected source; nine exact complete source/wheel/sdist goldens;
-      eight isolated installed v0 smoke commands; compile/scoped Ruff/format/owner/176 links
-    outcome: passed
-    observed_at: '2026-11-13T03:29:49Z'
-    notes: '111 passed per Python, zero skips (196.775s/189.661s); runtime identity diff exit0; corrected package8
-      pass per Python (0.496s/0.468s); nine complete artifact goldens and installed v0 smoke pass. Scoped checks
-      pass; optional wide Ruff retains exactly32 pre-existing findings. Exact-head Test/preparation pass for #138/#139/#140.
-      #141 source1ad9818 preparation passes, Test pending; handoff-only CI separate. Full local/act and manual a11y
-      remain deferred.'
   - command: git diff --exit-code 54875495dabfcf4f8b57ec51dbb34ed404aa5374 origin/main; inspect all four exact-head
       automatic CI/reviews/threads; pinned owner and changed-document link/diff checks
     outcome: passed
@@ -152,6 +135,24 @@ review:
       checks and all 163 local links across seven changed Markdown files pass; runtime/contracts/fixtures are unchanged
       from main. Current main-push/draft CI remain separate. Private/live/model acceptance and broader parents are
       unclaimed.'
+  - command: python -S scripts/mock_garden_demo.py --require-source (3.12); Python3.13 same --check-golden; unittest
+      tests.test_mock_garden both Pythons; generated CLI commands; scoped Ruff/format; source/wheel build
+    outcome: passed
+    observed_at: '2026-11-13T05:34:50Z'
+    notes: 'Source proofs pass; complete 3.13 golden matches: five knowledge entries, four links, context15509,
+      eight transactions/net2259.76, unchanged selected packet. Four safe-path/seed-review/command tests pass per
+      Python (0.002s/0.003s). Four initial generated commands pass; final five-command and clean artifact qualification
+      follows. Initial contradiction field fixture mismatch corrected to existing exact-reference contract, without
+      weakening runtime.'
+  - command: python -m unittest tests.test_mock_garden tests.test_distribution tests.test_package --quiet (3.12/3.13);
+      mock_garden_demo.py --check-golden using frozen source(-S)/isolated wheel(-I)/unpacked source(-S); five generated
+      CLI commands per mode; scoped Ruff/format; owner/link/diff checks
+    outcome: passed
+    observed_at: '2026-11-13T05:43:10Z'
+    notes: 12 cases pass per Python, zero skips (0.581s/0.566s). Three complete goldens and all15 generated commands
+      pass. Scoped lint/format and pinned owner checks pass; all 145 local links across eleven changed Markdown
+      files resolve; compilation and owner/bounds checks pass. Domain/runtime/contracts/requirements unchanged;
+      no model-quality, real pilot or new freshness/mapping completion is claimed.
   environment_limitations:
   - Full local/act and manual accessibility remain deferred; focused evidence is distinct.
   - Actual private workspace, source selection, credentials and confidential-runtime assurance must exist before
@@ -176,7 +177,7 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer authorized ordered merges #138–#141. Those are complete at main 5ec7ae0 with the exact qualified tree. Draft #142 records the receipt and proposes #37/#46/#90 synthetic follow-through without starting it. This supplies no private-source authority or ADR ratification; #88/#91 and release work remain deferred.
+The maintainer requested mock data for an explorable fictional garden after the #138–#141 merges. Draft #142 → #143 preserves the handoff and this bounded fixture/client. The proposed #37/#46/#90 runtime work is not started; no private data, actual account or model is accessed. ADRs stay proposed, and #88/#91 plus release remain deferred.
 
 ## Resume protocol
 
@@ -184,19 +185,19 @@ Refresh live issue/PR state and comments; read README, AI_CONSTITUTION, ROADMAP,
 
 ## Current objective and success conditions
 
-Record the authorized local-workflow merges and distinguish proposed synthetic follow-through from operator-dependent private execution.
+Hand off the usable fictional garden and exact qualified source/artifacts as the shared synthetic dataset for the next proposed batch.
 
 ## State snapshot
 
-#138 → #139 → #140 → #141 are merged in order at main 5ec7ae0. Every selected head has passing Test/preparation and no review comments or threads; main exactly equals qualified combined head 5487549. Documentation-only draft #142 records this receipt and a proposed #37/#46/#90 batch. 35 issues remain open / 44 tracked; 24 ADRs retain proposed/null approval. The original root retains four interrupted entries.
+Main remains 5ec7ae0 with #138–#141 merged. Documentation #142 → fictional demo #143 is the new draft stack; functional fixture/client source881bb14. All three complete source/wheel/archive goldens match; 15 generated commands work. Five knowledge entries, four links, context15509 and eight transactions are wholly invented. No user data, account, registry or credentials accessed.
 
 ## Completed and material changes
 
-Merged activation, reviewed ledger packets, selected Drive capture/refresh and scoped research/Codex/preflight capabilities without changing their qualified tree. Preserved merge heads/commits/green CI and earlier nine artifact goldens. Refreshed current status and proposed ready synthetic work: actual context/report freshness, cross-source summary refresh/quality, explicit CSV mapping; optional SQLite follows. No new runtime implementation or private execution.
+Committed fictional source files, checksum/review manifest and complete golden; persistent real-engine sandbox with business/career/household/dialogue, disputed dates, exact evidence and unapplied correction. Ordinary source/curation/retrieval/packet services and earlier recovery fixtures reused. Source/isolated wheel/unpacked source produce identical proof and five working commands each; fake review remains explicitly artificial and sources unreviewed.
 
 ## Validation and review evidence
 
-git diff --exit-code 54875495dabfcf4f8b57ec51dbb34ed404aa5374 origin/main; inspect all four exact-head automatic CI/reviews/threads; pinned owner and changed-document link/diff checks — Merge tree comparison exit0. All four exact heads have passing Test/preparation; #141 prior pending Test43359542172 now passes. No runtime tests repeated for identical source. Pinned owner/continuity/44-row checks and all 163 local links across seven changed Markdown files pass; runtime/contracts/fixtures are unchanged from main. Current main-push/draft CI remain separate. Private/live/model acceptance and broader parents are unclaimed.
+python -m unittest tests.test_mock_garden tests.test_distribution tests.test_package --quiet (3.12/3.13); mock_garden_demo.py --check-golden using frozen source(-S)/isolated wheel(-I)/unpacked source(-S); five generated CLI commands per mode; scoped Ruff/format; owner/link/diff checks — 12 cases pass per Python, zero skips (0.581s/0.566s). Three complete goldens and all15 generated commands pass. Scoped lint/format and pinned owner checks pass; all 145 local links across eleven changed Markdown files resolve; compilation and owner/bounds checks pass. Domain/runtime/contracts/requirements unchanged; no model-quality, real pilot or new freshness/mapping completion is claimed.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -204,7 +205,7 @@ Actual pilot OS/workspace/folder selection is requested asynchronously; no crede
 
 ## Next dependency-ready work
 
-Review documentation draft #142 and select the proposed #37 → #46 → #90 synthetic batch: connect real context/report consumers to freshness manifests, then multi-source refresh/quality and explicit CSV mappings. Mapping is independently ready; optional #32 follows. Actual pilot still needs OS/private workspace/folder configuration and real classification/consumer/runtime/credential setup. #88/#91 and release remain deferred.
+Review draft #142 → #143 and explore the generated START-HERE.md instance. Use its unapplied correction and shared fictional world for the proposed #37 freshness → #46 multi-source refresh/quality → #90 explicit CSV mapping checkpoints. Do not silently import the correction, approve real knowledge or infer actual financial/legal facts. Private configuration remains independent.
 
 ## Parallel changes and reconciliation
 

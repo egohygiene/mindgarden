@@ -254,3 +254,39 @@ The next operator-dependent action remains the [private preflight](private-pilot
 with explicit OS, private workspace, selected Drive folder and local credentials,
 using the actual content classification and consumer/runtime authority. None of
 the proposed three software checkpoints requires private account content.
+
+## Fictional garden for the next checkpoints
+
+The maintainer requested mock data for a mock garden. The
+[reusable fictional example](../examples/mock-garden/README.md) extends the existing
+capture/ledger/research proof with four authored source notes and summaries for a
+fictional business, career, household and client dialogue. The real CLI ingests
+the sources, applies the predetermined fictional review plan, builds related and
+contradicting links, and leaves an explorable instance outside Git.
+
+The first source proof contains five reviewed knowledge entries, four typed
+links and all five entries within a 15,509-byte context. Search and exact evidence
+work; the financial packet retains its eight selected transactions and USD
+2259.76 net movement without incorporating unrelated notes. A later source file
+is staged, not imported/applied. This is the shared synthetic world for future
+#37/#46/#90 work, not implementation of those remaining refresh/mapping features.
+
+The launcher blocks networking/HTTP/process calls, reuses current engine services
+and leaves real registries/accounts untouched. The fixture's approved reviews are
+explicitly artificial; source records remain unreviewed. Existing context/review/
+policy/v0 contracts and all proposed ADRs are unchanged. POSIX filesystem controls
+and actual private/live/model acceptance remain separate.
+
+An initial authored plan used strings where the contradiction contract requires
+exact artifact references. The fixture was corrected without changing the engine.
+Final exact source/artifact verification, branch/PR and next action are recorded
+in CONTINUITY.md and the example's complete golden.
+
+Draft [#143](https://github.com/egohygiene/mindgarden/pull/143) stacks on documentation
+#142. Qualified source `881bb14d082c69c618fb4af74a1fa3f2fbb3ce07` passes 12 focused
+mock/distribution/v0 package cases per Python, zero skips (0.581s / 0.566s).
+Clean source, an isolated installed wheel and unpacked source match the complete
+mock golden; all five generated CLI commands pass in each mode. The
+[qualification receipt](evidence/mock-garden-qualification.json) preserves exact
+commands, artifact/report hashes and earlier corrected attempts. This introduces
+no engine/schema/provider or broader issue acceptance change.
