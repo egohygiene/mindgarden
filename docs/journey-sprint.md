@@ -34,7 +34,7 @@ checks are distinct evidence. No workflows were manually dispatched.
 | 1 | #15 | Binary diagram and source caption selection, scratch catalog, immutable full original | [#131](https://github.com/egohygiene/mindgarden/pull/131), `feature/15-selective-diagram-journey` / #130 | Merged; 21 focused tests each, hosted CI passes |
 | 2 | #13 | Mixed text/attachment authored curation, attribution and reviewed destination handoff | [#132](https://github.com/egohygiene/mindgarden/pull/132), `test/13-mixed-media-curation` / #131 | Merged; corrected hosted CI and post-recovery local checks pass |
 | 3 | #14 | Independently reviewed private incoming-reference repair and recovery | [#133](https://github.com/egohygiene/mindgarden/pull/133), `feature/14-reviewed-reference-repair` / main | Focused checks pass; draft for review |
-| 4 | #16 | Explicit public bundle discovery to bounded cited context | Next / #14 draft | Existing descriptor/catalog/session contracts; no remote acquisition |
+| 4 | #16 | Explicit public bundle discovery to bounded cited context | [#134](https://github.com/egohygiene/mindgarden/pull/134), `feature/16-public-bundle-context` / #133 | Focused public-reader/schema/scope checks pass; draft for review |
 | 5 | #17 | Actual Quartz note, backlinks and provenance reading journey | Next / #16 draft | Reuse the pinned renderer and existing accessibility checks |
 | 6 | #20 | Composed clean-checkout journey, migration/restore and exact rebuild | Next / #17 draft | Reuse all checkpoints; model and Google services disabled |
 
@@ -238,3 +238,52 @@ to lexical selection and bounded cited context (#16). Parent #14 still owns publ
 policy-changing routes, unpinned-reference review and wider recovery acceptance.
 
 Draft #133 functional commit: `b5a61f3d144fe854a83f45b26efe1057f6fbd059`.
+
+## Continued #16 supplied public-bundle context
+
+`federation query` consumes a versioned private request containing an existing
+public catalog, selected bundle directories/expected revisions, query and byte/item
+limits. It narrows the existing live session to already-authorized garden IDs.
+A catalog cannot grant access, register gardens or supply tool capabilities.
+Descriptor identity, digest and revision are checked before opening the selected
+index; complete bundle verification precedes record filtering and lexical ranking.
+Current metadata approval, public/publishable sensitivity, represented revisions,
+retirement and claim-subject boundaries are enforced before counts and ranking.
+
+The reader returns versioned JSON or bounded Markdown with original public
+records, canonical routes, exact logical source references, represented public
+revisions, qualification/review assertions and lexical score contributions. It
+opens no canonical content bodies, fetches no network data, writes no records and
+emits no local paths/session IDs. Expiry, revocation (including during a read),
+output/candidate budgets and changed inputs fail closed. Publisher assertions stay
+untrusted; checksums establish integrity rather than authenticity or truth.
+
+```sh
+mindgarden federation catalog --input supplied-bundles.json
+mindgarden federation query --local-config bindings.json --scope public-session.json --input public-context-request.json --format json
+mindgarden federation query --local-config bindings.json --scope public-session.json --input public-context-request.json --format markdown
+```
+
+The request contract and synthetic valid fixture show the exact fields. This
+baseline reads ordinary federation-bundle directories for gardens already in the
+session's authority. It is not a third-party package installer or remote/private
+federation protocol. Unselected unavailable directories are not opened. Rendered
+site package extraction, remote authentication/signatures and real Aether/Akashic
+consumer adoption retain their owning scope; producer capabilities are unchanged.
+
+Verification: Python 3.12.14 public-reader/federation/schema selection **32 pass**
+(51.791s), plus the added mid-read revocation case **1 pass** (1.619s). Python
+3.13.5 selection including scoped retrieval **47 pass** (61.794s), plus the same
+added case **1 pass** (1.407s). Separate 3.12 scoped/local discovery regression
+checks **23 pass** (24.845s). All have zero skips. Initial new-reader tests exposed
+a too-narrow score-contribution schema and a wrong expected corruption diagnostic;
+both were corrected before qualification. An exploratory routing/local invocation
+also named nonexistent `tests.test_query_views` and failed; the explicit valid
+scope/local commands above supersede it. No failed command is passing evidence.
+Ruff/new-file format, owner/continuity/coverage and diff checks pass. Broader full/
+`act` testing remains deferred; draft-head hosted CI awaits observation.
+
+Next: open this draft on #133, then test actual note/backlink/provenance reading
+on the pinned Quartz renderer (#17), followed by the composed recovery proof.
+
+Draft #134 functional commit: `8012a10a54b2ebfdb9c60f9ebbea67d5765a75d0`.

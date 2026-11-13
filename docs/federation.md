@@ -246,3 +246,9 @@ catalog is never-exportable and cannot be used as a public descriptor or as quer
 authority. Public bundle bytes/contracts above remain unchanged. Remote/private
 authentication, signatures, package installation and owner integration are not
 claimed by this local checkpoint.
+
+## Progressive supplied-bundle context
+
+The `federation query` CLI and shared `public_bundle_context` service consume an explicit public catalog plus selected supplied bundle directories, exact expected revisions and byte/item limits. The versioned `federation-context-request` and `federation-context` schemas preserve existing public record/citation contracts. JSON and Markdown include canonical URLs, review/qualification assertions and lexical inclusion reasons.
+
+Existing live session authority must already include each selected garden. Selection narrows that authority; a catalog grants nothing. Current metadata approval, sensitivity, retirement and represented revisions filter records before ranking/counts. Descriptor checks precede index reads, and complete bundle checks precede use. No canonical body, network acquisition, model, executable package or write is required. Local paths and session controls stay outside emitted packets. See [the checkpoint and exact verification](journey-sprint.md). This does not authenticate unsigned publishers, install third-party gardens or claim remote/private integration.

@@ -142,3 +142,7 @@ without confidential runtime/storage. See ../local-federation.md and
 tests/test_local_federation.py. Remote private protocols and real Aether/Akashic
 integration remain open. This is implementation evidence for a proposal, with
 status proposed and approval null unchanged.
+
+## Proposed supplied-bundle reader extension — 2026-11-12
+
+The continued #16 checkpoint adds local progressive catalog selection and bounded cited context over verified public bundles. It narrows existing live sessions and uses current authorized metadata before lexical ranking. Public catalog assertions grant no authority; records retain their exact represented sources, review assertions and canonical routes. There is no remote acquisition, new session model, package installation or publisher authentication claim. See [the journey ledger](../journey-sprint.md). This is implementation evidence only; status remains proposed and approval null.

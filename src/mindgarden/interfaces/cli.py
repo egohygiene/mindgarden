@@ -455,6 +455,13 @@ def add_federation_command(commands: ParserCollection) -> None:
     catalog = operations.add_parser("catalog", help="Verify and combine explicitly supplied public bundles without fetching")
     catalog.add_argument("--input", type=Path, required=True, help="Machine-local versioned catalog request with expected revisions")
     catalog.set_defaults(handler=run_federation)
+    public_query = operations.add_parser("query", help="Read selected supplied public bundles into bounded cited context")
+    public_query.add_argument("--local-config", type=Path, required=True)
+    public_query.add_argument("--scope", type=Path, required=True)
+    public_query.add_argument("--input", type=Path, required=True, help="Catalog, selected bundles and explicit byte/item limits")
+    public_query.add_argument("--format", choices=("json", "markdown"), default="json")
+    public_query.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
+    public_query.set_defaults(handler=run_federation, scoped_output_command=True)
 
     from ..application.local_federation import run_local_federation
 

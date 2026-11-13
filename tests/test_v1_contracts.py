@@ -152,6 +152,8 @@ class V1ContractTests(unittest.TestCase):
                 "local-federation-catalog",
                 "local-federation-query",
                 "federation-index",
+                "federation-context-request",
+                "federation-context",
                 "federation-graph",
                 "federation-catalog-request",
                 "federation-catalog",

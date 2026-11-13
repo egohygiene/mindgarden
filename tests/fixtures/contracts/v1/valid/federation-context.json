@@ -1,0 +1,86 @@
+{
+  "schema": "mindgarden.federation-context/v1",
+  "id": "synthetic-public-context",
+  "trust": "untrusted-evidence",
+  "scope": {
+    "execution": "offline",
+    "persistence": "machine-local",
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": "publishable",
+    "schema": "mindgarden.scope/v1",
+    "visibility": "public"
+  },
+  "inputs": [
+    {
+      "garden": "repository-garden",
+      "revision": "sha256:5ec1622bd2f1d2de2bcbf6d178033548824bbb444f9f763a6459bb01d6114ead"
+    }
+  ],
+  "budget": {
+    "max_bytes": 8192,
+    "max_items": 3,
+    "matched_candidates": 3
+  },
+  "included": [
+    {
+      "record": {
+        "canonical_url": "https://repository-garden.example.test/garden/notes/reviewed-claim/",
+        "confidence": "high",
+        "content": "Exact evidence is retained in the synthetic prompt.",
+        "domains": [],
+        "kind": "claim",
+        "qualifications": {
+          "attribution": "not-declared",
+          "caveats": [],
+          "contradictions": [],
+          "epistemic_state": "decided",
+          "uncertainty": []
+        },
+        "record_type": "claim",
+        "reference": {
+          "garden": "repository-garden",
+          "id": "reviewed-claim",
+          "revision": "sha256:9041afa5aeb9f972a62717e7dca71524b79dd73c1c0a357266f6971a10d38b18"
+        },
+        "review_state": "approved",
+        "scope": {
+          "execution": "offline",
+          "persistence": "machine-local",
+          "policy": {
+            "id": "mindgarden-local-single-user/v1",
+            "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+          },
+          "publication": "publishable",
+          "schema": "mindgarden.scope/v1",
+          "visibility": "public"
+        },
+        "selection_reason": "reviewed-profile-include",
+        "sources": [
+          {
+            "content_sha256": "844d4581e4f19e74c4417bc1ecc32e5646f75a584c60505e7bfdc88b7ea2152e",
+            "locator": "lines:1-1",
+            "source": {
+              "garden": "repository-garden",
+              "id": "public-source",
+              "revision": "sha256:1581c5901aadd064d9077a519dbda5a903b5cb5ea9f9be7b4864ec95f3345d32"
+            }
+          }
+        ],
+        "subject": {
+          "garden": "repository-garden",
+          "id": "reviewed-prompt",
+          "revision": "sha256:e1ce2bc9126281033e190c9607bff98c9cd38534c09a9e7d48216c8e2ca13a02"
+        },
+        "tags": [],
+        "title": "Exact evidence is retained in the synthetic prompt.",
+        "topics": []
+      },
+      "score": 1,
+      "selection_reason": "lexical-query",
+      "selection_reasons": []
+    }
+  ]
+}
