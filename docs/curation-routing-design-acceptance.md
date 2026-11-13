@@ -1,5 +1,7 @@
 # Curation, routing and design acceptance — 2026-11-13
 
+**Merged update:** #144 is merged as `81e8438`; #145–#147 are also merged at main `270ced6`. The twelve original #13 curation criteria now have merged evidence, including the two history/disposition criteria previously awaiting review. The actual local Ollama evaluation remains unperformed; #14 retains its broader scope and #38 stays closed. [Current merge receipt](evidence/freshness-mapping-stack-merge.json) and [remaining/setup plan](remaining-work-and-local-setup.md) supersede the earlier draft observations below.
+
 The maintainer authorized merging #142 → #143 and selected #13 → #14 → #38
 next. Live issue bodies and comments, their actual implementations and proposed
 ADRs were read before extending the engine. This audit retains all twelve #13
