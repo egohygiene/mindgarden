@@ -117,6 +117,54 @@
     "changed_markdown_files": 8,
     "runtime_comparison": "git diff --exit-code origin/main -- src contracts scripts profiles requirements tests pyproject.toml MANIFEST.in; exit 0",
     "owner_checks": "passed: 24 proposed/null-approval ADRs, bounded 12-heading continuity, 44 coverage rows and five native child links",
-    "all_open_coverage": "34 live open issues grouped exactly once; no new setup issue"
+    "all_open_coverage": "34 live open issues grouped exactly once; no new setup issue",
+    "pr": 148,
+    "reviewable_source": "5bdb26745000d5d061f35f2bf46c3c6b726ab986"
+  },
+  "coverage_groups": {
+    "local_pipeline": [
+      13,
+      14,
+      15,
+      20,
+      35,
+      37,
+      45,
+      46,
+      87,
+      89,
+      90
+    ],
+    "policy_decisions": [
+      29,
+      31,
+      41,
+      42
+    ],
+    "product_public": [
+      16,
+      17,
+      18,
+      21,
+      43,
+      44,
+      47,
+      48
+    ],
+    "optional_deferred": [
+      19,
+      27,
+      32,
+      34,
+      88,
+      91
+    ],
+    "umbrellas": [
+      1,
+      2,
+      5,
+      40,
+      86
+    ]
   }
 }

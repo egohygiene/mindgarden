@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T22:45:05Z'
+  updated_at: '2026-11-13T22:49:30Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -79,20 +79,25 @@ state:
     verified_at: '2026-11-13T22:45:05Z'
   candidate:
     branch: docs/merged-stack-and-remaining-plan
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 5bdb26745000d5d061f35f2bf46c3c6b726ab986
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#148
+      url: https://github.com/egohygiene/mindgarden/pull/148
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-13T22:45:05Z'
+    observed_at: '2026-11-13T22:49:30Z'
     default_branch_revision: 270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a
     issue_state: open
-    pull_request_state: not-applicable
+    pull_request_state: draft
     notes: 'All authorized #144 → #145 → #146 → #147 merges completed with passing exact-head Test/preparation,
       refreshed empty reviews/comments/threads and expected-head leases. Main 270ced6 equals the exact qualified
       d4fede7 tree. 34 issues open / 44 tracked / ten closed; zero new closures or setup issues. #13 now has all
       twelve original curation criteria checked; its actual local model evaluation remains unchecked. Original root
-      WIP is untouched.'
+      WIP is untouched. Documentation-only draft #148 records this sync, with 127 local targets across eight Markdown
+      files, pinned owner/group checks and unchanged runtime. Its automatic CI is separate from the four merged
+      heads.'
   parallel_changes: []
 review:
   status: partial
@@ -176,7 +181,7 @@ Sync on the proposed finish/setup plan. First proposed code checkpoint is review
 
 ## Parallel changes and reconciliation
 
-Merged main 270ced6 exactly matches tested d4fede7. Preserve old qualified branches/worktrees and four original root WIP entries. This new branch changes documentation only; any new draft is a reviewable merge/sync receipt, not new feature implementation.
+Merged main 270ced6 exactly matches tested d4fede7. Preserve old qualified branches/worktrees and four original root WIP entries. Documentation-only draft #148 records this sync; any new draft is a reviewable merge/sync receipt, not new feature implementation.
 
 ## Privacy and redaction
 
