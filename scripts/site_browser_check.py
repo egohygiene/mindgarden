@@ -6,6 +6,7 @@ from copy import deepcopy
 import functools
 import http.server
 import importlib.metadata
+import json
 from pathlib import Path
 import shutil
 import subprocess
@@ -27,11 +28,40 @@ from mindgarden.domain.contracts import canonical_json, digest_bytes, read_objec
 from mindgarden.domain.site import QUARTZ_COMMIT, SITE_MARKER, verify_site
 from mindgarden.domain.validation import ContractError
 from tests.site_fixture import create_fixture
-from tests.support_v1 import add_knowledge, write_json
+from tests.support_v1 import add_knowledge, add_source, reference, write_json
 
 
 def fixture(root, variant):
     data = create_fixture(root, empty=variant == "empty")
+    if variant == "small":
+        identity = "synthetic-source-" + "long-citation-" * 5 + "evidence"
+        content = b"Synthetic long-citation source; retain exact provenance.\n"
+        source = add_source(data["workspace"], content, record_id=identity)
+        source["visibility"] = "public"
+        write_json(data["workspace"] / ".garden/sources" / (identity + ".json"), source)
+        path = data["workspace"] / ".garden/knowledge/reviewed-prompt.json"
+        prompt = read_object(path)
+        prompt["sources"].append(
+            {
+                "source": reference(
+                    "repository-garden", identity, digest_bytes(content)
+                ),
+                "locator": "lines:1-1",
+                "content_sha256": digest_bytes(content),
+            }
+        )
+        write_json(path, prompt)
+        data["evidence"] = prompt["sources"]
+        session = read_object(data["session_path"])
+        write_json(
+            data["session_path"], bind_session_revisions(data["configuration"], session)
+        )
+        data["context"] = QueryContext.load(data["configuration"], data["session_path"])
+        index = build_index(data["context"])
+        data["profile"].update(
+            source_revision=index["inputs"][0]["revision"],
+            inputs=[record["reference"] for record in index["records"]],
+        )
     if variant == "large":
         for index in range(202):
             record = add_knowledge(
@@ -224,6 +254,97 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         pass
 
 
+def note_reading_proof(page, data, base, axe_script):
+    """Use actual search and links; compare both note views with served evidence."""
+    page.goto(base + "/garden/", wait_until="networkidle")
+    page.get_by_role("button", name="Search", exact=True).press("Enter")
+    search = page.get_by_role("textbox", name="Search for something...", exact=True)
+    search.fill("evidence")
+    result = page.locator(
+        '.results-container a.result-card[href*="notes/reviewed-prompt"]'
+    )
+    result.wait_for(state="visible")
+    result.focus()
+    page.keyboard.press("Enter")
+    page.wait_for_url("**/notes/reviewed-prompt/**")
+    preview = page.evaluate(
+        """async () => {const r=await fetch(new Request('/garden/notes/reviewed-prompt/index?synthetic=1')); return {ok:r.ok,path:new URL(r.url).pathname}}"""
+    )
+    assert preview == {"ok": True, "path": "/garden/notes/reviewed-prompt/"}
+    index = read_object(data["export"] / "garden/index.json")
+    records = {record["reference"]["id"]: record for record in index["records"]}
+    observations = []
+    for identity, following in (
+        ("reviewed-prompt", "reviewed-reference"),
+        ("reviewed-reference", "reviewed-prompt"),
+    ):
+        page.get_by_role("heading", name="Exact evidence", exact=True).wait_for()
+        actual = [
+            json.loads(text)
+            for text in page.locator("article pre code").all_text_contents()
+            if text.lstrip().startswith("{")
+        ]
+        expected = records[identity]
+        for source in expected["sources"]:
+            assert source in actual, (identity, source)
+        assert expected["reference"] in actual
+        assert expected["qualifications"] in actual
+        text = page.locator("article").inner_text()
+        assert (
+            "outbound · supports"
+            if identity == "reviewed-prompt"
+            else "backlink · supports"
+        ) in text
+        for denied in (
+            "unreviewed-body-canary",
+            "private-review-rationale-canary",
+            "hidden-root-canary",
+        ):
+            assert denied not in text
+        page.add_script_tag(path=str(axe_script))
+        audits = []
+        for theme in ("light", "dark"):
+            if (
+                page.evaluate("document.documentElement.getAttribute('saved-theme')")
+                != theme
+            ):
+                page.get_by_role(
+                    "button",
+                    name="Dark mode" if theme == "dark" else "Light mode",
+                    exact=True,
+                ).click()
+            result = page.evaluate(
+                """async () => {const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}});return {version:axe.version,violations:r.violations.map(v=>({id:v.id,impact:v.impact,targets:v.nodes.map(n=>n.target),details:v.nodes.map(n=>n.failureSummary)})),incomplete:r.incomplete.map(v=>v.id)}}"""
+            )
+            assert result["version"] == "4.10.3"
+            assert not result["violations"], (identity, theme, result)
+            audits.append({"theme": theme, **result})
+        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+        page.evaluate('document.documentElement.style.fontSize="200%"')
+        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+        page.evaluate('document.documentElement.style.fontSize=""')
+        link = page.locator(f'article a[href*="{following}"]').first
+        link.focus()
+        assert link.evaluate("element => element === document.activeElement")
+        observations.append(
+            {
+                "record": expected["reference"],
+                "exact_citations": len(expected["sources"]),
+                "keyboard_relationship_link": following,
+                "reflow_200_percent": "passed",
+                "axe": audits,
+            }
+        )
+        page.keyboard.press("Enter")
+        page.wait_for_url(f"**/notes/{following}/**")
+    return {
+        "search_to_note": "keyboard",
+        "note_to_relationship_and_backlink": "keyboard",
+        "provenance": "exact-served-source-and-record-revisions",
+        "notes": observations,
+    }
+
+
 def browser_proof(data, axe_script, chromium):
     from playwright.sync_api import sync_playwright
 
@@ -363,6 +484,11 @@ def browser_proof(data, axe_script, chromium):
                     assert page.evaluate(
                         "document.documentElement.scrollWidth <= innerWidth"
                     )
+                    reading = (
+                        note_reading_proof(page, data, base, axe_script)
+                        if nodes == 3
+                        else None
+                    )
                     observations.append(
                         {
                             "width": width,
@@ -371,6 +497,7 @@ def browser_proof(data, axe_script, chromium):
                             "axe": audits,
                             "mobile_expanded_axe": expanded_audit,
                             "explorer_controls": "native-disclosure-state-and-controlled-content",
+                            "reading_journey": reading,
                         }
                     )
                     context.close()
@@ -390,6 +517,22 @@ def browser_proof(data, axe_script, chromium):
                     == 1
                 )
                 assert page.locator("#mindgarden-graph button:disabled").count() == 3
+                if nodes:
+                    page.goto(base + "/garden/notes/reviewed-prompt/")
+                    assert (
+                        page.get_by_role(
+                            "heading", name="Exact evidence", exact=True
+                        ).count()
+                        == 1
+                    )
+                    link = page.locator('article a[href*="reviewed-reference"]').first
+                    assert link.get_attribute("href").endswith(
+                        "/notes/reviewed-reference/"
+                    )
+                    link.focus()
+                    page.keyboard.press("Enter")
+                    page.wait_for_url("**/notes/reviewed-reference/**")
+                    assert "backlink · supports" in page.locator("article").inner_text()
                 static.close()
                 failed = browser.new_context()
                 failed.route(
@@ -416,6 +559,9 @@ def browser_proof(data, axe_script, chromium):
                     "playwright": importlib.metadata.version("playwright"),
                     "viewports": observations,
                     "javascript_disabled_list": "passed",
+                    "javascript_disabled_note": "passed"
+                    if nodes
+                    else "not-applicable-empty-selection",
                     "unavailable_graph": "passed",
                     "browser_requests": "loopback-only",
                 }
@@ -444,6 +590,12 @@ def main():
     )
     parser.add_argument("--chromium", default="/usr/bin/chromium")
     parser.add_argument("--report", type=Path)
+    parser.add_argument(
+        "--variant",
+        action="append",
+        choices=("empty", "small", "large"),
+        help="Focus selected synthetic variants; default runs all three",
+    )
     args = parser.parse_args()
     workspace = args.workspace.absolute()
     if (
@@ -453,7 +605,7 @@ def main():
     ):
         parser.error("Use a new or empty ordinary synthetic workspace")
     reports = {}
-    for variant in ("empty", "small", "large"):
+    for variant in dict.fromkeys(args.variant or ("empty", "small", "large")):
         data = fixture(workspace / variant, variant)
         reports[variant] = {
             "render": render(data, args.renderer.absolute(), args.npm_cache.absolute()),

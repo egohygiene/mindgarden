@@ -3,6 +3,9 @@ article, .center, .sidebar { min-width: 0; }
 article { overflow-wrap: anywhere; }
 article pre { max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; }
 article pre code { white-space: pre-wrap; }
+.toc .toc-content, .toc .toc-content :is(ul, li, a) { opacity: 1 !important; }
+.toc .toc-content a { color: var(--darkgray) !important; }
+.toc .toc-content a.in-view { font-weight: 600; text-decoration: underline; }
 .page-listing { display: none; }
 #mindgarden-graph { border: 1px solid var(--lightgray); padding: 1rem; border-radius: .5rem; }
 #mindgarden-graph svg { display: block; width: 100%; height: auto; max-height: 32rem; }

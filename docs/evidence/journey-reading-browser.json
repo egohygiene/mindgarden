@@ -1,0 +1,226 @@
+{
+  "google": "unused",
+  "limitations": [
+    "Automated rules/keyboard checks are not full WCAG or screen-reader certification",
+    "Relay #40 action, host promotion and production publication remain unverified"
+  ],
+  "models": "unused",
+  "renderer_commit": "075afd3f712da0088a07f5284a7b3aba37dd61b6",
+  "schema": "mindgarden.rendered-browser-portal-proof/v1",
+  "status": "passed-bounded-browser-checks",
+  "variants": {
+    "small": {
+      "browser": {
+        "browser_requests": "loopback-only",
+        "chromium": "151.0.7922.173",
+        "javascript_disabled_list": "passed",
+        "javascript_disabled_note": "passed",
+        "playwright": "1.62.0",
+        "unavailable_graph": "passed",
+        "viewports": [
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": []
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": []
+              }
+            ],
+            "checks": "passed",
+            "explorer_controls": "native-disclosure-state-and-controlled-content",
+            "graph_ready_seconds": 0.283,
+            "mobile_expanded_axe": {
+              "incomplete": [],
+              "version": "4.10.3",
+              "violations": []
+            },
+            "reading_journey": {
+              "note_to_relationship_and_backlink": "keyboard",
+              "notes": [
+                {
+                  "axe": [
+                    {
+                      "incomplete": [
+                        "color-contrast",
+                        "duplicate-id-aria"
+                      ],
+                      "theme": "light",
+                      "version": "4.10.3",
+                      "violations": []
+                    },
+                    {
+                      "incomplete": [
+                        "color-contrast",
+                        "duplicate-id-aria"
+                      ],
+                      "theme": "dark",
+                      "version": "4.10.3",
+                      "violations": []
+                    }
+                  ],
+                  "exact_citations": 2,
+                  "keyboard_relationship_link": "reviewed-reference",
+                  "record": {
+                    "garden": "repository-garden",
+                    "id": "reviewed-prompt",
+                    "revision": "sha256:e1ce2bc9126281033e190c9607bff98c9cd38534c09a9e7d48216c8e2ca13a02"
+                  },
+                  "reflow_200_percent": "passed"
+                },
+                {
+                  "axe": [
+                    {
+                      "incomplete": [
+                        "color-contrast",
+                        "duplicate-id-aria"
+                      ],
+                      "theme": "light",
+                      "version": "4.10.3",
+                      "violations": []
+                    },
+                    {
+                      "incomplete": [
+                        "color-contrast",
+                        "duplicate-id-aria"
+                      ],
+                      "theme": "dark",
+                      "version": "4.10.3",
+                      "violations": []
+                    }
+                  ],
+                  "exact_citations": 1,
+                  "keyboard_relationship_link": "reviewed-prompt",
+                  "record": {
+                    "garden": "repository-garden",
+                    "id": "reviewed-reference",
+                    "revision": "sha256:108c4cd4985f2149128df1478b61582798253bac06c6dfe369446f88c763d4d7"
+                  },
+                  "reflow_200_percent": "passed"
+                }
+              ],
+              "provenance": "exact-served-source-and-record-revisions",
+              "search_to_note": "keyboard"
+            },
+            "width": 320
+          },
+          {
+            "axe": [
+              {
+                "incomplete": [],
+                "theme": "light",
+                "version": "4.10.3",
+                "violations": []
+              },
+              {
+                "incomplete": [],
+                "theme": "dark",
+                "version": "4.10.3",
+                "violations": []
+              }
+            ],
+            "checks": "passed",
+            "explorer_controls": "native-disclosure-state-and-controlled-content",
+            "graph_ready_seconds": 0.185,
+            "mobile_expanded_axe": null,
+            "reading_journey": {
+              "note_to_relationship_and_backlink": "keyboard",
+              "notes": [
+                {
+                  "axe": [
+                    {
+                      "incomplete": [
+                        "color-contrast",
+                        "duplicate-id-aria"
+                      ],
+                      "theme": "light",
+                      "version": "4.10.3",
+                      "violations": []
+                    },
+                    {
+                      "incomplete": [
+                        "color-contrast",
+                        "duplicate-id-aria"
+                      ],
+                      "theme": "dark",
+                      "version": "4.10.3",
+                      "violations": []
+                    }
+                  ],
+                  "exact_citations": 2,
+                  "keyboard_relationship_link": "reviewed-reference",
+                  "record": {
+                    "garden": "repository-garden",
+                    "id": "reviewed-prompt",
+                    "revision": "sha256:e1ce2bc9126281033e190c9607bff98c9cd38534c09a9e7d48216c8e2ca13a02"
+                  },
+                  "reflow_200_percent": "passed"
+                },
+                {
+                  "axe": [
+                    {
+                      "incomplete": [
+                        "color-contrast",
+                        "duplicate-id-aria"
+                      ],
+                      "theme": "light",
+                      "version": "4.10.3",
+                      "violations": []
+                    },
+                    {
+                      "incomplete": [
+                        "color-contrast",
+                        "duplicate-id-aria"
+                      ],
+                      "theme": "dark",
+                      "version": "4.10.3",
+                      "violations": []
+                    }
+                  ],
+                  "exact_citations": 1,
+                  "keyboard_relationship_link": "reviewed-prompt",
+                  "record": {
+                    "garden": "repository-garden",
+                    "id": "reviewed-reference",
+                    "revision": "sha256:108c4cd4985f2149128df1478b61582798253bac06c6dfe369446f88c763d4d7"
+                  },
+                  "reflow_200_percent": "passed"
+                }
+              ],
+              "provenance": "exact-served-source-and-record-revisions",
+              "search_to_note": "keyboard"
+            },
+            "width": 1280
+          }
+        ]
+      },
+      "portal": {
+        "checks": [
+          "actual-renderer-manifest",
+          "receipt-failure-blocks-verification",
+          "retry-and-repeat",
+          "siblings-preserved",
+          "corrupted-candidate-denied",
+          "previous-portal-retained"
+        ],
+        "deployment": "not-invoked",
+        "owned_files": 60,
+        "receipt_sha256": "f626fed89719b1d25e206d96c2e1cbabcf78b9dc3a0b9493faa063cd1511d3fd",
+        "relay_action": "unavailable-at-inspected-pin"
+      },
+      "render": {
+        "build_seconds": 13.101,
+        "files": 60,
+        "manifest_sha256": "15642ecaa8c392cc0b85d174468448ee58443bd112ee92d9d4adfa1600e261ba",
+        "nodes": 3,
+        "revision": "sha256:e68fc1b9b6ab546133a460f5c247c3905d4c8062a279505bfc58ce95a16fb10f"
+      }
+    }
+  }
+}
