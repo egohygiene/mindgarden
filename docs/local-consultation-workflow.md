@@ -159,3 +159,11 @@ The actual private pilot has not run because the required user-specific setup is
 unavailable; no parent issue, legal/financial conclusion or confidential assurance
 is claimed. Initial fixture attempts used a nonexistent adapter ID and invalid empty
 session fields; corrected tests retain the real contracts rather than weakening them.
+
+Combined artifact qualification found that the source manifest omitted the new
+CSV fixture extension: unpacked-source execution failed before import. #141
+includes the manifest correction and explicit three-file distribution assertions.
+The earlier source/wheel observations remain separate; only the corrected source
+archive can satisfy the composed clean-artifact checkpoint. Packaging/release
+guidance, declaration, changelog and pinned owner inventory were read before this
+change; version, publication workflow and release policy are unchanged.
