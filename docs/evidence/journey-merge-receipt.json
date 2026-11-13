@@ -1,0 +1,83 @@
+{
+  "observed_at": "2026-11-12 18:42:32 UTC",
+  "authorization": "Maintainer explicitly authorized merges and continued implementation; broader local CI/act can follow.",
+  "main": "f5baa3dac3f7624bea94f5224e136de6ef5482b0",
+  "combined_head": "0a675fde19dd746f4af98bf946521a93b247a3be",
+  "identical_tree": "4b7dbeb5d265dc8587b47e2d53f33fd706a32d2a",
+  "merges": [
+    {
+      "pr": 127,
+      "head": "5c267b5fbfc3f68b3b992b41c7644bbc51438919",
+      "sha": "904809083a06a3bcb7f514122cbfb5ec53a4c900",
+      "merged": true,
+      "message": "Pull Request successfully merged"
+    },
+    {
+      "pr": 128,
+      "head": "5548976ba4fb3c2eb63c3d643faf45631d677fd2",
+      "sha": "e849d30f4e88f4089358128a3182d2a82ee4a6e3",
+      "merged": true,
+      "message": "Pull Request successfully merged"
+    },
+    {
+      "pr": 129,
+      "head": "3893c399e3b96cb56868b7f573c9de30b7d40cfd",
+      "sha": "4b547abdb73d9572596e8c9b2da3e72ec9a5334d",
+      "merged": true,
+      "message": "Pull Request successfully merged"
+    },
+    {
+      "pr": 130,
+      "head": "f92d4160fff63e70c21ca46a2bdabdd6a66ea8a5",
+      "sha": "80a2e16dc6ac452db1b82eb55ff74725b315b538",
+      "merged": true,
+      "message": "Pull Request successfully merged"
+    },
+    {
+      "pr": 131,
+      "head": "0beaaefa56d6c29ea9606909eda2b50ace3ff2f8",
+      "sha": "ae8f438082997cdbe95d3c281323e89b5373f639",
+      "merged": true,
+      "message": "Pull Request successfully merged"
+    },
+    {
+      "pr": 132,
+      "head": "0a675fde19dd746f4af98bf946521a93b247a3be",
+      "sha": "f5baa3dac3f7624bea94f5224e136de6ef5482b0",
+      "merged": true,
+      "message": "Pull Request successfully merged"
+    }
+  ],
+  "hosted": {
+    "all_six_original_heads": "Test and release preparation success",
+    "last_test_run": 43278711469,
+    "last_preparation_run": 43278711575
+  },
+  "local": {
+    "mixed_and_diagram": {
+      "passed": 6,
+      "skipped": 0,
+      "seconds": 4.062,
+      "python": "3.12.14"
+    },
+    "reference_repair_312": {
+      "passed": 37,
+      "skipped": 0,
+      "seconds": 30.5
+    },
+    "reference_repair_313": {
+      "prior_cases": 35,
+      "prior_seconds": 28.319,
+      "added_cases": 2,
+      "added_seconds": 2.669,
+      "skipped": 0
+    }
+  },
+  "deferred": [
+    "full combined discovery",
+    "act local workflow reproduction"
+  ],
+  "act": "not installed; Docker binary present",
+  "parent_issues": "remain open except already closed #10; no new parent closure",
+  "adrs": "all 24 proposed/null approval"
+}

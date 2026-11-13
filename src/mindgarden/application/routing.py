@@ -33,6 +33,9 @@ def snapshots_for(bindings: LocalBindings, staged: dict | None = None, *, allow_
     from ..domain.routing_transitions import retired_references
 
     retired_references(record for snapshot in result.values() for record in snapshot.records.values())
+    from ..domain.reference_repairs import repair_history
+
+    repair_history(record for snapshot in result.values() for record in snapshot.records.values())
     return result
 
 
@@ -294,10 +297,17 @@ def run_route(arguments: Namespace) -> int:
             raise ContractError("RECOVERY_DIGEST: --plan-digest identifies the interrupted operation")
         result = recover_routing(bindings, arguments.plan_digest)
     else:
-        if arguments.transition:
-            from .routing_lifecycle import build_transition_plan
+        if arguments.transition or getattr(arguments, "reference_repair", None):
+            if arguments.transition and getattr(arguments, "reference_repair", None):
+                raise ContractError("ROUTE_INPUT: choose one transition or reference repair request")
+            if getattr(arguments, "reference_repair", None):
+                from .reference_repairs import build_reference_repair_plan
 
-            plan = build_transition_plan(bindings, arguments.transition)
+                plan = build_reference_repair_plan(bindings, arguments.reference_repair)
+            else:
+                from .routing_lifecycle import build_transition_plan
+
+                plan = build_transition_plan(bindings, arguments.transition)
             result = plan.document()
             if arguments.apply:
                 if not arguments.plan_digest:

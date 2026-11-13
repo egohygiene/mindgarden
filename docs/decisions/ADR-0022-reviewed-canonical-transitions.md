@@ -84,3 +84,7 @@ not inferred. See tests/test_routing_transfers.py and the routing checkpoint for
 lineage, stale/collision, policy and second-cutover rollback proofs. Incoming edge
 retargeting and public/policy-changing migration remain open. This extends the
 proposal only: status remains proposed and approval remains null.
+
+## Proposed exact reference-repair extension — 2026-11-12
+
+The authorized local checkpoint adds independently reviewed incoming-reference replacements as versioned extensions of existing provenance and synapse records. Exact old edges, evidence and source owners survive. New edges depend on their private review event and pinned canonical-transition lineage; ordinary personal policies must match. History remains valid when a successor later moves. Existing group transactions supply rollback/retry. See [the journey ledger](../journey-sprint.md). This implementation evidence does not ratify the original decision or this extension: status remains proposed and approval null.

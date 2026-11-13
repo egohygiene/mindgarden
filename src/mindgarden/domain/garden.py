@@ -354,6 +354,21 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
                 target = item["target"]
                 evidence(target, location) if "source" in target else resolve(target, location)
         elif kind == "synapse":
+            if "x-reference-repair-event" in record:
+                from .reference_repairs import repair_event, repair_pointer
+
+                try:
+                    pointer = repair_pointer(record)
+                    receipt = resolve(pointer, location, "provenance")
+                    event = repair_event(receipt[1]) if receipt else None
+                    if receipt and (event is None or event["replacement"] != {
+                        "garden": record["garden"], "id": record["id"],
+                        "revision": "sha256:" + snapshot.hashes[record["id"]],
+                    }):
+                        raise ContractError("ROUTE_REPAIR_INVALID: repair review does not bind this relationship")
+                except ContractError:
+                    issue("ROUTE_REPAIR_INVALID", location, "Relationship review lineage differs",
+                          "Restore the exact private repair review and replacement.")
             resolve(record["source"], location)
             resolve(record["target"], location)
             endpoints = tuple((record[field]["garden"], record[field]["id"]) for field in ("source", "target"))
@@ -370,6 +385,29 @@ def inspect_garden(repository_root: Path, *, content_resolver: Callable[[dict], 
             for locator in record["evidence"]:
                 evidence(locator, location)
         elif kind == "provenance":
+            if "x-reference-repair" in record:
+                from .reference_repairs import repair_event, verify_repair
+
+                try:
+                    event = repair_event(record)
+                    dependencies = {}
+                    for field, expected in (("original", "synapse"), ("replacement", "synapse"),
+                                            ("source", "knowledge"), ("historical_target", "knowledge"),
+                                            ("canonical_target", "knowledge")):
+                        reference = event[field]
+                        found = resolve(reference, location, expected)
+                        if found:
+                            dependencies[(reference["garden"], reference["id"])] = found[1]
+                    # Canonical lineage may live in another explicitly authorized garden.
+                    available = {**(authorized_gardens or {}), snapshot.manifest["id"]: snapshot}
+                    dependencies.update({(garden, identity): item for garden, owner in available.items()
+                                         for identity, item in owner.records.items()})
+                    if all((event[field]["garden"], event[field]["id"]) in dependencies
+                           for field in ("original", "replacement", "source", "historical_target", "canonical_target")):
+                        verify_repair(record, dependencies)
+                except ContractError:
+                    issue("ROUTE_REPAIR_INVALID", location, "Invalid reviewed reference repair",
+                          "Restore exact relationship lineage or author a new private repair plan.")
             if "x-asset-review" in record:
                 from .assets import asset_review
 

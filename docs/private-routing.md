@@ -172,3 +172,11 @@ General edge repair still needs an explicit operation naming independently
 reviewed replacement references; public/policy-changing transitions remain open.
 This is a bounded #14 checkpoint under proposed ADR-0022, not ratification or a
 claim of complete incoming migration.
+
+## Reviewed incoming-reference repair
+
+The journey checkpoint adds `route --reference-repair FILE` over versioned request/event contracts. It requires exact pinned edge, source, historical target and current reviewed canonical successor, a fresh replacement identity, rationale and explicit human approval. Matching ordinary personal policies are required for every contribution. The existing edge and source owner are retained byte for byte; the new edge keeps type, direction, attribution and evidence. Its logical review pointer and the event's exact represented replacement avoid a recursive hash while binding the entire authorized closure.
+
+The repair event also pins every canonical-transition provenance record on the selected path. This keeps validation/rebuild possible without opening other garden bodies. Old historical-target edges are absent from current induced graphs because their knowledge target is retired; no read silently changes their intent. A later target move preserves the historical repair but requires another explicit review of its current replacement. Conflicting repairs and unpinned historical endpoints are refused.
+
+The existing group journal governs multi-owner rollback/retry; originals and vault bytes are never rewritten. See [exact commands, tests and remaining scope](journey-sprint.md). Proposed ADR-0022 is unchanged in status and approval.

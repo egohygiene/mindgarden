@@ -31,6 +31,11 @@ def dependencies(record: dict) -> set[tuple[str, str]]:
     elif kind == "mindgarden.synapse/v1":
         references += [record["source"], record["target"]]
         references += [item["source"] for item in record["evidence"]]
+        from ..domain.reference_repairs import repair_pointer
+
+        pointer = repair_pointer(record)
+        if pointer is not None:
+            references.append(pointer)
     elif kind == "mindgarden.provenance/v1":
         references += [record["artifact"]]
         references += [item["artifact"] for item in record["inputs"]
@@ -67,6 +72,9 @@ def metadata_view(context):
         snapshots[garden] = snapshot
     records = {(garden, record_id): record for garden, snapshot in snapshots.items()
                for record_id, record in snapshot.records.items()}
+    from ..domain.reference_repairs import repair_event, repair_history, repair_pointer, verify_repair
+
+    repair_history(records.values())
     retired = retired_references(records.values())
     for identity, event in retired.items():
         original = records.get(identity)
@@ -92,6 +100,18 @@ def metadata_view(context):
         if identity in records:
             del records[identity]
             denied.extend(dependents[identity])
+    for identity, record in records.items():
+        pointer = repair_pointer(record) if record["schema"] == "mindgarden.synapse/v1" else None
+        if pointer is not None:
+            receipt = records.get(key(pointer))
+            event = repair_event(receipt) if receipt is not None else None
+            if event is None or event["replacement"] != {
+                "garden": identity[0], "id": identity[1],
+                "revision": "sha256:" + digest_bytes(canonical_json(record)),
+            }:
+                raise ContractError("QUERY_INTEGRITY: reviewed reference repair is invalid")
+        if "x-reference-repair" in record:
+            verify_repair(record, records)
     # Propagate every evidence/provenance restriction before opening bodies.
     # Self references in provenance are harmless monotone cycles, not a reason
     # to discard attribution or silently weaken a derived classification.
@@ -142,6 +162,8 @@ def metadata_view(context):
     edges = sorted(identity for identity, record in records.items() if record["schema"] == "mindgarden.synapse/v1"
                    and key(record["source"]) in roots and key(record["target"]) in roots)
     roots.update(edges[:context.session["budgets"]["max_candidates"]])
+    # A repaired edge depends on its review event. Include that event and its
+    # historical evidence in the same authorized closure and represented revision.
     selected = set()
     pending = list(roots)
     while pending:

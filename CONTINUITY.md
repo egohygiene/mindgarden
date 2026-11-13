@@ -7,13 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T18:15:00Z'
+  updated_at: '2026-11-12T18:46:13Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: 'Resume the authorized #15/#13/#14/#16/#17/#20 privacy and storage follow-through.'
+  purpose: 'Resume authorized #15/#13/#14/#16/#17/#20 journey checkpoints after the #127–#132 merges.'
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -70,73 +70,73 @@ scope:
   - docs/privacy-storage-followthrough.md
   - docs/journey-sprint.md
 work:
-  objective: Deliver six bounded reading/evidence journey checkpoints in small draft PRs, preserving the existing
-    unmerged stack.
+  objective: 'Complete the four remaining bounded journey checkpoints after the authorized #127–#132 merges.'
   success_conditions:
-  - Preserve Python/v0, exact evidence, scope and proposed ADR status.
-  - Leave small tested draft checkpoints and an explicit dependency stack for review.
+  - Preserve Python/v0, exact evidence, privacy and proposed ADR status.
+  - Leave bounded reviewable checkpoints with actual verification and an explicit stack.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#13
-    url: https://github.com/egohygiene/mindgarden/issues/13
+    id: egohygiene/mindgarden#14
+    url: https://github.com/egohygiene/mindgarden/issues/14
   next:
     kind: action
     id: journey-next-checkpoint
-    description: 'Resume and verify recovered #13 draft #132 when execution is usable, then implement #14.'
+    description: 'Implement #16 explicit public bundle discovery and bounded cited context above draft #133; #17
+      reading and #20 composition follow. Keep new drafts for review.'
     readiness: ready
     references:
     - docs/journey-sprint.md
     depends_on: []
 state:
   base:
-    revision: 0beaaefa56d6c29ea9606909eda2b50ace3ff2f8
-    ref: refs/heads/feature/15-selective-diagram-journey
-    verified_at: '2026-11-12T18:15:00Z'
+    revision: f5baa3dac3f7624bea94f5224e136de6ef5482b0
+    ref: refs/remotes/origin/main
+    verified_at: '2026-11-12T18:46:13Z'
   candidate:
-    branch: test/13-mixed-media-curation
-    revision: null
+    branch: feature/14-reviewed-reference-repair
+    revision: b5a61f3d144fe854a83f45b26efe1057f6fbd059
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#132
-      url: https://github.com/egohygiene/mindgarden/pull/132
-    handoff_state: in-progress
+      id: egohygiene/mindgarden#133
+      url: https://github.com/egohygiene/mindgarden/pull/133
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-12T18:15:00Z'
-    default_branch_revision: 7594921fb89097d9dae04f14e3ebc967055aa470
+    observed_at: '2026-11-12T18:46:13Z'
+    default_branch_revision: f5baa3dac3f7624bea94f5224e136de6ef5482b0
     issue_state: open
     pull_request_state: draft
-    notes: 'Drafts #131/#132 stack on unchanged #127–#130. #131 archive tests pass 21 per Python locally. #132 recovered through GitHub after runtime outage; local checks unavailable. Superseded #132 logs show two new assertion failures, now corrected from schema/citation ordering evidence; corrected-head local/CI qualification pending. Prior macOS/preparation jobs pass. Remaining four checkpoints unimplemented; no merges.'
+    notes: 'Main f5baa3d has the exact combined #132 tree; all six original PR heads have passing hosted CI. Execution
+      recovered, original WIP untouched. #14 exact reviewed incoming-reference repair is implemented and focused-tested;
+      35 open issues and 44 coverage rows remain.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-12T18:03:36Z'
+  reviewed_at: '2026-11-12T18:46:13Z'
   reviewed_by: codex
   evidence:
-  - command: Frozen Python 3.12/3.13 unittest discovery; 80-case publication conformance; clean wheel/sdist migration
-      and mixed pipeline demos; installed v0 CLI/library; changed-code Ruff/new-file format/compileall and pinned
-      owner checks
-    outcome: passed
-    observed_at: '2026-11-09T11:07:25Z'
-    notes: 515 pass each, zero skips (707.932s / 681.235s); 80 pass; four exact artifact goldens, zero runtime dependencies;
-      native PDF six states pass; functional heads CI success; later docs-only CI must be observed separately
-  - command: 'Python 3.12/3.13: python -m unittest tests.test_archive_diagrams tests.test_archive_v2 tests.test_archive_selection
-      tests.test_conversation_archives; Ruff E9/F and new-file format'
-    outcome: passed
-    observed_at: '2026-11-12T18:02:22Z'
-    notes: 21 pass each, zero skips (7.579s / 7.714s); lint/format passed; CI not yet observed
   - command: 'Python 3.12/3.13: python -m unittest tests.test_archive_diagrams tests.test_archive_v2 tests.test_archive_selection
       tests.test_conversation_archives; Ruff E9/F and new-file format'
     outcome: passed
     observed_at: '2026-11-12T18:03:36Z'
     notes: 21 pass each, zero skips (7.579s / 7.714s); lint/format passed; CI not yet observed
+  - command: 'Python 3.12: 37-case reference/routing/mixed/schema suite; Python 3.13: same prior 35 plus two added
+      cases; changed-code Ruff E9/F and new-file formatting'
+    outcome: passed
+    observed_at: '2026-11-12T18:42:32Z'
+    notes: 37 pass on 3.12, zero skips (30.500s); 35+2 pass on 3.13 (28.319s+2.669s), zero skips; Ruff/format pass.
+      Broader full discovery and act deferred by maintainer
+  - command: 'Python 3.12: 37-case reference/routing/mixed/schema suite; Python 3.13: same prior 35 plus two added
+      cases; changed-code Ruff E9/F and new-file formatting'
+    outcome: passed
+    observed_at: '2026-11-12T18:46:13Z'
+    notes: 37 pass on 3.12, zero skips (30.500s); 35+2 pass on 3.13 (28.319s+2.669s), zero skips; Ruff/format pass.
+      Broader full discovery and act deferred by maintainer
   environment_limitations:
-  - 'Managed execution environment unavailable during #13; local tests/format checks did not run. GitHub recovery preserves WIP only.'
-  - 'Hygiene #39/#40 normative information-flow and assurance contracts unavailable at 92195e4.'
-  - 'Realm #28/#29/#30 still own encrypted-vault selection/implementation and confidential runtime; #60 only consolidates
-    its listed platform/distribution work.'
-  - 'No real private data, credentials, destructive retention, publication/release, proposed ADR ratification or
-    deferred #86–#91 activation.'
+  - Broader full discovery and local act qualification deferred by maintainer; focused results remain distinct.
+  - Accepted organization/confidential-runtime/provider assurance remains separate from the implemented ordinary
+    personal boundary.
+  - No real private data, destructive retention, deployment/release or proposed ADR ratification.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -156,7 +156,7 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer selected #15/#13/#14/#16/#17/#20 above the unchanged privacy/storage drafts #127–#130. Preserve Python/v0, canonical ownership and privacy. Implement bounded local checkpoints; distinguish proposed policy from accepted organization/runtime assurance. Release and deferred context packages stay parked.
+The maintainer authorized #127–#132 merges and continued journey implementation, with broader local CI/act deferred. Preserve Python/v0, exact source identities, private boundaries and proposed ADR status. Keep new bounded checkpoints in reviewable draft PRs.
 
 ## Resume protocol
 
@@ -164,31 +164,31 @@ Read live status, current issue criteria/comments, README, AI_CONSTITUTION, ROAD
 
 ## Current objective and success conditions
 
-Deliver six bounded reading/evidence journey checkpoints in small draft PRs, preserving the existing unmerged stack.
+Complete the four remaining bounded journey checkpoints after the authorized #127–#132 merges.
 
 ## State snapshot
 
-Main 7594921 and drafts #127–#130 are unchanged. #131 (0beaaefa56d6c29ea9606909eda2b50ace3ff2f8) preserves the locally tested #15 proof. Mixed-media #13 files are recovered on test/13-mixed-media-curation above #131. Runtime unavailable; local verification and subsequent checkpoints remain incomplete. 35 open issues, 44 coverage rows; no merges.
+Main f5baa3d has the exact combined #132 tree; all six original PR heads have passing hosted CI. Execution recovered, original WIP untouched. #14 exact reviewed incoming-reference repair is implemented and focused-tested; 35 open issues and 44 coverage rows remain.
 
 ## Completed and material changes
 
-Draft #131: binary diagram/caption selection, scratch catalog, immutable original, overlap/fallback and stale/corrupt rejection; 21 tests per Python. #13 authored mixed-evidence recipes and three intended regression cases preserved through GitHub after runtime loss; unverified, with no new core engine behavior.
+Twelve new repair cases, request/event schemas, append-only replacements with exact transition lineage in the authorized closure, CLI preview/apply, two-owner rollback/retry and later-successor history validation. Recovered #13 mixed/diagram checks pass.
 
 ## Validation and review evidence
 
-Completed #15 qualification remains 21 tests per Python, zero skips (7.579s / 7.714s), plus lint/format and pinned owner/continuity/coverage checks. #13 test execution failed to start because the managed environment became unavailable; no local result or format pass is claimed. Superseded #132 CI logs show two failed test assumptions and one passing destination case on both Pythons; corrected assertions await qualification. Inspect the current head separately.
+Python 3.12: 37-case reference/routing/mixed/schema suite; Python 3.13: same prior 35 plus two added cases; changed-code Ruff E9/F and new-file formatting — 37 pass on 3.12, zero skips (30.500s); 35+2 pass on 3.13 (28.319s+2.669s), zero skips; Ruff/format pass. Broader full discovery and act deferred by maintainer. Hosted checks, local focused tests and deferred full/act checks remain distinct in docs/journey-sprint.md.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Accepted Hygiene classification/declassification/assurance, Realm encrypted-vault and confidential-runtime proofs, real consumer/private pilots and broader provider/platform acceptance remain unavailable. No capability flag supplies encryption or isolation. ADRs stay proposed/null approval.
+Execution recovered; original root WIP is preserved and work continues in an isolated checkout. Full discovery/act testing is intentionally deferred; act is absent and Docker is present. Accepted organization/confidential-runtime contracts, broader media/private pilots, manual accessibility and deployment/release remain separate. All ADRs stay proposed/null approval.
 
 ## Next dependency-ready work
 
-Restore usable execution, fetch test/13-mixed-media-curation and inspect any retained local WIP before checkout. Run the exact focused Python 3.12/3.13 and Ruff commands in docs/journey-sprint.md, correct failures and update receipt/continuity. Then #14 independently reviewed incoming-reference repair, #16 public supplied-bundle context, #17 real note/backlink reading and #20 composed recovery proof. Keep drafts for review.
+Implement #16 explicit public bundle discovery and bounded cited context above draft #133; #17 reading and #20 composition follow. Keep new drafts for review.
 
 ## Parallel changes and reconciliation
 
-No local implementation agents or competing worktrees are writing. Preserve the original combined branch. Open bounded drafts before qualification; merge only completed checkpoints under the current explicit authority. Record exact heads/checks.
+The original root checkout retains uncommitted interrupted files. Do not reset or clean it; use the active isolated worktree or a fresh checkout of the recorded draft stack. Preserve exact head/base ancestry.
 
 ## Privacy and redaction
 
@@ -200,4 +200,4 @@ At each checkpoint update branch/PR, functional revision, exact checks, remainin
 
 ## Compaction and supersession
 
-Keep all twelve headings and 16384-byte/240-line limits. This current journey task supersedes the completed overnight queue as active work; its merge and test evidence remain historical in docs/overnight-sprint.md.
+Keep all twelve headings and 16384-byte/240-line limits. Current merged-state and continued journey evidence supersede historical runtime-outage and unmerged-stack observations; prior failed/corrected attempts remain in docs/journey-sprint.md.
