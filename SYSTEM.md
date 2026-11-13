@@ -185,3 +185,12 @@ Drafts #127–#130 extend the same services with shared export policy, whole-bun
 ## Continued reading and recovery evidence
 
 [The journey ledger](docs/journey-sprint.md) records authorized merges #127–#132 and the dependent #133–#136 checkpoints. The #20 composed synthetic proof imports a selected diagram/caption, records authored review and scratch exclusion, retrieves exact evidence, builds bounded context, repairs a reviewed private reference, migrates/relocates/restores the vault and rebuilds identical projections in a clean garden. It requires no model, Google, specialized database or hosted service. The native reading proof remains a bounded public fixture; manual accessibility, real private-pilot and consumer publication acceptance remain separate. Draft implementation is distinct from merged/accepted behavior.
+
+## Draft local freshness and normalization checkpoint
+
+The [selected draft stack](docs/freshness-mapping-sprint.md) reuses existing
+services for actual context dependency builds, multi-source compaction refresh
+and human-reviewed CSV normalization mappings. Canonical sources/knowledge stay
+separate from generated packets/manifests; mapping, knowledge, execution and
+publication authority remain independent. This adds no service, model, database
+or deployment choice. Parent acceptance and proposed ADR status are unchanged.

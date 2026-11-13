@@ -8,6 +8,7 @@ from pathlib import Path
 
 from ..adapters.text_source import TextSourceAdapter
 from ..adapters.ledger_csv import LedgerCSVAdapter
+from ..adapters.mapped_ledger_csv import MappedLedgerCSVAdapter
 from ..adapters.drive_source import DriveCaptureAdapter
 from ..adapters.conversation_archive import ConversationArchiveAdapter
 from ..adapters.legacy_archive import LegacyConversationArchiveAdapter
@@ -25,7 +26,7 @@ from .storage import content_resolver, open_vault
 
 
 def default_registry() -> AdapterRegistry:
-    return AdapterRegistry((TextSourceAdapter(), ConversationArchiveAdapter(), LegacyConversationArchiveAdapter(), OpaqueMediaAdapter(), CapturedSourceAdapter(), LedgerCSVAdapter(), DriveCaptureAdapter()))
+    return AdapterRegistry((TextSourceAdapter(), ConversationArchiveAdapter(), LegacyConversationArchiveAdapter(), OpaqueMediaAdapter(), CapturedSourceAdapter(), LedgerCSVAdapter(), MappedLedgerCSVAdapter(), DriveCaptureAdapter()))
 
 
 def captured_bytes(path: Path, maximum: int = 100 * 1024 * 1024) -> bytes:
@@ -168,7 +169,8 @@ def run_ingest(arguments: Namespace) -> int:
         from .agent import run_ingest as run_v0_ingest
 
         if (arguments.apply or arguments.plan_digest or arguments.adapter or arguments.manifest_version
-                or arguments.attachment_mode or arguments.asset_id or getattr(arguments, "source_scope", None)):
+                or arguments.attachment_mode or arguments.asset_id or getattr(arguments, "source_scope", None)
+                or getattr(arguments, "ledger_mapping", None)):
             raise ContractError("V0_ARGUMENT: use v0 --write or migrate before using v1 adapter plans")
         return run_v0_ingest(arguments)
     if arguments.write:
@@ -189,6 +191,15 @@ def run_ingest(arguments: Namespace) -> int:
                 "captured_at": arguments.captured, "rights": arguments.rights,
                 "media_type": arguments.media_type, "tags": arguments.tag}
     scope_path = getattr(arguments, "source_scope", None)
+    mapping_path = getattr(arguments, "ledger_mapping", None)
+    if mapping_path is not None:
+        if arguments.adapter != "mapped-ledger-csv":
+            raise ContractError("LEDGER_MAPPING: --ledger-mapping requires the explicit mapped-ledger-csv adapter")
+        from ..domain.contracts import strict_json
+
+        mapping_bytes = captured_bytes(mapping_path, 65536)
+        metadata["ledger_mapping"] = strict_json(mapping_bytes)
+        metadata["ledger_mapping_input_sha256"] = digest_bytes(mapping_bytes)
     if scope_path is not None:
         from ..domain.contracts import strict_json
 
@@ -203,6 +214,8 @@ def run_ingest(arguments: Namespace) -> int:
                                 adapter_id=arguments.adapter, manifest_version=arguments.manifest_version)
     if scope_path is not None:
         plan.source_checks.append((scope_path.absolute(), digest_bytes(captured_scope_bytes)))
+    if mapping_path is not None:
+        plan.source_checks.append((mapping_path.absolute(), digest_bytes(mapping_bytes)))
     result = plan.document()
     if arguments.apply:
         if not arguments.plan_digest:

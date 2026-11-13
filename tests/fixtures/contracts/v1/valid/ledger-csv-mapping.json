@@ -1,0 +1,42 @@
+{
+  "schema": "mindgarden.ledger-csv-mapping/v1",
+  "id": "synthetic-layout-a",
+  "version": "1.0.0",
+  "header": [
+    "Reference",
+    "Account",
+    "Posted",
+    "Value",
+    "Unit",
+    "Details"
+  ],
+  "fields": {
+    "transaction_id": "Reference",
+    "account_id": {
+      "column": "Account"
+    },
+    "date": "Posted",
+    "currency": {
+      "column": "Unit"
+    },
+    "description": "Details"
+  },
+  "amount": {
+    "mode": "signed",
+    "column": "Value"
+  },
+  "date_format": "YYYY-MM-DD",
+  "date_semantics": "posted-calendar-date",
+  "review_authority": {
+    "kind": "human",
+    "id": "synthetic-reviewer"
+  },
+  "review": {
+    "state": "approved",
+    "reviewers": [
+      "synthetic-reviewer"
+    ],
+    "reviewed_at": "2026-11-04T00:00:00Z",
+    "rationale": "Explicit synthetic human review of the exact column, sign and date interpretation."
+  }
+}

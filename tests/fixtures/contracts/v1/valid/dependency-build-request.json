@@ -1,0 +1,245 @@
+{
+  "outputs": [
+    {
+      "id": "professional-profile",
+      "max_bytes": 16384,
+      "minimum_confidence": "low",
+      "observations": [
+        {
+          "claim": {
+            "garden": "synthetic-garden",
+            "id": "work-claim",
+            "revision": "sha256:e44dd65c068fd10bde29582b6fd75ce54548aac19890ea94d168b3821e090ca8"
+          },
+          "confidence": "high",
+          "evidence": [
+            {
+              "content_sha256": "b9116779fad4b2a072248cae880cd288c99d7c1b314ff9d8e523c57fc5c85f25",
+              "locator": "artifact",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-18d6ccee3b2e335585edd932-b9116779fad4b2a0",
+                "revision": "sha256:b9116779fad4b2a072248cae880cd288c99d7c1b314ff9d8e523c57fc5c85f25"
+              }
+            }
+          ],
+          "first_supported_at": null,
+          "id": "observed-deployment",
+          "interpretation": "One synthetic commit implements one deployment; scope is bounded.",
+          "kind": "implemented",
+          "last_supported_at": null,
+          "relationships": [],
+          "review": {
+            "rationale": "Synthetic human review fixture.",
+            "reviewed_at": "2026-11-04T00:00:00Z",
+            "reviewers": [
+              "synthetic-reviewer"
+            ],
+            "state": "approved"
+          },
+          "schema": "mindgarden.observation/v1",
+          "scope": {
+            "execution": "offline",
+            "persistence": "machine-local",
+            "policy": {
+              "id": "mindgarden-local-single-user/v1",
+              "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+            },
+            "publication": "never-exportable",
+            "schema": "mindgarden.scope/v1",
+            "visibility": "personal"
+          },
+          "stale_after": null,
+          "state": "reviewed",
+          "uncertainty": [
+            "A commit is not a claim of expertise."
+          ]
+        }
+      ],
+      "output_schema": "mindgarden.reviewed-record-view/v1",
+      "records": [
+        "synthetic-garden/work-claim"
+      ],
+      "redaction": "none",
+      "renderer": "json-records/v1",
+      "required_kinds": [
+        "claim",
+        "procedure"
+      ],
+      "scope": {
+        "execution": "offline",
+        "persistence": "machine-local",
+        "policy": {
+          "id": "mindgarden-local-single-user/v1",
+          "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+        },
+        "publication": "never-exportable",
+        "schema": "mindgarden.scope/v1",
+        "visibility": "personal"
+      },
+      "version": "1.0.0"
+    },
+    {
+      "context_format": "json",
+      "context_profile": {
+        "description": "Synthetic explicit dependency selection; no ambient records.",
+        "exclude": [],
+        "garden": "synthetic-garden",
+        "id": "agent-context",
+        "include": [
+          {
+            "garden": "synthetic-garden",
+            "id": "work-claim",
+            "revision": null
+          }
+        ],
+        "kinds": [],
+        "max_bytes": 16384,
+        "max_candidates": 10,
+        "max_items": 10,
+        "query": "",
+        "schema": "mindgarden.context-profile/v1",
+        "title": "Selected reviewed context"
+      },
+      "id": "agent-context",
+      "max_bytes": 16384,
+      "minimum_confidence": "low",
+      "observations": [
+        {
+          "claim": {
+            "garden": "synthetic-garden",
+            "id": "work-claim",
+            "revision": "sha256:e44dd65c068fd10bde29582b6fd75ce54548aac19890ea94d168b3821e090ca8"
+          },
+          "confidence": "high",
+          "evidence": [
+            {
+              "content_sha256": "b9116779fad4b2a072248cae880cd288c99d7c1b314ff9d8e523c57fc5c85f25",
+              "locator": "artifact",
+              "source": {
+                "garden": "synthetic-garden",
+                "id": "source-18d6ccee3b2e335585edd932-b9116779fad4b2a0",
+                "revision": "sha256:b9116779fad4b2a072248cae880cd288c99d7c1b314ff9d8e523c57fc5c85f25"
+              }
+            }
+          ],
+          "first_supported_at": null,
+          "id": "observed-deployment",
+          "interpretation": "One synthetic commit implements one deployment; scope is bounded.",
+          "kind": "implemented",
+          "last_supported_at": null,
+          "relationships": [],
+          "review": {
+            "rationale": "Synthetic human review fixture.",
+            "reviewed_at": "2026-11-04T00:00:00Z",
+            "reviewers": [
+              "synthetic-reviewer"
+            ],
+            "state": "approved"
+          },
+          "schema": "mindgarden.observation/v1",
+          "scope": {
+            "execution": "offline",
+            "persistence": "machine-local",
+            "policy": {
+              "id": "mindgarden-local-single-user/v1",
+              "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+            },
+            "publication": "never-exportable",
+            "schema": "mindgarden.scope/v1",
+            "visibility": "personal"
+          },
+          "stale_after": null,
+          "state": "reviewed",
+          "uncertainty": [
+            "A commit is not a claim of expertise."
+          ]
+        }
+      ],
+      "output_schema": "mindgarden.context/v1",
+      "records": [
+        "synthetic-garden/work-claim"
+      ],
+      "redaction": "none",
+      "renderer": "context-pack/v1",
+      "required_kinds": [
+        "claim",
+        "procedure"
+      ],
+      "scope": {
+        "execution": "offline",
+        "persistence": "machine-local",
+        "policy": {
+          "id": "mindgarden-local-single-user/v1",
+          "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+        },
+        "publication": "never-exportable",
+        "schema": "mindgarden.scope/v1",
+        "visibility": "personal"
+      },
+      "version": "1.0.0"
+    },
+    {
+      "context_format": "json",
+      "context_profile": {
+        "description": "Synthetic explicit dependency selection; no ambient records.",
+        "exclude": [],
+        "garden": "synthetic-garden",
+        "id": "unrelated-view",
+        "include": [
+          {
+            "garden": "synthetic-garden",
+            "id": "unrelated-procedure",
+            "revision": null
+          }
+        ],
+        "kinds": [],
+        "max_bytes": 16384,
+        "max_candidates": 10,
+        "max_items": 10,
+        "query": "",
+        "schema": "mindgarden.context-profile/v1",
+        "title": "Selected reviewed context"
+      },
+      "id": "unrelated-view",
+      "max_bytes": 16384,
+      "minimum_confidence": "low",
+      "observations": [],
+      "output_schema": "mindgarden.context/v1",
+      "records": [
+        "synthetic-garden/unrelated-procedure"
+      ],
+      "redaction": "none",
+      "renderer": "context-pack/v1",
+      "required_kinds": [
+        "claim",
+        "procedure"
+      ],
+      "scope": {
+        "execution": "offline",
+        "persistence": "machine-local",
+        "policy": {
+          "id": "mindgarden-local-single-user/v1",
+          "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+        },
+        "publication": "never-exportable",
+        "schema": "mindgarden.scope/v1",
+        "visibility": "personal"
+      },
+      "version": "1.0.0"
+    }
+  ],
+  "review": {
+    "rationale": "Synthetic human review fixture.",
+    "reviewed_at": "2026-11-04T00:00:00Z",
+    "reviewers": [
+      "synthetic-reviewer"
+    ],
+    "state": "approved"
+  },
+  "review_authority": {
+    "id": "synthetic-reviewer",
+    "kind": "human"
+  },
+  "schema": "mindgarden.dependency-build-request/v1"
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "mindgarden.ledger-csv-mapping/v1",
+  "id": "synthetic-layout-b",
+  "version": "1.0.0",
+  "header": [
+    "Ref",
+    "When",
+    "Details",
+    "Debit",
+    "Credit"
+  ],
+  "fields": {
+    "transaction_id": "Ref",
+    "account_id": {
+      "value": "account-b"
+    },
+    "date": "When",
+    "currency": {
+      "value": "USD"
+    },
+    "description": "Details"
+  },
+  "amount": {
+    "mode": "debit-credit",
+    "debit_column": "Debit",
+    "credit_column": "Credit"
+  },
+  "date_format": "MM/DD/YYYY",
+  "date_semantics": "posted-calendar-date",
+  "review_authority": {
+    "kind": "human",
+    "id": "synthetic-reviewer"
+  },
+  "review": {
+    "state": "approved",
+    "reviewers": [
+      "synthetic-reviewer"
+    ],
+    "reviewed_at": "2026-11-04T00:00:00Z",
+    "rationale": "Explicit synthetic human review of the exact column, sign and date interpretation."
+  }
+}
