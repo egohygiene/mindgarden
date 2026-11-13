@@ -1,0 +1,59 @@
+{
+  "schema": "mindgarden.local-workflow-merge-receipt/v1",
+  "observed_date": "2026-11-13",
+  "base_main": "f5baa3dac3f7624bea94f5224e136de6ef5482b0",
+  "merged_main": "9c94245e0838da74a760cbc43e63b0faf6a3d756",
+  "merged_tree_equals_head": "069714503a318356a2746acd15bec3070ef8fa28",
+  "method": "merge; expected-head checks; explicit maintainer five-step authorization",
+  "merges": [
+    {
+      "pr": 133,
+      "head": "297c0749dff0a3a5bb8a483621f3afb06d895587",
+      "merge": "db497f3158996946336f7ec0eb6d13758146191c",
+      "test": 43283297807,
+      "preparation": 43283297519,
+      "preview": 43283298469
+    },
+    {
+      "pr": 134,
+      "head": "0a6a3873dfda6d5bdd07742886064dd6aec333be",
+      "merge": "937e9a687e10a9a0ccb88c49a633ce32ced8f08d",
+      "test": 43345132543,
+      "preparation": 43345132522,
+      "preview": 43345132986
+    },
+    {
+      "pr": 135,
+      "head": "43fb4bc04a0484f7be598f2c9acbe82c115e9f41",
+      "merge": "a056bed162f1f5597696ab731bfc1dd260c41119",
+      "test": 43295629172,
+      "preparation": 43295629177
+    },
+    {
+      "pr": 136,
+      "head": "ba507fe5dc3da86b6e3f01a690afcb52a280afb6",
+      "merge": "0dddd54b2810e4a53fb4b82fd3f741ec7f9fe0c4",
+      "test": 43296852666,
+      "preparation": 43296852563
+    },
+    {
+      "pr": 137,
+      "head": "069714503a318356a2746acd15bec3070ef8fa28",
+      "merge": "9c94245e0838da74a760cbc43e63b0faf6a3d756",
+      "test": 43332132421,
+      "preparation": 43332132413
+    }
+  ],
+  "preview_recovery": {
+    "failed_run": 43284993775,
+    "failed_head": "81979b33d845396e621b60aaa4d92525b8f25d02",
+    "failed_stage": "upstream acquisition",
+    "reconciliation_head": "0a6a3873dfda6d5bdd07742886064dd6aec333be",
+    "reconciliation_preserves_exact_old_tree": true,
+    "automatic_success_run": 43345132986,
+    "no_workflows_manually_dispatched": true
+  },
+  "parent_issues_closed": [],
+  "adrs_ratified": [],
+  "live_private_pilot": "not performed"
+}

@@ -1,10 +1,18 @@
 # Deferred context-package product phase
 
-**Status: captured proposal, not selected for implementation.** Parent
+**Status: selected local checkpoint plus deferred extensions (2026-11-13).** Parent
 [#86](https://github.com/egohygiene/mindgarden/issues/86) has native GitHub
 sub-issues #87, #88, #91, #89 and #90, with the proposed order below.
 
 ## Scheduling boundary
+
+The maintainer's 2026-11-13 instruction selects the five-step local
+source-to-reviewed-packet journey. Bounded #86/#87/#89/#90 work is active ahead of
+the original queue; [the delivery plan](local-consultation-workflow.md) records
+dependencies, existing owners, synthetic-first verification and private-pilot
+gates. #88/#91 remain deferred. Proposed ADRs and wider parent acceptance are
+unchanged. The original scheduling history below explains the prior gate and is
+superseded only for those selected local checkpoints.
 
 The maintainer requested these ideas **after the existing 38-issue queue**, then
 an end-of-roadmap reconciliation/refactor. At that point, review actual delivered
