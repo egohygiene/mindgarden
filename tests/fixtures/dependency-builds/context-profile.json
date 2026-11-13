@@ -1,0 +1,14 @@
+{
+  "schema": "mindgarden.context-profile/v1",
+  "id": "selected-agent-context",
+  "garden": "synthetic-garden",
+  "title": "Selected reviewed context",
+  "description": "Synthetic explicit dependency selection; no ambient records.",
+  "query": "",
+  "include": [],
+  "exclude": [],
+  "kinds": [],
+  "max_items": 10,
+  "max_bytes": 16384,
+  "max_candidates": 10
+}

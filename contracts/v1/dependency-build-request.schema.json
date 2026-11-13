@@ -85,11 +85,15 @@
           "renderer": {
             "enum": [
               "json-records/v1",
-              "markdown-records/v1"
+              "markdown-records/v1",
+              "context-pack/v1"
             ]
           },
           "output_schema": {
-            "const": "mindgarden.reviewed-record-view/v1"
+            "enum": [
+              "mindgarden.reviewed-record-view/v1",
+              "mindgarden.context/v1"
+            ]
           },
           "max_bytes": {
             "type": "integer",
@@ -103,8 +107,60 @@
             },
             "minItems": 0,
             "maxItems": 256
+          },
+          "context_profile": {
+            "$ref": "urn:egohygiene:mindgarden:context-profile:v1"
+          },
+          "context_format": {
+            "enum": [
+              "json",
+              "markdown"
+            ]
           }
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "renderer": {
+                  "const": "context-pack/v1"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "context_profile",
+                "context_format"
+              ],
+              "properties": {
+                "output_schema": {
+                  "const": "mindgarden.context/v1"
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "output_schema": {
+                  "const": "mindgarden.reviewed-record-view/v1"
+                }
+              },
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "context_profile"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "context_format"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
       },
       "minItems": 1,
       "maxItems": 256

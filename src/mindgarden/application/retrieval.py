@@ -250,11 +250,24 @@ def outbound_payload(context: QueryContext, source: str) -> dict:
             "inputs":index["inputs"], "links":links[:context.session["budgets"]["max_results"]]})
 
 
-def render_context(context: QueryContext, profile: dict, format: str) -> bytes:
+def render_context(context: QueryContext, profile: dict, format: str, *, selected_records=None) -> bytes:
     if format not in {"json", "markdown"} or ContractRegistry().errors(profile, "context-profile"):
         raise ContractError("CONTEXT_PROFILE: supply a supported bounded context profile and format")
     index = build_index(context, projection="context")
     records = {record_key(record["reference"]): record for record in index["records"]}
+    if selected_records is not None:
+        if (not isinstance(selected_records, (list, tuple)) or not selected_records
+                or any(not isinstance(key, str) for key in selected_records)
+                or len(set(selected_records)) != len(selected_records)
+                or not set(selected_records) <= records.keys()
+                or any(record_key(item) not in selected_records for item in profile["include"] + profile["exclude"])):
+            raise ContractError("CONTEXT_SELECTION: require distinct authorized reviewed records and compatible profile selectors")
+        records = {key: records[key] for key in sorted(selected_records)}
+        index = {**index, "records": list(records.values()),
+                 "scope": context.output_scope([record["scope"] for record in records.values()]),
+                 "inputs": [{"kind": "reviewed-record", **record["reference"],
+                             "record_sha256": digest_bytes(canonical_json(record))}
+                            for record in records.values()]}
     maximum = min(profile["max_bytes"], context.session["budgets"]["max_context_bytes"])
     candidates = min(profile["max_candidates"], context.session["budgets"]["max_candidates"])
     excludes = {record_key(item) for item in profile["exclude"]}

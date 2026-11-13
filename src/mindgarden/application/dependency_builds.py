@@ -15,7 +15,7 @@ from ..domain.scope import inherit_scope
 from ..domain.validation import ContractError
 from .curation import require_review_authority
 from .query import QueryContext
-from .retrieval import build_index, record_key
+from .retrieval import build_index, record_key, render_context
 
 CONFIDENCE = {"unknown": 0, "low": 1, "medium": 2, "high": 3}
 
@@ -200,7 +200,12 @@ def plan_build(context, request, *, renderer=render_records, output_ids=None):
         ]
         # Whole-garden/session revisions are apply guards, not build inputs.
         # Selected exact record/policy changes affect only declared consumers.
-        content, suffix = renderer(records, output["renderer"])
+        if output["renderer"] == "context-pack/v1":
+            content = render_context(context, output["context_profile"], output["context_format"],
+                                     selected_records=output["records"])
+            suffix = "json" if output["context_format"] == "json" else "md"
+        else:
+            content, suffix = renderer(records, output["renderer"])
         if not isinstance(content, bytes) or suffix not in {"json", "md"}:
             raise ContractError("BUILD_RENDERER: incompatible renderer result")
         if len(content) > min(
