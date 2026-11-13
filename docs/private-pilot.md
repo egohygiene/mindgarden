@@ -1,7 +1,9 @@
 # Run the selected local pilot
 
-The software checkpoints are merged through #141 at main `5ec7ae0`; the
-[merge receipt](evidence/local-workflow-stack-merge.json) preserves exact evidence.
+The software checkpoints are merged through #147 at main `270ced6`; the
+[current merge receipt](evidence/freshness-mapping-stack-merge.json) and
+[remaining-work/setup plan](remaining-work-and-local-setup.md) preserve exact
+evidence and the existing setup owners.
 The actual private pilot has **not run**: the operating system, private workspace,
 selected Drive folder IDs, local credentials and applicable classification/runtime
 authority have not been supplied. No real account, original or financial content
@@ -111,9 +113,13 @@ authentication. Do not paste credentials into chat.
 
 Use the guide's `capture drive` preview and reviewed apply, then its separate
 `ingest --source-scope` preview and apply. Start with one small selected collection.
-Supported text and the declared six-column ledger CSV are normalized. Arbitrary
-bank exports must be explicitly transformed/mapped outside this checkpoint with
-original identity retained; do not guess transaction IDs, amounts or coverage.
+Supported text and declared six-column ledger CSV are normalized. The separate
+[reviewed CSV mapping adapter](csv-ledger-mappings.md) now handles explicitly
+supplied UTF-8 CSV in the two declared layouts. Its reviewed mapping and original
+identity must be preserved. Automatic Drive-capture-to-mapped-CSV composition
+remains a proposed #87/#90 checkpoint; do not assume that supplying a Drive ZIP
+applies a per-file mapping. Other layouts remain unsupported until explicitly
+reviewed; transaction IDs, amounts and coverage are never guessed.
 Drive PDF/images are preserved-only, with separate document extraction/policy
 acceptance required. Native Docs/Sheets exports declare their losses.
 
