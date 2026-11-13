@@ -1,4 +1,13 @@
-# Issue coverage — 2026-11-12
+# Issue coverage — 2026-11-13
+
+## Selected local workflow — 2026-11-13
+
+The maintainer selected the [five-step source-to-reviewed-packet plan](local-consultation-workflow.md).
+Bounded #86/#87/#89/#90 work is active before the old queue is complete; #88/#91
+stay deferred. The earlier proposed #37/#46/#32 batch becomes supporting later
+work. No issue closure or ADR acceptance follows from this scheduling change.
+Original issue criteria, all 44 coverage rows, the 35-open count and real private
+input/runtime requirements remain explicit. The original root WIP is preserved.
 
 This ledger retains **44 tracked issues**: the original 38 and deferred #86–#91.
 Acceptance #120 and integration #121–#125 are merged. **35 are open and nine
@@ -272,15 +281,15 @@ links evidence to #20; no private pilot or broader parent completion is inferred
 | [#28](https://github.com/egohygiene/mindgarden/issues/28) — learning cards, summaries and review schedules | completed | Versioned authored cards/summaries/history, replaceable scheduling, deterministic round trips and bounded due-card view; 20 focused cases per Python and actual full/due static browser/axe receipts; [acceptance mapping](learning.md) | Listed local learning criteria satisfied; full hosted app remains #17/#47, while notifications/email/sync are explicit non-goals rather than closure gates | Existing #12/#13/#31 services and renderer boundary suffice; closed through merged #125, without model or account requirements |
 | [#46](https://github.com/egohygiene/mindgarden/issues/46) — hierarchical compaction/retention | partial | Merged #73 v1 plan/retention/manifest contracts, read-only scoped evaluator, authored archive→curation→retrieval/context proof and selective invalidation; merged #111 exact source grants/private proof persistence and expiry | Large-corpus/semantic quality, automatic incremental jobs, downstream expiry adoption/deletion policy and approved private pilot; no destructive implementation | Existing #11/#13/#14/#15/#31/#45; #20 gates full pilot, not early contract checkpoint; R0 |
 
-## Deferred context-package phase after the current queue
+## Selected local workflow and deferred extensions
 
 | Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and proposed later batch |
 | --- | --- | --- | --- | --- |
-| [#86](https://github.com/egohygiene/mindgarden/issues/86) — reconcile composed AI/context-package phase | deferred umbrella | Filed proposal with five native sub-issues and a documented roadmap; no new runtime | End-of-current-queue reconciliation, overlap disposition, owner decisions and later activation | Existing 38 retain priority; D0, then choose bounded work only after maintainer scheduling |
-| [#87](https://github.com/egohygiene/mindgarden/issues/87) — Drive capture/refresh and chosen garden locations | deferred | Source/vault/registry boundaries exist; connector and convenience orchestration are proposals | Provider contract, stable source revisions, duplicate-safe refresh/recovery and private storage profiles | #11/#13/#30/#35/#45/#47 and Mindcap capture; D1 after #86 gate |
+| [#86](https://github.com/egohygiene/mindgarden/issues/86) — reconcile composed AI/context-package phase | umbrella; selected local checkpoint | 2026-11-13 maintainer activation and explicit five-step owner/dependency plan; current core contracts reused | Disposition the remaining selected child acceptance and keep #88/#91 deferred | Selected local capture/packet/Codex checkpoints now; wider context-package phase remains separate |
+| [#87](https://github.com/egohygiene/mindgarden/issues/87) — Drive capture/refresh and chosen garden locations | ready; selected local checkpoint | Existing source/storage/registry services; binding/capture/refresh checkpoint selected on 2026-11-13 | Provider identity/export semantics, incremental recovery and live/private setup | #11/#13/#30/#35/#45 services available; provider capture separate from normalization |
 | [#88](https://github.com/egohygiene/mindgarden/issues/88) — installable data-only context packages | deferred | #16 supplies pinned package/reference primitives; lifecycle not implemented | Versioned selection/lock, reviewed update/remove, conflict/permission and two-project proof | #14/#16/#29/#30/#31/#45/#51; D2a; Drive/RDF/model not mandatory |
-| [#89](https://github.com/egohygiene/mindgarden/issues/89) — scoped AI research broker | deferred | Shared retrieval/evidence services exist; iterative research role not implemented | Bounded planner/tool interface, evidence/uncertainty, revocation, provider removal and measured quality | #12/#13/#31/#47/#51, Aether/Realm owner contracts; D3; local fixtures independent of Drive/packages |
-| [#90](https://github.com/egohygiene/mindgarden/issues/90) — synthetic structured analysis and reviewed preparation packet | deferred | Generic context/recovery primitives only; no financial analysis or consumer data used | Exact ledger normalization, verified calculations, coverage, selected export and clean recovery | #11/#13/#29/#31/#35/#45; #32 only if justified; D4 local/model-disabled first |
+| [#89](https://github.com/egohygiene/mindgarden/issues/89) — scoped AI research broker | ready; selected local checkpoint | Existing scoped retrieval/context/evidence CLI; bounded Codex/research checkpoint selected on 2026-11-13 | Versioned request/result, bounded tools/planners, provider removal, live/model-quality and runtime proof | #12/#13/#31/#47/#51; initial CLI path independent of Drive/packages/private web |
+| [#90](https://github.com/egohygiene/mindgarden/issues/90) — synthetic structured analysis and reviewed preparation packet | ready; selected local checkpoint | Deterministic calculations and reviewed synthetic packet selected on 2026-11-13; existing source/review/recovery contracts reused | Declared ledger normalization, overlap/transfer review, coverage, selected export and recovery proof | #11/#13/#29/#31/#35/#45; local synthetic first, no database/model/Drive prerequisite |
 | [#91](https://github.com/egohygiene/mindgarden/issues/91) — RDF/JSON-LD and PROV scoped packet evaluation | deferred | Captured standards/mapping proposal; current canonical formats unchanged | Versioned loss-aware mapping, offline contexts, scoped overview, denied graph/provenance and adopt/adapt/reject evidence | #12/#13/#16/#29/#31/#42/#45/#46/#49/#88; D2b; no automatic replacement or clearance certification |
 
 ## Retention requirements carried forward now
