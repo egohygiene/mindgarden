@@ -1,5 +1,9 @@
 # Issue coverage — 2026-11-13
 
+## Selected freshness and mapping batch
+
+The maintainer selected #37 → #46 → #90. [The active sprint](freshness-mapping-sprint.md) records exact contract dependencies, draft ancestry and remaining acceptance. #144 has passing exact-head automatic CI and remains unmerged. New #37 work connects actual bounded contexts to dependency manifests, rather than another record-only view; 41 focused cases pass per Python. No parent closure: 34 open / 44 tracked.
+
 ## Current acceptance batch
 
 The maintainer authorized #142 → #143 merges, completed in order at main
@@ -232,7 +236,7 @@ not one serial gate over all work.
 | [#1](https://github.com/egohygiene/mindgarden/issues/1) — ecosystem knowledge contract/adapters | umbrella | V1 schemas/lifecycle; merged #53–#64 validation, sources, reviewed knowledge and context | Hygiene/catalog references, complete consumer acceptance and Empathy integration | HYG-04/EMP-05; children #10–#16/#20; B1–B4, avoid umbrella/consumer cycle |
 | [#2](https://github.com/egohygiene/mindgarden/issues/2) — workstation/public projections | umbrella | V0 Obsidian/Quartz profiles and publication negatives; scoped v1 engine | V1 projection mapping, OpenWiki spike/disposition, deployed reviewed-public reference site | #1 contracts, Relay; B1/B3/B4, optional adapters distinguished |
 | [#5](https://github.com/egohygiene/mindgarden/issues/5) — engine 1.0 delivery | umbrella | Extracted package/lifecycle plus merged private workflow proof | Publication/federation, real archive, golden consumer and reproducible release acceptance | Owning child contracts and evidence; B0–B5; broader product remains separate |
-| [#37](https://github.com/egohygiene/mindgarden/issues/37) — dependency builds and selective invalidation | partial | Versioned observation/build contracts, exact dependency fingerprints, lost-event reconciliation and new explicit selected-output plan/apply; fingerprints match complete build and unrelated renderers do not run; [checkpoint](dependency-builds.md) | Real private pilot, broader canonical observation integration and consumer adoption remain open; no daemon required for correctness | #11/#12/#13/#16/#29 interfaces available; optional events/Realm runtime are later integration, not manual-build prerequisites |
+| [#37](https://github.com/egohygiene/mindgarden/issues/37) — dependency builds and selective invalidation | partial; active integration draft | Existing observation/manifests/targeted builds plus new actual context-pack/v1 consumer: exact selected-record metadata, missed-update reconciliation, unchanged unrelated context bytes and selected-only renderers; 41 focused cases per Python; [active checkpoint](freshness-mapping-sprint.md) | Broader observation/consumer integration and approved private pilot remain open; no daemon required | #11/#12/#13/#16/#29 contracts available; #144 is explicit integration ancestry, not a semantic prerequisite; no real account or model needed |
 | [#40](https://github.com/egohygiene/mindgarden/issues/40) — self-hosted second-brain product | umbrella | Existing Python services/CLI and finite offline workflow; ownership proposals | Audience/product decisions, accepted ADR sequence, topology/auth/editor/API/web, complete lifecycle and accessibility proof | #41/#42 govern broader product, #47 and owner contracts; P, no blanket 1.0 gate |
 
 ## Architecture and decision lineage

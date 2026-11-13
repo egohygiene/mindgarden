@@ -1,5 +1,9 @@
 # Reviewed projection dependency builds
 
+The [current integration checkpoint](freshness-mapping-sprint.md) connects the
+actual bounded context service through `context-pack/v1`, with explicit reviewed
+record dependencies. Existing record-view consumers remain supported.
+
 `build-projections` plans deterministic artifacts over explicit, authorized,
 reviewed v1 knowledge/claims. It reuses canonical source/evidence, review and scope
 contracts. Authored `mindgarden.observation/v1` interpretations are separate
@@ -86,3 +90,19 @@ manifest covers that explicit subset; it is not a replacement inventory for ever
 historical build. No automatic event hook, worker, prior-manifest trust or private
 real-data pilot is claimed. #37 remains open for its actual pilot and broader
 observation/consumer integration, independently from this manual local checkpoint.
+
+## Actual context-pack adapter
+
+An output may select `"renderer": "context-pack/v1"`,
+`"output_schema": "mindgarden.context/v1"`, `"context_format": "json"` or
+`"markdown"`, and an existing versioned `context_profile` object. Its explicit
+`records` list bounds the search window; profile selectors outside it fail closed.
+This uses the same reviewed context service and selection reasons as ordinary
+context generation, without ambient query results entering the build.
+
+These artifacts identify each selected input as `reviewed-record`, with its exact
+reference and indexed-record checksum. Whole-garden changes still invalidate an
+apply session but do not change an unrelated artifact's fingerprint. Reconcile
+with a newly bound session and review the selected build's new digest. This
+adapter does not infer that a retained old source has a semantic replacement;
+reviewed canonical knowledge must be updated explicitly.
