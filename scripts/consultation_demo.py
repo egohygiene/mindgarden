@@ -36,7 +36,7 @@ def apply_reviewed(arguments):
     return preview
 
 
-def workflow(workspace):
+def workflow(workspace, *, fixture_factory=create_fixture):
     workspace = workspace.absolute()
     if (
         any(path.is_symlink() for path in (workspace, *workspace.parents))
@@ -44,7 +44,7 @@ def workflow(workspace):
         and any(workspace.iterdir())
     ):
         raise ValueError("Use a new or empty synthetic workspace")
-    fixture = create_fixture(workspace)
+    fixture = fixture_factory(workspace)
     config, session, garden = (
         fixture[key] for key in ("configuration", "session_path", "garden")
     )
@@ -240,7 +240,7 @@ def workflow(workspace):
     }
 
 
-def run_demo(workspace):
+def run_demo(workspace, *, fixture_factory=create_fixture):
     with (
         patch.dict(os.environ, {}, clear=True),
         patch("socket.socket", side_effect=AssertionError("Network attempted")),
@@ -249,7 +249,7 @@ def run_demo(workspace):
             "subprocess.run", side_effect=AssertionError("External process attempted")
         ),
     ):
-        return workflow(workspace)
+        return workflow(workspace, fixture_factory=fixture_factory)
 
 
 def main():

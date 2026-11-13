@@ -22,7 +22,7 @@ federation remain bounded capabilities; the CLI needs no model or hosted databas
 
 The [reading/evidence journey](docs/journey-sprint.md) adds reviewed private
 reference repair, selected public-bundle context, actual static note reading and
-a composed archive-to-context/recovery proof in draft PRs #133–#136. The same
+a composed archive-to-context/recovery proof merged through #137. The same
 synthetic proof matches from a clean checkout, installed wheel and unpacked source
 archive; real private-pilot and publication acceptance remain separate.
 
@@ -30,7 +30,9 @@ The selected [local source-to-packet workflow](docs/local-consultation-workflow.
 adds a draft [declared-ledger preparation packet](docs/consultation-packets.md):
 exact decimal calculations, explicit overlap/transfer review, coverage gaps and
 private evidence export. Its synthetic proof keeps exact citations through vault
-recovery; live capture, Codex setup and the real private pilot are separate steps.
+recovery. The draft [selected Drive adapter](docs/drive-capture.md) adds bounded
+read-only acquisition, explicit refresh and optional private OAuth setup. Live
+account proof, Codex setup and the real private pilot remain separate steps.
 
 The [active overnight roadmap](docs/overnight-sprint.md) reconciles completed
 acceptance criteria and orders the next integration checkpoints. OpenAleph and

@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:drive-capture:v1",
+  "title": "Mindgarden drive-capture v1",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "mindgarden.drive-capture/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "provider": {
+      "const": "google-drive-v3"
+    },
+    "selection_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "coverage": {
+      "const": "stable-selected-enumeration-and-per-file-versions"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,200}$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]{1,32}$"
+          },
+          "source_mime_type": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "media_type": {
+            "enum": [
+              "text/plain",
+              "text/markdown",
+              "text/csv",
+              "application/pdf",
+              "image/png",
+              "image/jpeg"
+            ]
+          },
+          "sha256": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2000000
+          },
+          "losses": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "first-sheet-only",
+                "plain-text-export-no-embedded-media"
+              ]
+            },
+            "minItems": 0,
+            "maxItems": 2,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "file_id",
+          "name",
+          "version",
+          "source_mime_type",
+          "media_type",
+          "sha256",
+          "size_bytes",
+          "losses"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 64,
+      "uniqueItems": true
+    },
+    "unavailable_previous": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{1,200}$"
+      },
+      "minItems": 0,
+      "maxItems": 1000,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "captured_at",
+    "scope",
+    "provider",
+    "selection_sha256",
+    "coverage",
+    "files",
+    "unavailable_previous"
+  ],
+  "additionalProperties": false
+}

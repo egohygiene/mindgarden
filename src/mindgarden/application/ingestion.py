@@ -8,6 +8,7 @@ from pathlib import Path
 
 from ..adapters.text_source import TextSourceAdapter
 from ..adapters.ledger_csv import LedgerCSVAdapter
+from ..adapters.drive_source import DriveCaptureAdapter
 from ..adapters.conversation_archive import ConversationArchiveAdapter
 from ..adapters.legacy_archive import LegacyConversationArchiveAdapter
 from ..adapters.media_source import OpaqueMediaAdapter
@@ -24,7 +25,7 @@ from .storage import content_resolver, open_vault
 
 
 def default_registry() -> AdapterRegistry:
-    return AdapterRegistry((TextSourceAdapter(), ConversationArchiveAdapter(), LegacyConversationArchiveAdapter(), OpaqueMediaAdapter(), CapturedSourceAdapter(), LedgerCSVAdapter()))
+    return AdapterRegistry((TextSourceAdapter(), ConversationArchiveAdapter(), LegacyConversationArchiveAdapter(), OpaqueMediaAdapter(), CapturedSourceAdapter(), LedgerCSVAdapter(), DriveCaptureAdapter()))
 
 
 def captured_bytes(path: Path, maximum: int = 100 * 1024 * 1024) -> bytes:
@@ -167,7 +168,7 @@ def run_ingest(arguments: Namespace) -> int:
         from .agent import run_ingest as run_v0_ingest
 
         if (arguments.apply or arguments.plan_digest or arguments.adapter or arguments.manifest_version
-                or arguments.attachment_mode or arguments.asset_id):
+                or arguments.attachment_mode or arguments.asset_id or getattr(arguments, "source_scope", None)):
             raise ContractError("V0_ARGUMENT: use v0 --write or migrate before using v1 adapter plans")
         return run_v0_ingest(arguments)
     if arguments.write:
@@ -187,6 +188,12 @@ def run_ingest(arguments: Namespace) -> int:
                 "owner": arguments.owner, "origin": arguments.origin,
                 "captured_at": arguments.captured, "rights": arguments.rights,
                 "media_type": arguments.media_type, "tags": arguments.tag}
+    scope_path = getattr(arguments, "source_scope", None)
+    if scope_path is not None:
+        from ..domain.contracts import strict_json
+
+        captured_scope_bytes = captured_bytes(scope_path, 2_000_000)
+        metadata["source_scope"] = strict_json(captured_scope_bytes)
     if arguments.attachment_mode or arguments.asset_id:
         metadata["attachment_selection"] = {"mode": arguments.attachment_mode or "selected",
                                              "asset_ids": arguments.asset_id}
@@ -194,6 +201,8 @@ def run_ingest(arguments: Namespace) -> int:
             raise ContractError("ARCHIVE_SELECTION: attachment selection requires an archive adapter")
     plan = build_ingestion_plan(bindings, garden_id, arguments.vault_id, arguments.input, metadata,
                                 adapter_id=arguments.adapter, manifest_version=arguments.manifest_version)
+    if scope_path is not None:
+        plan.source_checks.append((scope_path.absolute(), digest_bytes(captured_scope_bytes)))
     result = plan.document()
     if arguments.apply:
         if not arguments.plan_digest:

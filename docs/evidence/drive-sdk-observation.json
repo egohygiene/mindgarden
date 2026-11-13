@@ -1,0 +1,29 @@
+{
+  "schema": "mindgarden.optional-drive-sdk-observation/v1",
+  "observed_date": "2026-11-13",
+  "sdk": {
+    "name": "google-auth-oauthlib",
+    "version": "1.5.0",
+    "wheel_sha256": "71625fdea21c6c03217eb9ff13741c3096e6d257ebca0ad084dbd6e9f4aa4ef4"
+  },
+  "observed_dependencies": {
+    "google-auth": "2.62.2",
+    "requests-oauthlib": "2.0.0"
+  },
+  "checks": [
+    "official Drive v3 metadata/list/get/export/scopes/native-format docs read",
+    "official Python quickstart read",
+    "actual 1.5.0 wheel constructor/local-server signature inspected",
+    "installed SDK from_client_config constructor exercised offline with PKCE enabled"
+  ],
+  "network_for_sources": false,
+  "live_oauth": false,
+  "live_drive": false,
+  "model_calls": false,
+  "engine_runtime_dependencies": 0,
+  "limitations": [
+    "readthedocs latest reference labelled 0.4.1; current API shape verified against actual 1.5.0 wheel",
+    "no real account or financial content used",
+    "SDK setup optional; normal capture token reader/HTTP transport uses standard library"
+  ]
+}

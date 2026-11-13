@@ -1,0 +1,46 @@
+{
+  "captured_at": "2026-11-04T00:00:00Z",
+  "exports": [],
+  "file_ids": [],
+  "folders": [
+    "selected-folder"
+  ],
+  "id": "synthetic-drive-collection",
+  "limits": {
+    "max_bytes": 100000,
+    "max_depth": 2,
+    "max_file_bytes": 20000,
+    "max_files": 16,
+    "max_requests": 100,
+    "max_seconds": 60,
+    "timeout_seconds": 5
+  },
+  "media_types": [
+    "text/csv"
+  ],
+  "recursive": false,
+  "review": {
+    "rationale": "Explicit synthetic selection/ordinary classification, not knowledge approval.",
+    "reviewed_at": "2026-11-04T00:00:00Z",
+    "reviewers": [
+      "synthetic-reviewer"
+    ],
+    "state": "approved"
+  },
+  "review_authority": {
+    "id": "synthetic-reviewer",
+    "kind": "human"
+  },
+  "schema": "mindgarden.drive-binding/v1",
+  "scope": {
+    "execution": "controlled-import",
+    "persistence": "machine-local",
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": "never-exportable",
+    "schema": "mindgarden.scope/v1",
+    "visibility": "personal"
+  }
+}

@@ -42,11 +42,11 @@ This document identifies Mindgarden's logical systems and responsibilities. It a
 | Validation | V0 preserved; general v1 checkpoint merged | Fails closed on version/schema, paths, relationships, provenance, scope and private-by-default publication, including empty allowlists. |
 | Package and command interface | Implemented 0.1 | Provides a dependency-free installable Python package, unified `mindgarden` command, stable exit codes, public library surface, and temporary 0.x script shims. |
 | Initialization and migration | V1 lifecycle implemented | Creates deterministic gardens and applies digest-bound, identity-preserving, provenance-safe migration with an exact v0 rollback tree. |
-| Candidate routing | Core merged; exact reference repair draft #133 | Places authored reviewed candidates with private fallback, one home, typed references and recoverable multi-garden writes; independent exact repairs retain historical edges. |
+| Candidate routing | Core and exact reference repair merged #133 | Places authored reviewed candidates with private fallback, one home, typed references and recoverable multi-garden writes; independent exact repairs retain historical edges. |
 | Source storage | Filesystem recovery and adapter migration merged #130 | Preserves immutable content identities, verifies checksums and supports bounded audit/export/restore/relocation independently from location. |
-| Federation | Public/local discovery merged; supplied-context draft #134 | Builds reviewed checksum-bound public bundles and catalogs; selected live-authorized public reads add bounded cited context without fetching. Hosting, remote/private protocols and real external adoption remain open. |
+| Federation | Public/local discovery and supplied-context merged #134 | Builds reviewed checksum-bound public bundles and catalogs; selected live-authorized public reads add bounded cited context without fetching. Hosting, remote/private protocols and real external adoption remain open. |
 | Local registry | Linux lifecycle merged #67; owned cache recovery merged #82; [native macOS checkpoint merged #93](docs/registry-native-platforms.md) | Saved plans, named scope selections, non-destructive unregister, private restore and native ACL/path checks have bounded evidence; Windows, restricted/host assurance and destructive cleanup remain open. |
-| V1 public preview | Merged baseline; native reading correction draft #135 | Reuses scoped public selection for literal reviewed content, exact citations, typed links and pinned offline Quartz; broader UI/consumer acceptance remains open. |
+| V1 public preview | Native reading correction merged #135 | Reuses scoped public selection for literal reviewed content, exact citations, typed links and pinned offline Quartz; broader UI/consumer acceptance remains open. |
 | First-pass compaction | Merged #111 | Extends existing sessions with exact private source grants and authored first summaries; expiring private proof bundles preserve originals and grant no knowledge approval. |
 | Optional semantic decisions | Merged #110 | Official TypeSafe SDK suggests a closed read intent; ordinary application code owns handlers, source access and permissions. Default commands require no model service. |
 | Assistant-memory projection | Local reviewed checkpoint implemented | Provider-neutral seven-action compaction, bounded copyable snippets and optional live-checked expiring bundles; canonical sources stay independent. |
@@ -62,7 +62,9 @@ The selected [local source-to-packet checkpoint](docs/local-consultation-workflo
 adds draft declared-CSV normalization and reviewed private preparation packets
 through the existing source/session/storage services. It does not introduce a
 bank connector, web framework, model service, permanent query store or new policy
-owner. Live capture and the actual private pilot retain their separate gates.
+owner. A draft [selected Drive capture](docs/drive-capture.md) adds bounded
+read-only acquisition/refresh and a private optional OAuth helper; live account
+proof and the actual private pilot retain their separate gates.
 
 - Mindcap capture
 - Aether agents
@@ -92,7 +94,7 @@ Systems fail closed at destructive, publication, privacy, and security boundarie
 
 | Concern | Owner | Milestone state |
 | --- | --- | --- |
-| Faithful capture and captured bundles | Mindcap or supplying capture tool | External input; no capture implementation here |
+| Faithful capture and captured bundles | Mindcap or supplying capture tool | Supplied input plus draft selected Drive acquisition; no claim of every capture integration |
 | Source normalization and exact evidence selectors | Mindgarden adapters/application | Text and bounded v3.2.2/v3.2.3 archive adapters implemented in the merged checkpoint; full producer conformance unclaimed |
 | Immutable original bytes | Explicit private vault, owned by consumer | Bounded filesystem identity/checksum/audit/export/restore/relocation implemented in the merged checkpoint; merged ordinary PDF/media inventory/triage follow-up supplied; encrypted/provider acceptance open |
 | Reviewed knowledge and typed relationships | Consumer garden; Mindgarden contracts/services | General v1 validation and reviewed projections implemented in the merged checkpoint |
