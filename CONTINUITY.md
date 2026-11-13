@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T21:50:47Z'
+  updated_at: '2026-11-13T21:51:17Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -58,9 +58,8 @@ work:
   next:
     kind: action
     id: freshness-mapping-next-checkpoint
-    description: 'Push/open the #46 draft on #145, then implement #90 explicit reviewed CSV mappings on the preserved
-      combined stack. The mapping contract is independent of freshness and must retain original spans, exact normalization
-      configuration and packet review.'
+    description: "Continue #90 reviewed CSV mapping on the explicit #144 \u2192 #145 \u2192 #146 stack; retain every\
+      \ draft for review and original source bytes."
     readiness: ready
     references:
     - docs/freshness-mapping-sprint.md
@@ -69,34 +68,31 @@ state:
   base:
     revision: dcf69430cfd52162e5e509b79e2e4c6cdd668de4
     ref: refs/heads/feature/37-consumer-freshness
-    verified_at: '2026-11-13T21:50:47Z'
+    verified_at: '2026-11-13T21:51:17Z'
   candidate:
     branch: feature/46-multisource-refresh
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: e7e7fa2
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#146
+      url: https://github.com/egohygiene/mindgarden/pull/146
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-13T21:50:47Z'
+    observed_at: '2026-11-13T21:51:17Z'
     default_branch_revision: 6c9954bfa8ac65c94aa1db87c679a66227f736d8
     issue_state: open
-    pull_request_state: not-applicable
+    pull_request_state: draft
     notes: 'Draft #144 remains green and unmerged; #145 adds qualified context consumers at eb4280a with documentation
       handoff dcf6943. New #46 work is stacked on #145. Main remains 6c9954b; 34 open / 44 tracked / ten closed.
-      No real source/model or automatic merge.'
+      No real source/model or automatic merge. Draft #146 is open; functional e7e7fa2 is locally qualified; hosted
+      CI remains separate.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T21:50:47Z'
+  reviewed_at: '2026-11-13T21:51:17Z'
   reviewed_by: codex
   evidence:
-  - command: 'Python 3.12.14 and 3.13.5: -m unittest tests.test_context_dependencies tests.test_dependency_builds
-      tests.test_selected_builds tests.test_v1_retrieval tests.test_scoped_retrieval tests.test_v1_contracts --quiet;
-      new-test Ruff/format; git diff --check.'
-    outcome: passed
-    observed_at: '2026-11-13T21:41:21Z'
-    notes: 41 tests pass per Python, zero skips (51.052s / 48.656s). Initial command included nonexistent tests.test_scope
-      and is not counted as passing; corrected suite passes. Scoped lint/format and whitespace pass.
   - command: 'Python 3.12.14 and 3.13.5: -m unittest tests.test_context_dependencies tests.test_dependency_builds
       tests.test_selected_builds tests.test_v1_retrieval tests.test_scoped_retrieval tests.test_v1_contracts --quiet;
       new-test Ruff/format; git diff --check.'
@@ -109,6 +105,13 @@ review:
       Ruff/format; pinned owner/whitespace checks.'
     outcome: passed
     observed_at: '2026-11-13T21:50:47Z'
+    notes: 43 tests pass per Python, zero skips (105.284s / 102.118s). Initial invalid uppercase historical-only
+      canary corrected to the existing identifier contract. No live/model accuracy or private pilot claim.
+  - command: 'Both supported Pythons: -m unittest tests.test_compaction_refresh tests.test_compaction tests.test_source_compaction
+      tests.test_context_dependencies tests.test_dependency_builds tests.test_selected_builds --quiet; new-fixture
+      Ruff/format; pinned owner/whitespace checks.'
+    outcome: passed
+    observed_at: '2026-11-13T21:51:17Z'
     notes: 43 tests pass per Python, zero skips (105.284s / 102.118s). Initial invalid uppercase historical-only
       canary corrected to the existing identifier contract. No live/model accuracy or private pilot claim.
   environment_limitations:
@@ -146,7 +149,7 @@ Deliver a read-only multi-source compaction refresh/quality checkpoint with live
 
 ## State snapshot
 
-Draft #144 remains green and unmerged; #145 adds qualified context consumers at eb4280a with documentation handoff dcf6943. New #46 work is stacked on #145. Main remains 6c9954b; 34 open / 44 tracked / ten closed. No real source/model or automatic merge.
+Draft #144 remains green and unmerged; #145 adds qualified context consumers at eb4280a with documentation handoff dcf6943. New #46 work is stacked on #145. Main remains 6c9954b; 34 open / 44 tracked / ten closed. No real source/model or automatic merge. Draft #146 is open; functional e7e7fa2 is locally qualified; hosted CI remains separate.
 
 ## Completed and material changes
 
@@ -162,7 +165,7 @@ No private inputs or selected live local model are available. Normative declassi
 
 ## Next dependency-ready work
 
-Push/open the #46 draft on #145, then implement #90 explicit reviewed CSV mappings on the preserved combined stack. The mapping contract is independent of freshness and must retain original spans, exact normalization configuration and packet review.
+Continue #90 reviewed CSV mapping on the explicit #144 → #145 → #146 stack; retain every draft for review and original source bytes.
 
 ## Parallel changes and reconciliation
 

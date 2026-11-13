@@ -86,3 +86,5 @@ No actual model accuracy or real private pilot is claimed.
 `tests.test_dependency_builds`, `tests.test_selected_builds`. New-fixture lint and
 format pass. Initial old-only canary used an invalid uppercase identifier; it was
 corrected to the existing identifier contract, without weakening validation.
+
+Draft [#146](https://github.com/egohygiene/mindgarden/pull/146) pins qualified functional `e7e7fa2` on #145. The next handoff changes documentation only; hosted CI remains distinct.
