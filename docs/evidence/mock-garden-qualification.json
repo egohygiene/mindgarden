@@ -1,0 +1,88 @@
+{
+  "schema": "mindgarden.mock-garden-qualification/v1",
+  "source": "881bb14d082c69c618fb4af74a1fa3f2fbb3ce07",
+  "proofs": [
+    {
+      "mode": "source",
+      "report_sha256": "4e09253473f99fda53648b0a64ae24297831d9246fdb1797adbe7efa10dd5102",
+      "generated_commands_passed": 5,
+      "status": "passed",
+      "command": "$PYTHON -S $CLIENT/scripts/mock_garden_demo.py --workspace $NEW_PRIVATE_FICTIONAL_DIRECTORY --require-source --check-golden --report $REPORT",
+      "network": "blocked during generator",
+      "model_calls": 0
+    },
+    {
+      "mode": "wheel",
+      "report_sha256": "4e09253473f99fda53648b0a64ae24297831d9246fdb1797adbe7efa10dd5102",
+      "generated_commands_passed": 5,
+      "status": "passed",
+      "command": "$PYTHON -I $CLIENT/scripts/mock_garden_demo.py --workspace $NEW_PRIVATE_FICTIONAL_DIRECTORY --require-installed --check-golden --report $REPORT",
+      "network": "blocked during generator",
+      "model_calls": 0
+    },
+    {
+      "mode": "sdist",
+      "report_sha256": "4e09253473f99fda53648b0a64ae24297831d9246fdb1797adbe7efa10dd5102",
+      "generated_commands_passed": 5,
+      "status": "passed",
+      "command": "$PYTHON -S $CLIENT/scripts/mock_garden_demo.py --workspace $NEW_PRIVATE_FICTIONAL_DIRECTORY --require-source --check-golden --report $REPORT",
+      "network": "blocked during generator",
+      "model_calls": 0
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "mindgarden-0.1.0-py3-none-any.whl",
+      "sha256": "f67fde578285e2605a8d5db61e991db439787754bb1a62c18b152204b0d82773"
+    },
+    {
+      "name": "mindgarden-0.1.0.tar.gz",
+      "sha256": "8d555ee7af88643d9f703bd9f3b963588ba77bc466ff1a6c5363a540144311dc"
+    }
+  ],
+  "claim": "One fictional dataset produces the same complete proof from a clean source checkout, isolated installed wheel and unpacked source; all five generated commands work. This is fixture/software evidence, not a real pilot or model-quality result.",
+  "tests": {
+    "command": "python -m unittest tests.test_mock_garden tests.test_distribution tests.test_package --quiet",
+    "results": [
+      {
+        "python": "3.12.14",
+        "passed": 12,
+        "skipped": 0,
+        "seconds": 0.581
+      },
+      {
+        "python": "3.13.5",
+        "passed": 12,
+        "skipped": 0,
+        "seconds": 0.566
+      }
+    ]
+  },
+  "source_mode_python": "3.13.5",
+  "wheel_and_sdist_python": "3.12.14",
+  "source_stack": {
+    "base_pr": 142,
+    "implementation_pr": 143,
+    "base_branch": "docs/local-workflow-merge-handoff",
+    "branch": "feature/86-fictional-mock-garden",
+    "runtime_base_main": "5ec7ae017002f84e1dc36c2aaed3c76a00b079f3",
+    "role": "Example data/client/tests; canonical engine/contracts unchanged"
+  },
+  "checks": {
+    "scoped_ruff": "passed",
+    "format": "passed",
+    "owner": "24 proposed/null-approval ADRs, twelve-section bounded continuity, 44 issue rows and five native child links pass",
+    "generated_commands": "Five per mode, 15 actual CLI subprocess checks; artifact proof generator separately blocks network/HTTP/subprocess calls",
+    "earlier_attempt": "Fixture contradiction strings failed existing schema; corrected to exact artifact references, not counted as passing evidence",
+    "unperformed": [
+      "Real account/private data/model execution",
+      "New #37/#46/#90 refresh/mapping runtime features",
+      "Actual private pilot, native Windows/confidential runtime and release acceptance"
+    ],
+    "documentation_links": {
+      "files": 11,
+      "local_links": 145,
+      "status": "passed"
+    }
+  }
+}

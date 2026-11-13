@@ -281,3 +281,12 @@ An initial authored plan used strings where the contradiction contract requires
 exact artifact references. The fixture was corrected without changing the engine.
 Final exact source/artifact verification, branch/PR and next action are recorded
 in CONTINUITY.md and the example's complete golden.
+
+Draft [#143](https://github.com/egohygiene/mindgarden/pull/143) stacks on documentation
+#142. Qualified source `881bb14d082c69c618fb4af74a1fa3f2fbb3ce07` passes 12 focused
+mock/distribution/v0 package cases per Python, zero skips (0.581s / 0.566s).
+Clean source, an isolated installed wheel and unpacked source match the complete
+mock golden; all five generated CLI commands pass in each mode. The
+[qualification receipt](evidence/mock-garden-qualification.json) preserves exact
+commands, artifact/report hashes and earlier corrected attempts. This introduces
+no engine/schema/provider or broader issue acceptance change.

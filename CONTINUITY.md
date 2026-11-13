@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T05:34:50Z'
+  updated_at: '2026-11-13T05:43:10Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -73,9 +73,11 @@ scope:
   - docs/architecture-overview.md
   - docs/local-consultation-workflow.md
   - docs/evidence/local-workflow-stack-merge.json
+  - examples/mock-garden/README.md
+  - docs/evidence/mock-garden-qualification.json
 work:
-  objective: Deliver a reusable fictional garden over the existing engine for exploration and the proposed freshness/summary/import
-    checkpoints.
+  objective: Hand off the usable fictional garden and exact qualified source/artifacts as the shared synthetic dataset
+    for the next proposed batch.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
@@ -87,9 +89,10 @@ work:
   next:
     kind: action
     id: local-workflow-next-checkpoint
-    description: 'Open this bounded mock-garden checkpoint draft on #142; freeze its source and qualify source/installed-wheel/unpacked-source
-      plus generated commands. Record actual PR/commits/results. The correction stays unapplied for future proposed
-      #37/#46/#90 work; private OS/workspace/folder/credential/runtime setup remains independent.'
+    description: 'Review draft #142 → #143 and explore the generated START-HERE.md instance. Use its unapplied correction
+      and shared fictional world for the proposed #37 freshness → #46 multi-source refresh/quality → #90 explicit
+      CSV mapping checkpoints. Do not silently import the correction, approve real knowledge or infer actual financial/legal
+      facts. Private configuration remains independent.'
     readiness: ready
     references:
     - docs/local-consultation-workflow.md
@@ -98,38 +101,31 @@ state:
   base:
     revision: eecb69b158abb4617938eb40b095cbc00c014088
     ref: refs/heads/docs/local-workflow-merge-handoff
-    verified_at: '2026-11-13T05:34:50Z'
+    verified_at: '2026-11-13T05:43:10Z'
   candidate:
     branch: feature/86-fictional-mock-garden
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 881bb14d082c69c618fb4af74a1fa3f2fbb3ce07
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#143
+      url: https://github.com/egohygiene/mindgarden/pull/143
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-13T05:34:50Z'
+    observed_at: '2026-11-13T05:43:10Z'
     default_branch_revision: 5ec7ae017002f84e1dc36c2aaed3c76a00b079f3
     issue_state: open
-    pull_request_state: not-applicable
-    notes: '#138–#141 merged. Documentation #142 is an unmerged draft on main; this fixture branch stacks on #142
-      for continuity only, not a new runtime prerequisite. New fixed synthetic seed and launcher leave five reviewed
-      knowledge entries, four graph links, eight ledger rows, exact evidence, bounded context, packet and staged
-      correction outside Git. No private source or live account accessed.'
+    pull_request_state: draft
+    notes: 'Main remains 5ec7ae0 with #138–#141 merged. Documentation #142 → fictional demo #143 is the new draft
+      stack; functional fixture/client source881bb14. All three complete source/wheel/archive goldens match; 15
+      generated commands work. Five knowledge entries, four links, context15509 and eight transactions are wholly
+      invented. No user data, account, registry or credentials accessed.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T05:34:50Z'
+  reviewed_at: '2026-11-13T05:43:10Z'
   reviewed_by: codex
   evidence:
-  - command: 14-module focused unittest selection on frozen f8b2695 (both Pythons); runtime identity diff to 1ad9818;
-      eight package/distribution cases per Python at corrected source; nine exact complete source/wheel/sdist goldens;
-      eight isolated installed v0 smoke commands; compile/scoped Ruff/format/owner/176 links
-    outcome: passed
-    observed_at: '2026-11-13T03:29:49Z'
-    notes: '111 passed per Python, zero skips (196.775s/189.661s); runtime identity diff exit0; corrected package8
-      pass per Python (0.496s/0.468s); nine complete artifact goldens and installed v0 smoke pass. Scoped checks
-      pass; optional wide Ruff retains exactly32 pre-existing findings. Exact-head Test/preparation pass for #138/#139/#140.
-      #141 source1ad9818 preparation passes, Test pending; handoff-only CI separate. Full local/act and manual a11y
-      remain deferred.'
   - command: git diff --exit-code 54875495dabfcf4f8b57ec51dbb34ed404aa5374 origin/main; inspect all four exact-head
       automatic CI/reviews/threads; pinned owner and changed-document link/diff checks
     outcome: passed
@@ -148,6 +144,15 @@ review:
       Python (0.002s/0.003s). Four initial generated commands pass; final five-command and clean artifact qualification
       follows. Initial contradiction field fixture mismatch corrected to existing exact-reference contract, without
       weakening runtime.'
+  - command: python -m unittest tests.test_mock_garden tests.test_distribution tests.test_package --quiet (3.12/3.13);
+      mock_garden_demo.py --check-golden using frozen source(-S)/isolated wheel(-I)/unpacked source(-S); five generated
+      CLI commands per mode; scoped Ruff/format; owner/link/diff checks
+    outcome: passed
+    observed_at: '2026-11-13T05:43:10Z'
+    notes: 12 cases pass per Python, zero skips (0.581s/0.566s). Three complete goldens and all15 generated commands
+      pass. Scoped lint/format and pinned owner checks pass; all 145 local links across eleven changed Markdown
+      files resolve; compilation and owner/bounds checks pass. Domain/runtime/contracts/requirements unchanged;
+      no model-quality, real pilot or new freshness/mapping completion is claimed.
   environment_limitations:
   - Full local/act and manual accessibility remain deferred; focused evidence is distinct.
   - Actual private workspace, source selection, credentials and confidential-runtime assurance must exist before
@@ -172,7 +177,7 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer selected the five-step local workflow on 2026-11-13, superseding the old end-of-queue scheduling gate for bounded #86/#87/#89/#90 work. This does not ratify ADRs or supply private-source authority. #88/#91 and release work remain deferred.
+The maintainer requested mock data for an explorable fictional garden after the #138–#141 merges. Draft #142 → #143 preserves the handoff and this bounded fixture/client. The proposed #37/#46/#90 runtime work is not started; no private data, actual account or model is accessed. ADRs stay proposed, and #88/#91 plus release remain deferred.
 
 ## Resume protocol
 
@@ -180,19 +185,19 @@ Refresh live issue/PR state and comments; read README, AI_CONSTITUTION, ROADMAP,
 
 ## Current objective and success conditions
 
-Deliver a reusable fictional garden over the existing engine for exploration and the proposed freshness/summary/import checkpoints.
+Hand off the usable fictional garden and exact qualified source/artifacts as the shared synthetic dataset for the next proposed batch.
 
 ## State snapshot
 
-#138–#141 merged. Documentation #142 is an unmerged draft on main; this fixture branch stacks on #142 for continuity only, not a new runtime prerequisite. New fixed synthetic seed and launcher leave five reviewed knowledge entries, four graph links, eight ledger rows, exact evidence, bounded context, packet and staged correction outside Git. No private source or live account accessed.
+Main remains 5ec7ae0 with #138–#141 merged. Documentation #142 → fictional demo #143 is the new draft stack; functional fixture/client source881bb14. All three complete source/wheel/archive goldens match; 15 generated commands work. Five knowledge entries, four links, context15509 and eight transactions are wholly invented. No user data, account, registry or credentials accessed.
 
 ## Completed and material changes
 
-Reused the composed capture/review/research/recovery proof and normal ingest/gardenize/search/graph/context/evidence/packet services. Fictional business/career/household/dialogue source hashes, explicit authored summary/relationship plan, preserved conflicting dates and unreviewed sources, fresh local session, copyable commands, safe new-workspace guards and a complete golden. Engine and canonical contracts unchanged.
+Committed fictional source files, checksum/review manifest and complete golden; persistent real-engine sandbox with business/career/household/dialogue, disputed dates, exact evidence and unapplied correction. Ordinary source/curation/retrieval/packet services and earlier recovery fixtures reused. Source/isolated wheel/unpacked source produce identical proof and five working commands each; fake review remains explicitly artificial and sources unreviewed.
 
 ## Validation and review evidence
 
-python -S scripts/mock_garden_demo.py --require-source (3.12); Python3.13 same --check-golden; unittest tests.test_mock_garden both Pythons; generated CLI commands; scoped Ruff/format; source/wheel build — Source proofs pass; complete 3.13 golden matches: five knowledge entries, four links, context15509, eight transactions/net2259.76, unchanged selected packet. Four safe-path/seed-review/command tests pass per Python (0.002s/0.003s). Four initial generated commands pass; final five-command and clean artifact qualification follows. Initial contradiction field fixture mismatch corrected to existing exact-reference contract, without weakening runtime.
+python -m unittest tests.test_mock_garden tests.test_distribution tests.test_package --quiet (3.12/3.13); mock_garden_demo.py --check-golden using frozen source(-S)/isolated wheel(-I)/unpacked source(-S); five generated CLI commands per mode; scoped Ruff/format; owner/link/diff checks — 12 cases pass per Python, zero skips (0.581s/0.566s). Three complete goldens and all15 generated commands pass. Scoped lint/format and pinned owner checks pass; all 145 local links across eleven changed Markdown files resolve; compilation and owner/bounds checks pass. Domain/runtime/contracts/requirements unchanged; no model-quality, real pilot or new freshness/mapping completion is claimed.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -200,7 +205,7 @@ Actual pilot OS/workspace/folder selection is requested asynchronously; no crede
 
 ## Next dependency-ready work
 
-Open this bounded mock-garden checkpoint draft on #142; freeze its source and qualify source/installed-wheel/unpacked-source plus generated commands. Record actual PR/commits/results. The correction stays unapplied for future proposed #37/#46/#90 work; private OS/workspace/folder/credential/runtime setup remains independent.
+Review draft #142 → #143 and explore the generated START-HERE.md instance. Use its unapplied correction and shared fictional world for the proposed #37 freshness → #46 multi-source refresh/quality → #90 explicit CSV mapping checkpoints. Do not silently import the correction, approve real knowledge or infer actual financial/legal facts. Private configuration remains independent.
 
 ## Parallel changes and reconciliation
 
