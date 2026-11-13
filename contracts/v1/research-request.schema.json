@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:research-request:v1",
+  "title": "Mindgarden research-request v1",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "mindgarden.research-request/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "planner": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        },
+        "kind": {
+          "const": "external-client"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "gardens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "garden": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "revision": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "garden",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 16,
+      "uniqueItems": true
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+      },
+      "minItems": 0,
+      "maxItems": 1000,
+      "uniqueItems": true
+    },
+    "allowed_tools": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "search",
+          "graph",
+          "backlinks",
+          "outbound",
+          "context",
+          "evidence",
+          "source-evidence"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 7,
+      "uniqueItems": true
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "budgets": {
+      "type": "object",
+      "properties": {
+        "max_steps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "max_results": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "max_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000000
+        },
+        "max_elapsed_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60000
+        },
+        "max_model_calls": {
+          "const": 0
+        }
+      },
+      "required": [
+        "max_steps",
+        "max_results",
+        "max_bytes",
+        "max_elapsed_ms",
+        "max_model_calls"
+      ],
+      "additionalProperties": false
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "urn:egohygiene:mindgarden:local-federation-query:v1"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "enum": [
+                  "evidence",
+                  "source-evidence"
+                ]
+              },
+              "citation": {
+                "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sourceLocator"
+              }
+            },
+            "required": [
+              "operation",
+              "citation"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 16
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "question",
+    "planner",
+    "gardens",
+    "sources",
+    "allowed_tools",
+    "expires_at",
+    "budgets",
+    "steps"
+  ],
+  "additionalProperties": false
+}

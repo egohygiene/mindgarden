@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:research-result:v1",
+  "title": "Mindgarden research-result v1",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "mindgarden.research-result/v1"
+    },
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "request_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "authority_sha256": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/sha256"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "garden": {
+            "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+          },
+          "revision": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "garden",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 16,
+      "uniqueItems": true
+    },
+    "scope": {
+      "$ref": "urn:egohygiene:mindgarden:scope:v1"
+    },
+    "policy": {
+      "$ref": "urn:egohygiene:mindgarden:search-results:v1#/properties/policy"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "trust": {
+      "const": "untrusted-evidence"
+    },
+    "planner": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        },
+        "kind": {
+          "const": "external-client"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "status": {
+      "enum": [
+        "observations-available",
+        "insufficient-evidence"
+      ]
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "step": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 16
+          },
+          "operation": {
+            "enum": [
+              "search",
+              "graph",
+              "backlinks",
+              "outbound",
+              "context",
+              "evidence",
+              "source-evidence"
+            ]
+          },
+          "payload": {
+            "oneOf": [
+              {
+                "$ref": "urn:egohygiene:mindgarden:search-results:v1"
+              },
+              {
+                "$ref": "urn:egohygiene:mindgarden:graph:v1"
+              },
+              {
+                "$ref": "urn:egohygiene:mindgarden:backlinks:v1"
+              },
+              {
+                "$ref": "urn:egohygiene:mindgarden:outbound-links:v1"
+              },
+              {
+                "$ref": "urn:egohygiene:mindgarden:context:v1"
+              },
+              {
+                "$ref": "urn:egohygiene:mindgarden:evidence:v1"
+              }
+            ]
+          }
+        },
+        "required": [
+          "step",
+          "operation",
+          "payload"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 16
+    },
+    "interpretations": {
+      "const": []
+    },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "results": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "model_calls": {
+          "const": 0
+        }
+      },
+      "required": [
+        "steps",
+        "results",
+        "model_calls"
+      ],
+      "additionalProperties": false
+    },
+    "coverage": {
+      "const": "selected-authorized-revisions-only"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "maxItems": 10
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "request_sha256",
+    "authority_sha256",
+    "inputs",
+    "scope",
+    "policy",
+    "expires_at",
+    "trust",
+    "planner",
+    "status",
+    "observations",
+    "interpretations",
+    "usage",
+    "coverage",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

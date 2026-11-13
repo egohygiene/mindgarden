@@ -1,0 +1,116 @@
+{
+  "allowed_tools": [
+    "search",
+    "graph",
+    "backlinks",
+    "outbound",
+    "context",
+    "evidence",
+    "source-evidence"
+  ],
+  "budgets": {
+    "max_bytes": 131072,
+    "max_elapsed_ms": 60000,
+    "max_model_calls": 0,
+    "max_results": 20,
+    "max_steps": 16
+  },
+  "expires_at": "2098-01-01T00:00:00Z",
+  "gardens": [
+    {
+      "garden": "synthetic-garden",
+      "revision": "sha256:71663fed0c89e51b0048ac5088016e9bcb4479f1dbc13bcf74c30c37334ab318"
+    }
+  ],
+  "id": "synthetic-research",
+  "planner": {
+    "id": "graph-first",
+    "kind": "external-client"
+  },
+  "question": "What reviewed evidence helps prepare the consultation?",
+  "schema": "mindgarden.research-request/v1",
+  "sources": [
+    {
+      "content_sha256": "0ecec64448329787029a7a8986fc779fdebfb16ce52a3eb1995d2751ff09928b",
+      "locator": "artifact",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-8407a03311839a9f0598a468-0ecec64448329787",
+        "revision": "sha256:0ecec64448329787029a7a8986fc779fdebfb16ce52a3eb1995d2751ff09928b"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "depth": 1,
+      "gardens": [
+        {
+          "garden": "synthetic-garden",
+          "revision": "sha256:71663fed0c89e51b0048ac5088016e9bcb4479f1dbc13bcf74c30c37334ab318"
+        }
+      ],
+      "limit": 3,
+      "operation": "graph",
+      "schema": "mindgarden.local-federation-query/v1",
+      "start": "synthetic-garden/consultation-note"
+    },
+    {
+      "gardens": [
+        {
+          "garden": "synthetic-garden",
+          "revision": "sha256:71663fed0c89e51b0048ac5088016e9bcb4479f1dbc13bcf74c30c37334ab318"
+        }
+      ],
+      "limit": 3,
+      "operation": "search",
+      "query": "consultation",
+      "schema": "mindgarden.local-federation-query/v1"
+    },
+    {
+      "artifact": "synthetic-garden/consultation-note",
+      "gardens": [
+        {
+          "garden": "synthetic-garden",
+          "revision": "sha256:71663fed0c89e51b0048ac5088016e9bcb4479f1dbc13bcf74c30c37334ab318"
+        }
+      ],
+      "operation": "backlinks",
+      "schema": "mindgarden.local-federation-query/v1"
+    },
+    {
+      "artifact": "synthetic-garden/consultation-note",
+      "gardens": [
+        {
+          "garden": "synthetic-garden",
+          "revision": "sha256:71663fed0c89e51b0048ac5088016e9bcb4479f1dbc13bcf74c30c37334ab318"
+        }
+      ],
+      "operation": "outbound",
+      "schema": "mindgarden.local-federation-query/v1"
+    },
+    {
+      "citation": {
+        "content_sha256": "0ecec64448329787029a7a8986fc779fdebfb16ce52a3eb1995d2751ff09928b",
+        "locator": "artifact",
+        "source": {
+          "garden": "synthetic-garden",
+          "id": "source-8407a03311839a9f0598a468-0ecec64448329787",
+          "revision": "sha256:0ecec64448329787029a7a8986fc779fdebfb16ce52a3eb1995d2751ff09928b"
+        }
+      },
+      "operation": "source-evidence"
+    },
+    {
+      "citation": {
+        "content_sha256": "0ecec64448329787029a7a8986fc779fdebfb16ce52a3eb1995d2751ff09928b",
+        "locator": "artifact",
+        "source": {
+          "garden": "synthetic-garden",
+          "id": "source-8407a03311839a9f0598a468-0ecec64448329787",
+          "revision": "sha256:0ecec64448329787029a7a8986fc779fdebfb16ce52a3eb1995d2751ff09928b"
+        }
+      },
+      "operation": "evidence"
+    }
+  ]
+}

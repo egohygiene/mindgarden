@@ -46,9 +46,12 @@ old end-of-queue scheduling gate for these selected checkpoints. #88/#91 and
 release work remain deferred; architecture/privacy gates retain their authority.
 
 Main is `9c94245` after the ordered merges. Draft #138 activates the selected
-phase and #139 supplies reviewed ledger packets; selected Drive capture/refresh
-follows on that explicit stack. The local workflow guide records exact tests,
-remaining Codex/pilot work and the distinction between mock and live proof.
+phase, #139 supplies reviewed ledger packets, #140 adds selected Drive
+capture/refresh and #141 adds bounded caller research, the Codex profile and
+private-pilot preflight. Review this explicit stack in order. All nine complete
+synthetic source/wheel/archive goldens pass; live/private/model acceptance remains
+unperformed. The local workflow guide and qualification receipt record exact
+tests, remaining setup and the distinction between mock and live proof.
 The 2026-11-12 gate and proposed freshness batch below are historical.
 
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
