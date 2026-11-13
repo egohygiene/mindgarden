@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T03:17:13Z'
+  updated_at: '2026-11-13T03:29:49Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -73,8 +73,8 @@ scope:
   - docs/architecture-overview.md
   - docs/local-consultation-workflow.md
 work:
-  objective: Preserve the bounded read-only Codex/research and private-pilot preparation checkpoint, then qualify
-    the complete stack from clean source, wheel and sdist.
+  objective: Hand off the completed bounded local software checkpoint for review; private execution remains configuration/authority
+    blocked.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
@@ -86,10 +86,10 @@ work:
   next:
     kind: action
     id: local-workflow-next-checkpoint
-    description: 'Open the Codex/pilot implementation as a draft on #140, freeze its functional commit and qualify
-      combined source/wheel/sdist plus focused Python/v0 checks. Update issue evidence and handoff. Actual private
-      execution remains blocked on OS/workspace/folder/credential/classification/runtime setup; no relabeling or
-      hosted-model grant is implied.'
+    description: 'Review #138 → #139 → #140 → #141. Supply OS/private workspace/selected Drive folder configuration
+      only, and verify local credentials plus actual classification/consumer/runtime authority. Then run private
+      pilot preflight and a small approved capture. Never paste secrets or relabel restricted material; no release,
+      ADR ratification or automatic merge of the new drafts is authorized.'
     readiness: ready
     references:
     - docs/local-consultation-workflow.md
@@ -98,35 +98,31 @@ state:
   base:
     revision: 69a5999e0be2c74951c79bdeb979909544442c15
     ref: refs/heads/feature/87-selected-drive-capture
-    verified_at: '2026-11-13T03:17:13Z'
+    verified_at: '2026-11-13T03:29:49Z'
   candidate:
     branch: feature/89-scoped-research-pilot
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 1ad98181482fe1b7f36ab0309f350d9aa93fd8f3
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#141
+      url: https://github.com/egohygiene/mindgarden/pull/141
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-13T03:17:13Z'
+    observed_at: '2026-11-13T03:29:49Z'
     default_branch_revision: 9c94245e0838da74a760cbc43e63b0faf6a3d756
     issue_state: open
-    pull_request_state: not-applicable
-    notes: '#133–#137 merged; #138 activation → #139 ledger → #140 Drive are open drafts. This branch stacks on
-      Drive functional 69a5999. Real OS/workspace/folder selection remains unanswered; no actual account or private
-      original accessed.'
+    pull_request_state: draft
+    notes: '#133–#137 merged at main 9c94245. New draft review stack #138 → #139 → #140 → #141 is preserved. Qualified
+      engine f8b2695 and packaging 1ad9818 have identical runtime/contracts/client/profile/fixture bytes; CSV artifact
+      omission is corrected. The original root retains four untouched pending entries. 35 issues open / 44 tracked;
+      24 ADRs remain proposed.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T03:17:13Z'
+  reviewed_at: '2026-11-13T03:29:49Z'
   reviewed_by: codex
   evidence:
-  - command: unittest tests.test_consultation; tests.test_v1_contracts tests.test_scope_bundle_outputs tests.test_source_adapters;
-      source consultation_demo.py --require-source; Ruff/format; pinned owner/diff checks
-    outcome: passed
-    observed_at: '2026-11-13T02:02:57Z'
-    notes: 15 focused cases pass (63.497s); initial 20 contract/source cases pass (12.644s). Prior combined 60 cases
-      pass per Python (153.156s/147.059s) before the final null-pin hardening; exact final-source 61-case reruns
-      and clean artifact qualification follow. Source proof passes net2259.76, context6128 bytes and 11 retained
-      objects; no live provider/private pilot claimed.
   - command: python -m unittest tests.test_drive_capture tests.test_drive_credentials tests.test_v1_contracts tests.test_scope_bundle_outputs
       tests.test_source_adapters --quiet (3.12/3.13); python -S scripts/drive_consultation_demo.py --require-source
       --check-golden; optional OAuth SDK constructor probe offline; Ruff/format/owner/diff
@@ -145,6 +141,16 @@ review:
       twice with two caller plans and direct fallback. Engine model/network calls zero. Codex binary version 0.159.0-alpha.3
       observed locally; no Codex runtime/model/private-data execution or quality claim. Clean combined distribution
       qualification follows.
+  - command: 14-module focused unittest selection on frozen f8b2695 (both Pythons); runtime identity diff to 1ad9818;
+      eight package/distribution cases per Python at corrected source; nine exact complete source/wheel/sdist goldens;
+      eight isolated installed v0 smoke commands; compile/scoped Ruff/format/owner/176 links
+    outcome: passed
+    observed_at: '2026-11-13T03:29:49Z'
+    notes: '111 passed per Python, zero skips (196.775s/189.661s); runtime identity diff exit0; corrected package8
+      pass per Python (0.496s/0.468s); nine complete artifact goldens and installed v0 smoke pass. Scoped checks
+      pass; optional wide Ruff retains exactly32 pre-existing findings. Exact-head Test/preparation pass for #138/#139/#140.
+      #141 source1ad9818 preparation passes, Test pending; handoff-only CI separate. Full local/act and manual a11y
+      remain deferred.'
   environment_limitations:
   - Full local/act and manual accessibility remain deferred; focused evidence is distinct.
   - Actual private workspace, source selection, credentials and confidential-runtime assurance must exist before
@@ -177,19 +183,19 @@ Refresh live issue/PR state and comments; read README, AI_CONSTITUTION, ROADMAP,
 
 ## Current objective and success conditions
 
-Preserve the bounded read-only Codex/research and private-pilot preparation checkpoint, then qualify the complete stack from clean source, wheel and sdist.
+Hand off the completed bounded local software checkpoint for review; private execution remains configuration/authority blocked.
 
 ## State snapshot
 
-#133–#137 merged; #138 activation → #139 ledger → #140 Drive are open drafts. This branch stacks on Drive functional 69a5999. Real OS/workspace/folder selection remains unanswered; no actual account or private original accessed.
+#133–#137 merged at main 9c94245. New draft review stack #138 → #139 → #140 → #141 is preserved. Qualified engine f8b2695 and packaging 1ad9818 have identical runtime/contracts/client/profile/fixture bytes; CSV artifact omission is corrected. The original root retains four untouched pending entries. 35 issues open / 44 tracked; 24 ADRs remain proposed.
 
 ## Completed and material changes
 
-Versioned caller request/result, seven existing read handlers, complete prevalidation, exact scope/revisions/source grants, cumulative budgets and no-partial-output/live expiry/revocation. Two distinct scripted callers and provider-removed direct search retain citations with no engine model call or stored trace. Packaged Codex workspace profile and non-destructive metadata-only pilot preflight/operator guide. Composed synthetic Drive/packet/recovery/research/preflight golden passes.
+Reviewed declared-ledger packet; selected read-only Drive capture/refresh and separate offline normalization; explicit optional private OAuth; seven-tool bounded caller research and packaged Codex profile; metadata-only non-destructive pilot preflight and concrete operator guide. Nine complete source/wheel/archive goldens match with no network/model dependency and exact evidence after vault recovery. Private data, actual account/model and real pilot never accessed.
 
 ## Validation and review evidence
 
-python -m unittest tests.test_research tests.test_pilot tests.test_v1_contracts tests.test_scope_bundle_outputs tests.test_local_federation --quiet (3.12/3.13); python -S scripts/research_demo.py --require-source --check-golden; Ruff/format/owner/diff — 37 focused cases per Python, zero skips (41.487s/40.138s); complete composed research golden matches twice with two caller plans and direct fallback. Engine model/network calls zero. Codex binary version 0.159.0-alpha.3 observed locally; no Codex runtime/model/private-data execution or quality claim. Clean combined distribution qualification follows.
+14-module focused unittest selection on frozen f8b2695 (both Pythons); runtime identity diff to 1ad9818; eight package/distribution cases per Python at corrected source; nine exact complete source/wheel/sdist goldens; eight isolated installed v0 smoke commands; compile/scoped Ruff/format/owner/176 links — 111 passed per Python, zero skips (196.775s/189.661s); runtime identity diff exit0; corrected package8 pass per Python (0.496s/0.468s); nine complete artifact goldens and installed v0 smoke pass. Scoped checks pass; optional wide Ruff retains exactly32 pre-existing findings. Exact-head Test/preparation pass for #138/#139/#140. #141 source1ad9818 preparation passes, Test pending; handoff-only CI separate. Full local/act and manual a11y remain deferred.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -197,7 +203,7 @@ Actual pilot OS/workspace/folder selection is requested asynchronously; no crede
 
 ## Next dependency-ready work
 
-Open the Codex/pilot implementation as a draft on #140, freeze its functional commit and qualify combined source/wheel/sdist plus focused Python/v0 checks. Update issue evidence and handoff. Actual private execution remains blocked on OS/workspace/folder/credential/classification/runtime setup; no relabeling or hosted-model grant is implied.
+Review #138 → #139 → #140 → #141. Supply OS/private workspace/selected Drive folder configuration only, and verify local credentials plus actual classification/consumer/runtime authority. Then run private pilot preflight and a small approved capture. Never paste secrets or relabel restricted material; no release, ADR ratification or automatic merge of the new drafts is authorized.
 
 ## Parallel changes and reconciliation
 

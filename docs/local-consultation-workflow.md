@@ -13,8 +13,8 @@ issue dispositions; no parent is closed by changing the schedule.
 | --- | --- | --- |
 | 1 | Review and merge #133 → #134 → #135 → #136 → #137. | Completed: #133–#137 merged in order at main `9c94245`. Every selected head has passing Test/preparation; #134 reconciled normally with identical source tree and a passing new preview. See the merge receipt below. |
 | 2 | Activate the bounded local phase under #86. | Selected #87/#89/#90 scheduling is updated; #88/#91 remain deferred. This document maps existing owners rather than adding a competing garden or session model. |
-| 3 | Produce a synthetic, reviewed, source-backed preparation packet (#90). | Implemented on `feature/90-reviewed-ledger-packet`: strict CSV normalization, pinned source grants, explicit reconciliation/review and exact-decimal calculations. The source demonstration passes; clean artifact qualification follows. |
-| 4 | Connect explicitly selected Drive capture and the scoped Codex workflow (#87/#89). | Draft #140 implements capture/refresh, separate normalization and optional private OAuth. `feature/89-scoped-research-pilot` supplies the bounded read-only research CLI and packaged Codex profile. Mocked software proof is separate from live Drive/Codex acceptance. |
+| 3 | Produce a synthetic, reviewed, source-backed preparation packet (#90). | Draft #139 supplies strict CSV normalization, pinned source grants, explicit reconciliation/review and exact-decimal calculations. The combined stack through #141 passes all three clean artifact forms; #141 includes the necessary CSV source-manifest correction. |
+| 4 | Connect explicitly selected Drive capture and the scoped Codex workflow (#87/#89). | Draft #140 implements capture/refresh, separate normalization and optional private OAuth. Draft #141 supplies the bounded read-only research CLI and packaged Codex profile. Mocked software proof is separate from live Drive/Codex acceptance. |
 | 5 | Prepare and run the selected private pilot where authorized and available. | Metadata-only `pilot preflight` and the concrete operator guide are implemented; the composed synthetic fixture reports ready-to-attempt. Actual execution remains blocked on the unanswered OS/workspace/folder selection, credentials and applicable classification/consumer/runtime authority. |
 
 The synthetic packet is independent of Drive: acquisition supplies captured
@@ -95,7 +95,8 @@ authored reviewed summary, retrieves exact source evidence and produces a
 retained. Relocation, restore and a clean garden reproduce the packet, index,
 context and evidence exactly with network/HTTP/process/model entry points blocked.
 The [complete golden](../tests/fixtures/consultation/expected-proof.json) preserves
-all output evidence. Installed wheel/source qualification is still pending here.
+all output evidence. Combined clean wheel/source qualification through #141 is
+recorded below; the standalone #139 source manifest needs #141's CSV correction.
 
 Initial attempts found a nested attachment filename incompatible with the shared
 flat writer, a test budget whose own changed field affected its size, and a
@@ -167,3 +168,51 @@ The earlier source/wheel observations remain separate; only the corrected source
 archive can satisfy the composed clean-artifact checkpoint. Packaging/release
 guidance, declaration, changelog and pinned owner inventory were read before this
 change; version, publication workflow and release policy are unchanged.
+
+## Final combined qualification and handoff
+
+Review order is [#138](https://github.com/egohygiene/mindgarden/pull/138) →
+[#139](https://github.com/egohygiene/mindgarden/pull/139) →
+[#140](https://github.com/egohygiene/mindgarden/pull/140) →
+[#141](https://github.com/egohygiene/mindgarden/pull/141). All four remain drafts.
+The reproducible combined branch is `feature/89-scoped-research-pilot`. Functional
+engine source is `f8b269527f9fe31eed0e46131253865a2abf94f2`; corrected packaging
+source is `1ad98181482fe1b7f36ab0309f350d9aa93fd8f3`. Later handoff-only commits
+do not replace those exact qualification identities.
+
+The [machine-readable receipt](evidence/local-workflow-qualification.json)
+contains complete commands, source lineage, artifact/report hashes and CI
+observations. Its 14-module focused selection passes **111 tests per Python**,
+zero skips: 3.12.14 in 196.775s and 3.13.5 in 189.661s. The packaging correction
+changes no runtime/schema/client/profile/fixture bytes (`git diff --exit-code`
+over those paths passes). Corrected distribution/package verification passes
+another eight cases per Python (0.496s / 0.468s), including all three CSV inputs.
+
+All **nine complete golden proofs pass**: declared packet, synthetic Drive packet
+and research composition, each from clean Git (`-S`), a clean installed wheel
+(`-I`, no dependencies) and unpacked source (`-S`). Each full report matches its
+committed golden, with network/HTTP/process entry points blocked and no model
+service. Build tools are Python 3.12.14 / build 1.3.0 / setuptools 80.9.0 / wheel
+0.45.1. Eight installed v0 CLI/library smoke commands pass. This is local artifact
+qualification; it does not publish or certify release readiness.
+
+Compilation, scoped Ruff, six-file formatting, pinned owners and all 176 updated
+guide links/assets pass; the complete pilot binding example validates. An optional
+repository-wide Ruff sweep finds the same 32 unused-import/local findings as
+main-equivalent tree `0697145`, with no new finding; it is not reported as a
+repository-wide pass. Full local discovery/`act` and manual accessibility remain
+intentionally deferred. No check or source contract was weakened.
+
+Automatic Test/preparation pass at #138 `36e4de8`, #139 `9db4c20` and #140
+`69a5999`. At #141 packaging source `1ad9818`, preparation 43358410162 passes
+and Test 43358410101 is still running at this observation. A final handoff-only
+head has separate CI; no pending run is called passing. No workflow was manually
+dispatched. Main remains `9c94245`, the original four interrupted root entries
+are untouched, **35 issues remain open / 44 tracked**, and all 24 ADRs remain
+proposed/null approval. #88/#91 and release work remain deferred.
+
+The exact next action is review of this four-PR stack, followed by the still
+missing OS/private workspace/selected Drive folder configuration and actual
+classification/runtime/credential setup. Then run the private preflight and a
+small approved capture. No private pilot, real account, actual Codex/model
+execution or broader #20 consumer/Empathy/publication acceptance is complete.

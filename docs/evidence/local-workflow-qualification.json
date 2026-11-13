@@ -1,0 +1,304 @@
+{
+  "schema": "mindgarden.local-workflow-qualification/v1",
+  "observed_at": "2026-11-13T03:28:40.732276+00:00",
+  "main": "9c94245e0838da74a760cbc43e63b0faf6a3d756",
+  "ordered_merge_receipt": "consultation-merge-receipt.json",
+  "review_stack": [
+    {
+      "pr": 138,
+      "branch": "docs/86-local-workflow-activation",
+      "base": "main",
+      "checkpoint": "36e4de84b55195591ec95d9ea08b76abd53ec478"
+    },
+    {
+      "pr": 139,
+      "branch": "feature/90-reviewed-ledger-packet",
+      "base": "docs/86-local-workflow-activation",
+      "checkpoint": "9db4c202ec166a9a887db3d4c834919dff426f0b"
+    },
+    {
+      "pr": 140,
+      "branch": "feature/87-selected-drive-capture",
+      "base": "feature/90-reviewed-ledger-packet",
+      "checkpoint": "69a5999e0be2c74951c79bdeb979909544442c15"
+    },
+    {
+      "pr": 141,
+      "branch": "feature/89-scoped-research-pilot",
+      "base": "feature/87-selected-drive-capture",
+      "engine_source": "f8b269527f9fe31eed0e46131253865a2abf94f2",
+      "packaging_source": "1ad98181482fe1b7f36ab0309f350d9aa93fd8f3"
+    }
+  ],
+  "tests": {
+    "engine_source": "f8b269527f9fe31eed0e46131253865a2abf94f2",
+    "command": "python -m unittest tests.test_consultation tests.test_drive_capture tests.test_drive_credentials tests.test_research tests.test_pilot tests.test_v1_contracts tests.test_scope_bundle_outputs tests.test_source_adapters tests.test_source_compaction tests.test_memory_validity tests.test_extraction tests.test_local_federation tests.test_package tests.test_distribution --quiet",
+    "results": [
+      {
+        "python": "3.12.14",
+        "passed": 111,
+        "skipped": 0,
+        "seconds": 196.775
+      },
+      {
+        "python": "3.13.5",
+        "passed": 111,
+        "skipped": 0,
+        "seconds": 189.661
+      }
+    ],
+    "runtime_identity_command": "git diff --exit-code f8b269527f9fe31eed0e46131253865a2abf94f2 1ad98181482fe1b7f36ab0309f350d9aa93fd8f3 -- src contracts scripts profiles requirements pyproject.toml tests/fixtures",
+    "runtime_identity_result": "exit 0; only source manifest, distribution assertions and qualification documentation changed",
+    "packaging_source": "1ad98181482fe1b7f36ab0309f350d9aa93fd8f3",
+    "packaging_command": "python -m unittest tests.test_distribution tests.test_package --quiet",
+    "packaging_results": [
+      {
+        "python": "3.12.14",
+        "passed": 8,
+        "skipped": 0,
+        "seconds": 0.496
+      },
+      {
+        "python": "3.13.5",
+        "passed": 8,
+        "skipped": 0,
+        "seconds": 0.468
+      }
+    ]
+  },
+  "artifacts": {
+    "schema": "mindgarden.local-workflow-artifact-qualification/v1",
+    "source": "1ad98181482fe1b7f36ab0309f350d9aa93fd8f3",
+    "build_command": "python -m build --sdist --wheel --no-isolation --outdir .cache/dist",
+    "wheel_install": "python3 -m pip --python $CLEAN_VENV/bin/python install --no-index --no-deps $LOCAL_WHEEL",
+    "artifacts": [
+      {
+        "name": "mindgarden-0.1.0-py3-none-any.whl",
+        "sha256": "178bc0d19fd09d1d68591e54db16a1c9c147122f1cff8c6b4073d02151fa1154",
+        "bytes": 443599
+      },
+      {
+        "name": "mindgarden-0.1.0.tar.gz",
+        "sha256": "9c2523aac1a9e7235260576c2aa7b17095defaa844ad55866b892caf91e54f9e",
+        "bytes": 920934
+      }
+    ],
+    "proofs": [
+      {
+        "mode": "git",
+        "script": "consultation_demo.py",
+        "status": "passed-bounded-synthetic-workflow",
+        "report_sha256": "ad9f21d8cae11d834214f05d1d931a84657c77f2d60b133242735c0bd9b2fcc8",
+        "command": "$PYTHON -S $CLIENT/scripts/consultation_demo.py --workspace $NEW_SYNTHETIC_WORKSPACE --require-source --check-golden --report $PRIVATE_LOG",
+        "network": "blocked",
+        "model_calls": 0
+      },
+      {
+        "mode": "git",
+        "script": "drive_consultation_demo.py",
+        "status": "passed-bounded-synthetic-workflow",
+        "report_sha256": "34af265684d307676144d6c7bcc2b62cb9280da0cdbb5a3dcfff491dc8ff8fb1",
+        "command": "$PYTHON -S $CLIENT/scripts/drive_consultation_demo.py --workspace $NEW_SYNTHETIC_WORKSPACE --require-source --check-golden --report $PRIVATE_LOG",
+        "network": "blocked",
+        "model_calls": 0
+      },
+      {
+        "mode": "git",
+        "script": "research_demo.py",
+        "status": "passed-bounded-synthetic-workflow",
+        "report_sha256": "74f7d1e874e359bf5deed47393d477419402646493fc4d3fea7ee2e86e7d3102",
+        "command": "$PYTHON -S $CLIENT/scripts/research_demo.py --workspace $NEW_SYNTHETIC_WORKSPACE --require-source --check-golden --report $PRIVATE_LOG",
+        "network": "blocked",
+        "model_calls": 0
+      },
+      {
+        "mode": "wheel",
+        "script": "consultation_demo.py",
+        "status": "passed-bounded-synthetic-workflow",
+        "report_sha256": "ad9f21d8cae11d834214f05d1d931a84657c77f2d60b133242735c0bd9b2fcc8",
+        "command": "$PYTHON -I $CLIENT/scripts/consultation_demo.py --workspace $NEW_SYNTHETIC_WORKSPACE --require-installed --check-golden --report $PRIVATE_LOG",
+        "network": "blocked",
+        "model_calls": 0
+      },
+      {
+        "mode": "wheel",
+        "script": "drive_consultation_demo.py",
+        "status": "passed-bounded-synthetic-workflow",
+        "report_sha256": "34af265684d307676144d6c7bcc2b62cb9280da0cdbb5a3dcfff491dc8ff8fb1",
+        "command": "$PYTHON -I $CLIENT/scripts/drive_consultation_demo.py --workspace $NEW_SYNTHETIC_WORKSPACE --require-installed --check-golden --report $PRIVATE_LOG",
+        "network": "blocked",
+        "model_calls": 0
+      },
+      {
+        "mode": "wheel",
+        "script": "research_demo.py",
+        "status": "passed-bounded-synthetic-workflow",
+        "report_sha256": "74f7d1e874e359bf5deed47393d477419402646493fc4d3fea7ee2e86e7d3102",
+        "command": "$PYTHON -I $CLIENT/scripts/research_demo.py --workspace $NEW_SYNTHETIC_WORKSPACE --require-installed --check-golden --report $PRIVATE_LOG",
+        "network": "blocked",
+        "model_calls": 0
+      },
+      {
+        "mode": "sdist",
+        "script": "consultation_demo.py",
+        "status": "passed-bounded-synthetic-workflow",
+        "report_sha256": "ad9f21d8cae11d834214f05d1d931a84657c77f2d60b133242735c0bd9b2fcc8",
+        "command": "$PYTHON -S $CLIENT/scripts/consultation_demo.py --workspace $NEW_SYNTHETIC_WORKSPACE --require-source --check-golden --report $PRIVATE_LOG",
+        "network": "blocked",
+        "model_calls": 0
+      },
+      {
+        "mode": "sdist",
+        "script": "drive_consultation_demo.py",
+        "status": "passed-bounded-synthetic-workflow",
+        "report_sha256": "34af265684d307676144d6c7bcc2b62cb9280da0cdbb5a3dcfff491dc8ff8fb1",
+        "command": "$PYTHON -S $CLIENT/scripts/drive_consultation_demo.py --workspace $NEW_SYNTHETIC_WORKSPACE --require-source --check-golden --report $PRIVATE_LOG",
+        "network": "blocked",
+        "model_calls": 0
+      },
+      {
+        "mode": "sdist",
+        "script": "research_demo.py",
+        "status": "passed-bounded-synthetic-workflow",
+        "report_sha256": "74f7d1e874e359bf5deed47393d477419402646493fc4d3fea7ee2e86e7d3102",
+        "command": "$PYTHON -S $CLIENT/scripts/research_demo.py --workspace $NEW_SYNTHETIC_WORKSPACE --require-source --check-golden --report $PRIVATE_LOG",
+        "network": "blocked",
+        "model_calls": 0
+      }
+    ],
+    "claim": "Three complete committed goldens match across clean Git, isolated installed wheel and unpacked source. This is local artifact qualification, not a published release, live provider or private pilot."
+  },
+  "build_tools": {
+    "python": "3.12.14",
+    "build": "1.3.0",
+    "setuptools": "80.9.0",
+    "wheel": "0.45.1"
+  },
+  "installed_v0_smoke": {
+    "status": "passed",
+    "command_count": 8,
+    "commands": [
+      "mindgarden --version",
+      "mindgarden version",
+      "mindgarden init --help",
+      "mindgarden migrate --help",
+      "mindgarden validate --repository-root $PUBLIC_FIXTURE",
+      "mindgarden verify --repository-root $PUBLIC_FIXTURE",
+      "mindgarden publish verify --repository-root $PUBLIC_FIXTURE",
+      "python -I: installed engine under sys.prefix, version0.1.0, validate_repository($PUBLIC_FIXTURE)==3"
+    ],
+    "runtime_dependencies": []
+  },
+  "other_checks": {
+    "compileall": "passed: python -m compileall -q src scripts tests",
+    "scoped_ruff": "passed: ruff check --select E9,F src plus all new/modified scripts and fixture/tests",
+    "new_file_format": "passed: ruff format --check; six research/pilot source/test/client files",
+    "owner_contracts": "passed: 24 indexed proposed/null-approval ADRs; pinned Hygiene/Aether; twelve-section continuity and bounds; 44 unique coverage rows and five native child links",
+    "guide_links": "176 local links/assets resolve across 15 changed Markdown files; complete pilot binding example validates",
+    "wide_ruff": {
+      "status": "pre-existing failures",
+      "findings": 32,
+      "exact_baseline_tree": "069714503a318356a2746acd15bec3070ef8fa28",
+      "comparison": "identical relative file, rule and message inventory; no new findings"
+    }
+  },
+  "hosted_ci": [
+    {
+      "pr": 138,
+      "head": "36e4de84b55195591ec95d9ea08b76abd53ec478",
+      "runs": [
+        {
+          "id": 43347280977,
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 43347280805,
+          "name": "Check release preparation",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "pr": 139,
+      "head": "9db4c202ec166a9a887db3d4c834919dff426f0b",
+      "runs": [
+        {
+          "id": 43349432315,
+          "name": "Check release preparation",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 43349432329,
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "pr": 140,
+      "head": "69a5999e0be2c74951c79bdeb979909544442c15",
+      "runs": [
+        {
+          "id": 43356190922,
+          "name": "Check release preparation",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 43356190952,
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "pr": 141,
+      "head": "1ad98181482fe1b7f36ab0309f350d9aa93fd8f3",
+      "runs": [
+        {
+          "id": 43358410101,
+          "name": "Test",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 43358410162,
+          "name": "Check release preparation",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "earlier_attempts": [
+    {
+      "source": "f8b269527f9fe31eed0e46131253865a2abf94f2",
+      "state": "unpacked sdist proof failed: CSV inputs omitted by MANIFEST.in",
+      "correction": "1ad9818 adds CSV extension and three exact distribution assertions; nine final artifact proofs pass",
+      "not_claimed": "earlier archive attempt is not passing qualification"
+    },
+    {
+      "state": "initial authored tests used invalid adapter ID / invalid empty session fields",
+      "correction": "fixtures corrected to real adapter/session contracts; no runtime contract weakened"
+    }
+  ],
+  "unperformed": [
+    "Actual live OAuth/Drive account and native export smoke",
+    "Actual Codex/local/hosted model execution and measured semantic quality",
+    "Real private pilot: OS/workspace/folder selection unanswered; credentials/classification/consumer/runtime authority unavailable",
+    "Full local unittest discovery, act and manual accessibility intentionally deferred",
+    "Release, publication, destructive retention, #88/#91 and proposed ADR ratification"
+  ],
+  "issue_inventory": {
+    "open": 35,
+    "tracked": 44,
+    "closed_by_this_checkpoint": 0
+  },
+  "next_action": "Review draft stack #138 \u2192 #139 \u2192 #140 \u2192 #141. Then supply OS/private workspace/selected Drive folder configuration and verify actual classification/runtime/credential authority locally before a non-destructive private preflight and small capture. Do not paste secrets or commit personal inputs."
+}
