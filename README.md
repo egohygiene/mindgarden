@@ -26,6 +26,12 @@ a composed archive-to-context/recovery proof in draft PRs #133–#136. The same
 synthetic proof matches from a clean checkout, installed wheel and unpacked source
 archive; real private-pilot and publication acceptance remain separate.
 
+The selected [local source-to-packet workflow](docs/local-consultation-workflow.md)
+adds a draft [declared-ledger preparation packet](docs/consultation-packets.md):
+exact decimal calculations, explicit overlap/transfer review, coverage gaps and
+private evidence export. Its synthetic proof keeps exact citations through vault
+recovery; live capture, Codex setup and the real private pilot are separate steps.
+
 The [active overnight roadmap](docs/overnight-sprint.md) reconciles completed
 acceptance criteria and orders the next integration checkpoints. OpenAleph and
 CozoDB evaluations recommend deferring service adoption; OpenViking native

@@ -1,0 +1,3 @@
+transaction_id,account_id,date,amount,currency,description
+groceries,account-a,2026-01-03,-80.25,USD,Synthetic groceries
+utilities,account-a,2026-01-11,-100.00,USD,Synthetic utilities

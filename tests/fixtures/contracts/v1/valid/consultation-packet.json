@@ -1,0 +1,523 @@
+{
+  "calculation": {
+    "method": "signed-decimal-movement/v1",
+    "precision": 40,
+    "request_sha256": "f9a2d08ca90c172048f0223e8edddfc0f0a594a780e068d28e0ec88396ee909e"
+  },
+  "coverage": [
+    {
+      "account": "account-a",
+      "missing_declared_intervals": [],
+      "observed_first": "2026-01-02",
+      "observed_last": "2026-01-11",
+      "status": "transactions-present-coverage-unverified"
+    },
+    {
+      "account": "account-b",
+      "missing_declared_intervals": [
+        {
+          "end": "2026-01-09",
+          "start": "2026-01-01"
+        }
+      ],
+      "observed_first": "2026-01-05",
+      "observed_last": "2026-01-12",
+      "status": "transactions-present-coverage-unverified"
+    },
+    {
+      "account": "missing-account",
+      "missing_declared_intervals": [
+        {
+          "end": "2026-01-31",
+          "start": "2026-01-01"
+        }
+      ],
+      "observed_first": null,
+      "observed_last": null,
+      "status": "no-supplied-transactions"
+    }
+  ],
+  "created_at": "2026-11-04T00:00:00Z",
+  "declared_coverage": [
+    {
+      "account": "account-a",
+      "end": "2026-01-31",
+      "rationale": "Declared synthetic export coverage, not completeness certification.",
+      "start": "2026-01-01"
+    },
+    {
+      "account": "account-b",
+      "end": "2026-01-31",
+      "rationale": "Declared partial coverage; earlier transactions do not fill the declared gap.",
+      "start": "2026-01-10"
+    }
+  ],
+  "evidence": [
+    {
+      "content_sha256": "868c589484f3b1dfbb014b4b617bc6fd6eb95ac05f0239c228e8167efce59137",
+      "locator": "artifact",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-0ef628575c4c8d89c00e520d-868c589484f3b1df",
+        "revision": "sha256:868c589484f3b1dfbb014b4b617bc6fd6eb95ac05f0239c228e8167efce59137"
+      }
+    },
+    {
+      "content_sha256": "61362b820d8d966382f0ad45715716e54adc94396f9b2f51a114b608fde7bd3c",
+      "locator": "artifact",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-16036d42f2b37cda57dde0c5-61362b820d8d9663",
+        "revision": "sha256:61362b820d8d966382f0ad45715716e54adc94396f9b2f51a114b608fde7bd3c"
+      }
+    },
+    {
+      "content_sha256": "7267c7be71270fd2012f23eb6fb74834cfc27df0c47141c157a51c415d82652a",
+      "locator": "artifact",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-1d86320b885df8543af3523d-7267c7be71270fd2",
+        "revision": "sha256:7267c7be71270fd2012f23eb6fb74834cfc27df0c47141c157a51c415d82652a"
+      }
+    },
+    {
+      "content_sha256": "8398a957636b59d73ff4d276b75bf29f1fb050ec3ada3a181ac46ce4130f40d8",
+      "locator": "artifact",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-30e5af7c19bbfb7956f4ee64-8398a957636b59d7",
+        "revision": "sha256:8398a957636b59d73ff4d276b75bf29f1fb050ec3ada3a181ac46ce4130f40d8"
+      }
+    },
+    {
+      "content_sha256": "e211ff508682cf0d2bb05781774f088db32decdb65deef793fa3923784b07fff",
+      "locator": "artifact",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-45f3d83552c6b2e183af5d1a-e211ff508682cf0d",
+        "revision": "sha256:e211ff508682cf0d2bb05781774f088db32decdb65deef793fa3923784b07fff"
+      }
+    },
+    {
+      "content_sha256": "e4f3bfc141bb7b03799b4e1622ba21ac337d3a2285cabe6f95ef64eb99c76e48",
+      "locator": "artifact",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-53dc6d6b164966625d302003-e4f3bfc141bb7b03",
+        "revision": "sha256:e4f3bfc141bb7b03799b4e1622ba21ac337d3a2285cabe6f95ef64eb99c76e48"
+      }
+    },
+    {
+      "content_sha256": "aa4162a718f99467af2a2f7d4d2ba7ba08222b1913d1e770cba8a38ad8889620",
+      "locator": "artifact",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-6bc50ea05220f58bbdd7302f-aa4162a718f99467",
+        "revision": "sha256:aa4162a718f99467af2a2f7d4d2ba7ba08222b1913d1e770cba8a38ad8889620"
+      }
+    },
+    {
+      "content_sha256": "b9e06150aa36e21886c415146faca61cfec255783aa20d467152d2a46cbdacb8",
+      "locator": "artifact",
+      "source": {
+        "garden": "synthetic-garden",
+        "id": "source-fb4160531b8f16484449be9a-b9e06150aa36e218",
+        "revision": "sha256:b9e06150aa36e21886c415146faca61cfec255783aa20d467152d2a46cbdacb8"
+      }
+    }
+  ],
+  "id": "synthetic-consultation",
+  "limitations": [
+    "Amounts are movements, not current balances, assets or liabilities.",
+    "Coverage is operator-declared; transaction dates cannot prove complete history.",
+    "Classifications and revision choices are authored human review, not model verification.",
+    "Currencies remain separate; no exchange-rate or legal conclusion is inferred.",
+    "Evidence attachments contain selected normalized rows; original files remain in the private vault."
+  ],
+  "period": {
+    "end": "2026-01-31",
+    "start": "2026-01-01"
+  },
+  "questions": [
+    "What explains the unclassified movement?",
+    "Which missing accounts and statements are still needed?"
+  ],
+  "represented_revision_choices": [],
+  "review": {
+    "rationale": "Synthetic human selects calculations and evidence for private preparation.",
+    "reviewed_at": "2026-11-04T00:00:00Z",
+    "reviewers": [
+      "synthetic-reviewer"
+    ],
+    "state": "approved"
+  },
+  "review_authority": {
+    "id": "synthetic-reviewer",
+    "kind": "human"
+  },
+  "schema": "mindgarden.consultation-packet/v1",
+  "scope": {
+    "execution": "offline",
+    "persistence": "machine-local",
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": "never-exportable",
+    "schema": "mindgarden.scope/v1",
+    "visibility": "personal"
+  },
+  "totals": [
+    {
+      "currency": "USD",
+      "expense": "-230.25",
+      "income": "2500.00",
+      "month": "2026-01",
+      "net_movement": "2259.76",
+      "refund": "10.00",
+      "transfer": "0.00",
+      "uncategorized": "-19.99"
+    }
+  ],
+  "transactions": [
+    {
+      "classification": {
+        "category": "expense",
+        "paired_with": null,
+        "rationale": "Explicit authored synthetic review; uncertainty retained.",
+        "transaction": "transaction-1470ab0e765609e4fcf9b170d7a44bd4"
+      },
+      "evidence": {
+        "content_sha256": "e4f3bfc141bb7b03799b4e1622ba21ac337d3a2285cabe6f95ef64eb99c76e48",
+        "locator": "artifact",
+        "source": {
+          "garden": "synthetic-garden",
+          "id": "source-53dc6d6b164966625d302003-e4f3bfc141bb7b03",
+          "revision": "sha256:e4f3bfc141bb7b03799b4e1622ba21ac337d3a2285cabe6f95ef64eb99c76e48"
+        }
+      },
+      "original": {
+        "csv_record": 3,
+        "header": [
+          "transaction_id",
+          "account_id",
+          "date",
+          "amount",
+          "currency",
+          "description"
+        ],
+        "original_utf8_span": {
+          "end": 180,
+          "start": 118
+        }
+      },
+      "row": {
+        "account_id": "account-a",
+        "amount": "-80.25",
+        "currency": "USD",
+        "date": "2026-01-03",
+        "description": "Synthetic groceries",
+        "id": "transaction-1470ab0e765609e4fcf9b170d7a44bd4",
+        "schema": "mindgarden.ledger-row/v1",
+        "transaction_id": "groceries"
+      }
+    },
+    {
+      "classification": {
+        "category": "uncategorized",
+        "paired_with": null,
+        "rationale": "Explicit authored synthetic review; uncertainty retained.",
+        "transaction": "transaction-3493698d9a3369ebb21b38e8b949f964"
+      },
+      "evidence": {
+        "content_sha256": "e211ff508682cf0d2bb05781774f088db32decdb65deef793fa3923784b07fff",
+        "locator": "artifact",
+        "source": {
+          "garden": "synthetic-garden",
+          "id": "source-45f3d83552c6b2e183af5d1a-e211ff508682cf0d",
+          "revision": "sha256:e211ff508682cf0d2bb05781774f088db32decdb65deef793fa3923784b07fff"
+        }
+      },
+      "original": {
+        "csv_record": 5,
+        "header": [
+          "transaction_id",
+          "account_id",
+          "date",
+          "amount",
+          "currency",
+          "description"
+        ],
+        "original_utf8_span": {
+          "end": 326,
+          "start": 255
+        }
+      },
+      "row": {
+        "account_id": "account-a",
+        "amount": "-19.99",
+        "currency": "USD",
+        "date": "2026-01-07",
+        "description": "Synthetic unclassified service",
+        "id": "transaction-3493698d9a3369ebb21b38e8b949f964",
+        "schema": "mindgarden.ledger-row/v1",
+        "transaction_id": "unclear"
+      }
+    },
+    {
+      "classification": {
+        "category": "expense",
+        "paired_with": null,
+        "rationale": "Explicit authored synthetic review; uncertainty retained.",
+        "transaction": "transaction-9f9bbac07977d386fb99f18382f41cc4"
+      },
+      "evidence": {
+        "content_sha256": "61362b820d8d966382f0ad45715716e54adc94396f9b2f51a114b608fde7bd3c",
+        "locator": "artifact",
+        "source": {
+          "garden": "synthetic-garden",
+          "id": "source-16036d42f2b37cda57dde0c5-61362b820d8d9663",
+          "revision": "sha256:61362b820d8d966382f0ad45715716e54adc94396f9b2f51a114b608fde7bd3c"
+        }
+      },
+      "original": {
+        "csv_record": 3,
+        "header": [
+          "transaction_id",
+          "account_id",
+          "date",
+          "amount",
+          "currency",
+          "description"
+        ],
+        "original_utf8_span": {
+          "end": 192,
+          "start": 132
+        }
+      },
+      "row": {
+        "account_id": "account-b",
+        "amount": "-50.00",
+        "currency": "USD",
+        "date": "2026-01-12",
+        "description": "Synthetic supplies",
+        "id": "transaction-9f9bbac07977d386fb99f18382f41cc4",
+        "schema": "mindgarden.ledger-row/v1",
+        "transaction_id": "supplies"
+      }
+    },
+    {
+      "classification": {
+        "category": "expense",
+        "paired_with": null,
+        "rationale": "Explicit authored synthetic review; uncertainty retained.",
+        "transaction": "transaction-dfd91d184a334561126e7454c593ef93"
+      },
+      "evidence": {
+        "content_sha256": "868c589484f3b1dfbb014b4b617bc6fd6eb95ac05f0239c228e8167efce59137",
+        "locator": "artifact",
+        "source": {
+          "garden": "synthetic-garden",
+          "id": "source-0ef628575c4c8d89c00e520d-868c589484f3b1df",
+          "revision": "sha256:868c589484f3b1dfbb014b4b617bc6fd6eb95ac05f0239c228e8167efce59137"
+        }
+      },
+      "original": {
+        "csv_record": 3,
+        "header": [
+          "transaction_id",
+          "account_id",
+          "date",
+          "amount",
+          "currency",
+          "description"
+        ],
+        "original_utf8_span": {
+          "end": 184,
+          "start": 121
+        }
+      },
+      "row": {
+        "account_id": "account-a",
+        "amount": "-100.00",
+        "currency": "USD",
+        "date": "2026-01-11",
+        "description": "Synthetic utilities",
+        "id": "transaction-dfd91d184a334561126e7454c593ef93",
+        "schema": "mindgarden.ledger-row/v1",
+        "transaction_id": "utilities"
+      }
+    },
+    {
+      "classification": {
+        "category": "transfer",
+        "paired_with": "transaction-fa4f0a5aae3dfd57388a98bf99bd0b86",
+        "rationale": "Explicit authored synthetic review; uncertainty retained.",
+        "transaction": "transaction-e08e8d3a7553409325f9af1b38c6ea94"
+      },
+      "evidence": {
+        "content_sha256": "7267c7be71270fd2012f23eb6fb74834cfc27df0c47141c157a51c415d82652a",
+        "locator": "artifact",
+        "source": {
+          "garden": "synthetic-garden",
+          "id": "source-1d86320b885df8543af3523d-7267c7be71270fd2",
+          "revision": "sha256:7267c7be71270fd2012f23eb6fb74834cfc27df0c47141c157a51c415d82652a"
+        }
+      },
+      "original": {
+        "csv_record": 4,
+        "header": [
+          "transaction_id",
+          "account_id",
+          "date",
+          "amount",
+          "currency",
+          "description"
+        ],
+        "original_utf8_span": {
+          "end": 255,
+          "start": 180
+        }
+      },
+      "row": {
+        "account_id": "account-a",
+        "amount": "-300.00",
+        "currency": "USD",
+        "date": "2026-01-05",
+        "description": "Synthetic transfer candidate",
+        "id": "transaction-e08e8d3a7553409325f9af1b38c6ea94",
+        "schema": "mindgarden.ledger-row/v1",
+        "transaction_id": "transfer-out"
+      }
+    },
+    {
+      "classification": {
+        "category": "income",
+        "paired_with": null,
+        "rationale": "Explicit authored synthetic review; uncertainty retained.",
+        "transaction": "transaction-f5d3f3ed7fc85412d7b71848f2a8092b"
+      },
+      "evidence": {
+        "content_sha256": "8398a957636b59d73ff4d276b75bf29f1fb050ec3ada3a181ac46ce4130f40d8",
+        "locator": "artifact",
+        "source": {
+          "garden": "synthetic-garden",
+          "id": "source-30e5af7c19bbfb7956f4ee64-8398a957636b59d7",
+          "revision": "sha256:8398a957636b59d73ff4d276b75bf29f1fb050ec3ada3a181ac46ce4130f40d8"
+        }
+      },
+      "original": {
+        "csv_record": 2,
+        "header": [
+          "transaction_id",
+          "account_id",
+          "date",
+          "amount",
+          "currency",
+          "description"
+        ],
+        "original_utf8_span": {
+          "end": 118,
+          "start": 59
+        }
+      },
+      "row": {
+        "account_id": "account-a",
+        "amount": "2500.00",
+        "currency": "USD",
+        "date": "2026-01-02",
+        "description": "Synthetic payroll",
+        "id": "transaction-f5d3f3ed7fc85412d7b71848f2a8092b",
+        "schema": "mindgarden.ledger-row/v1",
+        "transaction_id": "payroll"
+      }
+    },
+    {
+      "classification": {
+        "category": "refund",
+        "paired_with": null,
+        "rationale": "Explicit authored synthetic review; uncertainty retained.",
+        "transaction": "transaction-fa238fd50f5166aca92561cbfe6cade8"
+      },
+      "evidence": {
+        "content_sha256": "aa4162a718f99467af2a2f7d4d2ba7ba08222b1913d1e770cba8a38ad8889620",
+        "locator": "artifact",
+        "source": {
+          "garden": "synthetic-garden",
+          "id": "source-6bc50ea05220f58bbdd7302f-aa4162a718f99467",
+          "revision": "sha256:aa4162a718f99467af2a2f7d4d2ba7ba08222b1913d1e770cba8a38ad8889620"
+        }
+      },
+      "original": {
+        "csv_record": 6,
+        "header": [
+          "transaction_id",
+          "account_id",
+          "date",
+          "amount",
+          "currency",
+          "description"
+        ],
+        "original_utf8_span": {
+          "end": 390,
+          "start": 326
+        }
+      },
+      "row": {
+        "account_id": "account-a",
+        "amount": "10.00",
+        "currency": "USD",
+        "date": "2026-01-08",
+        "description": "Synthetic merchant refund",
+        "id": "transaction-fa238fd50f5166aca92561cbfe6cade8",
+        "schema": "mindgarden.ledger-row/v1",
+        "transaction_id": "refund"
+      }
+    },
+    {
+      "classification": {
+        "category": "transfer",
+        "paired_with": "transaction-e08e8d3a7553409325f9af1b38c6ea94",
+        "rationale": "Explicit authored synthetic review; uncertainty retained.",
+        "transaction": "transaction-fa4f0a5aae3dfd57388a98bf99bd0b86"
+      },
+      "evidence": {
+        "content_sha256": "b9e06150aa36e21886c415146faca61cfec255783aa20d467152d2a46cbdacb8",
+        "locator": "artifact",
+        "source": {
+          "garden": "synthetic-garden",
+          "id": "source-fb4160531b8f16484449be9a-b9e06150aa36e218",
+          "revision": "sha256:b9e06150aa36e21886c415146faca61cfec255783aa20d467152d2a46cbdacb8"
+        }
+      },
+      "original": {
+        "csv_record": 2,
+        "header": [
+          "transaction_id",
+          "account_id",
+          "date",
+          "amount",
+          "currency",
+          "description"
+        ],
+        "original_utf8_span": {
+          "end": 132,
+          "start": 59
+        }
+      },
+      "row": {
+        "account_id": "account-b",
+        "amount": "300.00",
+        "currency": "USD",
+        "date": "2026-01-05",
+        "description": "Synthetic transfer candidate",
+        "id": "transaction-fa4f0a5aae3dfd57388a98bf99bd0b86",
+        "schema": "mindgarden.ledger-row/v1",
+        "transaction_id": "transfer-in"
+      }
+    }
+  ],
+  "unresolved_transactions": [
+    "transaction-3493698d9a3369ebb21b38e8b949f964"
+  ]
+}

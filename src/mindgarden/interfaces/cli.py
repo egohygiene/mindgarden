@@ -655,6 +655,19 @@ def build_parser() -> ArgumentParser:
     add_compaction_command(commands)
     add_extraction_command(commands)
     add_registry_command(commands)
+    from ..application.consultation import run_packet
+
+    packet = commands.add_parser("packet", help="Plan a reviewed private preparation packet from exact ledger evidence")
+    packet.add_argument("--local-config", type=Path, required=True)
+    packet.add_argument("--scope", type=Path, required=True)
+    packet.add_argument("--input", type=Path, required=True)
+    packet.add_argument("--output-directory", type=Path, required=True)
+    packet_mode = packet.add_mutually_exclusive_group()
+    packet_mode.add_argument("--apply", action="store_true")
+    packet_mode.add_argument("--check", action="store_true")
+    packet.add_argument("--plan-digest")
+    packet.set_defaults(handler=run_packet)
+
     from ..application.insights import run_insights
 
     insights = commands.add_parser("insights", help="Plan reviewed renderer-independent public insight handoffs")

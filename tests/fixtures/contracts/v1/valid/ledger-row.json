@@ -1,0 +1,10 @@
+{
+  "account_id": "account-a",
+  "amount": "-80.25",
+  "currency": "USD",
+  "date": "2026-01-03",
+  "description": "Synthetic groceries",
+  "id": "transaction-1470ab0e765609e4fcf9b170d7a44bd4",
+  "schema": "mindgarden.ledger-row/v1",
+  "transaction_id": "groceries"
+}

@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T01:45:32Z'
+  updated_at: '2026-11-13T02:02:57Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -73,61 +73,52 @@ scope:
   - docs/architecture-overview.md
   - docs/local-consultation-workflow.md
 work:
-  objective: Reconcile the existing stack and activate the selected synthetic-first local source-to-reviewed-packet
-    delivery, then implement the ledger checkpoint.
+  objective: Qualify and preserve the strict synthetic ledger/reviewed packet checkpoint, then implement selected
+    Drive capture and the bounded Codex/pilot handoff.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#86
-    url: https://github.com/egohygiene/mindgarden/issues/86
+    id: egohygiene/mindgarden#90
+    url: https://github.com/egohygiene/mindgarden/issues/90
   next:
     kind: action
     id: local-workflow-next-checkpoint
-    description: 'Retarget activation #138 onto main, leave it for review, then finish the strict synthetic ledger
-      and reviewed deterministic packet in the dependent #90 draft. Preserve real pilot configuration/runtime gaps.'
+    description: 'Commit/open #90 draft on #138, pin final functional source and finish exact 61-case qualification
+      on both Pythons. Then add bounded Drive acquisition/refresh through an explicit adapter and scoped Codex CLI
+      tooling; prepare the private-pilot preflight without accessing unspecified real inputs.'
     readiness: ready
     references:
     - docs/local-consultation-workflow.md
     depends_on: []
 state:
   base:
-    revision: 9c94245e0838da74a760cbc43e63b0faf6a3d756
-    ref: refs/remotes/origin/main
-    verified_at: '2026-11-13T01:45:32Z'
+    revision: 36e4de84b55195591ec95d9ea08b76abd53ec478
+    ref: refs/heads/docs/86-local-workflow-activation
+    verified_at: '2026-11-13T02:02:57Z'
   candidate:
-    branch: docs/86-local-workflow-activation
-    revision: e77a395f5c11fd3ec5ec5c6c7707104fc26a5a2e
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#138
-      url: https://github.com/egohygiene/mindgarden/pull/138
-    handoff_state: ready-for-review
+    branch: feature/90-reviewed-ledger-packet
+    revision: null
+    pull_request: null
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-13T01:45:32Z'
+    observed_at: '2026-11-13T02:02:57Z'
     default_branch_revision: 9c94245e0838da74a760cbc43e63b0faf6a3d756
     issue_state: open
-    pull_request_state: draft
-    notes: 'Authorized #133–#137 merges are complete at main 9c94245, with exact #137 combined tree and passing
-      selected-head Test/preparation. #134 acquisition preview recovered on same-tree main reconciliation 0a6a387;
-      new preview 43345132986 passes. Activation draft #138 selects bounded #86/#87/#89/#90 work; #88/#91 remain
-      deferred.'
+    pull_request_state: not-applicable
+    notes: '#133–#137 are merged at main 9c94245 with exact qualified combined tree and all selected-head checks
+      passing. Activation #138 is a draft on main. The dependent #90 branch implements declared CSV normalization,
+      exact source grants, reviewed calculations/selection, private packet and authored searchable knowledge; source
+      recovery proof passes.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T01:45:32Z'
+  reviewed_at: '2026-11-13T02:02:57Z'
   reviewed_by: codex
   evidence:
-  - command: PNG signature/dimensions/SHA-256 and exact-byte comparison; local Markdown/image target check across
-      six documentation files; pinned Hygiene/Aether owner checks; git diff --check; runtime-tree equality to ba507fe
-    outcome: passed
-    observed_at: '2026-11-12T23:49:18Z'
-    notes: 'Pass: exact requested PNG 1586×992, 154 local links/assets resolve, 24 proposed/null-approval ADRs,
-      bounded 12-section continuity and 44 unique coverage rows. Documentation only; no runtime/act tests rerun
-      and no new-head CI pass inferred.'
   - command: 'git diff --check; pinned Hygiene/Aether ADR/continuity/coverage checks; exact #134 tree comparison'
     outcome: passed
     observed_at: '2026-11-13T01:33:54Z'
@@ -140,6 +131,14 @@ review:
     notes: 'Documentation and owner checks pass; #134 reconciliation has no file changes. Existing focused/full
       hosted evidence remains distinct from pending new-head CI. No runtime implementation or private pilot is claimed
       at this activation checkpoint.'
+  - command: unittest tests.test_consultation; tests.test_v1_contracts tests.test_scope_bundle_outputs tests.test_source_adapters;
+      source consultation_demo.py --require-source; Ruff/format; pinned owner/diff checks
+    outcome: passed
+    observed_at: '2026-11-13T02:02:57Z'
+    notes: 15 focused cases pass (63.497s); initial 20 contract/source cases pass (12.644s). Prior combined 60 cases
+      pass per Python (153.156s/147.059s) before the final null-pin hardening; exact final-source 61-case reruns
+      and clean artifact qualification follow. Source proof passes net2259.76, context6128 bytes and 11 retained
+      objects; no live provider/private pilot claimed.
   environment_limitations:
   - Full local/act and manual accessibility remain deferred; focused evidence is distinct.
   - Actual private workspace, source selection, credentials and confidential-runtime assurance must exist before
@@ -172,19 +171,19 @@ Refresh live issue/PR state and comments; read README, AI_CONSTITUTION, ROADMAP,
 
 ## Current objective and success conditions
 
-Reconcile the existing stack and activate the selected synthetic-first local source-to-reviewed-packet delivery, then implement the ledger checkpoint.
+Qualify and preserve the strict synthetic ledger/reviewed packet checkpoint, then implement selected Drive capture and the bounded Codex/pilot handoff.
 
 ## State snapshot
 
-Authorized #133–#137 merges are complete at main 9c94245, with exact #137 combined tree and passing selected-head Test/preparation. #134 acquisition preview recovered on same-tree main reconciliation 0a6a387; new preview 43345132986 passes. Activation draft #138 selects bounded #86/#87/#89/#90 work; #88/#91 remain deferred.
+#133–#137 are merged at main 9c94245 with exact qualified combined tree and all selected-head checks passing. Activation #138 is a draft on main. The dependent #90 branch implements declared CSV normalization, exact source grants, reviewed calculations/selection, private packet and authored searchable knowledge; source recovery proof passes.
 
 ## Completed and material changes
 
-Expected-head ordered merges, exact main/#137 tree comparison, retained old/new preview lineage and machine-readable merge receipt; selective scheduling/owner plan with no parent closure, runtime change or ADR ratification.
+Three versioned schemas/official fixtures, CSV exact UTF-8 spans and stable IDs, explicit overlap/correction/transfer review, decimal totals/coverage, literal Markdown, complete budgets including ownership, scope-before-read/null-pin hardening and fresh batch source snapshots. Synthetic packet/context/evidence survives relocation/restore/clean rebuild; originals and source-unreviewed state remain.
 
 ## Validation and review evidence
 
-git diff --check; pinned Hygiene/Aether ADR/continuity/coverage checks; exact #134 tree comparison — Documentation and owner checks pass; #134 reconciliation has no file changes. Existing focused/full hosted evidence remains distinct from pending new-head CI. No runtime implementation or private pilot is claimed at this activation checkpoint.
+unittest tests.test_consultation; tests.test_v1_contracts tests.test_scope_bundle_outputs tests.test_source_adapters; source consultation_demo.py --require-source; Ruff/format; pinned owner/diff checks — 15 focused cases pass (63.497s); initial 20 contract/source cases pass (12.644s). Prior combined 60 cases pass per Python (153.156s/147.059s) before the final null-pin hardening; exact final-source 61-case reruns and clean artifact qualification follow. Source proof passes net2259.76, context6128 bytes and 11 retained objects; no live provider/private pilot claimed.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -192,7 +191,7 @@ Actual pilot OS/workspace/folder selection is requested asynchronously; no crede
 
 ## Next dependency-ready work
 
-Retarget activation #138 onto main, leave it for review, then finish the strict synthetic ledger and reviewed deterministic packet in the dependent #90 draft. Preserve real pilot configuration/runtime gaps.
+Commit/open #90 draft on #138, pin final functional source and finish exact 61-case qualification on both Pythons. Then add bounded Drive acquisition/refresh through an explicit adapter and scoped Codex CLI tooling; prepare the private-pilot preflight without accessing unspecified real inputs.
 
 ## Parallel changes and reconciliation
 
