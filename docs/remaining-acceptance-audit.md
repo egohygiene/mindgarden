@@ -92,3 +92,15 @@ Mac setup, real account content and credentials remain parked. This audit adds
 no services, release, deployment, model calls, source cleanup or ADR ratification.
 Exact local/CI observations and final artifacts are in the qualification receipt
 and [continuity checkpoint](../CONTINUITY.md).
+
+## Decision-status count correction
+
+The current source has 18 indexed ADR files, all proposed with null approval,
+and six inline legacy decisions retaining their original Accepted labels in
+`DECISIONS.md`. Earlier handoff wording that called all 24 proposals was
+inaccurate. This audit changes no status or approval; #41 still owns historical
+authority mapping, and #42 still owns human disposition of consequential proposals.
+
+## Final verification
+
+Combined source `b35b597` passes 184 targeted cases on each supported Python, zero skips; all three clean artifact forms pass eight boundaries and three complete golden proofs each. Functional #149/#150/#151 Test/preparation are green. The [qualification receipt](evidence/repository-audit-qualification.json) preserves exact commands, hashes, runner sources, staged failures/corrections and limitations. This is tested draft implementation, not merged/full parent acceptance.

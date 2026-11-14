@@ -37,6 +37,8 @@ updated: 2026-11-13
 -->
 ## 2026-11-13 execution snapshot
 
+**Qualified audit stack:** [#149](https://github.com/egohygiene/mindgarden/pull/149) → [#150](https://github.com/egohygiene/mindgarden/pull/150) → [#151](https://github.com/egohygiene/mindgarden/pull/151) stack on documentation #148. Combined functional source `b35b597` passes 184 targeted tests per Python, eight boundary cases per clean Git/wheel/source form and nine full golden proofs. All three functional heads pass automatic Test/preparation. [Receipt](docs/evidence/repository-audit-qualification.json) · [Remaining acceptance and next sprint](docs/remaining-acceptance-audit.md). Main stays `270ced6`; no merge, parent closure, duplicate issue, private processing or ADR ratification. Mac setup remains parked. All older execution snapshots below are historical.
+
 **Audit child:** The [acceptance audit](docs/remaining-acceptance-audit.md) maps #15/#16/#32/#43/#44 against full issue text and code. A reproduced old-only catalog metadata defect is fixed on the child of #150; known archive continuation artifacts gain an explicit unreviewed-source proof. Final combined qualification is pending. Existing #32 incremental/migration requirements are retained; no private-pilot or optional service gate is invented.
 
 **Mapped capture checkpoint:** The `feature/87-reviewed-drive-normalization` child of draft #149 composes explicit per-file CSV mappings with verified Drive captures and ordinary packet/recovery services. [Guide](docs/drive-normalization.md). Source proof and the initial 44-case local selection pass; combined final qualification is pending. Mac setup remains parked.

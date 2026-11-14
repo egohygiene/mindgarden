@@ -71,8 +71,8 @@ filesystem or an `offline` flag cannot stand in for them.
 Relay #5/#27/#33 and Pace #5 remain open for portions of the shared ADR adoption/
 publication program. #41 must preserve historical authority evidence; #42 needs
 human disposition of consequential proposals before selecting broader API/web,
-auth, storage or runtime technology. All 24 current ADRs stay proposed/null
-approval. Owner issue closure alone is not ADR ratification.
+auth, storage or runtime technology. The 18 indexed proposals retain null approval; six inline legacy decisions retain
+their original Accepted labels, with historical authority mapping still under #41. Owner issue closure alone is not ADR ratification.
 
 Akashic #173–#176 and Empathy #65 also remain open. Complete bookmark/public
 handoffs and the golden consumer with those owners, without copying their policy,

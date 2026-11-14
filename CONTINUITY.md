@@ -7,14 +7,14 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T21:15:19Z'
+  updated_at: '2026-11-14T22:02:18Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: 'Deliver and qualify the parked-setup audit stack: packet currentness/read-only verification, reviewed
-    captured CSV mapping, catalog metadata privacy and archive continuation evidence.'
+  purpose: 'Hand off the completed parked-setup repository audit and qualified #149–#151 draft implementation
+    stack.'
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -42,8 +42,8 @@ scope:
   - docs/consultation-packets.md
   - docs/drive-normalization.md
 work:
-  objective: 'Deliver and qualify the parked-setup audit stack: packet currentness/read-only verification, reviewed
-    captured CSV mapping, catalog metadata privacy and archive continuation evidence.'
+  objective: 'Hand off the completed parked-setup repository audit and qualified #149–#151 draft implementation
+    stack.'
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
@@ -55,13 +55,14 @@ work:
   next:
     kind: action
     id: audit-stack-final-qualification
-    description: 'Open the audit child draft on #150 and finish both-Python focused checks, clean Git/wheel/source
-      proofs, installed v0 smoke, source-resource checks and exact-head CI observation. Update issue/roadmap/handoff
-      evidence, then sync; do not merge new drafts or resume private setup.'
+    description: 'Review #148 → #149 → #150 → #151 in order; preserve the combined child checkout. After merge,
+      reconcile #16/#90 against listed acceptance, then take one bounded #32 incremental cache/recovery slice
+      or finish #15 delivery/bootstrap privacy evidence. #44 public relationship work is independently ready where
+      owner contracts exist. Mac setup and actual private/live/model processing stay parked; no automatic merge.'
     readiness: ready
     references:
-    - docs/repository-audit-followthrough.md
     - docs/remaining-acceptance-audit.md
+    - docs/evidence/repository-audit-qualification.json
     depends_on: []
 state:
   base:
@@ -70,52 +71,60 @@ state:
     verified_at: '2026-11-14T21:15:19Z'
   candidate:
     branch: test/15-16-acceptance-audit
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: b35b597ca3a798ed4bf171244100a282151865f8
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#151
+      url: https://github.com/egohygiene/mindgarden/pull/151
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-14T21:15:19Z'
+    observed_at: '2026-11-14T22:02:18Z'
     default_branch_revision: 270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a
     issue_state: open
     pull_request_state: draft
-    notes: 'Draft stack #148 → #149 → #150 → test/15-16-acceptance-audit remains unmerged on main 270ced6. Source
-      fixes are implemented; initial currentness/mapping tests and full mapped source recovery pass. A new adversarial
-      catalog test reproduced unselected historical metadata affecting public refresh; the fix filters comparison
-      to current verified gardens. Continuation tests preserve unreviewed source authority. 34 open / 44 tracked;
-      all 24 ADRs proposed. Combined final qualification is pending.'
+    notes: 'Main remains 270ced6. Explicit draft stack #148 → #149 → #150 → #151; combined source b35b597 on test/15-16-acceptance-audit.
+      All three functional heads pass automatic Test/preparation. Local 184 cases per Python pass, zero skips;
+      eight boundaries and three full proofs pass independently from clean Git, isolated wheel and unpacked source.
+      34 open / 44 tracked; no closure/new issue/merge. Eighteen indexed proposals retain null approval; six historical
+      Accepted labels are preserved.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-14T21:15:19Z'
+  reviewed_at: '2026-11-14T22:02:18Z'
   reviewed_by: codex
   evidence:
-  - command: '#149: Python 3.12 broader 44-case and Python 3.13 16-case selections; subsequent three-case read-only
-      verifier regression selection'
+  - command: 'Both supported Pythons: -m unittest <each of 22 modules> --verbose; full commands and module results
+      in docs/evidence/repository-audit-qualification.json'
     outcome: passed
-    observed_at: '2026-11-14T21:15:19Z'
-    notes: 44 cases in 325.556s / 16 in 231.205s; three additional verifier cases in 78.488s. These staged observations
-      precede the final combined source. No final CI or broader artifact claim follows.
-  - command: '#150: Python 3.12 capture/credential/source/schema/package selection and mapped source demo'
+    observed_at: '2026-11-14T22:02:18Z'
+    notes: 184 targeted cases per Python, zero skips. Python 3.12 wall 590.908s / Python 3.13 570.121s. Includes
+      new currentness, read-only renewal, mapped capture, source/grant/scope/research/private-pilot preparation,
+      schemas, v0 and federation/archive cases.
+  - command: 'Clean committed Git (-S), isolated dependency-free wheel (-I) and unpacked source (-S): eight boundary
+      cases and consultation/mapped-Drive/reference golden scripts; exact commands and runner sources in receipt'
     outcome: passed
-    observed_at: '2026-11-14T21:15:19Z'
-    notes: 44 cases pass in 18.626s, then 13 mapping/schema in 12.839s. Whole mapped source proof yields eight
-      transactions, nine row occurrences, 2259.76 total and 6129-byte context after clean recovery. Final combined
-      artifacts remain pending.
-  - command: Python 3.12/3.13 four-module federation audit; new historical-only canary baseline and fixed continuation/rendered
-      regression selection
-    outcome: limited
-    observed_at: '2026-11-14T21:15:19Z'
-    notes: Existing 40 cases pass per Python (86.294s / 82.385s). New canary fails against prior code (2.883s),
-      then fixed nine-case selection passes in 18.995s. An initial continuation test confused legacy visibility
-      private with scope visibility personal; corrected to assert both and publication exclusion. Final combined
-      selection is pending.
+    observed_at: '2026-11-14T22:02:18Z'
+    notes: All eight cases per form pass, zero skips (140.446s / 141.001s / 138.547s), with all 100 imported engine
+      modules pinned to that form. All nine complete golden proofs pass; eight installed v0 CLI/library commands,
+      two distribution cases per Python and both compilation checks pass.
+  - command: 'Exact-head automatic Test/preparation for #149 3f0f2bf, #150 84711e8 and #151 b35b597; scoped lint/format,
+      pinned owners, links, whitespace and unchanged-runtime comparison'
+    outcome: passed
+    observed_at: '2026-11-14T22:02:18Z'
+    notes: 'Test/preparation succeed on all three functional heads; #151 direct run 43642186673 completed/success
+      supersedes the older pending observation. Eighteen changed Python files introduce no new lint findings (one
+      inherited finding remains); twelve formatted files pass. Final handoff changes docs only; its CI is separate.
+      No manually dispatched workflow.'
   environment_limitations:
-  - Actual private pilot, OAuth/Drive/Codex/model quality and confidential runtime remain unperformed; actual
-    configuration/classification/consumer authority required.
-  - 'Hygiene #39, Realm #28/#29/#30, Relay #5/#27/#33, Pace #5, Akashic #173–#176 and Empathy #65 refreshed open;
-    owner issue status is not ADR approval.'
-  - 'Full local/act and manual accessibility remain separate; #19/#27 and #88/#91 stay deferred.'
+  - Mac setup, actual private paths/collection/credentials/consumer authority, live OAuth/Drive/Codex/model quality,
+    approved private pilot and confidential runtime remain unperformed.
+  - Long shell sessions without completion records are not passing evidence; durable module logs and actively
+    polled artifact runs supersede them.
+  - Full local/act and manual accessibility remain separate. One unchanged scoped lint finding remains. Process-level
+    fixture network blocks do not certify host isolation.
+  - 'No status/approval changes: eighteen indexed ADR proposals and six legacy Accepted labels preserved. #19/#27
+    and #88/#91 stay deferred.'
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -135,39 +144,39 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer parked local setup and authorized independent repository work. Complete the selected bounded existing issues through draft PRs and synthetic proof. Do not merge drafts, ratify ADRs, publish releases or process unspecified private sources.
+The maintainer parked setup and authorized independent repository progress. The completed batch uses existing issue owners, synthetic data and draft PRs. It changes no ADR authority, releases no package/site, accesses no real source account and merges no draft.
 
 ## Resume protocol
 
-Refresh live issues/comments/PRs and read the audit follow-through, coverage and current contracts. Use the isolated stack based on #148; preserve all four original root WIP entries and prior worktrees.
+Read the final acceptance audit, qualification receipt and coverage ledger. Refresh live PR/CI/issue/owner state, use the combined child branch and preserve the original four root WIP entries and old worktrees. Distinguish source qualification from any later docs-only head.
 
 ## Current objective and success conditions
 
-Deliver and qualify the parked-setup audit stack: packet currentness/read-only verification, reviewed captured CSV mapping, catalog metadata privacy and archive continuation evidence.
+Hand off the completed parked-setup repository audit and qualified #149–#151 draft implementation stack.
 
 ## State snapshot
 
-Draft stack #148 → #149 → #150 → test/15-16-acceptance-audit remains unmerged on main 270ced6. Source fixes are implemented; initial currentness/mapping tests and full mapped source recovery pass. A new adversarial catalog test reproduced unselected historical metadata affecting public refresh; the fix filters comparison to current verified gardens. Continuation tests preserve unreviewed source authority. 34 open / 44 tracked; all 24 ADRs proposed. Combined final qualification is pending.
+Main remains 270ced6. Explicit draft stack #148 → #149 → #150 → #151; combined source b35b597 on test/15-16-acceptance-audit. All three functional heads pass automatic Test/preparation. Local 184 cases per Python pass, zero skips; eight boundaries and three full proofs pass independently from clean Git, isolated wheel and unpacked source. 34 open / 44 tracked; no closure/new issue/merge. Eighteen indexed proposals retain null approval; six historical Accepted labels are preserved.
 
 ## Completed and material changes
 
-#149 adds exact packet currentness and read-only verification after session renewal. #150 maps selected captured CSVs through reviewed provider-ID config and preserves all original occurrences. This audit child fixes old-only catalog metadata/ambiguity pollution and proves continuation source authority; it also corrects the #32 full-issue dependency interpretation. No canonical ownership or session model changes.
+#149 adds packet dependency currentness and read-only verification after session renewal. #150 composes reviewed per-file provider IDs/CSV mappings with exact original occurrences and stale-config guards. #151 withholds historical-only public catalog metadata/ambiguity and proves continuation files remain unreviewed source data. The audit corrects #32 incremental/migration scope and the eighteen-proposal/six-legacy ADR count. No broad parent is closed.
 
 ## Validation and review evidence
 
-Staged local results are preserved in review metadata. The old-only catalog canary failed before the fix and passes afterward. A new source reference golden withholds historical refresh identities while keeping current catalog bytes exact. Final both-Python/source-wheel-archive qualification and CI are still pending.
+184 targeted cases pass per supported Python, zero skips. Each clean Git/wheel/source form passes eight boundaries and three whole golden proofs, with 100 module origins verified. Eight installed v0 commands and two distribution cases per Python pass. All three functional heads have green Test/preparation. Scoped lint introduces no findings; one inherited finding remains. Full local/act is not claimed. Exact commands, hashes, staged failures/corrections and final limitations are in the receipt.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Mac setup is parked. Actual private locations/collection, credentials and consumer/runtime authority remain unavailable. A supplied prior manifest is comparison data, not output-integrity or source authority. Reconciliation does not discover ungranted corrections. Required private pilot/model/owner decisions remain separate; #19/#27 and #88/#91 stay deferred.
+Actual private processing, source classification/authority, provider credentials, consumer acceptance, model quality and confidential runtime are unperformed. Metadata currentness covers explicit current reviewed inputs, not ungranted automatic discovery. #41 maps legacy authority; #42 needs human decisions. #19/#27 and #88/#91 remain parked.
 
 ## Next dependency-ready work
 
-Open the audit child draft on #150 and finish both-Python focused checks, clean Git/wheel/source proofs, installed v0 smoke, source-resource checks and exact-head CI observation. Update issue/roadmap/handoff evidence, then sync; do not merge new drafts or resume private setup.
+Review #148 → #149 → #150 → #151 in order; preserve the combined child checkout. After merge, reconcile #16/#90 against listed acceptance, then take one bounded #32 incremental cache/recovery slice or finish #15 delivery/bootstrap privacy evidence. #44 public relationship work is independently ready where owner contracts exist. Mac setup and actual private/live/model processing stay parked; no automatic merge.
 
 ## Parallel changes and reconciliation
 
-Explicit stack #148 documentation → #149 packet/currentness → #150 Drive mappings → this audit child. Combined checkout is test/15-16-acceptance-audit. Parent advances were fast-forwarded before child commits. Preserve original root WIP and old qualified worktrees; no branch is reset or auto-merged.
+Draft ancestry is #148 documentation → #149 packet/currentness → #150 Drive mapping → #151 audit/source-authority. The qualified combined source is b35b597; later handoff changes are documentation only and runtime comparison must remain empty. Original root WIP and prior worktrees are untouched. Do not force-push, reset or auto-merge.
 
 ## Privacy and redaction
 
@@ -175,7 +184,7 @@ Synthetic fixtures/evidence only. Real gardens, financial records, credentials, 
 
 ## Handoff update protocol
 
-Record exact branch/PR, source/merge commits, tests and CI observations, remaining parent criteria, blockers and next action. Keep all 44 coverage rows and 24 proposed/null-approval ADRs. New setup defects get specific follow-ups only after the pilot reveals them.
+Record exact branch/PR, functional/handoff commits, test/CI observations, met and unmet criteria, blockers and next action. Keep 44 coverage rows, 18 indexed proposed/null-approval ADRs and six original legacy labels. New setup issues require concrete missing behavior; existing #86/#87/#89 own the parked operator workflow.
 
 ## Compaction and supersession
 

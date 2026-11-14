@@ -47,7 +47,7 @@ untouched. The final child branch will be the reproducible combined checkout.
 
 Verification, exact heads, PR links, remaining criteria and the next action are
 recorded below and in `CONTINUITY.md` at each bounded checkpoint. No new PR is
-merged or parent issue closed by this audit; all 24 ADRs stay proposed.
+merged or parent issue closed by this audit; the 18 indexed ADRs stay proposed/null approval and six legacy Accepted labels remain unchanged.
 
 ## Packet-currentness checkpoint
 
@@ -69,3 +69,11 @@ The child `feature/87-reviewed-drive-normalization` adds the reviewed file-ID ma
 ## Acceptance and public-metadata checkpoint
 
 The child `test/15-16-acceptance-audit` on #150 fixes reproduced historical-only catalog identifiers/ambiguity affecting new public refresh output. Comparison now considers only currently verified gardens; unavailable sources retain generic diagnostics and no old IDs. The known continuation artifact gains explicit exact-byte/unreviewed/no-execution proof. [The full acceptance audit](remaining-acceptance-audit.md) records five parents, real remaining gates and the next independent sprint. No broad parent is closed or new issue created.
+
+## Final qualified handoff
+
+[Draft #149](https://github.com/egohygiene/mindgarden/pull/149) → [#150](https://github.com/egohygiene/mindgarden/pull/150) → [#151](https://github.com/egohygiene/mindgarden/pull/151) stack on #148. Combined source `b35b597ca3a798ed4bf171244100a282151865f8` passes **184 targeted cases per Python**, zero skips (3.12 wall 590.908s / 3.13 570.121s). Each clean Git, isolated wheel and unpacked source form passes all eight selected boundaries and three complete golden proofs; all 100 imported engine module origins match that form. All nine proof reports match; the installed wheel contains only Mindgarden.
+
+Eight isolated installed v0 commands, two distribution cases per Python, compilation on both, twelve-file formatting and pinned owner/continuity/44-row/native-child checks pass. Eighteen changed Python files introduce no lint findings; one inherited finding remains. All three functional heads pass automatic Test/preparation, including #151 direct Test run 43642186673. Final handoff changes docs only and its CI remains separate. [Exact commands, results, artifact/report hashes, runner sources, corrected initial attempts and limitations](evidence/repository-audit-qualification.json).
+
+The audit counts **18 indexed proposals with null approval** and **six legacy inline Accepted labels**, preserving both. Earlier all-24-proposals wording is corrected without ratification or historical migration. Main remains `270ced6`, all 34 issues stay open and all 44 coverage rows remain; no duplicate issue, merge, release or real processing. [The next independent sprint](remaining-acceptance-audit.md#proposed-next-independent-sprint) prioritizes acceptance reconciliation, #15 delivery/bootstrap proof, #32 incremental/migration work and bounded #44 public relationships. Review the stack before changing main; Mac setup stays parked.
