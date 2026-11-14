@@ -48,3 +48,14 @@ two-field update. Every other release-journey fact stays identical. The initial
 registry and packaging jobs passed independently. Focused source checks and the
 propagated full combined receipts document the correction. No workflow was
 manually launched and no release publication occurred.
+
+## Adapter 1.2.1 delivery privacy
+
+Recognized ordinary delivery values remain byte-equivalent, but new imports record
+adapter/transform version 1.2.1. Constrained regeneration permits only the private
+workflow's index/context hashes, compaction's context hash, mixed-vault's
+index/context/inventory hashes and the same nested private-workflow hashes in the
+release-journey report. Exact source IDs/bytes/locators, vault hashes, review states,
+bodies and budgets remain equal. Existing records are not rewritten. The new
+canary fixture is synthetic; its complete metadata remains only in its preserved
+private original while portable delivery facts omit runtime details.

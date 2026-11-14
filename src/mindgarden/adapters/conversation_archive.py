@@ -11,6 +11,7 @@ from ..domain.zip_package import member_path, read_zip, verify_inventory
 from .archive_preservation import (normalize_assets, normalize_conversation, require_array,
                                    require_object, unique_records, validate_references)
 from .archive_v2 import normalize_v2, V2_VERSIONS
+from .archive_delivery import delivery_metadata
 
 VERSIONS = {"3.2.2", "3.2.3"}
 BASE_FILES = {"README.md", "CHAT-SUMMARY.md", "ARCHIVE-MANIFEST.json", "ASSET-MANIFEST.json",
@@ -24,7 +25,7 @@ MANIFEST_FIELDS = set("schema_version spec_version archive_id archive_revision c
 
 class ConversationArchiveAdapter:
     adapter_id = "conversation-archive"
-    version = "1.2.0"
+    version = "1.2.1"
     supported_inputs = frozenset(("application/zip", version) for version in VERSIONS | V2_VERSIONS)
 
     def normalize(self, captured: bytes, metadata: dict) -> NormalizedBundle:
@@ -99,13 +100,7 @@ class ConversationArchiveAdapter:
                                    "ARCHIVE_EXECUTION")
         if execution["order"] not in {"route-before-package", "preserve-existing-before-route", "preserve-first-fallback", "extract-only"}:
             raise ContractError("ARCHIVE_EXECUTION: unknown producer execution order")
-        delivery = require_object(manifest["delivery"], {"type", "status", "limitations"}, "ARCHIVE_DELIVERY")
-        if delivery["type"] != "zip":
-            raise ContractError("ARCHIVE_DELIVERY: this adapter consumes actual ZIP artifacts")
-        for attempt in require_array(delivery.get("attempts", []), "ARCHIVE_DELIVERY"):
-            require_object(attempt, {"path_id", "result", "error_class", "archive_created"}, "ARCHIVE_DELIVERY")
-            if type(attempt["archive_created"]) is not bool:
-                raise ContractError("ARCHIVE_DELIVERY: packaging attempts require observed creation state")
+        delivery = delivery_metadata(manifest["delivery"])
         summary_paths = require_object(manifest["summary_paths"], {"main", "journey", "machine_trail", "continuation"},
                                        "ARCHIVE_SUMMARY")
         if summary_paths["main"] != "CHAT-SUMMARY.md":
@@ -193,7 +188,7 @@ class ConversationArchiveAdapter:
                                                                   if "attachment_selection" in metadata else {})}},),
                                 {"archive_id": archive_id, "archive_revision": manifest["archive_revision"],
                                  "spec_version": version, "profile": manifest["package_profile"],
-                                 "delivery": manifest["delivery"], "execution": manifest["execution"],
+                                 "delivery": delivery, "execution": manifest["execution"],
                                  "coverage_detail": manifest["coverage_detail"],
                                  "producer_validation": validation["overall"],
                                  "adapter_validation": "package-integrity-and-evidence-structure",
