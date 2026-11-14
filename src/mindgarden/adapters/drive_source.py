@@ -4,13 +4,54 @@ from copy import deepcopy
 import io
 from zipfile import BadZipFile, ZIP_STORED, ZipFile
 
-from ..domain.contracts import ContractRegistry, digest_bytes, strict_json
+from ..domain.contracts import (
+    ContractRegistry,
+    canonical_json,
+    digest_bytes,
+    strict_json,
+)
 from ..domain.scope import local_scope
 from ..domain.drive_capture import EXPORTS
 from ..domain.sources import NormalizedBundle, NormalizedUnit
 from ..domain.validation import ContractError
 from .ledger_csv import LedgerCSVAdapter
+from .mapped_ledger_csv import MappedLedgerCSVAdapter, validate_mapping
 from .text_source import TextSourceAdapter
+
+
+def reviewed_mappings(metadata, files):
+    if "drive_normalization" not in metadata:
+        return {}, None
+    configuration = deepcopy(metadata["drive_normalization"])
+    if ContractRegistry().errors(configuration, "drive-normalization"):
+        raise ContractError(
+            "CAPTURE_MAPPING: supply the supported reviewed per-file normalization contract"
+        )
+    review = configuration["review"]
+    if (
+        configuration["review_authority"]["kind"] != "human"
+        or review["state"] != "approved"
+        or configuration["review_authority"]["id"] not in review["reviewers"]
+        or not review["rationale"]
+        or not review["reviewed_at"]
+    ):
+        raise ContractError(
+            "CAPTURE_MAPPING_REVIEW: human review must approve the file-to-mapping selections"
+        )
+    selections = {
+        item["file_id"]: item["mapping"] for item in configuration["mappings"]
+    }
+    available = {item["file_id"]: item for item in files}
+    if len(selections) != len(configuration["mappings"]) or any(
+        file_id not in available or available[file_id]["media_type"] != "text/csv"
+        for file_id in selections
+    ):
+        raise ContractError(
+            "CAPTURE_MAPPING_SELECTION: select each currently captured CSV provider identity once; review missing inputs separately"
+        )
+    for mapping in selections.values():
+        validate_mapping(mapping)
+    return selections, configuration
 
 
 class DriveCaptureAdapter:
@@ -64,7 +105,9 @@ class DriveCaptureAdapter:
                 }
                 if set(names) != expected:
                     raise ValueError()
+                mappings, configuration = reviewed_mappings(metadata, manifest["files"])
                 units, states, transforms = {}, [], []
+                occurrences = 0
                 for item in sorted(
                     manifest["files"], key=lambda value: value["file_id"]
                 ):
@@ -84,7 +127,9 @@ class DriveCaptureAdapter:
                             "CAPTURE_FORMAT: captured native export mapping is unsupported"
                         )
                     adapter = (
-                        LedgerCSVAdapter()
+                        MappedLedgerCSVAdapter()
+                        if item["file_id"] in mappings
+                        else LedgerCSVAdapter()
                         if media == "text/csv"
                         else TextSourceAdapter()
                         if media in {"text/plain", "text/markdown"}
@@ -106,9 +151,24 @@ class DriveCaptureAdapter:
                             "source_id": "google-drive-"
                             + digest_bytes(item["file_id"].encode())[:24],
                             "media_type": media,
+                            **(
+                                {"ledger_mapping": mappings[item["file_id"]]}
+                                if item["file_id"] in mappings
+                                else {}
+                            ),
                         },
                     )
                     for unit in bundle.units:
+                        occurrences += 1
+                        if (
+                            configuration is not None
+                            and occurrences > self.limits["units"]
+                            or unit.identity not in units
+                            and len(units) >= self.limits["units"]
+                        ):
+                            raise ContractError(
+                                "CAPTURE_BUDGET: normalization exceeds the bounded unit/occurrence inventory"
+                            )
                         details = {
                             **deepcopy(unit.metadata),
                             "provider_file_id": item["file_id"],
@@ -125,7 +185,15 @@ class DriveCaptureAdapter:
                                 raise ContractError(
                                     "CAPTURE_CONFLICT: conflicting row revisions require separate explicit captures and reviewed reconciliation"
                                 )
+                            if configuration is not None:
+                                previous.metadata["provider_occurrences"].append(
+                                    deepcopy(details)
+                                )
                             continue
+                        if configuration is not None:
+                            # Each overlapping occurrence retains its own exact
+                            # provider revision, member checksum and raw span.
+                            details["provider_occurrences"] = [deepcopy(details)]
                         units[unit.identity] = NormalizedUnit(
                             unit.identity,
                             unit.content,
@@ -150,6 +218,24 @@ class DriveCaptureAdapter:
                             },
                         }
                     )
+                extra = {}
+                if configuration is not None:
+                    revision = "sha256:" + digest_bytes(canonical_json(configuration))
+                    extra = {
+                        "normalization_configuration": configuration,
+                        "normalization_revision": revision,
+                    }
+                    transforms.insert(
+                        0,
+                        {
+                            "name": "reviewed-drive-normalization",
+                            "version": "1.0.0",
+                            "parameters": {
+                                "configuration": configuration,
+                                "revision": revision,
+                            },
+                        },
+                    )
                 return NormalizedBundle(
                     tuple(units.values()),
                     tuple(transforms),
@@ -158,6 +244,7 @@ class DriveCaptureAdapter:
                         "captured_scope": manifest["scope"],
                         "normalization_states": states,
                         "unavailable_previous": manifest["unavailable_previous"],
+                        **extra,
                     },
                 )
         except ContractError:

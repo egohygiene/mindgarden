@@ -1,0 +1,64 @@
+{
+  "$id": "urn:egohygiene:mindgarden:drive-normalization:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+    },
+    "mappings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "file_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "mapping": {
+            "$ref": "urn:egohygiene:mindgarden:ledger-csv-mapping:v1"
+          }
+        },
+        "required": [
+          "file_id",
+          "mapping"
+        ],
+        "type": "object"
+      },
+      "maxItems": 64,
+      "minItems": 1,
+      "type": "array"
+    },
+    "review": {
+      "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/review"
+    },
+    "review_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "human"
+        },
+        "id": {
+          "$ref": "urn:egohygiene:mindgarden:common:v1#/$defs/identifier"
+        }
+      }
+    },
+    "schema": {
+      "const": "mindgarden.drive-normalization/v1"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "review_authority",
+    "review",
+    "mappings"
+  ],
+  "title": "Reviewed per-file normalization of a supplied Drive capture v1",
+  "type": "object"
+}

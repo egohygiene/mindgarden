@@ -137,6 +137,7 @@ class V1ContractTests(unittest.TestCase):
                 "ledger-row",
                 "drive-binding",
                 "drive-capture",
+                "drive-normalization",
                 "research-request",
                 "research-result",
                 "consultation-request",

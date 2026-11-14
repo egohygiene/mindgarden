@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T20:59:52Z'
+  updated_at: '2026-11-14T21:01:44Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -50,6 +50,7 @@ scope:
   - docs/evidence/freshness-mapping-stack-merge.json
   - docs/private-pilot.md
   - docs/repository-audit-followthrough.md
+  - docs/drive-normalization.md
 work:
   objective: Audit independent backlog work and implement explicit packet currentness, then per-file reviewed
     Drive normalization, using synthetic fixtures.
@@ -59,14 +60,14 @@ work:
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#90
-    url: https://github.com/egohygiene/mindgarden/issues/90
+    id: egohygiene/mindgarden#87
+    url: https://github.com/egohygiene/mindgarden/issues/87
   next:
     kind: action
     id: repository-audit-packet-checkpoint
-    description: 'Complete the dependent #87/#90 reviewed per-file Drive normalization checkpoint, then qualify
-      the combined source/wheel/archive workflow and audit the actual remaining #15/#16/#32/#43/#44 criteria.
-      Preserve explicit private-pilot/owner gates; leave new PRs in draft.'
+    description: 'Open the per-file Drive normalization draft on #149, add the acceptance audit/continuation-state
+      proof as a small child checkpoint, then qualify the complete source/wheel/archive and both-Python stack.
+      Leave drafts for review; Mac setup and actual private/live/model/owner decisions stay parked.'
     readiness: ready
     references:
     - docs/repository-audit-followthrough.md
@@ -74,29 +75,25 @@ work:
     depends_on: []
 state:
   base:
-    revision: 136c6638d019746ca8fd8fbee7abd32e978ec3e3
-    ref: refs/heads/docs/merged-stack-and-remaining-plan
-    verified_at: '2026-11-14T20:35:10Z'
+    revision: 3f0f2bf359740e5bbb237dcc3ffd4137481f5e85
+    ref: refs/heads/feature/90-packet-freshness
+    verified_at: '2026-11-14T21:01:44Z'
   candidate:
-    branch: feature/90-packet-freshness
+    branch: feature/87-reviewed-drive-normalization
     revision: null
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#149
-      url: https://github.com/egohygiene/mindgarden/pull/149
+    pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-14T20:43:10Z'
+    observed_at: '2026-11-14T21:01:44Z'
     default_branch_revision: 270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a
     issue_state: open
     pull_request_state: draft
-    notes: 'Draft #149 on documentation #148 implements explicit selected-input packet currentness. Qualified
-      functional source 2373b77: Python 3.12 broader 44 cases pass (325.556s), Python 3.13 focused 16 pass (231.205s),
-      zero skips. Main remains 270ced6, 34 issues open / 44 tracked. Per-file Drive mapping work is isolated on
-      child feature/87-reviewed-drive-normalization; no closure or merge. Audit additionally corrected read-only
-      packet verification after session renewal: three focused Python 3.12 regressions pass (78.488s); combined
-      qualification is pending.'
+    notes: 'Stack #148 → #149 → feature/87-reviewed-drive-normalization preserves main 270ced6. Draft per-file
+      reviewed Drive mappings now feed the ordinary ledger/packet services. Explicit provider associations, canonical
+      mapping provenance, exact overlapping occurrences and stale-config guards are implemented. Initial source
+      proof matches eight transactions / USD 2259.76 / 6129-byte context through clean vault recovery. Final combined
+      artifact qualification is pending; 34 open / 44 tracked and all proposed ADRs remain unchanged.'
   parallel_changes: []
 review:
   status: partial
@@ -124,6 +121,16 @@ review:
     notes: Three cases pass in 78.488s. Current authority verifies unchanged owned output without writes; old
       approval cannot apply changed evidence. Earlier 44/16-case evidence predates this additive verifier correction;
       final combined qualification remains pending.
+  - command: Python 3.12 -m unittest tests.test_drive_normalization tests.test_drive_capture tests.test_drive_credentials
+      tests.test_v1_contracts tests.test_source_adapters tests.test_package --quiet; python -S scripts/mapped_drive_consultation_demo.py
+      --require-source; scoped lint/format/whitespace
+    outcome: passed
+    observed_at: '2026-11-14T21:01:44Z'
+    notes: 44 cases pass in 18.626s, zero skips. Source proof yields eight transactions, nine original occurrences,
+      exact 2259.76 total and 6129-byte context after relocation/restore/clean projection rebuild. This predates
+      the additive parent verifier fix; final combined qualification remains pending. Initial fixture assertion
+      confused 11 objects with nine row occurrences and was corrected; script lint excludes E402 only for the
+      existing source/install bootstrap pattern.
   environment_limitations:
   - Actual private pilot, OAuth/Drive/Codex/model quality and confidential runtime remain unperformed; actual
     configuration/classification/consumer authority required.
@@ -161,15 +168,15 @@ Audit independent backlog work and implement explicit packet currentness, then p
 
 ## State snapshot
 
-Draft #149 on documentation #148 implements explicit selected-input packet currentness. Qualified functional source 2373b77: Python 3.12 broader 44 cases pass (325.556s), Python 3.13 focused 16 pass (231.205s), zero skips. Main remains 270ced6, 34 issues open / 44 tracked. Per-file Drive mapping work is isolated on child feature/87-reviewed-drive-normalization; no closure or merge.
+Stack #148 → #149 → feature/87-reviewed-drive-normalization preserves main 270ced6. Draft per-file reviewed Drive mappings now feed the ordinary ledger/packet services. Explicit provider associations, canonical mapping provenance, exact overlapping occurrences and stale-config guards are implemented. Initial source proof matches eight transactions / USD 2259.76 / 6129-byte context through clean vault recovery. Final combined artifact qualification is pending; 34 open / 44 tracked and all proposed ADRs remain unchanged.
 
 ## Completed and material changes
 
-Added private versioned packet dependency comparison metadata, authority-neutral exact fingerprints and a read-only --previous-manifest mode. Current grants/evidence gate prior metadata access; historical-only identifiers are excluded. Corrections require a fresh reviewed apply and new output. Old packets and originals remain intact. Drive per-file mapping composition is next, not yet implemented.
+Private packet currentness and read-only session-renewal verification are in #149. This child adds explicit human-reviewed file-ID→mapping config, canonical mapping provenance, per-occurrence exact provider/ZIP/raw-span evidence, bounded normalization and stale-config apply rejection. Unknown/missing/duplicate/non-CSV mappings fail closed; strict unmapped CSV and other adapters preserve behavior. No credential/model or new canonical store is introduced.
 
 ## Validation and review evidence
 
-Python 3.12 broader 44 tests pass (325.556s); Python 3.13 focused 16 pass (231.205s), zero skips. Scoped Ruff/format, pinned owners, continuity/coverage and whitespace pass. The initial fixture-helper import error is corrected. Exact-head automatic CI and combined artifact qualification remain separate.
+Local initial #149 selections and three verifier regressions pass as recorded. The mapped capture 44-case Python 3.12 selection and full source recovery proof pass; final combined qualification, clean artifacts and exact-head CI remain separate. Fixed initial test-helper and occurrence-expectation errors are retained honestly.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -177,11 +184,11 @@ Mac setup is parked. Actual private locations/collection, credentials and consum
 
 ## Next dependency-ready work
 
-Complete the dependent #87/#90 reviewed per-file Drive normalization checkpoint, then qualify the combined source/wheel/archive workflow and audit the actual remaining #15/#16/#32/#43/#44 criteria. Preserve explicit private-pilot/owner gates; leave new PRs in draft.
+Open the per-file Drive normalization draft on #149, add the acceptance audit/continuation-state proof as a small child checkpoint, then qualify the complete source/wheel/archive and both-Python stack. Leave drafts for review; Mac setup and actual private/live/model/owner decisions stay parked.
 
 ## Parallel changes and reconciliation
 
-Unmerged documentation #148 is the explicit base. New code drafts form a documented stack; the last child retains a reproducible combined checkout. Preserve original root WIP and all existing worktrees. Do not auto-merge new drafts or overwrite historical evidence.
+Documentation #148 → packet #149 → this mapping branch is the explicit stack. Parent #149 advanced normally to 3f0f2bf; this child fast-forwarded before its first commit. Existing root WIP/worktrees remain untouched. Proposed decisions, owner contracts and actual consumer authority are unchanged.
 
 ## Privacy and redaction
 

@@ -116,9 +116,9 @@ Use the guide's `capture drive` preview and reviewed apply, then its separate
 Supported text and declared six-column ledger CSV are normalized. The separate
 [reviewed CSV mapping adapter](csv-ledger-mappings.md) now handles explicitly
 supplied UTF-8 CSV in the two declared layouts. Its reviewed mapping and original
-identity must be preserved. Automatic Drive-capture-to-mapped-CSV composition
-remains a proposed #87/#90 checkpoint; do not assume that supplying a Drive ZIP
-applies a per-file mapping. Other layouts remain unsupported until explicitly
+identity must be preserved. The [draft per-file Drive composition](drive-normalization.md)
+adds explicit `--drive-normalization` with separately reviewed provider-file
+associations; supplying a Drive ZIP alone still selects strict CSV. Other layouts remain unsupported until explicitly
 reviewed; transaction IDs, amounts and coverage are never guessed.
 Drive PDF/images are preserved-only, with separate document extraction/policy
 acceptance required. Native Docs/Sheets exports declare their losses.

@@ -20,6 +20,12 @@ pilot and #20's actual archive/Empathy proof remain distinct later evidence.
 
 ## Dependency corrections and limits
 
+The full #32 issue body explicitly includes incremental refresh and migration in
+its adapter boundary. The preceding setup plan's checkbox-only interpretation
+was too narrow. Unsupported capability declarations are truthful current state,
+not proof that those remaining requirements have been implemented. A permanent
+database choice remains optional; this does not block the source/packet batch.
+
 Packet currentness is defined over explicitly supplied current reviewed inputs.
 Ambient newly imported/ungranted sources are not silently selected, inspected or
 treated as replacements. A local reconciliation is independent from a live
@@ -55,3 +61,7 @@ in 78.488s; final combined qualification follows this implementation correction.
 [Draft #149](https://github.com/egohygiene/mindgarden/pull/149) on #148 pins functional source `2373b77e43d43776bfbd128e9fca1501d4024816`. Python 3.12's broader packet/mapping/schema/package selection passes 44 cases in 325.556s; Python 3.13's focused currentness/schema selection passes 16 in 231.205s, zero skips. Scoped lint/format, pinned owner/continuity/coverage/native-child and whitespace checks pass. An initial test referenced a nonexistent helper; corrected to the actual vault object-path method before these successful runs. Exact-head CI and the combined artifacts remain separate.
 
 The next implementation is the child `feature/87-reviewed-drive-normalization`. Its initial occurrence assertion confused the 11 immutable objects with the nine actual CSV row occurrences; the fixture expectation was corrected without weakening normalization. Its current checks and final proof will be reported independently.
+
+## Per-file Drive checkpoint
+
+The child `feature/87-reviewed-drive-normalization` adds the reviewed file-ID mapping contract and explicit import option. [The guide](drive-normalization.md) and committed mapped-source golden document exact original occurrences, two layouts, unchanged replay, correction, partial/missing-input behavior and clean packet/index/context recovery. Initial 44-case local checks pass; the corrected whole stack is qualified separately below.

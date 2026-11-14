@@ -28,8 +28,14 @@ from tests.drive_capture_fixture import create_capture_fixture
 from tests.support_v1 import write_json, write_session
 
 
-def captured_fixture(workspace):
+def captured_fixture(workspace, *, provider=None, normalization=None):
     fixture = create_capture_fixture(workspace)
+    if provider is not None:
+        fixture["provider"] = provider
+    normalization_path = None
+    if normalization is not None:
+        normalization_path = workspace / "reviewed-drive-normalization.json"
+        write_json(normalization_path, normalization)
     provider, config, garden = (
         fixture[key] for key in ("provider", "configuration", "garden")
     )
@@ -105,6 +111,8 @@ def captured_fixture(workspace):
             "--source-scope",
             str(destination / "source-scope.json"),
         ]
+        if normalization_path is not None:
+            ingest += ["--drive-normalization", str(normalization_path)]
         planned = cli(ingest)
         cli(ingest + ["--apply", "--plan-digest", planned["plan_sha256"]])
         current = [

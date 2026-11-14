@@ -1,0 +1,153 @@
+{
+  "id": "synthetic-drive-layouts",
+  "mappings": [
+    {
+      "file_id": "file-a",
+      "mapping": {
+        "amount": {
+          "column": "Value",
+          "mode": "signed"
+        },
+        "date_format": "YYYY-MM-DD",
+        "date_semantics": "posted-calendar-date",
+        "fields": {
+          "account_id": {
+            "column": "Account"
+          },
+          "currency": {
+            "column": "Unit"
+          },
+          "date": "Posted",
+          "description": "Details",
+          "transaction_id": "Reference"
+        },
+        "header": [
+          "Reference",
+          "Account",
+          "Posted",
+          "Value",
+          "Unit",
+          "Details"
+        ],
+        "id": "synthetic-layout-a",
+        "review": {
+          "rationale": "Explicit synthetic human review of the exact column, sign and date interpretation.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "review_authority": {
+          "id": "synthetic-reviewer",
+          "kind": "human"
+        },
+        "schema": "mindgarden.ledger-csv-mapping/v1",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "file_id": "file-overlap",
+      "mapping": {
+        "amount": {
+          "column": "Value",
+          "mode": "signed"
+        },
+        "date_format": "YYYY-MM-DD",
+        "date_semantics": "posted-calendar-date",
+        "fields": {
+          "account_id": {
+            "column": "Account"
+          },
+          "currency": {
+            "column": "Unit"
+          },
+          "date": "Posted",
+          "description": "Details",
+          "transaction_id": "Reference"
+        },
+        "header": [
+          "Reference",
+          "Account",
+          "Posted",
+          "Value",
+          "Unit",
+          "Details"
+        ],
+        "id": "synthetic-layout-a",
+        "review": {
+          "rationale": "Explicit synthetic human review of the exact column, sign and date interpretation.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "review_authority": {
+          "id": "synthetic-reviewer",
+          "kind": "human"
+        },
+        "schema": "mindgarden.ledger-csv-mapping/v1",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "file_id": "file-b",
+      "mapping": {
+        "amount": {
+          "credit_column": "Credit",
+          "debit_column": "Debit",
+          "mode": "debit-credit"
+        },
+        "date_format": "MM/DD/YYYY",
+        "date_semantics": "posted-calendar-date",
+        "fields": {
+          "account_id": {
+            "value": "account-b"
+          },
+          "currency": {
+            "value": "USD"
+          },
+          "date": "When",
+          "description": "Details",
+          "transaction_id": "Ref"
+        },
+        "header": [
+          "Ref",
+          "When",
+          "Details",
+          "Debit",
+          "Credit"
+        ],
+        "id": "synthetic-layout-b",
+        "review": {
+          "rationale": "Explicit synthetic human review of the exact column, sign and date interpretation.",
+          "reviewed_at": "2026-11-04T00:00:00Z",
+          "reviewers": [
+            "synthetic-reviewer"
+          ],
+          "state": "approved"
+        },
+        "review_authority": {
+          "id": "synthetic-reviewer",
+          "kind": "human"
+        },
+        "schema": "mindgarden.ledger-csv-mapping/v1",
+        "version": "1.0.0"
+      }
+    }
+  ],
+  "review": {
+    "rationale": "Authored synthetic review of exact provider-file to CSV mapping associations.",
+    "reviewed_at": "2026-11-04T00:00:00Z",
+    "reviewers": [
+      "synthetic-reviewer"
+    ],
+    "state": "approved"
+  },
+  "review_authority": {
+    "id": "synthetic-reviewer",
+    "kind": "human"
+  },
+  "schema": "mindgarden.drive-normalization/v1"
+}

@@ -58,6 +58,13 @@ action adoption and complete consumer acceptance remain open.
 
 ## External systems
 
+The [repository audit follow-through](docs/repository-audit-followthrough.md)
+adds draft packet dependency comparison/read-only renewed-session verification
+and [explicit per-file captured CSV mappings](docs/drive-normalization.md).
+Acquisition, normalization review, knowledge approval and packet/publication
+authority remain separate. No remote account or model is used by their synthetic
+proofs; actual private-pilot and owner-contract acceptance remain open.
+
 The selected [local source-to-packet checkpoint](docs/local-consultation-workflow.md)
 includes merged declared-CSV normalization and reviewed private preparation packets
 through the existing source/session/storage services. It does not introduce a

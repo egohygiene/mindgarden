@@ -170,7 +170,8 @@ def run_ingest(arguments: Namespace) -> int:
 
         if (arguments.apply or arguments.plan_digest or arguments.adapter or arguments.manifest_version
                 or arguments.attachment_mode or arguments.asset_id or getattr(arguments, "source_scope", None)
-                or getattr(arguments, "ledger_mapping", None)):
+                or getattr(arguments, "ledger_mapping", None)
+                or getattr(arguments, "drive_normalization", None)):
             raise ContractError("V0_ARGUMENT: use v0 --write or migrate before using v1 adapter plans")
         return run_v0_ingest(arguments)
     if arguments.write:
@@ -192,6 +193,7 @@ def run_ingest(arguments: Namespace) -> int:
                 "media_type": arguments.media_type, "tags": arguments.tag}
     scope_path = getattr(arguments, "source_scope", None)
     mapping_path = getattr(arguments, "ledger_mapping", None)
+    normalization_path = getattr(arguments, "drive_normalization", None)
     if mapping_path is not None:
         if arguments.adapter != "mapped-ledger-csv":
             raise ContractError("LEDGER_MAPPING: --ledger-mapping requires the explicit mapped-ledger-csv adapter")
@@ -200,6 +202,14 @@ def run_ingest(arguments: Namespace) -> int:
         mapping_bytes = captured_bytes(mapping_path, 65536)
         metadata["ledger_mapping"] = strict_json(mapping_bytes)
         metadata["ledger_mapping_input_sha256"] = digest_bytes(mapping_bytes)
+    if normalization_path is not None:
+        if arguments.adapter != "drive-capture":
+            raise ContractError("CAPTURE_MAPPING: --drive-normalization requires the explicit drive-capture adapter")
+        from ..domain.contracts import strict_json
+
+        normalization_bytes = captured_bytes(normalization_path, 262144)
+        metadata["drive_normalization"] = strict_json(normalization_bytes)
+        metadata["drive_normalization_input_sha256"] = digest_bytes(normalization_bytes)
     if scope_path is not None:
         from ..domain.contracts import strict_json
 
@@ -216,6 +226,8 @@ def run_ingest(arguments: Namespace) -> int:
         plan.source_checks.append((scope_path.absolute(), digest_bytes(captured_scope_bytes)))
     if mapping_path is not None:
         plan.source_checks.append((mapping_path.absolute(), digest_bytes(mapping_bytes)))
+    if normalization_path is not None:
+        plan.source_checks.append((normalization_path.absolute(), digest_bytes(normalization_bytes)))
     result = plan.document()
     if arguments.apply:
         if not arguments.plan_digest:
