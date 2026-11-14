@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T22:42:26Z'
+  updated_at: '2026-11-14T22:59:23Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -102,6 +102,7 @@ review:
       tests.test_standalone_integration --verbose
     outcome: passed
     notes: 30 per Python, zero skips; 3.12 16.315s / 3.13 15.177s.
+    observed_at: '2026-11-14T22:59:23Z'
   environment_limitations:
   - Mac setup, actual private paths/collection/credentials/consumer authority, live OAuth/Drive/Codex/model quality,
     approved private pilot and confidential runtime remain unperformed.
