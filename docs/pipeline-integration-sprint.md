@@ -103,3 +103,8 @@ The committed [256-note instrumented observation](../tests/fixtures/query-store/
 [Draft #153](https://github.com/egohygiene/mindgarden/pull/153) pins functional source `369dc1366623c338d44efa24b0da5a0d43606aed` on #152. Its documentation-only handoff is separate. Next exact action: #44 supported public relationships on the child `feature/44-public-decision-relationships`, using the delivered shared collector contracts. No merge or parent closure.
 
 Combined artifact inspection found the test SQL fixture's `.sql` extension was outside the established source-distribution manifest. It is now named `legacy-v1.sql.txt` (identical SQL bytes), using the existing supported text-fixture convention. The source-distribution inventory explicitly requires it. No release, manifest/version policy or runtime code changes; this correction propagates normally from #153 to #154 before final packaged qualification.
+
+
+Hosted Test run 43648300397 at #152 docs head `6679317` completed with two stale nested goldens (650 passed/two failed of 652 on Python 3.12); native macOS jobs passed. The exact constrained correction is in the archive-version note. It changes only derived metadata-view hashes, preserving every source/vault/public/authority fact, and propagates to the children by normal merges. The follow-up five-case pipeline/reading tests and new exact-head CI are recorded separately.
+
+Correction verification: `PYTHONPATH=src python -m unittest tests.test_pipeline_completion tests.test_reading_journey --verbose` passes five cases per Python, zero skips (3.12 75.947s / 3.13 72.789s). No runtime code changed; exact nested golden comparisons pass again.

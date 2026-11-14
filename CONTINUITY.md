@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T22:59:23Z'
+  updated_at: '2026-11-14T23:01:21Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -64,9 +64,9 @@ work:
     depends_on: []
 state:
   base:
-    revision: 66793175e8c0c1e77d99a2a0db21bfeb1f95721b
+    revision: c28738d13858aceccef11f9773ced48c7c35365c
     ref: refs/heads/feature/15-delivery-privacy
-    verified_at: '2026-11-14T22:27:50Z'
+    verified_at: '2026-11-14T23:01:21Z'
   candidate:
     branch: feature/32-incremental-cache
     revision: 369dc1366623c338d44efa24b0da5a0d43606aed
@@ -85,7 +85,9 @@ state:
       incremental refresh, known migration and retained rollback. Thirty cases pass per Python; benchmark/combined
       artifact verification follows. #44 owner refresh found Relay #115 closed/delivered; historical authority and
       actual consumer acceptance remain distinct. Draft #153 is pushed at 369dc13; current exact-head CI and final
-      artifact qualification are separate.'
+      artifact qualification are separate. Parent #152 c28738d corrects the two hosted nested goldens; five cases
+      pass per Python. Query fixture packaging correction e48cf65 and continuity observation timestamps are preserved.
+      Exact-head CI remains separate.'
   parallel_changes: []
 review:
   status: partial
@@ -103,6 +105,12 @@ review:
     outcome: passed
     notes: 30 per Python, zero skips; 3.12 16.315s / 3.13 15.177s.
     observed_at: '2026-11-14T22:59:23Z'
+  - command: PYTHONPATH=src python -m unittest tests.test_pipeline_completion tests.test_reading_journey --verbose
+    outcome: passed
+    observed_at: '2026-11-14T23:00:51Z'
+    notes: Hosted Test 43648300397 at 6679317 found two stale nested metadata goldens; native macOS passed. Constrained
+      pipeline/reading correction preserves source/vault/public facts. Five follow-up cases pass per Python (75.947s
+      / 72.789s); no runtime or validation weakening. New exact-head CI remains separate.
   environment_limitations:
   - Mac setup, actual private paths/collection/credentials/consumer authority, live OAuth/Drive/Codex/model quality,
     approved private pilot and confidential runtime remain unperformed.
