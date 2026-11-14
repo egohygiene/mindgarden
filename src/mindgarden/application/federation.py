@@ -239,10 +239,12 @@ def build_catalog(request: dict) -> dict:
     denied = set()
     for group in groups.values():
         if len(group) > 1:
-            denied.update(group); diagnostics.add("FEDERATION_DUPLICATE_ID")
+            denied.update(group)
+            diagnostics.add("FEDERATION_DUPLICATE_ID")
     for group in homes.values():
         if len(set(group)) > 1:
-            denied.update(group); diagnostics.add("FEDERATION_CANONICAL_CONFLICT")
+            denied.update(group)
+            diagnostics.add("FEDERATION_CANONICAL_CONFLICT")
     gardens = []
     records = []
     scopes = []
@@ -264,16 +266,20 @@ def build_catalog(request: dict) -> dict:
               "diagnostics": sorted(diagnostics)}
     if "previous" in request:
         previous = request["previous"]
-        old = {item["garden"]:item for item in previous["gardens"]}
-        if len(old) != len(previous["gardens"]):
-            raise ContractError("FEDERATION_REQUEST: prior catalog has ambiguous garden identities")
         current = {item["garden"]:item for item in gardens}
+        # Prior catalogs are untrusted comparison data. Their unselected or
+        # unavailable identities cannot become fresh public advertisements or
+        # affect ambiguity diagnostics for the currently verified selection.
+        selected_previous = [item for item in previous["gardens"] if item["garden"] in current]
+        old = {item["garden"]:item for item in selected_previous}
+        if len(old) != len(selected_previous):
+            raise ContractError("FEDERATION_REQUEST: prior catalog has ambiguous garden identities")
         result["refresh"] = [{"garden":garden,
-            "state":("not-retained" if garden not in current else "added" if garden not in old else
+            "state":("added" if garden not in old else
                       "unchanged" if old[garden] == current[garden] else "updated"),
             "previous_revision":old[garden]["revision"] if garden in old else None,
             "current_revision":current[garden]["revision"] if garden in current else None}
-            for garden in sorted(old.keys() | current.keys())]
+            for garden in sorted(current)]
     if ContractRegistry().errors(result, "federation-catalog"):
         raise ContractError("FEDERATION_INVALID: supplied catalog cannot preserve the supported public contract")
     return result

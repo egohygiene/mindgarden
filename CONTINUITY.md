@@ -7,14 +7,14 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T21:01:44Z'
+  updated_at: '2026-11-14T21:15:19Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Audit independent backlog work and implement explicit packet currentness, then per-file reviewed Drive
-    normalization, using synthetic fixtures.
+  purpose: 'Deliver and qualify the parked-setup audit stack: packet currentness/read-only verification, reviewed
+    captured CSV mapping, catalog metadata privacy and archive continuation evidence.'
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -37,100 +37,79 @@ scope:
   - ROADMAP.md
   - docs/open-issue-coverage.md
   - docs/decisions/README.md
-  - docs/local-consultation-workflow.md
-  - docs/freshness-mapping-sprint.md
-  - docs/dependency-builds.md
-  - docs/compaction-retention.md
-  - docs/consultation-packets.md
-  - examples/mock-garden/README.md
-  - docs/curation-routing-design-acceptance.md
-  - docs/csv-ledger-mappings.md
-  - docs/evidence/freshness-mapping-qualification.json
-  - docs/remaining-work-and-local-setup.md
-  - docs/evidence/freshness-mapping-stack-merge.json
-  - docs/private-pilot.md
   - docs/repository-audit-followthrough.md
+  - docs/remaining-acceptance-audit.md
+  - docs/consultation-packets.md
   - docs/drive-normalization.md
 work:
-  objective: Audit independent backlog work and implement explicit packet currentness, then per-file reviewed
-    Drive normalization, using synthetic fixtures.
+  objective: 'Deliver and qualify the parked-setup audit stack: packet currentness/read-only verification, reviewed
+    captured CSV mapping, catalog metadata privacy and archive continuation evidence.'
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#87
-    url: https://github.com/egohygiene/mindgarden/issues/87
+    id: egohygiene/mindgarden#16
+    url: https://github.com/egohygiene/mindgarden/issues/16
   next:
     kind: action
-    id: repository-audit-packet-checkpoint
-    description: 'Open the per-file Drive normalization draft on #149, add the acceptance audit/continuation-state
-      proof as a small child checkpoint, then qualify the complete source/wheel/archive and both-Python stack.
-      Leave drafts for review; Mac setup and actual private/live/model/owner decisions stay parked.'
+    id: audit-stack-final-qualification
+    description: 'Open the audit child draft on #150 and finish both-Python focused checks, clean Git/wheel/source
+      proofs, installed v0 smoke, source-resource checks and exact-head CI observation. Update issue/roadmap/handoff
+      evidence, then sync; do not merge new drafts or resume private setup.'
     readiness: ready
     references:
     - docs/repository-audit-followthrough.md
-    - docs/consultation-packets.md
+    - docs/remaining-acceptance-audit.md
     depends_on: []
 state:
   base:
-    revision: 3f0f2bf359740e5bbb237dcc3ffd4137481f5e85
-    ref: refs/heads/feature/90-packet-freshness
-    verified_at: '2026-11-14T21:01:44Z'
+    revision: 84711e8c5d59f9ff1e01f99a260759df6bfb5ef5
+    ref: refs/heads/feature/87-reviewed-drive-normalization
+    verified_at: '2026-11-14T21:15:19Z'
   candidate:
-    branch: feature/87-reviewed-drive-normalization
+    branch: test/15-16-acceptance-audit
     revision: null
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-14T21:01:44Z'
+    observed_at: '2026-11-14T21:15:19Z'
     default_branch_revision: 270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a
     issue_state: open
     pull_request_state: draft
-    notes: 'Stack #148 → #149 → feature/87-reviewed-drive-normalization preserves main 270ced6. Draft per-file
-      reviewed Drive mappings now feed the ordinary ledger/packet services. Explicit provider associations, canonical
-      mapping provenance, exact overlapping occurrences and stale-config guards are implemented. Initial source
-      proof matches eight transactions / USD 2259.76 / 6129-byte context through clean vault recovery. Final combined
-      artifact qualification is pending; 34 open / 44 tracked and all proposed ADRs remain unchanged.'
+    notes: 'Draft stack #148 → #149 → #150 → test/15-16-acceptance-audit remains unmerged on main 270ced6. Source
+      fixes are implemented; initial currentness/mapping tests and full mapped source recovery pass. A new adversarial
+      catalog test reproduced unselected historical metadata affecting public refresh; the fix filters comparison
+      to current verified gardens. Continuation tests preserve unreviewed source authority. 34 open / 44 tracked;
+      all 24 ADRs proposed. Combined final qualification is pending.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-14T20:43:10Z'
+  reviewed_at: '2026-11-14T21:15:19Z'
   reviewed_by: codex
   evidence:
-  - command: Python 3.12 -m unittest tests.test_packet_freshness tests.test_consultation tests.test_mapped_ledger
-      tests.test_v1_contracts tests.test_package --quiet
+  - command: '#149: Python 3.12 broader 44-case and Python 3.13 16-case selections; subsequent three-case read-only
+      verifier regression selection'
     outcome: passed
-    observed_at: '2026-11-14T20:43:10Z'
-    notes: 44 cases pass in 325.556s, zero skips. Exact corrected packet code, source integrity, review, original
-      preservation, live denial and existing v0/package coverage.
-  - command: Python 3.13 -m unittest tests.test_packet_freshness tests.test_v1_contracts --verbose; scoped Ruff/format,
-      pinned owner/continuity/44-row/native-child and whitespace checks
+    observed_at: '2026-11-14T21:15:19Z'
+    notes: 44 cases in 325.556s / 16 in 231.205s; three additional verifier cases in 78.488s. These staged observations
+      precede the final combined source. No final CI or broader artifact claim follows.
+  - command: '#150: Python 3.12 capture/credential/source/schema/package selection and mapped source demo'
     outcome: passed
-    observed_at: '2026-11-14T20:43:10Z'
-    notes: 16 cases pass in 231.205s, zero skips; local non-runtime checks pass. Initial fixture-helper import
-      failure is corrected; it is not passing evidence. Broader combined/source-wheel qualification and exact-head
-      CI remain separate.
-  - command: Python 3.12 -m unittest tests.test_packet_freshness.PacketFreshnessTests.test_existing_packet_verification_survives_session_renewal_without_writes
-      tests.test_packet_freshness.PacketFreshnessTests.test_verification_rejects_tampered_inventory_extra_files_and_changed_output
-      tests.test_consultation.ConsultationTests.test_cli_create_replay_and_changed_review_reject_old_digest --verbose
-    outcome: passed
-    observed_at: '2026-11-14T20:59:52Z'
-    notes: Three cases pass in 78.488s. Current authority verifies unchanged owned output without writes; old
-      approval cannot apply changed evidence. Earlier 44/16-case evidence predates this additive verifier correction;
-      final combined qualification remains pending.
-  - command: Python 3.12 -m unittest tests.test_drive_normalization tests.test_drive_capture tests.test_drive_credentials
-      tests.test_v1_contracts tests.test_source_adapters tests.test_package --quiet; python -S scripts/mapped_drive_consultation_demo.py
-      --require-source; scoped lint/format/whitespace
-    outcome: passed
-    observed_at: '2026-11-14T21:01:44Z'
-    notes: 44 cases pass in 18.626s, zero skips. Source proof yields eight transactions, nine original occurrences,
-      exact 2259.76 total and 6129-byte context after relocation/restore/clean projection rebuild. This predates
-      the additive parent verifier fix; final combined qualification remains pending. Initial fixture assertion
-      confused 11 objects with nine row occurrences and was corrected; script lint excludes E402 only for the
-      existing source/install bootstrap pattern.
+    observed_at: '2026-11-14T21:15:19Z'
+    notes: 44 cases pass in 18.626s, then 13 mapping/schema in 12.839s. Whole mapped source proof yields eight
+      transactions, nine row occurrences, 2259.76 total and 6129-byte context after clean recovery. Final combined
+      artifacts remain pending.
+  - command: Python 3.12/3.13 four-module federation audit; new historical-only canary baseline and fixed continuation/rendered
+      regression selection
+    outcome: limited
+    observed_at: '2026-11-14T21:15:19Z'
+    notes: Existing 40 cases pass per Python (86.294s / 82.385s). New canary fails against prior code (2.883s),
+      then fixed nine-case selection passes in 18.995s. An initial continuation test confused legacy visibility
+      private with scope visibility personal; corrected to assert both and publication exclusion. Final combined
+      selection is pending.
   environment_limitations:
   - Actual private pilot, OAuth/Drive/Codex/model quality and confidential runtime remain unperformed; actual
     configuration/classification/consumer authority required.
@@ -156,7 +135,7 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer parked Mac setup and authorized independent repository audit/implementation. Continue bounded existing issues with synthetic data and draft PRs; no ADR ratification, release, merge or unspecified private-source authority is implied.
+The maintainer parked local setup and authorized independent repository work. Complete the selected bounded existing issues through draft PRs and synthetic proof. Do not merge drafts, ratify ADRs, publish releases or process unspecified private sources.
 
 ## Resume protocol
 
@@ -164,19 +143,19 @@ Refresh live issues/comments/PRs and read the audit follow-through, coverage and
 
 ## Current objective and success conditions
 
-Audit independent backlog work and implement explicit packet currentness, then per-file reviewed Drive normalization, using synthetic fixtures.
+Deliver and qualify the parked-setup audit stack: packet currentness/read-only verification, reviewed captured CSV mapping, catalog metadata privacy and archive continuation evidence.
 
 ## State snapshot
 
-Stack #148 → #149 → feature/87-reviewed-drive-normalization preserves main 270ced6. Draft per-file reviewed Drive mappings now feed the ordinary ledger/packet services. Explicit provider associations, canonical mapping provenance, exact overlapping occurrences and stale-config guards are implemented. Initial source proof matches eight transactions / USD 2259.76 / 6129-byte context through clean vault recovery. Final combined artifact qualification is pending; 34 open / 44 tracked and all proposed ADRs remain unchanged.
+Draft stack #148 → #149 → #150 → test/15-16-acceptance-audit remains unmerged on main 270ced6. Source fixes are implemented; initial currentness/mapping tests and full mapped source recovery pass. A new adversarial catalog test reproduced unselected historical metadata affecting public refresh; the fix filters comparison to current verified gardens. Continuation tests preserve unreviewed source authority. 34 open / 44 tracked; all 24 ADRs proposed. Combined final qualification is pending.
 
 ## Completed and material changes
 
-Private packet currentness and read-only session-renewal verification are in #149. This child adds explicit human-reviewed file-ID→mapping config, canonical mapping provenance, per-occurrence exact provider/ZIP/raw-span evidence, bounded normalization and stale-config apply rejection. Unknown/missing/duplicate/non-CSV mappings fail closed; strict unmapped CSV and other adapters preserve behavior. No credential/model or new canonical store is introduced.
+#149 adds exact packet currentness and read-only verification after session renewal. #150 maps selected captured CSVs through reviewed provider-ID config and preserves all original occurrences. This audit child fixes old-only catalog metadata/ambiguity pollution and proves continuation source authority; it also corrects the #32 full-issue dependency interpretation. No canonical ownership or session model changes.
 
 ## Validation and review evidence
 
-Local initial #149 selections and three verifier regressions pass as recorded. The mapped capture 44-case Python 3.12 selection and full source recovery proof pass; final combined qualification, clean artifacts and exact-head CI remain separate. Fixed initial test-helper and occurrence-expectation errors are retained honestly.
+Staged local results are preserved in review metadata. The old-only catalog canary failed before the fix and passes afterward. A new source reference golden withholds historical refresh identities while keeping current catalog bytes exact. Final both-Python/source-wheel-archive qualification and CI are still pending.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -184,11 +163,11 @@ Mac setup is parked. Actual private locations/collection, credentials and consum
 
 ## Next dependency-ready work
 
-Open the per-file Drive normalization draft on #149, add the acceptance audit/continuation-state proof as a small child checkpoint, then qualify the complete source/wheel/archive and both-Python stack. Leave drafts for review; Mac setup and actual private/live/model/owner decisions stay parked.
+Open the audit child draft on #150 and finish both-Python focused checks, clean Git/wheel/source proofs, installed v0 smoke, source-resource checks and exact-head CI observation. Update issue/roadmap/handoff evidence, then sync; do not merge new drafts or resume private setup.
 
 ## Parallel changes and reconciliation
 
-Documentation #148 → packet #149 → this mapping branch is the explicit stack. Parent #149 advanced normally to 3f0f2bf; this child fast-forwarded before its first commit. Existing root WIP/worktrees remain untouched. Proposed decisions, owner contracts and actual consumer authority are unchanged.
+Explicit stack #148 documentation → #149 packet/currentness → #150 Drive mappings → this audit child. Combined checkout is test/15-16-acceptance-audit. Parent advances were fast-forwarded before child commits. Preserve original root WIP and old qualified worktrees; no branch is reset or auto-merged.
 
 ## Privacy and redaction
 

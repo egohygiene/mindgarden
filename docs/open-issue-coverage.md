@@ -8,6 +8,8 @@
 
 ## Selected freshness and mapping batch
 
+**Audit child:** [Remaining acceptance](remaining-acceptance-audit.md) adds a concrete #16/#31 prior-catalog metadata fix and #15 continuation-state proof. It retains #32 incremental/migration scope, explicit owner gates and 34 open / 44 tracked. All new work stays draft; combined final qualification follows.
+
 **New bounded audit checkpoint:** [Per-file captured CSV mappings](drive-normalization.md) are implemented on the child of #149, with nine exact original occurrences, eight reconciled transactions and clean recovery. Existing #87/#90 own this work; no duplicate issue or parent closure. Final combined artifacts remain pending.
 
 The maintainer selected #37 → #46 → #90. [The active sprint](freshness-mapping-sprint.md) records exact contract dependencies, draft ancestry and remaining acceptance. #144 has passing exact-head automatic CI and remains unmerged. Drafts #145 → #146 → #147 add actual context dependencies, multi-source refresh/live validity and reviewed CSV mappings. Combined source b7b279a passes 102 focused cases per Python and the 17 new boundaries from clean Git/wheel/source. No parent closure: 34 open / 44 tracked.

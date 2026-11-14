@@ -217,8 +217,12 @@ acquisition, automatic updates, dependency resolution and project lockfiles are
 separate future work. Existing scoped canonical search/context is unchanged;
 this checkpoint does not introduce a competing package-session authority model.
 
-An optional `previous` catalog produces deterministic `added`, `unchanged`,
-`updated` and `not-retained` states. A changed rendered-manifest pin is an update
+An optional `previous` catalog produces deterministic `added`, `unchanged` and
+`updated` states for currently verified selected gardens only. Historical-only,
+unavailable or conflicting old identities are withheld from refresh metadata,
+including old revisions/counts; current coverage uses the generic diagnostics.
+Old `not-retained` states remain readable as historical input, but the current
+builder does not re-advertise those old-only identities. A changed rendered-manifest pin is an update
 even when the selected knowledge revision is identical. Missing, stale, invalid
 or conflicting current inputs contribute **no** previous records as fallback.
 Diagnostics contain stable codes and no acquisition paths or payload text.

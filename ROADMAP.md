@@ -37,6 +37,8 @@ updated: 2026-11-13
 -->
 ## 2026-11-13 execution snapshot
 
+**Audit child:** The [acceptance audit](docs/remaining-acceptance-audit.md) maps #15/#16/#32/#43/#44 against full issue text and code. A reproduced old-only catalog metadata defect is fixed on the child of #150; known archive continuation artifacts gain an explicit unreviewed-source proof. Final combined qualification is pending. Existing #32 incremental/migration requirements are retained; no private-pilot or optional service gate is invented.
+
 **Mapped capture checkpoint:** The `feature/87-reviewed-drive-normalization` child of draft #149 composes explicit per-file CSV mappings with verified Drive captures and ordinary packet/recovery services. [Guide](docs/drive-normalization.md). Source proof and the initial 44-case local selection pass; combined final qualification is pending. Mac setup remains parked.
 
 **Active repository audit:** Mac setup is parked. The maintainer authorized independent work; [the follow-through](docs/repository-audit-followthrough.md) selects explicit packet currentness (#37/#90), then Drive per-file reviewed mappings (#87/#90), and an acceptance audit of existing implementations. Draft #149 stacks on documentation #148; 44 Python 3.12 and 16 Python 3.13 focused cases pass, with combined qualification still separate. No parent closure, new setup issue, merge or ADR ratification.

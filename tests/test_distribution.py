@@ -148,6 +148,7 @@ class DistributionTests(unittest.TestCase):
             "mindgarden-0.1.0/tests/packet_freshness_fixture.py",
             "mindgarden-0.1.0/tests/test_packet_freshness.py",
             "mindgarden-0.1.0/tests/test_drive_normalization.py",
+            "mindgarden-0.1.0/tests/test_archive_continuation.py",
             "mindgarden-0.1.0/scripts/research_demo.py",
             "mindgarden-0.1.0/scripts/mock_garden_demo.py",
             "mindgarden-0.1.0/examples/mock-garden/README.md",

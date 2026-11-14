@@ -65,3 +65,7 @@ The next implementation is the child `feature/87-reviewed-drive-normalization`. 
 ## Per-file Drive checkpoint
 
 The child `feature/87-reviewed-drive-normalization` adds the reviewed file-ID mapping contract and explicit import option. [The guide](drive-normalization.md) and committed mapped-source golden document exact original occurrences, two layouts, unchanged replay, correction, partial/missing-input behavior and clean packet/index/context recovery. Initial 44-case local checks pass; the corrected whole stack is qualified separately below.
+
+## Acceptance and public-metadata checkpoint
+
+The child `test/15-16-acceptance-audit` on #150 fixes reproduced historical-only catalog identifiers/ambiguity affecting new public refresh output. Comparison now considers only currently verified gardens; unavailable sources retain generic diagnostics and no old IDs. The known continuation artifact gains explicit exact-byte/unreviewed/no-execution proof. [The full acceptance audit](remaining-acceptance-audit.md) records five parents, real remaining gates and the next independent sprint. No broad parent is closed or new issue created.
