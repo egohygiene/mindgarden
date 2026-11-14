@@ -1,4 +1,4 @@
-**Active authorized batch:** bounded #15 → #32 → #44 on the unmerged #148–#151 stack; [checkpoint/dependency map](pipeline-integration-sprint.md). Local setup remains parked. Older observations below retain their historical dates.
+**Completed bounded draft batch:** [#152](https://github.com/egohygiene/mindgarden/pull/152) → [#153](https://github.com/egohygiene/mindgarden/pull/153) → [#154](https://github.com/egohygiene/mindgarden/pull/154) extend #148–#151. Combined 954fa88 passes 127 cases per Python; final 25a9df6 guard passes 19 focused cases per Python and all three final artifact forms pass 30 each. [Exact source/CI qualification](evidence/pipeline-integration-qualification.json) · [Checkpoint, remaining scope and next actions](pipeline-integration-sprint.md#qualified-combined-handoff). Main stays 270ced6; 34 open / 44 tracked; no merge/closure/ratification. Local setup stays parked. Older observations below are historical.
 
 # Issue coverage — 2026-11-13
 

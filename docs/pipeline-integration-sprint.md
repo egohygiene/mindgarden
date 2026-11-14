@@ -135,3 +135,40 @@ Combined artifact inspection found the test SQL fixture's `.sql` extension was o
 Hosted Test run 43648300397 at #152 docs head `6679317` completed with two stale nested goldens (650 passed/two failed of 652 on Python 3.12); native macOS jobs passed. The exact constrained correction is in the archive-version note. It changes only derived metadata-view hashes, preserving every source/vault/public/authority fact, and propagates to the children by normal merges. The follow-up five-case pipeline/reading tests and new exact-head CI are recorded separately.
 
 Correction verification: `PYTHONPATH=src python -m unittest tests.test_pipeline_completion tests.test_reading_journey --verbose` passes five cases per Python, zero skips (3.12 75.947s / 3.13 72.789s). No runtime code changed; exact nested golden comparisons pass again.
+
+## Qualified combined handoff
+
+Draft order is **#148 → #149 → #150 → #151 → #152 → #153 → #154**.
+The reproducible combined checkout is `feature/44-public-decision-relationships`.
+Main remains `270ced6`; 34 issues remain open / 44 tracked. No draft or parent is
+merged/closed by these checkpoints. The original four interrupted root entries
+and all earlier worktrees remain intact.
+
+| Owner | Completed bounded checkpoint | Remaining parent scope | PR / next action |
+| --- | --- | --- | --- |
+| #15 | Delivery facts without copied runtime/session data; exact raw originals and known continuation; all nested version goldens reconciled | Unsupported profiles and separate #13 attribution/semantic and #20 actual-consumer evidence remain explicit; unknown optional formats are not invented prerequisites | [#152](https://github.com/egohygiene/mindgarden/pull/152), corrected `c28738d`; review/merge in stack order, then reconcile listed importer criteria |
+| #32 | Current-authority incremental refresh, known version-1 → 2 copy/verify migration, retained rollback, logical restore, closed plans and measured parity/allocation | Review the original adapter criteria against these draft receipts. Vectors/encryption remain unsupported; larger/native/confidential experiments and permanent adoption are independent, not extra baseline closure gates | [#153](https://github.com/egohygiene/mindgarden/pull/153), corrected `bc1ba63`; review the ordinary baseline after merge |
+| #44 | Opt-in typed public artifacts/backlinks/context, distinct owner revisions and native pinned shared-input composition | Supported narrative/claim/component/projection contracts, private/inherited authority and actual consumer acceptance; #41/#42 human disposition stays separate | [#154](https://github.com/egohygiene/mindgarden/pull/154); review the supported public checkpoint and retain remaining owner gaps |
+
+The [exact qualification receipt](evidence/pipeline-integration-qualification.json)
+distinguishes these source states:
+
+- Combined source `954fa88`: **127 targeted cases per Python**, zero skips (3.12 221.775s / 3.13 215.816s), including all archive, cache, ADR, scope, v0 and five complete workflow/compaction/pipeline/reading proof modules.
+- Final source `25a9df6` changes only the ADR read-model version guard and its negative fixture: Observatory's envelope is exactly alpha.2, while Hygiene alpha.1 is an upstream normalization input. **19 focused cases per Python** pass (1.080s / 1.014s), zero skips. No unsupported envelope is claimed.
+- Fresh artifacts at final source: **30 cases each** from clean Git, isolated dependency-free wheel and unpacked source, zero skips (18.474s / 18.773s / 18.623s). All 100 imported engine module origins match each selected form. Each includes the entire exact archive → reviewed prompt → search/context → vault relocation/restore/clean-rebuild golden, plus new adapter/cache/ADR boundaries and v0 compatibility. Wheel inventory is only Mindgarden.
+- Two distribution cases per Python, eight final installed v0 commands, compilation on both, eleven selected formatted files, 124 local Markdown targets and pinned owner/continuity/44-row/native-child checks pass. Selected lint passes under the documented script bootstrap E402 convention; one inherited CLI E702 remains. No repository-wide lint-clean claim.
+- Both Pythons pass the final native pinned-owner proof. The 256-note SQLite observation includes tracing overhead and honest allocation/timing; it establishes no speed/RSS/scale win.
+
+Earlier failed invocations and the failed #152 hosted run remain in the receipt.
+They are not passing evidence. The corrected parents' automatic Test runs
+43651058528 (#152) and 43651099439 (#153) were observed running; preparation passes.
+Prior #151 final-head Test 43646086434 is now verified successful. Final #154
+handoff CI is observed separately after push; no workflow is manually dispatched.
+
+These synthetic results also support #20 without claiming its actual private
+archive, Empathy, publication or broader consumer acceptance. No Google/model
+service is required. Mac setup, actual accounts/credentials and private processing
+stay parked. Eighteen indexed ADRs remain proposed/null approval; six original
+legacy Accepted labels remain unchanged. Next exact action: maintainer review of
+the explicit stack, then listed-criteria reconciliation and the remaining ready
+contracts; no automatic merge, new issue or ADR disposition.
