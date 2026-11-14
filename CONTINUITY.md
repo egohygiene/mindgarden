@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T20:43:10Z'
+  updated_at: '2026-11-14T20:59:52Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -79,12 +79,12 @@ state:
     verified_at: '2026-11-14T20:35:10Z'
   candidate:
     branch: feature/90-packet-freshness
-    revision: 2373b77e43d43776bfbd128e9fca1501d4024816
+    revision: null
     pull_request:
       provider: github
       id: egohygiene/mindgarden#149
       url: https://github.com/egohygiene/mindgarden/pull/149
-    handoff_state: ready-for-review
+    handoff_state: in-progress
   live:
     status: verified
     observed_at: '2026-11-14T20:43:10Z'
@@ -94,7 +94,9 @@ state:
     notes: 'Draft #149 on documentation #148 implements explicit selected-input packet currentness. Qualified
       functional source 2373b77: Python 3.12 broader 44 cases pass (325.556s), Python 3.13 focused 16 pass (231.205s),
       zero skips. Main remains 270ced6, 34 issues open / 44 tracked. Per-file Drive mapping work is isolated on
-      child feature/87-reviewed-drive-normalization; no closure or merge.'
+      child feature/87-reviewed-drive-normalization; no closure or merge. Audit additionally corrected read-only
+      packet verification after session renewal: three focused Python 3.12 regressions pass (78.488s); combined
+      qualification is pending.'
   parallel_changes: []
 review:
   status: partial
@@ -114,6 +116,14 @@ review:
     notes: 16 cases pass in 231.205s, zero skips; local non-runtime checks pass. Initial fixture-helper import
       failure is corrected; it is not passing evidence. Broader combined/source-wheel qualification and exact-head
       CI remain separate.
+  - command: Python 3.12 -m unittest tests.test_packet_freshness.PacketFreshnessTests.test_existing_packet_verification_survives_session_renewal_without_writes
+      tests.test_packet_freshness.PacketFreshnessTests.test_verification_rejects_tampered_inventory_extra_files_and_changed_output
+      tests.test_consultation.ConsultationTests.test_cli_create_replay_and_changed_review_reject_old_digest --verbose
+    outcome: passed
+    observed_at: '2026-11-14T20:59:52Z'
+    notes: Three cases pass in 78.488s. Current authority verifies unchanged owned output without writes; old
+      approval cannot apply changed evidence. Earlier 44/16-case evidence predates this additive verifier correction;
+      final combined qualification remains pending.
   environment_limitations:
   - Actual private pilot, OAuth/Drive/Codex/model quality and confidential runtime remain unperformed; actual
     configuration/classification/consumer authority required.

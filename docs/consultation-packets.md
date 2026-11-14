@@ -140,3 +140,10 @@ manifest grants no permission and is not canonical evidence. A source refresh
 does not silently choose a replacement transaction or approve new knowledge.
 Pre-manifest packets remain historical artifacts; rebuild their retained reviewed
 request into a new directory to obtain this additive comparison metadata.
+
+`--check` is read-only and accepts a freshly authorized session when recomputed
+packet bytes are unchanged. It verifies the retained ownership inventory and
+every exact file against the current request, source integrity, budgets and live
+authority. The marker's old plan digest is historical ownership data; it cannot
+grant access or approve a new apply. Tampered, extra, missing or incompatible
+files still fail closed, and verification never repairs or rewrites the bundle.

@@ -261,6 +261,56 @@ class PacketFreshnessTests(unittest.TestCase):
         with self.assertRaisesRegex(ContractError, "PACKET_SCOPE"):
             reconcile_packet(manifest, prior)
 
+    def test_existing_packet_verification_survives_session_renewal_without_writes(self):
+        original = {
+            path.name: (path.read_bytes(), path.stat().st_mode)
+            for path in self.target.iterdir()
+        }
+        session = read_object(self.fixture["session_path"])
+        session["id"] = "fresh-check-authority"
+        write_json(self.fixture["session_path"], session)
+        with (
+            patch(
+                "mindgarden.application.consultation.apply_generated",
+                side_effect=AssertionError("Apply attempted"),
+            ),
+            patch(
+                "pathlib.Path.mkdir",
+                side_effect=AssertionError("Directory write attempted"),
+            ),
+        ):
+            result = cli(
+                self.arguments + ["--output-directory", str(self.target), "--check"]
+            )
+        self.assertEqual(result["status"], "verified-no-op")
+        self.assertEqual(
+            {
+                path.name: (path.read_bytes(), path.stat().st_mode)
+                for path in self.target.iterdir()
+            },
+            original,
+        )
+
+    def test_verification_rejects_tampered_inventory_extra_files_and_changed_output(
+        self,
+    ):
+        arguments = self.arguments + ["--output-directory", str(self.target), "--check"]
+        packet = self.target / "packet.json"
+        original = packet.read_bytes()
+        packet.write_bytes(original + b" ")
+        self.assertIn("GENERATED_CONFLICT", self.failure(arguments))
+        packet.write_bytes(original)
+        extra = self.target / "unknown.txt"
+        extra.write_bytes(b"private-generated-canary")
+        self.assertIn("GENERATED_CONFLICT", self.failure(arguments))
+        extra.rename(self.root / "retained-unknown.txt")
+        owner = self.target / ".mindgarden-generated.json"
+        saved = owner.read_bytes()
+        owner.write_bytes(b"{}\n")
+        self.assertIn("GENERATED_CONFLICT", self.failure(arguments))
+        owner.write_bytes(saved)
+        self.assertEqual(cli(arguments)["status"], "verified-no-op")
+
     def test_unrelated_import_leaves_selected_packet_current_and_identical(self):
         before = plan_packet(self.fixture["context"], self.fixture["request"])[1]
         unrelated = self.root / "unrelated.csv"

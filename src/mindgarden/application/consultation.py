@@ -3,7 +3,12 @@
 from copy import deepcopy
 import json
 
-from ..adapters.generated_files import apply_generated, complete_generated, inventory
+from ..adapters.generated_files import (
+    apply_generated,
+    complete_generated,
+    inventory,
+    verify_generated,
+)
 from ..adapters.registry_files import control_path, read_control
 from ..domain.consultation import build_packet, markdown, validate_request
 from ..domain.contracts import canonical_json, digest_bytes, read_object, strict_json
@@ -127,11 +132,20 @@ def run_packet(arguments):
         raise ContractError(
             "PACKET_MISSING: no immutable packet exists at the selected location"
         )
-    if arguments.apply or arguments.check:
+    if arguments.check:
+        verify_generated(
+            destination,
+            files,
+            check_live=context.check_live,
+            validate_output=context.ensure_bundle,
+            verify_inputs=verify,
+        )
+        result = {"status": "verified-no-op", "plan_sha256": preview["plan_sha256"]}
+    elif arguments.apply:
         changed = apply_generated(
             destination,
             files,
-            preview["plan_sha256"] if arguments.check else arguments.plan_digest,
+            arguments.plan_digest,
             preview["plan_sha256"],
             check_live=context.check_live,
             validate_output=context.ensure_bundle,

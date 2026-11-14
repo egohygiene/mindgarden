@@ -2,8 +2,9 @@
 
 import os
 from pathlib import Path
+import re
 
-from .registry_files import control_path, private_parent
+from .registry_files import control_path, private_parent, read_control
 from ..domain.contracts import canonical_json, digest_bytes, safe_path
 from ..domain.validation import ContractError
 
@@ -102,3 +103,53 @@ def apply_generated(
     check_live()
     verify_inputs()
     return True
+
+
+def verify_generated(
+    directory, files, *, check_live, verify_inputs, validate_output=None
+):
+    """Verify current authorized bytes without adopting an old plan's authority.
+
+    Session renewal can change a plan digest without changing its output. The
+    retained marker identifies the old owned inventory; current recomputation,
+    source verification and live authority determine whether these bytes match.
+    This function never creates, repairs, chmods or overwrites output.
+    """
+    from ..domain.contracts import strict_json
+
+    check_live()
+    verify_inputs()
+    marker_bytes = read_control(directory / MARKER)
+    marker = strict_json(marker_bytes)
+    if (
+        not isinstance(marker, dict)
+        or not isinstance(marker.get("plan_sha256"), str)
+        or not re.fullmatch(r"[0-9a-f]{64}", marker["plan_sha256"])
+    ):
+        raise ContractError(
+            "GENERATED_CONFLICT: prior ownership metadata is incompatible; retain it for inspection"
+        )
+    complete = complete_generated(files, marker["plan_sha256"])
+    if marker_bytes != complete[MARKER]:
+        raise ContractError(
+            "GENERATED_CONFLICT: existing inventory differs from current authorized output"
+        )
+    if validate_output is not None:
+        validate_output(complete)
+    try:
+        if set(path.name for path in directory.iterdir()) != set(complete):
+            raise ContractError(
+                "GENERATED_CONFLICT: preserve unexpected or incomplete output for review"
+            )
+        for name, content in complete.items():
+            check_live()
+            if read_control(safe_path(directory, name)) != content:
+                raise ContractError(
+                    "GENERATED_CONFLICT: existing projection differs; retain it for review"
+                )
+    except OSError as error:
+        raise ContractError(
+            "GENERATED_CONFLICT: selected output cannot be verified; retain it for review"
+        ) from error
+    check_live()
+    verify_inputs()

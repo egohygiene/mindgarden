@@ -45,6 +45,13 @@ merged or parent issue closed by this audit; all 24 ADRs stay proposed.
 
 ## Packet-currentness checkpoint
 
+A further audit found `packet --check` delegated to the applying helper and
+therefore rejected unchanged files after a session renewal. The new read-only
+`verify_generated` checks the retained inventory against recomputed current
+authorized bytes without adopting the marker's old authority or modifying any
+file. Three focused verification/compatibility regressions pass on Python 3.12
+in 78.488s; final combined qualification follows this implementation correction.
+
 [Draft #149](https://github.com/egohygiene/mindgarden/pull/149) on #148 pins functional source `2373b77e43d43776bfbd128e9fca1501d4024816`. Python 3.12's broader packet/mapping/schema/package selection passes 44 cases in 325.556s; Python 3.13's focused currentness/schema selection passes 16 in 231.205s, zero skips. Scoped lint/format, pinned owner/continuity/coverage/native-child and whitespace checks pass. An initial test referenced a nonexistent helper; corrected to the actual vault object-path method before these successful runs. Exact-head CI and the combined artifacts remain separate.
 
 The next implementation is the child `feature/87-reviewed-drive-normalization`. Its initial occurrence assertion confused the 11 immutable objects with the nine actual CSV row occurrences; the fixture expectation was corrected without weakening normalization. Its current checks and final proof will be reported independently.
