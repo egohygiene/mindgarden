@@ -69,9 +69,12 @@ state:
     verified_at: '2026-11-14T22:27:50Z'
   candidate:
     branch: feature/15-delivery-privacy
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: b097abdff28b4ce1dff19879e7830a84b67002e6
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#152
+      url: https://github.com/egohygiene/mindgarden/pull/152
+    handoff_state: ready-for-review
   live:
     status: verified
     observed_at: '2026-11-14T22:27:50Z'
@@ -80,7 +83,7 @@ state:
     pull_request_state: draft
     notes: 'Main remains 270ced6. Draft base #148 → #149 → #150 → #151/ecaca37; new branch feature/15-delivery-privacy
       implements bounded delivery facts and known bootstrap evidence. No merge, closure or owner approval. Root
-      four WIP entries remain untouched.'
+      four WIP entries remain untouched. Draft #152 is pushed at b097abd; exact-head hosted CI is pending independently.'
   parallel_changes: []
 review:
   status: partial
@@ -91,7 +94,8 @@ review:
       tests.test_conversation_archives tests.test_archive_selection tests.test_archive_diagrams --verbose
     outcome: passed
     observed_at: '2026-11-14T22:27:50Z'
-    notes: 29 cases per Python, zero skips (11.576s / 11.899s). Ten workflow/schema cases pass per Python, zero skips (48.760s / 46.644s).
+    notes: 29 cases per Python, zero skips (11.576s / 11.899s). Ten workflow/schema cases pass per Python, zero
+      skips (48.760s / 46.644s).
   environment_limitations:
   - Mac setup, actual private paths/collection/credentials/consumer authority, live OAuth/Drive/Codex/model quality,
     approved private pilot and confidential runtime remain unperformed.
