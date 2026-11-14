@@ -59,3 +59,5 @@ release-journey report. Exact source IDs/bytes/locators, vault hashes, review st
 bodies and budgets remain equal. Existing records are not rewritten. The new
 canary fixture is synthetic; its complete metadata remains only in its preserved
 private original while portable delivery facts omit runtime details.
+
+The #152 hosted full suite at `6679317` found two additional stale report copies: pipeline completion and the composed reading journey (650 passed / two failed out of 652 on Python 3.12). Their regeneration is constrained to pipeline baseline-proof/index/graph/context hashes and reading-journey index/graph/JSON-context/Markdown-context hashes. All original/vault/source IDs, bytes, exact references, review states, counts, budgets and public subproof fields remain equal. Tests and checksum checks are preserved; the failed hosted run is not relabeled as passing.

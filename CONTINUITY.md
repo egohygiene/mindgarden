@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T22:27:50Z'
+  updated_at: '2026-11-14T23:00:51Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -83,7 +83,10 @@ state:
     pull_request_state: draft
     notes: 'Main remains 270ced6. Draft base #148 → #149 → #150 → #151/ecaca37; new branch feature/15-delivery-privacy
       implements bounded delivery facts and known bootstrap evidence. No merge, closure or owner approval. Root
-      four WIP entries remain untouched. Draft #152 is pushed at b097abd; exact-head hosted CI is pending independently.'
+      four WIP entries remain untouched. Draft #152 is pushed at b097abd; exact-head hosted CI is pending independently.
+      Hosted Test 43648300397 at 6679317 found two stale nested metadata goldens; native macOS passed. Constrained
+      pipeline/reading correction preserves source/vault/public facts. Five follow-up cases pass per Python (75.947s
+      / 72.789s); no runtime or validation weakening. New exact-head CI remains separate.'
   parallel_changes: []
 review:
   status: partial
@@ -96,6 +99,12 @@ review:
     observed_at: '2026-11-14T22:27:50Z'
     notes: 29 cases per Python, zero skips (11.576s / 11.899s). Ten workflow/schema cases pass per Python, zero
       skips (48.760s / 46.644s).
+  - command: PYTHONPATH=src python -m unittest tests.test_pipeline_completion tests.test_reading_journey --verbose
+    outcome: passed
+    observed_at: '2026-11-14T23:00:51Z'
+    notes: Hosted Test 43648300397 at 6679317 found two stale nested metadata goldens; native macOS passed. Constrained
+      pipeline/reading correction preserves source/vault/public facts. Five follow-up cases pass per Python (75.947s
+      / 72.789s); no runtime or validation weakening. New exact-head CI remains separate.
   environment_limitations:
   - Mac setup, actual private paths/collection/credentials/consumer authority, live OAuth/Drive/Codex/model quality,
     approved private pilot and confidential runtime remain unperformed.

@@ -61,3 +61,7 @@ in [CONTINUITY.md](../CONTINUITY.md). All broad parents remain open pending revi
 - No manually dispatched workflow, live service, private archive, publication, ADR ratification or merge. Hosted CI is reported independently after push.
 
 [Draft #152](https://github.com/egohygiene/mindgarden/pull/152) pins functional source `b097abdff28b4ce1dff19879e7830a84b67002e6`; its documentation-only handoff is separate. Next exact action: implement #32 on the child `feature/32-incremental-cache`, preserving the unmerged stack. Hosted CI is pending; all parents stay open.
+
+Hosted Test run 43648300397 at #152 docs head `6679317` completed with two stale nested goldens (650 passed/two failed of 652 on Python 3.12); native macOS jobs passed. The exact constrained correction is in the archive-version note. It changes only derived metadata-view hashes, preserving every source/vault/public/authority fact, and propagates to the children by normal merges. The follow-up five-case pipeline/reading tests and new exact-head CI are recorded separately.
+
+Correction verification: `PYTHONPATH=src python -m unittest tests.test_pipeline_completion tests.test_reading_journey --verbose` passes five cases per Python, zero skips (3.12 75.947s / 3.13 72.789s). No runtime code changed; exact nested golden comparisons pass again.
