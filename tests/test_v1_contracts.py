@@ -141,6 +141,7 @@ class V1ContractTests(unittest.TestCase):
                 "research-result",
                 "consultation-request",
                 "consultation-packet",
+                "packet-dependencies",
                 "curation-receipt",
                 "garden-catalog",
                 "routing-plan",

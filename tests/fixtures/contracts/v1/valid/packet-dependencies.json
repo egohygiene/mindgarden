@@ -1,0 +1,50 @@
+{
+  "canonical_evidence": false,
+  "fingerprint": "f4d4eb8f0c517032efafe247574397038c4c430e193f6c5b8dbb7d29d742ed5d",
+  "id": "synthetic-consultation",
+  "inputs": [
+    {
+      "evidence": {
+        "content_sha256": "868c589484f3b1dfbb014b4b617bc6fd6eb95ac05f0239c228e8167efce59137",
+        "locator": "artifact",
+        "source": {
+          "garden": "synthetic-garden",
+          "id": "source-0ef628575c4c8d89c00e520d-868c589484f3b1df",
+          "revision": "sha256:868c589484f3b1dfbb014b4b617bc6fd6eb95ac05f0239c228e8167efce59137"
+        }
+      },
+      "metadata_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "inputs_sha256": "dba398f770a695865a072055c490042d4a876c7e41e674a03714df59d8f19e8c",
+  "outputs": [
+    {
+      "path": "packet.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "size_bytes": 1
+    },
+    {
+      "path": "packet.md",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "size_bytes": 1
+    },
+    {
+      "path": "reviewed-request.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "size_bytes": 1
+    }
+  ],
+  "request_sha256": "f9a2d08ca90c172048f0223e8edddfc0f0a594a780e068d28e0ec88396ee909e",
+  "schema": "mindgarden.packet-dependencies/v1",
+  "scope": {
+    "execution": "offline",
+    "persistence": "machine-local",
+    "policy": {
+      "id": "mindgarden-local-single-user/v1",
+      "revision": "sha256:fa8695b2cb501f893b541bd957f06f6931ae144dd9d3a285ed186d47bdfe55da"
+    },
+    "publication": "never-exportable",
+    "schema": "mindgarden.scope/v1",
+    "visibility": "personal"
+  }
+}
