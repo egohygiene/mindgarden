@@ -41,7 +41,7 @@ def legacy_store(directory, index, scope):
     database = directory / DATABASE
     with closing(sqlite3.connect(database)) as connection, connection:
         connection.executescript(
-            (ROOT / "tests/fixtures/query-store/legacy-v1.sql").read_text()
+            (ROOT / "tests/fixtures/query-store/legacy-v1.sql.txt").read_text()
         )
         connection.execute(
             "INSERT INTO metadata VALUES (?,?)", ("index", canonical_json(index))

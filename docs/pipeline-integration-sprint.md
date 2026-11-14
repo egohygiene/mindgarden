@@ -127,3 +127,11 @@ IDs/snippets. Unsupported/stale/private targets remain withheld; ambiguous curre
 sources, incompatible versions and budget overflow fail closed.
 
 Focused verification: `python -m unittest tests.test_decision_relationships tests.test_decisions tests.test_v1_contracts --verbose` passes **19 cases per Python**, zero skips (3.12 1.074s / 3.13 1.143s) before the final fixture's producer-contract/order correction. Final combined verification follows. Native owner proof initially rejected the synthetic fixture's missing generator contract, then its unsorted graph arrays; both fixture defects were corrected to the actual owner contract without weakening validation. The final explicit pinned-owner command passes, recording exact graph/snapshot/output digests. No real consumer publication or manually dispatched workflow.
+
+
+Combined artifact inspection found the test SQL fixture's `.sql` extension was outside the established source-distribution manifest. It is now named `legacy-v1.sql.txt` (identical SQL bytes), using the existing supported text-fixture convention. The source-distribution inventory explicitly requires it. No release, manifest/version policy or runtime code changes; this correction propagates normally from #153 to #154 before final packaged qualification.
+
+
+Hosted Test run 43648300397 at #152 docs head `6679317` completed with two stale nested goldens (650 passed/two failed of 652 on Python 3.12); native macOS jobs passed. The exact constrained correction is in the archive-version note. It changes only derived metadata-view hashes, preserving every source/vault/public/authority fact, and propagates to the children by normal merges. The follow-up five-case pipeline/reading tests and new exact-head CI are recorded separately.
+
+Correction verification: `PYTHONPATH=src python -m unittest tests.test_pipeline_completion tests.test_reading_journey --verbose` passes five cases per Python, zero skips (3.12 75.947s / 3.13 72.789s). No runtime code changed; exact nested golden comparisons pass again.

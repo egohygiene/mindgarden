@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T22:53:43Z'
+  updated_at: '2026-11-14T23:01:58Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -65,13 +65,16 @@ work:
     depends_on: []
 state:
   base:
-    revision: 1a71927baa6f485a3b16a92ebae9e73a440ca822
+    revision: bc1ba63225fec2fc229cccadbb53b4a358c0fd74
     ref: refs/heads/feature/32-incremental-cache
-    verified_at: '2026-11-14T22:53:43Z'
+    verified_at: '2026-11-14T23:01:58Z'
   candidate:
     branch: feature/44-public-decision-relationships
-    revision: null
-    pull_request: null
+    revision: cf762863483065401c9b25b1bc6c1679f6f8baa5
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#154
+      url: https://github.com/egohygiene/mindgarden/pull/154
     handoff_state: in-progress
   live:
     status: verified
@@ -79,10 +82,10 @@ state:
     default_branch_revision: 270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a
     issue_state: open
     pull_request_state: draft
-    notes: 'Main stays 270ced6. Draft stack #148 → #149 → #150 → #151 → #152 → #153, with #44 child on #153 handoff
-      1a71927. Archive delivery and cache evolution are tested/pushed, not merged. Public related ADR metadata and
-      actual pinned Hygiene/Observatory/Relay native synthetic composition now pass. Complete combined artifact/CI
-      observation before handoff.'
+    notes: 'Main remains 270ced6. Draft stack #148 → #149 → #150 → #151 → #152/c28738d → #153/bc1ba63 → #154. Parent
+      corrections retain the shipped query migration text fixture and two nested archive metadata goldens. All runtime/contracts/scripts
+      match #154 functional cf76286. Final combined source/clean-Git/wheel/sdist qualification and live CI observation
+      follow; no merge/closure/ratification.'
   parallel_changes: []
 review:
   status: partial
@@ -99,12 +102,20 @@ review:
       tests.test_standalone_integration --verbose
     outcome: passed
     notes: 30 per Python, zero skips; 3.12 16.315s / 3.13 15.177s.
+    observed_at: '2026-11-14T23:01:58Z'
   - command: python scripts/verify_decision_relationships.py --owner-sources .cache/decision-owner-sources --require-source
       --report tests/fixtures/decisions/owner-proof.json
     outcome: passed
     notes: Hash-pinned Hygiene schema/semantics → byte-identical Observatory snapshot → Mindgarden golden and existing
       Relay validator/Decisions renderer. Three decisions/six artifacts/eight typed edges and context entries. Synthetic
       approval only.
+    observed_at: '2026-11-14T23:01:58Z'
+  - command: PYTHONPATH=src python -m unittest tests.test_pipeline_completion tests.test_reading_journey --verbose
+    outcome: passed
+    observed_at: '2026-11-14T23:00:51Z'
+    notes: Hosted Test 43648300397 at 6679317 found two stale nested metadata goldens; native macOS passed. Constrained
+      pipeline/reading correction preserves source/vault/public facts. Five follow-up cases pass per Python (75.947s
+      / 72.789s); no runtime or validation weakening. New exact-head CI remains separate.
   environment_limitations:
   - Mac setup, actual private paths/collection/credentials/consumer authority, live OAuth/Drive/Codex/model quality,
     approved private pilot and confidential runtime remain unperformed.
@@ -145,7 +156,7 @@ Implement the authorized bounded #15 → #32 → #44 integration sprint while lo
 
 ## State snapshot
 
-Main stays 270ced6. Draft stack #148 → #149 → #150 → #151 → #152 → #153, with #44 child on #153 handoff 1a71927. Archive delivery and cache evolution are tested/pushed, not merged. Public related ADR metadata and actual pinned Hygiene/Observatory/Relay native synthetic composition now pass. Complete combined artifact/CI observation before handoff.
+Main remains 270ced6. Draft stack #148 → #149 → #150 → #151 → #152/c28738d → #153/bc1ba63 → #154. Parent corrections retain the shipped query migration text fixture and two nested archive metadata goldens. All runtime/contracts/scripts match #154 functional cf76286. Final combined source/clean-Git/wheel/sdist qualification and live CI observation follow; no merge/closure/ratification.
 
 ## Completed and material changes
 
