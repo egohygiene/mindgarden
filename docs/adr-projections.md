@@ -112,3 +112,9 @@ network/process calls during processing. Its engine-origin guard supports an
 installed engine with `--require-installed`. This is process-level test evidence,
 not a confidential-host isolation certificate. The ordinary engine remains
 standard-library-only and does not install owner runtimes or development tools.
+
+The supported **Observatory read-model envelope is exactly `1.0.0-alpha.2`**.
+Hygiene alpha.1/alpha.2 are upstream projection versions which Observatory can
+normalize; they are not interchangeable read-model envelope versions. The final
+owner-contract comparison tightened this guard and adds explicit alpha.1-envelope
+rejection, matching the pinned native consumer instead of inventing support.

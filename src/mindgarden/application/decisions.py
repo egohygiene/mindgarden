@@ -230,7 +230,7 @@ def project_decisions(
         not isinstance(snapshot, dict)
         or snapshot.get("schema") != READ_MODEL
         or snapshot.get("visibility") != "public"
-        or snapshot.get("contract_version") not in {"1.0.0-alpha.1", "1.0.0-alpha.2"}
+        or snapshot.get("contract_version") != "1.0.0-alpha.2"
         or not re.fullmatch(r"[0-9a-f]{40}", represented_commit)
         or snapshot.get("represented_commit") != represented_commit
     ):

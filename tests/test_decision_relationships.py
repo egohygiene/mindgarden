@@ -195,7 +195,7 @@ class DecisionRelationshipTests(unittest.TestCase):
 
     def test_unknown_versions_duplicate_evidence_and_budget_overflow_fail_closed(self):
         original = deepcopy(self.snapshot)
-        for version in (None, "1.0.0-future"):
+        for version in (None, "1.0.0-alpha.1", "1.0.0-future"):
             self.snapshot["contract_version"] = version
             with self.assertRaisesRegex(ContractError, "DECISIONS_INPUT"):
                 self.project()
