@@ -99,3 +99,5 @@ inside Git; its retry uses an explicit new private `/tmp` workspace. No denied
 boundary was weakened. The final measured observation is recorded separately.
 
 The committed [256-note instrumented observation](../tests/fixtures/query-store/observed-refresh-linux.json) reports exact parity under renewed authority: build 14.133780 s, refresh apply 13.932253 s, current authorized view 22.300901 s and peak Python allocation 20,244,021 bytes. Timings include `tracemalloc`; no speed win or RSS/scale guarantee is claimed. Exact command: `python scripts/query_store_benchmark.py --workspace /tmp/mindgarden-query-refresh-20261114 --notes 256 --refresh --report tests/fixtures/query-store/observed-refresh-linux.json`.
+
+[Draft #153](https://github.com/egohygiene/mindgarden/pull/153) pins functional source `369dc1366623c338d44efa24b0da5a0d43606aed` on #152. Its documentation-only handoff is separate. Next exact action: #44 supported public relationships on the child `feature/44-public-decision-relationships`, using the delivered shared collector contracts. No merge or parent closure.

@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T22:27:50Z'
+  updated_at: '2026-11-14T22:42:26Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -69,9 +69,12 @@ state:
     verified_at: '2026-11-14T22:27:50Z'
   candidate:
     branch: feature/32-incremental-cache
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 369dc1366623c338d44efa24b0da5a0d43606aed
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#153
+      url: https://github.com/egohygiene/mindgarden/pull/153
+    handoff_state: ready-for-review
   live:
     status: verified
     observed_at: '2026-11-14T22:27:50Z'
@@ -81,7 +84,8 @@ state:
     notes: 'Main remains 270ced6. #152 functional b097abd / docs 6679317 is a pushed draft. The #32 child adds scoped
       incremental refresh, known migration and retained rollback. Thirty cases pass per Python; benchmark/combined
       artifact verification follows. #44 owner refresh found Relay #115 closed/delivered; historical authority and
-      actual consumer acceptance remain distinct.'
+      actual consumer acceptance remain distinct. Draft #153 is pushed at 369dc13; current exact-head CI and final
+      artifact qualification are separate.'
   parallel_changes: []
 review:
   status: partial
