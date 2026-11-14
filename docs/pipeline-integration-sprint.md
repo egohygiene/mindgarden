@@ -101,3 +101,29 @@ boundary was weakened. The final measured observation is recorded separately.
 The committed [256-note instrumented observation](../tests/fixtures/query-store/observed-refresh-linux.json) reports exact parity under renewed authority: build 14.133780 s, refresh apply 13.932253 s, current authorized view 22.300901 s and peak Python allocation 20,244,021 bytes. Timings include `tracemalloc`; no speed win or RSS/scale guarantee is claimed. Exact command: `python scripts/query_store_benchmark.py --workspace /tmp/mindgarden-query-refresh-20261114 --notes 256 --refresh --report tests/fixtures/query-store/observed-refresh-linux.json`.
 
 [Draft #153](https://github.com/egohygiene/mindgarden/pull/153) pins functional source `369dc1366623c338d44efa24b0da5a0d43606aed` on #152. Its documentation-only handoff is separate. Next exact action: #44 supported public relationships on the child `feature/44-public-decision-relationships`, using the delivered shared collector contracts. No merge or parent closure.
+
+
+## Public decision-relationship checkpoint
+
+Child `feature/44-public-decision-relationships` extends #153 (docs handoff
+`1a71927`). `decisions --include-related` adds current public one-hop artifact
+metadata, typed source-backed edges/backlinks and explained untrusted context on
+the existing read-model boundary. Cross-repository decision sources retain their
+own commit/owner, while provider observations retain explicit time/null revisions.
+Organization-scoped reference labels grant no inherited runtime/policy authority.
+
+Live Relay #115 is closed/delivered; the current collector/build is available and
+was not rebuilt. The actual supported Hygiene/Observatory/Relay contracts were
+refreshed at exact revisions and source hashes. The native offline proof validates
+the synthetic Hygiene graph, rebuilds the exact Observatory snapshot, compares the
+Mindgarden golden, and exercises Relay's existing validator/Decisions renderer on
+the same data. See [the guide and receipt](adr-projections.md).
+
+The full parent still owns supported claim/component/projection relationship
+contracts, private/inherited-authority integration and actual consumer acceptance.
+No canonical ADR body is copied, status changed or proposal ratified. New output is
+explicitly selected public metadata, with no raw producer counts or denied-target
+IDs/snippets. Unsupported/stale/private targets remain withheld; ambiguous current
+sources, incompatible versions and budget overflow fail closed.
+
+Focused verification: `python -m unittest tests.test_decision_relationships tests.test_decisions tests.test_v1_contracts --verbose` passes **19 cases per Python**, zero skips (3.12 1.074s / 3.13 1.143s) before the final fixture's producer-contract/order correction. Final combined verification follows. Native owner proof initially rejected the synthetic fixture's missing generator contract, then its unsorted graph arrays; both fixture defects were corrected to the actual owner contract without weakening validation. The final explicit pinned-owner command passes, recording exact graph/snapshot/output digests. No real consumer publication or manually dispatched workflow.

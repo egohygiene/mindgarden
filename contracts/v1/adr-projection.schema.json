@@ -130,6 +130,17 @@
               "string",
               "null"
             ]
+          },
+          "repository": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9.-]*/[a-z0-9.-]+$"
+          },
+          "authority_scope": {
+            "enum": [
+              "repository-local",
+              "organization-scope-reference",
+              "cross-repository-reference"
+            ]
           }
         }
       }
@@ -159,7 +170,13 @@
               "amends",
               "depends-on",
               "conflicts-with",
-              "related-to"
+              "related-to",
+              "blocks",
+              "evidences",
+              "implements",
+              "informs",
+              "tracks",
+              "verifies"
             ]
           },
           "assertion": {
@@ -167,6 +184,54 @@
               "authoritative",
               "inferred"
             ]
+          },
+          "provenance": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "source",
+                "revision",
+                "observed_at",
+                "assertion",
+                "freshness"
+              ],
+              "properties": {
+                "source": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "revision": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{40}$"
+                    }
+                  ]
+                },
+                "observed_at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "assertion": {
+                  "enum": [
+                    "authoritative",
+                    "inferred"
+                  ]
+                },
+                "freshness": {
+                  "enum": [
+                    "current",
+                    "not_applicable"
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -198,7 +263,13 @@
                 "amends",
                 "depends-on",
                 "conflicts-with",
-                "related-to"
+                "related-to",
+                "blocks",
+                "evidences",
+                "implements",
+                "informs",
+                "tracks",
+                "verifies"
               ]
             },
             "assertion": {
@@ -206,6 +277,54 @@
                 "authoritative",
                 "inferred"
               ]
+            },
+            "provenance": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "source",
+                  "revision",
+                  "observed_at",
+                  "assertion",
+                  "freshness"
+                ],
+                "properties": {
+                  "source": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "revision": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{40}$"
+                      }
+                    ]
+                  },
+                  "observed_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "assertion": {
+                    "enum": [
+                      "authoritative",
+                      "inferred"
+                    ]
+                  },
+                  "freshness": {
+                    "enum": [
+                      "current",
+                      "not_applicable"
+                    ]
+                  }
+                }
+              }
             }
           }
         }
@@ -238,9 +357,167 @@
           },
           "untrusted": {
             "const": true
+          },
+          "decision": {
+            "type": "string",
+            "format": "uri"
+          },
+          "relationship": {
+            "enum": [
+              "blocks",
+              "depends-on",
+              "evidences",
+              "implements",
+              "informs",
+              "tracks",
+              "verifies"
+            ]
+          },
+          "assertion": {
+            "enum": [
+              "authoritative",
+              "inferred"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "reason": {
+                  "const": "related-to-selected-decision"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "decision",
+                "relationship",
+                "assertion"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "key",
+          "kind",
+          "title",
+          "repository",
+          "source",
+          "state",
+          "assertion",
+          "visibility",
+          "observed_in_commit",
+          "provenance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "repository",
+              "roadmap_step",
+              "issue",
+              "pull_request",
+              "commit",
+              "check",
+              "release",
+              "deployment"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "repository": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9.-]*/[a-z0-9.-]+$"
+          },
+          "source": {
+            "type": "string",
+            "format": "uri"
+          },
+          "state": {
+            "type": "string"
+          },
+          "assertion": {
+            "enum": [
+              "authoritative",
+              "inferred"
+            ]
+          },
+          "visibility": {
+            "const": "public"
+          },
+          "observed_in_commit": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{40}$"
+          },
+          "provenance": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "source",
+                "revision",
+                "observed_at",
+                "assertion",
+                "freshness"
+              ],
+              "properties": {
+                "source": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "revision": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{40}$"
+                    }
+                  ]
+                },
+                "observed_at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "assertion": {
+                  "enum": [
+                    "authoritative",
+                    "inferred"
+                  ]
+                },
+                "freshness": {
+                  "enum": [
+                    "current",
+                    "not_applicable"
+                  ]
+                }
+              }
+            }
           }
         }
       }
+    },
+    "coverage": {
+      "const": "selected-current-public-inputs-only"
     }
   }
 }

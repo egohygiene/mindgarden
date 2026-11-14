@@ -791,6 +791,7 @@ def build_parser() -> ArgumentParser:
     decisions.add_argument("--input-sha256", required=True)
     decisions.add_argument("--represented-commit", required=True)
     decisions.add_argument("--include-proposed", action="store_true")
+    decisions.add_argument("--include-related", action="store_true", help="Include verified one-hop public artifact references and explained context")
     decisions.add_argument("--max-bytes", type=positive_integer, default=65536)
     decisions.set_defaults(handler=run_decisions)
     design = commands.add_parser("design", help="Validate and export stack-neutral design tokens")

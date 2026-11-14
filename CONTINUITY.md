@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T22:42:26Z'
+  updated_at: '2026-11-14T22:53:43Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -49,47 +49,44 @@ work:
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#32
-    url: https://github.com/egohygiene/mindgarden/issues/32
+    id: egohygiene/mindgarden#44
+    url: https://github.com/egohygiene/mindgarden/issues/44
   next:
     kind: action
     id: integration-sprint
-    description: 'Push the #32 reviewed refresh/migration checkpoint on #152, then extend #44 supported public relationships
-      using the delivered Relay #115 and pinned Observatory/Hygiene contracts. No draft merge; local setup stays
-      parked.'
+    description: 'Push the #44 public-relationship draft on #153, qualify the combined checkout from source/installed
+      artifacts, update live issue/CI evidence and hand off for maintainer review. No automatic merge or local/private
+      setup.'
     readiness: ready
     references:
     - docs/pipeline-integration-sprint.md
-    - docs/conversation-archive-compatibility.md
+    - docs/adr-projections.md
+    - docs/query-stores.md
     depends_on: []
 state:
   base:
-    revision: 66793175e8c0c1e77d99a2a0db21bfeb1f95721b
-    ref: refs/heads/feature/15-delivery-privacy
-    verified_at: '2026-11-14T22:27:50Z'
+    revision: 1a71927baa6f485a3b16a92ebae9e73a440ca822
+    ref: refs/heads/feature/32-incremental-cache
+    verified_at: '2026-11-14T22:53:43Z'
   candidate:
-    branch: feature/32-incremental-cache
-    revision: 369dc1366623c338d44efa24b0da5a0d43606aed
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#153
-      url: https://github.com/egohygiene/mindgarden/pull/153
-    handoff_state: ready-for-review
+    branch: feature/44-public-decision-relationships
+    revision: null
+    pull_request: null
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-14T22:27:50Z'
+    observed_at: '2026-11-14T22:53:43Z'
     default_branch_revision: 270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a
     issue_state: open
     pull_request_state: draft
-    notes: 'Main remains 270ced6. #152 functional b097abd / docs 6679317 is a pushed draft. The #32 child adds scoped
-      incremental refresh, known migration and retained rollback. Thirty cases pass per Python; benchmark/combined
-      artifact verification follows. #44 owner refresh found Relay #115 closed/delivered; historical authority and
-      actual consumer acceptance remain distinct. Draft #153 is pushed at 369dc13; current exact-head CI and final
-      artifact qualification are separate.'
+    notes: 'Main stays 270ced6. Draft stack #148 → #149 → #150 → #151 → #152 → #153, with #44 child on #153 handoff
+      1a71927. Archive delivery and cache evolution are tested/pushed, not merged. Public related ADR metadata and
+      actual pinned Hygiene/Observatory/Relay native synthetic composition now pass. Complete combined artifact/CI
+      observation before handoff.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-14T22:27:50Z'
+  reviewed_at: '2026-11-14T22:53:43Z'
   reviewed_by: codex
   evidence:
   - command: Python 3.12/3.13 -m unittest tests.test_archive_delivery tests.test_archive_continuation tests.test_archive_v2
@@ -102,6 +99,12 @@ review:
       tests.test_standalone_integration --verbose
     outcome: passed
     notes: 30 per Python, zero skips; 3.12 16.315s / 3.13 15.177s.
+  - command: python scripts/verify_decision_relationships.py --owner-sources .cache/decision-owner-sources --require-source
+      --report tests/fixtures/decisions/owner-proof.json
+    outcome: passed
+    notes: Hash-pinned Hygiene schema/semantics → byte-identical Observatory snapshot → Mindgarden golden and existing
+      Relay validator/Decisions renderer. Three decisions/six artifacts/eight typed edges and context entries. Synthetic
+      approval only.
   environment_limitations:
   - Mac setup, actual private paths/collection/credentials/consumer authority, live OAuth/Drive/Codex/model quality,
     approved private pilot and confidential runtime remain unperformed.
@@ -142,27 +145,27 @@ Implement the authorized bounded #15 → #32 → #44 integration sprint while lo
 
 ## State snapshot
 
-Main remains 270ced6. #152 functional b097abd / docs 6679317 is a pushed draft. The #32 child adds scoped incremental refresh, known migration and retained rollback. Thirty cases pass per Python; benchmark/combined artifact verification follows. #44 owner refresh found Relay #115 closed/delivered; historical authority and actual consumer acceptance remain distinct.
+Main stays 270ced6. Draft stack #148 → #149 → #150 → #151 → #152 → #153, with #44 child on #153 handoff 1a71927. Archive delivery and cache evolution are tested/pushed, not merged. Public related ADR metadata and actual pinned Hygiene/Observatory/Relay native synthetic composition now pass. Complete combined artifact/CI observation before handoff.
 
 ## Completed and material changes
 
-#152 projects recognized delivery facts while withholding free-text/runtime extensions in portable metadata. The private immutable ZIP stays complete. Known v2/v3 continuation evidence remains summary-derived/unreviewed. Adapter 1.2.1 changes only permitted metadata-view golden hashes; exact source/vault evidence stays equal.
+#152 confines delivery runtime details to private originals and proves known bootstrap evidence. #153 adds live-authority incremental refresh and known SQLite schema migration; failed rollback now retains prior cache bytes. The #44 child adds explicit public related artifacts, typed provenance/context and cross-owner revisions, using the delivered Relay #115 contracts. No canonical ADR/source is rewritten.
 
 ## Validation and review evidence
 
-39 archive/workflow/schema cases pass per Python, zero skips; full exact golden journeys pass (including relocation/restore). Commands/times and corrected initial attempts are in the sprint ledger. The previous 184-case qualification belongs to #151, not this changed source. Initial test helper and invocation mistakes are corrected before success is claimed; CI remains separate.
+#152: 39 archive/workflow/schema cases per Python. #153: 30 evolution/query/schema/v0 cases per Python. #44: 19 relationship/decision/schema cases per Python; exact pinned native owner composition passes. Zero skips. Timings, commands, initial failures and limits are in the sprint ledger; combined final artifacts/CI are still separate.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Untested archive profiles and actual private/Empathy proof stay explicit. #32 requires incremental/migration evidence. #44 must use actual supported owner read-model contracts. Historical ADR authority/human disposition, confidential runtime and real model/provider acceptance remain independent. Releases and local setup stay parked.
+Unknown archive profiles and actual private/Empathy acceptance remain separate. Query stores remain optional ordinary generated caches; broader workload/native/confidential/runtime assurance is unperformed. Unsupported claim/component/projection relationship kinds and private/inherited ADR authority need actual contracts. Historical ADR dispositions, real providers/models and release/local setup stay parked.
 
 ## Next dependency-ready work
 
-Push the #32 reviewed refresh/migration checkpoint on #152, then extend #44 supported public relationships using the delivered Relay #115 and pinned Observatory/Hygiene contracts. No draft merge; local setup stays parked.
+Push the #44 public-relationship draft on #153, qualify the combined checkout from source/installed artifacts, update live issue/CI evidence and hand off for maintainer review. No automatic merge or local/private setup.
 
 ## Parallel changes and reconciliation
 
-Use small draft children on #151 without force-push, reset or automatic merge. The final child is the combined checkout. Earlier stack tests do not qualify new runtime changes.
+New draft stack #152 → #153 → #44 child extends the unmerged #148–#151 ancestry. Preserve all old worktrees and four root WIP entries. The final child is the combined checkout; no force-push, reset or automatic merge.
 
 ## Privacy and redaction
 
