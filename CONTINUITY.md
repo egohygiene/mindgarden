@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T20:35:10Z'
+  updated_at: '2026-11-14T20:43:10Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -64,9 +64,9 @@ work:
   next:
     kind: action
     id: repository-audit-packet-checkpoint
-    description: 'Finish local packet-currentness checks, push the first draft on documentation PR #148, then
-      compose reviewed per-file CSV mappings with the captured Drive adapter in a dependent draft. Mac setup is
-      parked; actual Drive/Codex/private processing and owner decisions remain separate.'
+    description: 'Complete the dependent #87/#90 reviewed per-file Drive normalization checkpoint, then qualify
+      the combined source/wheel/archive workflow and audit the actual remaining #15/#16/#32/#43/#44 criteria.
+      Preserve explicit private-pilot/owner gates; leave new PRs in draft.'
     readiness: ready
     references:
     - docs/repository-audit-followthrough.md
@@ -79,35 +79,41 @@ state:
     verified_at: '2026-11-14T20:35:10Z'
   candidate:
     branch: feature/90-packet-freshness
-    revision: null
-    pull_request: null
-    handoff_state: in-progress
+    revision: 2373b77e43d43776bfbd128e9fca1501d4024816
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#149
+      url: https://github.com/egohygiene/mindgarden/pull/149
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-14T20:35:10Z'
+    observed_at: '2026-11-14T20:43:10Z'
     default_branch_revision: 270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a
     issue_state: open
     pull_request_state: draft
-    notes: 'Main remains 270ced6; only documentation draft #148 was open at refresh. All 34 open issues and selected
-      comments refreshed. Packet dependency manifest/read-only comparison is implemented on feature/90-packet-freshness;
-      functional verification is in progress. No parent closure, new issue or merge; original four root WIP entries
-      untouched.'
+    notes: 'Draft #149 on documentation #148 implements explicit selected-input packet currentness. Qualified
+      functional source 2373b77: Python 3.12 broader 44 cases pass (325.556s), Python 3.13 focused 16 pass (231.205s),
+      zero skips. Main remains 270ced6, 34 issues open / 44 tracked. Per-file Drive mapping work is isolated on
+      child feature/87-reviewed-drive-normalization; no closure or merge.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-14T20:35:10Z'
+  reviewed_at: '2026-11-14T20:43:10Z'
   reviewed_by: codex
   evidence:
-  - command: ruff check and ruff format --check on new packet-currentness modules/fixtures; git diff --check
+  - command: Python 3.12 -m unittest tests.test_packet_freshness tests.test_consultation tests.test_mapped_ledger
+      tests.test_v1_contracts tests.test_package --quiet
     outcome: passed
-    observed_at: '2026-11-14T20:35:10Z'
-    notes: Scoped lint/format and whitespace pass. Runtime checks are still running; no full or final CI pass
-      is claimed.
-  - command: Python 3.12 -m unittest tests.test_packet_freshness tests.test_consultation --quiet (initial attempt)
-    outcome: failed
-    observed_at: '2026-11-14T20:35:10Z'
-    notes: '23 cases ran in 260.458s: 22 passed and one new test imported a nonexistent fixture helper. Corrected
-      to the actual FilesystemVault._object_path; fresh checks are running. This failure is not product qualification.'
+    observed_at: '2026-11-14T20:43:10Z'
+    notes: 44 cases pass in 325.556s, zero skips. Exact corrected packet code, source integrity, review, original
+      preservation, live denial and existing v0/package coverage.
+  - command: Python 3.13 -m unittest tests.test_packet_freshness tests.test_v1_contracts --verbose; scoped Ruff/format,
+      pinned owner/continuity/44-row/native-child and whitespace checks
+    outcome: passed
+    observed_at: '2026-11-14T20:43:10Z'
+    notes: 16 cases pass in 231.205s, zero skips; local non-runtime checks pass. Initial fixture-helper import
+      failure is corrected; it is not passing evidence. Broader combined/source-wheel qualification and exact-head
+      CI remain separate.
   environment_limitations:
   - Actual private pilot, OAuth/Drive/Codex/model quality and confidential runtime remain unperformed; actual
     configuration/classification/consumer authority required.
@@ -145,7 +151,7 @@ Audit independent backlog work and implement explicit packet currentness, then p
 
 ## State snapshot
 
-Main remains 270ced6; only documentation draft #148 was open at refresh. All 34 open issues and selected comments refreshed. Packet dependency manifest/read-only comparison is implemented on feature/90-packet-freshness; functional verification is in progress. No parent closure, new issue or merge; original four root WIP entries untouched.
+Draft #149 on documentation #148 implements explicit selected-input packet currentness. Qualified functional source 2373b77: Python 3.12 broader 44 cases pass (325.556s), Python 3.13 focused 16 pass (231.205s), zero skips. Main remains 270ced6, 34 issues open / 44 tracked. Per-file Drive mapping work is isolated on child feature/87-reviewed-drive-normalization; no closure or merge.
 
 ## Completed and material changes
 
@@ -153,15 +159,15 @@ Added private versioned packet dependency comparison metadata, authority-neutral
 
 ## Validation and review evidence
 
-Scoped lint/format/whitespace pass. The initial 23-case run had one corrected test-helper import error; current 3.12 broader and 3.13 focused checks are in progress. No pending run is called passing; main's prior qualification remains separately pinned in its existing receipts.
+Python 3.12 broader 44 tests pass (325.556s); Python 3.13 focused 16 pass (231.205s), zero skips. Scoped Ruff/format, pinned owners, continuity/coverage and whitespace pass. The initial fixture-helper import error is corrected. Exact-head automatic CI and combined artifact qualification remain separate.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Mac/M3 information was supplied, but installation is parked at the maintainer's request. Real locations/collection, credentials and applicable consumer/runtime authority remain unavailable; actual private pilot/model accuracy and normative policy decisions remain separate. #19/#27 and #88/#91 stay deferred.
+Mac setup is parked. Actual private locations/collection, credentials and consumer/runtime authority remain unavailable. A supplied prior manifest is comparison data, not output-integrity or source authority. Reconciliation does not discover ungranted corrections. Required private pilot/model/owner decisions remain separate; #19/#27 and #88/#91 stay deferred.
 
 ## Next dependency-ready work
 
-Finish local packet-currentness checks, push the first draft on documentation PR #148, then compose reviewed per-file CSV mappings with the captured Drive adapter in a dependent draft. Mac setup is parked; actual Drive/Codex/private processing and owner decisions remain separate.
+Complete the dependent #87/#90 reviewed per-file Drive normalization checkpoint, then qualify the combined source/wheel/archive workflow and audit the actual remaining #15/#16/#32/#43/#44 criteria. Preserve explicit private-pilot/owner gates; leave new PRs in draft.
 
 ## Parallel changes and reconciliation
 

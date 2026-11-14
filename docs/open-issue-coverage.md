@@ -1,4 +1,4 @@
-**Active repository audit:** Setup is parked; [the bounded follow-through](repository-audit-followthrough.md) implements packet dependency comparison and then per-file Drive normalization on the explicit #148 stack. Local verification is in progress. 34 open / 44 tracked remain; no new issue or closure is claimed.
+**Active repository audit:** Setup is parked; [the bounded follow-through](repository-audit-followthrough.md) implements packet dependency comparison and then per-file Drive normalization on the explicit #148 stack. Draft #149 has passing 44-case Python 3.12 and 16-case Python 3.13 local selections; combined qualification is separate. 34 open / 44 tracked remain; no new issue or closure is claimed.
 
 # Issue coverage — 2026-11-13
 
