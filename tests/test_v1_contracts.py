@@ -121,6 +121,7 @@ class V1ContractTests(unittest.TestCase):
                 "scope-decision",
                 "scope-cache",
                 "query-diagnostic",
+                "query-store-plan",
                 "local-bindings",
                 "session",
                 "vault",

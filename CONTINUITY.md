@@ -49,14 +49,14 @@ work:
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#15
-    url: https://github.com/egohygiene/mindgarden/issues/15
+    id: egohygiene/mindgarden#32
+    url: https://github.com/egohygiene/mindgarden/issues/32
   next:
     kind: action
     id: integration-sprint
-    description: 'Push the #15 delivery/privacy draft on #151, then implement reviewed incremental query-cache refresh
-      and known-version migration under #32; finish supported public ADR relationships under #44. Preserve the explicit
-      unmerged stack.'
+    description: 'Push the #32 reviewed refresh/migration checkpoint on #152, then extend #44 supported public relationships
+      using the delivered Relay #115 and pinned Observatory/Hygiene contracts. No draft merge; local setup stays
+      parked.'
     readiness: ready
     references:
     - docs/pipeline-integration-sprint.md
@@ -64,26 +64,24 @@ work:
     depends_on: []
 state:
   base:
-    revision: ecaca37e0a21880bbf1996167ce0a99ca0dfcc96
-    ref: refs/heads/test/15-16-acceptance-audit
+    revision: 66793175e8c0c1e77d99a2a0db21bfeb1f95721b
+    ref: refs/heads/feature/15-delivery-privacy
     verified_at: '2026-11-14T22:27:50Z'
   candidate:
-    branch: feature/15-delivery-privacy
-    revision: b097abdff28b4ce1dff19879e7830a84b67002e6
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#152
-      url: https://github.com/egohygiene/mindgarden/pull/152
-    handoff_state: ready-for-review
+    branch: feature/32-incremental-cache
+    revision: null
+    pull_request: null
+    handoff_state: in-progress
   live:
     status: verified
     observed_at: '2026-11-14T22:27:50Z'
     default_branch_revision: 270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a
     issue_state: open
     pull_request_state: draft
-    notes: 'Main remains 270ced6. Draft base #148 → #149 → #150 → #151/ecaca37; new branch feature/15-delivery-privacy
-      implements bounded delivery facts and known bootstrap evidence. No merge, closure or owner approval. Root
-      four WIP entries remain untouched. Draft #152 is pushed at b097abd; exact-head hosted CI is pending independently.'
+    notes: 'Main remains 270ced6. #152 functional b097abd / docs 6679317 is a pushed draft. The #32 child adds scoped
+      incremental refresh, known migration and retained rollback. Thirty cases pass per Python; benchmark/combined
+      artifact verification follows. #44 owner refresh found Relay #115 closed/delivered; historical authority and
+      actual consumer acceptance remain distinct.'
   parallel_changes: []
 review:
   status: partial
@@ -96,6 +94,10 @@ review:
     observed_at: '2026-11-14T22:27:50Z'
     notes: 29 cases per Python, zero skips (11.576s / 11.899s). Ten workflow/schema cases pass per Python, zero
       skips (48.760s / 46.644s).
+  - command: python -m unittest tests.test_query_store_evolution tests.test_query_store tests.test_v1_contracts
+      tests.test_standalone_integration --verbose
+    outcome: passed
+    notes: 30 per Python, zero skips; 3.12 16.315s / 3.13 15.177s.
   environment_limitations:
   - Mac setup, actual private paths/collection/credentials/consumer authority, live OAuth/Drive/Codex/model quality,
     approved private pilot and confidential runtime remain unperformed.
@@ -136,11 +138,11 @@ Implement the authorized bounded #15 → #32 → #44 integration sprint while lo
 
 ## State snapshot
 
-Main remains 270ced6. Draft base #148 → #149 → #150 → #151/ecaca37; new branch feature/15-delivery-privacy implements bounded delivery facts and known bootstrap evidence. No merge, closure or owner approval. Root four WIP entries remain untouched.
+Main remains 270ced6. #152 functional b097abd / docs 6679317 is a pushed draft. The #32 child adds scoped incremental refresh, known migration and retained rollback. Thirty cases pass per Python; benchmark/combined artifact verification follows. #44 owner refresh found Relay #115 closed/delivered; historical authority and actual consumer acceptance remain distinct.
 
 ## Completed and material changes
 
-The #15 child projects recognized delivery facts while withholding free-text/runtime extensions in portable metadata. The private immutable ZIP stays complete. Known v2/v3 continuation evidence remains summary-derived/unreviewed. Adapter 1.2.1 changes only permitted metadata-view golden hashes; exact source/vault evidence stays equal.
+#152 projects recognized delivery facts while withholding free-text/runtime extensions in portable metadata. The private immutable ZIP stays complete. Known v2/v3 continuation evidence remains summary-derived/unreviewed. Adapter 1.2.1 changes only permitted metadata-view golden hashes; exact source/vault evidence stays equal.
 
 ## Validation and review evidence
 
@@ -152,7 +154,7 @@ Untested archive profiles and actual private/Empathy proof stay explicit. #32 re
 
 ## Next dependency-ready work
 
-Push the #15 delivery/privacy draft on #151, then implement reviewed incremental query-cache refresh and known-version migration under #32; finish supported public ADR relationships under #44. Preserve the explicit unmerged stack.
+Push the #32 reviewed refresh/migration checkpoint on #152, then extend #44 supported public relationships using the delivered Relay #115 and pinned Observatory/Hygiene contracts. No draft merge; local setup stays parked.
 
 ## Parallel changes and reconciliation
 

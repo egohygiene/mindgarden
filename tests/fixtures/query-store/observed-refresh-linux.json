@@ -1,0 +1,41 @@
+{
+  "audited_sqlite_search_seconds": 0.354946,
+  "authorized_index_seconds": 21.955085,
+  "cache_build_seconds": 14.13378,
+  "capabilities": {
+    "adapter": "sqlite-fts5",
+    "backlinks": true,
+    "canonical_storage": false,
+    "database_version": 2,
+    "encrypted_storage": false,
+    "incremental_update": true,
+    "lexical": true,
+    "migrate_from": [
+      1
+    ],
+    "rebuild": true,
+    "schema": "mindgarden.query-store/v1",
+    "schema_migration": true,
+    "sqlite_version": "3.53.1",
+    "typed_traversal": true,
+    "vectors": false
+  },
+  "claims": 1,
+  "database_bytes": 1261568,
+  "network": "blocked-in-process",
+  "notes": 256,
+  "parity": "exact",
+  "peak_python_allocated_bytes": 20244021,
+  "platform": "Linux",
+  "python": "3.12.14",
+  "reference_rank_seconds": 0.001692,
+  "refresh": {
+    "apply_seconds": 13.932253,
+    "authority": "renewed-exact-session",
+    "changed_records": 1,
+    "current_authorized_index_seconds": 22.300901,
+    "parity": "exact",
+    "review_plan_seconds": 0.090788
+  },
+  "schema": "example.query-store-benchmark/1"
+}

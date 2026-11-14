@@ -104,3 +104,8 @@ authority mapping, and #42 still owns human disposition of consequential proposa
 ## Final verification
 
 Combined source `b35b597` passes 184 targeted cases on each supported Python, zero skips; all three clean artifact forms pass eight boundaries and three complete golden proofs each. Functional #149/#150/#151 Test/preparation are green. The [qualification receipt](evidence/repository-audit-qualification.json) preserves exact commands, hashes, runner sources, staged failures/corrections and limitations. This is tested draft implementation, not merged/full parent acceptance.
+
+
+## Subsequent authorized follow-through
+
+The next [integration sprint](pipeline-integration-sprint.md) now implements #15 delivery privacy and bounded #32 refresh/migration on drafts. Its current evidence supersedes the unsupported-capability snapshot above; original requirements remain intact. The live Relay #115 refresh also verifies the canonical ADR collector/build checkpoint is **closed/delivered**, with immutable Identity evidence. Relay #27/#33 and actual Mindgarden historical/consumer acceptance remain distinct. Do not carry the earlier broad unavailable-collector assumption into #44.

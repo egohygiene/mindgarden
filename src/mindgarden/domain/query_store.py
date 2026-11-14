@@ -7,7 +7,7 @@ class QueryStore(Protocol):
     """Version 1: rebuildable lexical/typed view; never a policy authority.
 
     Callers enforce live session/revision/output limits before and after every
-    operation. Implementations declare unsupported encryption/vector/incremental
+    operation. Implementations declare unsupported encryption/vector/evolution
     behavior explicitly. Physical locations belong only to adapter instances.
     """
 
@@ -30,6 +30,27 @@ class QueryStore(Protocol):
         check_live: Callable[[], None],
     ) -> dict: ...
     def load(self, expected_index: dict, scope_sha256: str) -> dict: ...
+    def refresh_plan(self, index: dict, scope_sha256: str) -> dict: ...
+    def refresh(
+        self,
+        index: dict,
+        scope_sha256: str,
+        reviewed_digest: str,
+        *,
+        check_live: Callable[[], None],
+    ) -> dict: ...
+    def migration_plan(
+        self, source: "QueryStore", index: dict, scope_sha256: str
+    ) -> dict: ...
+    def migrate(
+        self,
+        source: "QueryStore",
+        index: dict,
+        scope_sha256: str,
+        reviewed_digest: str,
+        *,
+        check_live: Callable[[], None],
+    ) -> dict: ...
     def search(
         self, expected_index: dict, scope_sha256: str, query: str
     ) -> list[dict]: ...
