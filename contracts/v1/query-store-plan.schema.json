@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egohygiene:mindgarden:query-store-plan:v1",
+  "title": "Explicit generated query-cache evolution plan",
+  "type": "object",
+  "required": ["schema", "adapter", "version", "scope_sha256", "index_sha256", "before", "operation", "plan_sha256"],
+  "properties": {
+    "schema": {"const": "mindgarden.query-store-plan/v1"},
+    "adapter": {"const": "sqlite-fts5"},
+    "version": {"const": "mindgarden.query-store/v1"},
+    "scope_sha256": {"$ref": "#/$defs/sha256"},
+    "index_sha256": {"$ref": "#/$defs/sha256"},
+    "before": {"$ref": "#/$defs/sha256"},
+    "plan_sha256": {"$ref": "#/$defs/sha256"},
+    "operation": {"enum": ["rebuild", "refresh", "migrate"]},
+    "source_before": {"$ref": "#/$defs/sha256"},
+    "from_database_version": {"const": 1},
+    "to_database_version": {"const": 2}
+  },
+  "allOf": [{
+    "if": {"properties": {"operation": {"const": "migrate"}}},
+    "then": {"required": ["source_before", "from_database_version", "to_database_version"]},
+    "else": {"not": {"anyOf": [
+      {"required": ["source_before"]}, {"required": ["from_database_version"]}, {"required": ["to_database_version"]}
+    ]}}
+  }],
+  "additionalProperties": false,
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

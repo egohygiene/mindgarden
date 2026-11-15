@@ -33,6 +33,39 @@ def run_query_store(arguments, *, store_factory=SQLiteQueryStore):
                 index, scope, arguments.plan_digest, check_live=context.check_live
             )
         )
+    elif operation in {"refresh-plan", "refresh"}:
+        if not store.capabilities().get("incremental_update"):
+            raise ContractError(
+                "QUERY_STORE_UNAVAILABLE: this adapter does not support incremental refresh"
+            )
+        result = (
+            store.refresh_plan(index, scope)
+            if operation == "refresh-plan"
+            else store.refresh(
+                index, scope, arguments.plan_digest, check_live=context.check_live
+            )
+        )
+    elif operation in {"migration-plan", "migrate"}:
+        if not store.capabilities().get("schema_migration"):
+            raise ContractError(
+                "QUERY_STORE_UNAVAILABLE: this adapter does not support schema migration"
+            )
+        if arguments.previous_cache_directory is None:
+            raise ContractError(
+                "QUERY_STORE_INPUT: supply the explicit previous cache directory"
+            )
+        previous = store_factory(arguments.previous_cache_directory)
+        result = (
+            store.migration_plan(previous, index, scope)
+            if operation == "migration-plan"
+            else store.migrate(
+                previous,
+                index,
+                scope,
+                arguments.plan_digest,
+                check_live=context.check_live,
+            )
+        )
     elif operation == "audit":
         store.load(index, scope)
         result = {"status": "verified", "version": VERSION}
