@@ -1,5 +1,7 @@
 # Context freshness, summary refresh and reviewed CSV mapping
 
+**Merged receipt:** The maintainer authorized #144 → #145 → #146 → #147. All four merged in order at main `270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a`, with passing exact-head Test/preparation and the exact qualified #147 tree. [The receipt](evidence/freshness-mapping-stack-merge.json) supersedes earlier draft/pending observations below. [Remaining work and the local setup path](remaining-work-and-local-setup.md) are proposed for the next sync; no parent closure or ADR acceptance follows from these merges.
+
 The maintainer selected #37 → #46 → #90 on 2026-11-13 by asking to continue the
 recorded next batch. All checkpoints use synthetic sources and existing Python
 application services. Parent acceptance, private pilots, normative policy,

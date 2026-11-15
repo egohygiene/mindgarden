@@ -1,0 +1,170 @@
+{
+  "schema": "mindgarden.freshness-mapping-stack-merge/v1",
+  "base_main": "6c9954bfa8ac65c94aa1db87c679a66227f736d8",
+  "merged_main": "270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a",
+  "tree_equals_qualified_handoff": "d4fede7bced5e0c3e1d13222e47e82aa77507fdd",
+  "qualified_functional_source": "b7b279aab1ec3c38b77b7f3885374f5ca64f27fc",
+  "authority": "Explicit maintainer instruction to merge #144 -> #145 -> #146 -> #147, then sync the remaining issues and setup path.",
+  "method": "Ordered merge commits with fresh head verification and expected-head SHA leases; descendants retargeted to main after their predecessor. No force push, workflow dispatch or branch deletion.",
+  "merges": [
+    {
+      "pr": 144,
+      "head": "3c61db41c97151b9022820bdfdfeca409cfe38e4",
+      "merge": "81e843836cae8502605a28c0d4b238edc4ded81b",
+      "test": 43500532675,
+      "preparation": 43500532550,
+      "ci": "success",
+      "reviews": 0,
+      "comments": 0,
+      "unresolved_threads": 0
+    },
+    {
+      "pr": 145,
+      "head": "dcf69430cfd52162e5e509b79e2e4c6cdd668de4",
+      "merge": "50b310b6dcf3f9e55383282aa60d702072a606a1",
+      "test": 43513063211,
+      "preparation": 43513063173,
+      "ci": "success",
+      "reviews": 0,
+      "comments": 0,
+      "unresolved_threads": 0
+    },
+    {
+      "pr": 146,
+      "head": "ac0e4ad4f30a55e0b8096bf816c719f0460912c0",
+      "merge": "987eb3200a17f931f6a36f0f857f1035b9f8d573",
+      "test": 43515852017,
+      "preparation": 43515852050,
+      "ci": "success",
+      "reviews": 0,
+      "comments": 0,
+      "unresolved_threads": 0
+    },
+    {
+      "pr": 147,
+      "head": "d4fede7bced5e0c3e1d13222e47e82aa77507fdd",
+      "merge": "270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a",
+      "test": 43517543824,
+      "preparation": 43517543897,
+      "ci": "success",
+      "reviews": 0,
+      "comments": 0,
+      "unresolved_threads": 0
+    }
+  ],
+  "verification": {
+    "command": "git diff --exit-code d4fede7bced5e0c3e1d13222e47e82aa77507fdd origin/main",
+    "result": "exit 0",
+    "runtime_repetition": "No repeat for an identical tree; prior 102 local cases per Python, 17 boundary cases in each of clean Git/wheel/source, distribution checks and exact-head hosted success retained.",
+    "prior_receipt": "freshness-mapping-qualification.json",
+    "head147_refresh": "The commit-workflow wrapper still showed an earlier pending observation; direct run 43517543824 reports completed/success at expected head d4fede7, and all four jobs passed. That direct exact-run observation supersedes the earlier pending one."
+  },
+  "issues": {
+    "open": 34,
+    "tracked": 44,
+    "closed": 10,
+    "closed_by_these_merges": 0,
+    "new_setup_issues_created": 0
+  },
+  "decision_status": {
+    "proposed_adrs": 24,
+    "approvals_changed": 0,
+    "releases": "#19/#27 remain deferred",
+    "extensions": "#88/#91 remain deferred"
+  },
+  "setup": {
+    "existing_owners": [
+      86,
+      87,
+      89,
+      90,
+      20,
+      37,
+      46,
+      47
+    ],
+    "plan": "remaining-work-and-local-setup.md",
+    "new_issues": "No duplicate setup issue. Record the concrete checklist under #86; create specific defects/follow-ups only when the pilot reveals them.",
+    "private_execution": "Unperformed. Explicit operator locations/classification, local credentials and actual consumer/runtime authority remain required."
+  },
+  "external_dependencies_refreshed": [
+    "hygiene#39",
+    "realm#28",
+    "realm#29",
+    "realm#30",
+    "relay#5",
+    "relay#27",
+    "relay#33",
+    "pace#5",
+    "akashic#173",
+    "akashic#174",
+    "akashic#175",
+    "akashic#176",
+    "empathy#65"
+  ],
+  "privacy": {
+    "real_source_access": false,
+    "credential_access": false,
+    "source_deletion": false,
+    "root_wip_entries_preserved": 4
+  },
+  "next_action": "Sync with the maintainer on the proposed finishing batches and parallel local-setup track. No next implementation, release, real-data import or ADR ratification is started by this receipt.",
+  "observed_at": "2026-11-13T22:46:18.082383+00:00",
+  "handoff": {
+    "branch": "docs/merged-stack-and-remaining-plan",
+    "kind": "documentation-only merge receipt and proposed sync plan",
+    "local_markdown_targets": 127,
+    "changed_markdown_files": 8,
+    "runtime_comparison": "git diff --exit-code origin/main -- src contracts scripts profiles requirements tests pyproject.toml MANIFEST.in; exit 0",
+    "owner_checks": "passed: 24 proposed/null-approval ADRs, bounded 12-heading continuity, 44 coverage rows and five native child links",
+    "all_open_coverage": "34 live open issues grouped exactly once; no new setup issue",
+    "pr": 148,
+    "reviewable_source": "5bdb26745000d5d061f35f2bf46c3c6b726ab986"
+  },
+  "coverage_groups": {
+    "local_pipeline": [
+      13,
+      14,
+      15,
+      20,
+      35,
+      37,
+      45,
+      46,
+      87,
+      89,
+      90
+    ],
+    "policy_decisions": [
+      29,
+      31,
+      41,
+      42
+    ],
+    "product_public": [
+      16,
+      17,
+      18,
+      21,
+      43,
+      44,
+      47,
+      48
+    ],
+    "optional_deferred": [
+      19,
+      27,
+      32,
+      34,
+      88,
+      91
+    ],
+    "umbrellas": [
+      1,
+      2,
+      5,
+      40,
+      86
+    ]
+  }
+}

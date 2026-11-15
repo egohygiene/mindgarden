@@ -1,5 +1,7 @@
 # Local source-to-reviewed-packet workflow
 
+**Current sync:** #144–#147 are merged at main `270ced6`, with the exact tested combined tree and all exact-head checks passing. The [remaining-work/setup plan](remaining-work-and-local-setup.md) maps all 34 open issues and the existing setup owners; no duplicate setup issue is needed. Earlier draft observations below remain historical.
+
 **Active continuation:** Draft #144 → #145 → #146 → #147 now adds actual context dependencies, multi-source compaction refresh/live validity and reviewed alternate CSV mappings. [The combined sprint/evidence](freshness-mapping-sprint.md) pins functional `b7b279a`, 102 tests per Python and clean Git/wheel/archive boundary proofs. Main and parent closure states are unchanged; real/private/model acceptance stays separate.
 
 The maintainer selected these five steps on 2026-11-13. This changes the earlier
