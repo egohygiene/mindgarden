@@ -1,5 +1,13 @@
 # Remaining implementation and acceptance audit
 
+**Current follow-through:** #148–#154 are merged at main `5cf24a2`, with every
+exact-head Test/preparation check passing and each tested tree preserved. The
+[acceptance reconciliation](acceptance-reconciliation.md) supersedes the
+draft/unsupported-capability/next-sprint snapshots below, maps all full
+#16/#32/#90/#15 requirements and adds synthetic evidence in draft
+[#155](https://github.com/egohygiene/mindgarden/pull/155). Broader real consumer,
+model accuracy and human/shared-system decisions remain separate. #17 waits for sync.
+
 The maintainer parked local setup and authorized independent repository work.
 This audit refreshed main `270ced6`, all 34 open issues, the selected issue
 comments, PR #148 and the relevant external owner issues. Implementation,

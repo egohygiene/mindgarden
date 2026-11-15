@@ -37,7 +37,20 @@ updated: 2026-11-13
 -->
 ## 2026-11-15 acceptance reconciliation
 
-Authorized #148 → #149 → #150 → #151 → #152 → #153 → #154 merges are complete at main `5cf24a2`, exactly the tested combined tree. All fourteen original head checks pass. The [acceptance map](docs/acceptance-reconciliation.md) covers full #16/#32/#90 and #15 requirements; a test/documentation-only branch adds multi-period/currency and archive-attribution evidence. Four new cases pass; focused qualification and issue disposition follow. #17 waits for a sync. Local setup, private/model proofs and ADR disposition remain separate. Older snapshots below are historical.
+Authorized #148 → #149 → #150 → #151 → #152 → #153 → #154 merges are complete
+at main `5cf24a2`, exactly the tested combined tree. All fourteen original
+exact-head checks pass. **#16, #32, #90 and #15 are closed** against their full
+listed engine/importer/synthetic requirements: **30 open / 44 tracked**. The
+[acceptance map](docs/acceptance-reconciliation.md) records actual dependency
+contracts, complete criteria and separately owned wider acceptance. Evidence-only
+draft [#155](https://github.com/egohygiene/mindgarden/pull/155), functional
+`c989a87`, adds multi-period/currency and archive-attribution proofs: 150 tests
+per supported Python, zero skips; 21 per clean Git/isolated wheel/source form.
+[Exact qualification](docs/evidence/acceptance-reconciliation.json).
+
+Sync with the maintainer before #17. Local setup, actual model/private/Empathy
+proofs, releases and ADR disposition remain separate. Older snapshots below are
+historical, including their earlier draft, count and next-sprint observations.
 
 ## 2026-11-13 execution snapshot
 

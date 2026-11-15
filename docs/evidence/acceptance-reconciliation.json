@@ -11,7 +11,7 @@
     "skips": 0,
     "outcome": "passed"
   },
-  "qualification": "Focused dual-Python qualification and final disposition in progress.",
+  "qualification": "passed; local evidence, exact-head CI remains separately observed",
   "corrections": [
     "Initial test assumed display selection changed calculation inputs; existing documented contract selects calculation inputs via sources. Corrected test explicitly removes source and classification.",
     "Initial archive assertions requested the default ten search hits for eighteen proposals and compared entire message hashes despite different parent/order metadata. Corrected bounded result limit and exact text-span checksum assertions; no engine change.",
@@ -20,5 +20,273 @@
   "limitations": [
     "No model accuracy, actual private/archive/Empathy/Drive proof, ADR approval, release or local setup.",
     "#17 is parked until maintainer sync."
-  ]
+  ],
+  "observed_at": "2026-11-15T19:41:04Z",
+  "pull_request": 155,
+  "functional_test_revision": "c989a8745935bc055fd444bdd9adc5066988768f",
+  "focused": [
+    {
+      "python": "3.12.14",
+      "base_revision": "c989a8745935bc055fd444bdd9adc5066988768f",
+      "modules": [
+        "tests.test_federation",
+        "tests.test_rendered_federation",
+        "tests.test_local_federation",
+        "tests.test_public_bundle_context",
+        "tests.test_query_store",
+        "tests.test_query_store_evolution",
+        "tests.test_consultation",
+        "tests.test_consultation_periods",
+        "tests.test_packet_freshness",
+        "tests.test_conversation_archives",
+        "tests.test_archive_selection",
+        "tests.test_archive_v2",
+        "tests.test_archive_diagrams",
+        "tests.test_archive_delivery",
+        "tests.test_archive_continuation",
+        "tests.test_archive_attribution",
+        "tests.test_extraction",
+        "tests.test_curation",
+        "tests.test_curation_transformations",
+        "tests.test_private_garden_workflow",
+        "tests.test_v1_contracts"
+      ],
+      "tests": 150,
+      "seconds": 590.508,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "test_sha256": {
+        "tests/test_consultation_periods.py": "c2838125cf1446dcbf1a0ad5f8da830a83efe059bc5a1e75c1c47868b38a8791",
+        "tests/test_archive_attribution.py": "16b88fef24ce936011ffc495b4ad8d364d7a907b04c2870d05ab541fda484cf1"
+      },
+      "verified_engine_origins": 104,
+      "reproduction_unittest_command": "PYTHONPATH=\"$PWD/src\" /workspace/mindgarden/.venv/bin/python -m unittest tests.test_federation tests.test_rendered_federation tests.test_local_federation tests.test_public_bundle_context tests.test_query_store tests.test_query_store_evolution tests.test_consultation tests.test_consultation_periods tests.test_packet_freshness tests.test_conversation_archives tests.test_archive_selection tests.test_archive_v2 tests.test_archive_diagrams tests.test_archive_delivery tests.test_archive_continuation tests.test_archive_attribution tests.test_extraction tests.test_curation tests.test_curation_transformations tests.test_private_garden_workflow tests.test_v1_contracts --verbose",
+      "executed_command": "PYTHONPATH=\"$PWD/src\" /workspace/mindgarden/.venv/bin/python .cache/acceptance-qualify.py 312 > .cache/acceptance-312.log 2>&1"
+    },
+    {
+      "python": "3.13.5",
+      "base_revision": "c989a8745935bc055fd444bdd9adc5066988768f",
+      "modules": [
+        "tests.test_federation",
+        "tests.test_rendered_federation",
+        "tests.test_local_federation",
+        "tests.test_public_bundle_context",
+        "tests.test_query_store",
+        "tests.test_query_store_evolution",
+        "tests.test_consultation",
+        "tests.test_consultation_periods",
+        "tests.test_packet_freshness",
+        "tests.test_conversation_archives",
+        "tests.test_archive_selection",
+        "tests.test_archive_v2",
+        "tests.test_archive_diagrams",
+        "tests.test_archive_delivery",
+        "tests.test_archive_continuation",
+        "tests.test_archive_attribution",
+        "tests.test_extraction",
+        "tests.test_curation",
+        "tests.test_curation_transformations",
+        "tests.test_private_garden_workflow",
+        "tests.test_v1_contracts"
+      ],
+      "tests": 150,
+      "seconds": 562.718,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "test_sha256": {
+        "tests/test_consultation_periods.py": "c2838125cf1446dcbf1a0ad5f8da830a83efe059bc5a1e75c1c47868b38a8791",
+        "tests/test_archive_attribution.py": "16b88fef24ce936011ffc495b4ad8d364d7a907b04c2870d05ab541fda484cf1"
+      },
+      "verified_engine_origins": 104,
+      "reproduction_unittest_command": "PYTHONPATH=\"$PWD/src\" /workspace/mindgarden/.cache/python313/bin/python -m unittest tests.test_federation tests.test_rendered_federation tests.test_local_federation tests.test_public_bundle_context tests.test_query_store tests.test_query_store_evolution tests.test_consultation tests.test_consultation_periods tests.test_packet_freshness tests.test_conversation_archives tests.test_archive_selection tests.test_archive_v2 tests.test_archive_diagrams tests.test_archive_delivery tests.test_archive_continuation tests.test_archive_attribution tests.test_extraction tests.test_curation tests.test_curation_transformations tests.test_private_garden_workflow tests.test_v1_contracts --verbose",
+      "executed_command": "PYTHONPATH=\"$PWD/src\" /workspace/mindgarden/.cache/python313/bin/python .cache/acceptance-qualify.py 313 > .cache/acceptance-313.log 2>&1"
+    }
+  ],
+  "focused_runner_source": "import hashlib\nimport json\nfrom pathlib import Path\nimport platform\nimport subprocess\nimport sys\nimport time\nimport unittest\n\nroot = Path.cwd()\nsys.path.insert(0, str(root))\nsys.path.insert(0, str(root / 'src'))\nmodules = [\n    'tests.test_federation', 'tests.test_rendered_federation',\n    'tests.test_local_federation', 'tests.test_public_bundle_context',\n    'tests.test_query_store', 'tests.test_query_store_evolution',\n    'tests.test_consultation', 'tests.test_consultation_periods',\n    'tests.test_packet_freshness', 'tests.test_conversation_archives',\n    'tests.test_archive_selection', 'tests.test_archive_v2',\n    'tests.test_archive_diagrams', 'tests.test_archive_delivery',\n    'tests.test_archive_continuation', 'tests.test_archive_attribution',\n    'tests.test_extraction', 'tests.test_curation',\n    'tests.test_curation_transformations', 'tests.test_private_garden_workflow',\n    'tests.test_v1_contracts',\n]\nsuite = unittest.defaultTestLoader.loadTestsFromNames(modules)\nstarted = time.monotonic()\nresult = unittest.TextTestRunner(verbosity=1).run(suite)\norigins = {\n    name: str(Path(module.__file__).resolve().relative_to(root))\n    for name, module in sorted(sys.modules.items())\n    if name.startswith('mindgarden') and getattr(module, '__file__', None)\n}\nassert all(value.startswith('src/mindgarden/') for value in origins.values())\nreceipt = {\n    'python': platform.python_version(),\n    'base_revision': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),\n    'command': 'PYTHONPATH=\"$PWD/src\" ' + sys.executable + ' -m unittest ' + ' '.join(modules) + ' --verbose',\n    'runner': Path(__file__).read_text(),\n    'modules': modules,\n    'tests': result.testsRun,\n    'seconds': round(time.monotonic() - started, 3),\n    'failures': len(result.failures),\n    'errors': len(result.errors),\n    'skips': len(result.skipped),\n    'engine_origins': origins,\n    'test_sha256': {name: hashlib.sha256((root / name).read_bytes()).hexdigest() for name in ('tests/test_consultation_periods.py', 'tests/test_archive_attribution.py')},\n}\n(root / '.cache' / ('acceptance-tests-' + sys.argv[1] + '.json')).write_text(json.dumps(receipt, indent=2) + '\\n')\nraise SystemExit(0 if result.wasSuccessful() and not result.skipped else 1)\n",
+  "artifacts": [
+    {
+      "mode": "git",
+      "tests": 21,
+      "skipped": 0,
+      "seconds": 67.157,
+      "modules": [
+        "tests.test_consultation_periods",
+        "tests.test_archive_attribution",
+        "tests.test_query_store_evolution",
+        "tests.test_standalone_integration",
+        "tests.test_private_garden_workflow"
+      ],
+      "verified_module_origins": 100,
+      "distributions": "site-disabled",
+      "status": "passed"
+    },
+    {
+      "mode": "wheel",
+      "tests": 21,
+      "skipped": 0,
+      "seconds": 67.87,
+      "modules": [
+        "tests.test_consultation_periods",
+        "tests.test_archive_attribution",
+        "tests.test_query_store_evolution",
+        "tests.test_standalone_integration",
+        "tests.test_private_garden_workflow"
+      ],
+      "verified_module_origins": 100,
+      "distributions": [
+        "mindgarden"
+      ],
+      "status": "passed"
+    },
+    {
+      "mode": "source",
+      "tests": 21,
+      "skipped": 0,
+      "seconds": 68.703,
+      "modules": [
+        "tests.test_consultation_periods",
+        "tests.test_archive_attribution",
+        "tests.test_query_store_evolution",
+        "tests.test_standalone_integration",
+        "tests.test_private_garden_workflow"
+      ],
+      "verified_module_origins": 100,
+      "distributions": "site-disabled",
+      "status": "passed"
+    }
+  ],
+  "artifact_commands": [
+    "PYTHONPATH=\"$PWD/src\" python -m build --no-isolation --sdist --wheel --outdir .cache/dist",
+    "git archive c989a8745935bc055fd444bdd9adc5066988768f (unpacked clean checkout)",
+    "python -m venv --without-pip .cache/artifacts/wheel",
+    "uv pip install --python .cache/artifacts/wheel/bin/python --no-index --no-deps .cache/dist/mindgarden-0.1.0-py3-none-any.whl",
+    "python -S .cache/acceptance-boundary.py git .cache/artifacts/git .cache/artifact-git.json",
+    "python -S .cache/acceptance-boundary.py source .cache/artifacts/source/mindgarden-0.1.0 .cache/artifact-source.json",
+    ".cache/artifacts/wheel/bin/python -I .cache/acceptance-boundary.py wheel .cache/artifacts/git .cache/artifact-wheel.json"
+  ],
+  "artifact_runner_source": "import importlib.metadata\nimport json\nfrom pathlib import Path\nimport sys\nimport time\nimport unittest\nmode, root, report_path = sys.argv[1], Path(sys.argv[2]).resolve(), Path(sys.argv[3])\nif mode != 'wheel':\n sys.path.insert(0,str(root/'src'))\nimport mindgarden\nexpected = Path(sys.prefix).resolve() if mode=='wheel' else root/'src'\nassert Path(mindgarden.__file__).resolve().is_relative_to(expected)\nif mode=='wheel':\n distributions=sorted(item.metadata['Name'] for item in importlib.metadata.distributions())\n assert distributions==['mindgarden'],distributions\nelse:\n distributions='site-disabled'\nsys.path.insert(0,str(root))\nmodules=['tests.test_consultation_periods','tests.test_archive_attribution','tests.test_query_store_evolution','tests.test_standalone_integration','tests.test_private_garden_workflow']\nstarted=time.monotonic()\nresult=unittest.TextTestRunner(stream=sys.stdout,verbosity=1).run(unittest.defaultTestLoader.loadTestsFromNames(modules))\nif not result.wasSuccessful() or result.skipped:\n raise SystemExit(1)\norigins=[Path(module.__file__).resolve() for name,module in sys.modules.items() if name.startswith('mindgarden') and getattr(module,'__file__',None)]\nassert origins and all(path.is_relative_to(expected) for path in origins),origins\nreport={'mode':mode,'tests':result.testsRun,'skipped':len(result.skipped),'seconds':round(time.monotonic()-started,3),'modules':modules,'verified_module_origins':len(origins),'distributions':distributions,'status':'passed'}\nreport_path.write_text(json.dumps(report,indent=2)+'\\n')\nprint(json.dumps(report),flush=True)\n",
+  "artifact_boundaries": "Git source is committed c989a87. Built distribution contains the same tests/fixtures/runtime and only subsequent documentation/continuity changes. All 117 wheel package files equal the previously qualified merged implementation; each form verifies all 100 imported engine origins. The isolated wheel environment contains only Mindgarden.",
+  "built_artifacts": [
+    {
+      "name": "mindgarden-0.1.0-py3-none-any.whl",
+      "bytes": 459923,
+      "sha256": "debe40d7d6ac29ae9bb79f4aa4f97e3eeee8a7216ed8699ec811b499767c90a2"
+    },
+    {
+      "name": "mindgarden-0.1.0.tar.gz",
+      "bytes": 1048265,
+      "sha256": "d628fc9ae63b7bbc3738d79bfaf78a7c529cbc6cb8b2133f3d2c9b7ad6ab6ad4"
+    }
+  ],
+  "distribution_checks": [
+    {
+      "command": "python -m unittest tests.test_distribution --verbose",
+      "python": "3.12.14",
+      "tests": 2,
+      "seconds": 0.08,
+      "skips": 0,
+      "outcome": "passed"
+    },
+    {
+      "command": "python -m unittest tests.test_distribution --verbose",
+      "python": "3.13.5",
+      "tests": 2,
+      "seconds": 0.047,
+      "skips": 0,
+      "outcome": "passed"
+    }
+  ],
+  "other_checks": {
+    "runtime_contract_compatibility": "git diff --exit-code 5cf24a29002f8e4f0a464b42819ec21ede33af2a -- src contracts scripts profiles templates requirements pyproject.toml MANIFEST.in (passed)",
+    "packaged_new_fixtures": "All three new CSV/JSON fixture bytes are exact in the source archive (passed).",
+    "lint": "ruff check --ignore E402 tests/test_consultation_periods.py tests/test_archive_attribution.py (passed; repository bootstrap import convention)",
+    "format": "ruff format --check tests/test_consultation_periods.py tests/test_archive_attribution.py (passed)",
+    "compilation": "python -m compileall -q tests/test_archive_attribution.py tests/test_consultation_periods.py (passed on Python 3.12/3.13)",
+    "owners": "Pinned Hygiene/Aether checks: 18 indexed proposed/null-approval ADRs, preserved legacy labels, schema/policy/set/index, continuity 12 headings and 16384-byte/240-line bounds, exactly 44 unique original/deferred rows, five native children under #86 (passed).",
+    "links": "132 local link targets across eight changed guides initially passed; final count observed separately."
+  },
+  "disposition": {
+    "closed": [
+      16,
+      32,
+      90,
+      15
+    ],
+    "open_count": 30,
+    "tracked_count": 44,
+    "basis": "Full listed importer/engine/synthetic baseline requirements tested against already merged implementation. New PR adds evidence only; no pending runtime feature is represented as merged.",
+    "remaining": "Actual model accuracy/private/Empathy/Drive/host assurance and broader policy/product/owner decisions remain separately owned; #17 waits for maintainer sync.",
+    "observed_open_numbers": [
+      1,
+      2,
+      20,
+      44,
+      86,
+      31,
+      87,
+      13,
+      46,
+      37,
+      14,
+      89,
+      45,
+      35,
+      29,
+      17,
+      48,
+      5,
+      91,
+      88,
+      47,
+      40,
+      42,
+      41,
+      43,
+      34,
+      27,
+      21,
+      19,
+      18
+    ],
+    "closure_times_utc": {
+      "16": "2026-11-15T19:37:25Z",
+      "32": "2026-11-15T19:37:27Z",
+      "90": "2026-11-15T19:39:29Z",
+      "15": "2026-11-15T19:39:30Z"
+    }
+  },
+  "execution_note": "The two supported-Python focused selections ran concurrently. Wall times are verification observations, not benchmarks.",
+  "ci": {
+    "observed_at": "2026-11-15T19:43:12Z",
+    "merged_main": {
+      "sha": "5cf24a29002f8e4f0a464b42819ec21ede33af2a",
+      "test": {
+        "run": 43751453187,
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "preparation": {
+        "run": 43751453098,
+        "status": "completed",
+        "conclusion": "success"
+      }
+    },
+    "draft_155_functional": {
+      "sha": "c989a8745935bc055fd444bdd9adc5066988768f",
+      "test": {
+        "run": 43753103229,
+        "status": "in_progress",
+        "conclusion": null
+      },
+      "preparation": {
+        "run": 43753103236,
+        "status": "completed",
+        "conclusion": "success"
+      }
+    },
+    "final_documentation_handoff": "Exact-head checks observed separately after push; pending is not passing.",
+    "manually_dispatched": false
+  }
 }

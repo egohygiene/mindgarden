@@ -20,6 +20,12 @@ main. Its changes add acceptance fixtures/tests and documentation; application
 code, contracts and canonical formats are unchanged. New evidence and its review
 state are separate from already merged implementation.
 
+Draft [#155](https://github.com/egohygiene/mindgarden/pull/155), functional test
+commit `c989a87`, preserves the new evidence for review. #16, #32, #90 and #15 are
+closed against their complete listed requirements and already merged engine.
+There are **30 open issues / 44 tracked rows**. Broader owner/product/private
+acceptance remains open; no proposed ADR was ratified by issue closure.
+
 ## #16 — all 13 federation criteria
 
 | Listed requirement | Implementation and executable proof |
@@ -144,9 +150,29 @@ silently expand this named importer contract or close #20.
 
 ## Verification and exact next action
 
-The initial four new acceptance cases pass on Python 3.12 in 32.308 seconds,
-zero skips. Focused verification on both supported Pythons, packaging/data-only
-checks, source comparison and live issue reconciliation follow before disposition.
+Dependency reconciliation uses available contracts, not whole-issue closure:
+#16 consumes merged #10/#12 and the already implemented #14 canonical-home
+contract. #32 consumes the implemented local #31 scope boundary and #16
+artifacts; Realm #25 remains an open workstation program whose #60 tracker owns
+actual host/runtime assurance. It is not a missing ordinary SQLite API. #15
+consumes merged #11 and #13's implemented producer/curation contract; #13's
+separately required real Ollama evaluation is not a parser prerequisite. #90
+composes the existing local policy/source/vault/curation/retrieval services; open
+parents keep their wider policy/provider/consumer requirements. No owner decision
+or runtime capability is fabricated to make this scheduling correction work.
+
+The four new acceptance cases pass initially on Python 3.12 in 32.308 seconds.
+The final focused selection passes **150 tests per Python, zero skips**:
+3.12.14 in 590.499 seconds and 3.13.5 in 562.712 seconds. Each verifies all
+100 imported engine origins and exact new-test hashes. Clean committed Git,
+isolated dependency-free wheel and unpacked source each pass **21 tests**, zero
+skips (67.157 / 67.870 / 68.703 seconds), including the new cases, query evolution,
+v0 compatibility and complete archive → reviewed prompt → exact search/context →
+vault relocation/restore/rebuild golden. Every wheel package file matches the
+qualified merged implementation; all three new CSV/JSON fixture bytes survive
+source packaging. Both Python distribution checks pass two cases each. Scoped
+lint/format, compilation, local links and pinned owner/continuity/44-row checks
+pass. No broader full local/`act`, manual accessibility or real model claim is made.
 The [qualification receipt](evidence/acceptance-reconciliation.json) records
 source-specific commands, corrected fixture assumptions, CI and limitations.
 
