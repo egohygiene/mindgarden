@@ -37,6 +37,8 @@ updated: 2026-11-13
 -->
 ## 2026-11-13 execution snapshot
 
+**Active repository audit:** Mac setup is parked. The maintainer authorized independent work; [the follow-through](docs/repository-audit-followthrough.md) selects explicit packet currentness (#37/#90), then Drive per-file reviewed mappings (#87/#90), and an acceptance audit of existing implementations. Draft #149 stacks on documentation #148; 44 Python 3.12 and 16 Python 3.13 focused cases pass, with combined qualification still separate. No parent closure, new setup issue, merge or ADR ratification.
+
 **Current merge/sync:** Authorized #144 → #145 → #146 → #147 merges are complete at main `270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a`. Every exact head passes Test/preparation; main equals the qualified #147 tree. The [remaining-work and setup plan](docs/remaining-work-and-local-setup.md) assigns all 34 open issues, distinguishes listed acceptance from later extensions and uses existing #86/#87/#89/#90/#20 setup owners. No new setup issue, parent closure or ADR ratification. Earlier execution snapshots below are historical.
 
 **Active continuation:** The maintainer selected **#37 → #46 → #90**, delivered as drafts #145 → #146 → #147 on #144. Qualified combined source `b7b279a` passes 102 focused tests per Python and all 17 new boundary checks from clean Git, wheel and source archive. [The sprint ledger](docs/freshness-mapping-sprint.md) records actual context dependency integration, multi-source summary refresh/quality and explicit reviewed CSV mapping. Draft #144 is green and stays unmerged; subsequent drafts preserve its tree in an explicit stack. Parent acceptance and 34-open / 44-tracked counts remain unchanged.

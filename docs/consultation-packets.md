@@ -66,7 +66,8 @@ grants and scope are checked before reads; expiry/revocation is checked again
 before output and writes.
 
 Outputs are `packet.json`, literal source-safe `packet.md`, the reviewed request
-and explicitly selected normalized evidence rows, all mode 0600 in a new mode
+and explicitly selected normalized evidence rows, plus the private
+`packet-dependencies.json` comparison manifest, all mode 0600 in a new mode
 0700 private directory. Existing different/unknown files are retained. Partial
 attempts remain inspectable; retry into a new private directory after fresh
 verification. No raw statements/PDFs, public export or automatic sharing is
@@ -90,13 +91,59 @@ stays unreviewed; kept knowledge remains epistemically proposed. Vault relocatio
 restore and clean rebuild reproduce the exact packet/index/context/evidence.
 Network, HTTP, external processes and models are blocked in this proof.
 
-The wider parent retains arbitrary bank-format adapters, richer reconciliation
-and analysis, source-backed balances/assets/liabilities, raw selected attachments,
-optional chart/PDF/UI consumers and an approved real private pilot. Drive and
-Codex integrations consume these same services in subsequent checkpoints. The
+The listed #90 synthetic acceptance is separate from later arbitrary bank-format
+adapters, richer analysis, balances/assets/liabilities, raw selected attachments,
+chart/PDF/UI consumers and a real private pilot. These are useful follow-ups,
+not additional closure gates invented for the synthetic issue. Drive and Codex
+integrations consume these same services. The
 restricted-document/runtime gate remains unchanged; personal documents are not
 silently reclassified to make this demonstration pass.
 
 ## Reviewed alternate CSV layouts
 
 The [explicit mapping adapter](csv-ledger-mappings.md) now feeds the same ledger and packet services from two authored synthetic layouts. It preserves exact original spans and reviewed configuration, while the packet retains independent source grants, classifications, revisions and export review. Strict declared CSV remains compatible; arbitrary bank/PDF formats and real pilot acceptance remain open.
+
+## Compare an earlier packet with current selected inputs
+
+After an explicit source refresh, inspect the new exact evidence, bind a fresh
+authorized session and author the current reviewed request. Compare it with the
+earlier packet's manifest without writing a new bundle:
+
+```sh
+mindgarden packet --local-config /private/bindings.json --scope /private/session.json \
+  --input /private/current-reviewed-request.json \
+  --previous-manifest /private/packet-01/packet-dependencies.json
+```
+
+The bounded response reports `current` or `stale`, with distinct
+`selected-evidence-changed`, `review-or-request-changed` and
+`calculation-or-output-changed` reasons. It includes no historical-only source
+IDs, amounts, snippets, paths or denied counts. Missing/corrupted current evidence,
+unapproved review, unavailable authority, expiry or revocation fail closed with
+the existing actionable source/session diagnostics. Current source grants are
+validated before reading prior comparison metadata. Complete manifest/bundle
+bytes are included in the existing request/session budgets.
+
+The manifest binds exact evidence, source review/scope/normalization lineage,
+reviewed request and output checksums. It excludes physical vault paths and
+ephemeral session identity, so relocation and renewed authority do not alone
+make an unchanged packet stale. An unrelated unselected import leaves its bytes
+and fingerprint unchanged. Changed evidence cannot reuse an old apply digest;
+apply a newly inspected plan into a new private directory. Old packets and
+original objects remain intact.
+
+`current` means **unchanged against the explicit current request**. It does not
+scan a bank or Drive, discover ungranted corrections, certify account coverage,
+or establish that an earlier manifest is truthful. `--check` separately verifies
+the actual selected bundle against current inputs/authority. The supplied prior
+manifest grants no permission and is not canonical evidence. A source refresh
+does not silently choose a replacement transaction or approve new knowledge.
+Pre-manifest packets remain historical artifacts; rebuild their retained reviewed
+request into a new directory to obtain this additive comparison metadata.
+
+`--check` is read-only and accepts a freshly authorized session when recomputed
+packet bytes are unchanged. It verifies the retained ownership inventory and
+every exact file against the current request, source integrity, budgets and live
+authority. The marker's old plan digest is historical ownership data; it cannot
+grant access or approve a new apply. Tampered, extra, missing or incompatible
+files still fail closed, and verification never repairs or rewrites the bundle.

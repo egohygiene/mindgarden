@@ -686,10 +686,14 @@ def build_parser() -> ArgumentParser:
     packet.add_argument("--local-config", type=Path, required=True)
     packet.add_argument("--scope", type=Path, required=True)
     packet.add_argument("--input", type=Path, required=True)
-    packet.add_argument("--output-directory", type=Path, required=True)
+    packet.add_argument("--output-directory", type=Path)
     packet_mode = packet.add_mutually_exclusive_group()
     packet_mode.add_argument("--apply", action="store_true")
     packet_mode.add_argument("--check", action="store_true")
+    packet_mode.add_argument(
+        "--previous-manifest", type=Path,
+        help="Compare with a prior private packet-dependencies.json without writing output",
+    )
     packet.add_argument("--plan-digest")
     packet.set_defaults(handler=run_packet)
 

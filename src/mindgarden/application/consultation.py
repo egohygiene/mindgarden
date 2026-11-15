@@ -3,10 +3,16 @@
 from copy import deepcopy
 import json
 
-from ..adapters.generated_files import apply_generated, complete_generated, inventory
-from ..adapters.registry_files import control_path
+from ..adapters.generated_files import (
+    apply_generated,
+    complete_generated,
+    inventory,
+    verify_generated,
+)
+from ..adapters.registry_files import control_path, read_control
 from ..domain.consultation import build_packet, markdown, validate_request
 from ..domain.contracts import canonical_json, digest_bytes, read_object, strict_json
+from ..domain.packet_dependencies import packet_dependencies, reconcile_packet
 from ..domain.scope import local_scope
 from ..domain.validation import ContractError
 from .federation import export_destination
@@ -59,6 +65,9 @@ def plan_packet(context, request):
     # Request/review and numeric calculation provenance travel with the private
     # bundle; these are data, not credentials or a source of session authority.
     files["reviewed-request.json"] = canonical_json(request)
+    files["packet-dependencies.json"] = canonical_json(
+        packet_dependencies(request, verified, inventory(files))
+    )
     maximum = min(
         request["limits"]["max_bytes"], context.session["budgets"]["max_context_bytes"]
     )
@@ -83,9 +92,19 @@ def plan_packet(context, request):
 
 def run_packet(arguments):
     context = QueryContext.load(arguments.local_config, arguments.scope)
-    destination = arguments.output_directory.absolute()
-    destination = export_destination(context, destination.parent, destination.name)
-    control_path(destination / ".mindgarden-generated.json")
+    previous = getattr(arguments, "previous_manifest", None)
+    destination = None
+    if previous is not None:
+        if arguments.plan_digest is not None or arguments.output_directory is not None:
+            raise ContractError(
+                "PACKET_OPTIONS: comparison does not write output; omit --plan-digest and --output-directory"
+            )
+    else:
+        if arguments.output_directory is None:
+            raise ContractError("PACKET_OUTPUT: select a new private output directory")
+        destination = arguments.output_directory.absolute()
+        destination = export_destination(context, destination.parent, destination.name)
+        control_path(destination / ".mindgarden-generated.json")
 
     def current():
         return plan_packet(context, read_object(arguments.input))
@@ -98,15 +117,35 @@ def run_packet(arguments):
                 "PACKET_STALE: source, review, selection or live authority changed"
             )
 
+    if previous is not None:
+        # A prior private manifest is comparison data only. Resolve all current
+        # grants and evidence before reading it; never return old-only identities.
+        result = reconcile_packet(
+            strict_json(files["packet-dependencies.json"]),
+            strict_json(read_control(previous.absolute())),
+        )
+        verify()
+        context.ensure_output(canonical_json(result))
+        print(json.dumps(result, sort_keys=True, indent=2))
+        return 0
     if arguments.check and not destination.is_dir():
         raise ContractError(
             "PACKET_MISSING: no immutable packet exists at the selected location"
         )
-    if arguments.apply or arguments.check:
+    if arguments.check:
+        verify_generated(
+            destination,
+            files,
+            check_live=context.check_live,
+            validate_output=context.ensure_bundle,
+            verify_inputs=verify,
+        )
+        result = {"status": "verified-no-op", "plan_sha256": preview["plan_sha256"]}
+    elif arguments.apply:
         changed = apply_generated(
             destination,
             files,
-            preview["plan_sha256"] if arguments.check else arguments.plan_digest,
+            arguments.plan_digest,
             preview["plan_sha256"],
             check_live=context.check_live,
             validate_output=context.ensure_bundle,
