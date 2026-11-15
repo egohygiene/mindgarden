@@ -1,5 +1,10 @@
 # Reviewed CSV ledger mappings
 
+The [per-file Drive normalization checkpoint](drive-normalization.md) composes
+these exact mapping semantics with verified captured member bytes and provider
+identity. Local-file mapping support alone does not establish live Drive or
+actual private-pilot acceptance.
+
 `mapped-ledger-csv` normalizes explicitly supplied UTF-8 CSV through the existing
 source/vault boundary. It emits the existing `ledger-row/v1`; the packet service
 still owns source grants, reviewed revisions/classifications, exact-decimal

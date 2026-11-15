@@ -99,8 +99,11 @@ published automatically by merging engine work.
 ### 5. Disposition optional work and close umbrellas last
 
 #32 is an optional query-store boundary, not a replacement canonical database.
-Check its actual listed baseline/recovery/performance criteria before adding
-incremental updates or treating permanent-store adoption as required.
+Check the complete issue, including its original adapter-boundary requirements
+for incremental refresh and migration, as well as the checkbox list. The current
+port declares incremental updates and in-place migration unsupported; those
+requirements need explicit implementation or disposition before full closure.
+Permanent-store adoption is not required.
 
 #34's OpenViking trial records a real blocked native startup and unmeasured model
 quality. The maintainer can choose a bounded remaining evaluation or an explicit

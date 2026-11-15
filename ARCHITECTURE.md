@@ -259,6 +259,13 @@ The authorized #127–#132 stack is merged at `f5baa3d`. Dependent drafts #133�
 
 ## Current bounded integration evidence
 
+The #144–#147 integration stack is merged at main `270ced6`. The
+[repository audit follow-through](docs/repository-audit-followthrough.md) adds
+dependent drafts for explicit packet currentness and reviewed per-file Drive
+normalization. These reuse the shared Python/source/scope/vault services and
+change no canonical ownership or proposed-decision status. Older draft
+observations below describe their earlier checkpoint state.
+
 Draft #145–#147 connect the existing context/dependency, compaction/retention and
 source-adapter services. [The sprint and evidence](docs/freshness-mapping-sprint.md)
 distinguish qualified draft implementation from merged or accepted architecture.

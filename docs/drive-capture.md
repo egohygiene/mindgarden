@@ -1,5 +1,10 @@
 # Optional selected Drive capture
 
+The [reviewed per-file mapping checkpoint](drive-normalization.md) adds an explicit
+`--drive-normalization` input for supported alternate CSV layouts inside a
+verified capture. Capture, normalization review, knowledge review and packet
+review remain separate operations.
+
 This bounded #87 checkpoint adds `capture drive`, a read-only Drive v3 adapter,
 private local OAuth setup and a supplied-capture source adapter. It reuses the
 existing garden, scope, immutable vault and normalization contracts. No Google

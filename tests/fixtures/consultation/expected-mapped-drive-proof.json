@@ -1,0 +1,138 @@
+{
+  "context_bytes": 6129,
+  "context_sha256": "457cb7685f02eca04f2fffe8098efd758f335e10eadfc4a2adf374d3671560d7",
+  "coverage": [
+    {
+      "account": "account-a",
+      "missing_declared_intervals": [],
+      "observed_first": "2026-01-02",
+      "observed_last": "2026-01-11",
+      "status": "transactions-present-coverage-unverified"
+    },
+    {
+      "account": "account-b",
+      "missing_declared_intervals": [
+        {
+          "end": "2026-01-09",
+          "start": "2026-01-01"
+        }
+      ],
+      "observed_first": "2026-01-05",
+      "observed_last": "2026-01-12",
+      "status": "transactions-present-coverage-unverified"
+    },
+    {
+      "account": "missing-account",
+      "missing_declared_intervals": [
+        {
+          "end": "2026-01-31",
+          "start": "2026-01-01"
+        }
+      ],
+      "observed_first": null,
+      "observed_last": null,
+      "status": "no-supplied-transactions"
+    }
+  ],
+  "evidence": {
+    "content_sha256": "aa4162a718f99467af2a2f7d4d2ba7ba08222b1913d1e770cba8a38ad8889620",
+    "locator": "artifact",
+    "source": {
+      "garden": "synthetic-garden",
+      "id": "source-1aa0c42cbd1962c9bf5fcd38-aa4162a718f99467",
+      "revision": "sha256:aa4162a718f99467af2a2f7d4d2ba7ba08222b1913d1e770cba8a38ad8889620"
+    }
+  },
+  "google": "synthetic-provider-only; no account or OAuth",
+  "immutable_objects": [
+    {
+      "content_id": "sha256:0c64070c62059ea26d93184c68906808a510f1666204a2a9e2e6712700bfc683",
+      "state": "available"
+    },
+    {
+      "content_id": "sha256:21fd339ed43335b2645259bd146e664f8233aaa4c91d49228d9e7a891965d7b2",
+      "state": "available"
+    },
+    {
+      "content_id": "sha256:3f7e24653751589414c9ad1bddccf22971fe6b922dd75abc176ef6d9c7490efd",
+      "state": "available"
+    },
+    {
+      "content_id": "sha256:61362b820d8d966382f0ad45715716e54adc94396f9b2f51a114b608fde7bd3c",
+      "state": "available"
+    },
+    {
+      "content_id": "sha256:7267c7be71270fd2012f23eb6fb74834cfc27df0c47141c157a51c415d82652a",
+      "state": "available"
+    },
+    {
+      "content_id": "sha256:8398a957636b59d73ff4d276b75bf29f1fb050ec3ada3a181ac46ce4130f40d8",
+      "state": "available"
+    },
+    {
+      "content_id": "sha256:83caafa887bfa2a2a77ba4473e4f0253b050607fc6137e663f5c965690f83a1d",
+      "state": "available"
+    },
+    {
+      "content_id": "sha256:868c589484f3b1dfbb014b4b617bc6fd6eb95ac05f0239c228e8167efce59137",
+      "state": "available"
+    },
+    {
+      "content_id": "sha256:aa4162a718f99467af2a2f7d4d2ba7ba08222b1913d1e770cba8a38ad8889620",
+      "state": "available"
+    },
+    {
+      "content_id": "sha256:b1e715ad0ae1bab49893fefe3f1ef1ada1e0f3a60c3675c1df386a019c4a1119",
+      "state": "available"
+    },
+    {
+      "content_id": "sha256:b9e06150aa36e21886c415146faca61cfec255783aa20d467152d2a46cbdacb8",
+      "state": "available"
+    },
+    {
+      "content_id": "sha256:e211ff508682cf0d2bb05781774f088db32decdb65deef793fa3923784b07fff",
+      "state": "available"
+    },
+    {
+      "content_id": "sha256:e4f3bfc141bb7b03799b4e1622ba21ac337d3a2285cabe6f95ef64eb99c76e48",
+      "state": "available"
+    }
+  ],
+  "knowledge_epistemic_state": "proposed",
+  "knowledge_review": "approved",
+  "markdown_sha256": "54ddb5f6f48b8e65fd4a2ad834e54c65e4d6b5f6f63024632dd6fa0e084c9b7b",
+  "models": "unused",
+  "network": "blocked",
+  "normalization": {
+    "configuration_revision": "sha256:f00d141821a625ac80adda75865fb92f5cb8c4d2ec0a8f07a1a2e2ac63c41f2d",
+    "instruction_authority": "none; captured bytes and mappings are source data",
+    "layouts": [
+      "signed-iso-date",
+      "debit-credit-us-date"
+    ],
+    "mapped_provider_files": 3,
+    "original_occurrences": 9,
+    "reused_unchanged_rows": 8,
+    "snapshots": 2
+  },
+  "originals": "retained",
+  "packet_sha256": "52d8ac49015e8b8c282b340140ebcd19c113cf0ea44129edcb83a730f76844b6",
+  "private_pilot": "not performed",
+  "recovery": "exact packet, index, context and evidence after relocation/restore/clean rebuild",
+  "schema": "mindgarden.synthetic-mapped-drive-proof/v1",
+  "source_review": "unreviewed",
+  "status": "passed-bounded-synthetic-workflow",
+  "totals": [
+    {
+      "currency": "USD",
+      "expense": "-230.25",
+      "income": "2500.00",
+      "month": "2026-01",
+      "net_movement": "2259.76",
+      "refund": "10.00",
+      "transfer": "0.00",
+      "uncategorized": "-19.99"
+    }
+  ],
+  "unique_transactions": 8
+}
