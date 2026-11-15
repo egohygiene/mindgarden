@@ -125,3 +125,14 @@ remains catalog-only. The caption is observed message text at
 source references. No inferred caption or vision claim is added. Full original
 ZIPs retain both images and every declared attachment checksum is still verified.
 See [the journey checkpoint](journey-sprint.md) and `tests/test_archive_diagrams.py`.
+
+## Continuation-state evidence
+
+The focused `tests/test_archive_continuation.py` proof supplies the known
+`CONTINUATION.md` artifact to both tested v3.2.2/v3.2.3 full-source and compact
+profiles. It preserves exact UTF-8 bytes/checksums as `continuation-state`,
+separately marked summary-derived with no invented message/speaker. Import keeps
+the source unreviewed, personal/private and publication-excluded; embedded
+instructions cannot run tools or create approved knowledge. Missing/corrupted
+continuation bytes fail before vault writes. This does not claim a wire contract
+for unavailable future bootstrap versions or upstream producer quality.

@@ -18,13 +18,13 @@ from mindgarden.domain.federation import verify_bundle
 from mindgarden.domain.site import SITE_MARKER
 from mindgarden.domain.validation import ContractError
 from tests.portal_fixture import create_portal_fixture
-from tests.federation_fixture import create_fixture
 from tests.support_v1 import write_json
 
 
 class RenderedFederationTests(unittest.TestCase):
     def setUp(self):
-        temporary=TemporaryDirectory();self.addCleanup(temporary.cleanup)
+        temporary=TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
         self.root=Path(temporary.name)
         self.fixture=create_portal_fixture(self.root)
         self.revision=json.loads(self.fixture["files"]["garden.json"])["revision"]
@@ -41,7 +41,8 @@ class RenderedFederationTests(unittest.TestCase):
             self.assertEqual(package["authority"],"read-only")
             self.assertEqual(package["execution"],"data-only")
             self.assertEqual(ContractRegistry().errors(package,"garden-package"),[])
-            relocated=self.root / "relocated";shutil.copytree(self.fixture["source"],relocated)
+            relocated=self.root / "relocated"
+            shutil.copytree(self.fixture["source"],relocated)
             self.assertEqual(read_rendered_bundle(relocated,self.pin,self.revision),(bundle,package))
             catalog=build_catalog(self.request)
         self.assertEqual(catalog["status"],"complete")
@@ -59,7 +60,7 @@ class RenderedFederationTests(unittest.TestCase):
         result=build_catalog(missing)
         self.assertEqual(result["status"],"partial")
         self.assertEqual(result["records"],[])
-        self.assertEqual(result["refresh"][0]["state"],"not-retained")
+        self.assertEqual(result["refresh"],[])
         self.assertEqual(result["diagnostics"],["FEDERATION_UNAVAILABLE"])
         stale={**deepcopy(self.request),"previous":previous}
         stale["bundles"][0]["expected_manifest_sha256"]="0" * 64
@@ -72,7 +73,8 @@ class RenderedFederationTests(unittest.TestCase):
         # An independently pinned renderer configuration can change without
         # changing the represented reviewed knowledge revision.
         changed=deepcopy(self.fixture["files"])
-        manifest=json.loads(changed[SITE_MARKER]);manifest["renderer"]["title"]="Synthetic updated rendering metadata"
+        manifest=json.loads(changed[SITE_MARKER])
+        manifest["renderer"]["title"]="Synthetic updated rendering metadata"
         changed[SITE_MARKER]=canonical_json(manifest)
         write_json(self.fixture["source"] / SITE_MARKER,manifest)
         item={**self.item,"expected_manifest_sha256":digest_bytes(changed[SITE_MARKER])}
@@ -91,15 +93,52 @@ class RenderedFederationTests(unittest.TestCase):
         self.assertEqual(result["records"],[])
         self.assertNotIn(str(self.root),json.dumps(result))
         (self.fixture["source"] / route).write_bytes(self.fixture["files"][route])
-        manifest=json.loads(self.fixture["files"][SITE_MARKER]);manifest["routes"].pop()
+        manifest=json.loads(self.fixture["files"][SITE_MARKER])
+        manifest["routes"].pop()
         write_json(self.fixture["source"] / SITE_MARKER,manifest)
         item={**self.item,"expected_manifest_sha256":digest_bytes(canonical_json(manifest))}
         self.assertEqual(build_catalog({**self.request,"bundles":[item]})["records"],[])
         (self.fixture["source"] / SITE_MARKER).write_bytes(self.fixture["files"][SITE_MARKER])
-        outside=self.root / "synthetic-outside";outside.write_text("synthetic-outside-canary")
-        (self.fixture["source"] / route).unlink();(self.fixture["source"] / route).symlink_to(outside)
+        outside=self.root / "synthetic-outside"
+        outside.write_text("synthetic-outside-canary")
+        (self.fixture["source"] / route).unlink()
+        (self.fixture["source"] / route).symlink_to(outside)
         result=build_catalog(self.request)
         self.assertEqual(result["records"],[])
         self.assertNotIn("synthetic-outside-canary",json.dumps(result))
         with self.assertRaisesRegex(ContractError,"FEDERATION_REQUEST"):
             build_catalog({**self.request,"bundles":[{k:v for k,v in self.item.items() if k!="expected_manifest_sha256"}]})
+
+    def test_historical_only_assertions_cannot_change_current_public_metadata(self):
+        previous = build_catalog(self.request)
+        expected = build_catalog({**self.request, "previous": previous})
+        supplied = deepcopy(previous)
+        historical = deepcopy(previous["gardens"][0])
+        historical.update(
+            garden="private-historical-garden-canary",
+            canonical_uri="urn:mindgarden:private-historical-garden-canary",
+            base_uri="https://example.invalid/private-historical-garden-canary/",
+            revision="sha256:" + "a" * 64,
+        )
+        supplied["gardens"].append(historical)
+        self.assertEqual(ContractRegistry().errors(supplied, "federation-catalog"), [])
+        result = build_catalog({**self.request, "previous": supplied})
+        self.assertEqual(result, expected)
+        self.assertNotIn(b"private-historical-garden-canary", canonical_json(result))
+        # Distinct documents with the same unselected identity are not an
+        # ambiguity in the explicitly verified current catalog.
+        alternate = deepcopy(historical)
+        alternate["revision"] = "sha256:" + "b" * 64
+        supplied["gardens"].append(alternate)
+        self.assertEqual(ContractRegistry().errors(supplied, "federation-catalog"), [])
+        result = build_catalog({**self.request, "previous": supplied})
+        self.assertEqual(result, expected)
+        self.assertNotIn(b"private-historical-garden-canary", canonical_json(result))
+
+    def test_ambiguous_prior_assertions_for_current_verified_identity_still_fail(self):
+        previous = build_catalog(self.request)
+        alternate = deepcopy(previous["gardens"][0])
+        alternate["revision"] = "sha256:" + "b" * 64
+        previous["gardens"].append(alternate)
+        with self.assertRaisesRegex(ContractError, "FEDERATION_REQUEST"):
+            build_catalog({**self.request, "previous": previous})

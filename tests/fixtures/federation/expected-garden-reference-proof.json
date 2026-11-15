@@ -6,6 +6,7 @@
     "portable-after-relocation",
     "data-only-no-authority-grant",
     "no-previous-record-fallback",
+    "no-previous-metadata-fallback",
     "network-and-execution-blocked"
   ],
   "package": {
@@ -31,8 +32,7 @@
   },
   "records": 3,
   "refresh": [
-    "unchanged",
-    "not-retained"
+    "unchanged"
   ],
   "renderer": "authored-contract-fixture-no-renderer-invocation",
   "schema": "mindgarden.synthetic-garden-reference-proof/v1",
