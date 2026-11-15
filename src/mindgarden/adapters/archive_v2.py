@@ -15,6 +15,7 @@ from .archive_preservation import (
     require_object,
     validate_references,
 )
+from .archive_delivery import delivery_metadata
 
 V2_VERSIONS = {"2.0.0", "2.0.1", "2.0.2"}
 MANIFEST_FIELDS = set(
@@ -114,22 +115,7 @@ def normalize_v2(documents, members, prefix, checksums, metadata, adapter_versio
         ):
             raise ContractError("ARCHIVE_INPUTS: a declared captured input is missing")
         inputs[identity] = item
-    delivery = require_object(
-        manifest["delivery"], {"type", "status", "limitations"}, "ARCHIVE_DELIVERY"
-    )
-    if delivery["type"] != "zip":
-        raise ContractError("ARCHIVE_DELIVERY: this adapter requires actual ZIP bytes")
-    require_array(delivery["limitations"], "ARCHIVE_DELIVERY")
-    for attempt in require_array(delivery.get("attempts", []), "ARCHIVE_DELIVERY"):
-        require_object(
-            attempt,
-            {"path_id", "result", "error_class", "archive_created"},
-            "ARCHIVE_DELIVERY",
-        )
-        if type(attempt["archive_created"]) is not bool:
-            raise ContractError(
-                "ARCHIVE_DELIVERY: packaging attempts need observed creation state"
-            )
+    delivery = delivery_metadata(manifest["delivery"])
     for name in (
         "CONVERSATION.json",
         "ASSET-MANIFEST.json",

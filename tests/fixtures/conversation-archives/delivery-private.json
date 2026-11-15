@@ -1,0 +1,22 @@
+{
+  "type": "zip",
+  "status": "validated",
+  "method": "fallback-local-packager",
+  "attempts": [
+    {
+      "path_id": "/synthetic/runtime/SESSION-CANARY",
+      "result": "failed-transient",
+      "error_class": "transport-or-wrapper-error",
+      "archive_created": false,
+      "session_id": "SYNTHETIC-SESSION-CANARY"
+    },
+    {
+      "path_id": "fallback-local-filesystem",
+      "result": "success",
+      "error_class": null,
+      "archive_created": true
+    }
+  ],
+  "limitations": ["Synthetic wrapper details: SESSION-CANARY"],
+  "runtime": "SYNTHETIC-RUNTIME-CANARY"
+}

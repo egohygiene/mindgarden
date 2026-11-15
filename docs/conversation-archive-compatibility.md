@@ -1,6 +1,6 @@
 # Conversation archive adapter checkpoint
 
-`conversation-archive` 1.2.0 consumes an explicitly supplied ZIP. It performs no
+`conversation-archive` 1.2.1 consumes an explicitly supplied ZIP. It performs no
 acquisition, model calls, remote routing, persistence, publication, or execution of
 transcript instructions. Human curation remains a separate authored plan.
 
@@ -136,3 +136,30 @@ the source unreviewed, personal/private and publication-excluded; embedded
 instructions cannot run tools or create approved knowledge. Missing/corrupted
 continuation bytes fail before vault writes. This does not claim a wire contract
 for unavailable future bootstrap versions or upstream producer quality.
+
+## Delivery privacy and importer acceptance
+
+Adapter 1.2.1 limits copied delivery metadata to supported descriptive facts.
+Arbitrary extensions, private-looking or unknown labels and free-text limitations
+remain in the immutable private ZIP; fixed `metadata_withheld` codes and a fixed
+limitation explain their omission. Unknown labels do not become source identities
+or invalidate otherwise intact content. The supported vocabulary is the adapter's
+privacy policy, not a claimed exhaustive enum in the upstream specification.
+Malformed labels/observations and more than 64 attempts fail before writes, with
+no original value in diagnostics. Other source text/metadata is not sanitized by
+this delivery-only boundary. [Checkpoint and limits](pipeline-integration-sprint.md).
+
+| #15 acceptance area | Executable evidence |
+| --- | --- |
+| Primary/fallback v2.0.1 equality and independent final inventory | `tests/test_archive_v2.py`, `tests/test_conversation_archives.py` |
+| Delivery provenance without copied runtime/session details | `tests/test_archive_delivery.py`, synthetic `delivery-private.json` |
+| v1.2.1 and knowledge-only/no bootstrap | `tests/test_archive_selection.py` |
+| Exact full/compact continuation state, never automatic knowledge | `tests/test_archive_continuation.py`, `tests/test_archive_delivery.py` |
+| Independent diagram/caption and scratch selection | `tests/test_archive_diagrams.py` |
+| Replay, overlaps, spans, speakers, branches and times | `tests/test_archive_v2.py`, `tests/test_conversation_archives.py` |
+| Malformed/hostile/incomplete/corrupt/oversized ZIP boundaries | `tests/test_conversation_archives.py`, `tests/test_archive_selection.py` |
+| Authored review, exact retrieval/context and private originals | `tests/test_conversation_archives.py`, `tests/test_private_garden_workflow.py` |
+
+The later graph-extraction attribution/correction journey remains coordinated with
+#13. A synthetic importer proof does not establish upstream producer accuracy,
+actual private archive compatibility or Empathy consumer acceptance under #20.

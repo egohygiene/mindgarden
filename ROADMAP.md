@@ -525,3 +525,12 @@ record ownership remain. Models, Google, hosting and query stores are optional.
 Source/controller state stays outside tracked gardens. Proposed ADRs, Aether #69,
 Akashic #176, confidential runtime, real consumer acceptance and unselected parent
 scope retain their gates. Deferred #86–#91 and release work remain parked.
+
+## Parked-setup integration sprint
+
+The maintainer authorized bounded #15 → #32 → #44 follow-through on the unmerged
+#148–#151 combined draft. [The sprint ledger](docs/pipeline-integration-sprint.md)
+records the delivery privacy contract, owned query-cache evolution and supported
+public decision relationships. Existing contracts support these ordinary local
+checkpoints; no ADR ratification, actual consumer acceptance, private input,
+provider connection, release or draft merge is implied. Mac setup stays parked.
