@@ -1,0 +1,1085 @@
+{
+  "artifacts": [
+    {
+      "bytes": 459923,
+      "file": ".cache/dist/mindgarden-0.1.0-py3-none-any.whl",
+      "sha256": "e0426db71fcf50e715bea7b125093462afd778d0aa81588d69505a9633288b3f"
+    },
+    {
+      "bytes": 1036928,
+      "file": ".cache/dist/mindgarden-0.1.0.tar.gz",
+      "sha256": "c5e39558f3e73f54c4a9b5c62f1333fa3f07058086b018a7746200cd602c9eb8"
+    }
+  ],
+  "branch": "feature/44-public-decision-relationships",
+  "build_commands": [
+    "python -m build --no-isolation --sdist --wheel --outdir .cache/dist",
+    "python -m venv --without-pip .cache/integration-qualification/wheel",
+    "uv pip install --python .cache/integration-qualification/wheel/bin/python --no-index --no-deps --reinstall .cache/dist/mindgarden-0.1.0-py3-none-any.whl"
+  ],
+  "ci": {
+    "152": {
+      "preparation": "completed/success",
+      "preparation_run": 43651058522,
+      "sha": "c28738d13858aceccef11f9773ced48c7c35365c",
+      "test": "observed running",
+      "test_run": 43651058528
+    },
+    "153": {
+      "preparation": "completed/success",
+      "preparation_run": 43651099447,
+      "sha": "bc1ba63225fec2fc229cccadbb53b4a358c0fd74",
+      "test": "observed running",
+      "test_run": 43651099439
+    },
+    "154": "Final source is qualified locally; final pushed handoff CI is observed separately.",
+    "archive_old_6679317_Test_43648300397": "completed/failure; two nested goldens corrected",
+    "manually_dispatched": false,
+    "prior_audit_ecaca37_Test_43646086434": "completed/success"
+  },
+  "corrections": [
+    "Initial archive test called preview() instead of document(); corrected before 39-case passing runs.",
+    "Initial workflow invocation named a nonexistent test and disabled development schema dependencies; failed/skip evidence was superseded by zero-skip runs.",
+    "Initial regeneration used an old editable engine and changed no files; corrected explicit source selection produced only allowlisted metadata hashes.",
+    "New query plan schema initially used an unsupported registry ID and lacked the explicit closed-inventory entry; corrected and verified with both validators.",
+    "A benchmark correctly denied a Git-contained control-state directory; final measurement uses a new private temporary location.",
+    "Native owner fixture initially lacked the generator contract and stable graph ordering; corrected fixture, with unchanged validators, passes all pinned owners.",
+    "Source-distribution inspection found the .sql fixture outside the existing manifest; identical SQL now uses .sql.txt and an explicit inventory assertion.",
+    "Hosted #152 6679317 full suite ran 652 cases on Python 3.12: 650 passed/two failed stale pipeline/reading goldens. Constrained metadata-only correction c28738d preserves every original/vault/public fact; five follow-up cases pass per Python.",
+    "Initial combined local Python 3.12 runner failed a child source-origin guard because it inherited the old editable engine; explicit PYTHONPATH fixed the runner. The final 127-case runs use the selected source and zero skips.",
+    "Final owner-version check distinguishes supported Observatory alpha.2 envelopes from upstream Hygiene alpha.1; final 19-case regressions and all three new 30-case artifact forms pass."
+  ],
+  "current_source_heads": {
+    "152": "c28738d13858aceccef11f9773ced48c7c35365c",
+    "153": "bc1ba63225fec2fc229cccadbb53b4a358c0fd74",
+    "154": "25a9df68ef9667f9b991dc7102e25eaaa484b1b5"
+  },
+  "default_branch_unchanged": "270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a",
+  "draft_stack": [
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154
+  ],
+  "limitations": [
+    "No merge, parent closure, new issue, ADR ratification, deployment, package release or paid workflow dispatch.",
+    "Mac/Drive/local activation, actual private archives, credentials and private/Empathy consumer acceptance stay parked/unperformed.",
+    "Query timings include tracemalloc and full authority/audit overhead; no speed, RSS, confidential-host or scaling guarantee.",
+    "Unknown archive profiles, claim/component/projection relationship kinds and private/inherited ADR authority need actual contracts.",
+    "Local/act full-suite and manual accessibility remain unperformed; process-level network mocks do not certify host isolation.",
+    "Bootstrap E402 import convention is explicit; one inherited CLI E702 remains. No repository-wide lint-clean claim.",
+    "Original four interrupted root WIP entries and all prior worktrees remain intact."
+  ],
+  "observed_at": "2026-11-14T23:11:18Z",
+  "parent_issues": [
+    15,
+    32,
+    44
+  ],
+  "qualification": {
+    "artifact_semantics": "Each form includes all three new test modules, v0 integration and the whole exact archive/review/search/context/relocation/restore golden. All imported engine modules originate in the selected form; wheel inventory is exactly Mindgarden.",
+    "combined_source_revision": "954fa888c72bc67085ef843e3a02065561345e2c",
+    "compilation": {
+      "command": "python -m compileall -q src scripts tests",
+      "outcome": "passed",
+      "python": [
+        "3.12.14",
+        "3.13.5"
+      ]
+    },
+    "distribution_tests": {
+      "python312": {
+        "command": "python -m unittest tests.test_distribution --verbose",
+        "outcome": "passed",
+        "seconds": 0.08,
+        "skipped": 0,
+        "tests": 2
+      },
+      "python313": {
+        "command": "python -m unittest tests.test_distribution --verbose",
+        "outcome": "passed",
+        "seconds": 0.049,
+        "skipped": 0,
+        "tests": 2
+      }
+    },
+    "final_artifact_boundaries": {
+      "clean-git": {
+        "distributions": "site-disabled",
+        "mode": "clean-git",
+        "modules": [
+          "tests.test_archive_delivery",
+          "tests.test_query_store_evolution",
+          "tests.test_decision_relationships",
+          "tests.test_standalone_integration",
+          "tests.test_private_garden_workflow"
+        ],
+        "seconds": 18.474,
+        "skipped": 0,
+        "status": "passed",
+        "tests": 30,
+        "verified_module_origins": 100
+      },
+      "source-archive": {
+        "distributions": "site-disabled",
+        "mode": "source-archive",
+        "modules": [
+          "tests.test_archive_delivery",
+          "tests.test_query_store_evolution",
+          "tests.test_decision_relationships",
+          "tests.test_standalone_integration",
+          "tests.test_private_garden_workflow"
+        ],
+        "seconds": 18.623,
+        "skipped": 0,
+        "status": "passed",
+        "tests": 30,
+        "verified_module_origins": 100
+      },
+      "wheel": {
+        "distributions": [
+          "mindgarden"
+        ],
+        "mode": "wheel",
+        "modules": [
+          "tests.test_archive_delivery",
+          "tests.test_query_store_evolution",
+          "tests.test_decision_relationships",
+          "tests.test_standalone_integration",
+          "tests.test_private_garden_workflow"
+        ],
+        "seconds": 18.773,
+        "skipped": 0,
+        "status": "passed",
+        "tests": 30,
+        "verified_module_origins": 100
+      }
+    },
+    "final_artifact_commands": [
+      "/workspace/mindgarden/.venv/bin/python -S .cache/integration-boundary.py clean-git .cache/integration-qualification/guard-git .cache/integration-qualification/guard-clean-git.json",
+      ".cache/integration-qualification/wheel/bin/python -I .cache/integration-boundary.py wheel .cache/integration-qualification/guard-git .cache/integration-qualification/guard-wheel.json",
+      "/workspace/mindgarden/.venv/bin/python -S .cache/integration-boundary.py source-archive .cache/integration-qualification/guard-source-archive/mindgarden-0.1.0 .cache/integration-qualification/guard-source-archive.json"
+    ],
+    "final_delta_from_combined": "diff --git a/src/mindgarden/application/decisions.py b/src/mindgarden/application/decisions.py\nindex 9e73e19..5f66921 100644\n--- a/src/mindgarden/application/decisions.py\n+++ b/src/mindgarden/application/decisions.py\n@@ -230,7 +230,7 @@ def project_decisions(\n         not isinstance(snapshot, dict)\n         or snapshot.get(\"schema\") != READ_MODEL\n         or snapshot.get(\"visibility\") != \"public\"\n-        or snapshot.get(\"contract_version\") not in {\"1.0.0-alpha.1\", \"1.0.0-alpha.2\"}\n+        or snapshot.get(\"contract_version\") != \"1.0.0-alpha.2\"\n         or not re.fullmatch(r\"[0-9a-f]{40}\", represented_commit)\n         or snapshot.get(\"represented_commit\") != represented_commit\n     ):\ndiff --git a/tests/test_decision_relationships.py b/tests/test_decision_relationships.py\nindex cd38e50..37cc6d2 100644\n--- a/tests/test_decision_relationships.py\n+++ b/tests/test_decision_relationships.py\n@@ -195,7 +195,7 @@ class DecisionRelationshipTests(unittest.TestCase):\n \n     def test_unknown_versions_duplicate_evidence_and_budget_overflow_fail_closed(self):\n         original = deepcopy(self.snapshot)\n-        for version in (None, \"1.0.0-future\"):\n+        for version in (None, \"1.0.0-alpha.1\", \"1.0.0-future\"):\n             self.snapshot[\"contract_version\"] = version\n             with self.assertRaisesRegex(ContractError, \"DECISIONS_INPUT\"):\n                 self.project()\n",
+    "final_delta_reason": "Require the owner-supported Observatory alpha.2 read-model envelope, distinguish upstream Hygiene alpha.1 inputs, and test explicit alpha.1-envelope rejection. No archive/cache change.",
+    "final_guard_regressions": {
+      "python312": {
+        "log_sha256": "5efc5e25eb30faa22cda055168f39c9b1e92c7b2b98aa57dbe195e80d81bc435",
+        "outcome": "passed",
+        "seconds": 1.08,
+        "skipped": 0,
+        "tests": 19
+      },
+      "python313": {
+        "log_sha256": "f489f252b1896ada4c88c1b210d0aa820e6129a40aee10c53ca90ea9b7a8eeaf",
+        "outcome": "passed",
+        "seconds": 1.014,
+        "skipped": 0,
+        "tests": 19
+      }
+    },
+    "focused": {
+      "final312": {
+        "complete": true,
+        "interpreter": "/workspace/mindgarden/.venv/bin/python",
+        "modules": [
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_archive_delivery",
+              "--verbose"
+            ],
+            "module": "tests.test_archive_delivery",
+            "returncode": 0,
+            "seconds": 1.509,
+            "skipped": false,
+            "tests": 5,
+            "unittest_seconds": 1.343
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_archive_continuation",
+              "--verbose"
+            ],
+            "module": "tests.test_archive_continuation",
+            "returncode": 0,
+            "seconds": 0.874,
+            "skipped": false,
+            "tests": 3,
+            "unittest_seconds": 0.741
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_archive_v2",
+              "--verbose"
+            ],
+            "module": "tests.test_archive_v2",
+            "returncode": 0,
+            "seconds": 3.885,
+            "skipped": false,
+            "tests": 5,
+            "unittest_seconds": 3.705
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_conversation_archives",
+              "--verbose"
+            ],
+            "module": "tests.test_conversation_archives",
+            "returncode": 0,
+            "seconds": 5.493,
+            "skipped": false,
+            "tests": 7,
+            "unittest_seconds": 5.322
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_archive_selection",
+              "--verbose"
+            ],
+            "module": "tests.test_archive_selection",
+            "returncode": 0,
+            "seconds": 2.54,
+            "skipped": false,
+            "tests": 6,
+            "unittest_seconds": 2.343
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_archive_diagrams",
+              "--verbose"
+            ],
+            "module": "tests.test_archive_diagrams",
+            "returncode": 0,
+            "seconds": 1.722,
+            "skipped": false,
+            "tests": 3,
+            "unittest_seconds": 1.568
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_query_store_evolution",
+              "--verbose"
+            ],
+            "module": "tests.test_query_store_evolution",
+            "returncode": 0,
+            "seconds": 11.76,
+            "skipped": false,
+            "tests": 11,
+            "unittest_seconds": 11.557
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_query_store",
+              "--verbose"
+            ],
+            "module": "tests.test_query_store",
+            "returncode": 0,
+            "seconds": 6.964,
+            "skipped": false,
+            "tests": 10,
+            "unittest_seconds": 6.814
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_decision_relationships",
+              "--verbose"
+            ],
+            "module": "tests.test_decision_relationships",
+            "returncode": 0,
+            "seconds": 0.561,
+            "skipped": false,
+            "tests": 8,
+            "unittest_seconds": 0.422
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_decisions",
+              "--verbose"
+            ],
+            "module": "tests.test_decisions",
+            "returncode": 0,
+            "seconds": 0.36,
+            "skipped": false,
+            "tests": 6,
+            "unittest_seconds": 0.21
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_v1_contracts",
+              "--verbose"
+            ],
+            "module": "tests.test_v1_contracts",
+            "returncode": 0,
+            "seconds": 0.647,
+            "skipped": false,
+            "tests": 5,
+            "unittest_seconds": 0.518
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_v1_retrieval",
+              "--verbose"
+            ],
+            "module": "tests.test_v1_retrieval",
+            "returncode": 0,
+            "seconds": 5.157,
+            "skipped": false,
+            "tests": 4,
+            "unittest_seconds": 5.029
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_scope_bundle_outputs",
+              "--verbose"
+            ],
+            "module": "tests.test_scope_bundle_outputs",
+            "returncode": 0,
+            "seconds": 10.705,
+            "skipped": false,
+            "tests": 8,
+            "unittest_seconds": 10.58
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_scoped_retrieval",
+              "--verbose"
+            ],
+            "module": "tests.test_scoped_retrieval",
+            "returncode": 0,
+            "seconds": 13.986,
+            "skipped": false,
+            "tests": 15,
+            "unittest_seconds": 13.858
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_source_adapters",
+              "--verbose"
+            ],
+            "module": "tests.test_source_adapters",
+            "returncode": 0,
+            "seconds": 2.455,
+            "skipped": false,
+            "tests": 7,
+            "unittest_seconds": 2.316
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_standalone_integration",
+              "--verbose"
+            ],
+            "module": "tests.test_standalone_integration",
+            "returncode": 0,
+            "seconds": 0.101,
+            "skipped": false,
+            "tests": 4,
+            "unittest_seconds": 0.011
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_private_garden_workflow",
+              "--verbose"
+            ],
+            "module": "tests.test_private_garden_workflow",
+            "returncode": 0,
+            "seconds": 7.18,
+            "skipped": false,
+            "tests": 2,
+            "unittest_seconds": 7.043
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_mixed_vault_workflow",
+              "--verbose"
+            ],
+            "module": "tests.test_mixed_vault_workflow",
+            "returncode": 0,
+            "seconds": 24.767,
+            "skipped": false,
+            "tests": 1,
+            "unittest_seconds": 24.701
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_release_journey",
+              "--verbose"
+            ],
+            "module": "tests.test_release_journey",
+            "returncode": 0,
+            "seconds": 17.117,
+            "skipped": false,
+            "tests": 2,
+            "unittest_seconds": 16.956
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_compaction",
+              "--verbose"
+            ],
+            "module": "tests.test_compaction",
+            "returncode": 0,
+            "seconds": 28.116,
+            "skipped": false,
+            "tests": 10,
+            "unittest_seconds": 27.928
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_pipeline_completion",
+              "--verbose"
+            ],
+            "module": "tests.test_pipeline_completion",
+            "returncode": 0,
+            "seconds": 42.157,
+            "skipped": false,
+            "tests": 3,
+            "unittest_seconds": 42.02
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.venv/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_reading_journey",
+              "--verbose"
+            ],
+            "module": "tests.test_reading_journey",
+            "returncode": 0,
+            "seconds": 33.711,
+            "skipped": false,
+            "tests": 2,
+            "unittest_seconds": 33.63
+          }
+        ],
+        "returncode": 0,
+        "revision": "954fa888c72bc67085ef843e3a02065561345e2c",
+        "skipped": 0,
+        "tests": 127,
+        "wall_seconds": 221.775
+      },
+      "final313": {
+        "complete": true,
+        "interpreter": "/workspace/mindgarden/.cache/python313/bin/python",
+        "modules": [
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_archive_delivery",
+              "--verbose"
+            ],
+            "module": "tests.test_archive_delivery",
+            "returncode": 0,
+            "seconds": 1.46,
+            "skipped": false,
+            "tests": 5,
+            "unittest_seconds": 1.346
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_archive_continuation",
+              "--verbose"
+            ],
+            "module": "tests.test_archive_continuation",
+            "returncode": 0,
+            "seconds": 0.807,
+            "skipped": false,
+            "tests": 3,
+            "unittest_seconds": 0.691
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_archive_v2",
+              "--verbose"
+            ],
+            "module": "tests.test_archive_v2",
+            "returncode": 0,
+            "seconds": 4.447,
+            "skipped": false,
+            "tests": 5,
+            "unittest_seconds": 4.355
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_conversation_archives",
+              "--verbose"
+            ],
+            "module": "tests.test_conversation_archives",
+            "returncode": 0,
+            "seconds": 5.77,
+            "skipped": false,
+            "tests": 7,
+            "unittest_seconds": 5.649
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_archive_selection",
+              "--verbose"
+            ],
+            "module": "tests.test_archive_selection",
+            "returncode": 0,
+            "seconds": 2.788,
+            "skipped": false,
+            "tests": 6,
+            "unittest_seconds": 2.637
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_archive_diagrams",
+              "--verbose"
+            ],
+            "module": "tests.test_archive_diagrams",
+            "returncode": 0,
+            "seconds": 1.665,
+            "skipped": false,
+            "tests": 3,
+            "unittest_seconds": 1.533
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_query_store_evolution",
+              "--verbose"
+            ],
+            "module": "tests.test_query_store_evolution",
+            "returncode": 0,
+            "seconds": 10.99,
+            "skipped": false,
+            "tests": 11,
+            "unittest_seconds": 10.84
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_query_store",
+              "--verbose"
+            ],
+            "module": "tests.test_query_store",
+            "returncode": 0,
+            "seconds": 6.755,
+            "skipped": false,
+            "tests": 10,
+            "unittest_seconds": 6.623
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_decision_relationships",
+              "--verbose"
+            ],
+            "module": "tests.test_decision_relationships",
+            "returncode": 0,
+            "seconds": 0.423,
+            "skipped": false,
+            "tests": 8,
+            "unittest_seconds": 0.328
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_decisions",
+              "--verbose"
+            ],
+            "module": "tests.test_decisions",
+            "returncode": 0,
+            "seconds": 0.257,
+            "skipped": false,
+            "tests": 6,
+            "unittest_seconds": 0.183
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_v1_contracts",
+              "--verbose"
+            ],
+            "module": "tests.test_v1_contracts",
+            "returncode": 0,
+            "seconds": 0.643,
+            "skipped": false,
+            "tests": 5,
+            "unittest_seconds": 0.544
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_v1_retrieval",
+              "--verbose"
+            ],
+            "module": "tests.test_v1_retrieval",
+            "returncode": 0,
+            "seconds": 5.11,
+            "skipped": false,
+            "tests": 4,
+            "unittest_seconds": 5.017
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_scope_bundle_outputs",
+              "--verbose"
+            ],
+            "module": "tests.test_scope_bundle_outputs",
+            "returncode": 0,
+            "seconds": 10.306,
+            "skipped": false,
+            "tests": 8,
+            "unittest_seconds": 10.21
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_scoped_retrieval",
+              "--verbose"
+            ],
+            "module": "tests.test_scoped_retrieval",
+            "returncode": 0,
+            "seconds": 13.57,
+            "skipped": false,
+            "tests": 15,
+            "unittest_seconds": 13.433
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_source_adapters",
+              "--verbose"
+            ],
+            "module": "tests.test_source_adapters",
+            "returncode": 0,
+            "seconds": 2.439,
+            "skipped": false,
+            "tests": 7,
+            "unittest_seconds": 2.337
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_standalone_integration",
+              "--verbose"
+            ],
+            "module": "tests.test_standalone_integration",
+            "returncode": 0,
+            "seconds": 0.071,
+            "skipped": false,
+            "tests": 4,
+            "unittest_seconds": 0.009
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_private_garden_workflow",
+              "--verbose"
+            ],
+            "module": "tests.test_private_garden_workflow",
+            "returncode": 0,
+            "seconds": 7.118,
+            "skipped": false,
+            "tests": 2,
+            "unittest_seconds": 7.019
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_mixed_vault_workflow",
+              "--verbose"
+            ],
+            "module": "tests.test_mixed_vault_workflow",
+            "returncode": 0,
+            "seconds": 24.37,
+            "skipped": false,
+            "tests": 1,
+            "unittest_seconds": 24.32
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_release_journey",
+              "--verbose"
+            ],
+            "module": "tests.test_release_journey",
+            "returncode": 0,
+            "seconds": 16.444,
+            "skipped": false,
+            "tests": 2,
+            "unittest_seconds": 16.345
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_compaction",
+              "--verbose"
+            ],
+            "module": "tests.test_compaction",
+            "returncode": 0,
+            "seconds": 27.184,
+            "skipped": false,
+            "tests": 10,
+            "unittest_seconds": 27.038
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_pipeline_completion",
+              "--verbose"
+            ],
+            "module": "tests.test_pipeline_completion",
+            "returncode": 0,
+            "seconds": 39.819,
+            "skipped": false,
+            "tests": 3,
+            "unittest_seconds": 39.7
+          },
+          {
+            "command": [
+              "/workspace/mindgarden/.cache/python313/bin/python",
+              "-m",
+              "unittest",
+              "tests.test_reading_journey",
+              "--verbose"
+            ],
+            "module": "tests.test_reading_journey",
+            "returncode": 0,
+            "seconds": 33.37,
+            "skipped": false,
+            "tests": 2,
+            "unittest_seconds": 33.311
+          }
+        ],
+        "returncode": 0,
+        "revision": "954fa888c72bc67085ef843e3a02065561345e2c",
+        "skipped": 0,
+        "tests": 127,
+        "wall_seconds": 215.816
+      }
+    },
+    "format": {
+      "outcome": "passed",
+      "selected_files": 11
+    },
+    "instrumented_query_observation": {
+      "audited_sqlite_search_seconds": 0.354946,
+      "authorized_index_seconds": 21.955085,
+      "cache_build_seconds": 14.13378,
+      "capabilities": {
+        "adapter": "sqlite-fts5",
+        "backlinks": true,
+        "canonical_storage": false,
+        "database_version": 2,
+        "encrypted_storage": false,
+        "incremental_update": true,
+        "lexical": true,
+        "migrate_from": [
+          1
+        ],
+        "rebuild": true,
+        "schema": "mindgarden.query-store/v1",
+        "schema_migration": true,
+        "sqlite_version": "3.53.1",
+        "typed_traversal": true,
+        "vectors": false
+      },
+      "claims": 1,
+      "database_bytes": 1261568,
+      "network": "blocked-in-process",
+      "notes": 256,
+      "parity": "exact",
+      "peak_python_allocated_bytes": 20244021,
+      "platform": "Linux",
+      "python": "3.12.14",
+      "reference_rank_seconds": 0.001692,
+      "refresh": {
+        "apply_seconds": 13.932253,
+        "authority": "renewed-exact-session",
+        "changed_records": 1,
+        "current_authorized_index_seconds": 22.300901,
+        "parity": "exact",
+        "review_plan_seconds": 0.090788
+      },
+      "schema": "example.query-store-benchmark/1"
+    },
+    "isolated_v0_smoke": [
+      {
+        "artifact_revision": "25a9df68ef9667f9b991dc7102e25eaaa484b1b5",
+        "command": [
+          "/workspace/mindgarden/.cache/decision-relationships/.cache/integration-qualification/wheel/bin/mindgarden",
+          "--version"
+        ],
+        "returncode": 0
+      },
+      {
+        "artifact_revision": "25a9df68ef9667f9b991dc7102e25eaaa484b1b5",
+        "command": [
+          "/workspace/mindgarden/.cache/decision-relationships/.cache/integration-qualification/wheel/bin/mindgarden",
+          "version"
+        ],
+        "returncode": 0
+      },
+      {
+        "artifact_revision": "25a9df68ef9667f9b991dc7102e25eaaa484b1b5",
+        "command": [
+          "/workspace/mindgarden/.cache/decision-relationships/.cache/integration-qualification/wheel/bin/mindgarden",
+          "init",
+          "--help"
+        ],
+        "returncode": 0
+      },
+      {
+        "artifact_revision": "25a9df68ef9667f9b991dc7102e25eaaa484b1b5",
+        "command": [
+          "/workspace/mindgarden/.cache/decision-relationships/.cache/integration-qualification/wheel/bin/mindgarden",
+          "migrate",
+          "--help"
+        ],
+        "returncode": 0
+      },
+      {
+        "artifact_revision": "25a9df68ef9667f9b991dc7102e25eaaa484b1b5",
+        "command": [
+          "/workspace/mindgarden/.cache/decision-relationships/.cache/integration-qualification/wheel/bin/mindgarden",
+          "validate",
+          "--repository-root",
+          "/workspace/mindgarden/.cache/decision-relationships/.cache/integration-qualification/qualified-git/tests/fixtures/public-garden"
+        ],
+        "returncode": 0
+      },
+      {
+        "artifact_revision": "25a9df68ef9667f9b991dc7102e25eaaa484b1b5",
+        "command": [
+          "/workspace/mindgarden/.cache/decision-relationships/.cache/integration-qualification/wheel/bin/mindgarden",
+          "verify",
+          "--repository-root",
+          "/workspace/mindgarden/.cache/decision-relationships/.cache/integration-qualification/qualified-git/tests/fixtures/public-garden"
+        ],
+        "returncode": 0
+      },
+      {
+        "artifact_revision": "25a9df68ef9667f9b991dc7102e25eaaa484b1b5",
+        "command": [
+          "/workspace/mindgarden/.cache/decision-relationships/.cache/integration-qualification/wheel/bin/mindgarden",
+          "publish",
+          "verify",
+          "--repository-root",
+          "/workspace/mindgarden/.cache/decision-relationships/.cache/integration-qualification/qualified-git/tests/fixtures/public-garden"
+        ],
+        "returncode": 0
+      },
+      {
+        "artifact_revision": "25a9df68ef9667f9b991dc7102e25eaaa484b1b5",
+        "command": [
+          "/workspace/mindgarden/.cache/decision-relationships/.cache/integration-qualification/wheel/bin/python",
+          "-I",
+          "-c",
+          "from pathlib import Path; import mindgarden; assert mindgarden.__version__ == '0.1.0'; assert mindgarden.validate_repository(Path(__import__('sys').argv[1])) == 3",
+          "/workspace/mindgarden/.cache/decision-relationships/.cache/integration-qualification/qualified-git/tests/fixtures/public-garden"
+        ],
+        "returncode": 0
+      }
+    ],
+    "lint": {
+      "base_findings": 4,
+      "bootstrap_convention": {
+        "base": 3,
+        "current": 7,
+        "file": "scripts/query_store_benchmark.py",
+        "ignored_code": "E402"
+      },
+      "current_findings": 8,
+      "files": [
+        "scripts/query_store_benchmark.py",
+        "scripts/verify_decision_relationships.py",
+        "src/mindgarden/adapters/archive_delivery.py",
+        "src/mindgarden/adapters/archive_v2.py",
+        "src/mindgarden/adapters/conversation_archive.py",
+        "src/mindgarden/adapters/sqlite_query.py",
+        "src/mindgarden/application/decisions.py",
+        "src/mindgarden/application/query_store.py",
+        "src/mindgarden/domain/query_store.py",
+        "src/mindgarden/interfaces/cli.py",
+        "tests/test_archive_delivery.py",
+        "tests/test_decision_relationships.py",
+        "tests/test_distribution.py",
+        "tests/test_query_store_evolution.py",
+        "tests/test_v1_contracts.py"
+      ],
+      "inherited_finding": "src/mindgarden/interfaces/cli.py E702 at unchanged line 591",
+      "new": [],
+      "new_findings": 0,
+      "ordinary_base_findings": 1,
+      "ordinary_current_findings": 1,
+      "ordinary_new_findings": 0
+    },
+    "local_links": {
+      "files": 10,
+      "outcome": "passed-after-final-docs",
+      "targets": 124
+    },
+    "native_owner_command": "python scripts/verify_decision_relationships.py --owner-sources .cache/decision-owner-sources --require-source",
+    "native_owner_final_python312_sha256": "3119ea609d24b9c09dd4eaf97a2813528cd974e54186bca7ff3bfb3dbd9c790c",
+    "native_owner_final_python313_sha256": "3119ea609d24b9c09dd4eaf97a2813528cd974e54186bca7ff3bfb3dbd9c790c",
+    "native_owner_proof": {
+      "canonical_adr_bodies": "not-copied",
+      "context_entries": 8,
+      "decisions": 3,
+      "input_sha256": "ea30c6f1ea2d9a5ae14e7d4c8c9acb8efc149bd84d9ea50e4113d5bfcf0dbf76",
+      "limitations": [
+        "Synthetic assertions do not establish human approval, whole-repository conformance or actual consumer deployment.",
+        "Claims, architecture-component/projection kinds and private authority need their own supported contracts."
+      ],
+      "model": "unused",
+      "network": "blocked-in-process",
+      "owner_revisions": {
+        "hygiene": "d51043f1e4d2ddc22ef4534bd0d65c0053afcbda",
+        "observatory": "7f399a0b32a1abdd1283ef8bf06b8c3cda703636",
+        "relay": "5de708368b42601e140c58f4ab8f305fe2dc5c82"
+      },
+      "projection_sha256": "2caa4429516b2119e3e5476ca77a67bc87090f926cee3cfac1402a727e41a139",
+      "publication": "not-performed",
+      "related_artifacts": 6,
+      "schema": "example.decision-owner-proof/v1",
+      "snapshot_sha256": "82a3bc9cb2db13facd3837a4e964c1985f9039ee78e400d574d28d96464233ba",
+      "status": "passed",
+      "typed_edges": 8
+    },
+    "owner_continuity": {
+      "approval": "null",
+      "command": "python /workspace/mindgarden/.cache/context_phase_owner_checks.py",
+      "coverage_rows": 44,
+      "headings": 12,
+      "indexed_proposals": 18,
+      "legacy_labels": "six unchanged Accepted labels",
+      "max_bytes": 16384,
+      "max_lines": 240,
+      "native_children": "87–91 under 86",
+      "outcome": "passed"
+    }
+  },
+  "repository": "https://github.com/egohygiene/mindgarden",
+  "runner_sources": {
+    "integration-boundary.py": "import importlib.metadata\nimport json\nfrom pathlib import Path\nimport sys\nimport time\nimport unittest\nmode, root, report_path = sys.argv[1], Path(sys.argv[2]).resolve(), Path(sys.argv[3])\nif mode != 'wheel':\n sys.path.insert(0,str(root/'src'))\nimport mindgarden\nexpected = Path(sys.prefix).resolve() if mode=='wheel' else root/'src'\nassert Path(mindgarden.__file__).resolve().is_relative_to(expected)\nif mode=='wheel':\n distributions=sorted(item.metadata['Name'] for item in importlib.metadata.distributions())\n assert distributions==['mindgarden'],distributions\nelse:\n distributions='site-disabled'\nsys.path.insert(0,str(root))\nmodules=['tests.test_archive_delivery','tests.test_query_store_evolution','tests.test_decision_relationships','tests.test_standalone_integration','tests.test_private_garden_workflow']\nstarted=time.monotonic()\nresult=unittest.TextTestRunner(stream=sys.stdout,verbosity=1).run(unittest.defaultTestLoader.loadTestsFromNames(modules))\nif not result.wasSuccessful() or result.skipped:\n raise SystemExit(1)\norigins=[Path(module.__file__).resolve() for name,module in sys.modules.items() if name.startswith('mindgarden') and getattr(module,'__file__',None)]\nassert origins and all(path.is_relative_to(expected) for path in origins),origins\nreport={'mode':mode,'tests':result.testsRun,'skipped':len(result.skipped),'seconds':round(time.monotonic()-started,3),'modules':modules,'verified_module_origins':len(origins),'distributions':distributions,'status':'passed'}\nreport_path.write_text(json.dumps(report,indent=2)+'\\n')\nprint(json.dumps(report),flush=True)\n",
+    "integration-focused.py": "import json\nimport os\nfrom pathlib import Path\nimport re\nimport subprocess\nimport sys\nimport time\n\nroot, interpreter, label = Path(sys.argv[1]), sys.argv[2], sys.argv[3]\nmodules = ['tests.test_archive_delivery', 'tests.test_archive_continuation', 'tests.test_archive_v2', 'tests.test_conversation_archives', 'tests.test_archive_selection', 'tests.test_archive_diagrams', 'tests.test_query_store_evolution', 'tests.test_query_store', 'tests.test_decision_relationships', 'tests.test_decisions', 'tests.test_v1_contracts', 'tests.test_v1_retrieval', 'tests.test_scope_bundle_outputs', 'tests.test_scoped_retrieval', 'tests.test_source_adapters', 'tests.test_standalone_integration', 'tests.test_private_garden_workflow', 'tests.test_mixed_vault_workflow', 'tests.test_release_journey', 'tests.test_compaction', 'tests.test_pipeline_completion', 'tests.test_reading_journey']\ndirectory = root / \".cache/integration-qualification\"\ndirectory.mkdir(parents=True, exist_ok=True)\nrevision = subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=root, text=True).strip()\nreport = {\"revision\":revision,\"interpreter\":interpreter,\"modules\":[],\"complete\":False}\npath = directory / (label+\".json\")\nstart=time.monotonic()\nfor module in modules:\n    command=[interpreter,\"-m\",\"unittest\",module,\"--verbose\"]\n    begin=time.monotonic()\n    log_path=directory/(label+\"-\"+module.split(\".\")[-1]+\".log\")\n    output=[]\n    with log_path.open(\"w\") as log:\n        process=subprocess.Popen(command,cwd=root,env={**os.environ,\"PYTHONPATH\":str(root/\"src\")},stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1)\n        for line in process.stdout:\n            log.write(line);log.flush();output.append(line)\n        returncode=process.wait()\n    text=\"\".join(output)\n    match=re.search(r\"Ran (\\d+) tests? in ([\\d.]+)s\",text)\n    entry={\"module\":module,\"command\":command,\"returncode\":returncode,\n           \"tests\":int(match[1]) if match else None,\"seconds\":round(time.monotonic()-begin,3),\n           \"unittest_seconds\":float(match[2]) if match else None,\"skipped\":\"skipped=\" in text}\n    report[\"modules\"].append(entry)\n    report[\"wall_seconds\"]=round(time.monotonic()-start,3)\n    path.write_text(json.dumps(report,indent=2)+\"\\n\")\n    print(json.dumps({\"label\":label,**entry}),flush=True)\n    if returncode or entry[\"skipped\"]:\n        print(text[-18000:],flush=True)\n        raise SystemExit(1)\nreport.update(complete=True,tests=sum(item[\"tests\"] for item in report[\"modules\"]),\n              skipped=0,returncode=0)\npath.write_text(json.dumps(report,indent=2)+\"\\n\")\nprint(json.dumps({\"label\":label,\"complete\":True,\"tests\":report[\"tests\"],\"wall_seconds\":report[\"wall_seconds\"]}),flush=True)\n"
+  },
+  "schema": "example.pipeline-integration-qualification/v1",
+  "source_revision": "25a9df68ef9667f9b991dc7102e25eaaa484b1b5",
+  "states": {
+    "fully_accepted": false,
+    "implemented": "on-draft-branches",
+    "merged": false,
+    "open_issues": 34,
+    "reviewed": "maintainer-review-pending",
+    "tested": "bounded-local-and-packaged",
+    "tracked_rows": 44
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "canonical_adr_bodies": "not-copied",
+  "context_entries": 8,
+  "decisions": 3,
+  "input_sha256": "ea30c6f1ea2d9a5ae14e7d4c8c9acb8efc149bd84d9ea50e4113d5bfcf0dbf76",
+  "limitations": [
+    "Synthetic assertions do not establish human approval, whole-repository conformance or actual consumer deployment.",
+    "Claims, architecture-component/projection kinds and private authority need their own supported contracts."
+  ],
+  "model": "unused",
+  "network": "blocked-in-process",
+  "owner_revisions": {
+    "hygiene": "d51043f1e4d2ddc22ef4534bd0d65c0053afcbda",
+    "observatory": "7f399a0b32a1abdd1283ef8bf06b8c3cda703636",
+    "relay": "5de708368b42601e140c58f4ab8f305fe2dc5c82"
+  },
+  "projection_sha256": "2caa4429516b2119e3e5476ca77a67bc87090f926cee3cfac1402a727e41a139",
+  "publication": "not-performed",
+  "related_artifacts": 6,
+  "schema": "example.decision-owner-proof/v1",
+  "snapshot_sha256": "82a3bc9cb2db13facd3837a4e964c1985f9039ee78e400d574d28d96464233ba",
+  "status": "passed",
+  "typed_edges": 8
+}

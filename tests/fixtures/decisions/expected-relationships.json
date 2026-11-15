@@ -1,0 +1,655 @@
+{
+  "artifacts": [
+    {
+      "assertion": "authoritative",
+      "id": "ri:egohygiene/relay:check:repository-intelligence-812",
+      "key": "repository-intelligence-812",
+      "kind": "check",
+      "observed_in_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": null,
+          "source": "https://github.com/egohygiene/relay/actions/runs/812"
+        }
+      ],
+      "repository": "egohygiene/relay",
+      "source": "https://github.com/egohygiene/relay/actions/runs/812",
+      "state": "success",
+      "title": "Repository Intelligence validation",
+      "visibility": "public"
+    },
+    {
+      "assertion": "authoritative",
+      "id": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "key": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "kind": "commit",
+      "observed_in_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "not_applicable",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "source": "https://github.com/egohygiene/relay/commit/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        }
+      ],
+      "repository": "egohygiene/relay",
+      "source": "https://github.com/egohygiene/relay/commit/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "state": "recorded",
+      "title": "feat(intelligence): publish the normalized graph",
+      "visibility": "public"
+    },
+    {
+      "assertion": "authoritative",
+      "id": "ri:egohygiene/relay:issue:27",
+      "key": "27",
+      "kind": "issue",
+      "observed_in_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": null,
+          "source": "https://github.com/egohygiene/relay/issues/27"
+        }
+      ],
+      "repository": "egohygiene/relay",
+      "source": "https://github.com/egohygiene/relay/issues/27",
+      "state": "closed",
+      "title": "Build the Repository Intelligence experience",
+      "visibility": "public"
+    },
+    {
+      "assertion": "authoritative",
+      "id": "ri:egohygiene/relay:pull-request:28",
+      "key": "28",
+      "kind": "pull_request",
+      "observed_in_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": null,
+          "source": "https://github.com/egohygiene/relay/pull/28"
+        }
+      ],
+      "repository": "egohygiene/relay",
+      "source": "https://github.com/egohygiene/relay/pull/28",
+      "state": "merged",
+      "title": "Build the shared Repository Intelligence shell",
+      "visibility": "public"
+    },
+    {
+      "assertion": "authoritative",
+      "id": "ri:egohygiene/relay:release:v0.4.0",
+      "key": "v0.4.0",
+      "kind": "release",
+      "observed_in_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/releases/tag/v0.4.0"
+        }
+      ],
+      "repository": "egohygiene/relay",
+      "source": "https://github.com/egohygiene/relay/releases/tag/v0.4.0",
+      "state": "published",
+      "title": "Repository Intelligence v0.4.0",
+      "visibility": "public"
+    },
+    {
+      "assertion": "authoritative",
+      "id": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+      "key": "REL-RM-003",
+      "kind": "roadmap_step",
+      "observed_in_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md"
+        }
+      ],
+      "repository": "egohygiene/relay",
+      "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-003",
+      "state": "complete",
+      "title": "Publish roadmap validation and evidence assembly",
+      "visibility": "public"
+    }
+  ],
+  "authority": "upstream-assertions-only",
+  "backlinks": {
+    "ri:egohygiene/hygiene:architecture-decision:ADR-0010": [
+      {
+        "assertion": "authoritative",
+        "provenance": [
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+          },
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "cccccccccccccccccccccccccccccccccccccccc",
+            "source": "https://github.com/egohygiene/hygiene/blob/cccccccccccccccccccccccccccccccccccccccc/docs/decisions/ADR-0010-synthetic.md"
+          }
+        ],
+        "source": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "target": "ri:egohygiene/hygiene:architecture-decision:ADR-0010",
+        "type": "depends-on"
+      }
+    ],
+    "ri:egohygiene/relay:architecture-decision:ADR-006": [
+      {
+        "assertion": "authoritative",
+        "provenance": [
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-006-synthetic.md"
+          },
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+          }
+        ],
+        "source": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "target": "ri:egohygiene/relay:architecture-decision:ADR-006",
+        "type": "supersedes"
+      }
+    ],
+    "ri:egohygiene/relay:architecture-decision:ADR-007": [
+      {
+        "assertion": "authoritative",
+        "provenance": [
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+          },
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source": "https://github.com/egohygiene/relay/releases/tag/v0.4.0"
+          }
+        ],
+        "source": "ri:egohygiene/relay:release:v0.4.0",
+        "target": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "type": "evidences"
+      },
+      {
+        "assertion": "authoritative",
+        "provenance": [
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+          },
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": null,
+            "source": "https://github.com/egohygiene/relay/actions/runs/812"
+          }
+        ],
+        "source": "ri:egohygiene/relay:check:repository-intelligence-812",
+        "target": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "type": "verifies"
+      },
+      {
+        "assertion": "authoritative",
+        "provenance": [
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+          },
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": null,
+            "source": "https://github.com/egohygiene/relay/pull/28"
+          }
+        ],
+        "source": "ri:egohygiene/relay:pull-request:28",
+        "target": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "type": "implements"
+      },
+      {
+        "assertion": "authoritative",
+        "provenance": [
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+          },
+          {
+            "assertion": "authoritative",
+            "freshness": "not_applicable",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "source": "https://github.com/egohygiene/relay/commit/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          }
+        ],
+        "source": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "target": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "type": "evidences"
+      }
+    ],
+    "ri:egohygiene/relay:check:repository-intelligence-812": [],
+    "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb": [],
+    "ri:egohygiene/relay:issue:27": [
+      {
+        "assertion": "inferred",
+        "provenance": [
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+          },
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": null,
+            "source": "https://github.com/egohygiene/relay/issues/27"
+          }
+        ],
+        "source": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "target": "ri:egohygiene/relay:issue:27",
+        "type": "tracks"
+      }
+    ],
+    "ri:egohygiene/relay:pull-request:28": [],
+    "ri:egohygiene/relay:release:v0.4.0": [],
+    "ri:egohygiene/relay:roadmap-step:REL-RM-003": [
+      {
+        "assertion": "authoritative",
+        "provenance": [
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md"
+          },
+          {
+            "assertion": "authoritative",
+            "freshness": "current",
+            "observed_at": "2026-08-25T14:00:00Z",
+            "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+          }
+        ],
+        "source": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "target": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+        "type": "informs"
+      }
+    ]
+  },
+  "context": [
+    {
+      "assertion": "authoritative",
+      "decision": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+      "reason": "related-to-selected-decision",
+      "reference": "https://github.com/egohygiene/relay/actions/runs/812",
+      "relationship": "verifies",
+      "status": "success",
+      "title": "Repository Intelligence validation",
+      "untrusted": true
+    },
+    {
+      "assertion": "authoritative",
+      "decision": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+      "reason": "related-to-selected-decision",
+      "reference": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-003",
+      "relationship": "informs",
+      "status": "complete",
+      "title": "Publish roadmap validation and evidence assembly",
+      "untrusted": true
+    },
+    {
+      "assertion": "authoritative",
+      "decision": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+      "reason": "related-to-selected-decision",
+      "reference": "https://github.com/egohygiene/relay/commit/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "relationship": "evidences",
+      "status": "recorded",
+      "title": "feat(intelligence): publish the normalized graph",
+      "untrusted": true
+    },
+    {
+      "assertion": "authoritative",
+      "decision": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+      "reason": "related-to-selected-decision",
+      "reference": "https://github.com/egohygiene/relay/pull/28",
+      "relationship": "implements",
+      "status": "merged",
+      "title": "Build the shared Repository Intelligence shell",
+      "untrusted": true
+    },
+    {
+      "assertion": "authoritative",
+      "decision": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+      "reason": "related-to-selected-decision",
+      "reference": "https://github.com/egohygiene/relay/releases/tag/v0.4.0",
+      "relationship": "evidences",
+      "status": "published",
+      "title": "Repository Intelligence v0.4.0",
+      "untrusted": true
+    },
+    {
+      "assertion": "inferred",
+      "decision": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+      "reason": "related-to-selected-decision",
+      "reference": "https://github.com/egohygiene/relay/issues/27",
+      "relationship": "tracks",
+      "status": "closed",
+      "title": "Build the Repository Intelligence experience",
+      "untrusted": true
+    },
+    {
+      "reason": "human-disposition",
+      "reference": "https://github.com/egohygiene/hygiene/blob/cccccccccccccccccccccccccccccccccccccccc/docs/decisions/ADR-0010-synthetic.md",
+      "status": "accepted",
+      "title": "Synthetic organization-scoped source boundary",
+      "untrusted": true
+    },
+    {
+      "reason": "human-disposition",
+      "reference": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+      "status": "accepted",
+      "title": "Adopt the Repository Intelligence projection",
+      "untrusted": true
+    }
+  ],
+  "coverage": "selected-current-public-inputs-only",
+  "edges": [
+    {
+      "assertion": "authoritative",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md"
+        },
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+        }
+      ],
+      "source": "ri:egohygiene/relay:architecture-decision:ADR-007",
+      "target": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+      "type": "informs"
+    },
+    {
+      "assertion": "authoritative",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-006-synthetic.md"
+        },
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+        }
+      ],
+      "source": "ri:egohygiene/relay:architecture-decision:ADR-007",
+      "target": "ri:egohygiene/relay:architecture-decision:ADR-006",
+      "type": "supersedes"
+    },
+    {
+      "assertion": "authoritative",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+        },
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/releases/tag/v0.4.0"
+        }
+      ],
+      "source": "ri:egohygiene/relay:release:v0.4.0",
+      "target": "ri:egohygiene/relay:architecture-decision:ADR-007",
+      "type": "evidences"
+    },
+    {
+      "assertion": "authoritative",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+        },
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "cccccccccccccccccccccccccccccccccccccccc",
+          "source": "https://github.com/egohygiene/hygiene/blob/cccccccccccccccccccccccccccccccccccccccc/docs/decisions/ADR-0010-synthetic.md"
+        }
+      ],
+      "source": "ri:egohygiene/relay:architecture-decision:ADR-007",
+      "target": "ri:egohygiene/hygiene:architecture-decision:ADR-0010",
+      "type": "depends-on"
+    },
+    {
+      "assertion": "authoritative",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+        },
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": null,
+          "source": "https://github.com/egohygiene/relay/actions/runs/812"
+        }
+      ],
+      "source": "ri:egohygiene/relay:check:repository-intelligence-812",
+      "target": "ri:egohygiene/relay:architecture-decision:ADR-007",
+      "type": "verifies"
+    },
+    {
+      "assertion": "authoritative",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+        },
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": null,
+          "source": "https://github.com/egohygiene/relay/pull/28"
+        }
+      ],
+      "source": "ri:egohygiene/relay:pull-request:28",
+      "target": "ri:egohygiene/relay:architecture-decision:ADR-007",
+      "type": "implements"
+    },
+    {
+      "assertion": "authoritative",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+        },
+        {
+          "assertion": "authoritative",
+          "freshness": "not_applicable",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "source": "https://github.com/egohygiene/relay/commit/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        }
+      ],
+      "source": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "target": "ri:egohygiene/relay:architecture-decision:ADR-007",
+      "type": "evidences"
+    },
+    {
+      "assertion": "inferred",
+      "provenance": [
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md"
+        },
+        {
+          "assertion": "authoritative",
+          "freshness": "current",
+          "observed_at": "2026-08-25T14:00:00Z",
+          "revision": null,
+          "source": "https://github.com/egohygiene/relay/issues/27"
+        }
+      ],
+      "source": "ri:egohygiene/relay:architecture-decision:ADR-007",
+      "target": "ri:egohygiene/relay:issue:27",
+      "type": "tracks"
+    }
+  ],
+  "nodes": [
+    {
+      "approval": {
+        "by": "synthetic-reviewer",
+        "date": "2026-08-25",
+        "evidence": "https://example.test/review/1"
+      },
+      "assertion": "authoritative",
+      "authority_scope": "organization-scope-reference",
+      "date": null,
+      "decision_scope": "organization",
+      "id": "ri:egohygiene/hygiene:architecture-decision:ADR-0010",
+      "implementation_status": "verified",
+      "key": "ADR-0010",
+      "narrative": "canonical-source-required",
+      "owners": [
+        "egohygiene/hygiene"
+      ],
+      "repository": "egohygiene/hygiene",
+      "represented_commit": "cccccccccccccccccccccccccccccccccccccccc",
+      "review": "upstream-human-disposition",
+      "source": "https://github.com/egohygiene/hygiene/blob/cccccccccccccccccccccccccccccccccccccccc/docs/decisions/ADR-0010-synthetic.md",
+      "status": "accepted",
+      "title": "Synthetic organization-scoped source boundary",
+      "visibility": "public"
+    },
+    {
+      "approval": {
+        "by": "synthetic-reviewer",
+        "date": "2026-08-25",
+        "evidence": "https://example.test/review/1"
+      },
+      "assertion": "authoritative",
+      "authority_scope": "repository-local",
+      "date": null,
+      "decision_scope": "repository",
+      "id": "ri:egohygiene/relay:architecture-decision:ADR-006",
+      "implementation_status": "verified",
+      "key": "ADR-006",
+      "narrative": "canonical-source-required",
+      "owners": [],
+      "repository": "egohygiene/relay",
+      "represented_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "review": "upstream-human-disposition",
+      "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-006-synthetic.md",
+      "status": "superseded",
+      "title": "Synthetic superseded decision",
+      "visibility": "public"
+    },
+    {
+      "approval": {
+        "by": "synthetic-reviewer",
+        "date": "2026-08-25",
+        "evidence": "https://example.test/review/1"
+      },
+      "assertion": "authoritative",
+      "authority_scope": "repository-local",
+      "date": null,
+      "decision_scope": "repository",
+      "id": "ri:egohygiene/relay:architecture-decision:ADR-007",
+      "implementation_status": "verified",
+      "key": "ADR-007",
+      "narrative": "canonical-source-required",
+      "owners": [],
+      "repository": "egohygiene/relay",
+      "represented_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "review": "upstream-human-disposition",
+      "source": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+      "status": "accepted",
+      "title": "Adopt the Repository Intelligence projection",
+      "visibility": "public"
+    }
+  ],
+  "represented_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "schema": "mindgarden.adr-projection/v1",
+  "source_contract": "egohygiene.observatory.repository-intelligence-read-model/v1",
+  "visibility": "public"
+}
