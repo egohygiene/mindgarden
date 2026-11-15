@@ -50,6 +50,15 @@ reciprocal reviewed equal-and-opposite same-currency pairs across accounts.
 Conflicting revisions require an explicit exact source choice. No exchange rate,
 category, balance, account coverage or legal conclusion is guessed.
 
+The reviewed `sources` list selects all calculation/evidence inputs; `selection`
+only chooses displayed transaction rows. A hidden display row still contributes
+to totals and the evidence index. To exclude a contribution, remove its source
+and corresponding classification in the reviewed request. Currency/month rows
+are deterministic data for comparisons and optional charts; currencies are never
+combined without a separately specified conversion contract. The
+[two-period synthetic proof](../tests/fixtures/consultation/two-period-totals.json)
+exercises January/February USD and February EUR through this same service.
+
 `packet` exposes the complete calculated report in its private preview, alongside
 the file inventory and digest. Inspect it before applying:
 

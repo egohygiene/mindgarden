@@ -1,0 +1,32 @@
+[
+  {
+    "month": "2026-01",
+    "currency": "USD",
+    "net_movement": "2259.76",
+    "income": "2500.00",
+    "expense": "-230.25",
+    "refund": "10.00",
+    "transfer": "0.00",
+    "uncategorized": "-19.99"
+  },
+  {
+    "month": "2026-02",
+    "currency": "EUR",
+    "net_movement": "87.66",
+    "income": "100.00",
+    "expense": "-12.34",
+    "refund": "0.00",
+    "transfer": "0.00",
+    "uncategorized": "0.00"
+  },
+  {
+    "month": "2026-02",
+    "currency": "USD",
+    "net_movement": "2269.90",
+    "income": "2400.00",
+    "expense": "-150.10",
+    "refund": "20.00",
+    "transfer": "0.00",
+    "uncategorized": "0.00"
+  }
+]

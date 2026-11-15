@@ -1,0 +1,24 @@
+{
+  "schema": "example.mindgarden.acceptance-reconciliation/v1",
+  "branch": "test/16-32-90-15-acceptance",
+  "base_revision": "5cf24a29002f8e4f0a464b42819ec21ede33af2a",
+  "runtime_changes": false,
+  "initial_verification": {
+    "command": "/workspace/mindgarden/.venv/bin/python -m unittest tests.test_consultation_periods tests.test_archive_attribution -v",
+    "python": "3.12.14",
+    "tests": 4,
+    "seconds": 32.308,
+    "skips": 0,
+    "outcome": "passed"
+  },
+  "qualification": "Focused dual-Python qualification and final disposition in progress.",
+  "corrections": [
+    "Initial test assumed display selection changed calculation inputs; existing documented contract selects calculation inputs via sources. Corrected test explicitly removes source and classification.",
+    "Initial archive assertions requested the default ten search hits for eighteen proposals and compared entire message hashes despite different parent/order metadata. Corrected bounded result limit and exact text-span checksum assertions; no engine change.",
+    "Imported test class caused unintended duplicate unittest discovery; changed to module import before final runs."
+  ],
+  "limitations": [
+    "No model accuracy, actual private/archive/Empathy/Drive proof, ADR approval, release or local setup.",
+    "#17 is parked until maintainer sync."
+  ]
+}

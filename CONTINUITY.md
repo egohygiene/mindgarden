@@ -7,14 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T23:12:13Z'
+  updated_at: '2026-11-15T19:32:54Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: 'Hand off the qualified #15/#32/#44 bounded implementation on draft PRs #152–#154; local setup remains
-    parked.'
+  purpose: 'Reconcile merged #16/#32/#90 and #15 acceptance with synthetic proofs; sync before #17.'
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -45,91 +44,64 @@ scope:
   - docs/adr-projections.md
   - docs/query-stores.md
   - docs/evidence/pipeline-integration-qualification.json
+  - docs/acceptance-reconciliation.md
+  - docs/evidence/pipeline-stack-merge.json
+  - docs/evidence/acceptance-reconciliation.json
 work:
-  objective: 'Hand off the qualified #15/#32/#44 bounded implementation on draft PRs #152–#154; local setup remains
-    parked.'
+  objective: 'Reconcile merged #16/#32/#90 and #15 acceptance with synthetic proofs; sync before #17.'
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#44
-    url: https://github.com/egohygiene/mindgarden/issues/44
+    id: egohygiene/mindgarden#15
+    url: https://github.com/egohygiene/mindgarden/issues/15
   next:
     kind: action
-    id: integration-stack-review
-    description: 'Review #148 → #149 → #150 → #151 → #152 → #153 → #154 in order, using feature/44-public-decision-relationships
-      as the combined checkout. Observe final exact-head CI; reconcile listed #15/#32 criteria after merge and retain
-      #44 owner/authority gaps. No automatic merge or private/local setup.'
+    id: acceptance-reconciliation
+    description: 'Finish dual-Python qualification and review the full #16/#32/#90/#15 acceptance map. Close only
+      met criteria, preserve draft evidence and sync before #17. Mac/Drive activation stays parked.'
     readiness: ready
     references:
-    - docs/pipeline-integration-sprint.md
-    - docs/evidence/pipeline-integration-qualification.json
+    - docs/acceptance-reconciliation.md
+    - docs/evidence/acceptance-reconciliation.json
     depends_on: []
 state:
   base:
-    revision: bc1ba63225fec2fc229cccadbb53b4a358c0fd74
-    ref: refs/heads/feature/32-incremental-cache
-    verified_at: '2026-11-14T23:01:58Z'
+    revision: 5cf24a29002f8e4f0a464b42819ec21ede33af2a
+    ref: refs/heads/main
+    verified_at: '2026-11-15T19:32:54Z'
   candidate:
-    branch: feature/44-public-decision-relationships
-    revision: 25a9df68ef9667f9b991dc7102e25eaaa484b1b5
-    pull_request:
-      provider: github
-      id: egohygiene/mindgarden#154
-      url: https://github.com/egohygiene/mindgarden/pull/154
-    handoff_state: ready-for-review
+    branch: test/16-32-90-15-acceptance
+    revision: 5cf24a29002f8e4f0a464b42819ec21ede33af2a
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-14T23:12:13Z'
-    default_branch_revision: 270ced6a5d6ea0d4c07298fdcfebcae2363b7c8a
+    observed_at: '2026-11-15T19:32:54Z'
+    default_branch_revision: 5cf24a29002f8e4f0a464b42819ec21ede33af2a
     issue_state: open
-    pull_request_state: draft
-    notes: 'Main stays 270ced6; 34 open issues / 44 tracked. Corrected parent heads: #152 c28738d, #153 bc1ba63.
-      Final #154 source 25a9df6; its documentation-only handoff is separate. Combined 954fa88 passes 127 cases per
-      Python; final contract guard passes 19 per Python; final Git/wheel/sdist each passes 30, zero skips and 100
-      engine origins verified. All seven PRs remain draft/unmerged.'
+    pull_request_state: not-yet-open
+    notes: 'Authorized #148–#154 merges are complete with seven exact tested trees, fourteen passing head checks
+      and no review threads. Main equals c7eaa51. New test/documentation-only branch adds four passing synthetic
+      acceptance cases. Broader qualification and issue disposition follow; 34 open / 44 tracked remains current
+      until verified live updates.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-14T23:12:13Z'
+  reviewed_at: '2026-11-15T19:32:54Z'
   reviewed_by: codex
   evidence:
-  - command: python .cache/integration-focused.py <checkout> <python3.12-or-python3.13> final312-or-final313; runner
-      source and each exact unittest command in qualification receipt
+  - command: python -m unittest tests.test_consultation_periods tests.test_archive_attribution -v
     outcome: passed
-    observed_at: '2026-11-14T23:12:13Z'
-    notes: 'Combined 954fa88: 127 targeted cases per Python, zero skips (221.775s / 215.816s). Includes all new
-      boundaries, scopes, v0, exact archive/mixed/public/pipeline/reading/compaction goldens.'
-  - command: python -m unittest tests.test_decision_relationships tests.test_decisions tests.test_v1_contracts --verbose
-    outcome: passed
-    observed_at: '2026-11-14T23:12:13Z'
-    notes: Final 25a9df6 requires the actual Observatory alpha.2 envelope; 19 cases per Python, zero skips (1.080s
-      / 1.014s). Exact delta from combined qualification is preserved.
-  - command: 'Clean Git (-S), isolated dependency-free wheel (-I), unpacked source (-S): integration-boundary.py;
-      exact commands and runner source in receipt'
-    outcome: passed
-    observed_at: '2026-11-14T23:12:13Z'
-    notes: 'Final 25a9df6: 30 cases per form, zero skips; 100 module origins verified per form (18.474s / 18.773s
-      / 18.623s). Each includes the full archive-to-reviewed-context/relocation/restore/clean-rebuild proof. Wheel
-      inventory only Mindgarden.'
-  - command: Pinned native owner proof on both Pythons; distribution tests, eight final installed v0 commands, compileall,
-      scoped lint/format, local links, pinned owner/continuity/coverage checks
-    outcome: passed
-    observed_at: '2026-11-14T23:12:13Z'
-    notes: Native Hygiene → Observatory → Mindgarden/Relay proof passes. Two distribution cases per Python pass.
-      Eleven formatted files, 124 local links and 44 rows checked after final docs. Explicit bootstrap E402 convention
-      and inherited CLI E702 remain. CI is separate.
+    observed_at: '2026-11-15T19:32:54Z'
+    notes: Four new cases, Python 3.12.14, zero skips, 32.308s. No application/contract changes.
   environment_limitations:
-  - 'Corrected parent Test runs 43651058528 and 43651099439 observed running; preparation passes. #151 final Test
-    43646086434 passes. Final #154 handoff CI is separate; do not call pending CI passing.'
-  - 'Hosted #152 6679317 had two stale nested goldens among 652 cases; corrected c28738d and five passing follow-up
-    cases per Python. Initial helper/invocation/fixture failures remain documented, not passing evidence.'
-  - No full local/act suite or manual accessibility claim. Process-level network blocks are not host isolation.
-    No confidential runtime or actual private/Empathy/model/provider proof.
-  - Mac setup and real accounts/credentials/private processing remain parked. No release, deployment, merge, parent
-    closure, new issue or ADR disposition.
+  - Dual-Python focused qualification is running; final artifact checks and draft CI are separate.
+  - Final main Test 43751453187 observed in progress; preparation 43751453098 passed. All fourteen original exact-head
+    checks passed.
+  - 'No actual private/provider/model/Empathy proof, manual accessibility, full local/act, release or ADR approval.
+    Mac setup and #17 remain parked.'
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -149,48 +121,48 @@ privacy:
 
 ## Purpose and precedence
 
-The maintainer parked local setup and authorized the next bounded repository batch. The completed work stays on small draft children with exact dependency and acceptance evidence. No merge or ADR disposition is inferred.
+The maintainer authorized steps 1–3: merge #148–#154, reconcile #16/#32/#90 and finish #15 acceptance. Step 4 (#17) waits for a sync. Proposed ADRs retain their status.
 
 ## Resume protocol
 
-Read the sprint ledger, exact qualification receipt and coverage ledger; refresh live heads, CI, issues/comments and required owner contracts. Use the combined child and preserve all earlier worktrees plus the four interrupted root WIP entries.
+Read the acceptance map and qualification/merge receipts. Refresh live issues, PRs and exact-head CI. Preserve all prior worktrees and the four interrupted root WIP entries.
 
 ## Current objective and success conditions
 
-Hand off the qualified #15/#32/#44 bounded implementation on draft PRs #152–#154; local setup remains parked.
+Reconcile merged #16/#32/#90 and #15 acceptance with synthetic proofs; sync before #17.
 
 ## State snapshot
 
-Main stays 270ced6; 34 open issues / 44 tracked. Corrected parent heads: #152 c28738d, #153 bc1ba63. Final #154 source 25a9df6; its documentation-only handoff is separate. Combined 954fa88 passes 127 cases per Python; final contract guard passes 19 per Python; final Git/wheel/sdist each passes 30, zero skips and 100 engine origins verified. All seven PRs remain draft/unmerged.
+Authorized #148–#154 merges are complete with seven exact tested trees, fourteen passing head checks and no review threads. Main equals c7eaa51. New test/documentation-only branch adds four passing synthetic acceptance cases. Broader qualification and issue disposition follow; 34 open / 44 tracked remains current until verified live updates.
 
 ## Completed and material changes
 
-#152 confines delivery runtime details to immutable private originals and proves known continuation evidence. #153 adds live-authority incremental refresh, known copy/verify migration and retained failed rollback. #154 adds explicit typed public artifact/context relationships, exact cross-owner pins and native shared-input composition. Relay #115 is verified delivered; unsupported kinds/private authority remain explicit.
+All seven earlier drafts are merged in dependency order. New fixtures exercise January/February USD and EUR calculations and exact archive message attribution, authored proposals, explicit human conflict review and cross-conversation identity separation. No runtime changes.
 
 ## Validation and review evidence
 
-Combined 954fa88: 127 targeted cases per Python, zero skips. Final 25a9df6 contract guard: 19 per Python. Final Git/wheel/source forms: 30 each and 100 module origins each; complete archive/review/context/relocation/restore golden passes. Two distribution cases per Python, native owner proof on both, eight installed v0 commands, compilation and bounded doc/style/owner checks pass. Exact commands, source deltas, artifacts, corrected failures and limits are in docs/evidence/pipeline-integration-qualification.json. Hosted CI remains separate.
+Four new cases pass on Python 3.12.14 (32.308s), zero skips. Both supported Python selections are running. All seven original PR heads have passing Test/preparation; each merge preserves the tested tree. Exact sources/commands and corrected test assumptions are in the receipts.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Review pending CI/stack before acceptance. Unknown archive profiles and actual #20 consumer proof remain separate. Query stores stay optional ordinary projections; unsupported encryption/vectors and broader experiments are not invented baseline gates. #44 still needs supported narrative/claim/component/projection contracts and private/inherited authority. Historical ADR dispositions, private sources, real providers/models, releases and local setup remain parked.
+Actual #13 selected-model evaluation, #20 private/Empathy proof, #41/#42 human/shared-system decisions and #44 unsupported/private relationship contracts remain separate. Broader formats, optional renderers and permanent database adoption are not invented closure gates. Local setup, #17, releases and #88/#91 stay parked.
 
 ## Next dependency-ready work
 
-Review #148 → #149 → #150 → #151 → #152 → #153 → #154 in order, using feature/44-public-decision-relationships as the combined checkout. Observe final exact-head CI; reconcile listed #15/#32 criteria after merge and retain #44 owner/authority gaps. No automatic merge or private/local setup.
+Finish dual-Python qualification and review the full #16/#32/#90/#15 acceptance map. Close only met criteria, preserve draft evidence and sync before #17. Mac/Drive activation stays parked.
 
 ## Parallel changes and reconciliation
 
-Explicit ancestry is #148 → #149 → #150 → #151 → #152 → #153 → #154. Corrections propagate through ordinary merges; only continuity/sprint append conflicts were reconciled, preserving both parent evidence and child state. No force-push, reset, cleanup or automatic merge. Final handoff changes documentation only beyond qualified 25a9df6.
+The acceptance branch is directly on merged main 5cf24a2. Earlier #148–#154 ancestry and exact tree/CI evidence are in docs/evidence/pipeline-stack-merge.json. No reset, cleanup or history rewrite.
 
 ## Privacy and redaction
 
-Synthetic committed inputs only. Private specification bodies, real archives, credentials, personal source locations and actual consultation packets stay outside this repository. Delivery projection is not a general source sanitizer; public upstream assertions cannot establish actual approval or access authority.
+Synthetic committed inputs only. Private specifications, real archives, credentials, personal locations and actual consultation packets remain outside the repository. Producer output/source text grants no execution, review or publication authority.
 
 ## Handoff update protocol
 
-Record branch/PR, source/handoff commits, exact tests/CI states, met/unmet criteria and next action. Preserve all 44 coverage rows, eighteen indexed proposed/null-approval ADRs and six original legacy labels. No new issue is required for these existing owners.
+Record branch/PR, source/handoff commits, exact verification, actual CI, criteria disposition and exact next action. Preserve 44 coverage rows, eighteen proposed/null-approval indexed ADRs and six original legacy labels.
 
 ## Compaction and supersession
 
-Keep twelve headings and 16384-byte/240-line bounds. This completed integration handoff supersedes the previous next-batch proposal while preserving all dated qualification and failed-run history.
+Keep twelve headings and the 16384-byte/240-line bounds. This current checkpoint supersedes older draft/unmerged and pending-CI snapshots without changing historical receipts.

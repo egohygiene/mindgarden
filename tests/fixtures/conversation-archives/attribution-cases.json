@@ -1,0 +1,47 @@
+[
+  {
+    "id": "decision",
+    "speaker": "user",
+    "text": "I choose monthly review for Project Cedar.",
+    "object": "monthly review",
+    "stance": "report",
+    "context": "Explicit user decision, not an assistant recommendation.",
+    "timestamp": "2026-11-04T01:00:00Z"
+  },
+  {
+    "id": "suggestion",
+    "speaker": "assistant",
+    "text": "I suggest daily review for Project Cedar.",
+    "object": "daily review",
+    "stance": "suggestion",
+    "context": "Assistant suggestion; the user has not adopted it.",
+    "timestamp": "2026-11-04T01:01:00Z"
+  },
+  {
+    "id": "quotation",
+    "speaker": "user",
+    "text": "Alex said, \"Project Cedar uses daily review.\"",
+    "object": "daily review",
+    "stance": "quotation",
+    "context": "User quotes an unresolved Alex; this is not the user's decision.",
+    "timestamp": null
+  },
+  {
+    "id": "question",
+    "speaker": "user",
+    "text": "Should Project Cedar use daily review?",
+    "object": "daily review",
+    "stance": "question",
+    "context": "Open user question, not an assertion of adoption.",
+    "timestamp": "2026-11-04T01:03:00Z"
+  },
+  {
+    "id": "correction",
+    "speaker": "user",
+    "text": "Correction: I choose weekly review for Project Cedar, replacing my monthly decision.",
+    "object": "weekly review",
+    "stance": "report",
+    "context": "Later user correction; preserve the earlier monthly decision and its evidence.",
+    "timestamp": "2026-11-04T01:04:00Z"
+  }
+]
