@@ -72,6 +72,36 @@ scope/lifetime, and must be revalidated after revision/authority changes or
 revocation. No static copy is claimed to revoke itself. Durable summaries and
 packet exports use the existing explicit review and fresh plan/apply workflows.
 
+## Rehearse two tasks with the fictional garden
+
+From a clean source checkout, choose a new private directory outside Git.
+
+```sh
+python -S scripts/research_roles_demo.py \
+  --workspace "/var/tmp/new-fictional-research" --require-source --check-golden
+```
+
+Open `research-roles/START-HERE.md` in that workspace. It includes the exact
+commands and a local copy of the [Codex profile](../profiles/agent/codex.md).
+For an installed-wheel rehearsal, run the same script using that environment's
+Python with `-I` and `--require-installed` in place of `-S` and
+`--require-source`. The guide then uses the installed engine and packaged profile.
+
+Accounting preparation returns the reviewed synthetic financial overview. Career
+planning returns the reviewed accessibility portfolio experiment. Both read from
+the same fictional garden. Each task starts with a lexical search and a context
+pack limited to one explicitly selected item, then submits a fresh plan for one
+exact citation from the returned context. The operator's two read-only sessions
+grant different first-pass evidence reads. Reusing the accounting plan with the
+career session fails before reading source bodies and leaves stdout empty.
+
+A task or planner label guides retrieval. The session controls authority. Both
+sessions can read the reviewed garden, so these task selections are not a way to
+hide a domain from an otherwise authorized reader. Separate garden access is
+configured through the existing session and bindings. The fictional rehearsal
+runs the ordinary CLI and stages local instructions for the caller. Model
+quality, actual Codex execution and private consumer authorization remain open.
+
 ## Evidence and remaining parent scope
 
 Offline tests exercise two distinguishable data-only caller plans, removal of
