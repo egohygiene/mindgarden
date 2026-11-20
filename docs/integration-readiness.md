@@ -17,7 +17,7 @@ requirements and links to prior implementation.
 | Deferred and optional | #19, #27, #34, #88, #91 | Record an explicit decision for releases, the OpenViking evaluation, installable context packages and RDF after their owners select work. |
 | Umbrellas | #1, #2, #5, #40, #86 | Reconcile the aggregate outcome when their child work and integration evidence are ready. |
 
-The accepted engine work in #15, #16, #32 and #90 is already on main. Draft
+The completed engine work in #15, #16, #32 and #90 is already on main. Draft
 [#155](https://github.com/egohygiene/mindgarden/pull/155) records the prior
 evidence and passed its automatic Test and preparation checks. The integration
 proofs stack on that draft so the combined checkout keeps its handoff.
@@ -31,7 +31,7 @@ proofs stack on that draft so the combined checkout keeps its handoff.
 2. Capture a small local Chrome selection using the supported Mindcap input.
    Review the proposed actions and inspect the cleaned browser import in a
    private output directory. Keep the original as recovery evidence. See the
-   [bookmark workflow](bookmark-cleanup.md).
+   [bookmark pilot guide](bookmark-pilot.md).
 3. Add a Drive collection when the operator chooses the files and configures
    local OAuth. Review the first capture and refresh before treating a summary
    as current. See the [selected Drive workflow](drive-capture.md).
@@ -62,3 +62,19 @@ proofs stack on that draft so the combined checkout keeps its handoff.
 References from the integration discussion are grouped in
 [#86](https://github.com/egohygiene/mindgarden/issues/86). The agent, acquisition,
 resource and policy comparisons are assigned to their owning repositories.
+
+## Draft checkpoint and verification
+
+Draft [#156](https://github.com/egohygiene/mindgarden/pull/156) adds the
+#14 logical rename and #48 private bookmark review rehearsal. Run its
+[operator guide](bookmark-pilot.md) for capture, package verification, private
+inventory, reviewed export, resume and a disposable-profile manual import.
+The synthetic rehearsal uses the pinned Mindcap producer and tests output bytes
+through the ordinary CLI. It reaches the HTML import file. An actual Chrome
+import and public Akashic acceptance remain separate.
+
+The routing selection passes 42 tests on each of Python 3.12.14 and 3.13.5
+(61.971s and 60.331s). The bookmark selection passes 14 on each (12.069s and
+12.318s). No skips. The exact pinned producer rehearsal matches its
+[committed receipt](evidence/bookmark-pilot-rehearsal.json). Commands are recorded
+in [continuity](../CONTINUITY.md).

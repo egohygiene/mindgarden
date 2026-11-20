@@ -7,14 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-20T06:44:57Z'
+  updated_at: '2026-11-20T06:46:09Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Prepare the first bookmark, selected Drive and scoped Codex workflows and consolidate the remaining
-    issue queue.
+  purpose: Prepare the private Chrome bookmark rehearsal and consolidate the remaining issue queue.
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -42,9 +41,9 @@ scope:
   - docs/scoped-research.md
   - docs/decisions/README.md
   - docs/acceptance-reconciliation.md
+  - docs/bookmark-pilot.md
 work:
-  objective: Prepare the first bookmark, selected Drive and scoped Codex workflows and consolidate the remaining
-    issue queue.
+  objective: Prepare the private Chrome bookmark rehearsal and consolidate the remaining issue queue.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
@@ -71,17 +70,20 @@ state:
     verified_at: '2026-11-20T06:44:57Z'
   candidate:
     branch: integration/20261120-bookmark-drive-readiness
-    revision: null
-    pull_request: null
+    revision: e0772b5ac31cb35cb8618d4d275b494043b84d8e
+    pull_request:
+      provider: github
+      id: egohygiene/mindgarden#156
+      url: https://github.com/egohygiene/mindgarden/pull/156
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-20T06:44:57Z'
+    observed_at: '2026-11-20T06:46:09Z'
     default_branch_revision: 5cf24a29002f8e4f0a464b42819ec21ede33af2a
     issue_state: open
     pull_request_state: draft
     notes: 'Main 5cf24a2. Draft #155 at b47c40a is mergeable with Test 43753996698 and preparation 43753996726
-      passing. GitHub shows 30 open issues across 44 tracked.'
+      passing. GitHub shows 30 open issues across 44 tracked. Draft #156 carries the bookmark/routing rehearsal.'
   parallel_changes: []
 review:
   status: partial
@@ -93,6 +95,18 @@ review:
     outcome: passed
     observed_at: '2026-11-20T06:44:57Z'
     notes: 42 tests each on Python 3.12.14 and 3.13.5. Wall times 61.971s and 60.331s. Zero skips.
+  - command: PYTHONPATH="$PWD/src" python -m unittest tests.test_bookmarks tests.test_captured_bookmarks -v
+    outcome: passed
+    observed_at: '2026-11-20T06:46:09Z'
+    notes: 14 tests per Python 3.12.14/3.13.5, zero skips (12.069s/12.318s).
+  - command: PYTHONPATH="$MINDCAP_CHECKOUT/src" "$MINDCAP_PYTHON" experiments/capture_handoff/check.py --fixture-directory
+      "$MINDCAP_CHECKOUT/tests/fixtures/chrome_bookmarks/multiple_profiles/User Data" --rehearse-private-cleanup
+      | cmp - docs/evidence/bookmark-pilot-rehearsal.json
+    outcome: passed
+    observed_at: '2026-11-20T06:46:09Z'
+    notes: Real pinned Mindcap 7ee766c producer. Resume and single-batch output match; exact replay, stale authorization,
+      quarantine and retained original ZIP verified. Pinned Mindcap CLI capture and verify, guide packaging snippet
+      and Mindgarden CLI inspect also passed.
   environment_limitations:
   - Public bookmark intake awaits Akashic owner contracts, and Mindcap owns recurring capture deltas. Drive/Codex
     need local selections and actual runtime authority. Public scope transitions, full manual accessibility, release,
@@ -135,9 +149,11 @@ Main 5cf24a2. Draft #155 at b47c40a is mergeable with Test 43753996698 and prepa
 
 The new logical rename test resolves the exact previous knowledge reference to the reviewed successor. Search shows one home with the same source evidence. Replay, preserved bytes and the unrelated garden are checked.
 
+The private bookmark rehearsal uses the actual pinned Mindcap capture producer and ordinary Mindgarden CLI. It verifies two private review batches, exact replay, later-capture staleness, retained ZIP and a generated manual HTML import. See docs/bookmark-pilot.md.
+
 ## Validation and review evidence
 
-The six routing test modules pass 42 cases per Python, zero skips. Exact command and results are in this file's metadata.
+The six routing test modules pass 42 cases per Python. The bookmark modules pass 14 per Python. Both selections have zero skips. The pinned producer rehearsal matches its committed receipt. Exact commands and results are in this file's metadata.
 
 ## Blockers, risks, unknowns, and deferred work
 

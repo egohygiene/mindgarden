@@ -310,7 +310,7 @@ links evidence to #20; no private pilot or broader parent completion is inferred
 
 | Issue and purpose | State | Current evidence | Unmet parent criteria | Dependencies and next batch |
 | --- | --- | --- | --- | --- |
-| [#48](https://github.com/egohygiene/mindgarden/issues/48) — reviewed bookmark cleanup/Akashic journey | partial | Legacy private cleanup plus captured-source-bundle plan/apply, exact immutable package/metadata evidence, partial-state/stale-approval negatives and authored bookmark↔conversation graph proof; [checkpoint](bookmark-cleanup.md) | Accepted Akashic #173–#176 identity/intake/public wire, full public journey and Mindcap #35 recurring deltas remain unavailable | Merged #11/#13 adapter/curation; private bundle checkpoint ready, public export stays blocked |
+| [#48](https://github.com/egohygiene/mindgarden/issues/48) — reviewed bookmark cleanup/Akashic journey | partial | Legacy private cleanup plus captured-source-bundle plan/apply, exact immutable package/metadata evidence, partial-state/stale-approval negatives and authored bookmark↔conversation graph proof. Draft #156 adds pinned Mindcap capture → ordinary private review/resume/replay → inspected import bytes; [checkpoint](bookmark-cleanup.md) | Accepted Akashic #173–#176 identity/intake/public wire, full public journey and Mindcap #35 recurring deltas remain unavailable | Merged #11/#13 adapter/curation; private bundle checkpoint ready, public export stays blocked |
 
 ## Consumer, packaging and release readiness
 
