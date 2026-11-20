@@ -95,11 +95,11 @@ exact citation from the returned context. The operator's two read-only sessions
 grant different first-pass evidence reads. Reusing the accounting plan with the
 career session fails before reading source bodies and leaves stdout empty.
 
-A task or planner label guides retrieval. The session controls authority. Both
-sessions permit reviewed reads across this garden. To restrict which reviewed
-content a reader can access, select their gardens through the existing session
-and bindings. The fictional rehearsal
-runs the ordinary CLI and stages local instructions for the caller. Model
+The task determines the query and context selection. The planner label records
+who supplied the plan. Both sessions permit reviewed reads across this garden.
+To restrict which reviewed content a reader can access, select their gardens
+through the existing session and bindings. The rehearsal stages local caller
+instructions and exercises the ordinary CLI with fictional inputs. Model
 quality, actual Codex execution and private consumer authorization remain open.
 
 ## Evidence and remaining parent scope
