@@ -140,9 +140,18 @@ of model accuracy or a real consumer's approval. See the
 | 5. Explicit public review/allowlists | Public source review, human publication review and target allowlists; private source/rejected metadata leak negatives |
 | 6. Independent units from one source | Three candidates resolve to private, repository and organization homes; duplicate request replay is deterministic |
 | 7. Stable garden/artifact references | Canonical exact IDs/revisions; cross-garden reference records and renamed physical-mount proof |
-| 8. Duplicate/move/rename/split/merge/supersede | Supported private lifecycle, lineage, alias/history and repair tests; **broader public/policy-changing transfers remain open** |
+| 8. Duplicate/move/rename/split/merge/supersede | Supported private lifecycle, lineage, alias/history and repair tests. The same-garden logical rename case now proves a new knowledge ID, old-byte preservation, exact evidence and safe replay. Broader public and policy-changing transfers remain open. |
 | 9. Atomic failure/recovery | Group cutover, partial failure, retained backups on failed rollback, explicit recovery, retry and two-owner repair tests; local single-writer proof only |
 | 10. Synthetic repo/org/private fixtures | Existing four-kind fixture; no real private repository or account needed |
+
+The logical rename uses the existing reviewed `move` transition with a different
+knowledge ID in the same garden. A pin to the previous canonical home resolves
+to the new ID, and search returns one current result with the original evidence.
+The earlier mount relocation proof covers a different operation: rebinding the
+same logical garden to a new filesystem location. The two proofs run together
+with merge, split, supersession, duplicate replay, incoming-reference repair and
+rollback tests. Public policy transitions still depend on the owner review and
+implementation tracked by #14, #29 and proposed ADR-0022.
 
 ## #38 complete acceptance map
 

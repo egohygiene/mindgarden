@@ -72,6 +72,42 @@ class RoutingLifecycleTests(unittest.TestCase):
         write_session(session, self.configuration, readable_ids=["synthetic-garden"])
         self.assertEqual(search_payload(QueryContext.load(self.configuration, session), "evidence")["results"], [])
 
+    def test_reviewed_rename_changes_knowledge_id_and_preserves_exact_history(self):
+        self.request["to"] = reference("synthetic-garden", "renamed-prompt")
+        self.request["rationale"] = "Reviewed synthetic rename in the same garden."
+        original_files = {
+            path: path.read_bytes()
+            for path in (self.workspace / ".garden").rglob("*")
+            if path.is_file()
+        }
+        other_garden = garden_fingerprint(self.destination)
+        original_vault = self.vault.audit()
+
+        plan = self.plan()
+        self.assertTrue(plan.apply(plan.digest))
+        self.assertFalse(plan.apply(plan.digest))
+        replay = self.plan()
+        self.assertFalse(replay.apply(replay.digest))
+        for path, content in original_files.items():
+            self.assertEqual(path.read_bytes(), content)
+        self.assertEqual(garden_fingerprint(self.destination), other_garden)
+        self.assertEqual(self.vault.audit(), original_vault)
+
+        records = [
+            record
+            for snapshot in snapshots_for(self.bindings).values()
+            for record in snapshot.records.values()
+        ]
+        self.assertEqual(
+            canonical_reference(self.request["from"][0], records),
+            reference("synthetic-garden", "renamed-prompt", self.original["content"]["sha256"]),
+        )
+        session = self.root / "rename-session.json"
+        write_session(session, self.configuration, readable_ids=["synthetic-garden"])
+        results = search_payload(QueryContext.load(self.configuration, session), "evidence")["results"]
+        self.assertEqual([item["reference"]["id"] for item in results], ["renamed-prompt"])
+        self.assertEqual(results[0]["sources"], self.evidence)
+
     def test_renamed_destination_keeps_logical_home_and_exact_evidence(self):
         plan = self.plan()
         self.assertTrue(plan.apply(plan.digest))
