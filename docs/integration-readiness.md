@@ -1,7 +1,7 @@
 # Integration readiness
 
-The first working session should take a small Chrome bookmark export from
-capture to a reviewed private result. Drive and Codex can follow against the
+The first working session should take a small, selected Chrome bookmark capture
+to a reviewed private result. Drive and Codex can follow against the
 same garden. This sequence is based on the 30 open issues observed on
 2026-11-20. The [coverage ledger](open-issue-coverage.md) retains their full
 requirements and links to prior implementation.
@@ -78,3 +78,43 @@ The routing selection passes 42 tests on each of Python 3.12.14 and 3.13.5
 12.318s). No skips. The exact pinned producer rehearsal matches its
 [committed receipt](evidence/bookmark-pilot-rehearsal.json). Commands are recorded
 in [continuity](../CONTINUITY.md).
+
+Draft [#157](https://github.com/egohygiene/mindgarden/pull/157) adds the #87
+local Git handoff and #89 two-task research rehearsal. The Git test pushes
+the reviewed garden to an isolated local bare remote. A fresh receiver needs a
+separate vault restore and an explicit source grant to recover the original
+evidence. The recovered context and packet match the originals exactly.
+
+The accounting and career research plans each select one reviewed note and
+follow one exact citation. The sessions grant access to different original
+sources. Both can read the same reviewed garden. This rehearsal uses the
+packaged Codex profile and ordinary CLI commands. An actual model run and the
+operator's authorization for personal sources are later checks. Use the
+[Drive guide](drive-capture.md) and [scoped research guide](scoped-research.md)
+to reproduce each step.
+
+Review the drafts in order **#155 → #156 → #157**. The branch
+`integration/20261120-drive-codex-readiness` is the combined checkout. For the
+first local session, identify the Chrome profile or tell us if the only
+input is an HTML export. Choose an owner-only workspace for the capture and
+reviewed output. The existing Mindcap producer works from the selected
+profile, and the pinned Akashic parser can inspect an HTML export separately.
+
+The combined local selection passes 95 focused cases per Python 3.12.14 and
+3.13.5. The two distribution cases pass on each after the artifacts are built.
+The role rehearsal matches from clean Git, isolated wheel and unpacked source.
+See the [qualification receipt](evidence/integration-readiness-qualification.json)
+for exact commands, wall times, artifact checksums and the separate hosted CI state.
+
+## Related research queue
+
+The Mindgarden references are assigned to the existing issues in
+[#86](https://github.com/egohygiene/mindgarden/issues/86). Agent workflows and
+protocol interoperability have dedicated Aether tickets.
+[Aether #137](https://github.com/egohygiene/aether/issues/137) ·
+[Aether #138](https://github.com/egohygiene/aether/issues/138)
+
+Public-source acquisition, document conversion and resource curation have their
+own owners. [Mindcap #45](https://github.com/egohygiene/mindcap/issues/45) ·
+[Renderflow #530](https://github.com/egohygiene/renderflow/issues/530) ·
+[Akashic #227](https://github.com/egohygiene/akashic/issues/227)

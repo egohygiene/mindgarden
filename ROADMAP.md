@@ -41,8 +41,9 @@ The [integration path](docs/integration-readiness.md) groups all 30 open issues
 by the outcome they serve. Start with the local bookmark, selected Drive and
 scoped Codex rehearsals. Keep the full issue criteria in the coverage ledger
 and verify actual private integrations only in the owner's chosen workspace.
-Draft #155 is green and anchors the new integration checkpoint. Earlier issue
-counts and CI observations below are historical.
+Draft #155 is green and anchors drafts #156 and #157. The latter is the
+combined checkout. Each rehearsal and the remaining owner gates are recorded in
+the integration guide. Earlier issue counts and CI observations below are historical.
 
 ## 2026-11-15 acceptance reconciliation
 

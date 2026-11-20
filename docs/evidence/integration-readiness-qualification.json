@@ -1,0 +1,103 @@
+{
+  "observed_date": "2026-11-20",
+  "main": "5cf24a29002f8e4f0a464b42819ec21ede33af2a",
+  "stack": [
+    {
+      "pr": 155,
+      "head": "b47c40adba113b3c82beb19456e7d4db1cba3509",
+      "test_run": 43753996698,
+      "preparation_run": 43753996726,
+      "status": "both passed"
+    },
+    {
+      "pr": 156,
+      "head": "c30d966673f3cedeeeb46395a88f975f07b4a568",
+      "test_run": 44690153033,
+      "preparation_run": 44690153013,
+      "status": "preparation passed; Test in progress at observation"
+    },
+    {
+      "pr": 157,
+      "qualified_source": "fcdb79dd3e56ae07b949e6675d5873bd8528c248",
+      "test_run": 44690371158,
+      "preparation_run": 44690371196,
+      "status": "preparation passed; Test in progress at observation; documentation handoff tracked separately"
+    }
+  ],
+  "combined_branch": "integration/20261120-drive-codex-readiness",
+  "focused": [
+    {
+      "python": "3.12.14",
+      "command": "PYTHONPATH=\"$PWD/src\" /workspace/mindgarden/.venv/bin/python -m unittest tests.test_routing tests.test_routing_dispositions tests.test_routing_lifecycle tests.test_routing_transfers tests.test_routing_incoming tests.test_reference_repairs tests.test_bookmarks tests.test_captured_bookmarks tests.test_drive_private_git tests.test_drive_normalization tests.test_drive_capture tests.test_research tests.test_mock_garden tests.test_distribution -q",
+      "seconds": 193.034,
+      "passed": 95,
+      "skipped": 2,
+      "failed": 0
+    },
+    {
+      "python": "3.13.5",
+      "command": "PYTHONPATH=\"$PWD/src\" /workspace/mindgarden/.cache/python313/bin/python -m unittest tests.test_routing tests.test_routing_dispositions tests.test_routing_lifecycle tests.test_routing_transfers tests.test_routing_incoming tests.test_reference_repairs tests.test_bookmarks tests.test_captured_bookmarks tests.test_drive_private_git tests.test_drive_normalization tests.test_drive_capture tests.test_research tests.test_mock_garden tests.test_distribution -q",
+      "seconds": 199.031,
+      "passed": 95,
+      "skipped": 2,
+      "failed": 0
+    }
+  ],
+  "distribution": {
+    "skip_reason": "Initial selection started before .cache/dist existed. After local build, reran the two distribution cases independently on each Python.",
+    "command": "python -m unittest tests.test_distribution -q",
+    "python_3_12": {
+      "passed": 2,
+      "skipped": 0,
+      "seconds": 0.158
+    },
+    "python_3_13": {
+      "passed": 2,
+      "skipped": 0,
+      "seconds": 0.123
+    },
+    "build_source": "614f19f",
+    "build_command": "PYTHONPATH=\"$PWD/src\" /workspace/mindgarden/.venv/bin/python -m build --no-isolation --wheel --sdist --outdir .cache/integration-dist",
+    "install_command": "uv pip install --python .cache/integration-wheel/bin/python --no-index --no-deps .cache/dist/mindgarden-0.1.0-py3-none-any.whl",
+    "wheel_sha256": "2ee4dd1f95b2817c511e4d7fedf17c90e19345779e6352f23e3b7cc4b0f526c1",
+    "sdist_sha256": "cda9bb4969dac1aa664287273700ebfd9c75463adea8555ba27d9758f1800571",
+    "new_fixture_script_and_test_bytes_verified": true
+  },
+  "bookmark": {
+    "producer_pin": "7ee766c1c34adad239fc602499f624979a2d9cac",
+    "command": "MINDCAP_CHECKOUT=\"/workspace/mindcap/.cache/mindgarden-bookmark-proof-20261120\"\ntest \"$(git -C \"$MINDCAP_CHECKOUT\" rev-parse HEAD)\" = \"7ee766c1c34adad239fc602499f624979a2d9cac\" &&\nset -o pipefail &&\nPYTHONPATH=\"$MINDCAP_CHECKOUT/src\" /workspace/mindcap/.venv/bin/python experiments/capture_handoff/check.py --fixture-directory \"$MINDCAP_CHECKOUT/tests/fixtures/chrome_bookmarks/multiple_profiles/User Data\" --rehearse-private-cleanup | cmp - docs/evidence/bookmark-pilot-rehearsal.json",
+    "status": "passed exact committed receipt",
+    "manual_browser_import": "not exercised"
+  },
+  "roles": [
+    {
+      "case": "clean Git",
+      "command": "task_dir=$(mktemp -d /tmp/mindgarden-role-git.XXXXXX)\ntime /workspace/mindgarden/.venv/bin/python -S .cache/role-git/scripts/research_roles_demo.py --workspace \"$task_dir/garden\" --require-source --check-golden",
+      "seconds": 154.035
+    },
+    {
+      "case": "isolated wheel",
+      "command": "task_dir=$(mktemp -d /tmp/mindgarden-role-wheel.XXXXXX)\ntime .cache/integration-wheel/bin/python -I .cache/role-git/scripts/research_roles_demo.py --workspace \"$task_dir/garden\" --require-installed --check-golden",
+      "seconds": 156.456
+    },
+    {
+      "case": "unpacked source",
+      "command": "task_dir=$(mktemp -d /tmp/mindgarden-role-source.XXXXXX)\ntime /workspace/mindgarden/.cache/python313/bin/python -S .cache/role-source/mindgarden-0.1.0/scripts/research_roles_demo.py --workspace \"$task_dir/garden\" --require-source --check-golden",
+      "seconds": 154.29
+    }
+  ],
+  "roles_result": "All three exited zero and emitted the same committed JSON result. Four generated ordinary CLI commands also replayed independently with empty environment and exact stdout hashes in the implementing worktree.",
+  "checks": [
+    "Application Python source, contracts, profiles, requirements, and packaging manifest unchanged from main",
+    "All 30 current open issues represented once and all 44 coverage rows retained",
+    "146 local link targets verified",
+    "Scoped Ruff lint, format, Python compilation and git diff --check passed",
+    "Pinned Hygiene and Aether owner checks passed, including all 18 indexed proposals with null approval",
+    "GitHub readback verified 11 newly created and seven updated issue bodies containing all 45 reference URLs"
+  ],
+  "limits": [
+    "The package built at 614f19f and the later tested source fcdb79d have identical runtime, demo, test and fixture bytes. The intervening edit clarifies documentation.",
+    "No real account, private capture, actual Chrome import, actual Codex model, provider purchase, release or proposed decision approval. Hosted checks are separate from local tests.",
+    "Aether issue titles were checked against the pinned candidate contract and live label list. The compatible Egolint binary was unavailable. The Aether skill's pinned source digest validation passed."
+  ]
+}
