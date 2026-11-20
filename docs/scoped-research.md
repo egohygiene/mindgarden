@@ -96,9 +96,9 @@ grant different first-pass evidence reads. Reusing the accounting plan with the
 career session fails before reading source bodies and leaves stdout empty.
 
 A task or planner label guides retrieval. The session controls authority. Both
-sessions can read the reviewed garden, so these task selections are not a way to
-hide a domain from an otherwise authorized reader. Separate garden access is
-configured through the existing session and bindings. The fictional rehearsal
+sessions permit reviewed reads across this garden. To restrict which reviewed
+content a reader can access, select their gardens through the existing session
+and bindings. The fictional rehearsal
 runs the ordinary CLI and stages local instructions for the caller. Model
 quality, actual Codex execution and private consumer authorization remain open.
 
