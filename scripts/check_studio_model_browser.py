@@ -27,6 +27,7 @@ class FixtureProvider:
     approved_prompt: str
     calls: list[tuple] = field(default_factory=list)
     installed: bool = False
+    signed_in: bool = False
 
     def check(self):
         self.calls.append(("check",))
@@ -38,6 +39,11 @@ class FixtureProvider:
             }
         if self.id == "gemini":
             state.update(models=[{"id": "small", "label": "Small"}, {"id": "large", "label": "Large"}], can_run=True)
+        if self.id == "chatgpt":
+            if self.signed_in:
+                state.update(models=[{"id": "small", "label": "Plan text model"}], can_run=True)
+            else:
+                state.update(status="unconfigured", detail="The fictional profile needs consent.")
         if self.id == "ollama":
             model = {"id": DOWNLOAD_ID, "label": DOWNLOAD_LABEL}
             if self.installed:
@@ -47,6 +53,10 @@ class FixtureProvider:
         return state
 
     def run(self, model, prompt):
+        if self.id == "chatgpt" and not self.signed_in:
+            from mindgarden.domain.validation import ContractError
+
+            raise ContractError("MODEL_REAUTH: the fictional plan consent expired")
         assert prompt == self.approved_prompt
         self.calls.append(("run", model))
         return PROVIDER_PROMPT_RESULT
@@ -80,6 +90,7 @@ def check_models(browser, url, width, providers, axe, artifacts):
         viewport={"width": width, "height": 950},
         reduced_motion="reduce" if width < 760 else "no-preference",
     )
+    codex_provider, gemini_provider, ollama_provider, chatgpt_provider = providers
     errors = []
     posts = []
     authority = urlsplit(url).netloc
@@ -110,7 +121,11 @@ def check_models(browser, url, width, providers, axe, artifacts):
     codex = page.get_by_role("region", name="Codex", exact=True)
     gemini = page.get_by_role("region", name="Gemini", exact=True)
     ollama = page.get_by_role("region", name="Ollama", exact=True)
+    chatgpt = page.get_by_role("region", name="ChatGPT plan", exact=True)
     expect(codex.get_by_text("Connection unchecked")).to_be_visible()
+    expect(chatgpt.get_by_text("Connection unchecked")).to_be_visible()
+    setup = chatgpt.get_by_role("region", name="ChatGPT plan setup", exact=True)
+    expect(setup).to_have_count(0)
     assert not posts and all(not provider.calls for provider in providers)
     assert "access=" not in page.url
 
@@ -122,7 +137,21 @@ def check_models(browser, url, width, providers, axe, artifacts):
     expect(codex.get_by_text("Reported balance 12.50", exact=True)).to_be_visible()
     selector = page.get_by_role("combobox", name="Provider", exact=True)
     expect(selector.locator('option[value="codex"]')).to_be_disabled()
+
+    chatgpt.get_by_role("button", name="Check connection").click()
+    expect(chatgpt.get_by_text("Setup required", exact=True)).to_be_visible()
+    expect(setup.get_by_text("mindgarden chatgpt connect --state-directory <private-dir>", exact=True)).to_be_visible()
+    expect(setup.get_by_text("--chatgpt-state-directory <private-dir>", exact=True)).to_be_visible()
+    expect(setup.get_by_role("link", name="Read the ChatGPT plan usage guide")).to_have_attribute(
+        "href", "https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference"
+    )
+    expect(selector.locator('option[value="chatgpt"]')).to_be_disabled()
     audit()
+    # Represent consent completed separately in the terminal.
+    chatgpt_provider.signed_in = True
+    chatgpt.get_by_role("button", name="Check connection").click()
+    expect(chatgpt.get_by_text("Models available", exact=True)).to_be_visible()
+    expect(setup).to_have_count(0)
 
     gemini.get_by_role("button", name="Check connection").click()
     expect(gemini.get_by_text("Connected", exact=True)).to_be_visible()
@@ -130,16 +159,18 @@ def check_models(browser, url, width, providers, axe, artifacts):
     models = page.get_by_role("combobox", name="Model", exact=True)
     models.select_option("small")
     preview = page.get_by_role("button", name="Preview fixture", exact=True)
-    preview.click()
+    with page.expect_response("**/api/models/preview") as prior_preview:
+        preview.click()
+    gemini_approval = prior_preview.value.json()["preview_sha256"]
     prompt = page.get_by_role("region", name="Prompt preview")
-    expect(prompt.locator("pre")).to_have_text(providers[1].approved_prompt)
+    expect(prompt.locator("pre")).to_have_text(gemini_provider.approved_prompt)
     expect(page.get_by_role("button", name="Authorize cloud run")).to_be_enabled()
     models.select_option("large")
     expect(prompt).to_have_count(0)
     assert not any(path.endswith("/run") for path, _ in posts)
     preview.click()
-    expect(prompt.locator("pre")).to_have_text(providers[1].approved_prompt)
-    assert prompt.locator("pre").text_content() == providers[1].approved_prompt
+    expect(prompt.locator("pre")).to_have_text(gemini_provider.approved_prompt)
+    assert prompt.locator("pre").text_content() == gemini_provider.approved_prompt
     audit()
     if artifacts:
         page.screenshot(path=artifacts / f"studio-models-cloud-{width}.png", full_page=True, animations="disabled")
@@ -150,8 +181,52 @@ def check_models(browser, url, width, providers, axe, artifacts):
     expect(output.get_by_role("heading", name="Generated result for review")).to_be_visible()
     output.get_by_text("Compare with approved fixture", exact=True).click()
     expect(output.locator("details pre")).to_be_visible()
-    assert output.locator("details pre").text_content() == providers[1].approved_prompt
-    assert providers[1].calls == [("check",), ("run", "large")]
+    assert output.locator("details pre").text_content() == gemini_provider.approved_prompt
+    assert gemini_provider.calls == [("check",), ("run", "large")]
+
+    preview.click()
+    expect(prompt.locator("pre")).to_have_text(gemini_provider.approved_prompt)
+    selector.select_option("chatgpt")
+    expect(prompt).to_have_count(0)
+    expect(models).to_have_value("")
+    models.select_option("small")
+    other_provider_attempt = {"provider": "chatgpt", "model": "small", "preview_sha256": gemini_approval}
+    # Both providers list this model ID. The exact approval still belongs to Gemini.
+    denied_status, denied_code = page.evaluate(
+        """async (body) => {
+          const response = await fetch("/api/models/run", {
+            method: "POST",
+            headers: {
+              "Authorization": "Bearer " + sessionStorage.getItem("mindgarden-access"),
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          });
+          return [response.status, (await response.json()).error?.code];
+        }""",
+        other_provider_attempt,
+    )
+    assert (denied_status, denied_code) == (409, "MODEL_REVIEW")
+    assert chatgpt_provider.calls == [("check",), ("check",)]
+    preview.click()
+    expect(prompt.get_by_text("The request may count against your ChatGPT plan usage.", exact=False)).to_be_visible()
+    assert prompt.locator("pre").text_content() == chatgpt_provider.approved_prompt
+    page.get_by_role("button", name="Authorize cloud run").click()
+    expect(output.locator("pre").first).to_have_text(PROVIDER_PROMPT_RESULT)
+    assert chatgpt_provider.calls == [("check",), ("check",), ("run", "small")]
+    audit()
+
+    preview.click()
+    expect(prompt).to_be_visible()
+    chatgpt_provider.signed_in = False
+    with page.expect_response("**/api/models/run") as expired_run:
+        page.get_by_role("button", name="Authorize cloud run").click()
+    assert expired_run.value.status == 401 and expired_run.value.json()["error"]["code"] == "MODEL_REAUTH"
+    expect(page.get_by_role("alert")).to_contain_text("mindgarden chatgpt refresh")
+    expect(selector.locator('option[value="chatgpt"]')).to_be_disabled()
+    expect(setup).to_be_visible()
+    expect(output).to_have_count(0)
+    assert chatgpt_provider.calls == [("check",), ("check",), ("run", "small")]
 
     ollama.get_by_role("button", name="Check connection").click()
     expect(ollama.get_by_text("Connected", exact=True)).to_be_visible()
@@ -163,21 +238,23 @@ def check_models(browser, url, width, providers, axe, artifacts):
     approved_download = previewed_download.value.json()
     assert approved_download["model"] == DOWNLOAD_ID and re.fullmatch(r"[a-f0-9]{64}", approved_download["preview_sha256"])
     expect(page.get_by_text("use disk space", exact=False)).to_be_visible()
-    assert ("install", DOWNLOAD_ID) not in providers[2].calls
+    assert ("install", DOWNLOAD_ID) not in ollama_provider.calls
     download.click()
     expect(page.get_by_text(f"{DOWNLOAD_LABEL} is available in Ollama.", exact=True)).to_be_visible()
     selector.select_option("ollama")
     models.select_option(DOWNLOAD_ID)
     preview.click()
-    expect(prompt.locator("pre")).to_have_text(providers[2].approved_prompt)
+    expect(prompt.locator("pre")).to_have_text(ollama_provider.approved_prompt)
     expect(page.get_by_role("button", name="Authorize cloud run")).to_have_count(0)
     page.get_by_role("button", name="Authorize loopback run").click()
     expect(output.locator("pre").first).to_have_text(PROVIDER_PROMPT_RESULT)
-    assert providers[2].calls == [("check",), ("install", DOWNLOAD_ID), ("check",), ("run", DOWNLOAD_ID)]
-    assert providers[0].calls == [("check",)]
+    assert ollama_provider.calls == [("check",), ("install", DOWNLOAD_ID), ("check",), ("run", DOWNLOAD_ID)]
+    assert codex_provider.calls == [("check",)]
     run_requests = [body for path, body in posts if path.endswith("/run")]
-    assert len(run_requests) == 2
-    assert [(body["provider"], body["model"]) for body in run_requests] == [("gemini", "large"), ("ollama", DOWNLOAD_ID)]
+    assert len(run_requests) == 5 and run_requests[1] == other_provider_attempt
+    assert [(body["provider"], body["model"]) for body in run_requests] == [
+        ("gemini", "large"), ("chatgpt", "small"), ("chatgpt", "small"), ("chatgpt", "small"), ("ollama", DOWNLOAD_ID),
+    ]
     assert all(body.keys() == {"provider", "model", "preview_sha256"} for body in run_requests)
     assert [body for path, body in posts if path == "/api/models/install/preview"] == [{"model": DOWNLOAD_ID}]
     assert [body for path, body in posts if path == "/api/models/install"] == [approved_download]
@@ -211,6 +288,7 @@ def main():
                     FixtureProvider("codex", "Codex", "cloud", PROMPT),
                     FixtureProvider("gemini", "Gemini", "cloud", PROMPT),
                     FixtureProvider("ollama", "Ollama", "loopback", PROMPT),
+                    FixtureProvider("chatgpt", "ChatGPT", "cloud", PROMPT),
                 )
                 with serve(config, scope, "providers", providers) as url:
                     check_models(browser, url, width, providers, axe, args.artifacts)

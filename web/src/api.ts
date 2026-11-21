@@ -228,7 +228,7 @@ const bookletEvidence = bookletPreview.extend({
   schema: z.literal("mindgarden.monthly-booklet-evidence/v1"),
 });
 
-const modelProvider = z.enum(["codex", "gemini", "ollama"]);
+const modelProvider = z.enum(["codex", "gemini", "ollama", "chatgpt"]);
 const modelDisclosure = z.enum(["cloud", "loopback"]);
 const modelOption = z.object({ id: z.string().min(1), label: z.string().min(1) });
 const reportedLimits = z.object({
@@ -364,6 +364,7 @@ const diagnostics = {
   MODEL_REVIEW: "The approval expired or changed. Review this operation again.",
   MODEL_BUSY: "A provider action is still running. Wait for it to finish and check the connection.",
   MODEL_QUOTA: "The provider reported a rate limit or exhausted quota. Check usage with the provider before retrying.",
+  MODEL_REAUTH: "Renew the local ChatGPT session with mindgarden chatgpt refresh, then check the connection again.",
   BOOKLET_REVIEW: "The approved booklet changed. Preview and review it again.",
   BOOKLET_UNAVAILABLE: "The fictional booklet is unavailable in this session.",
 } as const;

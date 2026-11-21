@@ -1,14 +1,14 @@
 # Try model connections in Studio
 
 The **Models** view runs a bundled fictional Willow Garden consultation
-scenario. It can check a local Codex account, discover Gemini models and
-run the scenario through Gemini or Ollama. The installed Python engine
+scenario. It can check a local Codex account and run the scenario through
+ChatGPT plan, Gemini or Ollama. The installed Python engine
 and the original offline Chat and Consultation booklet are available in
 the same visit.
 
 ## Launch the pilot
 
-From the combined draft branch `feature/studio-model-connections`, use
+From the combined draft branch `feature/studio-chatgpt-plan`, use
 Node 24 and Python 3.12 or 3.13.
 
 ```sh
@@ -41,6 +41,29 @@ mode for Studio turns on the target Mac.
 [Codex auth](https://developers.openai.com/codex/auth) ·
 [Account and rate limits](https://developers.openai.com/codex/app-server#auth-endpoints) ·
 [Sign in with ChatGPT](https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference)
+
+## ChatGPT plan
+
+Use the [local consent guide](studio-chatgpt-consent.md) to authorize
+plan use. Add the same private directory to the fictional Studio launch.
+Use the Python environment in which you installed the optional verifier.
+
+```sh
+PYTHONPATH="$PWD/src" python3.13 -m mindgarden visit \
+  --interface studio --demo --assistant providers \
+  --chatgpt-state-directory "$HOME/.config/mindgarden/chatgpt" \
+  --workspace "$HOME/mindgarden-models-demo"
+```
+
+Choose **Check connection** on the **ChatGPT plan** card and select a
+model from your plan's reported catalog. Review the exact same January
+fixture, then choose **Authorize cloud run**. Studio displays the
+reply after a completed Responses stream and checks that the approved
+session is still current. After renewal or sign-out, check the card
+again. A current catalog depends on the selected account and access
+permissions. Review your app usage and manage credits in ChatGPT.
+[Plan models and inference](https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference) ·
+[ChatGPT usage settings](https://chatgpt.com/settings/usage)
 
 ## Gemini
 
@@ -138,4 +161,5 @@ inventory using verified cached blobs and a single approved pull.
 
 The Codex protocol and simulated authenticated response tests completed
 with no local account credentials. Live account usage on the target Mac
-and the first authorized Gemini API response are the next checks.
+and the first authorized ChatGPT and Gemini responses are the next
+checks.

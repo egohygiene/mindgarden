@@ -174,6 +174,8 @@ def browser_error(error: ContractError) -> RequestError:
         return RequestError(HTTPStatus.CONFLICT, code, "A model action is already in progress.")
     if code == "MODEL_QUOTA":
         return RequestError(HTTPStatus.TOO_MANY_REQUESTS, code, "The provider's current rate or quota limit prevented the request.")
+    if code == "MODEL_REAUTH":
+        return RequestError(HTTPStatus.UNAUTHORIZED, code, "Renew the local ChatGPT session and check the connection again.")
     if code in {"MODEL_NOT_CONFIGURED", "MODEL_UNAVAILABLE"}:
         return RequestError(HTTPStatus.SERVICE_UNAVAILABLE, code, "Check the model setup in the Models lab.")
     if code in {"SESSION_REVISION", "WRITE_LOCKED", "QUERY_INTEGRITY"}:
@@ -560,12 +562,15 @@ class GardenHandler(BaseHTTPRequestHandler):
 
 
 def make_server(local_config: Path, scope: Path, *, port: int = 0, demo: bool = False,
-                interface: str = "classic", assistant: str = "off") -> GardenServer:
+                interface: str = "classic", assistant: str = "off",
+                chatgpt_state_directory: Path | None = None) -> GardenServer:
     """Pin an explicitly approved local view and bind a numeric loopback socket."""
     if type(port) is not int or not 0 <= port <= 65535:
         raise ContractError("WEB_PORT: supply a port between 0 and 65535")
     if assistant not in ("off", "fixture", "providers") or assistant != "off" and not (demo and interface == "studio"):
         raise ContractError("VISIT_ASSISTANT: the selected assistant requires the fictional Studio launch")
+    if chatgpt_state_directory is not None and assistant != "providers":
+        raise ContractError("VISIT_ASSISTANT: ChatGPT plan use requires the fictional Models lab")
     assets = browser_assets(interface)
     context = QueryContext.load(local_config, scope)
     context.require("index")
@@ -577,14 +582,16 @@ def make_server(local_config: Path, scope: Path, *, port: int = 0, demo: bool = 
     if assistant == "providers":
         from ..application.model_lab import ModelLab
 
-        lab = ModelLab()
+        lab = ModelLab() if chatgpt_state_directory is None else ModelLab(chatgpt_state_directory=chatgpt_state_directory)
     return GardenServer(port, context, demo, assets, provider, lab)
 
 
 def serve_garden(local_config: Path, scope: Path, *, port: int = 0, demo: bool = False,
-                 interface: str = "classic", assistant: str = "off") -> int:
+                 interface: str = "classic", assistant: str = "off",
+                 chatgpt_state_directory: Path | None = None) -> int:
     """Print the browser access link and serve until interrupted."""
-    with make_server(local_config, scope, port=port, demo=demo, interface=interface, assistant=assistant) as server:
+    with make_server(local_config, scope, port=port, demo=demo, interface=interface, assistant=assistant,
+                     chatgpt_state_directory=chatgpt_state_directory) as server:
         print(server.url, flush=True)
         try:
             server.serve_forever()

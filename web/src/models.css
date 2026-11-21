@@ -103,6 +103,44 @@
   margin-bottom: 10px;
 }
 
+.models-profile-setup {
+  display: grid;
+  gap: 6px;
+  margin-top: 13px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.models-profile-setup h3 {
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.models-profile-setup code {
+  border-radius: 7px;
+  padding: 6px 8px;
+  background: #eef3e9;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.models-profile-setup a {
+  display: flex;
+  min-height: 44px;
+  width: fit-content;
+  align-items: center;
+  gap: 4px;
+  font-weight: 750;
+}
+
+.models-profile-setup a svg {
+  flex-shrink: 0;
+}
+
 .models-feedback {
   display: flex;
   flex-wrap: wrap;

@@ -141,7 +141,7 @@ def _read_body(response, socket, deadline, limit):
             "MODEL_UNAVAILABLE: the provider response exceeded its byte limit"
         )
     raw = bytearray()
-    while len(raw) <= limit:
+    while len(raw) <= limit and not response.isclosed():
         socket.settimeout(_remaining(deadline))
         chunk = response.read1(min(16384, limit + 1 - len(raw)))
         if not chunk:
