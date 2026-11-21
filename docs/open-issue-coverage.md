@@ -1,4 +1,4 @@
-**Knowledge explorer and source evidence, 2026-11-21:** The Studio
+**Knowledge explorer and source evidence, 2026-11-21:** Draft [#160](https://github.com/egohygiene/mindgarden/pull/160) stacks on #159. The Studio
 [graph and Sources checkpoint](mindgarden-studio.md) makes visible notes
 navigable by topic and typed relationships. A scoped summary distinguishes
 fictional and captured Drive evidence and counts accessible local-vault

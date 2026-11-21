@@ -7,13 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-21T09:04:30Z'
+  updated_at: '2026-11-21T09:17:54Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Review the React Studio and its fictional offline walkthrough.
+  purpose: Review Studio's scoped knowledge explorer and Drive capture evidence before a selected private pilot.
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -47,85 +47,79 @@ scope:
   - docs/mindgarden-studio.md
   - experiments/next-rendering/README.md
 work:
-  objective: Review the React Studio and its fictional offline walkthrough.
+  objective: Review Studio's scoped knowledge explorer and Drive capture evidence before a selected private pilot.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#47
-    url: https://github.com/egohygiene/mindgarden/issues/47
+    id: egohygiene/mindgarden#87
+    url: https://github.com/egohygiene/mindgarden/issues/87
   next:
     kind: action
-    id: run-studio-on-owner-mac-and-review
-    description: 'Build and open Studio on the owner''s Mac. Review #155 through #159 in order, then choose one explicit
-      local session for the private pilot.'
+    id: review-explorer-and-select-drive-pilot
+    description: Run the fictional graph and Sources tour on the owner's Mac. Review the draft stack, then authorize
+      one selected Drive folder for a local capture and review.
     readiness: ready
     references:
     - docs/mindgarden-studio.md
-    - CONTINUITY.md
-    - docs/integration-readiness.md
+    - docs/drive-capture.md
     depends_on: []
 state:
   base:
-    revision: 46a152432930a10b3654d9789d3c15ee8144adf1
-    ref: refs/heads/feature/local-garden-visit
-    verified_at: '2026-11-21T09:04:30Z'
+    revision: d57ba2f2e6b3fc0cade28b3f8d14c8f041daabbc
+    ref: refs/heads/feature/react-garden-studio
+    verified_at: '2026-11-21T09:17:54Z'
   candidate:
-    branch: feature/react-garden-studio
-    revision: d3b845915fc5b3f750e803753d68e731b7eee984
+    branch: feature/studio-knowledge-explorer
+    revision: 593853c2d776aa56d83f5dea79c85bd43ace35da
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#159
-      url: https://github.com/egohygiene/mindgarden/pull/159
+      id: egohygiene/mindgarden#160
+      url: https://github.com/egohygiene/mindgarden/pull/160
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-21T09:04:30Z'
+    observed_at: '2026-11-21T09:17:54Z'
     default_branch_revision: 5cf24a29002f8e4f0a464b42819ec21ede33af2a
     issue_state: open
     pull_request_state: draft
-    notes: 'Main 5cf24a2. Draft #158 at 46a1524 passed all five hosted checks. #159 stacks on #158. Thirty issues
-      remain open with 44 tracked rows.'
+    notes: 'Main 5cf24a2. #160 is draft on #159 at d57ba2f. Thirty issues remain open with 44 tracked rows.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-21T09:04:30Z'
+  reviewed_at: '2026-11-21T09:17:54Z'
   reviewed_by: codex
   evidence:
   - command: npm --prefix web ci --offline --no-fund --audit=false && npm --prefix web run build && npm --prefix web
       test
     outcome: passed
-    observed_at: '2026-11-21T09:04:30Z'
-    notes: Clean-lock Vite and TypeScript build with generated license notices. Six Vitest API contract and request
-      tests passed.
-  - command: PYTHONPATH=src python -m unittest tests.test_local_web tests.test_mock_garden tests.test_package -q
+    observed_at: '2026-11-21T09:17:54Z'
+    notes: A clean Git checkout of the functional revision built Studio and passed eight TypeScript API tests.
+  - command: PYTHONPATH=src python -m unittest tests.test_local_web tests.test_drive_normalization tests.test_package
+      -q
     outcome: passed
-    observed_at: '2026-11-21T09:04:30Z'
-    notes: Twenty cases each under umask 0022 on Python 3.12.14 and 3.13.5. Shared scope, declined access, hashed
-      assets, required build and classic compatibility.
+    observed_at: '2026-11-21T09:17:54Z'
+    notes: Twenty-five cases passed on each Python 3.12.14 and 3.13.5 with umask 0022. Tested evidence scope, revocation,
+      missing lineage, fabricated provider markers and CLI compatibility.
   - command: python scripts/check_studio_browser.py --chromium /usr/bin/chromium --axe <local-axe.min.js> [--webgl]
     outcome: passed
-    observed_at: '2026-11-21T09:04:30Z'
-    notes: Chromium 151 at 1440, 390 and 320 pixels. Separate WebGL and fallback runs passed 18 axe checks each. Keyboard
-      search and citations, reused route, no remote page requests and byte-exact context download passed.
-  - command: python -m build --no-isolation && uv pip install --offline --no-index <wheel>
+    observed_at: '2026-11-21T09:17:54Z'
+    notes: Chromium 151 verified 1440, 390 and 320px with 24 axe checks. Covered note-to-map navigation, trail, filtered
+      graph, Sources, context bytes and no remote asset requests.
+  - command: Launch mindgarden visit --interface studio --local-config <fictional bindings> --scope <fictional session>
+      and open Sources in Chromium
     outcome: passed
-    observed_at: '2026-11-21T09:04:30Z'
-    notes: Isolated source and wheel packaging checks for a Python-only checkout and a Studio build. Installed assets
-      and exact evidence loaded; the notice stayed outside HTTP and was identical in both artifacts.
-  - command: npm --prefix experiments/next-rendering ci --offline && npm --prefix experiments/next-rendering run typecheck
-      && npm --prefix experiments/next-rendering run build
-    outcome: passed
-    observed_at: '2026-11-21T09:04:30Z'
-    notes: Next.js 16.4.6 built a static page and a dynamic request-time page. Local production HTTP verified their
-      render markers; browser filtering did not send a request.
+    observed_at: '2026-11-21T09:17:54Z'
+    notes: prepare_demo materialized its synthetic reviewed capture under an explicit bound session. Actual API and
+      Sources rendered Captured evidence with eight exact Drive citations. Demo launch renders Fictional example and
+      12 local-vault citations.
   environment_limitations:
-  - Studio was verified in Linux Chromium. The owner Mac launch and assistive-technology review remain pending.
-  - 'Automatic GitHub checks are separate from the local qualification. #159 remains a draft.'
-  - Hosted identity and worker/runtime decisions, review writes, live providers and the real private pilot retain
-    their acceptance gates.
+  - The browser qualification was Linux Chromium. The owner Mac launch and live Drive OAuth/capture still need local
+    operator evidence.
+  - Studio reports reviewed frozen evidence within an explicit session. ChatGPT's Drive connector uses separate credentials.
+  - Hosted checks, manual accessibility and parent acceptance remain separate.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -145,48 +139,48 @@ privacy:
 
 ## Purpose and precedence
 
-Review the React Studio and its fictional offline walkthrough.
+Review Studio's scoped knowledge explorer and Drive capture evidence before a selected private pilot.
 
 ## Resume protocol
 
-Refresh GitHub state, read [the Studio guide](docs/mindgarden-studio.md), and use its fictional setup before selecting an owner-authorized private input.
+Refresh GitHub state and use [the Studio tour](docs/mindgarden-studio.md) from the combined branch.
 
 ## Current objective and success conditions
 
-Open the local React dashboard, use keyboard search, follow citations and graph links, and download a bounded context pack. Compare the static and request-time Next.js lab routes separately.
+Explore authorized graph nodes, pivot through typed relationships, return to a note context, and inspect where reviewed evidence came from.
 
 ## State snapshot
 
-Main 5cf24a2. Draft #158 at 46a1524 passed all five hosted checks. #159 stacks on #158. Thirty issues remain open with 44 tracked rows.
+Main 5cf24a2. #160 is draft on #159 at d57ba2f. Thirty issues remain open with 44 tracked rows.
 
 ## Completed and material changes
 
-[#159](https://github.com/egohygiene/mindgarden/pull/159) adds Studio and the Next.js lab. Functional commits `7892a96` and `d3b8459`. The classic visit remains the default. The same Python process serves the Vite bundle and the authorized retrieval routes; optional WebGL uses the same result set as the 2D map.
+[#160](https://github.com/egohygiene/mindgarden/pull/160) adds a topic-aware graph, centered note neighborhoods and a trail. The note reader can open a map focus and return. Sources adds scoped Drive and vault citation counts with status based on verified local capture lineage. Functional commit `593853c`.
 
 ## Validation and review evidence
 
-The locked Studio and Next.js builds passed. Six frontend unit cases and twenty focused Python cases per version passed. The Chromium journey passed at three widths in WebGL and fallback modes, with eighteen axe checks per run. Source archives and offline installed wheels were tested in both packaging modes. Commands and remaining acceptance are listed in this document's metadata and [the Studio guide](docs/mindgarden-studio.md).
+Eight frontend cases and 25 focused Python cases per version passed. Chromium covered the full flow at three viewport widths with both WebGL and fallback. The explicit synthetic capture opened with the Captured evidence badge. Exact commands are in this document's metadata.
 
 ## Blockers, risks, unknowns, and deferred work
 
-#17 and #47 retain the publication, hosted identity, editing, worker, and manual accessibility criteria. #20 and #86 retain the owner-approved private pilot and consumer work. Runtime and identity ADRs are proposed. Nx can be evaluated when shared build orchestration has a concrete consumer.
+The owner's separate local OAuth and selected folder are needed for a real Drive capture. Browser editing, hosted identity, publication, manual accessibility and the private consumer remain subject to #17, #47 and #87.
 
 ## Next dependency-ready work
 
-Build and open Studio on the owner's Mac. Review #155 through #159 in order, then choose one explicit local session for the private pilot.
+Run the fictional graph and Sources tour on the owner's Mac. Review the draft stack, then authorize one selected Drive folder for a local capture and review.
 
 ## Parallel changes and reconciliation
 
-Draft order #155 → #156 → #157 → #158 → #159. The combined branch is `feature/react-garden-studio`. Earlier bookmark, Drive and Codex qualifications remain in [integration readiness](docs/integration-readiness.md).
+Draft order #155 → #156 → #157 → #158 → #159 → #160. The combined branch is `feature/studio-knowledge-explorer`. Studio's Next.js lab remains independent under `experiments/next-rendering`.
 
 ## Privacy and redaction
 
-Use the bundled fictional world for public demos and screenshots. Keep owner paths, real data and the per-launch access link local.
+Use the fictional fixtures for public demonstrations. Keep OAuth, account information, real file paths and the launch capability in the local workspace.
 
 ## Handoff update protocol
 
-Record the intended operation, exact commit and PR, permissions, verification commands, and the next reproducible action.
+Record current PR and commit, exact permission scope, runnable checks, remaining acceptance and a resumable first action.
 
 ## Compaction and supersession
 
-Earlier scoped visit and integration receipts remain linked from the [coverage ledger](docs/open-issue-coverage.md).
+Prior checks remain linked from the [coverage ledger](docs/open-issue-coverage.md) and [integration readiness guide](docs/integration-readiness.md).
