@@ -128,7 +128,7 @@ def add_visit_command(commands: ParserCollection) -> None:
     parser.add_argument("--assistant", choices=("off", "fixture", "providers"), default="off",
                         help="Enable the fictional assistant, or add the synthetic Models lab, with --demo --interface studio (default: off)")
     parser.add_argument("--chatgpt-state-directory", type=Path,
-                        help="Opt in to ChatGPT plan use with an existing private consent directory")
+                        help="Override the Models lab's private ChatGPT consent directory")
     parser.set_defaults(handler=run_visit)
 
 
@@ -139,10 +139,11 @@ def run_visit(arguments: Namespace) -> int:
     if arguments.assistant != "off" and (not arguments.demo or arguments.visit_interface != "studio"):
         raise ContractError(f"VISIT_ARGUMENTS: use --assistant {arguments.assistant} with --demo --interface studio")
     model_options = {}
-    if arguments.chatgpt_state_directory is not None:
-        if arguments.assistant != "providers":
-            raise ContractError("VISIT_ARGUMENTS: use --chatgpt-state-directory with --assistant providers")
-        model_options["chatgpt_state_directory"] = arguments.chatgpt_state_directory.expanduser().absolute()
+    if arguments.chatgpt_state_directory is not None and arguments.assistant != "providers":
+        raise ContractError("VISIT_ARGUMENTS: use --chatgpt-state-directory with --assistant providers")
+    if arguments.assistant == "providers":
+        directory = arguments.chatgpt_state_directory or Path.home() / ".config" / "mindgarden" / "chatgpt"
+        model_options["chatgpt_state_directory"] = directory.expanduser().absolute()
     from .local_web import browser_assets, serve_garden
 
     if arguments.demo:

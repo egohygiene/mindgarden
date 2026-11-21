@@ -95,6 +95,7 @@ class ModelLab:
             for provider in self._providers.values()
         }
         self._previews: dict[str, ModelApproval] = {}
+        self._generations = dict.fromkeys(self._providers, 0)
         self._state_lock = Lock()
         self._operation_lock = Lock()
 
@@ -137,6 +138,8 @@ class ModelLab:
             return {"providers": deepcopy(list(self._states.values())), "scenario": dict(SCENARIO)}
 
     def _refresh(self, provider: ModelProvider) -> None:
+        with self._state_lock:
+            generation = self._generations[provider.id]
         try:
             state = provider.check()
         except (OSError, ContractError) as error:
@@ -147,14 +150,26 @@ class ModelLab:
                 "models": [],
                 "can_run": False,
             }
-        self._remember(provider, state)
+        self._remember(provider, state, generation=generation)
 
-    def _remember(self, provider: ModelProvider, state: dict) -> None:
+    def _remember(self, provider: ModelProvider, state: dict, *, generation: int | None = None) -> None:
         with self._state_lock:
+            if generation is not None and self._generations[provider.id] != generation:
+                return
+            self._generations[provider.id] += 1
             self._states[provider.id] = self._descriptor(provider, state)
             self._previews = {
                 digest: approval for digest, approval in self._previews.items() if approval.provider != provider.id
             }
+
+    def reset_connection(self, identifier: str) -> None:
+        """Remove catalog and approvals after the associated account changes."""
+        self._remember(self._provider(identifier), {
+            "status": "unchecked",
+            "detail": "Check this connection to discover its current status.",
+            "models": [],
+            "can_run": False,
+        })
 
     def check(self, value: dict) -> dict:
         exact_strings(value, {"provider"})

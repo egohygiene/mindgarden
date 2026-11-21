@@ -106,7 +106,7 @@
 .models-profile-setup {
   display: grid;
   gap: 6px;
-  margin-top: 13px;
+  margin: 6px 0 9px;
   border-top: 1px solid var(--line);
   padding-top: 10px;
   color: var(--muted);
@@ -114,7 +114,7 @@
   line-height: 1.55;
 }
 
-.models-profile-setup h3 {
+.models-profile-status {
   color: var(--ink);
   font-size: 0.85rem;
   font-weight: 800;
@@ -126,6 +126,10 @@
   background: #eef3e9;
   color: var(--ink);
   overflow-wrap: anywhere;
+}
+
+.models-profile-setup [role="alert"] {
+  color: #743f35;
 }
 
 .models-profile-setup a {

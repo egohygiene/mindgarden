@@ -1,5 +1,6 @@
 """Orchestrate explicit local ChatGPT consent and its owner-side lifecycle."""
 
+from contextlib import nullcontext
 from pathlib import Path
 from time import time
 
@@ -21,19 +22,26 @@ def status(directory: Path, *, clock=time) -> dict:
     }
 
 
-def connect(directory: Path, *, callback, browse, oauth=None) -> dict:
+def connect(directory: Path, *, callback, browse, oauth=None, guard=lambda: None, committing=nullcontext) -> dict:
     """Open a one-use browser authorization and save only verified consent."""
+    guard()
     client = OAuthClient() if oauth is None else oauth
     client.require_oidc()
     store = ChatGPTStore(directory)
     with store.writer():
+        guard()
         saved = store.registration()
         host = store.host_id()
         with callback() as listener:
             attempt = new_attempt(host, listener.redirect_uri, saved.client_id if saved else None)
             try:
+                guard()
+                if (arm := getattr(listener, "arm", None)) is not None:
+                    arm(attempt.state)
                 try:
                     opened = browse(attempt.authorization_url)
+                except ContractError:
+                    raise
                 except (OSError, ValueError):
                     opened = False
                 if not opened:
@@ -41,8 +49,11 @@ def connect(directory: Path, *, callback, browse, oauth=None) -> dict:
                 code, client_id = listener.wait(attempt.state)
             except KeyboardInterrupt:
                 raise ContractError("CHATGPT_CALLBACK_CANCELLED: local sign-in was cancelled") from None
+        guard()
         credentials = client.exchange(attempt, code, client_id)
-        store.save(credentials)
+        with committing():
+            guard()
+            store.save(credentials)
     return {"status": "authorized", "registration_saved": True}
 
 
@@ -67,13 +78,15 @@ def refresh(directory: Path, *, oauth=None, clock=time) -> dict:
     return {"status": "refreshed", "expires_at": renewed.expires_at}
 
 
-def disconnect(directory: Path, *, oauth=None) -> dict:
+def disconnect(directory: Path, *, oauth=None, guard=lambda: None) -> dict:
     """Clear all local tokens and report the observed remote revocation result."""
+    guard()
     store = ChatGPTStore(directory)
     with store.writer():
         current = store.read()
         if current is None:
             return {"status": "signed-out", "remote_revocation": "not-needed"}
+        guard()
         client = OAuthClient() if oauth is None else oauth
         try:
             client.revoke(current)

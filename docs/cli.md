@@ -114,9 +114,10 @@ Use `--interface studio` after building the optional
 add `--assistant fixture` to `visit --interface studio --demo`. See the
 [assistant pilot guide](studio-assistant-pilot.md) for the launch and review flow.
 Choose `--assistant providers` with the same demo Studio launch to add the
-[Models pilot](studio-model-connections.md). Add
-`--chatgpt-state-directory <private-directory>` to that launch to expose
-the selected ChatGPT plan connection.
+[Models pilot](studio-model-connections.md), including browser sign-in
+from its **ChatGPT plan** card. Add
+`--chatgpt-state-directory <private-directory>` to override the local
+default at `~/.config/mindgarden/chatgpt`.
 
 `chatgpt connect --state-directory <private-directory>` opens the browser
 for optional ChatGPT plan consent. Use `chatgpt status`, `chatgpt refresh`,

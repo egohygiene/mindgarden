@@ -4,12 +4,14 @@ from argparse import ArgumentParser
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass, field
+from http.client import HTTPConnection
 from pathlib import Path
 import re
 import sys
 from tempfile import TemporaryDirectory
 from threading import Thread
-from urllib.parse import urlsplit
+from time import time
+from urllib.parse import parse_qs, urlencode, urlsplit
 from unittest.mock import patch
 
 
@@ -20,6 +22,57 @@ DOWNLOAD_LABEL = "Fictional local model"
 
 
 @dataclass
+class FixtureConsent:
+    directory: Path
+    opened: list[str] = field(default_factory=list)
+    exchanges: int = 0
+    revocations: int = 0
+
+    def require_oidc(self):
+        pass
+
+    def open_browser(self, url):
+        assert urlsplit(url).netloc == "auth.openai.com"
+        self.opened.append(url)
+        return True
+
+    def accept(self):
+        fields = parse_qs(urlsplit(self.opened[-1]).query)
+        callback = urlsplit(fields["redirect_uri"][0])
+        assert callback.hostname == "127.0.0.1"
+        query = urlencode({"state": fields["state"][0], "code": "fixture-code", "client_id": "oaiapp_browser_fixture"})
+        connection = HTTPConnection(callback.hostname, callback.port, timeout=5)
+        try:
+            connection.request("GET", callback.path + "?" + query)
+            reply = connection.getresponse()
+            assert reply.status == 200 and b"fixture-code" not in reply.read()
+        finally:
+            connection.close()
+
+    def exchange(self, attempt, code, client_id):
+        from mindgarden.adapters.chatgpt_credentials import ChatGPTCredentials
+
+        assert attempt.authorization_url == self.opened[-1]
+        assert code == "fixture-code" and client_id == "oaiapp_browser_fixture"
+        self.exchanges += 1
+        return ChatGPTCredentials(
+            issuer="https://auth.openai.com", subject="fictional-owner", client_id=client_id,
+            scopes=("chatgpt.tokens.use.direct", "resource.invoke"),
+            access_token="fictional-browser-access", refresh_token="fictional-browser-refresh",
+            id_token="fictional-browser-id", expires_at=int(time()) + 3600,
+        )
+
+    def active(self):
+        from mindgarden.adapters.chatgpt_credentials import ChatGPTStore
+
+        return ChatGPTStore(self.directory).read() is not None
+
+    def revoke(self, credentials):
+        assert credentials.client_id == "oaiapp_browser_fixture"
+        self.revocations += 1
+
+
+@dataclass
 class FixtureProvider:
     id: str
     name: str
@@ -27,7 +80,11 @@ class FixtureProvider:
     approved_prompt: str
     calls: list[tuple] = field(default_factory=list)
     installed: bool = False
-    signed_in: bool = False
+    consent: FixtureConsent | None = None
+    expired: bool = False
+
+    def signed_in(self):
+        return self.consent is not None and not self.expired and self.consent.active()
 
     def check(self):
         self.calls.append(("check",))
@@ -40,7 +97,7 @@ class FixtureProvider:
         if self.id == "gemini":
             state.update(models=[{"id": "small", "label": "Small"}, {"id": "large", "label": "Large"}], can_run=True)
         if self.id == "chatgpt":
-            if self.signed_in:
+            if self.signed_in():
                 state.update(models=[{"id": "small", "label": "Plan text model"}], can_run=True)
             else:
                 state.update(status="unconfigured", detail="The fictional profile needs consent.")
@@ -53,7 +110,7 @@ class FixtureProvider:
         return state
 
     def run(self, model, prompt):
-        if self.id == "chatgpt" and not self.signed_in:
+        if self.id == "chatgpt" and not self.signed_in():
             from mindgarden.domain.validation import ContractError
 
             raise ContractError("MODEL_REAUTH: the fictional plan consent expired")
@@ -68,11 +125,19 @@ class FixtureProvider:
 
 
 @contextmanager
-def serve(config, scope, mode: str, providers: tuple[FixtureProvider, ...] = ()) -> Iterator[str]:
+def serve(config, scope, mode: str, providers: tuple[FixtureProvider, ...] = (), consent=None) -> Iterator[str]:
     from mindgarden.interfaces.local_web import make_server
+    from mindgarden.interfaces.studio_chatgpt_login import StudioChatGPTLogin
 
-    with patch("mindgarden.application.model_lab.configured_providers", return_value=providers):
-        server = make_server(config, scope, demo=True, interface="studio", assistant=mode)
+    def build_login(directory):
+        return StudioChatGPTLogin(directory, oauth=consent, browse=consent.open_browser)
+
+    with (
+        patch("mindgarden.application.model_lab.configured_providers", return_value=providers),
+        patch("mindgarden.interfaces.studio_chatgpt_login.StudioChatGPTLogin", side_effect=build_login),
+    ):
+        server = make_server(config, scope, demo=True, interface="studio", assistant=mode,
+                             chatgpt_state_directory=consent.directory if consent else None)
     with server:
         worker = Thread(target=server.serve_forever, daemon=True)
         worker.start()
@@ -91,6 +156,7 @@ def check_models(browser, url, width, providers, axe, artifacts):
         reduced_motion="reduce" if width < 760 else "no-preference",
     )
     codex_provider, gemini_provider, ollama_provider, chatgpt_provider = providers
+    consent = chatgpt_provider.consent
     errors = []
     posts = []
     authority = urlsplit(url).netloc
@@ -124,9 +190,8 @@ def check_models(browser, url, width, providers, axe, artifacts):
     chatgpt = page.get_by_role("region", name="ChatGPT plan", exact=True)
     expect(codex.get_by_text("Connection unchecked")).to_be_visible()
     expect(chatgpt.get_by_text("Connection unchecked")).to_be_visible()
-    setup = chatgpt.get_by_role("region", name="ChatGPT plan setup", exact=True)
-    expect(setup).to_have_count(0)
     assert not posts and all(not provider.calls for provider in providers)
+    assert not consent.directory.exists() and not consent.opened
     assert "access=" not in page.url
 
     codex.get_by_role("button", name="Check connection").click()
@@ -140,18 +205,26 @@ def check_models(browser, url, width, providers, axe, artifacts):
 
     chatgpt.get_by_role("button", name="Check connection").click()
     expect(chatgpt.get_by_text("Setup required", exact=True)).to_be_visible()
-    expect(setup.get_by_text("mindgarden chatgpt connect --state-directory <private-dir>", exact=True)).to_be_visible()
-    expect(setup.get_by_text("--chatgpt-state-directory <private-dir>", exact=True)).to_be_visible()
-    expect(setup.get_by_role("link", name="Read the ChatGPT plan usage guide")).to_have_attribute(
-        "href", "https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference"
-    )
     expect(selector.locator('option[value="chatgpt"]')).to_be_disabled()
+    connect = chatgpt.get_by_role("button", name="Continue with ChatGPT", exact=True)
+    expect(connect).to_have_attribute("data-oai-siwc-button", "")
+    connect.click()
+    expect(chatgpt.get_by_text("Waiting for ChatGPT consent", exact=False)).to_be_visible()
+    assert len(consent.opened) == 1 and consent.exchanges == 0
+    chatgpt.get_by_role("button", name="Cancel sign-in", exact=True).click()
+    expect(chatgpt.get_by_text("Sign-in canceled", exact=False)).to_be_visible()
+    assert not consent.active()
     audit()
-    # Represent consent completed separately in the terminal.
-    chatgpt_provider.signed_in = True
+    connect.click()
+    expect(chatgpt.get_by_text("Waiting for ChatGPT consent", exact=False)).to_be_visible()
+    assert len(consent.opened) == 2
+    consent.accept()
+    expect(chatgpt.get_by_text("Signed in", exact=False)).to_be_visible()
+    assert consent.exchanges == 1 and consent.active()
+    assert chatgpt_provider.calls == [("check",)]
+    expect(selector.locator('option[value="chatgpt"]')).to_be_disabled()
     chatgpt.get_by_role("button", name="Check connection").click()
     expect(chatgpt.get_by_text("Models available", exact=True)).to_be_visible()
-    expect(setup).to_have_count(0)
 
     gemini.get_by_role("button", name="Check connection").click()
     expect(gemini.get_by_text("Connected", exact=True)).to_be_visible()
@@ -218,13 +291,13 @@ def check_models(browser, url, width, providers, axe, artifacts):
 
     preview.click()
     expect(prompt).to_be_visible()
-    chatgpt_provider.signed_in = False
+    chatgpt_provider.expired = True
     with page.expect_response("**/api/models/run") as expired_run:
         page.get_by_role("button", name="Authorize cloud run").click()
     assert expired_run.value.status == 401 and expired_run.value.json()["error"]["code"] == "MODEL_REAUTH"
-    expect(page.get_by_role("alert")).to_contain_text("mindgarden chatgpt refresh")
+    expect(page.get_by_role("alert")).to_contain_text("Continue with ChatGPT")
     expect(selector.locator('option[value="chatgpt"]')).to_be_disabled()
-    expect(setup).to_be_visible()
+    expect(connect).to_be_visible()
     expect(output).to_have_count(0)
     assert chatgpt_provider.calls == [("check",), ("check",), ("run", "small")]
 
@@ -258,6 +331,17 @@ def check_models(browser, url, width, providers, axe, artifacts):
     assert all(body.keys() == {"provider", "model", "preview_sha256"} for body in run_requests)
     assert [body for path, body in posts if path == "/api/models/install/preview"] == [{"model": DOWNLOAD_ID}]
     assert [body for path, body in posts if path == "/api/models/install"] == [approved_download]
+    # After a fresh view, an explicit check must offer renewal even before a run fails.
+    page.reload()
+    page.get_by_role("button", name="Models", exact=True).click()
+    chatgpt.get_by_role("button", name="Check connection").click()
+    expect(connect).to_be_visible()
+    chatgpt.get_by_role("button", name="Sign out of ChatGPT", exact=True).click()
+    expect(chatgpt.get_by_text("Signed out of ChatGPT", exact=False)).to_be_visible()
+    assert consent.revocations == 1 and not consent.active()
+    assert [body for path, body in posts if path == "/api/models/chatgpt/connect"] == [{}, {}]
+    assert [body for path, body in posts if path == "/api/models/chatgpt/cancel"] == [{}]
+    assert [body for path, body in posts if path == "/api/models/chatgpt/disconnect"] == [{}]
     assert not errors, errors
     audit()
     page.close()
@@ -284,13 +368,14 @@ def main():
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch(executable_path=args.chromium, args=["--disable-background-networking"])
             for width in (1440, 390):
+                consent = FixtureConsent(Path(workspace).resolve() / f"fictional-consent-{width}")
                 providers = (
                     FixtureProvider("codex", "Codex", "cloud", PROMPT),
                     FixtureProvider("gemini", "Gemini", "cloud", PROMPT),
                     FixtureProvider("ollama", "Ollama", "loopback", PROMPT),
-                    FixtureProvider("chatgpt", "ChatGPT", "cloud", PROMPT),
+                    FixtureProvider("chatgpt", "ChatGPT", "cloud", PROMPT, consent=consent),
                 )
-                with serve(config, scope, "providers", providers) as url:
+                with serve(config, scope, "providers", providers, consent) as url:
                     check_models(browser, url, width, providers, axe, args.artifacts)
             with serve(config, scope, "fixture") as url:
                 page = browser.new_page()

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from functools import partial
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -36,6 +37,7 @@ from ..domain.validation import ContractError
 
 if TYPE_CHECKING:
     from ..application.model_lab import ModelLab
+    from .studio_chatgpt_login import StudioChatGPTLogin
 
 
 HOST = "127.0.0.1"
@@ -76,6 +78,12 @@ MODEL_POST = {
     "/api/models/run": ("run", {"provider", "model", "preview_sha256"}),
     "/api/models/install/preview": ("install_preview", {"model"}),
     "/api/models/install": ("install", {"model", "preview_sha256"}),
+}
+CHATGPT_LOGIN_STATUS = "/api/models/chatgpt/connection"
+CHATGPT_LOGIN_POST = {
+    "/api/models/chatgpt/connect",
+    "/api/models/chatgpt/cancel",
+    "/api/models/chatgpt/disconnect",
 }
 JSON_MEDIA_TYPE = re.compile(r"application/json(?:[ \t]*;[ \t]*charset=utf-8)?", re.IGNORECASE)
 BOOKLET_MONTH = re.compile(r"[0-9]{4}-(?:0[1-9]|1[0-2])")
@@ -172,6 +180,8 @@ def browser_error(error: ContractError) -> RequestError:
         return RequestError(HTTPStatus.CONFLICT, code, "Preview the current synthetic request again before running it.")
     if code == "MODEL_BUSY":
         return RequestError(HTTPStatus.CONFLICT, code, "A model action is already in progress.")
+    if code == "CHATGPT_STATE_BUSY":
+        return RequestError(HTTPStatus.CONFLICT, code, "A ChatGPT connection action is already in progress.")
     if code == "MODEL_QUOTA":
         return RequestError(HTTPStatus.TOO_MANY_REQUESTS, code, "The provider's current rate or quota limit prevented the request.")
     if code == "MODEL_REAUTH":
@@ -297,17 +307,26 @@ class GardenServer(ThreadingHTTPServer):
     allow_reuse_address = False
 
     def __init__(self, port: int, context: QueryContext, demo: bool, assets: dict[str, tuple[str, str]],
-                 assistant: AssistantProvider | None = None, model_lab: ModelLab | None = None):
+                 assistant: AssistantProvider | None = None, model_lab: ModelLab | None = None,
+                 chatgpt_login: StudioChatGPTLogin | None = None):
         self.context = context
         self.demo = demo
         self.assets = assets
         self.assistant = assistant
         self.model_lab = model_lab
+        self.chatgpt_login = chatgpt_login
         self.access_token = token_urlsafe(32)
         super().__init__((HOST, port), GardenHandler)
         self.authority = HOST if self.server_port == 80 else f"{HOST}:{self.server_port}"
         self.origin = f"http://{self.authority}"
         self.url = f"{self.origin}/#access={self.access_token}"
+
+    def server_close(self):
+        try:
+            if self.chatgpt_login is not None:
+                self.chatgpt_login.close()
+        finally:
+            super().server_close()
 
     def handle_error(self, request, client_address):
         # Socket failures can happen when a browser navigates away mid-response.
@@ -389,6 +408,10 @@ class GardenHandler(BaseHTTPRequestHandler):
             parameters(raw_query, set())
             verified_metadata(context)
             body = canonical_json(self.server.model_lab.snapshot())
+        elif path == CHATGPT_LOGIN_STATUS and self.server.chatgpt_login is not None:
+            parameters(raw_query, set())
+            context.check_live()
+            body = canonical_json(self.server.chatgpt_login.snapshot())
         elif path == "/api/connectors":
             parameters(raw_query, set())
             index = build_index(context, projection="evidence", enforce_bytes=False)
@@ -491,12 +514,26 @@ class GardenHandler(BaseHTTPRequestHandler):
         # session remains an HTTP access gate, never a provider input.
         return canonical_json(getattr(lab, method)(value))
 
+    def chatgpt_login_post(self, context: QueryContext, value: dict) -> bytes:
+        if value:
+            raise ContractError("MODEL_INVALID: this connection action accepts an empty object")
+        verified_metadata(context)
+        login = self.server.chatgpt_login
+        if self.path == "/api/models/chatgpt/cancel":
+            return canonical_json(login.cancel())
+        invalidate = partial(self.server.model_lab.reset_connection, "chatgpt")
+        operation = login.start if self.path == "/api/models/chatgpt/connect" else login.disconnect
+        return canonical_json(operation(context.check_live, invalidate))
+
     def do_POST(self):
         provider = self.server.assistant
         lab = self.server.model_lab
         models = self.path in MODEL_POST
+        login = self.path in CHATGPT_LOGIN_POST
         try:
-            if (models and lab is None) or (not models and (provider is None or self.path not in PILOT_POST)):
+            if (models and lab is None) or (login and self.server.chatgpt_login is None) or (
+                not (models or login) and (provider is None or self.path not in PILOT_POST)
+            ):
                 raise RequestError(HTTPStatus.METHOD_NOT_ALLOWED, "WEB_METHOD", "This route does not support POST.")
             self.authorize_host(require_origin=True)
             self.authorize_browser()
@@ -506,6 +543,8 @@ class GardenHandler(BaseHTTPRequestHandler):
             filename = None
             if models:
                 run, mime, body = False, JSON, self.models_post(context, lab, value)
+            elif login:
+                run, mime, body = False, JSON, self.chatgpt_login_post(context, value)
             elif self.path.startswith("/api/assistant/"):
                 run = self.path == "/api/assistant/run"
                 prepared = prepare_turn(context, provider, value, run=run)
@@ -576,14 +615,21 @@ def make_server(local_config: Path, scope: Path, *, port: int = 0, demo: bool = 
     context.require("index")
     provider = None
     lab = None
+    login = None
     if assistant != "off":
         require_private(context)
         provider = FixtureAssistant()
     if assistant == "providers":
         from ..application.model_lab import ModelLab
 
-        lab = ModelLab() if chatgpt_state_directory is None else ModelLab(chatgpt_state_directory=chatgpt_state_directory)
-    return GardenServer(port, context, demo, assets, provider, lab)
+        if chatgpt_state_directory is None:
+            lab = ModelLab()
+        else:
+            from .studio_chatgpt_login import StudioChatGPTLogin
+
+            lab = ModelLab(chatgpt_state_directory=chatgpt_state_directory)
+            login = StudioChatGPTLogin(chatgpt_state_directory)
+    return GardenServer(port, context, demo, assets, provider, lab, login)
 
 
 def serve_garden(local_config: Path, scope: Path, *, port: int = 0, demo: bool = False,
