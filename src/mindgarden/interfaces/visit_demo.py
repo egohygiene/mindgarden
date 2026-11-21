@@ -7,8 +7,9 @@ from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
 
-from ..adapters.registry_files import control_path
+from ..adapters.registry_files import control_path, create_control
 from ..application.pilot import private_control, private_root
+from ..application.sessions import bind_session_revisions
 from ..domain.contracts import canonical_json, read_object, strict_json
 from ..domain.scope import local_scope
 from ..domain.validation import ContractError
@@ -49,7 +50,21 @@ def demo_bindings(state: Path) -> dict:
     }
 
 
-def prepare_demo(workspace: Path) -> tuple[Path, Path]:
+def _fixture_assistant_scope(config: Path, base: dict, citations: list[dict]) -> Path:
+    """Grant the fixed booklet's normalized rows without broadening the pinned view."""
+    session = bind_session_revisions(config, {
+        **base,
+        "projections": [*base["projections"], "source-evidence"],
+        "source_grants": [citation["source"] for citation in citations],
+    })
+    if session["readable"] != base["readable"]:
+        raise ContractError("SESSION_REVISION: start the fictional assistant in an unchanged demo workspace")
+    target = config.with_name("assistant-scope.json")
+    create_control(target, canonical_json(session))
+    return target
+
+
+def prepare_demo(workspace: Path, *, assistant: bool = False) -> tuple[Path, Path]:
     """Install once, then return only the existing owned fixture's bindings and scope."""
     workspace = workspace.expanduser().absolute()
     state = workspace / ".mindgarden-visit"
@@ -57,6 +72,12 @@ def prepare_demo(workspace: Path) -> tuple[Path, Path]:
     control_path(config)
     seed = shipped_demo()
     bindings = demo_bindings(state)
+    base = strict_json(seed["scope.json"])
+    citations = None
+    if assistant:
+        from ..application.booklet import read_booklet_request
+
+        citations = read_booklet_request()["sources"]
     if state.exists():
         private_root(workspace)
         private_root(state)
@@ -64,26 +85,28 @@ def prepare_demo(workspace: Path) -> tuple[Path, Path]:
         # Session revocation remains live, even for the fictional browser session.
         if (
             {**existing, "revoked_sessions": []} != bindings
-            or read_object(private_control(scope)) != strict_json(seed["scope.json"])
+            or read_object(private_control(scope)) != base
         ):
             raise ContractError("VISIT_DEMO_BINDINGS: use explicit private mode for edited demo authority")
-        return config, scope
-    if workspace.exists() and (not workspace.is_dir() or any(workspace.iterdir())):
+    elif workspace.exists() and (not workspace.is_dir() or any(workspace.iterdir())):
         raise ContractError("VISIT_DEMO_WORKSPACE: choose a new or empty private directory")
-    workspace.mkdir(mode=0o700, parents=True, exist_ok=True)
-    private_root(workspace)
-    with TemporaryDirectory(prefix=".mindgarden-visit-stage-", dir=workspace) as temporary:
-        stage = Path(temporary)
-        for name, content in {**seed, "bindings.json": canonical_json(bindings)}.items():
-            destination = stage / name
-            destination.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
-            descriptor = os.open(destination, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
-            with os.fdopen(descriptor, "wb") as output:
-                output.write(content)
-        try:
-            stage.rename(state)
-        except OSError as error:
-            if state.exists():
-                raise ContractError("VISIT_DEMO_WORKSPACE: another process selected this directory") from error
-            raise
+    else:
+        workspace.mkdir(mode=0o700, parents=True, exist_ok=True)
+        private_root(workspace)
+        with TemporaryDirectory(prefix=".mindgarden-visit-stage-", dir=workspace) as temporary:
+            stage = Path(temporary)
+            for name, content in {**seed, "bindings.json": canonical_json(bindings)}.items():
+                destination = stage / name
+                destination.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+                descriptor = os.open(destination, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+                with os.fdopen(descriptor, "wb") as output:
+                    output.write(content)
+            try:
+                stage.rename(state)
+            except OSError as error:
+                if state.exists():
+                    raise ContractError("VISIT_DEMO_WORKSPACE: another process selected this directory") from error
+                raise
+    if citations is not None:
+        scope = _fixture_assistant_scope(config, base, citations)
     return config, scope

@@ -78,6 +78,8 @@ const gardenOverview = z.object({
     backlinks: z.boolean(),
     context: z.boolean(),
     evidence: z.boolean(),
+    assistant: z.boolean().optional(),
+    booklet: z.boolean().optional(),
   }),
   notes: z.array(noteSummary),
   graph: z.object({ nodes: z.array(noteSummary), edges: z.array(graphEdge) }),
@@ -154,6 +156,76 @@ const connectorSummary = z.object({
   }),
 });
 
+const assistantLens = z.enum(["garden", "finance"]);
+const assistantFocus = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*\/[a-z0-9]+(?:-[a-z0-9]+)*$/).nullable();
+const assistantPreview = z.object({
+  preview_sha256: digest,
+  provider: z.literal("fixture"),
+  lens: assistantLens,
+  focus: assistantFocus,
+  context_bytes: nonnegative,
+  scope,
+  records: z.array(z.object({
+    reference: representedReference, title: z.string(), review, scope, sources: z.array(sourceCitation),
+    content: z.string(), caveats: strings, uncertainty: strings,
+  })),
+});
+const assistantCitation = z.object({ type: z.literal("citation"), reference: representedReference, citation: sourceCitation });
+const assistantEvent = z.discriminatedUnion("type", [
+  z.object({ type: z.literal("start"), provider: z.literal("fixture") }),
+  z.object({ type: z.literal("text"), text: z.string() }),
+  assistantCitation,
+  z.object({ type: z.literal("done") }),
+  z.object({ type: z.literal("error"), code: z.string() }),
+]);
+
+const bookletMonth = z.literal("2026-01");
+const period = z.object({ start: z.string(), end: z.string() });
+const bookletPreview = z.object({
+  schema: z.literal("mindgarden.monthly-booklet-preview/v1"),
+  month: bookletMonth,
+  timezone: z.literal("UTC"),
+  scope,
+  period,
+  totals: z.array(z.object({
+    month: bookletMonth,
+    currency: z.string().regex(/^[A-Z]{3}$/),
+    net_movement: z.string(),
+    income: z.string(),
+    expense: z.string(),
+    refund: z.string(),
+    transfer: z.string(),
+    uncategorized: z.string(),
+  })),
+  coverage: z.array(z.object({
+    account: z.string(),
+    observed_first: z.string().nullable(),
+    observed_last: z.string().nullable(),
+    missing_declared_intervals: z.array(period),
+    status: z.string(),
+  })),
+  limitations: strings,
+  review: review.extend({ state: z.literal("approved") }),
+  status: z.literal("current"),
+  unresolved_transactions: strings,
+  evidence: z.array(sourceCitation),
+  plan_sha256: digest,
+  pdf_sha256: digest,
+});
+const bookletEvidence = bookletPreview.extend({
+  schema: z.literal("mindgarden.monthly-booklet-evidence/v1"),
+});
+
+export type BookletMonth = z.infer<typeof bookletMonth>;
+export type BookletPreview = z.infer<typeof bookletPreview>;
+export type BookletFormat = "pdf" | "evidence";
+
+export type AssistantLens = z.infer<typeof assistantLens>;
+export type AssistantInput = { lens: AssistantLens; question: string; focus: string | null };
+export type AssistantPreview = z.infer<typeof assistantPreview>;
+export type AssistantCitation = z.infer<typeof assistantCitation>;
+export type AssistantDelta = Extract<z.infer<typeof assistantEvent>, { type: "text" | "citation" }>;
+
 export type ArtifactReference = z.infer<typeof reference>;
 export type SourceCitation = z.infer<typeof sourceCitation>;
 export type Scope = z.infer<typeof scope>;
@@ -225,6 +297,12 @@ const diagnostics = {
   EVIDENCE_FORMAT: "This evidence selection has no text preview.",
   CONNECTION: "Could not reach the local garden. Check that Mindgarden is running.",
   INVALID_RESPONSE: "Mindgarden returned an incompatible response. Check the local app version.",
+  ASSISTANT_INVALID: "Enter a question of up to 256 characters and choose a supported lens.",
+  ASSISTANT_FOCUS: "The selected note is unavailable for this lens and session.",
+  ASSISTANT_APPROVAL: "The approved context changed. Preview it again before running.",
+  ASSISTANT_UNAVAILABLE: "The fictional assistant is unavailable in this session.",
+  BOOKLET_REVIEW: "The approved booklet changed. Preview and review it again.",
+  BOOKLET_UNAVAILABLE: "The fictional booklet is unavailable in this session.",
 } as const;
 
 type DiagnosticCode = keyof typeof diagnostics;
@@ -244,20 +322,27 @@ function remoteError(value: unknown, status: number): GardenApiError {
   return new GardenApiError(Object.hasOwn(diagnostics, code) ? code as DiagnosticCode : "WEB_UNAVAILABLE", status);
 }
 
-async function request(
+type Endpoint = "garden" | "search" | "note" | "evidence" | "context" | "connectors"
+  | "assistant/preview" | "assistant/run" | "booklet/preview" | "booklet/artifact";
+
+async function localFetch(
   access: string | null,
-  endpoint: "garden" | "search" | "note" | "evidence" | "context" | "connectors",
+  endpoint: Endpoint,
   parameters: Record<string, string>,
   signal?: AbortSignal,
+  body?: object,
+  accept = "application/json",
 ) {
   signal?.throwIfAborted();
   if (!access || !accessFormat.test(access)) throw new GardenApiError("WEB_ACCESS", 0);
   const query = new URLSearchParams(parameters).toString();
-  let response: Response;
+  const headers: Record<string, string> = { Accept: accept, Authorization: `Bearer ${access}` };
+  if (body) headers["Content-Type"] = "application/json";
   try {
-    response = await fetch(`/api/${endpoint}${query ? `?${query}` : ""}`, {
-      method: "GET",
-      headers: { Accept: "application/json", Authorization: `Bearer ${access}` },
+    return await fetch(`/api/${endpoint}${query ? `?${query}` : ""}`, {
+      method: body ? "POST" : "GET",
+      headers,
+      ...(body ? { body: JSON.stringify(body) } : {}),
       cache: "no-store",
       credentials: "omit",
       mode: "same-origin",
@@ -269,8 +354,14 @@ async function request(
     signal?.throwIfAborted();
     throw new GardenApiError("CONNECTION", 0);
   }
+}
 
-  if (response.headers.get("content-type")?.split(";", 1)[0].trim().toLowerCase() !== "application/json") {
+function mediaType(response: Response) {
+  return response.headers.get("content-type")?.split(";", 1)[0].trim().toLowerCase();
+}
+
+async function jsonResponse(response: Response, signal?: AbortSignal) {
+  if (mediaType(response) !== "application/json") {
     throw new GardenApiError(response.ok ? "INVALID_RESPONSE" : "WEB_UNAVAILABLE", response.status);
   }
   let bytes: Uint8Array<ArrayBuffer>;
@@ -287,6 +378,63 @@ async function request(
   signal?.throwIfAborted();
   if (!response.ok) throw remoteError(value, response.status);
   return { bytes, text, value, status: response.status };
+}
+
+async function request(
+  access: string | null, endpoint: Endpoint, parameters: Record<string, string>, signal?: AbortSignal, body?: object,
+) {
+  return jsonResponse(await localFetch(access, endpoint, parameters, signal, body), signal);
+}
+
+async function readAssistantStream(response: Response, onDelta: (delta: AssistantDelta) => void, signal?: AbortSignal) {
+  if (!response.ok) await jsonResponse(response, signal);
+  if (mediaType(response) !== "application/x-ndjson" || !response.body) {
+    throw new GardenApiError("INVALID_RESPONSE", response.status);
+  }
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder("utf-8", { fatal: true });
+  let buffer = "";
+  let received = 0;
+  let started = false;
+  let finished = false;
+  try {
+    while (true) {
+      const chunk = await reader.read();
+      signal?.throwIfAborted();
+      if (chunk.done) break;
+      received += chunk.value.byteLength;
+      if (received > 128 * 1024) throw new GardenApiError("QUERY_BUDGET", response.status);
+      buffer += decoder.decode(chunk.value, { stream: true });
+      let newline = buffer.indexOf("\n");
+      while (newline >= 0) {
+        const event = assistantEvent.parse(JSON.parse(buffer.slice(0, newline)));
+        buffer = buffer.slice(newline + 1);
+        if (finished || (!started && event.type !== "start")) throw new GardenApiError("INVALID_RESPONSE", response.status);
+        switch (event.type) {
+          case "start":
+            if (started) throw new GardenApiError("INVALID_RESPONSE", response.status);
+            started = true;
+            break;
+          case "done":
+            finished = true;
+            break;
+          case "error":
+            throw remoteError({ error: { code: event.code } }, response.status);
+          default:
+            onDelta(event);
+        }
+        newline = buffer.indexOf("\n");
+      }
+    }
+    if (buffer || decoder.decode() || !finished) throw new GardenApiError("INVALID_RESPONSE", response.status);
+  } catch (error) {
+    signal?.throwIfAborted();
+    if (error instanceof GardenApiError) throw error;
+    throw new GardenApiError("INVALID_RESPONSE", response.status);
+  } finally {
+    await reader.cancel().catch(() => {});
+    reader.releaseLock();
+  }
 }
 
 function readValue<Schema extends z.ZodType>(schema: Schema, response: { value: unknown; status: number }): z.output<Schema> {
@@ -312,6 +460,51 @@ export function createGardenClient(access: string | null) {
     async evidence(ref: ArtifactReference | string, citation: number, signal?: AbortSignal): Promise<Evidence> {
       const parameters = { ref: referenceKey(ref), citation: String(citation) };
       return readValue(evidence, await request(access, "evidence", parameters, signal));
+    },
+    async assistantPreview(input: AssistantInput, signal?: AbortSignal): Promise<AssistantPreview> {
+      return readValue(assistantPreview, await request(access, "assistant/preview", {}, signal, input));
+    },
+    async assistantRun(
+      input: AssistantInput, previewSha256: string, onDelta: (delta: AssistantDelta) => void, signal?: AbortSignal,
+    ) {
+      const response = await localFetch(access, "assistant/run", {}, signal, {
+        ...input, preview_sha256: previewSha256,
+      }, "application/x-ndjson");
+      await readAssistantStream(response, onDelta, signal);
+    },
+    async bookletPreview(month: BookletMonth, signal?: AbortSignal): Promise<BookletPreview> {
+      return readValue(bookletPreview, await request(access, "booklet/preview", {}, signal, { month }));
+    },
+    async bookletArtifact(preview: BookletPreview, format: BookletFormat, signal?: AbortSignal) {
+      const expectedType = format === "pdf" ? "application/pdf" : "application/json";
+      const response = await localFetch(access, "booklet/artifact", {}, signal, {
+        month: preview.month, plan_sha256: preview.plan_sha256, format,
+      }, expectedType);
+      if (!response.ok) await jsonResponse(response, signal);
+      if (mediaType(response) !== expectedType) throw new GardenApiError("INVALID_RESPONSE", response.status);
+      try {
+        const bytes = new Uint8Array(await response.arrayBuffer());
+        signal?.throwIfAborted();
+        if (!bytes.length || bytes.length > 1024 * 1024) throw new GardenApiError("QUERY_BUDGET", response.status);
+        if (format === "pdf") {
+          const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", bytes));
+          const hex = Array.from(digest, (value) => value.toString(16).padStart(2, "0")).join("");
+          if (hex !== preview.pdf_sha256 || new TextDecoder().decode(bytes.subarray(0, 5)) !== "%PDF-") {
+            throw new GardenApiError("INVALID_RESPONSE", response.status);
+          }
+        } else {
+          const json = bookletEvidence.parse(JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes)));
+          if (json.plan_sha256 !== preview.plan_sha256 || json.pdf_sha256 !== preview.pdf_sha256) {
+            throw new GardenApiError("INVALID_RESPONSE", response.status);
+          }
+        }
+        signal?.throwIfAborted();
+        return new Blob([bytes], { type: expectedType });
+      } catch (error) {
+        signal?.throwIfAborted();
+        if (error instanceof GardenApiError) throw error;
+        throw new GardenApiError("INVALID_RESPONSE", response.status);
+      }
     },
     async context(query: string, signal?: AbortSignal): Promise<ContextResponse> {
       const response = await request(access, "context", { q: query }, signal);

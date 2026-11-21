@@ -66,6 +66,9 @@ validated stack-neutral tokens, visual references and reusable prompt guidance.
 `mindgarden design --format css` and `--format quartz` export derived views;
 design tooling is optional for other contributors.
 
+The [fictional assistant pilot](docs/studio-assistant-pilot.md) walks
+from a reviewed note to a scoped chat preview and a cited monthly PDF.
+
 ## Build a reviewed garden brief
 
 A fictional first sweep shows how source capture, curation, review and

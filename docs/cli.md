@@ -110,7 +110,9 @@ browser. `visit --local-config <bindings> --scope <session>` serves an explicit
 v1 session. Both modes use IPv4 loopback and print the per-process browser
 link. See [the visit guide](local-garden-visit.md) for bounds and scope.
 Use `--interface studio` after building the optional
-[React client](mindgarden-studio.md).
+[React client](mindgarden-studio.md). For the optional offline walkthrough,
+add `--assistant fixture` to `visit --interface studio --demo`. See the
+[assistant pilot guide](studio-assistant-pilot.md) for the launch and review flow.
 
 `brief --local-config <bindings> --scope <session>` prints a bounded,
 reviewed v1 garden map. Add `--check <saved-brief.md>` to check exact
