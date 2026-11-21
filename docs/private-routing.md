@@ -123,6 +123,16 @@ selected. Original bodies may still be read as authorized provenance of a new
 derivative. Transition metadata participates in session revisions, expiration
 and revocation checks; it never grants additional access.
 
+After a routed unit moves, its reviewed successor carries the same unit
+identity. Replanning the original placement fails with
+`ROUTE_TRANSFER_REQUIRED`. Verifying a previously applied plan whose required
+files and inputs still match can return a no-op. The move event keeps the
+original record and its references available as history. Search can return an
+existing reference note. The successor is the only current canonical home.
+The exact source evidence reopens through that home. The composed regression in
+`tests/test_routing.py` covers both forms of replay and compares the garden
+fingerprints around those attempts.
+
 This bounded implementation requires matching ordinary personal policies. Public
 moves, policy-changing transfers, incoming graph retargeting and wider filesystem/
 power-loss behavior remain parent scope. A missing permitted target is an error,
