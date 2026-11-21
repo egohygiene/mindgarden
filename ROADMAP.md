@@ -35,6 +35,16 @@ publication: central
 route: /roadmap/mindgarden/
 updated: 2026-11-13
 -->
+## 2026-11-21 local browser visit
+
+The [Willow Garden visit](docs/local-garden-visit.md) adds an offline
+browser tour on top of the reviewed local records, evidence and context
+services. Use it first with the bundled fictional garden, then rehearse
+one selected source using the owner-approved local bindings. This advances
+the reading and shared-interface slices of #17 and #47. Full public
+publication, authenticated private hosting, browser ingestion and review,
+and the real pilot in #20 retain their separate acceptance gates.
+
 ## 2026-11-20 integration readiness
 
 The [integration path](docs/integration-readiness.md) groups all 30 open issues

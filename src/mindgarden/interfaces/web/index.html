@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#111f18">
+  <title>Mindgarden</title>
+  <link rel="icon" href="/garden-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/garden.css">
+  <script src="/garden.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside class="sidebar">
+    <a href="#overview" class="brand" aria-label="Mindgarden overview">
+      <img src="/garden-icon.svg" alt="" width="39" height="39">
+      <span>Mindgarden</span>
+    </a>
+    <nav id="navigation" aria-label="Garden">
+      <a href="#overview" data-view="overview"><span data-icon="home"></span>Overview</a>
+      <a href="#notes" data-view="notes"><span data-icon="notes"></span>Notes</a>
+      <a href="#connections" data-view="connections"><span data-icon="branch"></span>Connections</a>
+      <a href="#context" data-view="context"><span data-icon="layers"></span>Context pack</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="local"><span class="status-dot" aria-hidden="true"></span><span>Local workspace</span></div>
+      <nav aria-label="Ego Hygiene projects" class="external-links">
+        <a href="https://civics.egohygiene.io/" rel="noreferrer">Civics</a>
+        <a href="https://ethics.egohygiene.io/" rel="noreferrer">Ethics</a>
+        <a href="https://akashic.egohygiene.io/" rel="noreferrer">Akashic</a>
+      </nav>
+    </div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar">
+      <div class="location"><span id="garden-title">Mindgarden</span><span class="location-divider" aria-hidden="true">/</span><span id="view-title">Overview</span></div>
+      <form id="quick-search" class="quick-search" role="search">
+        <label class="visually-hidden" for="global-query">Search reviewed notes</label>
+        <span data-icon="search"></span>
+        <input id="global-query" type="search" name="q" placeholder="Search your garden" maxlength="200" required>
+        <button type="submit" aria-label="Search">↵</button>
+      </form>
+    </header>
+    <main id="main" tabindex="-1">
+      <p class="message">Enable JavaScript to visit your garden in this browser. You can also use search and context commands in the Mindgarden CLI.</p>
+    </main>
+    <footer class="workspace-footer">
+      <span>Mindgarden</span><span id="footer-scope"></span>
+      <nav class="mobile-links" aria-label="Ego Hygiene projects">
+        <a href="https://civics.egohygiene.io/" rel="noreferrer">Civics</a>
+        <a href="https://ethics.egohygiene.io/" rel="noreferrer">Ethics</a>
+        <a href="https://akashic.egohygiene.io/" rel="noreferrer">Akashic</a>
+      </nav>
+    </footer>
+  </div>
+  <div class="visually-hidden" id="announcements" role="status"></div>
+</body>
+</html>

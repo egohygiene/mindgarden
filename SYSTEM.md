@@ -193,6 +193,15 @@ Drafts #127–#130 extend the same services with shared export policy, whole-bun
 
 [The journey ledger](docs/journey-sprint.md) records authorized merges #127–#132 and the dependent #133–#136 checkpoints. The #20 composed synthetic proof imports a selected diagram/caption, records authored review and scratch exclusion, retrieves exact evidence, builds bounded context, repairs a reviewed private reference, migrates/relocates/restores the vault and rebuilds identical projections in a clean garden. It requires no model, Google, specialized database or hosted service. The native reading proof remains a bounded public fixture; manual accessibility, real private-pilot and consumer publication acceptance remain separate. Draft implementation is distinct from merged/accepted behavior.
 
+## Local browser visit
+
+The [local browser visit](docs/local-garden-visit.md) adds a loopback
+process and bundled browser assets for an offline, read-only session.
+Its sample workspace contains a fictional garden, distinct source vault
+and a generated local binding. The query services enforce scope and
+recheck source integrity. The public site, private provider integration
+and editing lifecycle have separate acceptance criteria.
+
 ## Draft local freshness and normalization checkpoint
 
 The [selected draft stack](docs/freshness-mapping-sprint.md) reuses existing

@@ -24,7 +24,7 @@ proofs stack on that draft so the combined checkout keeps its handoff.
 
 ## First session
 
-1. Run the fictional garden or the bookmark rehearsal before selecting any
+1. Run the [fictional browser visit](local-garden-visit.md) or the bookmark rehearsal before selecting any
    personal input. Choose a private workspace and separate locations for the
    garden, source vault and generated outputs. The
    [private pilot guide](private-pilot.md) documents the existing preflight.

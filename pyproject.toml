@@ -50,6 +50,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 mindgarden = ["py.typed"]
+"mindgarden.interfaces" = ["web/*.html", "web/*.css", "web/*.js", "web/*.svg", "web/*.webp"]
 
 [tool.setuptools.data-files]
 "share/mindgarden/contracts" = ["contracts/*.schema.json"]
@@ -60,3 +61,4 @@ mindgarden = ["py.typed"]
 "share/mindgarden/templates" = ["templates/*.md"]
 "share/mindgarden/design/tokens" = ["design/tokens/*.json"]
 "share/mindgarden/design/schemas" = ["design/schemas/*.schema.json"]
+"share/mindgarden/examples/mock-garden" = ["examples/mock-garden/visit.zip"]
