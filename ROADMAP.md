@@ -35,6 +35,19 @@ publication: central
 route: /roadmap/mindgarden/
 updated: 2026-11-13
 -->
+## 2026-11-21 model connections
+
+The [Models pilot](docs/studio-model-connections.md) advances #163 with
+Codex account and usage checks. It exercises Gemini and Ollama against the
+same bundled fictional prompt and makes model selection explicit.
+
+Proposed dependency correction for #166: Gemini and Ollama can qualify
+their independent fictional text paths using the same approval contract.
+The complete second-provider checkpoint still follows the live Codex,
+scoped chat and reviewed booklet journey. Authenticated Codex generation,
+private context, and image and video artifacts have distinct acceptance.
+The owner-selected Drive pilot stays with #87.
+
 ## 2026-11-21 fictional assistant pilot
 
 The [local Studio pilot](docs/studio-assistant-pilot.md) connects the scoped

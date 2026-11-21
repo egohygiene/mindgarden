@@ -125,8 +125,8 @@ def add_visit_command(commands: ParserCollection) -> None:
     parser.add_argument("--port", type=int, default=0, help="Loopback port (default: choose an available port)")
     parser.add_argument("--interface", dest="visit_interface", choices=("classic", "studio"), default="classic",
                         help="Select the classic reader or the locally built Studio")
-    parser.add_argument("--assistant", choices=("off", "fixture"), default="off",
-                        help="Enable the offline fictional assistant with --demo --interface studio (default: off)")
+    parser.add_argument("--assistant", choices=("off", "fixture", "providers"), default="off",
+                        help="Enable the fictional assistant, or add the synthetic Models lab, with --demo --interface studio (default: off)")
     parser.set_defaults(handler=run_visit)
 
 
@@ -134,8 +134,8 @@ def run_visit(arguments: Namespace) -> int:
     """Select a fictional workspace or an explicit private configuration."""
     if not 0 <= arguments.port <= 65535:
         raise ContractError("VISIT_PORT: choose a port between 0 and 65535")
-    if arguments.assistant == "fixture" and (not arguments.demo or arguments.visit_interface != "studio"):
-        raise ContractError("VISIT_ARGUMENTS: use --assistant fixture with --demo --interface studio")
+    if arguments.assistant != "off" and (not arguments.demo or arguments.visit_interface != "studio"):
+        raise ContractError(f"VISIT_ARGUMENTS: use --assistant {arguments.assistant} with --demo --interface studio")
     from .local_web import browser_assets, serve_garden
 
     if arguments.demo:
@@ -145,7 +145,7 @@ def run_visit(arguments: Namespace) -> int:
 
         if arguments.visit_interface == "studio":
             browser_assets("studio")
-        config, scope = prepare_demo(arguments.workspace, assistant=arguments.assistant == "fixture")
+        config, scope = prepare_demo(arguments.workspace, assistant=arguments.assistant != "off")
     else:
         if arguments.scope is None or arguments.workspace is not None:
             raise ContractError("VISIT_ARGUMENTS: use --local-config with --scope")

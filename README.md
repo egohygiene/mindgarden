@@ -68,6 +68,9 @@ design tooling is optional for other contributors.
 
 The [fictional assistant pilot](docs/studio-assistant-pilot.md) walks
 from a reviewed note to a scoped chat preview and a cited monthly PDF.
+The [Models pilot](docs/studio-model-connections.md) checks Codex account
+usage and runs the same fictional scenario through a selected Gemini or
+Ollama model.
 
 ## Build a reviewed garden brief
 

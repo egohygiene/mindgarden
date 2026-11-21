@@ -113,6 +113,8 @@ Use `--interface studio` after building the optional
 [React client](mindgarden-studio.md). For the optional offline walkthrough,
 add `--assistant fixture` to `visit --interface studio --demo`. See the
 [assistant pilot guide](studio-assistant-pilot.md) for the launch and review flow.
+Choose `--assistant providers` with the same demo Studio launch to add the
+[Models pilot](studio-model-connections.md).
 
 `brief --local-config <bindings> --scope <session>` prints a bounded,
 reviewed v1 garden map. Add `--check <saved-brief.md>` to check exact

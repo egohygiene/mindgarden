@@ -269,6 +269,14 @@ ledger preview authorizes deterministic PDF and evidence downloads.
 [Codex protocol qualification](docs/studio-codex.md) records the candidate
 runtime boundary and remaining sign-in proof.
 
+The [Studio Models pilot](docs/studio-model-connections.md) is a separate
+application service with optional Codex account, Gemini and Ollama
+adapters. Its approved payload is bundled fictional text and its
+short-lived approvals bind the provider and model. Provider state lives
+in the local process. The app's read services remain the authority for
+garden data, and hosting an authenticated model turn against a private
+session needs its own reviewed authorization.
+
 [Mindgarden Studio](docs/mindgarden-studio.md) builds a React interface
 with Vite and serves its manifest-listed assets through the same Python
 loopback adapter. The TypeScript client calls the existing scoped read

@@ -14,6 +14,7 @@ import {
   MessageSquare,
   ScrollText,
   Search,
+  Server,
   Sprout,
   Wallet,
   X,
@@ -39,6 +40,7 @@ import { ConnectorPreview, SourcesView } from "./connectors";
 import { KnowledgeExplorer } from "./explorer";
 import { ContextView, NotesView, NoteView } from "./features";
 import { GardenGraph } from "./graph";
+import { ModelsView } from "./models";
 
 type Route =
   | { name: "overview" }
@@ -48,6 +50,7 @@ type Route =
   | { name: "sources" }
   | { name: "chat" }
   | { name: "booklet" }
+  | { name: "models" }
   | { name: "note"; reference: string };
 
 const sections = [
@@ -58,6 +61,7 @@ const sections = [
   { label: "Sources", route: { name: "sources" }, icon: Database },
   { label: "Chat", route: { name: "chat" }, icon: MessageSquare },
   { label: "Consultation booklet", route: { name: "booklet" }, icon: ScrollText },
+  { label: "Models", route: { name: "models" }, icon: Server },
 ] satisfies Array<{ label: string; route: Route; icon: typeof Compass }>;
 
 const affiliated = [
@@ -71,6 +75,7 @@ function canOpen(route: Route, garden?: GardenOverview) {
   if (route.name === "context") return garden?.capabilities.context;
   if (route.name === "chat") return garden?.demo && garden.capabilities.assistant;
   if (route.name === "booklet") return garden?.demo && garden.capabilities.booklet;
+  if (route.name === "models") return garden?.demo && garden.capabilities.models;
   return true;
 }
 
@@ -112,7 +117,7 @@ function Sidebar({
         <img src="/garden-icon.svg" width="38" height="38" alt="" />
         <span>Mindgarden</span>
       </button>
-      <nav aria-label="Garden" className="studio-nav">
+      <nav aria-label="Garden" className={`studio-nav${canOpen({ name: "models" }, garden) ? " studio-nav--models" : ""}`}>
         {sections.filter((item) => canOpen(item.route, garden)).map((item) => (
           <button
             type="button"
@@ -448,6 +453,7 @@ export function Studio({ client }: { client: GardenClient }) {
         break;
       }
       case "booklet": content = <BookletView booklet={booklet} />; break;
+      case "models": content = <ModelsView client={client} />; break;
     }
   }
 

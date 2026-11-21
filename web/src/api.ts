@@ -80,6 +80,7 @@ const gardenOverview = z.object({
     evidence: z.boolean(),
     assistant: z.boolean().optional(),
     booklet: z.boolean().optional(),
+    models: z.boolean().optional(),
   }),
   notes: z.array(noteSummary),
   graph: z.object({ nodes: z.array(noteSummary), edges: z.array(graphEdge) }),
@@ -227,6 +228,51 @@ const bookletEvidence = bookletPreview.extend({
   schema: z.literal("mindgarden.monthly-booklet-evidence/v1"),
 });
 
+const modelProvider = z.enum(["codex", "gemini", "ollama"]);
+const modelDisclosure = z.enum(["cloud", "loopback"]);
+const modelOption = z.object({ id: z.string().min(1), label: z.string().min(1) });
+const reportedLimits = z.object({
+  windows: z.array(z.object({
+    label: z.string(),
+    used_percent: z.number().min(0).max(100),
+    window_minutes: positive.nullish(),
+    resets_at: z.union([nonnegative, z.string().min(1)]).nullish(),
+  })),
+  credits: z.object({ balance: z.string().nullable(), has_credits: z.boolean(), unlimited: z.boolean() }).nullish(),
+});
+const modelProviderStatus = z.object({
+  id: modelProvider,
+  name: z.string(),
+  disclosure: modelDisclosure,
+  status: z.enum(["unconfigured", "unchecked", "ready", "unavailable"]),
+  detail: z.string(),
+  models: z.array(modelOption),
+  can_run: z.boolean(),
+  downloadable: z.array(modelOption).optional(),
+  limits: reportedLimits.nullish(),
+});
+const modelsSnapshot = z.object({
+  providers: z.array(modelProviderStatus),
+  scenario: z.object({ id: z.string(), title: z.string(), description: z.string() }),
+});
+const modelPreview = z.object({
+  provider: modelProvider,
+  model: z.string(),
+  scenario: z.string(),
+  prompt: z.string(),
+  preview_sha256: digest,
+  disclosure: modelDisclosure,
+});
+const modelResult = z.object({ provider: modelProvider, model: z.string(), text: z.string() });
+const modelInstallPreview = z.object({ model: z.string(), preview_sha256: digest });
+
+export type ModelProvider = z.infer<typeof modelProvider>;
+export type ModelProviderStatus = z.infer<typeof modelProviderStatus>;
+export type ModelsSnapshot = z.infer<typeof modelsSnapshot>;
+export type ModelPreview = z.infer<typeof modelPreview>;
+export type ModelResult = z.infer<typeof modelResult>;
+export type ModelInstallPreview = z.infer<typeof modelInstallPreview>;
+
 export type BookletMonth = z.infer<typeof bookletMonth>;
 export type BookletPreview = z.infer<typeof bookletPreview>;
 export type BookletFormat = "pdf" | "evidence";
@@ -312,6 +358,12 @@ const diagnostics = {
   ASSISTANT_FOCUS: "The selected note is unavailable for this lens and session.",
   ASSISTANT_APPROVAL: "The approved context changed. Preview it again before running.",
   ASSISTANT_UNAVAILABLE: "The fictional assistant is unavailable in this session.",
+  MODEL_INVALID: "Choose a listed provider and model.",
+  MODEL_NOT_CONFIGURED: "Set up this provider in the terminal and restart Studio.",
+  MODEL_UNAVAILABLE: "The provider could not complete this request. Check its connection.",
+  MODEL_REVIEW: "The approval expired or changed. Review this operation again.",
+  MODEL_BUSY: "A provider action is still running. Wait for it to finish and check the connection.",
+  MODEL_QUOTA: "The provider reported a rate limit or exhausted quota. Check usage with the provider before retrying.",
   BOOKLET_REVIEW: "The approved booklet changed. Preview and review it again.",
   BOOKLET_UNAVAILABLE: "The fictional booklet is unavailable in this session.",
 } as const;
@@ -334,7 +386,8 @@ function remoteError(value: unknown, status: number): GardenApiError {
 }
 
 type Endpoint = "garden" | "search" | "note" | "evidence" | "context" | "connectors"
-  | "assistant/preview" | "assistant/run" | "booklet/preview" | "booklet/artifact";
+  | "assistant/preview" | "assistant/run" | "booklet/preview" | "booklet/artifact"
+  | "models" | "models/check" | "models/preview" | "models/run" | "models/install/preview" | "models/install";
 
 async function localFetch(
   access: string | null,
@@ -471,6 +524,28 @@ export function createGardenClient(access: string | null) {
     async evidence(ref: ArtifactReference | string, citation: number, signal?: AbortSignal): Promise<Evidence> {
       const parameters = { ref: referenceKey(ref), citation: String(citation) };
       return readValue(evidence, await request(access, "evidence", parameters, signal));
+    },
+    async models(signal?: AbortSignal): Promise<ModelsSnapshot> {
+      return readValue(modelsSnapshot, await request(access, "models", {}, signal));
+    },
+    async modelCheck(provider: ModelProvider, signal?: AbortSignal): Promise<ModelsSnapshot> {
+      return readValue(modelsSnapshot, await request(access, "models/check", {}, signal, { provider }));
+    },
+    async modelPreview(provider: ModelProvider, model: string, signal?: AbortSignal): Promise<ModelPreview> {
+      return readValue(modelPreview, await request(access, "models/preview", {}, signal, { provider, model }));
+    },
+    async modelRun(approved: ModelPreview, signal?: AbortSignal): Promise<ModelResult> {
+      return readValue(modelResult, await request(access, "models/run", {}, signal, {
+        provider: approved.provider, model: approved.model, preview_sha256: approved.preview_sha256,
+      }));
+    },
+    async modelInstallPreview(model: string, signal?: AbortSignal): Promise<ModelInstallPreview> {
+      return readValue(modelInstallPreview, await request(access, "models/install/preview", {}, signal, { model }));
+    },
+    async modelInstall(approved: ModelInstallPreview, signal?: AbortSignal): Promise<ModelsSnapshot> {
+      return readValue(modelsSnapshot, await request(access, "models/install", {}, signal, {
+        model: approved.model, preview_sha256: approved.preview_sha256,
+      }));
     },
     async assistantPreview(input: AssistantInput, signal?: AbortSignal): Promise<AssistantPreview> {
       return readValue(assistantPreview, await request(access, "assistant/preview", {}, signal, input));

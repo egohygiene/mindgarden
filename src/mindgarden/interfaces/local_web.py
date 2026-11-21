@@ -1,4 +1,4 @@
-"""A read-only loopback browser adapter over explicit query authority."""
+"""A loopback browser adapter over explicit local authority."""
 
 from __future__ import annotations
 
@@ -9,11 +9,12 @@ from pathlib import Path
 import re
 from secrets import compare_digest, token_urlsafe
 from time import sleep
+from typing import TYPE_CHECKING
 from urllib.parse import parse_qs, urlsplit
 
 from ..application.connector_evidence import connector_evidence
 from ..application.evidence import resolve_evidence
-from ..application.local_federation import require_private
+from ..application.local_federation import require_private, verified_metadata
 from ..application.query import QueryContext
 from ..application.retrieval import (
     build_index,
@@ -32,6 +33,9 @@ from ..application.studio_assistant import (
 )
 from ..domain.contracts import canonical_json, read_object, safe_path, strict_json
 from ..domain.validation import ContractError
+
+if TYPE_CHECKING:
+    from ..application.model_lab import ModelLab
 
 
 HOST = "127.0.0.1"
@@ -66,6 +70,13 @@ NDJSON = "application/x-ndjson; charset=utf-8"
 MAX_POST_BYTES = 4096
 STREAM_PAUSE_SECONDS = 0.14
 PILOT_POST = frozenset({"/api/assistant/preview", "/api/assistant/run", "/api/booklet/preview", "/api/booklet/artifact"})
+MODEL_POST = {
+    "/api/models/check": ("check", {"provider"}),
+    "/api/models/preview": ("preview", {"provider", "model"}),
+    "/api/models/run": ("run", {"provider", "model", "preview_sha256"}),
+    "/api/models/install/preview": ("install_preview", {"model"}),
+    "/api/models/install": ("install", {"model", "preview_sha256"}),
+}
 JSON_MEDIA_TYPE = re.compile(r"application/json(?:[ \t]*;[ \t]*charset=utf-8)?", re.IGNORECASE)
 BOOKLET_MONTH = re.compile(r"[0-9]{4}-(?:0[1-9]|1[0-2])")
 MAX_QUERY_LENGTH = 256
@@ -155,6 +166,16 @@ def browser_error(error: ContractError) -> RequestError:
         return RequestError(HTTPStatus.NOT_FOUND, code, "This selection is unavailable in the authorized view.")
     if code == "ASSISTANT_UNAVAILABLE":
         return RequestError(HTTPStatus.SERVICE_UNAVAILABLE, code, "The local fixture could not complete the turn.")
+    if code == "MODEL_INVALID":
+        return RequestError(HTTPStatus.BAD_REQUEST, code, "Choose a supported action and model in the Models lab.")
+    if code == "MODEL_REVIEW":
+        return RequestError(HTTPStatus.CONFLICT, code, "Preview the current synthetic request again before running it.")
+    if code == "MODEL_BUSY":
+        return RequestError(HTTPStatus.CONFLICT, code, "A model action is already in progress.")
+    if code == "MODEL_QUOTA":
+        return RequestError(HTTPStatus.TOO_MANY_REQUESTS, code, "The provider's current rate or quota limit prevented the request.")
+    if code in {"MODEL_NOT_CONFIGURED", "MODEL_UNAVAILABLE"}:
+        return RequestError(HTTPStatus.SERVICE_UNAVAILABLE, code, "Check the model setup in the Models lab.")
     if code in {"SESSION_REVISION", "WRITE_LOCKED", "QUERY_INTEGRITY"}:
         return RequestError(HTTPStatus.CONFLICT, code, "The authorized records could not be verified. Check the garden locally and refresh the session.")
     if code in {"QUERY_BUDGET", "CONTEXT_BUDGET"}:
@@ -175,7 +196,7 @@ def overview_limit(context: QueryContext) -> int:
     return min(MAX_OVERVIEW_NOTES, context.session["budgets"]["max_results"])
 
 
-def garden_payload(context: QueryContext, demo: bool, *, assistant: bool = False) -> dict:
+def garden_payload(context: QueryContext, demo: bool, *, assistant: bool = False, models: bool = False) -> dict:
     index = build_index(context, enforce_bytes=False)
     capabilities = {
         name: name in context.session["projections"]
@@ -184,6 +205,7 @@ def garden_payload(context: QueryContext, demo: bool, *, assistant: bool = False
     projections = set(context.session["projections"])
     capabilities["assistant"] = assistant and REQUIRED_PROJECTIONS <= projections
     capabilities["booklet"] = assistant and {"context", "source-evidence"} <= projections
+    capabilities["models"] = models
     maximum = overview_limit(context)
     notes = [note_summary(record) for record in index["records"][:maximum]]
     keys = {record_key(record["reference"]) for record in notes}
@@ -273,11 +295,12 @@ class GardenServer(ThreadingHTTPServer):
     allow_reuse_address = False
 
     def __init__(self, port: int, context: QueryContext, demo: bool, assets: dict[str, tuple[str, str]],
-                 assistant: AssistantProvider | None = None):
+                 assistant: AssistantProvider | None = None, model_lab: ModelLab | None = None):
         self.context = context
         self.demo = demo
         self.assets = assets
         self.assistant = assistant
+        self.model_lab = model_lab
         self.access_token = token_urlsafe(32)
         super().__init__((HOST, port), GardenHandler)
         self.authority = HOST if self.server_port == 80 else f"{HOST}:{self.server_port}"
@@ -356,7 +379,14 @@ class GardenHandler(BaseHTTPRequestHandler):
         context = deepcopy(self.server.context)
         if path == "/api/garden":
             parameters(raw_query, set())
-            body = canonical_json(garden_payload(context, self.server.demo, assistant=self.server.assistant is not None))
+            body = canonical_json(garden_payload(
+                context, self.server.demo, assistant=self.server.assistant is not None,
+                models=self.server.model_lab is not None,
+            ))
+        elif path == "/api/models" and self.server.model_lab is not None:
+            parameters(raw_query, set())
+            verified_metadata(context)
+            body = canonical_json(self.server.model_lab.snapshot())
         elif path == "/api/connectors":
             parameters(raw_query, set())
             index = build_index(context, projection="evidence", enforce_bytes=False)
@@ -450,10 +480,21 @@ class GardenHandler(BaseHTTPRequestHandler):
         suffix = ".pdf" if format == "pdf" else "-evidence.json"
         return mime, data, "mindgarden-booklet-" + month + suffix
 
+    def models_post(self, context: QueryContext, lab: ModelLab, value: dict) -> bytes:
+        method, fields = MODEL_POST[self.path]
+        if value.keys() != fields or any(not isinstance(item, str) for item in value.values()):
+            raise ContractError("MODEL_INVALID: the request must contain exactly the supported action fields")
+        verified_metadata(context)
+        # Model actions receive only their synthetic selection. The garden
+        # session remains an HTTP access gate, never a provider input.
+        return canonical_json(getattr(lab, method)(value))
+
     def do_POST(self):
         provider = self.server.assistant
+        lab = self.server.model_lab
+        models = self.path in MODEL_POST
         try:
-            if provider is None or self.path not in PILOT_POST:
+            if (models and lab is None) or (not models and (provider is None or self.path not in PILOT_POST)):
                 raise RequestError(HTTPStatus.METHOD_NOT_ALLOWED, "WEB_METHOD", "This route does not support POST.")
             self.authorize_host(require_origin=True)
             self.authorize_browser()
@@ -461,7 +502,9 @@ class GardenHandler(BaseHTTPRequestHandler):
             context.check_live()
             value = self.post_body()
             filename = None
-            if self.path.startswith("/api/assistant/"):
+            if models:
+                run, mime, body = False, JSON, self.models_post(context, lab, value)
+            elif self.path.startswith("/api/assistant/"):
                 run = self.path == "/api/assistant/run"
                 prepared = prepare_turn(context, provider, value, run=run)
                 if run:
@@ -521,16 +564,21 @@ def make_server(local_config: Path, scope: Path, *, port: int = 0, demo: bool = 
     """Pin an explicitly approved local view and bind a numeric loopback socket."""
     if type(port) is not int or not 0 <= port <= 65535:
         raise ContractError("WEB_PORT: supply a port between 0 and 65535")
-    if assistant not in ("off", "fixture") or assistant == "fixture" and not (demo and interface == "studio"):
-        raise ContractError("VISIT_ASSISTANT: the local fixture requires the fictional Studio launch")
+    if assistant not in ("off", "fixture", "providers") or assistant != "off" and not (demo and interface == "studio"):
+        raise ContractError("VISIT_ASSISTANT: the selected assistant requires the fictional Studio launch")
     assets = browser_assets(interface)
     context = QueryContext.load(local_config, scope)
     context.require("index")
     provider = None
-    if assistant == "fixture":
+    lab = None
+    if assistant != "off":
         require_private(context)
         provider = FixtureAssistant()
-    return GardenServer(port, context, demo, assets, provider)
+    if assistant == "providers":
+        from ..application.model_lab import ModelLab
+
+        lab = ModelLab()
+    return GardenServer(port, context, demo, assets, provider, lab)
 
 
 def serve_garden(local_config: Path, scope: Path, *, port: int = 0, demo: bool = False,

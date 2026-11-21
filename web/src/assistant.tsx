@@ -16,7 +16,7 @@ type ReadNote = (ref: string) => void;
 const initialChat: AssistantInput = { lens: "garden", question: "", focus: null };
 const bookletMonth: BookletMonth = "2026-01";
 
-function useOperation<Kind extends string>() {
+export function useOperation<Kind extends string>() {
   const current = useRef<{ controller: AbortController; kind: Kind } | null>(null);
   const [busy, setBusy] = useState<Kind | null>(null);
 
