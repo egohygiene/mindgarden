@@ -1,5 +1,5 @@
 import {
-  ArrowRight, Cloud, Cpu, Download, Fingerprint, HardDrive, Plug, Server, ShieldCheck, Sparkles, Square,
+  ArrowRight, ArrowUpRight, Cloud, Cpu, Download, Fingerprint, HardDrive, Plug, Server, ShieldCheck, Sparkles, Square,
 } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 
@@ -20,8 +20,16 @@ const providerStatus = {
 type Action = `check:${ModelProvider}` | "preview" | "run" | "install-preview" | "install";
 type ReviewedResult = ModelResult & { approvedPrompt: string };
 
+function providerName(provider: ModelProviderStatus) {
+  return provider.id === "chatgpt" ? "ChatGPT plan" : provider.name;
+}
+
 function statusLabel(provider: ModelProviderStatus) {
-  return provider.id === "codex" && provider.status === "ready" ? "Account checked" : providerStatus[provider.status];
+  if (provider.status === "ready") {
+    if (provider.id === "codex") return "Account checked";
+    if (provider.id === "chatgpt") return provider.can_run ? "Models available" : "Account checked";
+  }
+  return providerStatus[provider.status];
 }
 
 function errorMessage(error: unknown) {
@@ -56,6 +64,19 @@ function UsageLimits({ limits }: { limits: NonNullable<ModelProviderStatus["limi
   </details>;
 }
 
+function ChatGPTPlanSetup() {
+  return <section className="models-profile-setup" aria-label="ChatGPT plan setup">
+    <h3>Set up in the terminal</h3>
+    <p>Start the consent flow in your browser from the terminal.</p>
+    <code>mindgarden chatgpt connect --state-directory &lt;private-dir&gt;</code>
+    <p>Restart this Studio visit with the same private state directory, then check the connection again.</p>
+    <code>--chatgpt-state-directory &lt;private-dir&gt;</code>
+    <a href="https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference" rel="noreferrer">
+      Read the ChatGPT plan usage guide <ArrowUpRight size={14} aria-hidden="true" />
+    </a>
+  </section>;
+}
+
 function ProviderCard({ provider, busy, onCheck, onStop }: {
   provider: ModelProviderStatus;
   busy: Action | null;
@@ -70,7 +91,7 @@ function ProviderCard({ provider, busy, onCheck, onStop }: {
       <div className="models-icon"><ProviderIcon size={22} aria-hidden="true" /></div>
       <p className={`models-status models-status-${provider.status}`}>{statusLabel(provider)}</p>
     </header>
-    <h2 id={id}>{provider.name}</h2>
+    <h2 id={id}>{providerName(provider)}</h2>
     <p className="models-destination">{cloud ? "Cloud provider" : "Local loopback"}</p>
     <p className="models-provider-detail">{provider.detail}</p>
     <div className="models-actions">
@@ -80,6 +101,7 @@ function ProviderCard({ provider, busy, onCheck, onStop }: {
       </button>
       {busy === `check:${provider.id}` && <button className="button" type="button" onClick={onStop}>Stop waiting</button>}
     </div>
+    {provider.id === "chatgpt" && provider.status === "unconfigured" && <ChatGPTPlanSetup />}
     {provider.limits && <UsageLimits limits={provider.limits} />}
   </section>;
 }
@@ -100,6 +122,8 @@ export function ModelsView({ client }: { client: GardenClient }) {
   const modelSelect = useId();
   const installSelect = useId();
   const provider = snapshot?.providers.find((item) => item.id === providerChoice);
+  const selectedProviderName = provider ? providerName(provider) : undefined;
+  const resultProvider = snapshot?.providers.find((item) => item.id === result?.provider);
   const model = provider?.can_run ? provider.models.find((item) => item.id === modelChoice) : undefined;
   const installOptions = snapshot?.providers.find((item) => item.id === "ollama")?.downloadable ?? [];
   const installModel = installOptions.find((item) => item.id === installChoice);
@@ -136,6 +160,13 @@ export function ModelsView({ client }: { client: GardenClient }) {
         setPreview(undefined);
         setResult(undefined);
         setInstallApproved(undefined);
+      } else if (problem instanceof GardenApiError && problem.code === "MODEL_REAUTH") {
+        setSnapshot((current) => current && {
+          ...current,
+          providers: current.providers.map((item) => item.id === "chatgpt"
+            ? { ...item, status: "unconfigured", detail: problem.message, models: [], can_run: false, limits: undefined }
+            : item),
+        });
       }
       setError(errorMessage(problem));
     } finally {
@@ -149,7 +180,7 @@ export function ModelsView({ client }: { client: GardenClient }) {
     void perform(`check:${id}`, (signal) => client.modelCheck(id, signal), (next) => {
       setSnapshot(next);
       const checked = next.providers.find((item) => item.id === id);
-      if (checked) setNotice(`${checked.name}: ${statusLabel(checked)}.`);
+      if (checked) setNotice(`${providerName(checked)}: ${statusLabel(checked)}.`);
     });
   }
 
@@ -263,7 +294,7 @@ export function ModelsView({ client }: { client: GardenClient }) {
                 chooseModel("");
               }}>
               <option value="">Choose a provider</option>
-              {snapshot.providers.map((item) => <option key={item.id} value={item.id} disabled={!item.can_run || !item.models.length}>{item.name}</option>)}
+              {snapshot.providers.map((item) => <option key={item.id} value={item.id} disabled={!item.can_run || !item.models.length}>{providerName(item)}</option>)}
             </select>
           </div>
           <div className="models-field">
@@ -285,15 +316,17 @@ export function ModelsView({ client }: { client: GardenClient }) {
             <Square size={14} aria-hidden="true" /> Stop waiting
           </button>}
         </div>
-        {busy === "run" && <p className="models-inline-status" role="status">Waiting for {provider?.name}…</p>}
+        {busy === "run" && <p className="models-inline-status" role="status">Waiting for {selectedProviderName}…</p>}
         {preview && <section className={`models-preview models-preview-${preview.disclosure}`} aria-label="Prompt preview">
           <header><ShieldCheck size={19} aria-hidden="true" /><h3>Prompt preview</h3></header>
-          <p className="models-muted">{provider?.name} · <code>{preview.model}</code></p>
+          <p className="models-muted">{selectedProviderName} · <code>{preview.model}</code></p>
           <pre className="models-copy">{preview.prompt}</pre>
           <div className="models-consent">
-            <p>{preview.disclosure === "cloud"
-              ? `This sends the exact fictional prompt above to ${provider?.name}. The provider may count the request against your account usage.`
-              : "This sends the exact fictional prompt above to Ollama over the local loopback connection."}</p>
+            <p>{preview.provider === "chatgpt"
+              ? "This sends the exact fictional prompt above to OpenAI using your consented ChatGPT connection. The request may count against your ChatGPT plan usage."
+              : preview.disclosure === "cloud"
+                ? `This sends the exact fictional prompt above to ${selectedProviderName}. The provider may count the request against your account usage.`
+                : "This sends the exact fictional prompt above to Ollama over the local loopback connection."}</p>
             <button className="button primary" type="button" disabled={working} onClick={run}>
               <Sparkles size={16} aria-hidden="true" /> {preview.disclosure === "cloud" ? "Authorize cloud run" : "Authorize loopback run"}
             </button>
@@ -301,7 +334,7 @@ export function ModelsView({ client }: { client: GardenClient }) {
         </section>}
         {result && <section className="models-preview" aria-label="Model response">
           <header><Server size={19} aria-hidden="true" /><h3>Generated result for review</h3></header>
-          <p className="models-muted">{snapshot.providers.find((item) => item.id === result.provider)?.name ?? result.provider} · <code>{result.model}</code></p>
+          <p className="models-muted">{resultProvider ? providerName(resultProvider) : result.provider} · <code>{result.model}</code></p>
           <pre className="models-copy">{result.text}</pre>
           <details className="models-result-prompt">
             <summary>Compare with approved fixture</summary>

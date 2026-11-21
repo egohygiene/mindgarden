@@ -40,6 +40,10 @@ updated: 2026-11-13
 The [Models pilot](docs/studio-model-connections.md) advances #163 with
 Codex account and usage checks. It exercises Gemini and Ollama against the
 same bundled fictional prompt and makes model selection explicit.
+The [local consent](docs/studio-chatgpt-consent.md) and its dependent
+Studio draft add direct ChatGPT plan text under the same prompt approval.
+They use official OAuth and Responses with tools omitted. The operator's
+account and native Codex runtime retain their own live qualification.
 
 Proposed dependency correction for #166: Gemini and Ollama can qualify
 their independent fictional text paths using the same approval contract.

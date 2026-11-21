@@ -249,10 +249,16 @@ class JsonEndpointTests(unittest.TestCase):
                     "/quota": (429, b'{"error":"private quota failure"}'),
                     "/body-limit": (200, b'{"models":["a","b","c"]}'),
                     "/ok": (200, b'{"models":[]}'),
+                    "/close-length": (200, b'{"models":[]}'),
+                    "/close-short": (200, b'{"models":[]}'),
                 }
                 status, body = response[self.path]
                 self.send_response(status)
                 self.send_header("Content-Type", "application/json")
+                if self.path in {"/close-length", "/close-short"}:
+                    adjustment = int(self.path == "/close-short")
+                    self.send_header("Content-Length", str(len(body) + adjustment))
+                    self.send_header("Connection", "close")
                 if self.path == "/redirect":
                     self.send_header("Location", "/ok")
                 self.end_headers()
@@ -312,3 +318,10 @@ class JsonEndpointTests(unittest.TestCase):
         with self.assertRaisesRegex(ContractError, "^MODEL_UNAVAILABLE"):
             self.endpoint.request("/drip", seconds=0.3, limit=100)
         self.assertLess(monotonic() - started, 1.5)
+
+    def test_reads_content_length_when_connection_closes_and_rejects_short_body(self):
+        self.assertEqual(
+            self.endpoint.request("/close-length", seconds=2, limit=100), {"models": []}
+        )
+        with self.assertRaisesRegex(ContractError, "^MODEL_UNAVAILABLE.*incomplete"):
+            self.endpoint.request("/close-short", seconds=2, limit=100)

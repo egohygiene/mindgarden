@@ -4,6 +4,7 @@ from collections.abc import Iterable, Iterator
 from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import dataclass
+from pathlib import Path
 from secrets import token_hex
 from threading import Lock
 from time import monotonic
@@ -54,11 +55,16 @@ class ModelApproval:
     expires: float
 
 
-def configured_providers() -> tuple[ModelProvider, ...]:
+def configured_providers(chatgpt_state_directory: Path | None = None) -> tuple[ModelProvider, ...]:
     from ..adapters.studio_codex import CodexProvider
     from ..adapters.studio_model_http import GeminiProvider, OllamaProvider
 
-    return CodexProvider(), GeminiProvider(), OllamaProvider()
+    providers: tuple[ModelProvider, ...] = CodexProvider(), GeminiProvider(), OllamaProvider()
+    if chatgpt_state_directory is None:
+        return providers
+    from ..adapters.studio_chatgpt import ChatGPTProvider
+
+    return (ChatGPTProvider(chatgpt_state_directory), *providers)
 
 
 def exact_strings(value: dict, expected: set[str]) -> None:
@@ -73,9 +79,11 @@ def exact_strings(value: dict, expected: set[str]) -> None:
 class ModelLab:
     """Broker fixed fictional calls with one-use approval and a per-visit catalog."""
 
-    def __init__(self, providers: Iterable[ModelProvider] | None = None):
+    def __init__(self, providers: Iterable[ModelProvider] | None = None, *,
+                 chatgpt_state_directory: Path | None = None):
         self._providers = {
-            provider.id: provider for provider in (configured_providers() if providers is None else providers)
+            provider.id: provider
+            for provider in (configured_providers(chatgpt_state_directory) if providers is None else providers)
         }
         self._states = {
             provider.id: self._descriptor(provider, {
@@ -139,6 +147,9 @@ class ModelLab:
                 "models": [],
                 "can_run": False,
             }
+        self._remember(provider, state)
+
+    def _remember(self, provider: ModelProvider, state: dict) -> None:
         with self._state_lock:
             self._states[provider.id] = self._descriptor(provider, state)
             self._previews = {
@@ -205,7 +216,17 @@ class ModelLab:
             runner = getattr(provider, "run", None)
             if runner is None:
                 raise ContractError("MODEL_UNAVAILABLE: this adapter cannot run a fictional scenario")
-            text = runner(value["model"], PROMPT)
+            try:
+                text = runner(value["model"], PROMPT)
+            except ContractError as error:
+                if str(error).startswith("MODEL_REAUTH:"):
+                    self._remember(provider, {
+                        "status": "unconfigured",
+                        "detail": "Renew the local connection and check the available models again.",
+                        "models": [],
+                        "can_run": False,
+                    })
+                raise
             if not isinstance(text, str) or not text.strip() or len(text.encode("utf8", errors="replace")) > MAX_RESULT_BYTES:
                 raise ContractError("MODEL_UNAVAILABLE: provider returned an empty or oversized response")
             return {"provider": provider.id, "model": value["model"], "text": text}
