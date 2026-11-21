@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-11-13
+updated: 2026-11-21
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -33,8 +33,24 @@ repository: egohygiene/mindgarden
 visibility: public
 publication: central
 route: /roadmap/mindgarden/
-updated: 2026-11-13
+updated: 2026-11-21
 -->
+## 2026-11-21 oldest issue reconciliation
+
+#1 and #2 are complete against their original portfolio criteria. #5 owns
+the remaining 1.0 execution checklist. Empathy #65 accepted the extracted
+engine as the golden consumer and verified its deployed Quartz garden at
+the consumer root. Follow #18 and #20 for the dedicated `/garden` mount and
+Relay adoption. #20 retains the approved real legacy archive and redacted
+conformance report. [Consumer evidence](docs/consumer-journey.md)
+
+The optional [local Ollama evaluation](docs/extraction-producers.md#local-evaluation-2026-11-21)
+completes the outstanding #13 evaluation requirement. The model's output
+passed JSON Schema and Mindgarden rejected unresolved relationships.
+The #14 checkpoint adds regression coverage for replay after a reviewed
+private move. Broader policy-changing transfers follow #29/#31 and #42.
+[Coverage ledger](docs/open-issue-coverage.md)
+
 ## 2026-11-21 model connections
 
 The [Models pilot](docs/studio-model-connections.md) advances #163 with

@@ -13,15 +13,20 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
 
 from mindgarden.application.bindings import LocalBindings, garden_fingerprint
+from mindgarden.application.evidence import resolve_evidence
 from mindgarden.application.ingestion import apply_ingestion
+from mindgarden.application.query import QueryContext
 from mindgarden.application.records import provenance_record
+from mindgarden.application.retrieval import search_payload
 from mindgarden.application.routing import build_routing_plan, snapshots_for
-from mindgarden.application.transactions import journal_path, recover_routing
+from mindgarden.application.routing_lifecycle import build_transition_plan
+from mindgarden.application.transactions import journal_path
 from mindgarden.domain.contracts import ContractRegistry, canonical_json, digest_bytes
+from mindgarden.domain.routing_transitions import canonical_reference
 from mindgarden.domain.scope import local_scope
 from mindgarden.domain.validation import ContractError
 from mindgarden.interfaces.cli import main
-from tests.support_v1 import TIME, add_source, create_garden, reference, write_json
+from tests.support_v1 import TIME, add_source, create_garden, reference, write_json, write_session
 from tests import test_source_adapters as source_tests
 
 
@@ -212,3 +217,84 @@ class RoutingTests(unittest.TestCase):
         write_json(self.request_path, self.request)
         with self.assertRaisesRegex(ContractError, "ROUTE_REVISION_REQUIRED"):
             self.plan()
+
+    def test_reviewed_move_keeps_one_home_after_original_route_replay(self):
+        candidate = self.request["curation"]["candidates"][0]
+        candidate["output"]["title"] = "Synthetic routing continuity"
+        self.request["curation"]["candidates"] = [candidate]
+        self.request["routes"] = [self.request["routes"][0]]
+        write_json(self.request_path, self.request)
+        placement = self.plan()
+        [decision] = placement.decisions
+        self.assertEqual(decision["state"], "private-fallback")
+        self.assertTrue(placement.apply(placement.digest))
+        self.assertFalse(placement.apply(placement.digest))
+
+        old_home = decision["canonical_home"]
+        new_home = {
+            "garden": "synthetic-repository",
+            "id": "transferred-personal",
+            "revision": old_home["revision"],
+        }
+        original_path = self.workspace / ".garden/knowledge/routed-personal.json"
+        original_bytes = original_path.read_bytes()
+        original = json.loads(original_bytes)
+        session_path = self.root / "route-session.json"
+        readable = ["synthetic-garden", "synthetic-repository"]
+        write_session(session_path, self.configuration, readable_ids=readable)
+        citation = self.private_evidence[0]
+        original_context = QueryContext.load(self.configuration, session_path)
+        prior_evidence = resolve_evidence(original_context, **citation)
+        self.assertEqual([item["reference"] for item in prior_evidence["authorized_by"]], [old_home])
+
+        transition_path = self.root / "transition.json"
+        write_json(transition_path, {
+            "schema": "mindgarden.routing-transition/v1",
+            "id": "move-routed-unit",
+            "operation": "move",
+            "from": [old_home],
+            "to": new_home,
+            "created_at": TIME,
+            "authority": self.request["curation"]["review_authority"],
+            "review": original["review"],
+            "rationale": "Reviewed synthetic change to the placed unit's canonical home.",
+        })
+        transition = build_transition_plan(self.bindings, transition_path)
+        self.assertTrue(transition.apply(transition.digest))
+        after_move = {
+            identity: garden_fingerprint(binding["root"])
+            for identity, binding in self.bindings.gardens.items()
+        }
+        self.assertFalse(placement.apply(placement.digest))
+        with self.assertRaisesRegex(ContractError, "ROUTE_TRANSFER_REQUIRED"):
+            self.plan()
+        self.assertEqual(
+            {
+                identity: garden_fingerprint(binding["root"])
+                for identity, binding in self.bindings.gardens.items()
+            },
+            after_move,
+        )
+
+        snapshots = snapshots_for(self.bindings)
+        records = [record for snapshot in snapshots.values() for record in snapshot.records.values()]
+        self.assertEqual(canonical_reference(old_home, records), new_home)
+        self.assertEqual(original_path.read_bytes(), original_bytes)
+        successor = snapshots[new_home["garden"]].records[new_home["id"]]
+        self.assertEqual(successor["x-routing"]["unit"], original["x-routing"]["unit"])
+        [related] = decision["references"]
+        related_record = snapshots[related["garden"]].records[related["id"]]
+        self.assertEqual(related_record["x-routing"]["canonical_home"], old_home)
+        write_session(session_path, self.configuration, readable_ids=readable)
+        context = QueryContext.load(self.configuration, session_path)
+        results = search_payload(context, "routing continuity")["results"]
+        self.assertEqual(
+            [item["reference"] for item in results if item["kind"] == "reference"],
+            [related],
+        )
+        [result] = [item for item in results if item["kind"] != "reference"]
+        self.assertEqual(result["reference"], new_home)
+        self.assertEqual(result["sources"], self.private_evidence)
+        reopened = resolve_evidence(context, **citation)
+        self.assertEqual(reopened["text"], prior_evidence["text"])
+        self.assertEqual([item["reference"] for item in reopened["authorized_by"]], [new_home])

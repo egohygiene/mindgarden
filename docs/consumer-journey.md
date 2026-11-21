@@ -3,8 +3,8 @@
 `scripts/release_journey_demo.py` composes the current archive workflow with
 reviewed routing, exact retrieval/context, local `/garden` content and public
 federation. It uses only committed synthetic fixtures and existing application
-services through the normal CLI. This checkpoint extends #64/#84; it does not
-replace #20's approved real pilot, Empathy acceptance or deployed-site criteria.
+services through the normal CLI. This checkpoint extends #64/#84. The owner
+evidence and remaining integration checks are recorded below.
 
 ## What the synthetic journey proves
 
@@ -87,17 +87,38 @@ It is written inside the private workspace and remains private until the owner
 approves sharing. There is no automatic commit, issue upload or publication.
 Personal local operation is not a confidential-host assurance claim.
 
-## Empathy and remaining acceptance
+## Accepted Empathy consumer and remaining integration
 
-The consumer checkpoint uses a clean immutable Empathy source and an installed
-Mindgarden package pinned by full commit. Its optional task lane preserves the
-canonical garden, existing incubation/migration evidence and Pages authority.
-The exact consumer branch/PR, command results and required holistic profile are
-recorded in [the release ledger](release-checkpoints.md). Focused tests do not
-establish full-profile or post-merge publication readiness.
+The release ledger preserves the earlier optional consumer rehearsal. Empathy
+subsequently accepted its golden consumer at
+`f19fe1b072d3690b30b4314a92b41f8b5803459a`. The standalone engine indexes
+18 root architecture documents and the generated repository context. That
+context links to the Hygiene catalog at its immutable source revision.
+The same acceptance covers OpenWiki and Obsidian
+file-exchange prototypes and a reviewed-public Quartz site. All four jobs in
+the exact-head publication run succeeded. Its native receipt bound six public
+projection hashes and the live check rehashed 17 fixed routes. This evidence
+supports the consumer, catalog/context reference and projection criteria in
+#1, #2, #5 and #20. [Release ledger](release-checkpoints.md)
+· [Empathy #65](https://github.com/egohygiene/empathy/issues/65)
+· [Imported context](https://github.com/egohygiene/empathy/blob/f19fe1b072d3690b30b4314a92b41f8b5803459a/docs/ecosystem/CONTEXT.md)
+· [Publication run 43643745065](https://github.com/egohygiene/empathy/actions/runs/43643745065)
 
-Full #20 still requires the approved real legacy archive, actual review/asset
-selection, accepted consumer cutover, renderer/deployed `/garden` proof and the
-redacted owner-reviewed pilot report. Aether #51 and Relay #40 retain their own
-producer/integration acceptance. Missing older archive specifications remain
-compatibility gaps; the examples above claim only the tested v3.2.3 contract.
+The Quartz profile mounts the Garden at `/empathy/` beside `/empathy/intelligence/`.
+On 2026-11-21, both routes returned HTTP 200 and `/empathy/garden/` returned
+HTTP 404. #18 and #20 still need the dedicated `/garden` consumer mount and
+the reusable Relay action. Relay #4 is closed. Relay #40 remains open, and its
+inspected main tree `5de708368b42601e140c58f4ab8f305fe2dc5c82` has no Mindgarden
+action. The local portal proof exercises sibling preservation and recovery
+through the existing artifact contract. [Local portal proof](portal-composition.md)
+· [Deployed Quartz profile](https://github.com/egohygiene/empathy/blob/f19fe1b072d3690b30b4314a92b41f8b5803459a/mindgarden/profiles/quartz/profile.yaml)
+· [Relay #40](https://github.com/egohygiene/relay/issues/40)
+
+#20 still needs the owner-approved real legacy archive, reviewed selection and
+reconciliation, and a redacted conformance report. Closed #15 covers named
+importer profiles and documents compatibility gaps for unavailable contracts.
+Aether #51 remains open for the reusable curator skill and validated ChatGPT
+handoff. The deployed consumer uses a pinned source commit. #19 and further
+#27 release work remain deferred.
+[Importer evidence](acceptance-reconciliation.md#15--importer-and-downstream-evidence-acceptance)
+· [Aether #51](https://github.com/egohygiene/aether/issues/51)
