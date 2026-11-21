@@ -4,6 +4,14 @@ open issues and this ledger tracks 50 rows. Earlier counts describe their dated
 checkpoints. #87 and #89 retain the selected-source and assistant research
 contracts, and #91 retains the deferred optional graph-format evaluation.
 
+**Local ChatGPT plan consent, 2026-11-21:** Draft
+[#171](https://github.com/egohygiene/mindgarden/pull/171) stacks on #170.
+The optional [local account flow](studio-chatgpt-consent.md) verifies
+browser registration, refresh and sign-out using synthetic OAuth
+responses. Account eligibility and a live plan-backed turn require
+the operator's consent. The native Codex agent remains a separate
+runtime qualification under #163.
+
 **Studio model connections, 2026-11-21:** Draft
 [#170](https://github.com/egohygiene/mindgarden/pull/170) stacks on #169
 and adds the [Models pilot](studio-model-connections.md). It checks local
@@ -25,7 +33,7 @@ PDF and its eight ledger citations. Use
 | --- | --- | --- | --- |
 | [#161](https://github.com/egohygiene/mindgarden/issues/161) — local Studio chat and cited booklet | umbrella | Five native sub-issues, #87 parallel source track, closed #90 packet proof, and the draft #167–#170 rehearsals | Qualify authenticated provider turns and an owner-selected Drive capture before using real inputs |
 | [#162](https://github.com/egohygiene/mindgarden/issues/162) — reviewed garden brief and assistant entry point | partial | Draft [#167](https://github.com/egohygiene/mindgarden/pull/167) adds the [fictional first sweep](garden-brief.md) using existing curation and scoped retrieval | Review the draft and qualify the operator's selected local workspace; optional graph format remains with #91 |
-| [#163](https://github.com/egohygiene/mindgarden/issues/163) — first Studio provider connection | partial | Draft #168 verifies the pinned Linux handshake. Draft #170 checks the local account and preserves optional usage windows and credits | Check owner sign-in and reported limits on the target Mac. Qualify restricted runtime or consented inference, live stream, cancellation and recovery |
+| [#163](https://github.com/egohygiene/mindgarden/issues/163) — first Studio provider connection | partial | Draft #168 verifies the pinned Linux handshake. Draft #170 checks Codex account usage. Draft #171 adds local ChatGPT plan consent and session controls | Validate the owner's account and a supported plan-backed turn. Qualify native Codex isolation, App Server interruption and recovery independently |
 | [#164](https://github.com/egohygiene/mindgarden/issues/164) — scoped Studio chat | partial | Draft #169 exercises context approval, Finance lens, citation navigation, cancellation, and revocation offline | Qualify live Codex behavior under #163 and verify provider status in Sources |
 | [#165](https://github.com/egohygiene/mindgarden/issues/165) — monthly cited booklet | partial | Draft #169 uses #90 to render January in Studio with exact ledger evidence, an approval gate, and stale input tests | Confirm a selected period, timezone, and accounts with the operator. Exercise live authoring and edition review with scoped inputs |
 | [#166](https://github.com/egohygiene/mindgarden/issues/166) — second Studio provider | partial | Draft #170 implements Gemini and Ollama text adapters for the same approved fictional prompt, with a live Ollama check | Verify one owner-approved Gemini API run. Full switch and recovery acceptance follows the qualified live #163–#165 workflow |
