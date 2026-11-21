@@ -155,5 +155,31 @@ change, eight reused normalized rows, authored review, the searchable summary an
 relocation. Thirteen immutable objects and both snapshots remain. The
 [complete golden](../tests/fixtures/consultation/expected-drive-proof.json) uses a
 synthetic provider; **live OAuth, actual Drive and the real private pilot remain
-unperformed**. Wider platform/private-Git/provider assurance and parent acceptance
-stay open. A browser app, hosted service and model provider are not selected here.
+unperformed**. Wider platform/provider assurance and parent acceptance stay open.
+
+## Portable reviewed garden through a local Git remote
+
+The mapped Drive fixture captures two snapshots, normalizes selected evidence,
+and applies an authored review. A second workspace clones its reviewed
+`.garden/` records through a bare Git remote on the same machine. The local
+vault, capture ZIPs, OAuth files, bindings, session, and packet live outside
+the tracked tree. The clone builds its own ignored `.garden/.generated/` index.
+
+The receiver creates a fresh local session with exact source grants and
+restores a separately supplied vault backup against its digest. The test first
+checks that the clone alone cannot resolve a citation and that granting source
+access still requires available vault bytes. Restoring the vault makes the
+same citation and reviewed summary usable. The context pack and packet files
+match byte for byte. The rebuilt index matches apart from the digest for the
+fresh session.
+
+```sh
+PYTHONPATH="$PWD/src" python -m unittest tests.test_drive_private_git --verbose
+```
+
+The proof uses a synthetic provider with Python network calls blocked and Git
+restricted to local file transport. In a real setup, reviewed garden records and
+metadata can contain private information. Use a destination approved for those
+records and choose a separate private backup location for source bytes. This
+checkpoint verifies local Git portability. Hosted privacy controls, multi-writer
+conflicts, live Drive/OAuth, and the private pilot require their own evidence.

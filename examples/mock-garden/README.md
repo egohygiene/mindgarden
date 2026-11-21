@@ -67,3 +67,8 @@ live Drive/Codex, bank-format compatibility or private-pilot acceptance is claim
 Current launch/preflight filesystem controls are POSIX-only. Native Windows and
 real confidential processing retain their separate contracts. The source/wheel/
 archive evidence and remaining scope are recorded in the repository handoff.
+
+To practice using this same garden with an assistant, the
+[fictional two-task rehearsal](../../docs/scoped-research.md#rehearse-two-tasks-with-the-fictional-garden)
+provides separate career and accounting read plans and copyable CLI commands.
+Choose a new workspace for that rehearsal.

@@ -81,5 +81,6 @@ python -S scripts/mapped_drive_consultation_demo.py \
 ```
 
 Existing ADR-0008/0009/0010/0019 boundaries are reused; every proposed decision
-retains its status and null approval. Actual Drive/OAuth, confidential runtime,
-wider platforms/private Git and broader #87/#90 acceptance remain separate.
+retains its status and null approval. The [local Git recovery proof](drive-capture.md#portable-reviewed-garden-through-a-local-git-remote)
+clones reviewed garden records and restores the source vault separately. Live
+Drive/OAuth, confidential runtime and hosted storage controls remain unverified.
