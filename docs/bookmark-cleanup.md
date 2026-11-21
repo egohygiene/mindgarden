@@ -1,5 +1,8 @@
 # Private bookmark cleanup checkpoint
 
+For the first local workflow, follow the pinned synthetic CLI rehearsal and
+operator procedure. [Private bookmark pilot](bookmark-pilot.md)
+
 The local private cleanup command accepts legacy normalized JSON and the pinned
 Mindcap v1 captured-source handoff through the same explicit review workflow.
 The captured-source adapter verifies exact package membership, bytes, checksums,

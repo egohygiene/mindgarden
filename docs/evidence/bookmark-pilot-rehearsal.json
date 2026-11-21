@@ -1,0 +1,28 @@
+{
+  "google": "unused",
+  "model": "unused",
+  "network": "blocked-in-process",
+  "observations": 2,
+  "private_cleanup_evidence": "stable-normalized-metadata-exact-observation-lineage",
+  "private_cli_cleanup_rehearsal": {
+    "akashic_handoff": "explicitly-unavailable",
+    "batch_sizes": [
+      1,
+      1
+    ],
+    "changed_capture": "prior-approval-rejected-before-write",
+    "console": "summary-only",
+    "original_zip": "byte-identical",
+    "replay": "verified-no-op",
+    "resumed_exports": "byte-identical-to-single-batch",
+    "reviewed_export": "renamed-https-retained-application-url-quarantined"
+  },
+  "producer_commit": "7ee766c1c34adad239fc602499f624979a2d9cac",
+  "raw_capture_packages": "distinct-and-preserved",
+  "schema": "mindgarden.capture-handoff-proof/v1",
+  "scope": "synthetic-private-only",
+  "source_contract": "mindcap.captured-source-bundle/v1",
+  "stable_unit_content": "equal",
+  "status": "passed",
+  "units_per_observation": 2
+}

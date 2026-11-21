@@ -35,6 +35,15 @@ publication: central
 route: /roadmap/mindgarden/
 updated: 2026-11-13
 -->
+## 2026-11-20 integration readiness
+
+The [integration path](docs/integration-readiness.md) groups all 30 open issues
+by the outcome they serve. Start with the local bookmark, selected Drive and
+scoped Codex rehearsals. Keep the full issue criteria in the coverage ledger
+and verify actual private integrations only in the owner's chosen workspace.
+Draft #155 is green and anchors the new integration checkpoint. Earlier issue
+counts and CI observations below are historical.
+
 ## 2026-11-15 acceptance reconciliation
 
 Authorized #148 → #149 → #150 → #151 → #152 → #153 → #154 merges are complete
