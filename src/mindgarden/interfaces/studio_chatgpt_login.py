@@ -3,6 +3,7 @@
 from collections.abc import Callable
 from contextlib import contextmanager
 from dataclasses import dataclass
+from functools import partial
 from pathlib import Path
 from threading import Event, RLock, Thread
 import webbrowser
@@ -15,7 +16,7 @@ from .chatgpt_callback import LocalChatGPTCallback
 BROWSER_START_TIMEOUT = 1.0
 SAFE_ERRORS = frozenset({
     "CHATGPT_BROWSER", "CHATGPT_CALLBACK", "CHATGPT_CALLBACK_CANCELLED", "CHATGPT_CALLBACK_TIMEOUT",
-    "CHATGPT_CONSENT_DENIED", "CHATGPT_OWNER_MISMATCH", "CHATGPT_STATE_BUSY", "CHATGPT_STATE_CHANGED",
+    "CHATGPT_CALLBACK_PROVIDER", "CHATGPT_CALLBACK_RESPONSE", "CHATGPT_CONSENT_DENIED", "CHATGPT_OWNER_MISMATCH", "CHATGPT_STATE_BUSY", "CHATGPT_STATE_CHANGED",
     "CHATGPT_STATE_INVALID", "CHATGPT_STATE_UNAVAILABLE",
     "CHATGPT_OAUTH_ATTEMPT", "CHATGPT_OAUTH_CALLBACK", "CHATGPT_OAUTH_CLIENT", "CHATGPT_OAUTH_DENIED",
     "CHATGPT_OAUTH_DEPENDENCY", "CHATGPT_OAUTH_ENDPOINT", "CHATGPT_OAUTH_IDENTITY", "CHATGPT_OAUTH_LIMIT",
@@ -40,9 +41,9 @@ def _error_code(error: Exception) -> str:
 
 
 class StudioChatGPTLogin:
-    def __init__(self, directory: Path, *, callback=LocalChatGPTCallback, browse=None, oauth=None):
+    def __init__(self, directory: Path, *, callback=None, browse=None, oauth=None):
         self._directory = directory
-        self._callback = callback
+        self._callback = partial(LocalChatGPTCallback, destination="studio") if callback is None else callback
         self._browse = webbrowser.open if browse is None else browse
         self._oauth = oauth
         self._lock = RLock()
@@ -53,6 +54,12 @@ class StudioChatGPTLogin:
 
     def snapshot(self) -> dict:
         with self._lock:
+            if self._status["status"] == "idle":
+                try:
+                    if chatgpt_connection.status(self._directory)["status"] == "ready":
+                        return {"status": "authorized"}
+                except ContractError as error:
+                    return {"status": "failed", "code": _error_code(error)}
             return dict(self._status)
 
     def _require_idle(self) -> None:
@@ -130,6 +137,11 @@ class StudioChatGPTLogin:
                     with self._lock:
                         attempt.listener = None
 
+        def verifying() -> None:
+            with self._lock:
+                self._require_pending(attempt)
+                self._status = {"status": "verifying"}
+
         @contextmanager
         def committing():
             # The consent thread owns the credential writer lease. Serialize
@@ -142,7 +154,7 @@ class StudioChatGPTLogin:
         try:
             chatgpt_connection.connect(
                 self._directory, callback=callback, browse=lambda url: self._open(attempt, url, verify),
-                oauth=self._oauth, guard=verify, committing=committing,
+                oauth=self._oauth, guard=verify, on_callback=verifying, committing=committing,
             )
             invalidate()
             status = {"status": "authorized"}

@@ -91,6 +91,15 @@ class StudioChatGPTLoginTests(unittest.TestCase):
         self.assertEqual(ChatGPTStore(self.directory).read(), self.credentials)
         self.invalidate.assert_called_once_with()
 
+    def test_fresh_visit_reports_previously_saved_consent_without_contacting_openai(self):
+        ChatGPTStore(self.directory).save(self.credentials)
+        browser = Mock()
+        login = self.login(browser)
+        self.assertEqual(login.snapshot(), {"status": "authorized"})
+        browser.assert_not_called()
+        self.oauth.require_oidc.assert_not_called()
+        self.oauth.exchange.assert_not_called()
+
     def test_cancel_closes_the_waiting_callback_and_a_new_attempt_can_follow(self):
         urls = []
 
@@ -141,6 +150,7 @@ class StudioChatGPTLoginTests(unittest.TestCase):
                 login.start(self.guard, self.invalidate)
                 try:
                     self.assertTrue(entered.wait(2))
+                    self.assertEqual(login.snapshot(), {"status": "verifying"})
                     with self.assertRaisesRegex(ContractError, "^CHATGPT_STATE_BUSY"), ChatGPTStore(self.directory).writer():
                         pass
                     getattr(login, action)()

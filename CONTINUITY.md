@@ -7,13 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-21T20:20:13Z'
+  updated_at: '2026-11-21T23:10:27Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Review the oldest backlog checkpoint and make saved compaction proofs safe to check.
+  purpose: Land the reviewed local checkpoints and qualify the existing Studio and archive journeys.
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -57,48 +57,50 @@ scope:
   - docs/private-routing.md
   - docs/compaction-retention.md
 work:
-  objective: Review the oldest backlog checkpoint and make saved compaction proofs safe to check.
+  objective: Land the reviewed local checkpoints and qualify the existing Studio and archive journeys.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#46
-    url: https://github.com/egohygiene/mindgarden/issues/46
+    id: egohygiene/mindgarden#163
+    url: https://github.com/egohygiene/mindgarden/issues/163
   next:
     kind: action
-    id: review-curation-then-compaction
-    description: 'Review #176 first, then review #177 and its red/green regression and legacy replay evidence.'
+    id: qualify-existing-studio-provider
+    description: Observe the ChatGPT plan card on the owner Mac, identify the catalog outcome, and qualify one explicitly
+      approved fictional turn.
     readiness: ready
     references:
-    - docs/extraction-producers.md
-    - docs/compaction-retention.md
+    - docs/studio-chatgpt-consent.md
+    - docs/studio-model-connections.md
     depends_on: []
 state:
   base:
-    revision: f348a8d38b44a265c46f7f98db10cfc662d8a20c
-    ref: refs/heads/test/curation-routing-backlog
-    verified_at: '2026-11-21T20:20:13Z'
+    revision: cf7f7ab395739498e2f2e6b29ac152448f6d2dff
+    ref: refs/heads/main
+    verified_at: '2026-11-21T23:10:27Z'
   candidate:
-    branch: fix/compaction-proof-audit
-    revision: 85e06c5161dc622aef884ffd72846530e33d5261
+    branch: fix/studio-chatgpt-callback
+    revision: 32b305c66bbcfd602e149fca3e3d0a56f1e0f1a1
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#177
-      url: https://github.com/egohygiene/mindgarden/pull/177
+      id: egohygiene/mindgarden#175
+      url: https://github.com/egohygiene/mindgarden/pull/175
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-21T20:20:13Z'
-    default_branch_revision: 00ab34e873601239ce62c1e245c076987ae48f4a
+    observed_at: '2026-11-21T23:10:27Z'
+    default_branch_revision: cf7f7ab395739498e2f2e6b29ac152448f6d2dff
     issue_state: open
     pull_request_state: draft
-    notes: '#1 and #2 closed. GitHub showed 35 open issues. Draft #177 stacks on #176. Studio #175 is independent.'
+    notes: '#176 and #177 merged in dependency order. #13 is closed. #175 merges the callback implementation with the
+      latest handoff and coverage.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-21T20:20:13Z'
+  reviewed_at: '2026-11-21T23:10:27Z'
   reviewed_by: codex
   evidence:
   - command: PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_routing tests.test_routing_dispositions tests.test_routing_incoming
@@ -133,11 +135,17 @@ review:
     outcome: passed
     observed_at: '2026-11-21T20:20:13Z'
     notes: Eight checks from the existing synthetic demo passed. Complete context was 4,001 of 8,192 bytes.
+  - command: npm --prefix web run build && npm --prefix web test
+    outcome: passed
+    observed_at: '2026-11-21T23:10:27Z'
+    notes: Reconciled checkout. Production build and eight frontend tests passed. The existing garden-cover.webp runtime
+      resolution warning remains.
   environment_limitations:
-  - The native result covers one synthetic input. Wider model accuracy remains unmeasured.
-  - The approved real legacy archive, dedicated production mount and reusable Relay action remain open.
-  - 'Hosted checks run separately. Studio #175 still needs the owner Mac sign-in rerun.'
-  - 'The #46 proof uses synthetic local bundles. The approved private retention pilot is pending.'
+  - 'The owner reported successful Mac Studio sign-in. Individual model discovery and a completed live turn remain separate
+    #163 acceptance.'
+  - The native Ollama evaluation covers one synthetic input. Wider model accuracy remains unmeasured.
+  - The approved real archive, dedicated production mount, reusable Relay action and private retention pilot remain open.
+  - The original heads passed hosted Test and release preparation. The reconciliation has its own automatic checks.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -157,48 +165,48 @@ privacy:
 
 ## Purpose and precedence
 
-Review the oldest backlog checkpoint and make saved compaction proofs safe to check.
+Land the reviewed local checkpoints and qualify the existing Studio and archive journeys.
 
 ## Resume protocol
 
-Refresh live GitHub state and review [draft #176](https://github.com/egohygiene/mindgarden/pull/176). Continue with [draft #177](https://github.com/egohygiene/mindgarden/pull/177). Use the [coverage ledger](docs/open-issue-coverage.md) for issue ownership.
+Refresh live GitHub state and use current main after the merge. Check the [coverage ledger](docs/open-issue-coverage.md) for the remaining acceptance owners.
 
 ## Current objective and success conditions
 
-Keep fulfilled portfolio criteria closed and remaining work visible. Record the local producer result and verify one canonical home after reviewed routing and replay. Verify saved compaction proofs without creating files.
+Qualify the existing workflows before expanding product scope. Record what passed in Studio, what requires the approved private pilot and which organization decisions still gate completion.
 
 ## State snapshot
 
-Main `00ab34e`. GitHub showed 35 open issues and 51 ledger rows. #1 and #2 closed against their original criteria. #5 remains the execution umbrella. #177 targets #176 and the combined checkout is `fix/compaction-proof-audit`.
+#176 merged as `875e73f` and closed #13. #177 merged as `cf7f7ab`. #175 reconciles its callback fix with that main tree and closes #174 on merge.
 
 ## Completed and material changes
 
-Draft #176, implementation `976d1af`, records the native local Ollama evaluation for #13 and the composed private routing replay for #14. The accepted Empathy site and unresolved dedicated route are documented. #5, #13, #14, #18, #20 and #21 now link current acceptance evidence. Draft #177, implementation `85e06c5`, fixes read-only verification and byte accounting for #46.
+One local Ollama evaluation completed and the application correctly rejected its invalid proposal. Private routing replay preserves the canonical home and exact citation. Saved compaction checks are read-only and enforce complete output limits. The callback distinguishes receipt, verification and completion. The owner reported successful Mac browser sign-in.
 
 ## Validation and review evidence
 
-Each supported Python passed 43 routing and 24 extraction, curation and insight tests. Both synthetic journeys passed from archived main. The one native model response matched JSON Schema and the application rejected invalid endpoints. Compaction regressions and legacy bundle replay passed. No private input was processed.
+All five hosted checks passed for each of the three original PR heads. Each merge of #176 and #177 preserved its exact qualified tree. The reconciled Studio checkout passed the production web build, eight frontend tests and the pinned handoff checks.
 
 ## Blockers, risks, unknowns, and deferred work
 
-#14 retains policy-changing transfers and wider recovery. #20 retains owner-approved archive selection, conformance and dedicated route. #21 awaits a reviewed declassification contract. #46 retains the approved private pilot and broader retention acceptance. Release work stays deferred.
+The ChatGPT model catalog failure still lacks an exact status. Qualify that and one approved fictional turn under #163. Native Codex runtime is separate. Existing portal, real archive and governed privacy checks remain open. Release work stays deferred.
 
 ## Next dependency-ready work
 
-Review #176 and its linked synthetic evidence. Merge closes #13. Then retarget #177 to updated main for review. Keep #14, #20 and #46 open for remaining scope.
+Observe the Models card on the owner Mac. Verify the current catalog and approve one fictional request. Independently replay the reviewed brief under #162 and the January booklet under #165. The selected Drive folder proof follows owner approval under #87.
 
 ## Parallel changes and reconciliation
 
-Draft #176 targets main and #177 stacks on #176. Draft #175 independently addresses the Studio callback and also updates continuity and the coverage ledger. Reconcile those documents when both drafts land.
+#177 was retargeted to main after its parent #176 landed. #175 was reconciled afterward. The overlap was limited to this handoff and the coverage ledger.
 
 ## Privacy and redaction
 
-Use public or synthetic evidence. No archive or account authorization, private content, or credential belongs in Git.
+Use public or synthetic evidence. Keep callback values, private source data and credentials in the authorized local environment.
 
 ## Handoff update protocol
 
-Record the exact branch, issue, implementation commit, checks and next action. Refresh live state before acting.
+Record exact branch, PR, head, checks and the next operation. Refresh live state before acting.
 
 ## Compaction and supersession
 
-The [consumer journey](docs/consumer-journey.md) updates earlier rehearsal-only Empathy observations. Earlier qualification receipts remain linked in the coverage ledger.
+Earlier qualification receipts remain in the [coverage ledger](docs/open-issue-coverage.md). The [consumer journey](docs/consumer-journey.md) records accepted Empathy evidence.

@@ -22,7 +22,8 @@ def status(directory: Path, *, clock=time) -> dict:
     }
 
 
-def connect(directory: Path, *, callback, browse, oauth=None, guard=lambda: None, committing=nullcontext) -> dict:
+def connect(directory: Path, *, callback, browse, oauth=None, guard=lambda: None,
+            on_callback=lambda: None, committing=nullcontext) -> dict:
     """Open a one-use browser authorization and save only verified consent."""
     guard()
     client = OAuthClient() if oauth is None else oauth
@@ -50,6 +51,7 @@ def connect(directory: Path, *, callback, browse, oauth=None, guard=lambda: None
             except KeyboardInterrupt:
                 raise ContractError("CHATGPT_CALLBACK_CANCELLED: local sign-in was cancelled") from None
         guard()
+        on_callback()
         credentials = client.exchange(attempt, code, client_id)
         with committing():
             guard()
