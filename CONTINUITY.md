@@ -7,13 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-21T18:49:29Z'
+  updated_at: '2026-11-21T20:17:55Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Verify ChatGPT plan consent from the optional Studio Models lab.
+  purpose: Reconcile old issues against merged evidence and finish the supported curation checkpoint.
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -52,83 +52,82 @@ scope:
   - docs/studio-assistant-pilot.md
   - docs/studio-model-connections.md
   - docs/studio-chatgpt-consent.md
+  - docs/consumer-journey.md
+  - docs/extraction-producers.md
+  - docs/private-routing.md
 work:
-  objective: Verify ChatGPT plan consent from the optional Studio Models lab.
+  objective: Reconcile old issues against merged evidence and finish the supported curation checkpoint.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#163
-    url: https://github.com/egohygiene/mindgarden/issues/163
+    id: egohygiene/mindgarden#13
+    url: https://github.com/egohygiene/mindgarden/issues/13
   next:
     kind: action
-    id: try-chatgpt-sign-in-from-studio
-    description: Launch the combined fictional Models draft on the owner Mac and choose Continue with ChatGPT.
+    id: review-older-issue-checkpoint
+    description: 'Review draft #176 and its native synthetic extraction result before accepting #13 closure.'
     readiness: ready
     references:
-    - docs/studio-chatgpt-consent.md
-    - docs/studio-model-connections.md
+    - docs/consumer-journey.md
+    - docs/extraction-producers.md
+    - docs/private-routing.md
     depends_on: []
 state:
   base:
-    revision: 6785ca933587c39ca95fcf94f9190186d18e72cc
-    ref: refs/heads/feature/studio-chatgpt-plan
-    verified_at: '2026-11-21T18:49:29Z'
+    revision: 00ab34e873601239ce62c1e245c076987ae48f4a
+    ref: refs/heads/main
+    verified_at: '2026-11-21T20:17:55Z'
   candidate:
-    branch: feature/studio-chatgpt-browser-login
-    revision: 2d8a8ceb6cd10dfe4da03786019174b85d63c614
+    branch: test/curation-routing-backlog
+    revision: 976d1afd39a3bff65f4024404f4f194fa08088e4
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#173
-      url: https://github.com/egohygiene/mindgarden/pull/173
+      id: egohygiene/mindgarden#176
+      url: https://github.com/egohygiene/mindgarden/pull/176
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-21T18:49:29Z'
-    default_branch_revision: 5cf24a29002f8e4f0a464b42819ec21ede33af2a
+    observed_at: '2026-11-21T20:17:55Z'
+    default_branch_revision: 00ab34e873601239ce62c1e245c076987ae48f4a
     issue_state: open
     pull_request_state: draft
-    notes: 'Main 5cf24a2 with 36 open issues and 50 coverage rows. #172 at 6785ca9 passed all five hosted checks.
-      Draft #173 stacks on #172 with implementation 2d8a8ce.'
+    notes: '#1 and #2 closed against merged and accepted evidence. #5 owns the remaining roadmap. GitHub showed 35 open
+      issues.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-21T18:49:29Z'
+  reviewed_at: '2026-11-21T20:17:55Z'
   reviewed_by: codex
   evidence:
-  - command: PYTHONPATH=src python -m unittest tests.test_studio_chatgpt_login tests.test_chatgpt_connection tests.test_chatgpt_callback
-      tests.test_studio_chatgpt_visit tests.test_model_lab tests.test_studio_model_routes -q
+  - command: PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_routing tests.test_routing_dispositions tests.test_routing_incoming
+      tests.test_routing_lifecycle tests.test_routing_transfers tests.test_reference_repairs -q
     outcome: passed
-    observed_at: '2026-11-21T18:49:29Z'
-    notes: 36 tests per Python 3.12.14 and 3.13.5 for exact-origin protected actions, idle status, armed callback,
-      one attempt, bounded opener, cancel/close during exchange, scope revocation, and catalog invalidation. The broader
-      125-case provider, account, booklet, CLI, and scope regression matrix also passed per interpreter.
-  - command: npm --prefix web ci --offline --no-fund --audit=false && npm --prefix web run build && npm --prefix web
-      test
+    observed_at: '2026-11-21T20:17:55Z'
+    notes: 43 tests passed on each of Python 3.12.14 and 3.13.5, zero skips.
+  - command: PYTHONPATH=src python -m unittest tests.test_extraction tests.test_ollama_extraction tests.test_mixed_curation
+      tests.test_archive_diagrams experiments.ollama_extraction.test_evaluate tests.test_insights -q
     outcome: passed
-    observed_at: '2026-11-21T18:49:29Z'
-    notes: Clean checkout of 2d8a8ce, production build and eight frontend cases passed on Node 24.19.0.
-  - command: python scripts/check_studio_model_browser.py --chromium /usr/bin/chromium --axe <axe-core>
+    observed_at: '2026-11-21T20:17:55Z'
+    notes: 24 tests passed on each Python, including replay of the observed rejection and nine public insights cases.
+  - command: python scripts/release_journey_demo.py --workspace <fresh> --report <file> --require-source && python scripts/pipeline_completion_demo.py
+      --workspace <fresh> --report <file> --require-source
     outcome: passed
-    observed_at: '2026-11-21T18:49:29Z'
-    notes: Chromium and axe passed at 1440 and 390 px. Studio launched the real broker and callback with fake OAuth,
-      canceled and retried, showed authorization, offered renewal after expired Check and Run, and cleared the session
-      on sign-out. Model check and inference stayed explicit.
-  - command: python -m build --no-isolation; pip install --no-index --no-deps mindgarden==0.1.0; python -I -m mindgarden
-      visit --demo --interface studio --assistant providers --workspace <fresh> --chatgpt-state-directory <absent>
-    outcome: passed
-    observed_at: '2026-11-21T18:49:29Z'
-    notes: Two distribution tests passed. The offline-installed wheel showed Continue with ChatGPT. Without the optional
-      verifier, explicit click showed setup guidance without creating consent state.
+    observed_at: '2026-11-21T20:17:55Z'
+    notes: Clean archived main. Release journey SHA-256 0d31d9d3841f5c394bb23776c97f0d211907bcf8361f5ad4978156a9650f7600.
+      Completion proof SHA-256 66377ee3762d0a46a338490e7cf8282c1e73de3acf9ba5baf37e1cd5bdd8b09f.
+  - command: python experiments/ollama_extraction/evaluate.py --model gemma3:1b --endpoint http://127.0.0.1:<port> --live
+      --include-output --timeout-seconds 90
+    outcome: failed
+    observed_at: '2026-11-21T20:17:55Z'
+    notes: Ollama 0.40.17 returned schema-valid synthetic output with unresolved endpoints. Application exited 1 and created
+      no candidates. The evaluation completed with a recorded rejection.
   environment_limitations:
-  - The public proof used a fake browser opener and synthetic token exchange. Actual owner account consent and first
-    live response are pending.
-  - The sign-in action requires a graphical browser on the machine running Studio and the optional installed ID-token
-    verifier. Studio uses the existing fictional authority and separate native callback.
-  - 'Native Codex agent execution, private garden context, Drive, and media retain their own scope. Hosted #173 checks
-    run separately.'
+  - The native result covers one synthetic input. Wider model accuracy remains unmeasured.
+  - The approved real legacy archive, dedicated production mount and reusable Relay action remain open.
+  - 'Hosted checks run separately. Studio #175 still needs the owner Mac sign-in rerun.'
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -148,48 +147,48 @@ privacy:
 
 ## Purpose and precedence
 
-Verify ChatGPT plan consent from the optional Studio Models lab.
+Reconcile old issues against merged evidence and finish the supported curation checkpoint.
 
 ## Resume protocol
 
-Refresh GitHub state and use the combined branch. Follow the [Studio sign-in guide](docs/studio-chatgpt-consent.md).
+Refresh live GitHub state and review [draft #176](https://github.com/egohygiene/mindgarden/pull/176). Use the [coverage ledger](docs/open-issue-coverage.md) for issue ownership.
 
 ## Current objective and success conditions
 
-Start consent from Models. Show the result after the native callback verifies it. Canceling or losing scope stops pending credential writes. Check the model list and approve the fictional prompt separately.
+Keep fulfilled portfolio criteria closed and remaining work visible. Record the local producer result and verify one canonical home after reviewed routing and replay.
 
 ## State snapshot
 
-Main 5cf24a2 with 36 open issues and 50 coverage rows. #172 at 6785ca9 passed all five hosted checks. Draft #173 stacks on #172 with implementation 2d8a8ce.
+Main `00ab34e`. GitHub showed 35 open issues and 51 ledger rows. #1 and #2 closed against their original criteria. #5 remains the execution umbrella.
 
 ## Completed and material changes
 
-[Draft #173](https://github.com/egohygiene/mindgarden/pull/173) opens the official consent page from Studio, shows redacted progress, and clears the previous catalog and approvals after a new credential or sign-out. The fictional Models command selects an owner-only default consent directory. The CLI lifecycle in #171 remains available.
+Draft #176, implementation `976d1af`, records the native local Ollama evaluation for #13 and the composed private routing replay for #14. The accepted Empathy site and unresolved dedicated route are documented. #5, #13, #14, #18, #20 and #21 now link current acceptance evidence.
 
 ## Validation and review evidence
 
-Both supported Python interpreters passed the broad provider regressions and 36 focused login cases. Chromium desktop and mobile exercised Studio through the actual native callback with synthetic OAuth. Expiry, cancel, sign-out, and explicit model request controls passed. The installed wheel surfaced optional verifier setup from the button when needed.
+Each supported Python passed 43 routing and 24 extraction, curation and insight tests. Both synthetic journeys passed from archived main. The one native model response matched JSON Schema and the application rejected invalid endpoints. No private input was processed.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Actual sign-in and the first plan response await a trial on the owner Mac. Native Codex execution, private sources, Drive, and media remain separate milestones.
+#14 retains policy-changing transfers and wider recovery. #20 retains owner-approved archive selection, conformance and dedicated route. #21 awaits a reviewed declassification contract. Release work stays deferred.
 
 ## Next dependency-ready work
 
-Launch the combined fictional Models draft on the owner Mac and choose Continue with ChatGPT. Finish the official consent, return to Studio, choose **Check connection**, preview the January fixture and approve one request.
+Review #176 and its linked synthetic evidence. Merge closes #13. Keep #14 and #20 open for their remaining scope.
 
 ## Parallel changes and reconciliation
 
-Draft order #155 → #156 → #157 → #158 → #159 → #160 → #167 → #168 → #169 → #170 → #171 → #172 → #173. Combined checkout `feature/studio-chatgpt-browser-login`.
+Draft #176 targets main. Draft #175 independently addresses the Studio callback and also updates continuity and the coverage ledger. Reconcile those documents when both drafts land.
 
 ## Privacy and redaction
 
-Use synthetic public evidence. Consent URLs and callback values stay in the native flow. Credentials remain in the authorized private directory.
+Use public or synthetic evidence. No archive or account authorization, private content, or credential belongs in Git.
 
 ## Handoff update protocol
 
-Record exact branch, issue, commit, commands, verification and the next concrete operation. Refresh live state before acting.
+Record the exact branch, issue, implementation commit, checks and next action. Refresh live state before acting.
 
 ## Compaction and supersession
 
-Earlier integration receipts remain linked from the [coverage ledger](docs/open-issue-coverage.md) and the parent handoff.
+The [consumer journey](docs/consumer-journey.md) updates earlier rehearsal-only Empathy observations. Earlier qualification receipts remain linked in the coverage ledger.

@@ -75,24 +75,45 @@ timezone). The documented `/api/chat` uses `format` with a JSON schema,
 The helper embeds a self-contained schema and uses temperature zero with a bounded
 generation size. The guide says cloud structured outputs are unavailable.
 
-`ollama_extraction.py` contains only pure request/response mapping. The optional
-`experiments/ollama_extraction/evaluate.py --model YOUR_LOCAL_MODEL` defaults to a
-dry run. With explicit `--live` it sends only the committed synthetic page to a
-loopback endpoint, disables proxy/redirects, times out after 30 seconds, caps the
-response at 256 KiB and performs zero retries. It records the actual response
-model and structural result. It never reads a garden, session or private source.
-The one labeled input contains ambiguity and conflicting positive/negative reports;
-its expected cases and authored outputs are separate from offline software tests.
+`ollama_extraction.py` contains pure request and response mapping. The
+optional probe defaults to a dry run. With explicit `--live` it sends only the
+committed synthetic page to a loopback endpoint, disables proxies and
+redirects, caps the response at 256 KiB, and makes one request. The application
+still validates citations and relationships after JSON Schema validation.
+`--include-output` adds the synthetic proposal to the report for inspection.
 
-No Ollama executable or operator-selected model was available here. The dry-run
-wire and offline response tests pass; live model accuracy remains **unmeasured**.
-No model/version recommendation or factual-accuracy threshold is invented. The
-source-grant session contract is offline; connecting a networked provider to real
-private evidence requires its explicit execution-policy contract. That gate is
-preserved rather than treating loopback as an implicit permission exception.
+### Local evaluation, 2026-11-21
+
+Official Ollama 0.40.17 ran the checksum-verified cached `gemma3:1b` Q4_K_M
+model once per invocation on IPv4 loopback with cloud disabled. The recorded
+run took 20.632 seconds and exited 1. The output passed JSON Schema and kept
+both quotations and their opposite polarity. It supplied no entity records
+for its assertion endpoints, replaced both claim statements with a sentence
+about Alex, and supplied no contradiction links. The application rejected
+the proposal and created no curation candidate. One fixture provides an
+observed failure mode. Model accuracy across archives remains unmeasured.
+
+Use the same explicitly selected local model and synthetic input to repeat
+the probe. The client timeout defaults to 30 seconds. One 30-second run timed
+out, so the recorded run used a 90-second timeout. The option is bounded at
+120 seconds.
+
+```sh
+OLLAMA_HOST=127.0.0.1:11434 OLLAMA_NO_CLOUD=1 ollama serve
+```
+
+```sh
+python experiments/ollama_extraction/evaluate.py --model gemma3:1b \
+  --endpoint http://127.0.0.1:11434 --live --include-output --timeout-seconds 90
+PYTHONPATH=src python -m unittest tests.test_ollama_extraction \
+  experiments.ollama_extraction.test_evaluate -q
+```
+
+Keep this producer experimental. Offline recorded extraction and human
+review remain the supported path. Private source grants keep their existing
+execution policy. [Recorded synthetic result](../tests/fixtures/extraction/observed-ollama.json)
 
 A second producer can implement the same protocol/output schema and consume the
 same bounded evidence input. TypeSafe remains for narrow semantic decisions;
-generative extraction is a separate role. Broad model/runtime adoption, live local
-model evaluation, wider media, reviewed entity resolution and consumer acceptance
-remain parent scope. Proposed runtime ADRs remain proposed.
+generative extraction is a separate role. Future model selection, broader media, entity resolution and consumer acceptance
+retain their existing owning issues and decisions. Proposed runtime ADRs remain proposed.

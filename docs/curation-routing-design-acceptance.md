@@ -1,6 +1,6 @@
 # Curation, routing and design acceptance — 2026-11-13
 
-**Merged update:** #144 is merged as `81e8438`; #145–#147 are also merged at main `270ced6`. The twelve original #13 curation criteria now have merged evidence, including the two history/disposition criteria previously awaiting review. The actual local Ollama evaluation remains unperformed; #14 retains its broader scope and #38 stays closed. [Current merge receipt](evidence/freshness-mapping-stack-merge.json) and [remaining/setup plan](remaining-work-and-local-setup.md) supersede the earlier draft observations below.
+**Merged update:** #144 is merged as `81e8438`; #145–#147 are also merged at main `270ced6`. The twelve original #13 curation criteria now have merged evidence, including the two history/disposition criteria previously awaiting review. The [local Ollama evaluation](extraction-producers.md#local-evaluation-2026-11-21) is now recorded; #14 retains its broader scope and #38 stays closed. [Current merge receipt](evidence/freshness-mapping-stack-merge.json) and [remaining/setup plan](remaining-work-and-local-setup.md) supersede the earlier draft observations below.
 
 The maintainer authorized merging #142 → #143 and selected #13 → #14 → #38
 next. Live issue bodies and comments, their actual implementations and proposed
@@ -118,7 +118,7 @@ search result, source objects and idempotent lifecycle replay.
 | 4. Attribution, uncertainty, negation, time, conflicts and reviewed alias merges | Extraction qualification tests, mixed/quoted assistant fixtures; no automatic name-based merge; authored merges retain exact inputs/rationale/review |
 | 5. Validated, distinct empty/failed/partial/unsupported/invalid states | `tests.test_extraction`; recoverable work and sanitized fixed-code diagnostics |
 | 6. Bounded digests/checkpoints/resume | Interrupted/resumed batch fixture; zero replay of completed unchanged units; accepted-plan apply is deterministic, model reruns are not assumed identical |
-| 7. Actual local Ollama evaluation | Pure official-API wire helper, schema tests and synthetic dry-run exist; **live model evaluation remains unavailable and unmeasured** |
+| 7. Actual local Ollama evaluation | The [synthetic native evaluation](extraction-producers.md#local-evaluation-2026-11-21) used Ollama 0.40.17 and `gemma3:1b`. The reply passed Schema and was rejected for unresolved endpoints. Model accuracy remains unmeasured |
 
 The issue's first bounded archive + bookmarks + captured page proof is already
 executable in `scripts/pipeline_completion_demo.py`. Its committed golden includes

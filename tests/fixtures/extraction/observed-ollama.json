@@ -1,0 +1,78 @@
+{
+  "assessment": {
+    "ambiguity_and_conflict": "There are no entities and no contradiction links. Both claims refer to undeclared endpoints.",
+    "attribution_and_meaning": "Both statements replace the accuracy claim with the sentence about Alex.",
+    "decision": "Keep the producer experimental. The application rejected the proposal and wrote no candidates.",
+    "exact_quotations": "Both quotations match the synthetic source.",
+    "polarity": "The two reports retain opposite polarity."
+  },
+  "cloud_disabled": true,
+  "elapsed_seconds": 20.632,
+  "evaluated_on": "2026-11-21",
+  "exit_code": 1,
+  "local_manifest_sha256": "313f48e331f7326ce703657512ab64022d8813bbaa512e06d0ace43cb026cf16",
+  "model_quantization": "Q4_K_M",
+  "model_reported_digest": "97558784bdc9175075a72655bf360b15da17df6b3b9e5182af9f8c0c8e58ba7c",
+  "observation": {
+    "accuracy_status": "unmeasured",
+    "cases": 1,
+    "core_network_policy": "unchanged; private source grants are offline",
+    "expected_review_cases": [
+      "ambiguous Alex",
+      "positive/negative accuracy reports",
+      "exact quotations"
+    ],
+    "interpretation": "requires authored comparison and explicit human review",
+    "mode": "live",
+    "model_accuracy": null,
+    "model_requested": "gemma3:1b",
+    "model_used": "gemma3:1b",
+    "output": {
+      "assertions": [
+        {
+          "context": "diagnostics",
+          "contradicts": [],
+          "id": "report-a",
+          "object": "person",
+          "polarity": "positive",
+          "predicate": "report",
+          "quote": "Daily review improves accuracy",
+          "stance": "report",
+          "statement": "Alex may mean a person or a project",
+          "subject": "person",
+          "temporal": "past",
+          "uncertainty": []
+        },
+        {
+          "context": "diagnostics",
+          "contradicts": [],
+          "id": "report-b",
+          "object": "project",
+          "polarity": "negative",
+          "predicate": "report",
+          "quote": "Daily review does not improve accuracy",
+          "stance": "report",
+          "statement": "Alex may mean a person or a project",
+          "subject": "project",
+          "temporal": "past",
+          "uncertainty": []
+        }
+      ],
+      "diagnostics": [],
+      "entities": [],
+      "schema": "mindgarden.extraction-output/v1",
+      "status": "partial"
+    },
+    "output_sha256": "b52479cbbb071bd4e3e4956bcf32e1fa83d3e9dc5e1b4cfb5b6888e3a02cb1e9",
+    "proposal_validation": "rejected",
+    "request_sha256": "babf8df8a9d0e9de48a5de09ebf558dc4955db200a6afab2cd1adc2dc0d2c905",
+    "schema": "mindgarden.ollama-extraction-evaluation/v1",
+    "structure": "passed",
+    "validation_diagnostic": "EXTRACTION_OUTPUT: proposal endpoint or contradiction does not resolve"
+  },
+  "ollama_version": "0.40.17",
+  "source_sha256": "c30f0c816293ef3068c0698ab15a435010e669c324ef1c79bc1422ec26055ee9",
+  "timeout_seconds": 90,
+  "transport": "numeric IPv4 loopback",
+  "weights_sha256": "2f8c3d137f2496dcb4019e17a50f2974b89c1be1a742db3c80cc86f91cafeeef"
+}
