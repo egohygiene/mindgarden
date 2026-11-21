@@ -143,6 +143,16 @@ const contextPack = z.object({
   })),
   excluded: z.array(z.object({ reference: representedReference, reason: z.string() })),
 });
+const connectorSummary = z.object({
+  google_drive: z.object({
+    state: z.enum(["demo", "captured", "setup-required"]),
+    citation_count: nonnegative,
+  }),
+  local_vault: z.object({
+    state: z.enum(["visible-evidence", "no-visible-evidence"]),
+    citation_count: nonnegative,
+  }),
+});
 
 export type ArtifactReference = z.infer<typeof reference>;
 export type SourceCitation = z.infer<typeof sourceCitation>;
@@ -156,6 +166,7 @@ export type SearchResult = z.infer<typeof searchResult>;
 export type SearchResults = z.infer<typeof searchResults>;
 export type Evidence = z.infer<typeof evidence>;
 export type ContextPack = z.infer<typeof contextPack>;
+export type ConnectorSummary = z.infer<typeof connectorSummary>;
 export type ContextResponse = {
   pack: ContextPack;
   bytes: Uint8Array<ArrayBuffer>;
@@ -235,7 +246,7 @@ function remoteError(value: unknown, status: number): GardenApiError {
 
 async function request(
   access: string | null,
-  endpoint: "garden" | "search" | "note" | "evidence" | "context",
+  endpoint: "garden" | "search" | "note" | "evidence" | "context" | "connectors",
   parameters: Record<string, string>,
   signal?: AbortSignal,
 ) {
@@ -288,6 +299,9 @@ export function createGardenClient(access: string | null) {
   return {
     async garden(signal?: AbortSignal): Promise<GardenOverview> {
       return readValue(gardenOverview, await request(access, "garden", {}, signal));
+    },
+    async connectors(signal?: AbortSignal): Promise<ConnectorSummary> {
+      return readValue(connectorSummary, await request(access, "connectors", {}, signal));
     },
     async search(query: string, signal?: AbortSignal): Promise<SearchResults> {
       return readValue(searchResults, await request(access, "search", { q: query }, signal));

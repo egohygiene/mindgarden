@@ -1,6 +1,7 @@
 """Loopback browser parity and defensive authorization checks with synthetic records."""
 
 from contextlib import redirect_stderr
+from dataclasses import replace
 from http.client import HTTPConnection
 from io import StringIO
 import json
@@ -13,27 +14,32 @@ from urllib.parse import urlencode
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
 
+from mindgarden.application.connector_evidence import connector_evidence
+from mindgarden.application.drive_capture import collect
 from mindgarden.application.query import QueryContext
-from mindgarden.application.retrieval import search_payload
+from mindgarden.application.retrieval import build_index, search_payload
 from mindgarden.application.sessions import bind_session_revisions
 from mindgarden.domain.contracts import digest_bytes
+from mindgarden.domain.scope import local_scope
 from mindgarden.domain.validation import ContractError
 from mindgarden.interfaces.cli import ExitCode, main
 from mindgarden.interfaces.local_web import browser_assets, make_server
 from tests import test_v1_retrieval as retrieval_tests
-from tests.support_v1 import write_json
+from tests.consultation_fixture import cli
+from tests.mapped_drive_fixture import create_fixture, ingest_arguments
+from tests.support_v1 import add_knowledge, write_json, write_session
 
 
 class LocalWebTests(unittest.TestCase):
     def setUp(self):
         retrieval_tests.RetrievalTests.setUp(self)
 
-    def start_server(self, *, interface="classic", **session_updates):
+    def start_server(self, *, interface="classic", demo=True, **session_updates):
         if session_updates:
             session = json.loads(self.session_path.read_bytes())
             session.update(session_updates)
             write_json(self.session_path, bind_session_revisions(self.configuration, session))
-        self.server = make_server(self.configuration, self.session_path, demo=True, interface=interface)
+        self.server = make_server(self.configuration, self.session_path, demo=demo, interface=interface)
         self.addCleanup(self.server.server_close)
         thread = Thread(target=self.server.serve_forever, kwargs={"poll_interval": 0.025}, daemon=True)
         thread.start()
@@ -183,6 +189,83 @@ class LocalWebTests(unittest.TestCase):
             with self.subTest(path=path):
                 self.assertEqual(self.request(path, 400)["error"]["code"], "WEB_QUERY")
 
+    def test_connector_status_is_fictional_and_uses_distinct_visible_citations(self):
+        self.start_server()
+        self.assertEqual(self.request("/api/connectors", 403, authorize=False)["error"]["code"], "WEB_ACCESS")
+        self.assertEqual(self.request("/api/connectors?provider=any", 400)["error"]["code"], "WEB_QUERY")
+        self.assertEqual(self.request("/api/connectors"), {
+            "google_drive": {"state": "demo", "citation_count": 0},
+            "local_vault": {"state": "visible-evidence", "citation_count": 1},
+        })
+
+    def test_connector_status_ignores_unknown_and_unverified_provider_markers(self):
+        source_files = sorted((self.workspace / ".garden/sources").glob("*.json"))
+        for alleged_adapter in ("unknown-provider", "drive-capture"):
+            with self.subTest(alleged_adapter=alleged_adapter):
+                for path in source_files:
+                    source = json.loads(path.read_bytes())
+                    source["origin"] = "https://drive.google.com/drive/folders/fictional-canary"
+                    if source["kind"] == "captured":
+                        source["media_type"] = "application/vnd.mindgarden.drive-capture+zip"
+                    source["x-adapter"] = {
+                        "id": alleged_adapter if source["kind"] == "normalized" else "drive-capture",
+                        "version": "1.0.0",
+                        "manifest_version": "1.0.0",
+                        "metadata": {
+                            "provider": "google-drive-v3", "provider_file_id": "fictional-canary",
+                            "captured_scope": local_scope(execution="controlled-import", publication="never-exportable"),
+                        },
+                    }
+                    write_json(path, source)
+                write_session(self.session_path, self.configuration)
+                self.start_server(demo=False)
+                self.assertEqual(self.request("/api/connectors"), {
+                    "google_drive": {"state": "setup-required", "citation_count": 0},
+                    "local_vault": {"state": "visible-evidence", "citation_count": 1},
+                })
+
+    def test_connector_status_replays_synthetic_drive_lineage_within_overview_budget(self):
+        fixture = create_fixture(self.root / "drive-provider")
+        raw, _ = collect(fixture["binding"], fixture["provider"], fixture["vault"], self.root / "drive-checkpoint.json")
+        arguments = ingest_arguments(fixture, raw)
+        plan = cli(arguments)
+        cli(arguments + ["--apply", "--plan-digest", plan["plan_sha256"]])
+        first, second, *_ = plan["inputs"]["normalized_sources"]
+        garden = fixture["garden"]
+        add_knowledge(garden, "a-overview-first")
+        add_knowledge(garden, "b-visible-drive", sources=first["evidence"])
+        add_knowledge(garden, "c-visible-drive-duplicate", sources=first["evidence"])
+        add_knowledge(garden, "d-hidden-drive", reviewed=False, sources=second["evidence"])
+        self.configuration = fixture["configuration"]
+        self.session_path = self.root / "drive-session.json"
+        session = write_session(self.session_path, self.configuration)
+        with patch("mindgarden.application.drive_capture.GoogleDriveProvider", side_effect=AssertionError("Live probe attempted")):
+            self.start_server(demo=False, budgets={**session["budgets"], "max_results": 1})
+            self.assertEqual(self.request("/api/connectors"), {
+                "google_drive": {"state": "setup-required", "citation_count": 0},
+                "local_vault": {"state": "no-visible-evidence", "citation_count": 0},
+            })
+            self.start_server(demo=False, budgets=session["budgets"])
+            self.assertEqual(self.request("/api/connectors"), {
+                "google_drive": {"state": "captured", "citation_count": 1},
+                "local_vault": {"state": "visible-evidence", "citation_count": 1},
+            })
+        context = QueryContext.load(self.configuration, self.session_path)
+        records = build_index(context, projection="evidence")["records"]
+        snapshots = context.snapshots()
+        garden_id = first["source"]["garden"]
+        snapshot = snapshots[garden_id]
+        source = snapshot.records[first["source"]["id"]]
+        capture_id = source["inputs"][0]["id"]
+        provenance_id = source["provenance"][0]["id"]
+        for absent in (capture_id, provenance_id):
+            with self.subTest(absent=absent):
+                incomplete = replace(snapshot, records={key: value for key, value in snapshot.records.items() if key != absent})
+                with patch.object(context, "snapshots", return_value={garden_id: incomplete}):
+                    self.assertEqual(connector_evidence(context, records, demo=False)["google_drive"], {
+                        "state": "setup-required", "citation_count": 0,
+                    })
+
     def test_scope_changes_and_revocation_fail_closed(self):
         self.start_server()
         self.request("/api/garden")
@@ -190,6 +273,7 @@ class LocalWebTests(unittest.TestCase):
         session = json.loads(self.session_path.read_bytes())
         write_json(self.configuration, {**configuration, "revoked_sessions": [session["id"]]})
         self.assertEqual(self.request("/api/search?q=prompt", 403)["error"]["code"], "SESSION_REVOKED")
+        self.assertEqual(self.request("/api/connectors", 403)["error"]["code"], "SESSION_REVOKED")
         write_json(self.configuration, configuration)
         write_json(self.session_path, {**session, "allowed_review_states": ["approved", "unreviewed"]})
         self.assertEqual(self.request("/api/garden", 403)["error"]["code"], "SESSION_STALE")
@@ -202,7 +286,7 @@ class LocalWebTests(unittest.TestCase):
         self.assertEqual(overview["graph"], {"nodes": [], "edges": []})
         detail = self.request("/api/note?ref=synthetic-garden/synthetic-prompt")
         self.assertEqual((detail["links"], detail["backlinks"]), ([], []))
-        for path in ("/api/search?q=prompt", "/api/context?q=prompt",
+        for path in ("/api/search?q=prompt", "/api/context?q=prompt", "/api/connectors",
                      "/api/evidence?ref=synthetic-garden/synthetic-prompt&citation=0"):
             with self.subTest(path=path):
                 self.assertEqual(self.request(path, 403)["error"]["code"], "PROJECTION_DENIED")

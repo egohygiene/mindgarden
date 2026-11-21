@@ -1,5 +1,10 @@
 # Optional selected Drive capture
 
+The [Studio Sources view](mindgarden-studio.md#show-reviewed-drive-evidence)
+can show cited evidence from these frozen captures after review. Browser
+navigation stays within the local read session. OAuth, network access and
+file selection continue to use the explicit capture workflow below.
+
 The [reviewed per-file mapping checkpoint](drive-normalization.md) adds an explicit
 `--drive-normalization` input for supported alternate CSV layouts inside a
 verified capture. Capture, normalization review, knowledge review and packet

@@ -6,6 +6,7 @@ import {
   BriefcaseBusiness,
   CircleDot,
   Compass,
+  Database,
   GitFork,
   House,
   Layers3,
@@ -25,19 +26,23 @@ import {
 } from "react";
 import {
   QUERY_MAX_LENGTH,
+  type ConnectorSummary,
   type GardenClient,
   type GardenOverview,
   type NoteSummary,
   referenceKey,
 } from "./api";
+import { ConnectorPreview, SourcesView } from "./connectors";
+import { KnowledgeExplorer } from "./explorer";
 import { ContextView, NotesView, NoteView } from "./features";
 import { GardenGraph } from "./graph";
 
 type Route =
   | { name: "overview" }
   | { name: "notes"; query: string }
-  | { name: "connections" }
+  | { name: "connections"; focus?: string }
   | { name: "context"; query: string }
+  | { name: "sources" }
   | { name: "note"; reference: string };
 
 const sections = [
@@ -45,6 +50,7 @@ const sections = [
   { label: "Library", route: { name: "notes", query: "" }, icon: BookOpen },
   { label: "Connections", route: { name: "connections" }, icon: GitFork },
   { label: "Context packs", route: { name: "context", query: "" }, icon: Layers3 },
+  { label: "Sources", route: { name: "sources" }, icon: Database },
 ] satisfies Array<{ label: string; route: Route; icon: typeof Compass }>;
 
 const affiliated = [
@@ -243,10 +249,12 @@ function FeaturedNotes({
   );
 }
 
-function Overview({ garden, navigate, onNote }: {
+function Overview({ garden, navigate, onNote, connectors, connectorError }: {
   garden: GardenOverview;
   navigate: (route: Route) => void;
   onNote: (reference: string) => void;
+  connectors?: ConnectorSummary;
+  connectorError?: string;
 }) {
   return (
     <>
@@ -254,20 +262,21 @@ function Overview({ garden, navigate, onNote }: {
         <div className="studio-hero-content">
           <p className="studio-workspace-label"><Sprout size={16} aria-hidden="true" /> {accessDescription(garden)}</p>
           <h1>See how your<br className="hero-break" /> knowledge connects.</h1>
-          <p className="studio-hero-summary">A quiet place to explore reviewed notes, follow their connections, and find the sources behind them.</p>
+          <p className="studio-hero-summary">Explore reviewed notes, trace how ideas connect, and open the sources behind them.</p>
           <div className="studio-hero-actions">
-            <button className="button primary" type="button" onClick={() => navigate({ name: "notes", query: "" })}>
-              Explore the library <ArrowRight size={17} aria-hidden="true" />
-            </button>
-            {garden.capabilities.context && (
-              <button className="button studio-hero-secondary" type="button" onClick={() => navigate({ name: "context", query: "" })}>
-                Build a context pack <Layers3 size={16} aria-hidden="true" />
+            {garden.capabilities.graph && (
+              <button className="button primary" type="button" onClick={() => navigate({ name: "connections" })}>
+                Explore connections <GitFork size={17} aria-hidden="true" />
               </button>
             )}
+            <button className={`button ${garden.capabilities.graph ? "studio-hero-secondary" : "primary"}`} type="button" onClick={() => navigate({ name: "notes", query: "" })}>
+              Open the library <ArrowRight size={17} aria-hidden="true" />
+            </button>
           </div>
         </div>
       </section>
       <Metrics garden={garden} />
+      <ConnectorPreview connectors={connectors} error={connectorError} onOpen={() => navigate({ name: "sources" })} />
       <div className={`studio-overview-grid${garden.capabilities.graph ? "" : " studio-single-column"}`}>
         <FeaturedNotes notes={garden.notes} onNote={onNote} goToLibrary={() => navigate({ name: "notes", query: "" })} />
         {garden.capabilities.graph && (
@@ -285,16 +294,18 @@ function Overview({ garden, navigate, onNote }: {
   );
 }
 
-function Connections({ garden, onNote }: { garden: GardenOverview; onNote: (reference: string) => void }) {
+function Connections({ garden, onNote, focus }: {
+  garden: GardenOverview;
+  onNote: (reference: string) => void;
+  focus?: string;
+}) {
   return (
     <>
       <header className="studio-page-heading">
-        <h1>Connections</h1>
-        <p>Follow the links between notes. Switch to 3D to rotate the same graph.</p>
+        <h1>Knowledge explorer</h1>
+        <p>Pick a note or topic to see its place in the garden, then follow its connections.</p>
       </header>
-      <section className="panel studio-graph-page" aria-label="Garden map">
-        <GardenGraph garden={garden} onNote={onNote} />
-      </section>
+      <KnowledgeExplorer garden={garden} onNote={onNote} initialFocus={focus} />
     </>
   );
 }
@@ -307,11 +318,13 @@ function currentSection(route: Route) {
 export function Studio({ client }: { client: GardenClient }) {
   const [route, setRoute] = useState<Route>({ name: "overview" });
   const [garden, setGarden] = useState<GardenOverview>();
+  const [connectors, setConnectors] = useState<ConnectorSummary>();
+  const [connectorError, setConnectorError] = useState("");
   const [error, setError] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const main = useRef<HTMLElement>(null);
   const afterNavigation = useRef(false);
-  const libraryReturn = useRef<Route>({ name: "notes", query: "" });
+  const noteReturn = useRef<Route>({ name: "notes", query: "" });
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
@@ -323,6 +336,17 @@ export function Studio({ client }: { client: GardenClient }) {
     });
     return () => controller.abort();
   }, [client, route]);
+
+  useEffect(() => {
+    if (!garden || (route.name !== "overview" && route.name !== "sources")) return;
+    const controller = new AbortController();
+    client.connectors(controller.signal).then((next) => {
+      if (!controller.signal.aborted) setConnectors(next);
+    }).catch(() => {
+      if (!controller.signal.aborted) setConnectorError("Source details could not be verified in this session.");
+    });
+    return () => controller.abort();
+  }, [client, garden, route.name]);
 
   useEffect(() => {
     if ((garden || error) && afterNavigation.current) {
@@ -348,13 +372,16 @@ export function Studio({ client }: { client: GardenClient }) {
     afterNavigation.current = true;
     setSearchOpen(false);
     setGarden(undefined);
+    setConnectors(undefined);
+    setConnectorError("");
     setError("");
     setRoute({ ...next });
   }
 
   function openNote(reference: string) {
-    if (route.name === "notes") libraryReturn.current = route;
-    else if (route.name !== "note") libraryReturn.current = { name: "notes", query: "" };
+    if (route.name === "notes") noteReturn.current = route;
+    else if (route.name === "connections") noteReturn.current = { name: "connections", focus: reference };
+    else if (route.name !== "note") noteReturn.current = { name: "notes", query: "" };
     navigate({ name: "note", reference });
   }
   const search = (query: string) => navigate({ name: "notes", query });
@@ -367,11 +394,25 @@ export function Studio({ client }: { client: GardenClient }) {
     content = <section className="panel studio-notice"><h1>{currentSection(route)}</h1><p>This view is unavailable in the active session.</p></section>;
   } else {
     switch (route.name) {
-      case "overview": content = <Overview garden={garden} navigate={navigate} onNote={openNote} />; break;
-      case "connections": content = <Connections garden={garden} onNote={openNote} />; break;
+      case "overview": content = <Overview garden={garden} navigate={navigate} onNote={openNote} connectors={connectors} connectorError={connectorError} />; break;
+      case "connections": content = <Connections garden={garden} onNote={openNote} focus={route.focus} />; break;
       case "notes": content = <NotesView client={client} notes={garden.notes} query={route.query} onSearch={search} onOpenNote={openNote} canSearch={garden.capabilities.search} />; break;
-      case "note": content = <NoteView client={client} reference={route.reference} onOpenNote={openNote} onBack={() => navigate(libraryReturn.current)} canReadEvidence={garden.capabilities.evidence} notes={garden.notes} />; break;
+      case "note": {
+        const inGraph = garden.graph.nodes.some((note) => referenceKey(note.reference) === route.reference);
+        content = <NoteView
+          client={client}
+          reference={route.reference}
+          onOpenNote={openNote}
+          onBack={() => navigate(noteReturn.current)}
+          backLabel={noteReturn.current.name === "connections" ? "Back to map" : undefined}
+          onExplore={inGraph ? (reference) => navigate({ name: "connections", focus: reference }) : undefined}
+          canReadEvidence={garden.capabilities.evidence}
+          notes={garden.notes}
+        />;
+        break;
+      }
       case "context": content = <ContextView client={client} query={route.query} notes={garden.notes} onBuild={(query) => navigate({ name: "context", query })} onOpenNote={openNote} enabled={garden.capabilities.context} />; break;
+      case "sources": content = <SourcesView connectors={connectors} error={connectorError} />; break;
     }
   }
 

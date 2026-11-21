@@ -262,8 +262,10 @@ The authorized #127â€“#132 stack is merged at `f5baa3d`. Dependent drafts #133â€
 [Mindgarden Studio](docs/mindgarden-studio.md) builds a React interface
 with Vite and serves its manifest-listed assets through the same Python
 loopback adapter. The TypeScript client calls the existing scoped read
-services. The separate Next.js lab compares rendering modes using the
-fictional fixture.
+services. Graph focus and navigation stay in the browser over the
+authorized projection. Connector counts use the reviewed evidence view
+and immutable source lineage. The separate Next.js lab compares
+rendering modes using the fictional fixture.
 
 The [local browser visit](docs/local-garden-visit.md) is a read-only
 interface checkpoint. The loopback adapter pins an explicit query session

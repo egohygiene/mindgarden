@@ -68,8 +68,9 @@ design tooling is optional for other contributors.
 
 ## Open Mindgarden Studio
 
-Studio adds a Vite-built React interface, a keyboard search dialog, and
-an optional 3D map to the local Willow Garden workflow. The
+Studio adds a Vite-built React interface, keyboard search, a knowledge
+graph with topic filters and optional 3D, and a Sources view for reviewed
+local-vault and captured Drive evidence. The
 [Studio guide](docs/mindgarden-studio.md) starts from a clean checkout and
 includes an optional Next.js rendering lab.
 
