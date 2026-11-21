@@ -10,8 +10,8 @@ map, evidence excerpts, and a context-pack walkthrough. The existing
 Use Node 24 and Python 3.12 or 3.13. From a clean checkout:
 
 ```bash
-git clone --branch feature/react-garden-studio https://github.com/egohygiene/mindgarden.git mindgarden-studio
-cd mindgarden-studio
+git clone --branch feature/studio-knowledge-explorer https://github.com/egohygiene/mindgarden.git mindgarden-explorer
+cd mindgarden-explorer
 npm --prefix web ci
 npm --prefix web run build
 PYTHONPATH="$PWD/src" python3.13 -m mindgarden visit --interface studio --demo --workspace "$HOME/mindgarden-demo"
@@ -45,10 +45,31 @@ so the server pins the new hashed asset manifest.
    matching explanation.
 2. Open the career note and one exact source excerpt. Follow the related
    Example Studio note to see the two disputed delivery dates.
-3. Open **Connections** and select **Explore in 3D**. Drag to orbit. The
-   same notes and typed links are available in 2D and as a text list.
-4. Open **Context packs** and search for `consultation`. Download the JSON
+3. Select **Find on map** in the note reader. Follow the related studio
+   note in the map's inspector. Use the trail to return to an earlier
+   focus, or use **Full map** to reset. Search the map or pick a topic,
+   and select **Explore in 3D** to orbit the same scoped graph.
+4. Open **Sources** to see Google Drive and the local source vault. The
+   demo's Drive card identifies its fictional capture. Citation totals
+   are distinct citations within the visible, bounded review view.
+5. Open **Context packs** and search for `consultation`. Download the JSON
    to see the citations, selection reasons, and byte budget.
+
+## Show reviewed Drive evidence
+
+A local session can show **Captured evidence** for a Drive snapshot.
+Mindgarden compares each visible citation's normalized source with the
+matching captured unit in the bound vault. The Sources view requires the
+session's evidence grant and returns aggregate counts. It keeps capture
+paths, provider identities and OAuth files in the local workspace.
+
+Set up the [local Drive capture](drive-capture.md) with its own desktop
+OAuth consent and an explicitly selected folder. Review the capture plan,
+apply its digest with network permission, import the frozen snapshot,
+and review the derived notes. Start Studio with their scope and bindings.
+The source card describes that reviewed snapshot. The ChatGPT Drive
+connector has separate credentials, and the card performs no background
+provider requests.
 
 ## Architecture and ownership
 
@@ -73,6 +94,9 @@ flowchart LR
   the access capability per tab, and preserves the exact bytes of a
   bounded context pack. The existing Python services still verify scope,
   record revision, and source integrity.
+- `web/src/explorer.tsx` navigates authorized graph results through
+  text and topic filters, a focused neighborhood, and a trail. Its
+  selected references remain in memory.
 - `web/src/graph.tsx` presents authorized connections with a keyboard
   accessible map and a text list. `graph-scene.tsx` uses React Three
   Fiber and Three.js in a lazy chunk. It falls back to 2D when WebGL is
@@ -80,7 +104,10 @@ flowchart LR
 - `interfaces/local_web.py` serves the selected interface on IPv4
   loopback. It allowlists the compiled Studio manifest and uses the
   same Host, Origin, per-process access and no-store boundaries as the
-  classic visit. The generated Vite license inventory is included in a
+  classic visit. The app exposes a scoped connector summary with the
+  existing evidence grant. `application/connector_evidence.py` verifies
+  available immutable capture lineage and returns count-only status.
+  The generated Vite license inventory is included in a
   built package for review. Previously displayed text and downloaded files remain
   subject to the user's local handling.
 

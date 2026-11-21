@@ -35,6 +35,14 @@ publication: central
 route: /roadmap/mindgarden/
 updated: 2026-11-13
 -->
+## 2026-11-21 knowledge explorer and source status
+
+Studio can focus on a reviewed note, follow its typed relationships, and
+return from the evidence reader to that neighborhood. The Sources view
+shows scoped citation totals for the local vault and verified Drive
+captures. Live local OAuth and the selected private capture remain a
+separate owner pilot under #87. See the [Studio guide](docs/mindgarden-studio.md).
+
 ## 2026-11-21 React Studio checkpoint
 
 The [Studio guide](docs/mindgarden-studio.md) records the optional local

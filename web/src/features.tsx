@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import {
   ArrowLeft, ArrowRight, BookOpen, ChevronDown, CircleAlert, Download,
-  FileText, Fingerprint, Layers, Link2, Search, ShieldCheck,
+  FileText, Fingerprint, GitFork, Layers, Link2, Search, ShieldCheck,
 } from "lucide-react";
 import { useId, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
@@ -284,9 +284,9 @@ function RelatedNotes({ title, relations, onOpenNote }: {
   </Section>;
 }
 
-export function NoteView({ client, reference, onOpenNote, onBack, canReadEvidence, notes = [] }: {
+export function NoteView({ client, reference, onOpenNote, onBack, backLabel = "Back to notes", onExplore, canReadEvidence, notes = [] }: {
   client: GardenClient; reference: string; onOpenNote: OpenNote; onBack: () => void;
-  canReadEvidence: boolean; notes?: readonly NoteSummary[];
+  backLabel?: string; onExplore?: OpenNote; canReadEvidence: boolean; notes?: readonly NoteSummary[];
 }) {
   const detail = useQuery({
     ...queryOptions,
@@ -294,7 +294,7 @@ export function NoteView({ client, reference, onOpenNote, onBack, canReadEvidenc
     queryFn: ({ signal }) => client.note(reference, signal),
   });
   const back = <button type="button" className="fv-back" onClick={onBack}>
-    <ArrowLeft aria-hidden="true" size={17} /> Back to notes
+    <ArrowLeft aria-hidden="true" size={17} /> {backLabel}
   </button>;
   if (detail.isFetching || detail.isError || !detail.data) return <div className="fv-page">
     {back}<Heading title="Note" />
@@ -303,7 +303,12 @@ export function NoteView({ client, reference, onOpenNote, onBack, canReadEvidenc
   </div>;
   const { note, links, backlinks } = detail.data;
   return <div className="fv-page">
-    {back}
+    <div className="fv-note-actions">
+      {back}
+      {onExplore && <button type="button" className="button" onClick={() => onExplore(reference)}>
+        <GitFork aria-hidden="true" size={17} /> Find on map
+      </button>}
+    </div>
     <Heading title={note.title}>
       <ul className="fv-pills" aria-label="Note details">
         <li><ShieldCheck aria-hidden="true" size={15} /> {label(note.review.state)}</li>

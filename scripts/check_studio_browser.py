@@ -58,6 +58,8 @@ def visit(url, chromium, axe, screenshots, webgl):
             page.goto(url)
             expect(page.get_by_role("heading", level=1)).to_contain_text("knowledge connects")
             expect(page.get_by_text("Visible notes", exact=True)).to_be_visible()
+            expect(page.get_by_text("Google Drive", exact=True)).to_be_visible()
+            expect(page.get_by_text("Fictional example · 8 reviewed citations", exact=True)).to_be_visible()
             assert not any("graph-scene-" in address for address in requests)
             assert "access=" not in page.url
             audit(page)
@@ -89,8 +91,31 @@ def visit(url, chromium, axe, screenshots, webgl):
                 screenshot(page, "source")
 
             nav = page.get_by_role("navigation", name="Garden", exact=True)
-            nav.get_by_role("button", name="Connections", exact=True).click()
-            expect(page.get_by_role("heading", name="Connections", exact=True)).to_be_visible()
+            page.get_by_role("button", name="Find on map").click()
+            expect(page.get_by_role("heading", name="Knowledge explorer", exact=True)).to_be_visible()
+            career = "Fictional career and accessibility learning"
+            studio = "Fictional Example Studio overview"
+            inspector = page.get_by_role("region", name=career)
+            expect(inspector.get_by_role("heading", name="Connected notes")).to_be_visible()
+            expect(inspector.get_by_text("Mutual · Related", exact=True)).to_be_visible()
+            audit(page)
+            if width == 1440:
+                screenshot(page, "explorer")
+            inspector.get_by_role("button", name=f"Focus {studio}", exact=True).click()
+            trail = page.get_by_role("navigation", name="Graph trail")
+            expect(trail.get_by_role("button", name=career, exact=True)).to_be_visible()
+            page.get_by_role("button", name="Open note", exact=True).click()
+            expect(page.get_by_role("heading", name=studio, level=1)).to_be_visible()
+            page.get_by_role("button", name="Back to map", exact=True).click()
+            expect(page.get_by_role("region", name=studio)).to_be_visible()
+            trail.get_by_role("button", name="Full map").click()
+            page.get_by_role("searchbox", name="Find a note or topic").fill("accessibility")
+            expect(page.get_by_text("1 matching note", exact=True)).to_be_visible()
+            assert "accessibility" not in page.url
+            page.get_by_role("button", name="Clear filters").click()
+            page.get_by_role("combobox", name="Topic", exact=True).select_option("portfolio")
+            expect(page.get_by_role("heading", name="Matching notes")).to_be_visible()
+            page.get_by_role("button", name="Clear filters").click()
             assert not any("graph-scene-" in address for address in requests)
             if width == 1440:
                 page.get_by_role("button", name="Explore in 3D", exact=True).click()
@@ -102,6 +127,18 @@ def visit(url, chromium, axe, screenshots, webgl):
                 else:
                     expect(page.get_by_text("3D is unavailable on this device.", exact=False)).to_be_visible()
             expect(page.get_by_role("group", name="Interactive map of visible notes")).to_be_visible()
+            audit(page)
+
+            with page.expect_response("**/api/connectors") as source_summary:
+                nav.get_by_role("button", name="Sources", exact=True).click()
+            expect(page.get_by_role("heading", name="Sources", level=1)).to_be_visible()
+            expect(page.get_by_text("Fictional example", exact=True)).to_be_visible()
+            connectors = source_summary.value.json()
+            assert connectors["google_drive"]["state"] == "demo"
+            assert connectors["local_vault"]["state"] == "visible-evidence"
+            expect(page.get_by_role("heading", name="Local source vault")).to_be_visible()
+            if width == 1440:
+                screenshot(page, "sources")
             audit(page)
 
             nav.get_by_role("button", name="Context packs", exact=True).click()

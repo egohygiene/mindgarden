@@ -10,6 +10,7 @@ import re
 from secrets import compare_digest, token_urlsafe
 from urllib.parse import parse_qs, urlsplit
 
+from ..application.connector_evidence import connector_evidence
 from ..application.evidence import resolve_evidence
 from ..application.query import QueryContext
 from ..application.retrieval import (
@@ -145,13 +146,17 @@ def note_summary(record: dict) -> dict:
     return {**{key: record[key] for key in fields}, "source_count": len(record["sources"])}
 
 
+def overview_limit(context: QueryContext) -> int:
+    return min(MAX_OVERVIEW_NOTES, context.session["budgets"]["max_results"])
+
+
 def garden_payload(context: QueryContext, demo: bool) -> dict:
     index = build_index(context, enforce_bytes=False)
     capabilities = {
         name: name in context.session["projections"]
         for name in ("search", "graph", "backlinks", "context", "evidence")
     }
-    maximum = min(MAX_OVERVIEW_NOTES, context.session["budgets"]["max_results"])
+    maximum = overview_limit(context)
     notes = [note_summary(record) for record in index["records"][:maximum]]
     keys = {record_key(record["reference"]) for record in notes}
     edges = []
@@ -314,6 +319,11 @@ class GardenHandler(BaseHTTPRequestHandler):
         if path == "/api/garden":
             parameters(raw_query, set())
             body = canonical_json(garden_payload(context, self.server.demo))
+        elif path == "/api/connectors":
+            parameters(raw_query, set())
+            index = build_index(context, projection="evidence", enforce_bytes=False)
+            records = index["records"][:overview_limit(context)]
+            body = canonical_json(connector_evidence(context, records, demo=self.server.demo))
         elif path in {"/api/search", "/api/context"}:
             query = parameters(raw_query, {"q"})["q"].strip()
             if len(query) > MAX_QUERY_LENGTH or not all(char.isprintable() for char in query):

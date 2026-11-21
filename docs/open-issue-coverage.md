@@ -1,3 +1,10 @@
+**Knowledge explorer and source evidence, 2026-11-21:** Draft [#160](https://github.com/egohygiene/mindgarden/pull/160) stacks on #159. The Studio
+[graph and Sources checkpoint](mindgarden-studio.md) makes visible notes
+navigable by topic and typed relationships. A scoped summary distinguishes
+fictional and captured Drive evidence and counts accessible local-vault
+citations. #17, #47, and #87 gain bounded evidence. The live selected Drive
+pilot remains open alongside other owner requirements.
+
 **React Studio, 2026-11-21:** Draft [#159](https://github.com/egohygiene/mindgarden/pull/159) stacks on #158. The [Studio checkpoint](mindgarden-studio.md)
 adds an optional React/Vite dashboard, keyboard search, exact evidence
 and context, and an accessible 2D map with optional 3D. It uses the

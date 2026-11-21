@@ -261,6 +261,13 @@
   margin-bottom: -12px;
   font-size: .87rem;
 }
+.fv-note-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
 
 .fv-link:hover, .fv-back:hover {
   text-decoration: underline;

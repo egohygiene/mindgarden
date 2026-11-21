@@ -34,9 +34,18 @@ export interface PlottedConnection {
   edge: GraphEdge;
 }
 
+interface MapProps {
+  graph: Garden["graph"];
+  onNote: (ref: string) => void;
+  compact?: boolean;
+  focusRef?: string;
+  pointAction?: "Open" | "Focus";
+  textAlternative?: boolean;
+}
+
 interface Props {
   garden: Garden;
-  onNote: (ref: string) => void;
+  onNote: MapProps["onNote"];
   compact?: boolean;
 }
 
@@ -58,7 +67,7 @@ function noteColor(domains: string[], focus: boolean): string {
   return PALETTE.default;
 }
 
-function plotGraph(notes: NoteSummary[], edges: GraphEdge[], compact: boolean) {
+function plotGraph(notes: NoteSummary[], edges: GraphEdge[], compact: boolean, focusRef?: string) {
   const degrees = new Map<string, number>();
   for (const edge of edges) {
     degrees.set(edge.source, (degrees.get(edge.source) ?? 0) + 1);
@@ -67,7 +76,9 @@ function plotGraph(notes: NoteSummary[], edges: GraphEdge[], compact: boolean) {
   const sorted = notes.map((note) => {
     const ref = referenceKey(note.reference);
     return { note, ref, degree: degrees.get(ref) ?? 0 };
-  }).sort((first, second) => second.degree - first.degree);
+  }).sort((first, second) => (
+    Number(second.ref === focusRef) - Number(first.ref === focusRef) || second.degree - first.degree
+  ));
   const visible = sorted.slice(0, compact ? 7 : 13);
   const points = visible.map(({ ref, note }, index): PlottedNote => {
     const focus = index === 0;
@@ -109,11 +120,13 @@ class SceneBoundary extends Component<{ onUnavailable: () => void; children: Rea
   }
 }
 
-function FlatGraph({ points, connections, onNote, compact }: {
+function FlatGraph({ points, connections, onNote, compact, pointAction, focusRef }: {
   points: PlottedNote[];
   connections: PlottedConnection[];
-  onNote: Props["onNote"];
+  onNote: MapProps["onNote"];
   compact: boolean;
+  pointAction: NonNullable<MapProps["pointAction"]>;
+  focusRef?: string;
 }) {
   const id = useId();
   return (
@@ -156,7 +169,8 @@ function FlatGraph({ points, connections, onNote, compact }: {
           key={ref}
           className={focus ? "garden-atlas__node garden-atlas__node--focus" : "garden-atlas__node"}
           role="button"
-          aria-label={`Open ${title}`}
+          aria-label={`${pointAction} ${title}`}
+          aria-current={ref === focusRef ? "true" : undefined}
           tabIndex={0}
           transform={`translate(${x} ${y})`}
           onClick={() => onNote(ref)}
@@ -233,8 +247,7 @@ function RelationshipList({ notes, edges, compact, onNote }: {
   );
 }
 
-function ActiveGraph({ garden, onNote, compact = false }: Props) {
-  const { graph } = garden;
+export function GardenMap({ graph, onNote, compact = false, focusRef, pointAction = "Open", textAlternative = true }: MapProps) {
   const mapId = useId();
   const [mode, setMode] = useState<"flat" | "spatial" | "unavailable">("flat");
   const [hovered, setHovered] = useState<PlottedNote | null>(null);
@@ -243,7 +256,10 @@ function ActiveGraph({ garden, onNote, compact = false }: Props) {
     const keys = new Set(graph.nodes.map((note) => referenceKey(note.reference)));
     return graph.edges.filter((edge) => keys.has(edge.source) && keys.has(edge.target));
   }, [graph]);
-  const { points, connections } = useMemo(() => plotGraph(graph.nodes, edges, compact), [graph.nodes, edges, compact]);
+  const { points, connections } = useMemo(
+    () => plotGraph(graph.nodes, edges, compact, focusRef),
+    [graph.nodes, edges, compact, focusRef],
+  );
   const spatial = mode === "spatial";
 
   if (!points.length) return <p className="garden-atlas__empty">There are no notes in this view.</p>;
@@ -278,16 +294,22 @@ function ActiveGraph({ garden, onNote, compact = false }: Props) {
             </Suspense>
           </SceneBoundary>
         ) : (
-          <FlatGraph points={points} connections={connections} compact={compact} onNote={onNote} />
+          <FlatGraph points={points} connections={connections} compact={compact} onNote={onNote}
+            focusRef={focusRef} pointAction={pointAction} />
         )}
-        {spatial && hovered && <div className="garden-atlas__hover">{hovered.title}</div>}
+        {spatial && hovered && points.includes(hovered) && <div className="garden-atlas__hover">{hovered.title}</div>}
       </div>
       <div className="garden-atlas__toolbar">
         <p className="garden-atlas__hint" role="status">
           {mode === "unavailable" ? "3D is unavailable on this device. The 2D map is ready." : (
             <>
               <span className="garden-atlas__marker" aria-hidden="true" />
-              {spatial ? "Drag to orbit. Select a point to open its note." : `${points.length} plotted ${points.length === 1 ? "note" : "notes"} · Select a point to open it.`}
+              {spatial ? "Drag to orbit." : (
+                graph.nodes.length > points.length
+                  ? `${points.length} of ${graph.nodes.length} notes plotted.`
+                  : `${points.length} plotted ${points.length === 1 ? "note" : "notes"}.`
+              )}{" "}
+              {pointAction === "Focus" ? "Select a point to focus." : "Select a point to open its note."}
             </>
           )}
         </p>
@@ -296,7 +318,7 @@ function ActiveGraph({ garden, onNote, compact = false }: Props) {
           {spatial ? "Back to 2D" : "Explore in 3D"}
         </button>
       </div>
-      <RelationshipList notes={graph.nodes} edges={edges} compact={compact} onNote={onNote} />
+      {textAlternative && <RelationshipList notes={graph.nodes} edges={edges} compact={compact} onNote={onNote} />}
     </div>
   );
 }
@@ -305,5 +327,5 @@ export function GardenGraph(props: Props) {
   if (!props.garden.capabilities.graph) {
     return <p className="garden-atlas__empty">This session does not allow the graph view.</p>;
   }
-  return <ActiveGraph {...props} />;
+  return <GardenMap graph={props.garden.graph} onNote={props.onNote} compact={props.compact} />;
 }

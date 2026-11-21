@@ -65,6 +65,29 @@ describe("local browser launch authority", () => {
 });
 
 describe("typed read client", () => {
+  it("asks for bounded connector evidence without including paths or token parameters", async () => {
+    const body = {
+      google_drive: { state: "captured", citation_count: 2 },
+      local_vault: { state: "visible-evidence", citation_count: 3 },
+    };
+    const fetch = vi.fn().mockResolvedValueOnce(jsonResponse(JSON.stringify(body)));
+    vi.stubGlobal("fetch", fetch);
+    await expect(createGardenClient(access).connectors()).resolves.toEqual(body);
+    expect(fetch).toHaveBeenCalledWith("/api/connectors", expect.objectContaining({
+      cache: "no-store",
+      credentials: "omit",
+      headers: { Accept: "application/json", Authorization: `Bearer ${access}` },
+    }));
+  });
+
+  it("rejects a status that claims a live Drive connection", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(jsonResponse(JSON.stringify({
+      google_drive: { state: "connected", citation_count: 0 },
+      local_vault: { state: "no-visible-evidence", citation_count: 0 },
+    }))));
+    await expect(createGardenClient(access).connectors()).rejects.toMatchObject({ code: "INVALID_RESPONSE" });
+  });
+
   it("keeps the exact context bytes while sending the bearer only in the header", async () => {
     const qualification = {
       epistemic_state: "unverified", attribution: "quoted", caveats: [], uncertainty: [], contradictions: [],
