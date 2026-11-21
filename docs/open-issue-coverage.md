@@ -1,4 +1,4 @@
-**React Studio, 2026-11-21:** The [Studio checkpoint](mindgarden-studio.md)
+**React Studio, 2026-11-21:** Draft [#159](https://github.com/egohygiene/mindgarden/pull/159) stacks on #158. The [Studio checkpoint](mindgarden-studio.md)
 adds an optional React/Vite dashboard, keyboard search, exact evidence
 and context, and an accessible 2D map with optional 3D. It uses the
 existing scoped Python read services and the fictional fixture. The

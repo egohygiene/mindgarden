@@ -20,8 +20,10 @@ PYTHONPATH="$PWD/src" python3.13 -m mindgarden visit --interface studio --demo -
 Open the full link from the terminal. Run the final command again to return
 to the same workspace. Choose another empty directory to start a fresh
 demo. After building, only Python and a browser are needed to run Studio.
-The app and its fonts load locally. On macOS, Homebrew can install Node 24
-and Python 3.13 if needed.
+The app and its fonts load locally. Vite leaves the shared cover URL for
+Python to serve, so its build can report that the cover resolves at runtime.
+On macOS, `brew install node@24 python@3.13` can install the two tools. If
+Node 24 is not on your path, run `export PATH="$(brew --prefix node@24)/bin:$PATH"`.
 
 The dashboard links to Civics, Ethics and Akashic. These are outbound links
 to their public sites. The garden uses the bundled fictional files for the
@@ -78,7 +80,8 @@ flowchart LR
 - `interfaces/local_web.py` serves the selected interface on IPv4
   loopback. It allowlists the compiled Studio manifest and uses the
   same Host, Origin, per-process access and no-store boundaries as the
-  classic visit. Previously displayed text and downloaded files remain
+  classic visit. The generated Vite license inventory is included in a
+  built package for review. Previously displayed text and downloaded files remain
   subject to the user's local handling.
 
 The two pinned npm packages can be built independently. This checkpoint
