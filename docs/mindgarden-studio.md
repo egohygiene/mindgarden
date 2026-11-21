@@ -57,6 +57,9 @@ so the server pins the new hashed asset manifest.
 
 The optional [fictional assistant pilot](studio-assistant-pilot.md) adds chat,
 context review, and a monthly booklet to the fictional Studio visit.
+The optional [Models pilot](studio-model-connections.md) adds provider
+checks, per-request model selection, a fictional comparison prompt, and
+reviewed Ollama downloads.
 
 ## Show reviewed Drive evidence
 
