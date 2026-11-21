@@ -1,0 +1,2 @@
+# Optional OIDC verification for local Studio sign-in.
+PyJWT[crypto]==2.13.0

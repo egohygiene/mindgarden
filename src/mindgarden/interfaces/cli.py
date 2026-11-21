@@ -154,6 +154,43 @@ def run_visit(arguments: Namespace) -> int:
                         interface=arguments.visit_interface, assistant=arguments.assistant)
 
 
+def add_chatgpt_command(commands: ParserCollection) -> None:
+    """Register the explicit local ChatGPT plan consent controls."""
+    parser = commands.add_parser("chatgpt", help="Manage one local ChatGPT plan connection")
+    actions = parser.add_subparsers(dest="chatgpt_action", required=True)
+    for name, description in (
+        ("connect", "Open the browser for ChatGPT plan consent"),
+        ("status", "Read redacted local connection status without network"),
+        ("refresh", "Renew the saved local ChatGPT session"),
+        ("disconnect", "Revoke the renewable session and clear local tokens"),
+    ):
+        action = actions.add_parser(name, help=description)
+        action.add_argument("--state-directory", required=True, type=Path,
+                            help="Explicit owner-only directory outside Git and garden records")
+        action.set_defaults(handler=run_chatgpt)
+
+
+def run_chatgpt(arguments: Namespace) -> int:
+    from ..application import chatgpt_connection
+
+    directory = arguments.state_directory.expanduser().absolute()
+    if arguments.chatgpt_action == "connect":
+        from webbrowser import open as open_browser
+
+        from .chatgpt_callback import LocalChatGPTCallback
+
+        report = chatgpt_connection.connect(directory, callback=LocalChatGPTCallback, browse=open_browser)
+    else:
+        actions = {
+            "status": chatgpt_connection.status,
+            "refresh": chatgpt_connection.refresh,
+            "disconnect": chatgpt_connection.disconnect,
+        }
+        report = actions[arguments.chatgpt_action](directory)
+    print(json.dumps(report, sort_keys=True))
+    return ExitCode.SUCCESS
+
+
 def add_lifecycle_commands(commands: ParserCollection) -> None:
     """Register deterministic initialization and v0 to v1 migration."""
     init_parser = commands.add_parser("init", help="Plan or initialize a v1 garden")
@@ -703,6 +740,7 @@ def build_parser() -> ArgumentParser:
     add_asset_command(commands)
     add_agent_commands(commands)
     add_visit_command(commands)
+    add_chatgpt_command(commands)
     add_publish_command(commands)
     add_site_command(commands)
     add_federation_command(commands)

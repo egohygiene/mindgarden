@@ -116,6 +116,11 @@ add `--assistant fixture` to `visit --interface studio --demo`. See the
 Choose `--assistant providers` with the same demo Studio launch to add the
 [Models pilot](studio-model-connections.md).
 
+`chatgpt connect --state-directory <private-directory>` opens the browser
+for optional ChatGPT plan consent. Use `chatgpt status`, `chatgpt refresh`,
+or `chatgpt disconnect` with the same directory for the local session.
+[ChatGPT consent setup](studio-chatgpt-consent.md)
+
 `brief --local-config <bindings> --scope <session>` prints a bounded,
 reviewed v1 garden map. Add `--check <saved-brief.md>` to check exact
 freshness. See [the brief guide](garden-brief.md) for the corresponding
