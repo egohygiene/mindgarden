@@ -35,6 +35,13 @@ publication: central
 route: /roadmap/mindgarden/
 updated: 2026-11-13
 -->
+## 2026-11-21 React Studio checkpoint
+
+The [Studio guide](docs/mindgarden-studio.md) records the optional local
+React/Vite app, lazy 3D map, and a separate Next.js rendering experiment.
+It extends the local reading and shared-interface evidence for #17 and
+#47. Use the fictional tour before the selected real local pilot.
+
 ## 2026-11-21 local browser visit
 
 The [Willow Garden visit](docs/local-garden-visit.md) adds an offline

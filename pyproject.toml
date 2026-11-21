@@ -50,7 +50,14 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 mindgarden = ["py.typed"]
-"mindgarden.interfaces" = ["web/*.html", "web/*.css", "web/*.js", "web/*.svg", "web/*.webp"]
+"mindgarden.interfaces" = [
+  "web/*.html", "web/*.css", "web/*.js", "web/*.svg", "web/*.webp",
+  "web/studio/index.html", "web/studio/.vite/manifest.json", "web/studio/.vite/license.md",
+  "web/studio/assets/*.js", "web/studio/assets/*.css", "web/studio/assets/*.svg",
+  "web/studio/assets/*.webp", "web/studio/assets/*.avif", "web/studio/assets/*.png",
+  "web/studio/assets/*.jpg", "web/studio/assets/*.jpeg", "web/studio/assets/*.woff",
+  "web/studio/assets/*.woff2",
+]
 
 [tool.setuptools.data-files]
 "share/mindgarden/contracts" = ["contracts/*.schema.json"]

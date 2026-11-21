@@ -4,6 +4,9 @@ Willow Garden is a fictional garden that runs in your browser from a local
 Mindgarden process. It uses the same reviewed records, search and evidence
 services as the CLI. It needs Python 3.12 or 3.13 and a browser.
 
+The optional [React Studio interface](mindgarden-studio.md) uses the same
+fictional garden and explicit scope.
+
 ## Start from a checkout
 
 This checkpoint is on the `feature/local-garden-visit` branch. If you already

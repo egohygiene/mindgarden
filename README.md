@@ -66,6 +66,13 @@ validated stack-neutral tokens, visual references and reusable prompt guidance.
 `mindgarden design --format css` and `--format quartz` export derived views;
 design tooling is optional for other contributors.
 
+## Open Mindgarden Studio
+
+Studio adds a Vite-built React interface, a keyboard search dialog, and
+an optional 3D map to the local Willow Garden workflow. The
+[Studio guide](docs/mindgarden-studio.md) starts from a clean checkout and
+includes an optional Next.js rendering lab.
+
 ## Explore Willow Garden locally
 
 The fictional browser demo opens reviewed notes, their connections, exact

@@ -20,6 +20,8 @@ target
 # Mindgarden disposable projections and private overlays
 .cache/
 .garden.local/
+/src/mindgarden/interfaces/web/studio/
+/web/node_modules/
 
 # Python bytecode
 __pycache__/

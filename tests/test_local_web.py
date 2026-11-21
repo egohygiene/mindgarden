@@ -1,11 +1,14 @@
 """Loopback browser parity and defensive authorization checks with synthetic records."""
 
+from contextlib import redirect_stderr
 from http.client import HTTPConnection
+from io import StringIO
 import json
 from pathlib import Path
 import sys
 from threading import Thread
 import unittest
+from unittest.mock import patch
 from urllib.parse import urlencode
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
@@ -14,7 +17,9 @@ from mindgarden.application.query import QueryContext
 from mindgarden.application.retrieval import search_payload
 from mindgarden.application.sessions import bind_session_revisions
 from mindgarden.domain.contracts import digest_bytes
-from mindgarden.interfaces.local_web import make_server
+from mindgarden.domain.validation import ContractError
+from mindgarden.interfaces.cli import ExitCode, main
+from mindgarden.interfaces.local_web import browser_assets, make_server
 from tests import test_v1_retrieval as retrieval_tests
 from tests.support_v1 import write_json
 
@@ -23,12 +28,12 @@ class LocalWebTests(unittest.TestCase):
     def setUp(self):
         retrieval_tests.RetrievalTests.setUp(self)
 
-    def start_server(self, **session_updates):
+    def start_server(self, *, interface="classic", **session_updates):
         if session_updates:
             session = json.loads(self.session_path.read_bytes())
             session.update(session_updates)
             write_json(self.session_path, bind_session_revisions(self.configuration, session))
-        self.server = make_server(self.configuration, self.session_path, demo=True)
+        self.server = make_server(self.configuration, self.session_path, demo=True, interface=interface)
         self.addCleanup(self.server.server_close)
         thread = Thread(target=self.server.serve_forever, kwargs={"poll_interval": 0.025}, daemon=True)
         thread.start()
@@ -71,6 +76,71 @@ class LocalWebTests(unittest.TestCase):
         for method in ("POST", "PUT", "DELETE", "OPTIONS"):
             with self.subTest(method=method):
                 self.assertEqual(self.request("/api/garden", 405, method=method)["error"]["code"], "WEB_METHOD")
+
+    def studio_bundle(self):
+        browser_files = self.root / "browser-assets"
+        studio = browser_files / "studio"
+        files = {
+            "garden.css": b"/* Classic reader */",
+            "garden-icon.svg": b"<svg></svg>",
+            "studio/index.html": b"<!doctype html><title>Example Studio</title>",
+            "studio/.vite/license.md": b"Notices for the compiled fixture",
+            "studio/assets/index-01eA23f4.js": b"/* Studio entry */",
+            "studio/assets/_view-81f92b03.js": b"/* Studio chunk */",
+            "studio/assets/index-6789ab01.css": b"/* Studio styles */",
+            "studio/assets/cover-0239abdf.webp": b"Synthetic fixture placeholder",
+            "studio/assets/orphan-abc112de.js": b"Undeclared asset",
+        }
+        for relative, content in files.items():
+            path = browser_files / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(content)
+        manifest = {
+            "index.html": {
+                "file": "assets/index-01eA23f4.js", "isEntry": True,
+                "css": ["assets/index-6789ab01.css"], "assets": ["assets/cover-0239abdf.webp"],
+            },
+            "_view.js": {"file": "assets/_view-81f92b03.js"},
+        }
+        write_json(studio / ".vite/manifest.json", manifest)
+        return browser_files, manifest
+
+    def test_studio_uses_manifest_routes_and_existing_api_authority(self):
+        browser_files, _ = self.studio_bundle()
+        with patch("mindgarden.interfaces.local_web.ASSETS", browser_files):
+            self.start_server(interface="studio")
+            self.assertIn(b"Example Studio", self.request("/", authorize=False))
+            for path in ("/assets/index-01eA23f4.js", "/assets/_view-81f92b03.js", "/assets/index-6789ab01.css",
+                         "/assets/cover-0239abdf.webp", "/garden-icon.svg"):
+                with self.subTest(path=path):
+                    self.request(path, authorize=False)
+            for path in ("/assets/orphan-abc112de.js", "/studio/.vite/manifest.json", "/studio/.vite/license.md",
+                         "/.vite/license.md", "/assets/../garden.css",
+                         "/assets/%2e%2e/garden.css", "/studio/assets/index-01eA23f4.js", "/garden.css"):
+                with self.subTest(path=path):
+                    self.request(path, 404, authorize=False)
+            self.request("/api/garden", 403, authorize=False)
+            self.assertEqual(self.request("/api/garden")["title"], "Willow Garden")
+
+    def test_studio_missing_build_reports_setup_without_initializing_demo(self):
+        workspace = self.root / "new-demo"
+        output = StringIO()
+        with patch("mindgarden.interfaces.local_web.ASSETS", self.root / "no-studio"), redirect_stderr(output):
+            result = main(["visit", "--demo", "--workspace", str(workspace), "--interface", "studio"])
+        self.assertEqual(result, ExitCode.CONTRACT)
+        self.assertIn("VISIT_STUDIO_UNAVAILABLE", output.getvalue())
+        self.assertIn("npm --prefix web run build", output.getvalue())
+        self.assertFalse(workspace.exists())
+
+    def test_studio_rejects_manifest_paths_outside_its_bundle(self):
+        browser_files, manifest = self.studio_bundle()
+        with patch("mindgarden.interfaces.local_web.ASSETS", browser_files):
+            for filename in ("../garden.css", "/garden.css", "assets/index.js", "assets/cover-0239abdf.webp.map"):
+                with self.subTest(filename=filename):
+                    manifest["index.html"]["file"] = filename
+                    write_json(browser_files / "studio/.vite/manifest.json", manifest)
+                    with self.assertRaisesRegex(ContractError, "VISIT_STUDIO_INVALID"):
+                        browser_assets("studio")
 
     def test_authorized_search_detail_context_graph_and_exact_evidence(self):
         self.start_server()
