@@ -26,6 +26,7 @@ OLLAMA_DOWNLOADS = (
 )
 LIST_TIMEOUT = 8
 RUN_TIMEOUT = 55
+OLLAMA_RUN_TIMEOUT = 120
 INSTALL_TIMEOUT = 300
 LIST_LIMIT = 512 * 1024
 RUN_LIMIT = 96 * 1024
@@ -418,7 +419,7 @@ class OllamaProvider:
                 "stream": False,
                 "think": False,
             },
-            seconds=RUN_TIMEOUT,
+            seconds=OLLAMA_RUN_TIMEOUT,
             limit=RUN_LIMIT,
         )
         message = result.get("message")

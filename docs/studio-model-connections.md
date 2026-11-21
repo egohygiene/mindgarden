@@ -78,8 +78,10 @@ Choose **Check connection** in Studio. Use an installed model, or
 review and explicitly confirm a listed download. Model downloads use
 the daemon's model store and may require several gigabytes. Once
 downloaded, choose the model, preview the same fixture and approve
-the loopback run. Studio shows the connection as loopback. The
-daemon's own cloud setting controls its network behavior.
+the loopback run. An initial load can take longer than later runs.
+Studio allows up to two minutes for local inference and shows the
+connection as loopback. The daemon's own cloud setting controls its
+network behavior.
 [Install Ollama](https://docs.ollama.com/quickstart) ·
 [Disable cloud features](https://docs.ollama.com/faq#how-do-i-disable-ollamas-cloud-features)
 
