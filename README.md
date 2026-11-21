@@ -66,6 +66,20 @@ validated stack-neutral tokens, visual references and reusable prompt guidance.
 `mindgarden design --format css` and `--format quartz` export derived views;
 design tooling is optional for other contributors.
 
+## Explore Willow Garden locally
+
+The fictional browser demo opens reviewed notes, their connections, exact
+source excerpts and bounded context packs. From a checkout on the
+`feature/local-garden-visit` branch:
+
+```bash
+PYTHONPATH="$PWD/src" python3.13 -m mindgarden visit --demo --workspace "$HOME/mindgarden-demo"
+```
+
+Open the full link printed in the terminal. The [local visit guide](docs/local-garden-visit.md)
+includes a short tour, the installed command, explicit local scope and the
+architecture of the viewer.
+
 ## Responsibilities
 
 Mindgarden owns:

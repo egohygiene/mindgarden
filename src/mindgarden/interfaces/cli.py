@@ -114,6 +114,37 @@ def add_ingest_command(commands: ParserCollection) -> None:
     parser.set_defaults(handler=run_ingest)
 
 
+def add_visit_command(commands: ParserCollection) -> None:
+    """Register the loopback garden reader."""
+    parser = commands.add_parser("visit", help="Open a garden browser on this machine")
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--demo", action="store_true", help="Open the fictional example garden")
+    mode.add_argument("--local-config", type=Path, help="Explicit private garden bindings")
+    parser.add_argument("--workspace", type=Path, help="Private workspace for the fictional garden")
+    parser.add_argument("--scope", type=Path, help="Existing authorized read session for private bindings")
+    parser.add_argument("--port", type=int, default=0, help="Loopback port (default: choose an available port)")
+    parser.set_defaults(handler=run_visit)
+
+
+def run_visit(arguments: Namespace) -> int:
+    """Select a fictional workspace or an explicit private configuration."""
+    if not 0 <= arguments.port <= 65535:
+        raise ContractError("VISIT_PORT: choose a port between 0 and 65535")
+    if arguments.demo:
+        if arguments.workspace is None or arguments.scope is not None:
+            raise ContractError("VISIT_ARGUMENTS: use --demo with --workspace")
+        from .visit_demo import prepare_demo
+
+        config, scope = prepare_demo(arguments.workspace)
+    else:
+        if arguments.scope is None or arguments.workspace is not None:
+            raise ContractError("VISIT_ARGUMENTS: use --local-config with --scope")
+        config, scope = arguments.local_config.expanduser().absolute(), arguments.scope.expanduser().absolute()
+    from .local_web import serve_garden
+
+    return serve_garden(config, scope, port=arguments.port, demo=arguments.demo)
+
+
 def add_lifecycle_commands(commands: ParserCollection) -> None:
     """Register deterministic initialization and v0 to v1 migration."""
     init_parser = commands.add_parser("init", help="Plan or initialize a v1 garden")
@@ -653,6 +684,7 @@ def build_parser() -> ArgumentParser:
     add_document_command(commands)
     add_asset_command(commands)
     add_agent_commands(commands)
+    add_visit_command(commands)
     add_publish_command(commands)
     add_site_command(commands)
     add_federation_command(commands)

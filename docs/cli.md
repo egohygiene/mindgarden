@@ -27,6 +27,7 @@ mindgarden index
 mindgarden search
 mindgarden context
 mindgarden scope
+mindgarden visit
 mindgarden registry init
 mindgarden registry register
 mindgarden registry unregister
@@ -102,6 +103,11 @@ Lifecycle operations preview by default; save with `--output`, inspect the saved
 plan, then `registry apply --plan ... --plan-digest ...`. Apply changes only
 control state. `scope --registry-view` selects registered IDs while retaining
 explicit session visibility, review, execution, expiration and budget grants.
+
+`visit --demo --workspace <directory>` opens the fictional garden in a local
+browser. `visit --local-config <bindings> --scope <session>` serves an explicit
+v1 session. Both modes use IPv4 loopback and print the per-process browser
+link. See [the visit guide](local-garden-visit.md) for bounds and scope.
 
 ## Stable exit codes
 

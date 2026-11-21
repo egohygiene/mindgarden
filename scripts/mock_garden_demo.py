@@ -3,11 +3,13 @@
 
 from argparse import ArgumentParser
 from copy import deepcopy
+from io import BytesIO
 import os
 from pathlib import Path
 import shlex
 import sys
 from unittest.mock import patch
+from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 try:
@@ -385,6 +387,36 @@ def run_demo(workspace):
         return workflow(workspace.absolute())
 
 
+def visit_fixture(workspace):
+    """Package the verified canonical copy and vault for the installed browser demo."""
+    garden = workspace / "clean-garden/.garden"
+    vault = workspace / "restored-vault"
+    generated = read_object(garden / "garden.json")["roots"]["generated"]
+    files = {}
+    for root, target in ((garden, "garden/.garden"), (vault, "vault")):
+        for path in root.rglob("*"):
+            relative = path.relative_to(root)
+            if root == garden and any(relative.is_relative_to(item) for item in generated):
+                continue
+            if path.is_file():
+                files[f"{target}/{relative.as_posix()}"] = path.read_bytes()
+    session = read_object(workspace / "mock-session.json")
+    session.update(id="fictional-visit-session", writable=None)
+    session["projections"].remove("source-evidence")
+    del session["source_grants"]
+    files["scope.json"] = canonical_json(session)
+    files["MANIFEST.sha256"] = "".join(
+        f"{digest_bytes(content)}  {path}\n" for path, content in sorted(files.items())
+    ).encode()
+    result = BytesIO()
+    with ZipFile(result, "w") as archive:
+        for path, content in sorted(files.items()):
+            entry = ZipInfo(path)
+            entry.external_attr = 0o100600 << 16
+            archive.writestr(entry, content, compress_type=ZIP_DEFLATED, compresslevel=9)
+    return result.getvalue()
+
+
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -395,6 +427,7 @@ def main():
     )
     parser.add_argument("--report", type=Path)
     parser.add_argument("--check-golden", action="store_true")
+    parser.add_argument("--visit-fixture", type=Path, help="Write the browser demo seed to a new ZIP file")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--require-source", action="store_true")
     mode.add_argument("--require-installed", action="store_true")
@@ -412,6 +445,8 @@ def main():
         raise AssertionError("Fictional garden differs from complete committed golden")
     if args.report:
         create_file(args.report, encoded)
+    if args.visit_fixture:
+        create_file(args.visit_fixture, visit_fixture(args.workspace))
     print(encoded.decode(), end="")
 
 

@@ -259,6 +259,13 @@ The authorized #127–#132 stack is merged at `f5baa3d`. Dependent drafts #133�
 
 ## Current bounded integration evidence
 
+The [local browser visit](docs/local-garden-visit.md) is a read-only
+interface checkpoint. The loopback adapter pins an explicit query session
+and calls the existing index, retrieval and exact-evidence services.
+The browser renders those authorized projections. The fictional garden
+and separate source vault use portable records and ordinary local bindings.
+The runtime, hosting and identity proposals retain their current dispositions.
+
 The #144–#147 integration stack is merged at main `270ced6`. The
 [repository audit follow-through](docs/repository-audit-followthrough.md) adds
 dependent drafts for explicit packet currentness and reviewed per-file Drive

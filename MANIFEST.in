@@ -16,4 +16,6 @@ recursive-include tests *.json *.md *.py *.txt *.csv *.yaml *.html *.pdf *.png *
 include tests/fixtures/public-garden/.garden/provenance/.gitkeep
 include tests/fixtures/federation/expected/.mindgarden-federation.json
 recursive-include examples *.py *.json *.md
+include examples/mock-garden/visit.zip
+recursive-include src/mindgarden/interfaces/web *.html *.css *.js *.svg *.webp
 include tests/fixtures/captured-source/synthetic-source.zip
