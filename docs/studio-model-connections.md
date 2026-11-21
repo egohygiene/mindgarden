@@ -57,7 +57,7 @@ PYTHONPATH="$PWD/src" python3.13 -m mindgarden visit \
 
 Choose **Check connection** on the **ChatGPT plan** card and select a
 model from your plan's reported catalog. Review the exact same January
-fixture, then choose **Authorize cloud run**. Studio publishes the
+fixture, then choose **Authorize cloud run**. Studio displays the
 reply after a completed Responses stream and checks that the approved
 session is still current. After renewal or sign-out, check the card
 again. A current catalog depends on the selected account and access
