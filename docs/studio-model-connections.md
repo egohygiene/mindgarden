@@ -142,8 +142,9 @@ PYTHONPATH=src python -m unittest tests.test_model_lab \
 python scripts/check_studio_model_browser.py --chromium /usr/bin/chromium
 ```
 
-The browser test exercises model switching, simulated Codex usage,
-Gemini approval, Ollama download approval and the local response.
+The browser test exercises in-app sign-in through the actual loopback
+callback with simulated consent, model switching, Codex usage,
+Gemini approval and Ollama download approval.
 The native Linux smoke used official Ollama 0.40.17 and checksum-verified
 `gemma3:1b` weights in temporary storage. With Ollama cloud features
 disabled, Studio discovered the model and received a response. The tiny
