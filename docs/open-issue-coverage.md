@@ -3,7 +3,7 @@ verifying their original portfolio criteria. Issue #5 remains the execution
 roadmap. [The consumer evidence](consumer-journey.md#accepted-empathy-consumer-and-remaining-integration)
 credits the actual accepted Empathy deployment and records the separate
 `/garden` mount, Relay adoption and approved archive checks. GitHub showed
-35 open issues and this ledger tracks 51 rows. The [Studio return page draft
+35 open issues and this ledger tracks 51 rows. [Draft #176](https://github.com/egohygiene/mindgarden/pull/176) records the curation evaluation and reviewed route replay. The [Studio return page draft
 #175](https://github.com/egohygiene/mindgarden/pull/175) is independent.
 
 **First Studio assistant workflow, 2026-11-21:** GitHub #161 adds the
