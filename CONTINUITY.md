@@ -7,13 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-21T18:49:29Z'
+  updated_at: '2026-11-21T19:34:31Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Verify ChatGPT plan consent from the optional Studio Models lab.
+  purpose: Complete ChatGPT browser sign-in in Studio and direct users back to the right interface.
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -53,19 +53,19 @@ scope:
   - docs/studio-model-connections.md
   - docs/studio-chatgpt-consent.md
 work:
-  objective: Verify ChatGPT plan consent from the optional Studio Models lab.
+  objective: Complete ChatGPT browser sign-in in Studio and direct users back to the right interface.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#163
-    url: https://github.com/egohygiene/mindgarden/issues/163
+    id: egohygiene/mindgarden#174
+    url: https://github.com/egohygiene/mindgarden/issues/174
   next:
     kind: action
-    id: try-chatgpt-sign-in-from-studio
-    description: Launch the combined fictional Models draft on the owner Mac and choose Continue with ChatGPT.
+    id: retry-chatgpt-sign-in-on-owner-mac
+    description: 'Build Studio from draft #175, retry consent on the owner Mac and observe the Models card.'
     readiness: ready
     references:
     - docs/studio-chatgpt-consent.md
@@ -73,62 +73,52 @@ work:
     depends_on: []
 state:
   base:
-    revision: 6785ca933587c39ca95fcf94f9190186d18e72cc
-    ref: refs/heads/feature/studio-chatgpt-plan
-    verified_at: '2026-11-21T18:49:29Z'
+    revision: 00ab34e873601239ce62c1e245c076987ae48f4a
+    ref: refs/heads/main
+    verified_at: '2026-11-21T19:34:31Z'
   candidate:
-    branch: feature/studio-chatgpt-browser-login
-    revision: 2d8a8ceb6cd10dfe4da03786019174b85d63c614
+    branch: fix/studio-chatgpt-callback
+    revision: 5b522d1291a1b75a8b5dc212d77356135ac548bb
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#173
-      url: https://github.com/egohygiene/mindgarden/pull/173
+      id: egohygiene/mindgarden#175
+      url: https://github.com/egohygiene/mindgarden/pull/175
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-21T18:49:29Z'
-    default_branch_revision: 5cf24a29002f8e4f0a464b42819ec21ede33af2a
+    observed_at: '2026-11-21T19:34:31Z'
+    default_branch_revision: 00ab34e873601239ce62c1e245c076987ae48f4a
     issue_state: open
     pull_request_state: draft
-    notes: 'Main 5cf24a2 with 36 open issues and 50 coverage rows. #172 at 6785ca9 passed all five hosted checks.
-      Draft #173 stacks on #172 with implementation 2d8a8ce.'
+    notes: "PRs #155\u2013#173 in the Studio stack merged. GitHub showed 37 open issues. This ledger tracks 51 rows."
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-21T18:49:29Z'
+  reviewed_at: '2026-11-21T19:34:31Z'
   reviewed_by: codex
   evidence:
-  - command: PYTHONPATH=src python -m unittest tests.test_studio_chatgpt_login tests.test_chatgpt_connection tests.test_chatgpt_callback
-      tests.test_studio_chatgpt_visit tests.test_model_lab tests.test_studio_model_routes -q
+  - command: PYTHONPATH=src python -m unittest tests.test_chatgpt_callback tests.test_studio_chatgpt_login tests.test_chatgpt_connection
+      tests.test_studio_chatgpt_visit tests.test_chatgpt_oauth tests.test_studio_chatgpt tests.test_model_lab tests.test_studio_model_routes
+      -q
     outcome: passed
-    observed_at: '2026-11-21T18:49:29Z'
-    notes: 36 tests per Python 3.12.14 and 3.13.5 for exact-origin protected actions, idle status, armed callback,
-      one attempt, bounded opener, cancel/close during exchange, scope revocation, and catalog invalidation. The broader
-      125-case provider, account, booklet, CLI, and scope regression matrix also passed per interpreter.
-  - command: npm --prefix web ci --offline --no-fund --audit=false && npm --prefix web run build && npm --prefix web
-      test
+    observed_at: '2026-11-21T19:34:31Z'
+    notes: 65 cases passed on Python 3.12.14 and 3.13.5. They cover callback correlation, issuer and error handling, verified local storage, cancellation, safe
+      connection actions and explicit provider checks.
+  - command: npm --prefix web ci --offline --no-fund --audit=false && npm --prefix web run build && npm --prefix web test
     outcome: passed
-    observed_at: '2026-11-21T18:49:29Z'
-    notes: Clean checkout of 2d8a8ce, production build and eight frontend cases passed on Node 24.19.0.
+    observed_at: '2026-11-21T19:34:31Z'
+    notes: Production build and eight frontend cases passed on Node 24.19.0. Vite retains the existing garden-cover.webp
+      runtime resolution warning.
   - command: python scripts/check_studio_model_browser.py --chromium /usr/bin/chromium --axe <axe-core>
     outcome: passed
-    observed_at: '2026-11-21T18:49:29Z'
-    notes: Chromium and axe passed at 1440 and 390 px. Studio launched the real broker and callback with fake OAuth,
-      canceled and retried, showed authorization, offered renewal after expired Check and Run, and cleared the session
-      on sign-out. Model check and inference stayed explicit.
-  - command: python -m build --no-isolation; pip install --no-index --no-deps mindgarden==0.1.0; python -I -m mindgarden
-      visit --demo --interface studio --assistant providers --workspace <fresh> --chatgpt-state-directory <absent>
-    outcome: passed
-    observed_at: '2026-11-21T18:49:29Z'
-    notes: Two distribution tests passed. The offline-installed wheel showed Continue with ChatGPT. Without the optional
-      verifier, explicit click showed setup guidance without creating consent state.
+    observed_at: '2026-11-21T19:34:31Z'
+    notes: At 1440 and 390 px, real loopback callbacks with synthetic OAuth covered Studio and terminal guidance, accessibility,
+      interrupted HTTP responses, provider error and retry, verification, reload and sign-out.
   environment_limitations:
-  - The public proof used a fake browser opener and synthetic token exchange. Actual owner account consent and first
-    live response are pending.
-  - The sign-in action requires a graphical browser on the machine running Studio and the optional installed ID-token
-    verifier. Studio uses the existing fictional authority and separate native callback.
-  - 'Native Codex agent execution, private garden context, Drive, and media retain their own scope. Hosted #173 checks
-    run separately.'
+  - The original Mac callback shape and failure stage are unknown. The proof uses only synthetic OAuth.
+  - Live account eligibility and a completed plan request await the owner Mac trial. Native Codex, private garden context,
+    Drive and media have separate scope.
+  - The Python ID-token verifier remains an optional dependency. Hosted checks run separately.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -148,48 +138,48 @@ privacy:
 
 ## Purpose and precedence
 
-Verify ChatGPT plan consent from the optional Studio Models lab.
+Complete ChatGPT browser sign-in in Studio and direct users back to the right interface.
 
 ## Resume protocol
 
-Refresh GitHub state and use the combined branch. Follow the [Studio sign-in guide](docs/studio-chatgpt-consent.md).
+Refresh GitHub state and build the draft branch locally. Follow the [Studio sign-in guide](docs/studio-chatgpt-consent.md).
 
 ## Current objective and success conditions
 
-Start consent from Models. Show the result after the native callback verifies it. Canceling or losing scope stops pending credential writes. Check the model list and approve the fictional prompt separately.
+Return from browser consent to the correct interface. Show progress during verification, report a correlated failure promptly and show a verified saved session after reload.
 
 ## State snapshot
 
-Main 5cf24a2 with 36 open issues and 50 coverage rows. #172 at 6785ca9 passed all five hosted checks. Draft #173 stacks on #172 with implementation 2d8a8ce.
+Studio sign-in #173 merged at main `00ab34e`. [Draft #175](https://github.com/egohygiene/mindgarden/pull/175) targets main at implementation `5b522d1` and addresses #174. The coverage ledger tracks 51 rows.
 
 ## Completed and material changes
 
-[Draft #173](https://github.com/egohygiene/mindgarden/pull/173) opens the official consent page from Studio, shows redacted progress, and clears the previous catalog and approvals after a new credential or sign-out. The fictional Models command selects an owner-only default consent directory. The CLI lifecycle in #171 remains available.
+The callback accepts bounded OAuth response extensions and preserves exact state, host, path, issuer and one-use checks. The two return pages use fixed copy and a hashed stylesheet. Studio shows verification, recovers interrupted status checks and recognizes a saved local session on a fresh visit.
 
 ## Validation and review evidence
 
-Both supported Python interpreters passed the broad provider regressions and 36 focused login cases. Chromium desktop and mobile exercised Studio through the actual native callback with synthetic OAuth. Expiry, cancel, sign-out, and explicit model request controls passed. The installed wheel surfaced optional verifier setup from the button when needed.
+The old stall was reproduced with a synthetic additional field and a synthetic provider error. Python provider tests, the production web build, eight frontend cases and Chromium with axe at desktop and mobile widths cover the recovery. Hosted checks are separate.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Actual sign-in and the first plan response await a trial on the owner Mac. Native Codex execution, private sources, Drive, and media remain separate milestones.
+The reason for the owner Mac's live failure remains unverified. Live consent and the first completed plan response await an owner-side rerun under #163.
 
 ## Next dependency-ready work
 
-Launch the combined fictional Models draft on the owner Mac and choose Continue with ChatGPT. Finish the official consent, return to Studio, choose **Check connection**, preview the January fixture and approve one request.
+Build Studio from `fix/studio-chatgpt-callback` on the owner Mac and choose **Continue with ChatGPT**. Return to **Models**, look for **Signed in to ChatGPT**, then choose **Check connection** and approve the fictional January request.
 
 ## Parallel changes and reconciliation
 
-Draft order #155 → #156 → #157 → #158 → #159 → #160 → #167 → #168 → #169 → #170 → #171 → #172 → #173. Combined checkout `feature/studio-chatgpt-browser-login`.
+The former Studio stack #155 through #173 is merged. Draft #175 is a single PR against main.
 
 ## Privacy and redaction
 
-Use synthetic public evidence. Consent URLs and callback values stay in the native flow. Credentials remain in the authorized private directory.
+Use synthetic public evidence. Callback values and credentials stay in the native flow and private state.
 
 ## Handoff update protocol
 
-Record exact branch, issue, commit, commands, verification and the next concrete operation. Refresh live state before acting.
+Record the branch, issue, commit, exact checks, blockers and next action. Refresh live state before acting.
 
 ## Compaction and supersession
 
-Earlier integration receipts remain linked from the [coverage ledger](docs/open-issue-coverage.md) and the parent handoff.
+Earlier integration receipts remain linked in the [coverage ledger](docs/open-issue-coverage.md).
