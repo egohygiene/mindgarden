@@ -19,6 +19,8 @@ ROOT = Path(__file__).resolve().parents[1]
 def verify_visit(url, chromium, axe, screenshots):
     from playwright.sync_api import expect, sync_playwright
 
+    expect.set_options(timeout=20_000)
+
     def audit(page):
         if axe:
             page.evaluate(axe.read_text())
@@ -28,12 +30,22 @@ def verify_visit(url, chromium, axe, screenshots):
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(executable_path=chromium)
         errors = []
+        external = []
+
+        def route_request(route):
+            if urlsplit(route.request.url).netloc == urlsplit(url).netloc:
+                route.continue_()
+            else:
+                external.append(route.request.url)
+                route.abort()
+
         for width in (1440, 390, 320):
             page = browser.new_page(
                 viewport={"width": width, "height": 900},
                 reduced_motion="reduce" if width < 760 else "no-preference",
             )
             page.on("pageerror", lambda error: errors.append(str(error)))
+            page.route("http*://**/*", route_request)
             page.goto(url)
             expect(page.get_by_role("heading", name="A garden for what you know.")).to_be_visible()
             expect(page.get_by_text("Fictional demo garden")).to_be_visible()
@@ -45,6 +57,9 @@ def verify_visit(url, chromium, axe, screenshots):
                 page.screenshot(path=screenshots / f"mindgarden-{name}.png", full_page=True, animations="disabled")
             if width < 760:
                 assert page.locator(".enter").evaluate("(node) => getComputedStyle(node).animationDuration") == "0s"
+            page.get_by_role("link", name="Skip to content").focus()
+            page.keyboard.press("Enter")
+            expect(page.get_by_role("main")).to_be_focused()
             page.locator("#global-query").fill("accessibility")
             page.locator("#global-query").press("Enter")
             expect(page.get_by_role("heading", name="Search results")).to_be_visible()
@@ -82,7 +97,11 @@ def verify_visit(url, chromium, axe, screenshots):
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
             audit(page)
             page.close()
+        without_scripts = browser.new_page(java_script_enabled=False)
+        without_scripts.goto(url)
+        expect(without_scripts.get_by_text("Enable JavaScript to visit", exact=False)).to_be_visible()
         assert not errors, errors
+        assert not external, external
         browser.close()
 
 

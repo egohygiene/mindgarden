@@ -111,7 +111,9 @@ for the interaction checks alone. `--screenshots` saves fictional previews
 at desktop and mobile sizes.
 
 The viewer is a bounded local checkpoint for [#17](https://github.com/egohygiene/mindgarden/issues/17)
-and [#47](https://github.com/egohygiene/mindgarden/issues/47). Public Quartz
+and [#47](https://github.com/egohygiene/mindgarden/issues/47). The fictional
+walkthrough adds a local reading step to the synthetic journey in
+[#20](https://github.com/egohygiene/mindgarden/issues/20). Public Quartz
 publication, authenticated sharing, ingestion and review from the browser,
 worker recovery, manual assistive-technology testing and the owner's
 first real private pilot retain their existing acceptance gates. The storage

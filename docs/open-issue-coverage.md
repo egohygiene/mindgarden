@@ -1,7 +1,7 @@
 **Local browser visit, 2026-11-21:** [Willow Garden](local-garden-visit.md)
 opens five reviewed fictional notes, four relationships, exact excerpts and a
 bounded context pack through the existing authorization and query services.
-The draft branch `feature/local-garden-visit` stacks on #157. This advances
+Draft [#158](https://github.com/egohygiene/mindgarden/pull/158) stacks on #157. This advances
 #17 and #47 while preserving the existing publication and runtime gates.
 All 30 issues remain open, with 44 tracked rows.
 

@@ -7,14 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-20T06:51:40Z'
+  updated_at: '2026-11-21T05:44:30Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Review synthetic bookmark, Drive and scoped Codex integration evidence before the first selected local
-    pilot.
+  purpose: Rehearse the scoped Willow Garden visit before a selected local private pilot.
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -44,92 +43,86 @@ scope:
   - docs/acceptance-reconciliation.md
   - docs/bookmark-pilot.md
   - docs/evidence/integration-readiness-qualification.json
+  - docs/local-garden-visit.md
 work:
-  objective: Review synthetic bookmark, Drive and scoped Codex integration evidence before the first selected
-    local pilot.
+  objective: Rehearse the scoped Willow Garden visit before a selected local private pilot.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#48
-    url: https://github.com/egohygiene/mindgarden/issues/48
+    id: egohygiene/mindgarden#47
+    url: https://github.com/egohygiene/mindgarden/issues/47
   next:
     kind: action
-    id: review-integration-stack-and-select-local-input
-    description: 'Review draft #155 then #156 then #157. Rehearse the private bookmark workflow, identify the
-      first selected Chrome profile or HTML export, and choose a private work directory before a separate local
-      run.'
+    id: visit-fictional-garden-and-review-stack
+    description: 'Check out feature/local-garden-visit, run the fictional visit, then review drafts #155, #156, #157
+      and #158 in order.'
     readiness: ready
     references:
+    - docs/local-garden-visit.md
     - docs/integration-readiness.md
-    - docs/bookmark-pilot.md
-    - docs/private-pilot.md
+    - docs/open-issue-coverage.md
     depends_on: []
 state:
   base:
-    revision: c30d966673f3cedeeeb46395a88f975f07b4a568
-    ref: refs/heads/integration/20261120-bookmark-drive-readiness
-    verified_at: '2026-11-20T06:51:40Z'
+    revision: ea5c3341c4f33e43db994451d3973208fe291ff4
+    ref: refs/heads/integration/20261120-drive-codex-readiness
+    verified_at: '2026-11-21T05:44:30Z'
   candidate:
-    branch: integration/20261120-drive-codex-readiness
-    revision: fcdb79dd3e56ae07b949e6675d5873bd8528c248
+    branch: feature/local-garden-visit
+    revision: 1f27321d0f1d916e43a271e442b8b7c1aa22426c
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#157
-      url: https://github.com/egohygiene/mindgarden/pull/157
+      id: egohygiene/mindgarden#158
+      url: https://github.com/egohygiene/mindgarden/pull/158
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-20T06:51:40Z'
+    observed_at: '2026-11-21T05:44:30Z'
     default_branch_revision: 5cf24a29002f8e4f0a464b42819ec21ede33af2a
     issue_state: open
     pull_request_state: draft
-    notes: 'Main 5cf24a2. Draft #155 at b47c40a passed hosted Test and preparation. Draft #156 at c30d966 carries
-      bookmark and routing proof. Draft #157 adds Drive and research proofs from fcdb79d. Hosted Test for the
-      new drafts is observed separately. All 30 Mindgarden issues remain open, with 44 coverage rows.'
+    notes: 'Main 5cf24a2. Drafts #155 and #156 passed automatic checks. #157 failed both Linux standalone suites.
+      #158 is the combined local visit review branch. 30 open issues and 44 tracked rows.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-20T06:51:40Z'
+  reviewed_at: '2026-11-21T05:44:30Z'
   reviewed_by: codex
   evidence:
-  - command: PYTHONPATH="$PWD/src" python -m unittest tests.test_routing tests.test_routing_dispositions tests.test_routing_lifecycle
-      tests.test_routing_transfers tests.test_routing_incoming tests.test_reference_repairs -q
+  - command: PYTHONPATH=src python -m unittest tests.test_local_web tests.test_mock_garden -q
     outcome: passed
-    observed_at: '2026-11-20T06:44:57Z'
-    notes: 42 tests each on Python 3.12.14 and 3.13.5. Wall times 61.971s and 60.331s. Zero skips.
-  - command: PYTHONPATH="$PWD/src" python -m unittest tests.test_bookmarks tests.test_captured_bookmarks -v
+    observed_at: '2026-11-21T05:44:30Z'
+    notes: 11 cases per Python 3.12.14 and 3.13.5. Includes scoped HTTP, SHA-256 evidence, rejected access and preserved
+      demo workspace.
+  - command: python scripts/check_local_visit_browser.py --chromium /usr/bin/chromium --axe <local-axe.min.js>
     outcome: passed
-    observed_at: '2026-11-20T06:46:09Z'
-    notes: 14 tests per Python 3.12.14/3.13.5, zero skips (12.069s/12.318s).
-  - command: PYTHONPATH="$MINDCAP_CHECKOUT/src" "$MINDCAP_PYTHON" experiments/capture_handoff/check.py --fixture-directory
-      "$MINDCAP_CHECKOUT/tests/fixtures/chrome_bookmarks/multiple_profiles/User Data" --rehearse-private-cleanup
-      | cmp - docs/evidence/bookmark-pilot-rehearsal.json
+    observed_at: '2026-11-21T05:44:30Z'
+    notes: Chromium 151, axe-core 4.10.3. Search, exact excerpts, related notes, refreshed session, graph, bounded
+      byte-identical download, keyboard and reduced motion at 1440/390/320px. Fifteen axe checks passed.
+  - command: python -S scripts/mock_garden_demo.py --workspace <new> --require-source --check-golden --visit-fixture
+      <new.zip>; cmp <new.zip> examples/mock-garden/visit.zip
     outcome: passed
-    observed_at: '2026-11-20T06:46:09Z'
-    notes: Real pinned Mindcap 7ee766c producer. Resume and single-batch output match; exact replay, stale authorization,
-      quarantine and retained original ZIP verified. Pinned Mindcap CLI capture and verify, guide packaging snippet
-      and Mindgarden CLI inspect also passed.
-  - command: Run the fourteen unittest modules listed in docs/evidence/integration-readiness-qualification.json
-      using Python 3.12.14 and 3.13.5.
+    observed_at: '2026-11-21T05:44:30Z'
+    notes: Full fictional proof plus deterministic visit fixture. SHA-256 3398ec1fbe7172f7a0e96c67d44b9e8cb01b466202ec967078bd4fc3aee801a7.
+  - command: python -m build --sdist --wheel --no-isolation --outdir .cache/dist; pip install --no-index --find-links
+      .cache/dist mindgarden==0.1.0
     outcome: passed
-    observed_at: '2026-11-20T06:51:40Z'
-    notes: 95 focused tests per Python passed (193.034s and 199.031s). Two distribution cases skipped before packaging
-      and both passed per Python when rerun after build.
-  - command: Run scripts/research_roles_demo.py with --check-golden from clean Git, an isolated wheel and an unpacked
-      source archive.
+    observed_at: '2026-11-21T05:44:30Z'
+    notes: Packaged web assets and fixture. Offline installed wheel launches the fictional and explicit sessions and
+      resolves citations.
+  - command: (umask 0022 && PYTHONPATH=src python -m unittest tests.test_drive_private_git -v)
     outcome: passed
-    observed_at: '2026-11-20T06:51:40Z'
-    notes: All three reproduce committed exact role evidence (154.035s, 156.456s, 154.290s). Full commands, package
-      hashes and result limits in the qualification receipt.
+    observed_at: '2026-11-21T05:49:00Z'
+    notes: The pre-fix test failed with REGISTRY_PERMISSIONS. Fixture-only ea5c334 passed on Python 3.12.14
+      and 3.13.5 in 69.363 and 62.626 seconds respectively. The runtime permission check is preserved.
   environment_limitations:
-  - 'The local pilot needs a selected input and approved workspace. Actual Chrome import, Drive OAuth, Codex/model
-    operation and private/Empathy consumer evidence remain open. Mindcap #35 owns recurring deltas. Akashic owns
-    the reviewable public intake contract. Public policy transitions, manual accessibility, optional experiments,
-    releases and ADR dispositions have separate requirements.'
-  - All evidence in this batch is synthetic. Hosted tests and the deferred full audit have separate results.
+  - Browser and package qualification ran on Linux. Owner Mac use and private input selection remain pending.
+  - Public and private hosted acceptance, browser review writes, background workers, assistive-technology review and
+    real Drive/Empathy inputs require their existing gates.
+  - The desktop and mobile demos use only synthetic data. Automatic and full-suite evidence are tracked separately.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -149,48 +142,48 @@ privacy:
 
 ## Purpose and precedence
 
-Review synthetic bookmark, Drive and scoped Codex integration evidence before the first selected local pilot.
+Rehearse the scoped Willow Garden visit before a selected local private pilot.
 
 ## Resume protocol
 
-Refresh live issue and PR states. Check the integration guide and current draft base before using the local preflight.
+Refresh GitHub state. Open [the local visit guide](docs/local-garden-visit.md) and run the demo before selecting any private inputs.
 
 ## Current objective and success conditions
 
-Demonstrate safe offline integration and record the remaining owner contracts and exact first operator actions.
+Open, search and read reviewed fictional notes with exact evidence. Follow their graph and download a bounded context pack. Reopen the same workspace or start from a clean checkout.
 
 ## State snapshot
 
-Main 5cf24a2. Draft #155 at b47c40a passed hosted Test and preparation. Draft #156 at c30d966 carries bookmark and routing proof. Draft #157 adds Drive and research proofs from fcdb79d. Hosted Test for the new drafts is observed separately. All 30 Mindgarden issues remain open, with 44 coverage rows.
+Main 5cf24a2. Drafts #155 and #156 passed automatic checks. The earlier #157 Linux failure is fixed locally and pushed at ea5c334. #158 is the combined local visit review branch. 30 open issues and 44 tracked rows.
 
 ## Completed and material changes
 
-Draft #156 verifies exact reviewed rename and private bookmark capture/review/resume through the pinned Mindcap producer. Draft #157 clones reviewed records from a local Git remote, restores the separate vault and recovers exact packet/context/evidence. The packaged research rehearsal demonstrates distinct accounting and career plans with explicit source grants. The integration map accounts for all 30 open issues. References have been promoted or added to existing owning issues.
+[#158](https://github.com/egohygiene/mindgarden/pull/158) adds the fictional Willow Garden, a scoped read-only browser and reproducible source-vault fixture. Functional commit `1f27321`. The stack's prior bookmark, Drive and Codex receipts remain in [integration readiness](docs/integration-readiness.md).
 
 ## Validation and review evidence
 
-95 focused plus two separately run distribution cases pass on each supported Python. Pinned bookmark receipt matches. The research golden matches from clean Git, isolated wheel and unpacked source. Scoped lint, compile, format, 44-row and pinned ADR/continuity checks pass. Exact commands and results are in docs/evidence/integration-readiness-qualification.json.
+Eleven focused tests per Python and fifteen automated axe checks passed. Chromium exercised the complete visit at three viewport widths. The original golden replay, deterministic fixture rebuild and installed wheel smoke passed. The clean clone passed the browser tour. The earlier Linux failure on #157 was reproduced with umask 0022 and repaired by creating the fictional capture workspace with mode 0700. Both supported Pythons pass the exact regression. Commands and evidence are in this document's metadata and the local visit guide.
 
 ## Blockers, risks, unknowns, and deferred work
 
-The local pilot needs a selected input and approved workspace. Actual Chrome import, Drive OAuth, Codex/model operation and private/Empathy consumer evidence remain open. Mindcap #35 owns recurring deltas. Akashic owns the reviewable public intake contract. Public policy transitions, manual accessibility, optional experiments, releases and ADR dispositions have separate requirements.
+#17 and #47 retain public hosting, authenticated runtime, review writes, worker lifecycle and manual accessibility acceptance. #20 retains the owner-approved pilot and consumer work. Role grants and integrations remain subject to the existing decisions. Keep real inputs outside public Git.
 
 ## Next dependency-ready work
 
-Review draft #155 then #156 then #157. Rehearse the private bookmark workflow, identify the first selected Chrome profile or HTML export, and choose a private work directory before a separate local run.
+Check out feature/local-garden-visit, run the fictional visit, then review drafts #155, #156, #157 and #158 in order. After that review, use one selected private folder with explicit bindings and scope to rehearse the owner's first visit.
 
 ## Parallel changes and reconciliation
 
-Stack order #155 → #156 → #157. The reproducible combined branch is integration/20261120-drive-codex-readiness. Preserve the original root worktree's four interrupted files.
+Draft stack #155 → #156 → #157 → #158. The combined branch is `feature/local-garden-visit`. The source worktree's independent in-progress files remain intact.
 
 ## Privacy and redaction
 
-Fixtures are synthetic. Keep actual bookmark and Drive capture, credentials, account-specific paths and reviewed personal outputs in the owner's private workspace.
+Use fictional fixtures for public evidence. Keep the per-launch access link, private paths, authorization and real data local.
 
 ## Handoff update protocol
 
-Record the next bounded issue, exact source and PR, verification, remaining acceptance and next action. Keep canonical issue and decision requirements traceable through the coverage ledger.
+Record actual issue and PR state, exact commits, commands, passing and failing evidence, acceptance gaps and the next runnable command.
 
 ## Compaction and supersession
 
-This checkpoint supersedes earlier waiting-for-sync and current-work snapshots. The prior merge and test receipts retain their original observations.
+Prior synthetic preparation and routing qualifications remain linked from the integration guide and coverage ledger.

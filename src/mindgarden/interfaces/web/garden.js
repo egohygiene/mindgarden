@@ -143,8 +143,11 @@ function noteRows(notes) {
 }
 
 function graphLabel(note) {
-  const words = note.title.replace(/^(Fictional|Synthetic)\s+/i, "").split(/\s+/);
-  return words.slice(0, 2).join(" ").slice(0, 22);
+  const words = note.title.replace(/^(Fictional|Synthetic)\s+/i, "").split(/\s+/)
+    .filter((word) => !["and", "of", "the"].includes(word.toLowerCase()));
+  const pair = words.slice(0, 2).join(" ");
+  const label = pair.length <= 22 ? pair : words[0];
+  return (label || note.title).slice(0, 22).replace(/^./, (letter) => letter.toUpperCase());
 }
 
 function graphFigure(graph, preview = false) {
@@ -396,7 +399,11 @@ async function contextView(query) {
   if (!query) return [title, form];
   const { payload: pack, text } = await request("context", { q: query }, true);
   const result = panel("Included notes");
-  const summary = quantity(pack.included.length, "note") + " · " + pack.budget.max_bytes.toLocaleString() + "-byte limit";
+  const summary = [
+    quantity(pack.included.length, "note"),
+    pack.budget.max_bytes.toLocaleString() + "-byte limit",
+    pretty(pack.scope?.visibility),
+  ].filter(Boolean).join(" · ");
   result.append(element("p", "detail", summary));
   if (pack.included.length) {
     const download = element("button", "button", "Download JSON");
