@@ -28,11 +28,17 @@ PYTHONPATH="$PWD/src" python3.13 -m mindgarden visit \
 
 Open the full local link printed by Studio. In **Models**, choose
 **Continue with ChatGPT** on the **ChatGPT plan** card. Mindgarden opens
-your system browser for the official consent screen. After OpenAI returns
-you to the local callback, close that tab and return to Studio. Choose
-**Check connection** to load the model picker. [Run the fictional prompt](studio-model-connections.md#chatgpt-plan)
+your system browser for the official consent screen. When **Return to
+Mindgarden** appears, close that tab and return to **Models** in the
+original Studio tab. Studio verifies the connection and saves it
+locally. Once Studio says **Signed in to ChatGPT**, choose **Check
+connection** to load the model picker. A fresh Studio visit can detect a
+saved session without contacting OpenAI. [Run the fictional prompt](studio-model-connections.md#chatgpt-plan)
 
-If the sign-in window is no longer needed, use **Cancel sign-in** in Studio.
+If Studio cannot read the sign-in status, use **Check sign-in status**
+to check the existing attempt. Start a new sign-in if Studio reports
+that the attempt failed or expired. Use **Cancel sign-in** to end an
+attempt you no longer need.
 Use **Continue with ChatGPT** again when the session expires. **Sign out
 of ChatGPT** attempts remote revocation and removes the local tokens.
 If Studio reports unconfirmed revocation, you can remove the app in
@@ -43,8 +49,9 @@ Studio uses `~/.config/mindgarden/chatgpt` by default. An explicit
 
 ## Optional terminal controls
 
-`chatgpt connect` also starts consent from a terminal. To check the
-cached session without opening a browser or contacting OpenAI:
+`chatgpt connect` also starts consent from a terminal. The callback page
+directs you back to that terminal for the result. To check the cached
+session without opening a browser or contacting OpenAI:
 
 ```sh
 PYTHONPATH="$PWD/src" python3.13 -m mindgarden chatgpt status \

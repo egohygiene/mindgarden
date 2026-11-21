@@ -266,7 +266,7 @@ const modelPreview = z.object({
 const modelResult = z.object({ provider: modelProvider, model: z.string(), text: z.string() });
 const modelInstallPreview = z.object({ model: z.string(), preview_sha256: digest });
 const chatgptConnection = z.strictObject({
-  status: z.enum(["idle", "opening", "waiting", "authorized", "cancelled", "signed-out", "failed"]),
+  status: z.enum(["idle", "opening", "waiting", "verifying", "authorized", "cancelled", "signed-out", "failed"]),
   code: z.string().regex(/^[A-Z][A-Z0-9_]{0,63}$/).optional(),
   remote_revocation: z.enum(["confirmed", "unconfirmed", "not-needed"]).optional(),
 });
