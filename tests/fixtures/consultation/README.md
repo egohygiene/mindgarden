@@ -37,3 +37,13 @@ creates a separate machine-local offline session with exact source grants. The
 review fields are synthetic local assertions, not authenticated organization
 approval. Attachments contain selected normalized evidence rows; exporting raw
 statements/PDFs and an approved real private pilot remain separate work.
+
+`two-periods.csv` adds February USD and EUR movements to those same two accounts.
+`two-period-totals.json` contains independently authored monthly/category totals,
+including January from the original exports. February USD net movement is
+2269.90; EUR is separately 87.66. The January-to-February USD difference is
+10.14. No exchange rate or combined-currency amount is implied. The acceptance
+test imports through the ordinary CLI, reviews classifications/transfer pairs,
+and obtains the same chart-ready table from the shared packet service. It also
+proves that removing a reviewed source contributor removes that contribution
+and its evidence. Display-row selection alone does not change calculation inputs.

@@ -160,6 +160,12 @@ this delivery-only boundary. [Checkpoint and limits](pipeline-integration-sprint
 | Malformed/hostile/incomplete/corrupt/oversized ZIP boundaries | `tests/test_conversation_archives.py`, `tests/test_archive_selection.py` |
 | Authored review, exact retrieval/context and private originals | `tests/test_conversation_archives.py`, `tests/test_private_garden_workflow.py` |
 
-The later graph-extraction attribution/correction journey remains coordinated with
-#13. A synthetic importer proof does not establish upstream producer accuracy,
-actual private archive compatibility or Empathy consumer acceptance under #20.
+The [acceptance reconciliation](acceptance-reconciliation.md) adds the downstream
+attribution/correction proof in `tests/test_archive_attribution.py`. Authored
+interpretations distinguish a user decision, assistant suggestion, quotation,
+question and later correction; human review preserves both conflicting statements
+with separate exact message citations. Overlaps reuse evidence and an unresolved
+Alex in a separate conversation cannot silently become one entity. The fixture
+recipe uses the existing v2.0.2 shape, not a new upstream format. This proves
+deterministic plumbing/review, not actual #13 model accuracy, full upstream
+producer conformance, private archive compatibility or #20 Empathy acceptance.

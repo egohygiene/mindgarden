@@ -65,8 +65,11 @@ uses 256 notes plus one claim: authorized index 1.814206 s, cache build 0.900269
 reference ranking 0.000487 s, audited SQLite search 0.050309 s and 1,261,568 database
 bytes. This bounded adapter is slower when every request fully audits/reconstructs
 its authorized view; it is parity/recovery evidence, not a performance win or
-large-corpus guarantee. Broader workloads/resources, native platforms, confidential Realm runtime and accepted store disposition
-remain parent #32 scope. No new runtime dependency is installed.
+large-corpus guarantee. Broader workloads/resources, native platforms, confidential
+Realm runtime and accepted permanent-store disposition remain later work; they
+are not additional gates for #32's ordinary local baseline. The
+[acceptance reconciliation](acceptance-reconciliation.md) includes the original
+incremental-refresh/migration requirements. No new runtime dependency is installed.
 
 The optional [CozoDB evaluation](evaluations/cozodb.md) uses this port in a
 removable lab. Its native dependency, recommendations and unsupported installed

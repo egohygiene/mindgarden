@@ -35,6 +35,23 @@ publication: central
 route: /roadmap/mindgarden/
 updated: 2026-11-13
 -->
+## 2026-11-15 acceptance reconciliation
+
+Authorized #148 → #149 → #150 → #151 → #152 → #153 → #154 merges are complete
+at main `5cf24a2`, exactly the tested combined tree. All fourteen original
+exact-head checks pass. **#16, #32, #90 and #15 are closed** against their full
+listed engine/importer/synthetic requirements: **30 open / 44 tracked**. The
+[acceptance map](docs/acceptance-reconciliation.md) records actual dependency
+contracts, complete criteria and separately owned wider acceptance. Evidence-only
+draft [#155](https://github.com/egohygiene/mindgarden/pull/155), functional
+`c989a87`, adds multi-period/currency and archive-attribution proofs: 150 tests
+per supported Python, zero skips; 21 per clean Git/isolated wheel/source form.
+[Exact qualification](docs/evidence/acceptance-reconciliation.json).
+
+Sync with the maintainer before #17. Local setup, actual model/private/Empathy
+proofs, releases and ADR disposition remain separate. Older snapshots below are
+historical, including their earlier draft, count and next-sprint observations.
+
 ## 2026-11-13 execution snapshot
 
 **Qualified audit stack:** [#149](https://github.com/egohygiene/mindgarden/pull/149) → [#150](https://github.com/egohygiene/mindgarden/pull/150) → [#151](https://github.com/egohygiene/mindgarden/pull/151) stack on documentation #148. Combined functional source `b35b597` passes 184 targeted tests per Python, eight boundary cases per clean Git/wheel/source form and nine full golden proofs. All three functional heads pass automatic Test/preparation. [Receipt](docs/evidence/repository-audit-qualification.json) · [Remaining acceptance and next sprint](docs/remaining-acceptance-audit.md). Main stays `270ced6`; no merge, parent closure, duplicate issue, private processing or ADR ratification. Mac setup remains parked. All older execution snapshots below are historical.

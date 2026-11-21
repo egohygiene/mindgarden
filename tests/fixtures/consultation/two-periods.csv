@@ -1,0 +1,9 @@
+transaction_id,account_id,date,amount,currency,description
+payroll-feb,account-a,2026-02-02,2400.00,USD,Synthetic February payroll
+groceries-feb,account-a,2026-02-04,-120.10,USD,Synthetic February groceries
+refund-feb,account-a,2026-02-05,20.00,USD,Synthetic February refund
+transfer-out-feb,account-a,2026-02-06,-125.00,USD,Synthetic paired outgoing movement
+transfer-in-feb,account-b,2026-02-06,125.00,USD,Synthetic paired incoming movement
+subscriptions-feb,account-b,2026-02-07,-30.00,USD,Synthetic February subscription
+euro-sale,account-b,2026-02-08,100.00,EUR,Synthetic euro sale
+euro-supply,account-b,2026-02-09,-12.34,EUR,Synthetic euro supplies
