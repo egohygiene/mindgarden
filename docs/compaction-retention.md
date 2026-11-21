@@ -115,6 +115,20 @@ new destination after interruption; no implicit repair overwrites previous proof
 The same build supports the existing reviewed hierarchy and optional curation
 proposal without applying that proposal.
 
+`--check` rederives the proof under live authority and verifies the exact
+reviewed plan digest, ownership marker and saved inventory without writing to
+the destination. An unavailable or changed output fails verification. Replaying
+the original approved `--apply --plan-digest` against the matching saved bundle
+still returns `verified-no-op`.
+
+The complete UTF-8 build preview includes the report, provenance and file
+inventory. It must fit the smallest of the session context ceiling, the
+model-context ceiling and the selected detail profile's byte ceiling. The
+separate session output ceiling also covers the complete retained audit bundle,
+including the optional authored curation copy and the ownership marker. These
+retained audit files can exceed the context ceiling because the bundle also
+preserves the original authored inputs and their verification material.
+
 Expiration is the earlier of creation plus model-context TTL and session expiry.
 Plan/apply/check revalidate current authority and evidence; expired, revoked,
 changed or corrupted inputs cannot yield a valid bundle. Expired files remain on
@@ -135,8 +149,8 @@ automatic incremental scheduling remains open.
 | Publication | Separate review, declared TTL, revoke by invalidation/rebuild | Deployed revocation/expiry and host acceptance |
 
 Repository, organization, personal, agent and publishing detail profiles have
-explicit statement/byte budgets. Complete preview/provenance also fits the
-session and model-context byte ceilings. Private proof TTL is enforced through
+explicit statement/byte budgets. The complete preview and private audit bundle
+obey the ceilings described above. Private proof TTL is enforced through
 the supported build/check path; publication TTL remains a declaration. No scheduler,
 source deletion, memory store or deployed expiry service is implemented.
 Existing session expiration/revocation still gates every read.
@@ -205,3 +219,39 @@ context; the career branch stays unchanged. Fixture quality measures exact
 citation coverage, retained qualifications and compression ratio, not actual
 model interpretation accuracy. This is read-only reconciliation, not a daemon,
 automatic semantic rewrite, retention job or permission to delete originals.
+
+## Persisted proof verification checkpoint
+
+The new tests first ran on the untouched implementation at `00ab34e`. Moving
+a saved bundle after the check's existence probe made the old check create
+another bundle at the original location. The other regressions showed that a
+preview could exceed any of its three context or detail ceilings, and planning
+could omit the ownership marker from the complete output ceiling. The baseline
+run produced five failing assertions across these three cases.
+
+```sh
+PYTHONPATH=src python3 -m unittest \
+  tests.test_source_compaction.SourceCompactionTests.test_cli_check_never_recreates_a_removed_bundle \
+  tests.test_source_compaction.SourceCompactionTests.test_build_preview_accounting_includes_entire_report_and_inventory \
+  tests.test_source_compaction.SourceCompactionTests.test_build_projection_accounts_for_complete_owned_bundle -v
+```
+
+The existing 13-node reviewed fixture produced a 19,469-byte build preview and a
+55,480-byte retained audit bundle before the fix. On the fixed implementation,
+`mindgarden compaction build ... --check` and replay with `--apply --plan-digest`
+both reported `verified-no-op` with the original digest, all six file hashes and
+all six modification times unchanged. The proof used only synthetic records.
+
+The focused suite covers the new budgets and verification, freshness, scoped
+output, and packet authority renewal. The standalone offline replay passed
+eight checks, with 4,001 of its authorized 8,192 context bytes.
+
+```sh
+PYTHONPATH=src python3 -m unittest tests.test_source_compaction \
+  tests.test_compaction_refresh tests.test_output_scope tests.test_packet_freshness -v
+PYTHONPATH=src python3.13 -m unittest tests.test_source_compaction \
+  tests.test_compaction_refresh tests.test_output_scope tests.test_packet_freshness -v
+proof=$(mktemp -d /tmp/mindgarden-compaction-golden.XXXXXX)
+python3 -S scripts/compaction_demo.py --require-source \
+  --workspace "$proof" --report "$proof/receipt.json"
+```

@@ -106,13 +106,20 @@ def apply_generated(
 
 
 def verify_generated(
-    directory, files, *, check_live, verify_inputs, validate_output=None
+    directory,
+    files,
+    *,
+    check_live,
+    verify_inputs,
+    validate_output=None,
+    expected_digest=None,
 ):
     """Verify current authorized bytes without adopting an old plan's authority.
 
     Session renewal can change a plan digest without changing its output. The
     retained marker identifies the old owned inventory; current recomputation,
     source verification and live authority determine whether these bytes match.
+    Callers whose proofs bind exact authority can require the current digest.
     This function never creates, repairs, chmods or overwrites output.
     """
     from ..domain.contracts import strict_json
@@ -128,6 +135,10 @@ def verify_generated(
     ):
         raise ContractError(
             "GENERATED_CONFLICT: prior ownership metadata is incompatible; retain it for inspection"
+        )
+    if expected_digest is not None and marker["plan_sha256"] != expected_digest:
+        raise ContractError(
+            "GENERATED_CONFLICT: the saved ownership metadata differs from the current reviewed plan"
         )
     complete = complete_generated(files, marker["plan_sha256"])
     if marker_bytes != complete[MARKER]:
