@@ -195,6 +195,11 @@ Drafts #127–#130 extend the same services with shared export policy, whole-bun
 
 ## Local browser visit
 
+The optional [Studio interface](docs/mindgarden-studio.md) builds React
+assets before launch. The existing Python process serves the bundle and
+the authorized read routes. The 3D graph loads lazily in the browser.
+The separate Next.js experiment can run in its own development process.
+
 The [local browser visit](docs/local-garden-visit.md) adds a loopback
 process and bundled browser assets for an offline, read-only session.
 Its sample workspace contains a fictional garden, distinct source vault

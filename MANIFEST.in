@@ -18,4 +18,9 @@ include tests/fixtures/federation/expected/.mindgarden-federation.json
 recursive-include examples *.py *.json *.md
 include examples/mock-garden/visit.zip
 recursive-include src/mindgarden/interfaces/web *.html *.css *.js *.svg *.webp
+include src/mindgarden/interfaces/web/studio/.vite/manifest.json
+include src/mindgarden/interfaces/web/studio/.vite/license.md
+recursive-include src/mindgarden/interfaces/web/studio/assets *.avif *.png *.jpg *.jpeg *.woff *.woff2
+include web/*.html web/*.json web/*.md web/*.js web/*.mjs web/*.ts
+recursive-include web/src *.js *.jsx *.ts *.tsx *.css *.json *.svg *.webp
 include tests/fixtures/captured-source/synthetic-source.zip

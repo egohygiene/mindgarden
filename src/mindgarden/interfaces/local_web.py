@@ -18,19 +18,37 @@ from ..application.retrieval import (
     render_context,
     search_payload,
 )
-from ..domain.contracts import canonical_json, safe_path
+from ..domain.contracts import canonical_json, read_object, safe_path
 from ..domain.validation import ContractError
 
 
 HOST = "127.0.0.1"
 ASSETS = Path(__file__).with_name("web")
-STATIC = {
-    "/": ("index.html", "text/html; charset=utf-8"),
-    "/garden.css": ("garden.css", "text/css; charset=utf-8"),
-    "/garden.js": ("garden.js", "text/javascript; charset=utf-8"),
+SHARED_STATIC = {
     "/garden-cover.webp": ("garden-cover.webp", "image/webp"),
     "/garden-icon.svg": ("garden-icon.svg", "image/svg+xml"),
 }
+CLASSIC_STATIC = {
+    **SHARED_STATIC,
+    "/": ("index.html", "text/html; charset=utf-8"),
+    "/garden.css": ("garden.css", "text/css; charset=utf-8"),
+    "/garden.js": ("garden.js", "text/javascript; charset=utf-8"),
+}
+STUDIO_MEDIA_TYPES = {
+    ".js": "text/javascript; charset=utf-8",
+    ".css": "text/css; charset=utf-8",
+    ".svg": "image/svg+xml",
+    ".webp": "image/webp",
+    ".avif": "image/avif",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".woff": "font/woff",
+    ".woff2": "font/woff2",
+}
+STUDIO_ASSET = re.compile(r"assets/[A-Za-z0-9_][A-Za-z0-9_.-]*-[A-Za-z0-9_-]{8,64}\.[a-z0-9]+")
+STUDIO_BUILD = "Run npm --prefix web ci and npm --prefix web run build from a checkout, or select --interface classic."
+MAX_STUDIO_ASSETS = 512
 JSON = "application/json; charset=utf-8"
 MAX_QUERY_LENGTH = 256
 MAX_REQUEST_TARGET = 4096
@@ -44,6 +62,48 @@ CONTENT_POLICY = (
     "img-src 'self'; font-src 'self'; connect-src 'self'; base-uri 'none'; "
     "form-action 'none'; frame-ancestors 'none'"
 )
+
+
+def browser_assets(interface: str) -> dict[str, tuple[str, str]]:
+    """Select the classic routes or derive bounded Studio routes from the Vite manifest."""
+    if interface == "classic":
+        return CLASSIC_STATIC
+    if interface != "studio":
+        raise ContractError("VISIT_INTERFACE: choose classic or studio")
+    try:
+        index = safe_path(ASSETS, "studio/index.html")
+        manifest = read_object(safe_path(ASSETS, "studio/.vite/manifest.json"))
+        if not index.is_file():
+            raise FileNotFoundError()
+        if len(manifest) > MAX_STUDIO_ASSETS or not isinstance(manifest.get("index.html"), dict):
+            raise ValueError()
+        if manifest["index.html"].get("isEntry") is not True:
+            raise ValueError()
+        selected = set()
+        for entry in manifest.values():
+            if not isinstance(entry, dict) or not isinstance(entry.get("file"), str):
+                raise ValueError()
+            selected.add(entry["file"])
+            for collection in (entry.get("css", []), entry.get("assets", [])):
+                if not isinstance(collection, list) or not all(isinstance(name, str) for name in collection):
+                    raise ValueError()
+                selected.update(collection)
+                if len(selected) > MAX_STUDIO_ASSETS:
+                    raise ValueError()
+        routes = {**SHARED_STATIC, "/": ("studio/index.html", "text/html; charset=utf-8")}
+        for filename in sorted(selected):
+            if len(filename) > 256 or not STUDIO_ASSET.fullmatch(filename):
+                raise ValueError()
+            relative = "studio/" + filename
+            media_type = STUDIO_MEDIA_TYPES.get(Path(filename).suffix)
+            if media_type is None or not safe_path(ASSETS, relative).is_file():
+                raise ValueError()
+            routes["/" + filename] = (relative, media_type)
+    except FileNotFoundError as error:
+        raise ContractError("VISIT_STUDIO_UNAVAILABLE: " + STUDIO_BUILD) from error
+    except (ContractError, OSError, ValueError) as error:
+        raise ContractError("VISIT_STUDIO_INVALID: the compiled bundle could not be verified. " + STUDIO_BUILD) from error
+    return routes
 
 
 class RequestError(Exception):
@@ -179,9 +239,10 @@ def parameters(raw: str, expected: set[str]) -> dict[str, str]:
 class GardenServer(ThreadingHTTPServer):
     allow_reuse_address = False
 
-    def __init__(self, port: int, context: QueryContext, demo: bool):
+    def __init__(self, port: int, context: QueryContext, demo: bool, assets: dict[str, tuple[str, str]]):
         self.context = context
         self.demo = demo
+        self.assets = assets
         self.access_token = token_urlsafe(32)
         super().__init__((HOST, port), GardenHandler)
         self.authority = HOST if self.server_port == 80 else f"{HOST}:{self.server_port}"
@@ -286,8 +347,8 @@ class GardenHandler(BaseHTTPRequestHandler):
                 raise bad_query()
             if raw.path.startswith("/api/"):
                 body, media_type = self.api(raw.path, raw.query), JSON
-            elif raw.path in STATIC and not raw.query:
-                filename, media_type = STATIC[raw.path]
+            elif raw.path in self.server.assets and not raw.query:
+                filename, media_type = self.server.assets[raw.path]
                 body = safe_path(ASSETS, filename).read_bytes()
             else:
                 raise unavailable()
@@ -305,18 +366,21 @@ class GardenHandler(BaseHTTPRequestHandler):
     do_HEAD = do_GET
 
 
-def make_server(local_config: Path, scope: Path, *, port: int = 0, demo: bool = False) -> GardenServer:
+def make_server(local_config: Path, scope: Path, *, port: int = 0, demo: bool = False,
+                interface: str = "classic") -> GardenServer:
     """Pin an explicitly approved local view and bind a numeric loopback socket."""
     if type(port) is not int or not 0 <= port <= 65535:
         raise ContractError("WEB_PORT: supply a port between 0 and 65535")
+    assets = browser_assets(interface)
     context = QueryContext.load(local_config, scope)
     context.require("index")
-    return GardenServer(port, context, demo)
+    return GardenServer(port, context, demo, assets)
 
 
-def serve_garden(local_config: Path, scope: Path, *, port: int = 0, demo: bool = False) -> int:
+def serve_garden(local_config: Path, scope: Path, *, port: int = 0, demo: bool = False,
+                 interface: str = "classic") -> int:
     """Print the browser access link and serve until interrupted."""
-    with make_server(local_config, scope, port=port, demo=demo) as server:
+    with make_server(local_config, scope, port=port, demo=demo, interface=interface) as server:
         print(server.url, flush=True)
         try:
             server.serve_forever()

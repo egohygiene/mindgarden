@@ -123,6 +123,8 @@ def add_visit_command(commands: ParserCollection) -> None:
     parser.add_argument("--workspace", type=Path, help="Private workspace for the fictional garden")
     parser.add_argument("--scope", type=Path, help="Existing authorized read session for private bindings")
     parser.add_argument("--port", type=int, default=0, help="Loopback port (default: choose an available port)")
+    parser.add_argument("--interface", dest="visit_interface", choices=("classic", "studio"), default="classic",
+                        help="Select the classic reader or the locally built Studio")
     parser.set_defaults(handler=run_visit)
 
 
@@ -130,19 +132,21 @@ def run_visit(arguments: Namespace) -> int:
     """Select a fictional workspace or an explicit private configuration."""
     if not 0 <= arguments.port <= 65535:
         raise ContractError("VISIT_PORT: choose a port between 0 and 65535")
+    from .local_web import browser_assets, serve_garden
+
     if arguments.demo:
         if arguments.workspace is None or arguments.scope is not None:
             raise ContractError("VISIT_ARGUMENTS: use --demo with --workspace")
         from .visit_demo import prepare_demo
 
+        if arguments.visit_interface == "studio":
+            browser_assets("studio")
         config, scope = prepare_demo(arguments.workspace)
     else:
         if arguments.scope is None or arguments.workspace is not None:
             raise ContractError("VISIT_ARGUMENTS: use --local-config with --scope")
         config, scope = arguments.local_config.expanduser().absolute(), arguments.scope.expanduser().absolute()
-    from .local_web import serve_garden
-
-    return serve_garden(config, scope, port=arguments.port, demo=arguments.demo)
+    return serve_garden(config, scope, port=arguments.port, demo=arguments.demo, interface=arguments.visit_interface)
 
 
 def add_lifecycle_commands(commands: ParserCollection) -> None:

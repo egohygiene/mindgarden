@@ -1,3 +1,10 @@
+**React Studio, 2026-11-21:** Draft [#159](https://github.com/egohygiene/mindgarden/pull/159) stacks on #158. The [Studio checkpoint](mindgarden-studio.md)
+adds an optional React/Vite dashboard, keyboard search, exact evidence
+and context, and an accessible 2D map with optional 3D. It uses the
+existing scoped Python read services and the fictional fixture. The
+separate Next.js lab exercises rendering modes. #17 and #47 gain bounded
+local evidence. All 30 issues remain open, with 44 tracked rows.
+
 **Local browser visit, 2026-11-21:** [Willow Garden](local-garden-visit.md)
 opens five reviewed fictional notes, four relationships, exact excerpts and a
 bounded context pack through the existing authorization and query services.
