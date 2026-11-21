@@ -6,20 +6,31 @@ import type { ChatGPTConnection, ChatGPTConnectionAction, GardenClient, ModelPro
 import { useOperation } from "./assistant";
 
 const pollInterval = 900;
+const pollTimeout = 4_000;
+const maxPollFailures = 3;
 
 function inProgress(status?: ChatGPTConnection["status"]) {
-  return status === "opening" || status === "waiting";
+  return status === "opening" || status === "waiting" || status === "verifying";
+}
+
+function transient(problem: unknown) {
+  return problem instanceof DOMException && problem.name === "TimeoutError"
+    || problem instanceof GardenApiError && (problem.code === "CONNECTION" || problem.status >= 500);
 }
 
 const connectionMessages = {
   CHATGPT_BROWSER: "Studio could not open your system browser. Check the default browser and try again.",
-  CHATGPT_CALLBACK: "Studio could not complete the local sign-in callback. Try signing in again.",
+  CHATGPT_CALLBACK: "Studio could not start the local sign-in listener. Try signing in again.",
+  CHATGPT_CALLBACK_PROVIDER: "ChatGPT could not complete browser authorization. Start a new sign-in from Studio.",
+  CHATGPT_CALLBACK_RESPONSE: "Studio could not verify the browser response. Start a new sign-in from Studio.",
   CHATGPT_CALLBACK_TIMEOUT: "The sign-in window expired. Choose Continue with ChatGPT to try again.",
   CHATGPT_CONSENT_DENIED: "ChatGPT consent was declined. You can start a new sign-in.",
   CHATGPT_OAUTH_CLIENT: "OpenAI did not accept this Studio registration.",
   CHATGPT_OAUTH_DEPENDENCY: "The Studio Python environment needs the ChatGPT verification dependencies.",
   CHATGPT_OAUTH_SCOPE: "ChatGPT plan permission was not granted.",
   CHATGPT_OAUTH_IDENTITY: "Studio could not verify the selected ChatGPT account.",
+  CHATGPT_OAUTH_DENIED: "ChatGPT declined the final token exchange. Start a new sign-in from Studio.",
+  CHATGPT_OAUTH_UNAVAILABLE: "Studio could not reach OpenAI to finish verification. Check your connection and try again.",
 } as const;
 
 function failureMessage(code?: string) {
@@ -61,23 +72,45 @@ export function useChatGPTConnection(client: GardenClient, enabled: boolean, onI
     const controller = new AbortController();
     pollController.current = controller;
     let timer: ReturnType<typeof setTimeout> | undefined;
+    let failures = 0;
+    let polling = false;
+
+    function schedule() {
+      timer = setTimeout(() => void poll(), pollInterval);
+    }
 
     async function poll() {
+      if (polling || controller.signal.aborted) return;
+      clearTimeout(timer);
+      polling = true;
       try {
-        const next = await client.chatgptConnection(controller.signal);
+        const signal = AbortSignal.any([controller.signal, AbortSignal.timeout(pollTimeout)]);
+        const next = await client.chatgptConnection(signal);
         if (controller.signal.aborted) return;
+        failures = 0;
+        setIssue(undefined);
         receive(next);
-        if (inProgress(next.status)) timer = setTimeout(() => void poll(), pollInterval);
+        if (inProgress(next.status)) schedule();
       } catch (problem) {
         if (controller.signal.aborted) return;
-        setIssue(connectionError(problem));
-        setPollFailed(true);
+        if (transient(problem) && ++failures < maxPollFailures) schedule();
+        else {
+          setIssue(connectionError(problem));
+          setPollFailed(true);
+        }
+      } finally {
+        polling = false;
       }
     }
 
-    if (status) timer = setTimeout(() => void poll(), pollInterval);
-    else void poll();
+    function resume() {
+      if (document.visibilityState === "visible") void poll();
+    }
+
+    document.addEventListener("visibilitychange", resume);
+    void poll();
     return () => {
+      document.removeEventListener("visibilitychange", resume);
       controller.abort();
       clearTimeout(timer);
       if (pollController.current === controller) pollController.current = null;
@@ -97,7 +130,14 @@ export function useChatGPTConnection(client: GardenClient, enabled: boolean, onI
       receive(next);
       setPollFailed(false);
     } catch (problem) {
-      if (!controller.signal.aborted) setIssue(connectionError(problem));
+      if (controller.signal.aborted) return;
+      setIssue(connectionError(problem));
+      // The local server may have acted before the response was interrupted.
+      // Read the current attempt without resending the owner's action.
+      if (transient(problem)) {
+        setConnection(undefined);
+        setPollFailed(false);
+      }
     } finally {
       operation.finish(controller);
     }
@@ -145,6 +185,7 @@ export function ChatGPTConnectionControls({ signIn, provider, disabled }: {
   const signedIn = !needsReauth && (connection?.status === "authorized" || provider.status === "ready");
   const opening = action === "connect" || connection?.status === "opening";
   const waiting = connection?.status === "waiting";
+  const verifying = connection?.status === "verifying";
   const failed = connection?.status === "failed";
   const dependency = (issue?.code ?? connection?.code) === "CHATGPT_OAUTH_DEPENDENCY";
   const actionDisabled = disabled || action !== null;
@@ -152,8 +193,10 @@ export function ChatGPTConnectionControls({ signIn, provider, disabled }: {
   let status = "";
   if (action === "disconnect") status = "Signing out of ChatGPT…";
   else if (action === "cancel") status = "Canceling sign-in…";
+  else if (pollFailed) status = "Sign-in status is temporarily unavailable.";
   else if (opening) status = "Opening your browser…";
   else if (waiting) status = "Waiting for ChatGPT consent…";
+  else if (verifying) status = "ChatGPT returned to Studio. Verifying the connection…";
   else if (connection?.status === "cancelled") status = "Sign-in canceled.";
   else if (connection?.status === "signed-out") status = "Signed out of ChatGPT.";
   else if (needsReauth) status = "Sign in again to restore ChatGPT plan access.";
@@ -177,7 +220,7 @@ export function ChatGPTConnectionControls({ signIn, provider, disabled }: {
           <X size={16} aria-hidden="true" /> Cancel sign-in
         </button>
       ) : <>
-        {!signedIn && <button className="button primary" type="button" data-oai-siwc-button="" disabled={actionDisabled}
+        {!signedIn && <button className="button primary" type="button" data-oai-siwc-button="" disabled={actionDisabled || signIn.hydrating}
           onClick={() => void send("connect")}>
           Continue with ChatGPT <ExternalLink size={16} aria-hidden="true" />
         </button>}

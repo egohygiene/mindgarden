@@ -4,12 +4,11 @@ from argparse import ArgumentParser
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass, field
-from http.client import HTTPConnection
 from pathlib import Path
 import re
 import sys
 from tempfile import TemporaryDirectory
-from threading import Thread
+from threading import Event, Thread
 from time import time
 from urllib.parse import parse_qs, urlencode, urlsplit
 from unittest.mock import patch
@@ -27,6 +26,7 @@ class FixtureConsent:
     opened: list[str] = field(default_factory=list)
     exchanges: int = 0
     revocations: int = 0
+    exchange_allowed: Event = field(default_factory=Event)
 
     def require_oidc(self):
         pass
@@ -36,24 +36,18 @@ class FixtureConsent:
         self.opened.append(url)
         return True
 
-    def accept(self):
+    def callback_url(self, **parameters):
         fields = parse_qs(urlsplit(self.opened[-1]).query)
-        callback = urlsplit(fields["redirect_uri"][0])
-        assert callback.hostname == "127.0.0.1"
-        query = urlencode({"state": fields["state"][0], "code": "fixture-code", "client_id": "oaiapp_browser_fixture"})
-        connection = HTTPConnection(callback.hostname, callback.port, timeout=5)
-        try:
-            connection.request("GET", callback.path + "?" + query)
-            reply = connection.getresponse()
-            assert reply.status == 200 and b"fixture-code" not in reply.read()
-        finally:
-            connection.close()
+        callback = fields["redirect_uri"][0]
+        assert urlsplit(callback).hostname == "127.0.0.1"
+        return callback + "?" + urlencode({"state": fields["state"][0], **parameters})
 
     def exchange(self, attempt, code, client_id):
         from mindgarden.adapters.chatgpt_credentials import ChatGPTCredentials
 
         assert attempt.authorization_url == self.opened[-1]
         assert code == "fixture-code" and client_id == "oaiapp_browser_fixture"
+        assert self.exchange_allowed.wait(12), "The browser test did not release token verification"
         self.exchanges += 1
         return ChatGPTCredentials(
             issuer="https://auth.openai.com", subject="fictional-owner", client_id=client_id,
@@ -148,6 +142,35 @@ def serve(config, scope, mode: str, providers: tuple[FixtureProvider, ...] = (),
             worker.join()
 
 
+def check_callback(browser, url, width, axe, *, destination, heading, status=200, screenshot=None):
+    from playwright.sync_api import expect
+
+    page = browser.new_page(viewport={"width": width, "height": 700})
+    requests = []
+    page.on("request", lambda request: requests.append(request.url))
+    page.route("**/*", lambda route: route.continue_() if route.request.url == url else route.abort())
+    try:
+        response = page.goto(url)
+        assert response.status == status
+        assert response.header_value("cache-control") == "no-store"
+        assert response.header_value("referrer-policy") == "no-referrer"
+        expected_return = "Return to Models" if destination == "studio" else "Return to your terminal"
+        expect(page.get_by_role("heading", name=heading)).to_be_visible()
+        expect(page.get_by_role("heading", name=expected_return)).to_be_visible()
+        assert all(value not in page.content() for values in parse_qs(urlsplit(url).query).values() for value in values)
+        assert page.evaluate('getComputedStyle(document.body).display === "grid"')
+        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+        if axe:
+            page.evaluate(axe)
+            violations = page.evaluate("async () => (await axe.run()).violations")
+            assert not violations, [item["id"] for item in violations]
+        assert requests == [url]
+        if screenshot is not None:
+            page.screenshot(path=screenshot)
+    finally:
+        page.close()
+
+
 def check_models(browser, url, width, providers, axe, artifacts):
     from playwright.sync_api import expect
 
@@ -159,9 +182,12 @@ def check_models(browser, url, width, providers, axe, artifacts):
     consent = chatgpt_provider.consent
     errors = []
     posts = []
+    missed_reads = 0
+    drop_next_status = False
     authority = urlsplit(url).netloc
 
     def local_only(route):
+        nonlocal missed_reads, drop_next_status
         request = route.request
         parsed = urlsplit(request.url)
         if parsed.netloc != authority:
@@ -170,6 +196,17 @@ def check_models(browser, url, width, providers, axe, artifacts):
             return
         if request.method == "POST":
             posts.append((parsed.path, request.post_data_json))
+            if parsed.path == "/api/models/chatgpt/connect" and len(consent.opened) == 0:
+                # Studio must recover even when the server starts the attempt
+                # but the browser does not receive the opening status.
+                assert route.fetch(max_redirects=0).ok
+                route.abort()
+                return
+        if parsed.path == "/api/models/chatgpt/connection" and drop_next_status:
+            drop_next_status = False
+            missed_reads += 1
+            route.abort()
+            return
         route.continue_()
 
     def audit():
@@ -218,9 +255,30 @@ def check_models(browser, url, width, providers, axe, artifacts):
     connect.click()
     expect(chatgpt.get_by_text("Waiting for ChatGPT consent", exact=False)).to_be_visible()
     assert len(consent.opened) == 2
-    consent.accept()
+    check_callback(browser, consent.callback_url(error="server_error"), width, axe, destination="studio",
+                   heading="Sign-in response could not be verified", status=400)
+    expect(chatgpt.get_by_role("alert")).to_contain_text("could not complete browser authorization")
+    assert not consent.active() and consent.exchanges == 0
+    connect.click()
+    expect(chatgpt.get_by_text("Waiting for ChatGPT consent", exact=False)).to_be_visible()
+    assert len(consent.opened) == 3
+    drop_next_status = True
+    try:
+        check_callback(
+            browser, consent.callback_url(code="fixture-code", client_id="oaiapp_browser_fixture",
+                                          session_state="fictional-optional-session"), width, axe,
+            destination="studio", heading="Sign-in response received",
+            screenshot=artifacts / f"studio-chatgpt-return-{width}.png" if artifacts else None,
+        )
+        expect(chatgpt.get_by_text("Verifying the connection", exact=False)).to_be_visible()
+        assert missed_reads == 1 and not consent.active()
+    finally:
+        consent.exchange_allowed.set()
     expect(chatgpt.get_by_text("Signed in", exact=False)).to_be_visible()
     assert consent.exchanges == 1 and consent.active()
+    page.reload()
+    page.get_by_role("button", name="Models", exact=True).click()
+    expect(chatgpt.get_by_text("Signed in", exact=False)).to_be_visible()
     assert chatgpt_provider.calls == [("check",)]
     expect(selector.locator('option[value="chatgpt"]')).to_be_disabled()
     chatgpt.get_by_role("button", name="Check connection").click()
@@ -339,7 +397,7 @@ def check_models(browser, url, width, providers, axe, artifacts):
     chatgpt.get_by_role("button", name="Sign out of ChatGPT", exact=True).click()
     expect(chatgpt.get_by_text("Signed out of ChatGPT", exact=False)).to_be_visible()
     assert consent.revocations == 1 and not consent.active()
-    assert [body for path, body in posts if path == "/api/models/chatgpt/connect"] == [{}, {}]
+    assert [body for path, body in posts if path == "/api/models/chatgpt/connect"] == [{}, {}, {}]
     assert [body for path, body in posts if path == "/api/models/chatgpt/cancel"] == [{}]
     assert [body for path, body in posts if path == "/api/models/chatgpt/disconnect"] == [{}]
     assert not errors, errors
@@ -358,6 +416,7 @@ def main():
 
     sys.path.insert(0, str(ROOT / "src"))
     from mindgarden.application.model_lab import PROMPT
+    from mindgarden.interfaces.chatgpt_callback import LocalChatGPTCallback
     from mindgarden.interfaces.visit_demo import prepare_demo
     from playwright.sync_api import expect, sync_playwright
 
@@ -377,6 +436,13 @@ def main():
                 )
                 with serve(config, scope, "providers", providers, consent) as url:
                     check_models(browser, url, width, providers, axe, args.artifacts)
+                with LocalChatGPTCallback() as callback:
+                    state = "fictional-terminal-state"
+                    callback.arm(state, timeout=20)
+                    query = urlencode({"state": state, "code": "fictional-terminal-code"})
+                    check_callback(browser, callback.redirect_uri + "?" + query, width, axe, destination="terminal",
+                                   heading="Sign-in response received")
+                    assert callback.wait(state) == ("fictional-terminal-code", None)
             with serve(config, scope, "fixture") as url:
                 page = browser.new_page()
                 page.goto(url)
