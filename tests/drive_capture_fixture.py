@@ -69,7 +69,7 @@ class FixtureDrive:
 
 
 def create_capture_fixture(root):
-    root.mkdir(parents=True, exist_ok=True)
+    root.mkdir(mode=0o700, parents=True, exist_ok=True)
     garden = root / "garden"
     create_garden(garden)
     config = root / "bindings.json"
