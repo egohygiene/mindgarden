@@ -35,8 +35,9 @@ same workspace for another visit or choose a new empty private directory.
    then choose **Open consultation booklet**.
 3. Preview the January 2026 fictional packet. Check the reviewed period,
    supplied and missing accounts, totals by currency, unresolved items
-   and citations. Approve the preview to download the PDF and its
-   evidence manifest.
+   and open questions. Expand the transaction list and citations to
+   check the individual rows. Approve the preview to download the PDF
+   and its evidence manifest.
 
 The assistant is fictional and runs offline. This visit uses the same
 reviewed source boundaries as search and context, plus the existing
@@ -77,6 +78,29 @@ flowchart LR
 - Fictional assistant mode uses a separately pinned source grant for
   the exact booklet inputs. The ordinary demo scope and other users'
   local scopes remain independently configured.
+
+## Reproduce the rehearsal
+
+The browser check needs Playwright and a local Chromium. Pass an
+installed axe-core bundle with `--axe` to repeat the accessibility
+check. `--artifacts` saves the fictional downloads and screenshots.
+
+```bash
+PYTHONPATH=src python -m unittest tests.test_studio_assistant \
+  tests.test_assistant_provider_contract tests.test_monthly_booklet \
+  tests.test_visit_launch tests.test_codex_app_server_probe \
+  tests.test_local_web tests.test_package -q
+npm --prefix web run build
+npm --prefix web test
+python scripts/check_studio_assistant_browser.py --chromium /usr/bin/chromium
+```
+
+The suites cover stale context and financial inputs, revocation,
+stream interruption, a second offline adapter, and the classic
+launcher. A fresh Git checkout reproduced the two-page Letter PDF
+and evidence manifest byte for byte. The fictional worksheet
+reconciles eight USD movements to a net of 2,259.76 and identifies
+the missing account.
 
 ## Move from the rehearsal to the real pilot
 
