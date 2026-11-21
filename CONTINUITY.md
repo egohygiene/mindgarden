@@ -7,13 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-21T09:17:54Z'
+  updated_at: '2026-11-21T13:46:53Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Review Studio's scoped knowledge explorer and Drive capture evidence before a selected private pilot.
+  purpose: Review the fictional first curation sweep and verify the scoped garden brief.
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -46,80 +46,86 @@ scope:
   - docs/local-garden-visit.md
   - docs/mindgarden-studio.md
   - experiments/next-rendering/README.md
+  - docs/garden-brief.md
+  - examples/mock-garden/manual-sweep.md
 work:
-  objective: Review Studio's scoped knowledge explorer and Drive capture evidence before a selected private pilot.
+  objective: Review the fictional first curation sweep and verify the scoped garden brief.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
   - Keep real inputs/credentials outside the repository and report unavailable live/private contracts honestly.
   active_issue:
     provider: github
-    id: egohygiene/mindgarden#87
-    url: https://github.com/egohygiene/mindgarden/issues/87
+    id: egohygiene/mindgarden#162
+    url: https://github.com/egohygiene/mindgarden/issues/162
   next:
     kind: action
-    id: review-explorer-and-select-drive-pilot
-    description: Run the fictional graph and Sources tour on the owner's Mac. Review the draft stack, then authorize
-      one selected Drive folder for a local capture and review.
+    id: review-fictional-sweep-before-local-pilot
+    description: 'Open the fictional brief and review its proposed checklist. Select an owned small source collection
+      for a separate local sweep; the Drive and Codex connection proofs remain under #87 and #163.'
     readiness: ready
     references:
-    - docs/mindgarden-studio.md
+    - docs/garden-brief.md
+    - examples/mock-garden/manual-sweep.md
     - docs/drive-capture.md
     depends_on: []
 state:
   base:
-    revision: d57ba2f2e6b3fc0cade28b3f8d14c8f041daabbc
-    ref: refs/heads/feature/react-garden-studio
-    verified_at: '2026-11-21T09:17:54Z'
+    revision: 266bab691bc646d4407b767692b14acf3db6bfb8
+    ref: refs/heads/feature/studio-knowledge-explorer
+    verified_at: '2026-11-21T13:46:53Z'
   candidate:
-    branch: feature/studio-knowledge-explorer
-    revision: 593853c2d776aa56d83f5dea79c85bd43ace35da
+    branch: feature/reviewed-garden-brief
+    revision: bbda9d515e53d48c910904942607e975c1bdce3f
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#160
-      url: https://github.com/egohygiene/mindgarden/pull/160
+      id: egohygiene/mindgarden#167
+      url: https://github.com/egohygiene/mindgarden/pull/167
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-21T09:17:54Z'
+    observed_at: '2026-11-21T13:46:53Z'
     default_branch_revision: 5cf24a29002f8e4f0a464b42819ec21ede33af2a
     issue_state: open
     pull_request_state: draft
-    notes: 'Main 5cf24a2. #160 is draft on #159 at d57ba2f. Thirty issues remain open with 44 tracked rows.'
+    notes: 'Main 5cf24a2. #160 at 266bab6 passed all five hosted checks and remains a draft. #167 stacks on #160.
+      GitHub has 36 open issues; the coverage ledger has 50 rows.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-21T09:17:54Z'
+  reviewed_at: '2026-11-21T13:46:53Z'
   reviewed_by: codex
   evidence:
-  - command: npm --prefix web ci --offline --no-fund --audit=false && npm --prefix web run build && npm --prefix web
-      test
-    outcome: passed
-    observed_at: '2026-11-21T09:17:54Z'
-    notes: A clean Git checkout of the functional revision built Studio and passed eight TypeScript API tests.
-  - command: PYTHONPATH=src python -m unittest tests.test_local_web tests.test_drive_normalization tests.test_package
+  - command: PYTHONPATH=src python -m unittest tests.test_garden_brief tests.test_v1_retrieval tests.test_package
       -q
     outcome: passed
-    observed_at: '2026-11-21T09:17:54Z'
-    notes: Twenty-five cases passed on each Python 3.12.14 and 3.13.5 with umask 0022. Tested evidence scope, revocation,
-      missing lineage, fabricated provider markers and CLI compatibility.
-  - command: python scripts/check_studio_browser.py --chromium /usr/bin/chromium --axe <local-axe.min.js> [--webgl]
+    observed_at: '2026-11-21T13:46:53Z'
+    notes: Fourteen cases per Python 3.12.14 and 3.13.5 with umask 0022. Tests cover reviewed output, exact citations,
+      denied canaries, projection limits, escaping, revision staleness and revoked authority.
+  - command: python -S scripts/garden_brief_demo.py --workspace <fresh> --require-source
     outcome: passed
-    observed_at: '2026-11-21T09:17:54Z'
-    notes: Chromium 151 verified 1440, 390 and 320px with 24 axe checks. Covered note-to-map navigation, trail, filtered
-      graph, Sources, context bytes and no remote asset requests.
-  - command: Launch mindgarden visit --interface studio --local-config <fictional bindings> --scope <fictional session>
-      and open Sources in Chromium
+    observed_at: '2026-11-21T13:46:53Z'
+    notes: Both supported source interpreters, a clean Git checkout, and a repeated build verify the same brief, llms
+      ledger, and exact evidence with network blocked. Brief SHA-256 6606270b02c582783c43a3fdc177e4d57c4aa55683e77973336fb857020bad2b;
+      entrypoint 5ee36ae818a4a526d22027db5b55c2813c7cb535876e90e93ca685a7332d9a15.
+  - command: python -m build --no-isolation; install wheel offline; python -I scripts/garden_brief_demo.py --workspace
+      <fresh> --require-installed
     outcome: passed
-    observed_at: '2026-11-21T09:17:54Z'
-    notes: prepare_demo materialized its synthetic reviewed capture under an explicit bound session. Actual API and
-      Sources rendered Captured evidence with eight exact Drive citations. Demo launch renders Fictional example and
-      12 local-vault citations.
+    observed_at: '2026-11-21T13:46:53Z'
+    notes: Installed engine reproduced the exact proof receipt and two owner-only read views.
+  - command: python -S scripts/mock_garden_demo.py --workspace <fresh> --require-source --check-golden; mindgarden
+      gardenize --local-config <fictional-bindings> --plan examples/mock-garden/manual-sweep.curation.json
+    outcome: passed
+    observed_at: '2026-11-21T13:46:53Z'
+    notes: Golden matched and identical curation previews resolved the three exact line spans and two link targets.
+      Altered content hash and stale link revision failed with PLAN_STALE. Original garden and vault were unchanged
+      by preview.
   environment_limitations:
-  - The browser qualification was Linux Chromium. The owner Mac launch and live Drive OAuth/capture still need local
-    operator evidence.
-  - Studio reports reviewed frozen evidence within an explicit session. ChatGPT's Drive connector uses separate credentials.
-  - Hosted checks, manual accessibility and parent acceptance remain separate.
+  - The authored sweep is a proposal using fictional sources. It preserves explicit review authority.
+  - '#91 retains the optional RDF/JSON-LD/PROV-O evaluation. The reviewed brief and existing entry point use current
+    canonical contracts.'
+  - 'Hosted checks on #167, live Drive consent, any provider execution, and a selected owner private sweep remain
+    separate.'
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -139,48 +145,48 @@ privacy:
 
 ## Purpose and precedence
 
-Review Studio's scoped knowledge explorer and Drive capture evidence before a selected private pilot.
+Review the fictional first curation sweep and verify the scoped garden brief.
 
 ## Resume protocol
 
-Refresh GitHub state and use [the Studio tour](docs/mindgarden-studio.md) from the combined branch.
+Refresh GitHub state and follow [the brief guide](docs/garden-brief.md) from a clean checkout.
 
 ## Current objective and success conditions
 
-Explore authorized graph nodes, pivot through typed relationships, return to a note context, and inspect where reviewed evidence came from.
+Preview a fictional evidence-bound curation plan. Build a concise human map and versioned assistant entry point from approved records. Resolve an exact citation and detect drift under current authority.
 
 ## State snapshot
 
-Main 5cf24a2. #160 is draft on #159 at d57ba2f. Thirty issues remain open with 44 tracked rows.
+Main 5cf24a2. #160 at 266bab6 passed all five hosted checks and remains a draft. #167 stacks on #160. GitHub has 36 open issues; the coverage ledger has 50 rows.
 
 ## Completed and material changes
 
-[#160](https://github.com/egohygiene/mindgarden/pull/160) adds a topic-aware graph, centered note neighborhoods and a trail. The note reader can open a map focus and return. Sources adds scoped Drive and vault citation counts with status based on verified local capture lineage. Functional commit `593853c`.
+[#167](https://github.com/egohygiene/mindgarden/pull/167) adds the scoped `brief` command and matching rehearsal. The ChatGPT-authored checklist uses exact line evidence and two proposed links. Functional commit `bbda9d5`. The normal capture and review flow still owns garden changes.
 
 ## Validation and review evidence
 
-Eight frontend cases and 25 focused Python cases per version passed. Chromium covered the full flow at three viewport widths with both WebGL and fallback. The explicit synthetic capture opened with the Captured evidence badge. Exact commands are in this document's metadata.
+Fourteen tests per supported Python passed. A clean checkout and offline installed wheel reproduced the exact fictional brief and agent ledger. The authored plan preview matched twice and rejected changed evidence and stale link inputs. The pinned ADR, continuity and issue ledger checks passed.
 
 ## Blockers, risks, unknowns, and deferred work
 
-The owner's separate local OAuth and selected folder are needed for a real Drive capture. Browser editing, hosted identity, publication, manual accessibility and the private consumer remain subject to #17, #47 and #87.
+#162 remains open for review. #87 and #163 cover a selected Drive capture and first provider connection. The graph format evaluation stays with #91, and the brief remains a deterministic low-dependency projection.
 
 ## Next dependency-ready work
 
-Run the fictional graph and Sources tour on the owner's Mac. Review the draft stack, then authorize one selected Drive folder for a local capture and review.
+Open the fictional brief and review its proposed checklist. Select an owned small source collection for a separate local sweep; the Drive and Codex connection proofs remain under #87 and #163.
 
 ## Parallel changes and reconciliation
 
-Draft order #155 → #156 → #157 → #158 → #159 → #160. The combined branch is `feature/studio-knowledge-explorer`. Studio's Next.js lab remains independent under `experiments/next-rendering`.
+Draft order #155 → #156 → #157 → #158 → #159 → #160 → #167. Combined checkout `feature/reviewed-garden-brief`. Roadmap #161 and its five native sub-issues are tracked under #86.
 
 ## Privacy and redaction
 
-Use the fictional fixtures for public demonstrations. Keep OAuth, account information, real file paths and the launch capability in the local workspace.
+Use the fictional source fixture for public proposals and proofs. Keep saved private briefs, credentials, bindings, sessions, and source files in their authorized workspace.
 
 ## Handoff update protocol
 
-Record current PR and commit, exact permission scope, runnable checks, remaining acceptance and a resumable first action.
+Record exact branch, issue, commit, commands, verification and the next concrete operation. Refresh live state before acting.
 
 ## Compaction and supersession
 
-Prior checks remain linked from the [coverage ledger](docs/open-issue-coverage.md) and [integration readiness guide](docs/integration-readiness.md).
+Earlier Studio and integration receipts remain linked from the [coverage ledger](docs/open-issue-coverage.md).

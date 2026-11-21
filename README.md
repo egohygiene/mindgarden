@@ -66,6 +66,13 @@ validated stack-neutral tokens, visual references and reusable prompt guidance.
 `mindgarden design --format css` and `--format quartz` export derived views;
 design tooling is optional for other contributors.
 
+## Build a reviewed garden brief
+
+A fictional first sweep shows how source capture, curation, review and
+assistant context fit together. Build a short reading map and an exact
+evidence entry point from the same reviewed records.
+[Garden brief and first-sweep guide](docs/garden-brief.md)
+
 ## Open Mindgarden Studio
 
 Studio adds a Vite-built React interface, keyboard search, a knowledge

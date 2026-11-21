@@ -26,6 +26,7 @@ mindgarden ingest
 mindgarden index
 mindgarden search
 mindgarden context
+mindgarden brief
 mindgarden scope
 mindgarden visit
 mindgarden registry init
@@ -110,6 +111,11 @@ v1 session. Both modes use IPv4 loopback and print the per-process browser
 link. See [the visit guide](local-garden-visit.md) for bounds and scope.
 Use `--interface studio` after building the optional
 [React client](mindgarden-studio.md).
+
+`brief --local-config <bindings> --scope <session>` prints a bounded,
+reviewed v1 garden map. Add `--check <saved-brief.md>` to check exact
+freshness. See [the brief guide](garden-brief.md) for the corresponding
+versioned assistant entry point and fictional rehearsal.
 
 ## Stable exit codes
 

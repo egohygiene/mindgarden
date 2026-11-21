@@ -72,6 +72,9 @@ truth.
 - Generated indexes, embeddings, caches, and rendered sites are disposable.
 - Deterministic ingestion records the supplied artifact, declared origin,
   transformations, and hashes without fetching or interpreting the source.
+- Reviewed curation turns selected evidence into durable notes and links.
+  The scoped [garden brief](docs/garden-brief.md) and versioned assistant
+  entry point are rebuildable views over that approved knowledge.
 - Agent search and context packs are bounded projections with explainable
   lexical ranking; reviewed knowledge is the default trust boundary.
 - The publishing projector admits only reviewed public notes, rewrites links

@@ -1,0 +1,123 @@
+{
+  "schema": "mindgarden.curation-plan/v1",
+  "id": "fictional-manual-sweep",
+  "garden": "synthetic-garden",
+  "created_at": "2026-11-21T13:41:08Z",
+  "producer": {
+    "kind": "agent",
+    "id": "chatgpt-codex"
+  },
+  "review_authority": null,
+  "candidates": [
+    {
+      "id": "mock-portfolio-delivery-review",
+      "action": "summarize",
+      "sources": [
+        {
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-52b5a28256a2537c5d2a4fdc-881d96760580ac2f",
+            "revision": "sha256:881d96760580ac2f800b5ece7326e16586bf8e868644eeda1fa45a98ea159c70"
+          },
+          "locator": "lines:5-8",
+          "content_sha256": "b3788c69f9b45ad0ab344d316ff64c317fb51cfa807764bd68f2b35734578cb4"
+        },
+        {
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-b400dbf42e7db35d637fc66b-85d00bfbc455d0f6",
+            "revision": "sha256:85d00bfbc455d0f6acbb02717cb8a04b6b57192248fb73a75c58be1494e5d873"
+          },
+          "locator": "lines:5-8",
+          "content_sha256": "1b8bcbdc4620118d15519a4bd4ccb9f4fff3fb450bcecb330a5d96c8fae4d123"
+        },
+        {
+          "source": {
+            "garden": "synthetic-garden",
+            "id": "source-93290e57a14243928113607c-b50146c60bb6383b",
+            "revision": "sha256:b50146c60bb6383b7e79f317abc650eeed3580f2f0deee3f270ee5916c8d3bef"
+          },
+          "locator": "lines:5-7",
+          "content_sha256": "5c07cddfe1dc482e54552878a57a773a595e2ef2749b3c6b59967145c0cea564"
+        }
+      ],
+      "merge_inputs": [],
+      "rationale": "Convert three fictional excerpts into a review checklist. The proposed links give the reviewer separate paths to the career experiment and delivery dispute.",
+      "output": {
+        "id": "mock-portfolio-delivery-review",
+        "title": "Review the portfolio demonstration and client delivery separately",
+        "kind": "procedure",
+        "body": "Proposed review checklist.\n\n1. Capture a short keyboard navigation walkthrough for the fictional portfolio demonstration.\n2. Find the fictional client agreement and compare it with both existing delivery records. Keep the brief's May 15, 2026 date and the conversation's May 22, 2026 date visible until the agreement can be checked.\n\nThe selected evidence leaves open whether the demonstration and client delivery share any deadline.\n",
+        "authors": [
+          {
+            "kind": "agent",
+            "id": "chatgpt-codex"
+          }
+        ],
+        "review": {
+          "state": "unreviewed",
+          "reviewers": [],
+          "reviewed_at": null,
+          "rationale": null
+        },
+        "status": "proposed",
+        "confidence": "medium",
+        "epistemic_state": "proposed",
+        "attribution": "assistant-suggestion",
+        "domains": [
+          "business",
+          "career"
+        ],
+        "topics": [
+          "accessibility",
+          "portfolio"
+        ],
+        "caveats": [
+          "Fictional fixture. The checklist is an assistant suggestion for human review."
+        ],
+        "uncertainty": [
+          "The missing agreement leaves the two reported delivery dates unresolved.",
+          "The selected evidence leaves the relationship between the two timelines open."
+        ],
+        "contradictions": [],
+        "claims": [],
+        "synapses": [
+          {
+            "id": "mock-portfolio-delivery-review-career",
+            "type": "references",
+            "target": {
+              "garden": "synthetic-garden",
+              "id": "mock-career",
+              "revision": "sha256:d417ad62d089bfb26d7f1bbdee0e34a7c23b35af656554cea1509cc636dafc9e"
+            },
+            "directed": true,
+            "review": {
+              "state": "unreviewed",
+              "reviewers": [],
+              "reviewed_at": null,
+              "rationale": null
+            },
+            "rationale": "Reopen the proposed career experiment and its original evidence."
+          },
+          {
+            "id": "mock-portfolio-delivery-review-delivery",
+            "type": "references",
+            "target": {
+              "garden": "synthetic-garden",
+              "id": "mock-conversation",
+              "revision": "sha256:2b462c4cdd4542473fde99e018a8a524bc3ad7dca645bdfab6f99eb4dc0a425e"
+            },
+            "directed": true,
+            "review": {
+              "state": "unreviewed",
+              "reviewers": [],
+              "reviewed_at": null,
+              "rationale": null
+            },
+            "rationale": "Reopen the competing reported dates and the agreement question."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,3 +1,18 @@
+**First Studio assistant workflow, 2026-11-21:** GitHub #161 adds the
+following six planning and implementation rows under #86. GitHub has 36
+open issues and this ledger tracks 50 rows. Earlier counts describe their dated
+checkpoints. #87 and #89 retain the selected-source and assistant research
+contracts, and #91 retains the deferred optional graph-format evaluation.
+
+| Issue and purpose | Status | Current evidence | Remaining acceptance and dependencies |
+| --- | --- | --- | --- |
+| [#161](https://github.com/egohygiene/mindgarden/issues/161) — local Studio chat and cited booklet | umbrella | Five native sub-issues, #87 parallel source track, and closed #90 packet proof | Compose the approved Drive, assistant, chat, and booklet checkpoints before the real private pilot |
+| [#162](https://github.com/egohygiene/mindgarden/issues/162) — reviewed garden brief and assistant entry point | partial | Draft [#167](https://github.com/egohygiene/mindgarden/pull/167) adds the [fictional first sweep](garden-brief.md) using existing curation and scoped retrieval | Review the draft and qualify the operator's selected local workspace; optional graph format remains with #91 |
+| [#163](https://github.com/egohygiene/mindgarden/issues/163) — first Studio provider connection | planned | Existing #89 scoped research and proposed local Codex boundary | Verify supported sign-in and isolated synthetic runtime; follow #42 and #31 |
+| [#164](https://github.com/egohygiene/mindgarden/issues/164) — scoped Studio chat | planned | Studio read-only and existing #89 candidate research services | Exercise UI with a fake provider, then qualify a complete scoped turn with #163 |
+| [#165](https://github.com/egohygiene/mindgarden/issues/165) — monthly cited booklet | planned | Existing #90 exact deterministic financial packet | Build local renderer independently; verify figures, provenance, review, and chat-to-download with #164 |
+| [#166](https://github.com/egohygiene/mindgarden/issues/166) — second Studio provider | deferred | Closed #51's portable context precedent | Select a supported second adapter once the first #163–#165 workflow qualifies |
+
 **Knowledge explorer and source evidence, 2026-11-21:** Draft [#160](https://github.com/egohygiene/mindgarden/pull/160) stacks on #159. The Studio
 [graph and Sources checkpoint](mindgarden-studio.md) makes visible notes
 navigable by topic and typed relationships. A scoped summary distinguishes
