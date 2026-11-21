@@ -1,5 +1,5 @@
 import {
-  ArrowRight, ArrowUpRight, Cloud, Cpu, Download, Fingerprint, HardDrive, Plug, Server, ShieldCheck, Sparkles, Square,
+  ArrowRight, Cloud, Cpu, Download, Fingerprint, HardDrive, Plug, Server, ShieldCheck, Sparkles, Square,
 } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 
@@ -8,6 +8,8 @@ import type {
   GardenClient, ModelInstallPreview, ModelPreview, ModelProvider, ModelProviderStatus, ModelResult, ModelsSnapshot,
 } from "./api";
 import { useOperation } from "./assistant";
+import { ChatGPTConnectionControls, useChatGPTConnection } from "./chatgpt-connection";
+import type { ChatGPTSignIn } from "./chatgpt-connection";
 import "./models.css";
 
 const providerStatus = {
@@ -64,24 +66,12 @@ function UsageLimits({ limits }: { limits: NonNullable<ModelProviderStatus["limi
   </details>;
 }
 
-function ChatGPTPlanSetup() {
-  return <section className="models-profile-setup" aria-label="ChatGPT plan setup">
-    <h3>Set up in the terminal</h3>
-    <p>Start the consent flow in your browser from the terminal.</p>
-    <code>mindgarden chatgpt connect --state-directory &lt;private-dir&gt;</code>
-    <p>Restart this Studio visit with the same private state directory, then check the connection again.</p>
-    <code>--chatgpt-state-directory &lt;private-dir&gt;</code>
-    <a href="https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference" rel="noreferrer">
-      Read the ChatGPT plan usage guide <ArrowUpRight size={14} aria-hidden="true" />
-    </a>
-  </section>;
-}
-
-function ProviderCard({ provider, busy, onCheck, onStop }: {
+function ProviderCard({ provider, busy, onCheck, onStop, signIn }: {
   provider: ModelProviderStatus;
   busy: Action | null;
   onCheck: (id: ModelProvider) => void;
   onStop: () => void;
+  signIn?: ChatGPTSignIn;
 }) {
   const id = useId();
   const cloud = provider.disclosure === "cloud";
@@ -94,14 +84,14 @@ function ProviderCard({ provider, busy, onCheck, onStop }: {
     <h2 id={id}>{providerName(provider)}</h2>
     <p className="models-destination">{cloud ? "Cloud provider" : "Local loopback"}</p>
     <p className="models-provider-detail">{provider.detail}</p>
+    {signIn && <ChatGPTConnectionControls signIn={signIn} provider={provider} disabled={busy !== null} />}
     <div className="models-actions">
-      <button className="button" type="button" disabled={busy !== null} onClick={() => onCheck(provider.id)}>
+      <button className="button" type="button" disabled={busy !== null || signIn?.pending || signIn?.hydrating || !!signIn?.action} onClick={() => onCheck(provider.id)}>
         <Plug size={16} aria-hidden="true" />
         {busy === `check:${provider.id}` ? "Checking connection…" : "Check connection"}
       </button>
       {busy === `check:${provider.id}` && <button className="button" type="button" onClick={onStop}>Stop waiting</button>}
     </div>
-    {provider.id === "chatgpt" && provider.status === "unconfigured" && <ChatGPTPlanSetup />}
     {provider.limits && <UsageLimits limits={provider.limits} />}
   </section>;
 }
@@ -121,10 +111,13 @@ export function ModelsView({ client }: { client: GardenClient }) {
   const providerSelect = useId();
   const modelSelect = useId();
   const installSelect = useId();
+  const chatgpt = useChatGPTConnection(client, !!snapshot?.providers.some((item) => item.id === "chatgpt"), clearChatGPTCatalog);
+  const chatgptBusy = chatgpt.pending || chatgpt.action !== null;
   const provider = snapshot?.providers.find((item) => item.id === providerChoice);
+  const providerCanRun = provider?.can_run && !(provider.id === "chatgpt" && chatgptBusy);
   const selectedProviderName = provider ? providerName(provider) : undefined;
   const resultProvider = snapshot?.providers.find((item) => item.id === result?.provider);
-  const model = provider?.can_run ? provider.models.find((item) => item.id === modelChoice) : undefined;
+  const model = providerCanRun ? provider.models.find((item) => item.id === modelChoice) : undefined;
   const installOptions = snapshot?.providers.find((item) => item.id === "ollama")?.downloadable ?? [];
   const installModel = installOptions.find((item) => item.id === installChoice);
   const reviewedInstall = installApproved && installModel?.id === installApproved.model;
@@ -140,6 +133,32 @@ export function ModelsView({ client }: { client: GardenClient }) {
     });
     return () => controller.abort();
   }, [client, loadAttempt]);
+
+  function clearChatGPTCatalog(detail = "Check connection to see available models.") {
+    setSnapshot((current) => current && {
+      ...current,
+      providers: current.providers.map((item) => item.id === "chatgpt"
+        ? { ...item, status: "unchecked", detail, models: [], can_run: false, limits: undefined }
+        : item),
+    });
+    clearChatGPTSelection();
+  }
+
+  function clearChatGPTSelection() {
+    setPreview((current) => current?.provider === "chatgpt" ? undefined : current);
+    setResult((current) => current?.provider === "chatgpt" ? undefined : current);
+    if (providerChoice === "chatgpt") setModelChoice("");
+  }
+
+  function receiveProvider(next: ModelsSnapshot, id: ModelProvider) {
+    const checked = next.providers.find((item) => item.id === id);
+    if (!checked) throw new GardenApiError("INVALID_RESPONSE", 200);
+    setSnapshot((current) => current ? {
+      ...current,
+      providers: current.providers.map((item) => item.id === id ? checked : item),
+    } : next);
+    return checked;
+  }
 
   async function perform<Result>(
     action: Action,
@@ -161,12 +180,8 @@ export function ModelsView({ client }: { client: GardenClient }) {
         setResult(undefined);
         setInstallApproved(undefined);
       } else if (problem instanceof GardenApiError && problem.code === "MODEL_REAUTH") {
-        setSnapshot((current) => current && {
-          ...current,
-          providers: current.providers.map((item) => item.id === "chatgpt"
-            ? { ...item, status: "unconfigured", detail: problem.message, models: [], can_run: false, limits: undefined }
-            : item),
-        });
+        chatgpt.requireSignIn(true);
+        clearChatGPTCatalog(problem.message);
       }
       setError(errorMessage(problem));
     } finally {
@@ -175,12 +190,18 @@ export function ModelsView({ client }: { client: GardenClient }) {
   }
 
   function check(id: ModelProvider) {
-    setPreview(undefined);
-    setInstallApproved(undefined);
+    setPreview((current) => current?.provider === id ? undefined : current);
+    if (id === "ollama") setInstallApproved(undefined);
     void perform(`check:${id}`, (signal) => client.modelCheck(id, signal), (next) => {
-      setSnapshot(next);
-      const checked = next.providers.find((item) => item.id === id);
-      if (checked) setNotice(`${providerName(checked)}: ${statusLabel(checked)}.`);
+      const checked = receiveProvider(next, id);
+      if (id === "chatgpt" && checked.status === "unconfigured") {
+        const wasReady = snapshot?.providers.some((item) => item.id === id && item.status === "ready");
+        chatgpt.requireSignIn(wasReady);
+        clearChatGPTSelection();
+      } else if (id === "chatgpt" && checked.status === "ready") {
+        chatgpt.confirmReady();
+      }
+      setNotice(`${providerName(checked)}: ${statusLabel(checked)}.`);
     });
   }
 
@@ -233,9 +254,8 @@ export function ModelsView({ client }: { client: GardenClient }) {
     setInstallApproved(undefined);
     setPreview(undefined);
     void perform("install", (signal) => client.modelInstall(approved, signal), (next) => {
-      setSnapshot(next);
-      const ollama = next.providers.find((item) => item.id === "ollama");
-      if (ollama?.models.some((item) => item.id === installModel.id)) {
+      const ollama = receiveProvider(next, "ollama");
+      if (ollama.models.some((item) => item.id === installModel.id)) {
         setInstallChoice("");
         setNotice(`${installModel.label} is available in Ollama.`);
       } else {
@@ -276,7 +296,8 @@ export function ModelsView({ client }: { client: GardenClient }) {
     {notice && <p className="panel models-feedback" role="status">{notice}</p>}
     {snapshot && <>
       <div className="models-grid">
-        {snapshot.providers.map((item) => <ProviderCard key={item.id} provider={item} busy={busy} onCheck={check} onStop={stopWaiting} />)}
+        {snapshot.providers.map((item) => <ProviderCard key={item.id} provider={item} busy={busy} onCheck={check} onStop={stopWaiting}
+          signIn={item.id === "chatgpt" ? chatgpt : undefined} />)}
         {!snapshot.providers.length && <p className="panel models-feedback">No providers are configured for this launch.</p>}
       </div>
       <section className="panel models-scenario" aria-label="Fictional scenario">
@@ -294,15 +315,15 @@ export function ModelsView({ client }: { client: GardenClient }) {
                 chooseModel("");
               }}>
               <option value="">Choose a provider</option>
-              {snapshot.providers.map((item) => <option key={item.id} value={item.id} disabled={!item.can_run || !item.models.length}>{providerName(item)}</option>)}
+              {snapshot.providers.map((item) => <option key={item.id} value={item.id} disabled={!item.can_run || !item.models.length || (item.id === "chatgpt" && chatgptBusy)}>{providerName(item)}</option>)}
             </select>
           </div>
           <div className="models-field">
             <label htmlFor={modelSelect}>Model</label>
-            <select id={modelSelect} value={model?.id ?? ""} disabled={working || !provider?.can_run}
+            <select id={modelSelect} value={model?.id ?? ""} disabled={working || !providerCanRun}
               onChange={(event) => chooseModel(event.currentTarget.value)}>
               <option value="">Choose a model</option>
-              {provider?.can_run && provider.models.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
+              {providerCanRun && provider.models.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
             </select>
           </div>
         </div>

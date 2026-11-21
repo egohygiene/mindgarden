@@ -276,6 +276,9 @@ short-lived approvals bind the provider and model. Provider state lives
 in the local process. ChatGPT plan consent keeps its credential in a
 separate owner-controlled directory. Direct HTTPS Responses calls consume
 the completed text stream and recheck the selected credential at delivery.
+An explicit local Studio action opens the official consent page in the
+system browser. The loopback callback and credential exchange stay in the
+native process, while Studio reads a redacted status.
 The app's read services remain the authority for
 garden data, and hosting an authenticated model turn against a private
 session needs its own reviewed authorization.

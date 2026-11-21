@@ -1,17 +1,16 @@
 # Authorize ChatGPT plan use locally
 
 Mindgarden can register with Sign in with ChatGPT for an eligible ChatGPT
-account. The command opens your browser for account selection and consent.
-Your configured state directory holds the verified registration and session.
+account. Start from Studio's **Models** tab. Your private state directory
+holds the verified registration and session.
 This is the separate plan-use connection for Studio. The Codex card can
 also check the account and quotas from your local Codex CLI installation.
 [Registration and sign-in](https://developers.openai.com/siwc/token-sharing-open-source/sign-in)
 
-## Connect on your Mac
+## Connect in Studio
 
 From a checkout, use the same Python interpreter you use to launch Studio.
-Install the optional ID-token verifier and choose a private state directory
-under your home directory. If you already launch Studio in a virtual
+Install the optional ID-token verifier once. If you already launch Studio in a virtual
 environment, activate it and start with the install command. On Homebrew,
 use `"$(brew --prefix python@3.13)/bin/python3.13"` to create the
 environment if `python3.13` is outside your PATH.
@@ -20,14 +19,32 @@ environment if `python3.13` is outside your PATH.
 python3.13 -m venv .venv
 . .venv/bin/activate
 python3.13 -m pip install --requirement requirements/chatgpt.txt
-PYTHONPATH="$PWD/src" python3.13 -m mindgarden chatgpt connect \
-  --state-directory "$HOME/.config/mindgarden/chatgpt"
+npm --prefix web ci
+npm --prefix web run build
+PYTHONPATH="$PWD/src" python3.13 -m mindgarden visit \
+  --interface studio --demo --assistant providers \
+  --workspace "$HOME/mindgarden-models-demo"
 ```
 
-Follow the browser's authorization form and review the plan-use
-permission it requests. The terminal returns a brief status after it
-verifies the result. To check the cached session without opening a browser
-or contacting OpenAI:
+Open the full local link printed by Studio. In **Models**, choose
+**Continue with ChatGPT** on the **ChatGPT plan** card. Mindgarden opens
+your system browser for the official consent screen. After OpenAI returns
+you to the local callback, close that tab and return to Studio. Choose
+**Check connection** to load the model picker. [Run the fictional prompt](studio-model-connections.md#chatgpt-plan)
+
+If the sign-in window is no longer needed, use **Cancel sign-in** in Studio.
+Use **Continue with ChatGPT** again when the session expires. **Sign out
+of ChatGPT** attempts remote revocation and removes the local tokens.
+If Studio reports unconfirmed revocation, you can remove the app in
+ChatGPT settings. [Account sessions and revocation](https://developers.openai.com/siwc/token-sharing-open-source/profiles-and-sessions)
+
+Studio uses `~/.config/mindgarden/chatgpt` by default. An explicit
+`--chatgpt-state-directory` selects a different local registration.
+
+## Optional terminal controls
+
+`chatgpt connect` also starts consent from a terminal. To check the
+cached session without opening a browser or contacting OpenAI:
 
 ```sh
 PYTHONPATH="$PWD/src" python3.13 -m mindgarden chatgpt status \
@@ -59,8 +76,5 @@ if the service was unavailable during revocation.
   qualification. A finished response is the next proof.
   [ChatGPT usage settings](https://chatgpt.com/settings/usage)
 
-The consent draft tests browser callback, registration, refresh and local
-sign-out with synthetic identity and token fixtures. Open the
-[Models guide](studio-model-connections.md#chatgpt-plan) to use the
-explicit profile in the dependent Studio draft. Your browser consent
-and the first completed live response are separate local checks.
+The tests use synthetic identity and token fixtures. Your browser consent
+and first completed live response are separate local checks.

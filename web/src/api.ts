@@ -265,6 +265,13 @@ const modelPreview = z.object({
 });
 const modelResult = z.object({ provider: modelProvider, model: z.string(), text: z.string() });
 const modelInstallPreview = z.object({ model: z.string(), preview_sha256: digest });
+const chatgptConnection = z.strictObject({
+  status: z.enum(["idle", "opening", "waiting", "authorized", "cancelled", "signed-out", "failed"]),
+  code: z.string().regex(/^[A-Z][A-Z0-9_]{0,63}$/).optional(),
+  remote_revocation: z.enum(["confirmed", "unconfirmed", "not-needed"]).optional(),
+});
+export type ChatGPTConnection = z.infer<typeof chatgptConnection>;
+export type ChatGPTConnectionAction = "connect" | "cancel" | "disconnect";
 
 export type ModelProvider = z.infer<typeof modelProvider>;
 export type ModelProviderStatus = z.infer<typeof modelProviderStatus>;
@@ -364,7 +371,10 @@ const diagnostics = {
   MODEL_REVIEW: "The approval expired or changed. Review this operation again.",
   MODEL_BUSY: "A provider action is still running. Wait for it to finish and check the connection.",
   MODEL_QUOTA: "The provider reported a rate limit or exhausted quota. Check usage with the provider before retrying.",
-  MODEL_REAUTH: "Renew the local ChatGPT session with mindgarden chatgpt refresh, then check the connection again.",
+  MODEL_REAUTH: "Choose Continue with ChatGPT to sign in again, then check the connection.",
+  CHATGPT_LOGIN_UNAVAILABLE: "ChatGPT sign-in is unavailable in this Studio visit.",
+  CHATGPT_STATE_BUSY: "A ChatGPT connection action is already in progress. Wait for it to finish and check sign-in status.",
+  CHATGPT_OAUTH_DEPENDENCY: "The Studio Python environment needs the ChatGPT verification dependencies.",
   BOOKLET_REVIEW: "The approved booklet changed. Preview and review it again.",
   BOOKLET_UNAVAILABLE: "The fictional booklet is unavailable in this session.",
 } as const;
@@ -388,7 +398,8 @@ function remoteError(value: unknown, status: number): GardenApiError {
 
 type Endpoint = "garden" | "search" | "note" | "evidence" | "context" | "connectors"
   | "assistant/preview" | "assistant/run" | "booklet/preview" | "booklet/artifact"
-  | "models" | "models/check" | "models/preview" | "models/run" | "models/install/preview" | "models/install";
+  | "models" | "models/check" | "models/preview" | "models/run" | "models/install/preview" | "models/install"
+  | "models/chatgpt/connection" | `models/chatgpt/${ChatGPTConnectionAction}`;
 
 async function localFetch(
   access: string | null,
@@ -528,6 +539,12 @@ export function createGardenClient(access: string | null) {
     },
     async models(signal?: AbortSignal): Promise<ModelsSnapshot> {
       return readValue(modelsSnapshot, await request(access, "models", {}, signal));
+    },
+    async chatgptConnection(signal?: AbortSignal): Promise<ChatGPTConnection> {
+      return readValue(chatgptConnection, await request(access, "models/chatgpt/connection", {}, signal));
+    },
+    async chatgptConnectionAction(action: ChatGPTConnectionAction, signal?: AbortSignal): Promise<ChatGPTConnection> {
+      return readValue(chatgptConnection, await request(access, `models/chatgpt/${action}`, {}, signal, {}));
     },
     async modelCheck(provider: ModelProvider, signal?: AbortSignal): Promise<ModelsSnapshot> {
       return readValue(modelsSnapshot, await request(access, "models/check", {}, signal, { provider }));

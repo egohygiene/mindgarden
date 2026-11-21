@@ -153,3 +153,30 @@ class ModelLabTests(unittest.TestCase):
             self.lab.run(approved)
         with self.assertRaisesRegex(ContractError, "MODEL_REVIEW"):
             self.lab.run(approved)
+
+    def test_reset_prevents_a_stale_catalog_check_from_restoring_model_choices(self):
+        started = threading.Event()
+        finish = threading.Event()
+        state = self.gemini.check.return_value
+        snapshots = []
+
+        def check():
+            started.set()
+            if not finish.wait(timeout=5):
+                raise AssertionError("test timed out")
+            return state
+
+        self.gemini.check.side_effect = check
+        worker = threading.Thread(
+            target=lambda: snapshots.append(self.lab.check({"provider": "gemini"})),
+            daemon=True,
+        )
+        worker.start()
+        try:
+            self.assertTrue(started.wait(timeout=5))
+            self.lab.reset_connection("gemini")
+        finally:
+            finish.set()
+            worker.join(timeout=5)
+        self.assertEqual(snapshots[0]["providers"][1]["status"], "unchecked")
+        self.assertEqual(snapshots[0]["providers"][1]["models"], [])

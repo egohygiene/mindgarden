@@ -44,6 +44,8 @@ The [local consent](docs/studio-chatgpt-consent.md) and its dependent
 Studio draft add direct ChatGPT plan text under the same prompt approval.
 They use official OAuth and Responses with tools omitted. The operator's
 account and native Codex runtime retain their own live qualification.
+The sign-in button in Models opens the native consent flow and reports
+its result in Studio.
 
 Proposed dependency correction for #166: Gemini and Ollama can qualify
 their independent fictional text paths using the same approval contract.

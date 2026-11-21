@@ -91,6 +91,7 @@ class StudioModelRoutesTests(unittest.TestCase):
             patch("mindgarden.interfaces.local_web.browser_assets") as assets,
             patch("mindgarden.interfaces.visit_demo.prepare_demo", return_value=(self.config, self.scope)) as prepare,
             patch("mindgarden.interfaces.local_web.serve_garden", return_value=0) as serve,
+            patch("mindgarden.interfaces.cli.Path.home", return_value=self.workspace),
         ):
             result = main(["visit", "--demo", "--workspace", str(self.workspace), "--interface", "studio",
                            "--assistant", "providers"])
@@ -98,7 +99,9 @@ class StudioModelRoutesTests(unittest.TestCase):
             assets.assert_called_once_with("studio")
             prepare.assert_called_once_with(self.workspace, assistant=True)
             serve.assert_called_once_with(self.config, self.scope, port=0, demo=True,
-                                          interface="studio", assistant="providers")
+                                          interface="studio", assistant="providers",
+                                          chatgpt_state_directory=self.workspace / ".config/mindgarden/chatgpt")
+            self.assertFalse((self.workspace / ".config").exists())
 
     def test_fixture_mode_does_not_instantiate_or_expose_lab(self):
         self.launch("fixture")

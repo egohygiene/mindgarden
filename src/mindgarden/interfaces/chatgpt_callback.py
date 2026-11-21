@@ -129,6 +129,7 @@ class LocalChatGPTCallback:
         self._expected_state: str | None = None
         self._deadline = 0.0
         self._completed = False
+        self._waiting = False
         self._closed = False
         self._result: tuple[str, str | None] | None = None
 
@@ -166,7 +167,8 @@ class LocalChatGPTCallback:
                 self._result = fields["code"], fields.get("client_id")
             return True
 
-    def wait(self, expected_state: str, *, timeout: float = 180) -> tuple[str, str | None]:
+    def arm(self, expected_state: str, *, timeout: float = 180) -> None:
+        """Accept this exact state before a system browser opener can block."""
         if not isinstance(expected_state, str) or not _visible_ascii(expected_state, 256):
             raise ContractError("CHATGPT_CALLBACK: supply the pending sign-in state")
         if type(timeout) not in (int, float) or not 0 < timeout <= TIMEOUT_MAX:
@@ -174,17 +176,36 @@ class LocalChatGPTCallback:
         with self._lock:
             if self._closed or self._server is None or self._worker is not None:
                 raise ContractError("CHATGPT_CALLBACK: use a running, unused local sign-in listener")
-            self._expected_state = expected_state
-            self._deadline = monotonic() + timeout
-            self._worker = Thread(
-                target=self._server.serve_forever, kwargs={"poll_interval": 0.05}, daemon=True,
-                name="mindgarden-chatgpt-callback",
-            )
-            try:
-                self._worker.start()
-            except RuntimeError as error:
-                self._worker = self._expected_state = None
-                raise ContractError("CHATGPT_CALLBACK: the local sign-in listener could not start") from error
+            self._arm(expected_state, timeout)
+
+    def _arm(self, expected_state: str, timeout: float) -> None:
+        self._expected_state = expected_state
+        self._deadline = monotonic() + timeout
+        self._worker = Thread(
+            target=self._server.serve_forever, kwargs={"poll_interval": 0.05}, daemon=True,
+            name="mindgarden-chatgpt-callback",
+        )
+        try:
+            self._worker.start()
+        except RuntimeError as error:
+            self._worker = self._expected_state = None
+            raise ContractError("CHATGPT_CALLBACK: the local sign-in listener could not start") from error
+
+    def wait(self, expected_state: str, *, timeout: float = 180) -> tuple[str, str | None]:
+        if not isinstance(expected_state, str) or not _visible_ascii(expected_state, 256):
+            raise ContractError("CHATGPT_CALLBACK: supply the pending sign-in state")
+        if type(timeout) not in (int, float) or not 0 < timeout <= TIMEOUT_MAX:
+            raise ContractError("CHATGPT_CALLBACK: supply a positive local sign-in timeout")
+        with self._lock:
+            if self._closed:
+                raise ContractError("CHATGPT_CALLBACK_CANCELLED: local sign-in was cancelled")
+            if self._server is None or self._waiting:
+                raise ContractError("CHATGPT_CALLBACK: use a running, unused local sign-in listener")
+            if self._worker is None:
+                self._arm(expected_state, timeout)
+            elif not compare_digest(expected_state, self._expected_state):
+                raise ContractError("CHATGPT_CALLBACK: use the state armed for local sign-in")
+            self._waiting = True
         try:
             self._ready.wait(max(0, self._deadline - monotonic()))
             with self._lock:

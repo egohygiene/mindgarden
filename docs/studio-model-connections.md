@@ -8,7 +8,7 @@ the same visit.
 
 ## Launch the pilot
 
-From the combined draft branch `feature/studio-chatgpt-plan`, use
+From the combined draft branch `feature/studio-chatgpt-browser-login`, use
 Node 24 and Python 3.12 or 3.13.
 
 ```sh
@@ -44,18 +44,12 @@ mode for Studio turns on the target Mac.
 
 ## ChatGPT plan
 
-Use the [local consent guide](studio-chatgpt-consent.md) to authorize
-plan use. Add the same private directory to the fictional Studio launch.
-Use the Python environment in which you installed the optional verifier.
+Choose **Continue with ChatGPT** in the **ChatGPT plan** card to open
+the consent page. Return to Studio once it reports sign-in. The
+[local consent guide](studio-chatgpt-consent.md) covers the one-time
+verifier installation and optional profile directory.
 
-```sh
-PYTHONPATH="$PWD/src" python3.13 -m mindgarden visit \
-  --interface studio --demo --assistant providers \
-  --chatgpt-state-directory "$HOME/.config/mindgarden/chatgpt" \
-  --workspace "$HOME/mindgarden-models-demo"
-```
-
-Choose **Check connection** on the **ChatGPT plan** card and select a
+Choose **Check connection** and select a
 model from your plan's reported catalog. Review the exact same January
 fixture, then choose **Authorize cloud run**. Studio displays the
 reply after a completed Responses stream and checks that the approved
@@ -148,8 +142,9 @@ PYTHONPATH=src python -m unittest tests.test_model_lab \
 python scripts/check_studio_model_browser.py --chromium /usr/bin/chromium
 ```
 
-The browser test exercises model switching, simulated Codex usage,
-Gemini approval, Ollama download approval and the local response.
+The browser test exercises in-app sign-in through the actual loopback
+callback with simulated consent, model switching, Codex usage,
+Gemini approval and Ollama download approval.
 The native Linux smoke used official Ollama 0.40.17 and checksum-verified
 `gemma3:1b` weights in temporary storage. With Ollama cloud features
 disabled, Studio discovered the model and received a response. The tiny

@@ -120,6 +120,58 @@ class StudioChatGPTVisitTests(unittest.TestCase):
                 server.shutdown()
                 worker.join(timeout=5)
 
+    def test_browser_sign_in_actions_require_an_exact_authorized_loopback_request(self):
+        config, scope = prepare_demo(self.root / "visit", assistant=True)
+        login = Mock()
+        login.snapshot.return_value = {"status": "idle"}
+        login.start.return_value = {"status": "opening"}
+        login.cancel.return_value = {"status": "cancelled"}
+        login.disconnect.return_value = {"status": "signed-out", "remote_revocation": "confirmed"}
+        with (
+            patch("mindgarden.interfaces.local_web.browser_assets", return_value={}),
+            patch("mindgarden.interfaces.studio_chatgpt_login.StudioChatGPTLogin", return_value=login) as build_login,
+            make_server(config, scope, demo=True, interface="studio", assistant="providers",
+                        chatgpt_state_directory=self.state) as server,
+        ):
+            build_login.assert_called_once_with(self.state)
+            login.assert_not_called()
+            worker = Thread(target=server.serve_forever, kwargs={"poll_interval": 0.01}, daemon=True)
+            worker.start()
+            try:
+                def request(path, body=None, *, origin=server.origin, authorized=True, status=200):
+                    headers = {"Authorization": "Bearer " + server.access_token} if authorized else {}
+                    if body is not None:
+                        headers.update({"Origin": origin, "Content-Type": "application/json"})
+                    with closing(HTTPConnection(*server.server_address, timeout=15)) as http:
+                        http.request("GET" if body is None else "POST", "/api/models/chatgpt/" + path, body, headers)
+                        reply = http.getresponse()
+                        data = json.loads(reply.read())
+                        self.assertEqual(reply.status, status, data)
+                        self.assertEqual(reply.getheader("Cache-Control"), "no-store")
+                        return data
+
+                self.assertEqual(request("connection"), {"status": "idle"})
+                login.snapshot.assert_called_once_with()
+                self.assertFalse(self.state.exists())
+                request("connect", "{}", authorized=False, status=403)
+                request("connect", "{}", origin="http://untrusted.invalid", status=403)
+                request("connect", '{"redirect":"https://untrusted.invalid"}', status=400)
+                request("connect", status=404)
+                login.start.assert_not_called()
+                self.assertEqual(request("connect", "{}"), {"status": "opening"})
+                guard, invalidate = login.start.call_args.args
+                guard()
+                invalidate()
+                self.assertEqual(request("cancel", "{}"), {"status": "cancelled"})
+                self.assertEqual(request("disconnect", "{}")["remote_revocation"], "confirmed")
+                login.start.assert_called_once()
+                login.cancel.assert_called_once_with()
+                login.disconnect.assert_called_once()
+            finally:
+                server.shutdown()
+                worker.join(timeout=5)
+        login.close.assert_called_once_with()
+
 
 if __name__ == "__main__":
     unittest.main()
