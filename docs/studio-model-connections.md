@@ -106,6 +106,12 @@ generation need separate model capabilities and review of generated
 artifacts. This checkpoint runs text models and verifies the connection
 boundary. [Studio roadmap #161](https://github.com/egohygiene/mindgarden/issues/161)
 
+Another provider can register a connection check and a bounded text
+operation with the same broker. Its adapter owns credentials, requests
+and response parsing. The broker owns the approved prompt, model
+selection and one-use consent. Review its reported capabilities and
+account metadata before adding that provider to the model picker.
+
 ## Reproduce the checks
 
 With the production Studio build, a local Chromium and Playwright,
