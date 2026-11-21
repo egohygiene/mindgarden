@@ -2,7 +2,13 @@
 
 from datetime import datetime, timedelta, timezone
 
-from ..adapters.generated_files import apply_generated, inventory
+from ..adapters.generated_files import (
+    MARKER,
+    apply_generated,
+    complete_generated,
+    inventory,
+    verify_generated,
+)
 from ..adapters.registry_files import control_path
 from ..domain.contracts import (
     ContractRegistry,
@@ -12,7 +18,7 @@ from ..domain.contracts import (
 )
 from ..domain.scope import local_scope
 from ..domain.validation import ContractError
-from .compaction import preview_compaction
+from .compaction import compaction_byte_limit, preview_compaction
 from .federation import export_destination
 from .query import QueryContext
 
@@ -73,14 +79,21 @@ def plan_compaction_bundle(
         files["curation.json"] = canonical_json(curation)
     preview = {"bundle": bundle, "report": report, "files": inventory(files)}
     preview["plan_sha256"] = digest_bytes(canonical_json(preview))
-    return context.finalize(preview), files
+    content = canonical_json(preview)
+    if len(content) > compaction_byte_limit(context, plan):
+        raise ContractError(
+            "COMPACTION_BUDGET: the complete proof preview exceeds the authorized byte budget"
+        )
+    context.ensure_bundle(complete_generated(files, preview["plan_sha256"]))
+    context.ensure_output(content)
+    return preview, files
 
 
 def run_compaction_bundle(arguments):
     context = QueryContext.load(arguments.local_config, arguments.scope)
     directory = arguments.output_directory.absolute()
     directory = export_destination(context, directory.parent, directory.name)
-    control_path(directory / ".mindgarden-generated.json")
+    control_path(directory / MARKER)
 
     def current():
         plan = read_object(arguments.input)
@@ -103,18 +116,29 @@ def run_compaction_bundle(arguments):
                 "COMPACTION_STALE: inputs or authority changed; review a new plan"
             )
 
-    if arguments.check and not directory.is_dir():
-        raise ContractError("COMPACTION_MISSING: immutable proof bundle is unavailable")
-    if arguments.apply or arguments.check:
+    changed = False
+    if arguments.check:
+        if not directory.is_dir():
+            raise ContractError("COMPACTION_MISSING: immutable proof bundle is unavailable")
+        verify_generated(
+            directory,
+            files,
+            expected_digest=preview["plan_sha256"],
+            check_live=context.check_live,
+            validate_output=context.ensure_bundle,
+            verify_inputs=verify,
+        )
+    elif arguments.apply:
         changed = apply_generated(
             directory,
             files,
-            preview["plan_sha256"] if arguments.check else arguments.plan_digest,
+            arguments.plan_digest,
             preview["plan_sha256"],
             check_live=context.check_live,
             validate_output=context.ensure_bundle,
             verify_inputs=verify,
         )
+    if arguments.apply or arguments.check:
         result = {
             "status": "created" if changed else "verified-no-op",
             "plan_sha256": preview["plan_sha256"],

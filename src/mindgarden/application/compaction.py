@@ -55,6 +55,14 @@ def validate_curation_bridge(context, plan, proposal):
     return results
 
 
+def compaction_byte_limit(context, plan):
+    return min(
+        context.session["budgets"]["max_context_bytes"],
+        plan["retention"]["model_context"]["max_bytes"],
+        plan["retention"]["detail_budgets"][plan["budget_profile"]]["max_bytes"],
+    )
+
+
 def preview_compaction(context, plan, *, curation=None, source_only=False):
     nodes, _order = validate_plan(plan)
     context.require("context")
@@ -87,9 +95,7 @@ def preview_compaction(context, plan, *, curation=None, source_only=False):
         for item in evidence.values()]
     report["plan_sha256"] = digest_bytes(canonical_json({"plan": plan, "authority_sha256": context.scope_digest(),
         **({"input_mode": "source-grant"} if source_only else {})}))
-    maximum = min(context.session["budgets"]["max_context_bytes"], plan["retention"]["model_context"]["max_bytes"],
-                  plan["retention"]["detail_budgets"][plan["budget_profile"]]["max_bytes"])
-    if len(canonical_json(report)) > maximum:
+    if len(canonical_json(report)) > compaction_byte_limit(context, plan):
         raise ContractError("COMPACTION_BUDGET: complete proof and provenance exceed the authorized byte budget")
     return context.finalize(report)
 
@@ -106,9 +112,7 @@ def refresh_compaction(context, plan, previous_manifest, *, curation=None, sourc
                          "reason": "dependency-or-authored-node-changed" if node["id"] in changed else "inputs-unchanged",
                          "selected_output": node["id"] in selected}
                         for node in current["manifest"]["nodes"]]}
-    maximum = min(context.session["budgets"]["max_context_bytes"], plan["retention"]["model_context"]["max_bytes"],
-                  plan["retention"]["detail_budgets"][plan["budget_profile"]]["max_bytes"])
-    if len(canonical_json(result)) > maximum:
+    if len(canonical_json(result)) > compaction_byte_limit(context, plan):
         raise ContractError("COMPACTION_BUDGET: complete refresh metadata exceeds the explicit retention budget")
     return context.finalize(result)
 

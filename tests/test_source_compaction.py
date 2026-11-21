@@ -2,7 +2,9 @@
 
 from copy import deepcopy
 from argparse import Namespace
+from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
+from io import StringIO
 import json
 from pathlib import Path
 import sys
@@ -11,7 +13,7 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from mindgarden.adapters.generated_files import apply_generated
+from mindgarden.adapters.generated_files import MARKER, apply_generated, complete_generated
 from mindgarden.application.bindings import garden_fingerprint
 from mindgarden.application.compaction import preview_compaction
 from mindgarden.application.compaction_bundles import (
@@ -22,7 +24,7 @@ from mindgarden.application.query import QueryContext
 from mindgarden.application.retrieval import search_payload
 from mindgarden.application.sessions import bind_session_revisions
 from mindgarden.application.source_evidence import resolve_source_evidence
-from mindgarden.domain.contracts import ContractRegistry, digest_bytes
+from mindgarden.domain.contracts import ContractRegistry, canonical_json, digest_bytes
 from mindgarden.domain.scope import local_scope
 from mindgarden.domain.validation import ContractError
 from tests.compaction_fixture import FIXTURES, capture_fixture, create_fixture, cli
@@ -264,6 +266,124 @@ class SourceCompactionTests(unittest.TestCase):
             )
         self.assertEqual(self.before, garden_fingerprint(self.fixture["garden"]))
         self.assertEqual(self.original, self.fixture["archive"].read_bytes())
+
+    def saved_proof(self):
+        plan_path = self.root / "source-plan.json"
+        write_json(plan_path, self.plan)
+        preview, files = plan_compaction_bundle(
+            self.context, self.plan, self.created_at, source_only=True
+        )
+        output = self.root / "proof"
+        digest = preview["plan_sha256"]
+        apply_generated(
+            output,
+            files,
+            digest,
+            digest,
+            check_live=self.context.check_live,
+            verify_inputs=lambda: None,
+        )
+        return Namespace(
+            local_config=self.fixture["configuration"],
+            scope=self.path,
+            input=plan_path,
+            created_at=self.created_at,
+            output_directory=output,
+            curation_plan=None,
+            source_only=True,
+            apply=False,
+            check=True,
+        ), complete_generated(files, digest)
+
+    def test_cli_check_never_recreates_a_removed_bundle(self):
+        arguments, expected = self.saved_proof()
+        destination = arguments.output_directory
+        retained = self.root / "retained-proof"
+        is_dir = Path.is_dir
+
+        def move_after_probe(path):
+            present = is_dir(path)
+            if path == destination and present:
+                path.rename(retained)
+            return present
+
+        # Isolate the check's existence probe after destination preflight. A
+        # concurrent move preserves the original and must not authorize writes.
+        with (
+            patch(
+                "mindgarden.application.compaction_bundles.export_destination",
+                return_value=destination,
+            ),
+            patch.object(Path, "is_dir", move_after_probe),
+            redirect_stdout(StringIO()) as output,
+            self.assertRaisesRegex(ContractError, "REGISTRY_UNAVAILABLE"),
+        ):
+            run_compaction_bundle(arguments)
+        self.assertFalse(destination.exists())
+        self.assertEqual(output.getvalue(), "")
+        self.assertEqual(
+            {path.name: path.read_bytes() for path in retained.iterdir()}, expected
+        )
+
+    def test_cli_check_requires_exact_reviewed_marker_digest(self):
+        arguments, expected = self.saved_proof()
+        with redirect_stdout(StringIO()) as output:
+            self.assertEqual(run_compaction_bundle(arguments), 0)
+        self.assertEqual(json.loads(output.getvalue())["status"], "verified-no-op")
+
+        marker = arguments.output_directory / MARKER
+        original = json.loads(marker.read_bytes())
+        modified = canonical_json({**original, "plan_sha256": "0" * 64})
+        marker.write_bytes(modified)
+        with self.assertRaisesRegex(ContractError, "GENERATED_CONFLICT"):
+            run_compaction_bundle(arguments)
+        self.assertEqual(
+            {path.name: path.read_bytes() for path in arguments.output_directory.iterdir()},
+            {**expected, MARKER: modified},
+        )
+
+    def test_build_preview_accounting_includes_entire_report_and_inventory(self):
+        preview, _ = plan_compaction_bundle(
+            self.context, self.plan, self.created_at, source_only=True
+        )
+        preview_size = len(canonical_json(preview))
+        report_size = len(canonical_json(preview["report"]))
+        # The authored detail ceiling is itself printed in the report. Keep
+        # room for its decimal width to change without reaching the boundary.
+        ceiling = (preview_size + report_size) // 2
+        for boundary in ("model-context", "detail-profile", "session-context"):
+            with self.subTest(boundary=boundary):
+                plan = deepcopy(self.plan)
+                if boundary == "model-context":
+                    plan["retention"]["model_context"]["max_bytes"] = ceiling
+                elif boundary == "detail-profile":
+                    plan["retention"]["detail_budgets"][plan["budget_profile"]]["max_bytes"] = ceiling
+                else:
+                    self.session["budgets"]["max_context_bytes"] = ceiling
+                    self.refresh()
+                with self.assertRaisesRegex(ContractError, "COMPACTION_BUDGET"):
+                    plan_compaction_bundle(
+                        self.context, plan, self.created_at, source_only=True
+                    )
+
+    def test_build_projection_accounts_for_complete_owned_bundle(self):
+        preview, files = plan_compaction_bundle(
+            self.context, self.plan, self.created_at, source_only=True
+        )
+        owned = complete_generated(files, preview["plan_sha256"])
+        ceiling = sum(map(len, owned.values())) - 1
+        self.assertLess(len(canonical_json(preview)), ceiling)
+        self.assertLessEqual(sum(map(len, files.values())), ceiling)
+        self.session["budgets"]["max_output_bytes"] = ceiling
+        self.refresh()
+        with self.assertRaisesRegex(ContractError, "QUERY_BUDGET"):
+            plan_compaction_bundle(
+                self.context, self.plan, self.created_at, source_only=True
+            )
+
+        self.session["budgets"]["max_output_bytes"] += 1
+        self.refresh()
+        plan_compaction_bundle(self.context, self.plan, self.created_at, source_only=True)
 
     def test_expiry_revocation_and_changed_inputs_reject_without_deleting_old_proof(
         self,
