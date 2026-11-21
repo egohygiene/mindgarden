@@ -99,6 +99,16 @@ def check_studio(url, chromium, axe, artifacts):
             assert re.fullmatch("[0-9a-f]{64}", reviewed["plan_sha256"])
             assert reviewed["totals"][0]["net_movement"] == "2259.76"
             assert len(reviewed["evidence"]) == 8
+            expect(page.get_by_role("heading", name="Open questions")).to_be_visible()
+            for question_text in reviewed["questions"]:
+                expect(page.get_by_text(question_text, exact=True)).to_be_visible()
+            page.get_by_text("8 selected transactions", exact=True).click()
+            transactions = page.get_by_role("list", name="Selected transactions").get_by_role("listitem")
+            expect(transactions).to_have_count(len(reviewed["transactions"]))
+            for row, transaction in zip(transactions.all(), reviewed["transactions"]):
+                expect(row).to_contain_text(transaction["date"])
+                expect(row).to_contain_text(transaction["amount"] + " " + transaction["currency"])
+                expect(row).to_contain_text(transaction["citation"])
             expect(page.get_by_role("button", name="Download PDF")).to_be_disabled()
             audit()
             page.get_by_role("button", name="Approve preview for download").click()

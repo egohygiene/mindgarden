@@ -1,6 +1,6 @@
 import {
   ArrowRight, ArrowUpRight, BookOpen, BookOpenCheck, Check, ChevronDown, CircleDot, Download, FileText,
-  Fingerprint, LockKeyhole, MessageSquare, ScrollText, ShieldCheck, Sparkles, Square, Wallet,
+  Fingerprint, ListChecks, LockKeyhole, MessageSquare, ScrollText, ShieldCheck, Sparkles, Square, Wallet,
 } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 
@@ -264,9 +264,10 @@ function SourceDetails({ source }: { source: SourceCitation }) {
   </div>;
 }
 
-function SourceList({ sources }: { sources: SourceCitation[] }) {
+function SourceList({ sources, numbered = false }: { sources: SourceCitation[]; numbered?: boolean }) {
   return <ul className="pilot-source-list">
     {sources.map((source, index) => <li key={`${referenceKey(source.source)}:${source.locator}:${index}`}>
+      {numbered && <code className="pilot-evidence-id">[E{String(index + 1).padStart(2, "0")}]</code>}
       <SourceDetails source={source} />
     </li>)}
   </ul>;
@@ -441,6 +442,28 @@ function MoneyRows({ total }: { total: BookletPreview["totals"][number] }) {
   </div>;
 }
 
+function BookletTransactions({ transactions }: { transactions: BookletPreview["transactions"] }) {
+  const citationByRow = new Map(transactions.map((row) => [row.id, row.citation]));
+  return <details className="pilot-details">
+    <summary><ListChecks size={17} aria-hidden="true" /> {countLabel(transactions.length, "selected transaction")} <ChevronDown size={15} aria-hidden="true" /></summary>
+    <ul className="pilot-transaction-list" aria-label="Selected transactions">
+      {transactions.map((row) => {
+        const paired = row.paired_with && citationByRow.get(row.paired_with);
+        return <li key={row.id}>
+          <div className="pilot-transaction-heading">
+            <p><time dateTime={row.date}>{row.date}</time> · {row.account}</p>
+            <strong>{row.amount} {row.currency}</strong>
+          </div>
+          <p>
+            <code className="pilot-evidence-id">[{row.citation}]</code> <FormatLabel value={row.classification} />
+            {paired && <> · Paired with <code>[{paired}]</code></>}
+          </p>
+        </li>;
+      })}
+    </ul>
+  </details>;
+}
+
 function BookletSheet({ preview }: { preview: BookletPreview }) {
   return <article className="panel pilot-panel pilot-sheet" aria-label="Booklet preview">
     <header className="pilot-sheet-header">
@@ -465,13 +488,18 @@ function BookletSheet({ preview }: { preview: BookletPreview }) {
         <h3>Unresolved transactions</h3>
         <ul>{preview.unresolved_transactions.map((ref) => <li key={ref}><code>{ref}</code></li>)}</ul>
       </section>}
+      {!!preview.questions.length && <section className="pilot-limitations">
+        <h3>Open questions</h3>
+        <ul>{preview.questions.map((question) => <li key={question}>{question}</li>)}</ul>
+      </section>}
       {!!preview.limitations.length && <section className="pilot-limitations">
         <h3>What the figures cover</h3>
         <ul>{preview.limitations.map((item) => <li key={item}>{item}</li>)}</ul>
       </section>}
+      {!!preview.transactions.length && <BookletTransactions transactions={preview.transactions} />}
       {!!preview.evidence.length && <details className="pilot-details">
         <summary><Fingerprint size={17} aria-hidden="true" /> {countLabel(preview.evidence.length, "source citation")} <ChevronDown size={15} aria-hidden="true" /></summary>
-        <SourceList sources={preview.evidence} />
+        <SourceList sources={preview.evidence} numbered />
       </details>}
     </div>
   </article>;
@@ -492,7 +520,7 @@ export function BookletView({ booklet }: { booklet: ReturnType<typeof useStudioB
           </button>
         </div>
         {booklet.preview && <div className="pilot-review">
-          <p className="pilot-muted">Review the figures, coverage, and source citations before downloading.</p>
+          <p className="pilot-muted">Review the figures, selected transactions, open questions, and source citations before downloading.</p>
           <button className="pilot-check" type="button" aria-pressed={booklet.approved} disabled={booklet.busy !== null}
             onClick={() => booklet.setApproved(!booklet.approved)}>
             <Check size={17} aria-hidden="true" />
