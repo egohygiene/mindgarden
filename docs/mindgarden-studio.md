@@ -55,6 +55,9 @@ so the server pins the new hashed asset manifest.
 5. Open **Context packs** and search for `consultation`. Download the JSON
    to see the citations, selection reasons, and byte budget.
 
+The optional [fictional assistant pilot](studio-assistant-pilot.md) adds chat,
+context review, and a monthly booklet to the fictional Studio visit.
+
 ## Show reviewed Drive evidence
 
 A local session can show **Captured evidence** for a Drive snapshot.

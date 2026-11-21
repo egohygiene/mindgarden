@@ -262,6 +262,13 @@ The authorized #127â€“#132 stack is merged at `f5baa3d`. Dependent drafts #133â€
 
 ## Current bounded integration evidence
 
+The [fictional assistant pilot](docs/studio-assistant-pilot.md) previews
+authorized context through the same services as Studio's read views.
+The local broker binds dispatch to the approved preview. A separate
+ledger preview authorizes deterministic PDF and evidence downloads.
+[Codex protocol qualification](docs/studio-codex.md) records the candidate
+runtime boundary and remaining sign-in proof.
+
 [Mindgarden Studio](docs/mindgarden-studio.md) builds a React interface
 with Vite and serves its manifest-listed assets through the same Python
 loopback adapter. The TypeScript client calls the existing scoped read

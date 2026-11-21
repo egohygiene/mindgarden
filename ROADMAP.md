@@ -35,6 +35,14 @@ publication: central
 route: /roadmap/mindgarden/
 updated: 2026-11-13
 -->
+## 2026-11-21 fictional assistant pilot
+
+The [local Studio pilot](docs/studio-assistant-pilot.md) connects the scoped
+reviewed view to a fictional chat and a reviewed January booklet. #163
+tracks the local Codex protocol and supported live sign-in proof, #164 the
+Studio chat, and #165 the booklet. #166 follows the first live provider
+qualification. The selected owner Drive pilot remains under #87.
+
 ## 2026-11-21 reviewed garden brief
 
 The [first sweep](docs/garden-brief.md) advances #162 under #161 with a

@@ -11,6 +11,8 @@ import {
   House,
   Layers3,
   Link2,
+  MessageSquare,
+  ScrollText,
   Search,
   Sprout,
   Wallet,
@@ -32,6 +34,7 @@ import {
   type NoteSummary,
   referenceKey,
 } from "./api";
+import { BookletView, ChatView, useStudioBooklet, useStudioChat } from "./assistant";
 import { ConnectorPreview, SourcesView } from "./connectors";
 import { KnowledgeExplorer } from "./explorer";
 import { ContextView, NotesView, NoteView } from "./features";
@@ -43,6 +46,8 @@ type Route =
   | { name: "connections"; focus?: string }
   | { name: "context"; query: string }
   | { name: "sources" }
+  | { name: "chat" }
+  | { name: "booklet" }
   | { name: "note"; reference: string };
 
 const sections = [
@@ -51,6 +56,8 @@ const sections = [
   { label: "Connections", route: { name: "connections" }, icon: GitFork },
   { label: "Context packs", route: { name: "context", query: "" }, icon: Layers3 },
   { label: "Sources", route: { name: "sources" }, icon: Database },
+  { label: "Chat", route: { name: "chat" }, icon: MessageSquare },
+  { label: "Consultation booklet", route: { name: "booklet" }, icon: ScrollText },
 ] satisfies Array<{ label: string; route: Route; icon: typeof Compass }>;
 
 const affiliated = [
@@ -62,6 +69,8 @@ const affiliated = [
 function canOpen(route: Route, garden?: GardenOverview) {
   if (route.name === "connections") return garden?.capabilities.graph;
   if (route.name === "context") return garden?.capabilities.context;
+  if (route.name === "chat") return garden?.demo && garden.capabilities.assistant;
+  if (route.name === "booklet") return garden?.demo && garden.capabilities.booklet;
   return true;
 }
 
@@ -326,13 +335,21 @@ export function Studio({ client }: { client: GardenClient }) {
   const afterNavigation = useRef(false);
   const noteReturn = useRef<Route>({ name: "notes", query: "" });
   const reducedMotion = useReducedMotion();
+  const chat = useStudioChat(client);
+  const booklet = useStudioBooklet(client);
 
   useEffect(() => {
     const controller = new AbortController();
     client.garden(controller.signal).then((next) => {
-      if (!controller.signal.aborted) setGarden(next);
+      if (controller.signal.aborted) return;
+      if (!next.demo || !next.capabilities.assistant) chat.clear();
+      if (!next.demo || !next.capabilities.booklet) booklet.clear();
+      setGarden(next);
     }).catch((problem: unknown) => {
-      if (!controller.signal.aborted) setError(problem instanceof Error ? problem.message : "Couldn't open the garden.");
+      if (controller.signal.aborted) return;
+      chat.clear();
+      booklet.clear();
+      setError(problem instanceof Error ? problem.message : "Couldn't open the garden.");
     });
     return () => controller.abort();
   }, [client, route]);
@@ -369,6 +386,8 @@ export function Studio({ client }: { client: GardenClient }) {
   }, [garden?.capabilities.search]);
 
   function navigate(next: Route) {
+    if (route.name === "chat") chat.cancel();
+    if (route.name === "booklet") booklet.cancel();
     afterNavigation.current = true;
     setSearchOpen(false);
     setGarden(undefined);
@@ -381,6 +400,7 @@ export function Studio({ client }: { client: GardenClient }) {
   function openNote(reference: string) {
     if (route.name === "notes") noteReturn.current = route;
     else if (route.name === "connections") noteReturn.current = { name: "connections", focus: reference };
+    else if (route.name === "chat") noteReturn.current = { name: "chat" };
     else if (route.name !== "note") noteReturn.current = { name: "notes", query: "" };
     navigate({ name: "note", reference });
   }
@@ -399,20 +419,35 @@ export function Studio({ client }: { client: GardenClient }) {
       case "notes": content = <NotesView client={client} notes={garden.notes} query={route.query} onSearch={search} onOpenNote={openNote} canSearch={garden.capabilities.search} />; break;
       case "note": {
         const inGraph = garden.graph.nodes.some((note) => referenceKey(note.reference) === route.reference);
-        content = <NoteView
+        const canAsk = garden.demo && garden.capabilities.assistant
+          && garden.notes.some((note) => referenceKey(note.reference) === route.reference);
+        content = <>{canAsk && <div className="pilot-note-launch">
+          <button className="button" type="button" onClick={() => {
+            chat.selectNote(route.reference);
+            navigate({ name: "chat" });
+          }}><MessageSquare size={17} aria-hidden="true" /> Ask about this note</button>
+        </div>}
+          <NoteView
           client={client}
           reference={route.reference}
           onOpenNote={openNote}
           onBack={() => navigate(noteReturn.current)}
-          backLabel={noteReturn.current.name === "connections" ? "Back to map" : undefined}
+          backLabel={noteReturn.current.name === "connections" ? "Back to map"
+            : noteReturn.current.name === "chat" ? "Back to chat" : undefined}
           onExplore={inGraph ? (reference) => navigate({ name: "connections", focus: reference }) : undefined}
           canReadEvidence={garden.capabilities.evidence}
           notes={garden.notes}
-        />;
+        /></>;
         break;
       }
       case "context": content = <ContextView client={client} query={route.query} notes={garden.notes} onBuild={(query) => navigate({ name: "context", query })} onOpenNote={openNote} enabled={garden.capabilities.context} />; break;
       case "sources": content = <SourcesView connectors={connectors} error={connectorError} />; break;
+      case "chat": {
+        content = <ChatView garden={garden} chat={chat} onOpenNote={openNote}
+          onOpenBooklet={canOpen({ name: "booklet" }, garden) ? () => navigate({ name: "booklet" }) : undefined} />;
+        break;
+      }
+      case "booklet": content = <BookletView booklet={booklet} />; break;
     }
   }
 
