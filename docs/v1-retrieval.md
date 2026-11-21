@@ -51,8 +51,9 @@ knowledge; ordinary local context is private and has no publication authority.
 
 ## Commands
 
-All v1 commands use the same `--repository-root`, `--local-config` and `--scope`
-arguments. Search uses `--query` and `--limit`; `--include-unreviewed` cannot
+V1 retrieval commands use explicit `--local-config` and `--scope` arguments.
+Commands that select a repository take `--repository-root`. Search uses
+`--query` and `--limit`. `--include-unreviewed` cannot
 exceed the supplied session's allowed review states. Reviewed active knowledge
 is the default, and raw sources never become ordinary knowledge search results.
 
