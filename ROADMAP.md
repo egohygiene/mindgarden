@@ -35,6 +35,15 @@ publication: central
 route: /roadmap/mindgarden/
 updated: 2026-11-13
 -->
+## 2026-11-21 reviewed garden brief
+
+The [first sweep](docs/garden-brief.md) advances #162 under #161 with a
+fictional candidate proposal, a compact human brief and a rehearsal of the
+existing versioned assistant entry point. The optional RDF/JSON-LD and
+PROV-O evaluation retains its #91 scheduling. #87 still owns the selected
+Drive capture, and #163–#166 retain the planned provider, chat and report
+checkpoints.
+
 ## 2026-11-21 knowledge explorer and source status
 
 Studio can focus on a reviewed note, follow its typed relationships, and

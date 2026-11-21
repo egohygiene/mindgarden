@@ -72,3 +72,7 @@ To practice using this same garden with an assistant, the
 [fictional two-task rehearsal](../../docs/scoped-research.md#rehearse-two-tasks-with-the-fictional-garden)
 provides separate career and accounting read plans and copyable CLI commands.
 Choose a new workspace for that rehearsal.
+
+The [manual sweep](manual-sweep.md) is a separate ChatGPT-authored curation
+proposal over this same fictional evidence. It includes a draft checklist and
+two proposed links pinned to exact reviewed revisions for a human to inspect.

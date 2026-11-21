@@ -62,6 +62,9 @@ is the default, and raw sources never become ordinary knowledge search results.
 - `mindgarden backlinks --artifact "garden-id/artifact-id"` returns authorized incoming links.
 - `mindgarden context --pack "default" --format "json"` renders bounded context.
 - `mindgarden llms` renders an authorized local entrypoint.
+- `mindgarden brief --local-config <bindings> --scope <session>` renders a
+  short, reviewed human map alongside the entrypoint. See the
+  [brief guide](garden-brief.md) for freshness rules.
 - `mindgarden verify` independently rebuilds and compares authorized indexes.
 - `mindgarden evidence` resolves an exact `sources` selection returned by search,
   with source identity, original selector, attribution and review authority.

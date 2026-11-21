@@ -284,6 +284,15 @@ def add_agent_commands(commands: ParserCollection) -> None:
         command.add_argument("--diagnostic-format", choices=("text","json"), default="text")
         command.set_defaults(scoped_output_command=True)
 
+    from ..application.brief import run_brief
+
+    brief = commands.add_parser("brief", help="Render a short Markdown map of reviewed knowledge")
+    brief.add_argument("--local-config", type=Path, required=True, help="Explicit local garden and storage bindings")
+    brief.add_argument("--scope", type=Path, required=True, help="Explicit v1 scoped-query session")
+    brief.add_argument("--check", type=Path, help="Verify a saved Markdown brief against the live reviewed view")
+    brief.add_argument("--diagnostic-format", choices=("text", "json"), default="text")
+    brief.set_defaults(handler=run_brief, scoped_output_command=True)
+
     from ..application.retrieval import run_projection
 
     for name in ("graph", "backlinks", "outbound"):
