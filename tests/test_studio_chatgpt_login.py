@@ -18,6 +18,7 @@ from mindgarden.adapters.chatgpt_credentials import ChatGPTCredentials, ChatGPTS
 from mindgarden.domain.validation import ContractError
 from mindgarden.interfaces.chatgpt_callback import LocalChatGPTCallback
 from mindgarden.interfaces.studio_chatgpt_login import StudioChatGPTLogin
+from mindgarden.interfaces.studio_diagnostics import StudioDiagnostics
 
 
 class StudioChatGPTLoginTests(unittest.TestCase):
@@ -72,6 +73,8 @@ class StudioChatGPTLoginTests(unittest.TestCase):
 
     def test_requires_explicit_start_and_arms_before_a_synchronous_browser(self):
         login = self.login(self.consent)
+        diagnostics = StudioDiagnostics()
+        login.attach_diagnostics(diagnostics.sign_in)
         self.assertEqual(login.snapshot(), {"status": "idle"})
         self.assertFalse(self.directory.exists())
         self.oauth.require_oidc.assert_not_called()
@@ -90,6 +93,12 @@ class StudioChatGPTLoginTests(unittest.TestCase):
         self.assertEqual(self.oauth.exchange.call_args.args[1:], ("fixture-code", self.credentials.client_id))
         self.assertEqual(ChatGPTStore(self.directory).read(), self.credentials)
         self.invalidate.assert_called_once_with()
+        events = diagnostics.snapshot()["events"]
+        self.assertEqual([event["code"] for event in events], [
+            "CHATGPT_LOGIN_OPENING", "CHATGPT_LOGIN_WAITING", "CHATGPT_LOGIN_VERIFYING", "CHATGPT_LOGIN_AUTHORIZED",
+        ])
+        self.assertTrue(all(event["outcome"] == "ok" and event["operation"] == "sign-in" for event in events))
+        self.assertNotIn("fixture-code", str(events))
 
     def test_fresh_visit_reports_previously_saved_consent_without_contacting_openai(self):
         ChatGPTStore(self.directory).save(self.credentials)
@@ -194,9 +203,14 @@ class StudioChatGPTLoginTests(unittest.TestCase):
 
                 self.oauth.exchange.side_effect = exchange
                 login = self.login(browser)
+                diagnostics = StudioDiagnostics()
+                login.attach_diagnostics(diagnostics.sign_in)
                 login.start(guard, self.invalidate)
                 self.wait_status(login, "failed")
                 self.assertEqual(login.snapshot(), {"status": "failed", "code": "SESSION_REVOKED"})
+                event = diagnostics.snapshot()["events"][-1]
+                self.assertEqual((event["code"], event["outcome"]), ("SESSION_REVOKED", "error"))
+                self.assertNotIn("private-callback-canary", str(event))
                 self.assertIsNone(ChatGPTStore(self.directory).read())
                 self.invalidate.assert_not_called()
                 if stage == "before-exchange":

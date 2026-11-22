@@ -88,6 +88,37 @@ describe("typed read client", () => {
     await expect(createGardenClient(access).connectors()).rejects.toMatchObject({ code: "INVALID_RESPONSE" });
   });
 
+  it("reads the fixed local diagnostics envelope with the visit bearer", async () => {
+    const event = {
+      id: 1, source: "server", provider: "chatgpt", operation: "check", outcome: "attention",
+      code: "MODEL_CATALOG_EMPTY", at_ms: 1_800_000_000_000, duration_ms: 18,
+    };
+    const body = { capacity: 80, events: [event] };
+    const fetch = vi.fn().mockResolvedValueOnce(jsonResponse(JSON.stringify(body)));
+    vi.stubGlobal("fetch", fetch);
+    await expect(createGardenClient(access).diagnostics()).resolves.toEqual(body);
+    expect(fetch).toHaveBeenCalledWith("/api/diagnostics", expect.objectContaining({
+      cache: "no-store",
+      credentials: "omit",
+      headers: { Accept: "application/json", Authorization: `Bearer ${access}` },
+    }));
+  });
+
+  it("rejects unexpected diagnostic fields and an oversized history", async () => {
+    const event = {
+      id: 1, source: "server", provider: "studio", operation: "sources", outcome: "ok",
+      code: "SOURCES_OK", at_ms: 1_800_000_000_000, duration_ms: 8,
+    };
+    const malformed = [
+      { capacity: 80, events: [{ ...event, message: "synthetic-private-canary" }] },
+      { capacity: 80, events: Array.from({ length: 81 }, () => event) },
+    ];
+    for (const body of malformed) {
+      vi.stubGlobal("fetch", vi.fn().mockResolvedValueOnce(jsonResponse(JSON.stringify(body))));
+      await expect(createGardenClient(access).diagnostics()).rejects.toMatchObject({ code: "INVALID_RESPONSE" });
+    }
+  });
+
   it("keeps the exact context bytes while sending the bearer only in the header", async () => {
     const qualification = {
       epistemic_state: "unverified", attribution: "quoted", caveats: [], uncertainty: [], contradictions: [],

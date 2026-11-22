@@ -96,7 +96,7 @@ function ProviderCard({ provider, busy, onCheck, onStop, signIn }: {
   </section>;
 }
 
-export function ModelsView({ client }: { client: GardenClient }) {
+export function ModelsView({ client, onOpenDiagnostics }: { client: GardenClient; onOpenDiagnostics: () => void }) {
   const operation = useOperation<Action>();
   const [snapshot, setSnapshot] = useState<ModelsSnapshot>();
   const [loadAttempt, setLoadAttempt] = useState(0);
@@ -283,7 +283,10 @@ export function ModelsView({ client }: { client: GardenClient }) {
         <h1>Models</h1>
         <p>Check a configured provider, review a fictional prompt, and authorize one run.</p>
       </div>
-      <span className="models-badge"><Fingerprint size={15} aria-hidden="true" /> Fictional provider lab</span>
+      <div className="models-heading-actions">
+        <span className="models-badge"><Fingerprint size={15} aria-hidden="true" /> Fictional provider lab</span>
+        <button className="button" type="button" onClick={onOpenDiagnostics}>Open diagnostics</button>
+      </div>
     </header>
     {!snapshot && !error && <p className="panel models-feedback" role="status">Loading local provider settings…</p>}
     {error && <div className="panel models-feedback models-error">

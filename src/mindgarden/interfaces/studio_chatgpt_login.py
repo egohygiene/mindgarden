@@ -2,10 +2,11 @@
 
 from collections.abc import Callable
 from contextlib import contextmanager
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import partial
 from pathlib import Path
 from threading import Event, RLock, Thread
+from time import monotonic_ns
 import webbrowser
 
 from ..application import chatgpt_connection
@@ -27,6 +28,7 @@ SAFE_ERRORS = frozenset({
 
 @dataclass
 class _Attempt:
+    started: int = field(default_factory=monotonic_ns)
     listener: LocalChatGPTCallback | None = None
     cancelled: bool = False
     committed: bool = False
@@ -51,6 +53,16 @@ class StudioChatGPTLogin:
         self._disconnecting = False
         self._attempt: _Attempt | None = None
         self._status = {"status": "idle"}
+        self._observe = None
+
+    def attach_diagnostics(self, observe: Callable[[dict, int], None]) -> None:
+        """Attach the visit's bounded event collector before accepting requests."""
+        self._observe = observe
+
+    def _progress(self, attempt: _Attempt, status: dict) -> None:
+        self._status = status
+        if self._observe is not None:
+            self._observe(status, attempt.started)
 
     def snapshot(self) -> dict:
         with self._lock:
@@ -75,14 +87,14 @@ class StudioChatGPTLogin:
             self._require_idle()
             attempt = _Attempt()
             self._attempt = attempt
-            self._status = {"status": "opening"}
+            self._progress(attempt, {"status": "opening"})
             worker = Thread(target=self._connect, args=(attempt, guard, invalidate), daemon=True,
                             name="mindgarden-studio-chatgpt-login")
             try:
                 worker.start()
             except RuntimeError:
                 self._attempt = None
-                self._status = {"status": "failed", "code": "CHATGPT_LOGIN_UNAVAILABLE"}
+                self._progress(attempt, {"status": "failed", "code": "CHATGPT_LOGIN_UNAVAILABLE"})
             return dict(self._status)
 
     def _require_pending(self, attempt: _Attempt) -> None:
@@ -114,7 +126,7 @@ class StudioChatGPTLogin:
         with self._lock:
             self._require_pending(attempt)
             if opened:
-                self._status = {"status": "waiting"}
+                self._progress(attempt, {"status": "waiting"})
         return opened
 
     def _connect(self, attempt: _Attempt, guard: Callable[[], None], invalidate: Callable[[], None]) -> None:
@@ -140,7 +152,7 @@ class StudioChatGPTLogin:
         def verifying() -> None:
             with self._lock:
                 self._require_pending(attempt)
-                self._status = {"status": "verifying"}
+                self._progress(attempt, {"status": "verifying"})
 
         @contextmanager
         def committing():
@@ -163,7 +175,7 @@ class StudioChatGPTLogin:
             status = {"status": "cancelled"} if code == "CHATGPT_CALLBACK_CANCELLED" else {"status": "failed", "code": code}
         with self._lock:
             if not self._closed and not attempt.cancelled:
-                self._status = status
+                self._progress(attempt, status)
             self._attempt = None
 
     def _cancel_pending(self) -> LocalChatGPTCallback | None:

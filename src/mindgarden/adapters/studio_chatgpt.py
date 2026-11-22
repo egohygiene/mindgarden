@@ -37,6 +37,19 @@ ERROR_LIMIT = 8 * 1024
 STREAM_LIMIT = 512 * 1024
 EVENT_LIMIT = 96 * 1024
 MAX_EVENTS = 1024
+CATALOG_DETAILS = {
+    "MODEL_NOT_CONFIGURED": "Sign in and allow direct ChatGPT plan use before checking models.",
+    "MODEL_REAUTH": "Renew the local ChatGPT sign-in and check the connection again.",
+    "MODEL_QUOTA": "ChatGPT plan use reached a limit. Check ChatGPT settings Usage.",
+    "MODEL_UNAVAILABLE": "The local ChatGPT sign-in could not be verified.",
+    "MODEL_CATALOG_EMPTY": "ChatGPT listed no available models for this plan.",
+    "MODEL_CATALOG_NO_ENTITLEMENT": "ChatGPT reported that this account is ineligible for direct plan use.",
+    "MODEL_CATALOG_TRANSPORT": "The bounded ChatGPT catalog connection did not complete.",
+    "MODEL_CATALOG_HTTP": "ChatGPT did not accept the catalog request.",
+    "MODEL_CATALOG_FORBIDDEN": "ChatGPT refused access to the model catalog.",
+    "MODEL_CATALOG_SERVICE_UNAVAILABLE": "The ChatGPT model catalog service was unavailable.",
+    "MODEL_CATALOG_RESPONSE": "The ChatGPT catalog response could not be verified.",
+}
 LIFECYCLE_EVENTS = frozenset(
     {"response.created", "response.queued", "response.in_progress"}
 )
@@ -61,6 +74,12 @@ class _Catalog:
     expires_at: int
     token_digest: bytes
     models: frozenset[str]
+
+
+class _CatalogError(ContractError):
+    def __init__(self, code):
+        super().__init__("MODEL_UNAVAILABLE: " + CATALOG_DETAILS[code])
+        self.code = code
 
 
 def _catalog(credentials: ChatGPTCredentials, models: frozenset[str]) -> _Catalog:
@@ -117,21 +136,26 @@ class ChatGPTProvider:
             model_ids = frozenset(item["id"] for item in models)
             catalog = _catalog(credentials, model_ids)
             self._selected_credentials(catalog)
-        except ContractError as error:
-            code = str(error).split(":", 1)[0]
+        except (ContractError, OSError) as error:
+            if isinstance(error, _CatalogError):
+                code = error.code
+            elif isinstance(error, OSError):
+                code = "MODEL_CATALOG_TRANSPORT"
+            else:
+                code = str(error).partition(":")[0]
             status = (
                 "unconfigured"
                 if code in {"MODEL_NOT_CONFIGURED", "MODEL_REAUTH"}
                 else "unavailable"
             )
-            return _status(status, str(error))
+            if code not in CATALOG_DETAILS:
+                code = "MODEL_UNAVAILABLE"
+            return {**_status(status, CATALOG_DETAILS[code]), "diagnostic_code": code}
         self._catalog = catalog
-        detail = (
-            "ChatGPT lists models for the signed-in plan."
-            if models
-            else "ChatGPT listed no available models for this plan."
-        )
-        return _status("ready", detail, models)
+        if not models:
+            return {**_status("ready", CATALOG_DETAILS["MODEL_CATALOG_EMPTY"]),
+                    "diagnostic_code": "MODEL_CATALOG_EMPTY"}
+        return _status("ready", "ChatGPT lists models for the signed-in plan.", models)
 
     def _selected_credentials(self, catalog: _Catalog) -> ChatGPTCredentials:
         try:
@@ -165,9 +189,9 @@ class ChatGPTProvider:
 
 
 def _listed_models(result):
-    rows = result.get("models")
+    rows = result.get("models") if isinstance(result, dict) else None
     if not isinstance(rows, list) or len(rows) > MAX_MODELS or "error" in result:
-        raise ContractError("MODEL_UNAVAILABLE: ChatGPT model inventory was incomplete")
+        raise _CatalogError("MODEL_CATALOG_RESPONSE")
     models = {}
     for entry in rows:
         if not isinstance(entry, dict) or entry.get("visibility") != "list":
@@ -209,6 +233,19 @@ def _error_code(payload):
         return None
     error = payload.get("error", payload)
     return error.get("code") if isinstance(error, dict) else None
+
+
+def _catalog_http_error(status, code):
+    error = _remote_error(status, code)
+    if not str(error).startswith("MODEL_UNAVAILABLE:"):
+        return error
+    if code == "subscription_sharing_user_not_eligible":
+        return _CatalogError("MODEL_CATALOG_NO_ENTITLEMENT")
+    if status == 403:
+        return _CatalogError("MODEL_CATALOG_FORBIDDEN")
+    if 500 <= status <= 599:
+        return _CatalogError("MODEL_CATALOG_SERVICE_UNAVAILABLE")
+    return _CatalogError("MODEL_CATALOG_HTTP")
 
 
 def _json(raw):
@@ -279,11 +316,16 @@ class _ChatGPTEndpoint:
                         if status in {400, 403, 503}
                         else None
                     )
-                    raise _remote_error(status, code)
+                    raise _remote_error(status, code) if streaming else _catalog_http_error(status, code)
                 if streaming:
                     return _read_inference(response, socket, deadline)
-                return _json(_read_body(response, socket, deadline, LIST_LIMIT))
+                try:
+                    return _json(_read_body(response, socket, deadline, LIST_LIMIT))
+                except ContractError:
+                    raise _CatalogError("MODEL_CATALOG_RESPONSE") from None
         except (HTTPException, OSError):
+            if not streaming:
+                raise _CatalogError("MODEL_CATALOG_TRANSPORT") from None
             raise ContractError(
                 "MODEL_UNAVAILABLE: the bounded ChatGPT connection did not complete"
             ) from None

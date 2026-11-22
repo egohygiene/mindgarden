@@ -18,6 +18,11 @@ ROOT = Path(__file__).resolve().parents[1]
 PROVIDER_PROMPT_RESULT = "<strong>Fictional comparison result.</strong>"
 DOWNLOAD_ID = "fake-local:1b"
 DOWNLOAD_LABEL = "Fictional local model"
+CATALOG_DENIED = "MODEL_CATALOG_NO_ENTITLEMENT"
+CATALOG_EMPTY = "MODEL_CATALOG_EMPTY"
+CATALOG_RESPONSE = "MODEL_CATALOG_RESPONSE"
+DIAGNOSTIC_CANARY = "fictional-provider-detail-not-for-diagnostics"
+CONSOLE_CANARY = "https://example.invalid/private?signature=fictional-console-secret"
 
 
 @dataclass
@@ -76,6 +81,7 @@ class FixtureProvider:
     installed: bool = False
     consent: FixtureConsent | None = None
     expired: bool = False
+    catalog_diagnostic: str | None = None
 
     def signed_in(self):
         return self.consent is not None and not self.expired and self.consent.active()
@@ -91,10 +97,17 @@ class FixtureProvider:
         if self.id == "gemini":
             state.update(models=[{"id": "small", "label": "Small"}, {"id": "large", "label": "Large"}], can_run=True)
         if self.id == "chatgpt":
-            if self.signed_in():
-                state.update(models=[{"id": "small", "label": "Plan text model"}], can_run=True)
-            else:
+            if not self.signed_in():
                 state.update(status="unconfigured", detail="The fictional profile needs consent.")
+            elif self.catalog_diagnostic == CATALOG_DENIED:
+                state.update(status="unavailable", detail=DIAGNOSTIC_CANARY, diagnostic_code=CATALOG_DENIED)
+            elif self.catalog_diagnostic == CATALOG_EMPTY:
+                state.update(detail="The fictional plan has no visible models.", diagnostic_code=CATALOG_EMPTY)
+            elif self.catalog_diagnostic == CATALOG_RESPONSE:
+                state.update(status="unavailable", detail="The fictional model catalog is invalid.",
+                             diagnostic_code=CATALOG_RESPONSE)
+            else:
+                state.update(models=[{"id": "small", "label": "Plan text model"}], can_run=True)
         if self.id == "ollama":
             model = {"id": DOWNLOAD_ID, "label": DOWNLOAD_LABEL}
             if self.installed:
@@ -171,6 +184,79 @@ def check_callback(browser, url, width, axe, *, destination, heading, status=200
         page.close()
 
 
+def check_diagnostics(page, url, width, consent, scenario_prompt, diagnostics_reads, audit, artifacts):
+    from playwright.sync_api import expect
+
+    assert not diagnostics_reads, "Diagnostics requested while its view was closed"
+    page.evaluate("(value) => console.warn(value, {privateExample: value})", CONSOLE_CANARY)
+    entry = page.get_by_role("button", name="Diagnostics", exact=True)
+    entry.focus()
+    expect(entry).to_be_focused()
+    with page.expect_response("**/api/diagnostics") as received:
+        page.keyboard.press("Enter")
+    expect(page.get_by_role("heading", name="Diagnostics", level=1)).to_be_visible()
+    expect(page.get_by_role("heading", name="Operation durations")).to_be_visible()
+    expect(page.get_by_role("heading", name="Event timeline")).to_be_visible()
+    assert diagnostics_reads and set(diagnostics_reads) == {"GET"}
+
+    response = received.value
+    assert response.ok and response.header_value("cache-control") == "no-store"
+    events = response.json()["events"]
+    assert [event["id"] for event in events] == sorted({event["id"] for event in events})
+    catalog_events = [
+        event for event in events
+        if event["source"] == "server" and event["provider"] == "chatgpt" and event["operation"] == "check"
+    ]
+    codes = [event["code"] for event in catalog_events]
+    malformed = codes.index(CATALOG_RESPONSE)
+    denied = codes.index(CATALOG_DENIED)
+    empty = codes.index(CATALOG_EMPTY)
+    assert malformed < denied < empty < codes.index("MODEL_CHECK_OK", empty), codes
+    sign_in = [event["code"] for event in events if event["operation"] == "sign-in"]
+    assert sign_in.index("CHATGPT_LOGIN_VERIFYING") < sign_in.index("CHATGPT_LOGIN_AUTHORIZED"), sign_in
+    assert {event["operation"] for event in events if event["provider"] == "chatgpt"} >= {
+        "sign-in", "cancel", "disconnect",
+    }
+    assert all(event["duration_ms"] >= 0 for event in events)
+
+    page.context.grant_permissions(["clipboard-read", "clipboard-write"],
+                                   origin=f"http://{urlsplit(url).netloc}")
+    copy = page.get_by_role("button", name="Copy visible events")
+    copy.click()
+    expect(page.get_by_text("Visible diagnostics copied.", exact=True)).to_be_visible()
+    copied_text = page.evaluate("navigator.clipboard.readText()")
+    assert copied_text.startswith("Mindgarden Studio diagnostics\n")
+    assert "| Browser | Studio | Browser console | Needs attention | BROWSER_CONSOLE_WARNING |" in copied_text
+
+    timeline = page.get_by_role("region", name="Event timeline")
+    timeline.get_by_role("combobox", name="Provider").select_option("chatgpt")
+    timeline.get_by_role("combobox", name="Outcome").select_option("attention")
+    expect(timeline.get_by_text(CATALOG_DENIED, exact=True)).to_be_visible()
+    expect(timeline.get_by_text(CATALOG_EMPTY, exact=True)).to_be_visible()
+    copy.click()
+    expect(page.get_by_text("Visible diagnostics copied.", exact=True)).to_be_visible()
+    filtered_copy = page.evaluate("navigator.clipboard.readText()")
+    assert CATALOG_DENIED in filtered_copy and CATALOG_EMPTY in filtered_copy
+    assert "BROWSER_CONSOLE_WARNING" not in filtered_copy and "| Gemini |" not in filtered_copy
+    canaries = (
+        DIAGNOSTIC_CANARY, CONSOLE_CANARY, "fictional-console-secret", "fixture-code",
+        "fictional-browser-access", "fictional-browser-refresh", "fictional-browser-id",
+        "fictional-optional-session", "oaiapp_browser_fixture", PROVIDER_PROMPT_RESULT,
+        str(consent.directory), "Plan text model",
+        scenario_prompt, scenario_prompt.splitlines()[0],
+        parse_qs(urlsplit(consent.opened[-1]).query)["state"][0],
+        parse_qs(urlsplit(url).fragment)["access"][0],
+    )
+    for output in (response.text(), page.get_by_role("main").inner_text(), copied_text, filtered_copy):
+        assert not any(value in output for value in canaries), "A raw diagnostic value was exposed"
+    with page.expect_response("**/api/diagnostics") as refreshed:
+        page.get_by_role("button", name="Refresh events").click()
+    assert refreshed.value.ok
+    if artifacts:
+        page.screenshot(path=artifacts / f"studio-diagnostics-{width}.png", full_page=True, animations="disabled")
+    audit()
+
+
 def check_models(browser, url, width, providers, axe, artifacts):
     from playwright.sync_api import expect
 
@@ -182,6 +268,7 @@ def check_models(browser, url, width, providers, axe, artifacts):
     consent = chatgpt_provider.consent
     errors = []
     posts = []
+    diagnostics_reads = []
     missed_reads = 0
     drop_next_status = False
     authority = urlsplit(url).netloc
@@ -194,6 +281,8 @@ def check_models(browser, url, width, providers, axe, artifacts):
             errors.append("Unexpected remote URL")
             route.abort()
             return
+        if parsed.path == "/api/diagnostics":
+            diagnostics_reads.append(request.method)
         if request.method == "POST":
             posts.append((parsed.path, request.post_data_json))
             if parsed.path == "/api/models/chatgpt/connect" and len(consent.opened) == 0:
@@ -214,7 +303,10 @@ def check_models(browser, url, width, providers, axe, artifacts):
         if axe:
             page.evaluate(axe)
             violations = page.evaluate("async () => (await axe.run()).violations")
-            assert not violations, [item["id"] for item in violations]
+            assert not violations, [
+                (item["id"], [(node["target"], node.get("failureSummary")) for node in item["nodes"]])
+                for item in violations
+            ]
 
     page.on("pageerror", lambda error: errors.append(str(error)))
     page.route("http*://**/*", local_only)
@@ -281,8 +373,21 @@ def check_models(browser, url, width, providers, axe, artifacts):
     expect(chatgpt.get_by_text("Signed in", exact=False)).to_be_visible()
     assert chatgpt_provider.calls == [("check",)]
     expect(selector.locator('option[value="chatgpt"]')).to_be_disabled()
+    chatgpt_provider.catalog_diagnostic = CATALOG_RESPONSE
+    chatgpt.get_by_role("button", name="Check connection").click()
+    expect(chatgpt.get_by_text("The fictional model catalog is invalid.", exact=True)).to_be_visible()
+    chatgpt_provider.catalog_diagnostic = CATALOG_DENIED
+    chatgpt.get_by_role("button", name="Check connection").click()
+    expect(chatgpt.get_by_text(DIAGNOSTIC_CANARY, exact=True)).to_be_visible()
+    expect(selector.locator('option[value="chatgpt"]')).to_be_disabled()
+    chatgpt_provider.catalog_diagnostic = CATALOG_EMPTY
+    chatgpt.get_by_role("button", name="Check connection").click()
+    expect(chatgpt.get_by_text("The fictional plan has no visible models.", exact=True)).to_be_visible()
+    expect(selector.locator('option[value="chatgpt"]')).to_be_disabled()
+    chatgpt_provider.catalog_diagnostic = None
     chatgpt.get_by_role("button", name="Check connection").click()
     expect(chatgpt.get_by_text("Models available", exact=True)).to_be_visible()
+    checked_chatgpt = [("check",)] * 5
 
     gemini.get_by_role("button", name="Check connection").click()
     expect(gemini.get_by_text("Connected", exact=True)).to_be_visible()
@@ -338,13 +443,13 @@ def check_models(browser, url, width, providers, axe, artifacts):
         other_provider_attempt,
     )
     assert (denied_status, denied_code) == (409, "MODEL_REVIEW")
-    assert chatgpt_provider.calls == [("check",), ("check",)]
+    assert chatgpt_provider.calls == checked_chatgpt
     preview.click()
     expect(prompt.get_by_text("The request may count against your ChatGPT plan usage.", exact=False)).to_be_visible()
     assert prompt.locator("pre").text_content() == chatgpt_provider.approved_prompt
     page.get_by_role("button", name="Authorize cloud run").click()
     expect(output.locator("pre").first).to_have_text(PROVIDER_PROMPT_RESULT)
-    assert chatgpt_provider.calls == [("check",), ("check",), ("run", "small")]
+    assert chatgpt_provider.calls == [*checked_chatgpt, ("run", "small")]
     audit()
 
     preview.click()
@@ -357,7 +462,7 @@ def check_models(browser, url, width, providers, axe, artifacts):
     expect(selector.locator('option[value="chatgpt"]')).to_be_disabled()
     expect(connect).to_be_visible()
     expect(output).to_have_count(0)
-    assert chatgpt_provider.calls == [("check",), ("check",), ("run", "small")]
+    assert chatgpt_provider.calls == [*checked_chatgpt, ("run", "small")]
 
     ollama.get_by_role("button", name="Check connection").click()
     expect(ollama.get_by_text("Connected", exact=True)).to_be_visible()
@@ -400,8 +505,12 @@ def check_models(browser, url, width, providers, axe, artifacts):
     assert [body for path, body in posts if path == "/api/models/chatgpt/connect"] == [{}, {}, {}]
     assert [body for path, body in posts if path == "/api/models/chatgpt/cancel"] == [{}]
     assert [body for path, body in posts if path == "/api/models/chatgpt/disconnect"] == [{}]
-    assert not errors, errors
     audit()
+    post_count = len(posts)
+    check_diagnostics(page, url, width, consent, chatgpt_provider.approved_prompt,
+                      diagnostics_reads, audit, artifacts)
+    assert len(posts) == post_count, "Diagnostics performed an application action"
+    assert not errors, errors
     page.close()
 
 
@@ -450,7 +559,7 @@ def main():
                 expect(page.get_by_role("button", name="Models", exact=True)).to_have_count(0)
                 page.close()
             browser.close()
-    print("Studio Models browser proof passed at 1440 and 390 pixels with offline fixture providers.")
+    print("Studio Models and Diagnostics browser proof passed at 1440 and 390 pixels with offline fixture providers.")
 
 
 if __name__ == "__main__":

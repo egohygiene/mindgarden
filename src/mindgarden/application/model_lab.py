@@ -37,6 +37,11 @@ PREVIEW_LIFETIME_SECONDS = 300
 MAX_PREVIEWS = 16
 MAX_RESULT_BYTES = 16_384
 MAX_IDENTIFIER_LENGTH = 128
+CATALOG_CODES = frozenset({
+    "MODEL_REAUTH", "MODEL_NOT_CONFIGURED", "MODEL_QUOTA", "MODEL_UNAVAILABLE",
+    "MODEL_CATALOG_EMPTY", "MODEL_CATALOG_NO_ENTITLEMENT", "MODEL_CATALOG_TRANSPORT",
+    "MODEL_CATALOG_HTTP", "MODEL_CATALOG_FORBIDDEN", "MODEL_CATALOG_SERVICE_UNAVAILABLE", "MODEL_CATALOG_RESPONSE",
+})
 
 
 class ModelProvider(Protocol):
@@ -103,6 +108,9 @@ class ModelLab:
     def _descriptor(provider: ModelProvider, state: dict) -> dict:
         # Only the application contract crosses the browser boundary.
         descriptor = {key: state[key] for key in ("status", "detail", "can_run")}
+        code = state.get("diagnostic_code")
+        if type(code) is str and code in CATALOG_CODES:
+            descriptor["diagnostic_code"] = code
         for catalog in ("models", "downloadable"):
             if catalog in state:
                 descriptor[catalog] = [{key: entry[key] for key in ("id", "label")} for entry in state[catalog]]

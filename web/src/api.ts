@@ -273,6 +273,22 @@ const chatgptConnection = z.strictObject({
 export type ChatGPTConnection = z.infer<typeof chatgptConnection>;
 export type ChatGPTConnectionAction = "connect" | "cancel" | "disconnect";
 
+const diagnosticEvent = z.strictObject({
+  id: positive,
+  source: z.literal("server"),
+  provider: z.enum(["chatgpt", "codex", "gemini", "ollama", "studio"]),
+  operation: z.enum(["check", "run", "install", "sign-in", "cancel", "disconnect", "sources"]),
+  outcome: z.enum(["ok", "attention", "error"]),
+  code: z.string().regex(/^[A-Z][A-Z0-9_]{0,63}$/),
+  at_ms: nonnegative.max(8_640_000_000_000_000),
+  duration_ms: nonnegative,
+});
+const studioDiagnostics = z.strictObject({
+  capacity: z.literal(80),
+  events: z.array(diagnosticEvent).max(80),
+});
+export type StudioDiagnostics = z.infer<typeof studioDiagnostics>;
+
 export type ModelProvider = z.infer<typeof modelProvider>;
 export type ModelProviderStatus = z.infer<typeof modelProviderStatus>;
 export type ModelsSnapshot = z.infer<typeof modelsSnapshot>;
@@ -399,7 +415,7 @@ function remoteError(value: unknown, status: number): GardenApiError {
 type Endpoint = "garden" | "search" | "note" | "evidence" | "context" | "connectors"
   | "assistant/preview" | "assistant/run" | "booklet/preview" | "booklet/artifact"
   | "models" | "models/check" | "models/preview" | "models/run" | "models/install/preview" | "models/install"
-  | "models/chatgpt/connection" | `models/chatgpt/${ChatGPTConnectionAction}`;
+  | "diagnostics" | "models/chatgpt/connection" | `models/chatgpt/${ChatGPTConnectionAction}`;
 
 async function localFetch(
   access: string | null,
@@ -536,6 +552,9 @@ export function createGardenClient(access: string | null) {
     async evidence(ref: ArtifactReference | string, citation: number, signal?: AbortSignal): Promise<Evidence> {
       const parameters = { ref: referenceKey(ref), citation: String(citation) };
       return readValue(evidence, await request(access, "evidence", parameters, signal));
+    },
+    async diagnostics(signal?: AbortSignal): Promise<StudioDiagnostics> {
+      return readValue(studioDiagnostics, await request(access, "diagnostics", {}, signal));
     },
     async models(signal?: AbortSignal): Promise<ModelsSnapshot> {
       return readValue(modelsSnapshot, await request(access, "models", {}, signal));

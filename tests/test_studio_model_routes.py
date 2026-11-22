@@ -107,6 +107,7 @@ class StudioModelRoutesTests(unittest.TestCase):
         self.launch("fixture")
         self.assertFalse(self.request("/api/garden")["capabilities"]["models"])
         self.error("/api/models", "WEB_NOT_FOUND", 404)
+        self.error("/api/diagnostics", "WEB_NOT_FOUND", 404)
         self.error("/api/models/check", "WEB_METHOD", 405, payload={"provider": "ollama"})
         self.assertEqual(self.lab.mock_calls, [])
 
@@ -178,6 +179,7 @@ class StudioModelRoutesTests(unittest.TestCase):
         original = changed.read_bytes()
         changed.write_bytes(canonical_json({**read_object(changed), "title": "Changed visible title"}))
         self.error("/api/models", "SESSION_REVISION", 409)
+        self.error("/api/diagnostics", "SESSION_REVISION", 409)
         self.error("/api/models/check", "SESSION_REVISION", 409, payload=payload)
         self.lab.snapshot.assert_not_called()
         self.lab.check.assert_not_called()
@@ -193,4 +195,49 @@ class StudioModelRoutesTests(unittest.TestCase):
         self.error("/api/models/check", "SESSION_REVOKED", 403, payload=payload)
         self.lab.check.assert_called_once_with(payload)
         self.error("/api/models", "SESSION_REVOKED", 403)
+        self.error("/api/diagnostics", "SESSION_REVOKED", 403)
         self.lab.snapshot.assert_not_called()
+
+    def test_diagnostics_allow_only_authorized_reads_and_fixed_operation_fields(self):
+        self.launch()
+        path = "/api/diagnostics"
+        self.error(path, "WEB_ACCESS", 403, authorized=False)
+        self.error(path, "WEB_ORIGIN", 403, headers={"Sec-Fetch-Site": "cross-site"})
+        self.error(path, "WEB_ORIGIN", 403, headers={"Host": "other.invalid"})
+        self.error(path + "?raw=private-canary", "WEB_QUERY", 400)
+        self.error(path, "WEB_METHOD", 405, payload={})
+        self.assertEqual(self.request(path), {"capacity": 80, "events": []})
+
+        self.lab.check.return_value = {"providers": [{
+            "id": "chatgpt", "status": "unavailable", "detail": "confidential-upstream-message",
+            "diagnostic_code": "MODEL_CATALOG_NO_ENTITLEMENT",
+        }]}
+        self.request("/api/models/check", payload={"provider": "chatgpt"})
+        model = {"provider": "ollama", "model": "confidential-model-slug", "preview_sha256": "a" * 64}
+        self.lab.run.return_value = {"text": "confidential-model-response"}
+        self.request("/api/models/run", payload=model)
+        self.lab.install.return_value = {"installed": True}
+        self.request("/api/models/install", payload={key: model[key] for key in ("model", "preview_sha256")})
+        self.lab.check.side_effect = ContractError("private-canary: confidential-exception-text")
+        self.error("/api/models/check", "WEB_UNAVAILABLE", 503, payload={"provider": "confidential-account"})
+        self.request("/api/connectors")
+
+        snapshot = self.request(path)
+        self.assertEqual(set(snapshot), {"capacity", "events"})
+        self.assertNotIn("confidential", json.dumps(snapshot))
+        codes = [(item["provider"], item["operation"], item["outcome"], item["code"]) for item in snapshot["events"]]
+        self.assertEqual(codes, [
+            ("chatgpt", "check", "attention", "MODEL_CATALOG_NO_ENTITLEMENT"),
+            ("ollama", "run", "ok", "MODEL_RUN_OK"),
+            ("ollama", "install", "ok", "MODEL_INSTALL_OK"),
+            ("studio", "check", "error", "DIAGNOSTIC_UNAVAILABLE"),
+            ("studio", "sources", "ok", "SOURCES_OK"),
+        ])
+        for sequence, item in enumerate(snapshot["events"], start=1):
+            self.assertEqual(set(item), {"id", "source", "provider", "operation", "outcome", "code", "at_ms", "duration_ms"})
+            self.assertEqual(item["id"], sequence)
+            self.assertEqual(item["source"], "server")
+            self.assertIs(type(item["at_ms"]), int)
+            self.assertIs(type(item["duration_ms"]), int)
+            self.assertGreaterEqual(item["duration_ms"], 0)
+        self.assertEqual(self.request(path), snapshot)
