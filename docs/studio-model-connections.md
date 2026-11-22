@@ -8,8 +8,7 @@ the same visit.
 
 ## Launch the pilot
 
-From the combined draft branch `feature/studio-chatgpt-browser-login`, use
-Node 24 and Python 3.12 or 3.13.
+From a Mindgarden checkout, use Node 24 and Python 3.12 or 3.13.
 
 ```sh
 npm --prefix web ci
@@ -101,6 +100,31 @@ connection as loopback. The daemon's own cloud setting controls its
 network behavior.
 [Install Ollama](https://docs.ollama.com/quickstart) ·
 [Disable cloud features](https://docs.ollama.com/faq#how-do-i-disable-ollamas-cloud-features)
+
+## Diagnose a connection
+
+Open **Diagnostics** from the sidebar or **Open diagnostics** in Models.
+Check a provider, then look for the latest event. Filter by provider and
+outcome to isolate a failed check. The duration chart and counts summarize
+the recent events in this Studio visit. **Copy visible events** copies the
+filtered rows and their fixed codes.
+
+For ChatGPT, the timeline separates browser sign-in from the model catalog
+check. An empty eligible catalog, an upstream permission failure and a
+transport failure have different labels. Report the event label and the
+provider when troubleshooting with someone else.
+
+The local service retains up to 80 events in memory for provider actions
+and Studio source-status reads. Each tab retains up to 40 browser warning
+and error categories in memory. The panel keeps no raw console messages, request
+URLs, account details, credentials, prompts, model responses or source
+content. Browser events clear when the tab is reloaded. Service events clear
+when Studio restarts. Opening the panel reads local status through the same
+authorized visit and makes no provider request.
+
+Studio shows Drive evidence from a reviewed capture. Its Diagnostics panel
+can show when the Sources view loaded. Drive capture and refresh run through
+their explicit CLI workflow.
 
 ## Pilot boundaries
 

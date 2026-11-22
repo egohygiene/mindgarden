@@ -1,3 +1,10 @@
+**Studio diagnostics, 2026-11-21:** [Draft #178](https://github.com/egohygiene/mindgarden/pull/178)
+adds a bounded local provider and browser event timeline, operation durations
+and filtered copy. The [Models guide](studio-model-connections.md#diagnose-a-connection)
+shows how to read the catalog result. The owner confirmed browser sign-in
+after #175. Actual model-catalog access and a completed live call remain #163
+acceptance. GitHub showed 33 open issues and this ledger tracks 51 rows.
+
 **Current merge checkpoint, 2026-11-21:** [#176](https://github.com/egohygiene/mindgarden/pull/176)
 and [#177](https://github.com/egohygiene/mindgarden/pull/177) merged in order,
 preserving their qualified trees. #13 closed. [#175](https://github.com/egohygiene/mindgarden/pull/175)
@@ -71,11 +78,11 @@ PDF and its eight ledger citations. Use
 | --- | --- | --- | --- |
 | [#161](https://github.com/egohygiene/mindgarden/issues/161) — local Studio chat and cited booklet | umbrella | Five native sub-issues, #87 source track, closed #90 packet proof, and the draft #167–#172 rehearsals | Test the selected owner's provider connections and later authorize a selected Drive capture |
 | [#162](https://github.com/egohygiene/mindgarden/issues/162) — reviewed garden brief and assistant entry point | partial | Draft [#167](https://github.com/egohygiene/mindgarden/pull/167) adds the [fictional first sweep](garden-brief.md) using existing curation and scoped retrieval | Review the draft and qualify the operator's selected local workspace; optional graph format remains with #91 |
-| [#163](https://github.com/egohygiene/mindgarden/issues/163) — first Studio provider connection | partial | Merged #168 and #170 verify the pinned Linux handshake and Codex account check. Merged #171–#173 add ChatGPT plan consent and in-app login. #175 covers callback recovery with synthetic OAuth and the owner reported successful Mac sign-in | Record the exact live model-catalog outcome and finish one approved fictional response. Qualify native Codex isolation, App Server interruption and recovery independently |
+| [#163](https://github.com/egohygiene/mindgarden/issues/163) — first Studio provider connection | partial | Merged #168 and #170 verify the pinned Linux handshake and Codex account check. Merged #171–#173 add ChatGPT plan consent and in-app login. Merged #175 fixes the callback and the owner reported successful Mac sign-in. Draft #178 classifies catalog outcomes in the local Diagnostics view | Record the exact live model-catalog outcome and finish one approved fictional response. Qualify native Codex isolation, App Server interruption and recovery independently |
 | [#164](https://github.com/egohygiene/mindgarden/issues/164) — scoped Studio chat | partial | Draft #169 exercises context approval, Finance lens, citation navigation, cancellation, and revocation offline | Qualify live Codex behavior under #163 and verify provider status in Sources |
 | [#165](https://github.com/egohygiene/mindgarden/issues/165) — monthly cited booklet | partial | Draft #169 uses #90 to render January in Studio with exact ledger evidence, an approval gate, and stale input tests | Confirm a selected period, timezone, and accounts with the operator. Exercise live authoring and edition review with scoped inputs |
 | [#166](https://github.com/egohygiene/mindgarden/issues/166) — second Studio provider | partial | Draft #170 implements Gemini and Ollama for the same fictional prompt, with a live Ollama check. Draft #172 proves plan-model selection and rejects cross-provider approval | Verify owner-approved Gemini and ChatGPT runs. Full switch and recovery acceptance follows the qualified live #163–#165 workflow |
-| [#174](https://github.com/egohygiene/mindgarden/issues/174) — Return to Mindgarden page | partial | Draft [#175](https://github.com/egohygiene/mindgarden/pull/175) styles both callback destinations and verifies progress, errors, retry and privacy with synthetic OAuth | Owner-confirmed browser sign-in supplies the live callback evidence. #175 closes this issue on merge. Model catalog and inference belong to #163 |
+| [#174](https://github.com/egohygiene/mindgarden/issues/174) — Return to Mindgarden page | completed | Merged [#175](https://github.com/egohygiene/mindgarden/pull/175) styles both callback destinations and verifies progress, errors, retry and privacy with synthetic OAuth | Owner-confirmed browser sign-in supplies the live callback evidence. #175 closed #174. Model catalog and inference belong to #163 |
 
 **Knowledge explorer and source evidence, 2026-11-21:** Draft [#160](https://github.com/egohygiene/mindgarden/pull/160) stacks on #159. The Studio
 [graph and Sources checkpoint](mindgarden-studio.md) makes visible notes

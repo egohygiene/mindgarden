@@ -6,6 +6,8 @@
   gap: 6px 18px;
 }
 
+.models-heading-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+
 .models-badge,
 .models-status {
   display: inline-flex;

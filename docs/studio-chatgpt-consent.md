@@ -35,6 +35,10 @@ locally. Once Studio says **Signed in to ChatGPT**, choose **Check
 connection** to load the model picker. A fresh Studio visit can detect a
 saved session without contacting OpenAI. [Run the fictional prompt](studio-model-connections.md#chatgpt-plan)
 
+If sign-in succeeds and the model list fails, open **Diagnostics** in
+Studio. Find the latest **ChatGPT plan** connection check and read its
+status. [Diagnose a connection](studio-model-connections.md#diagnose-a-connection)
+
 If Studio cannot read the sign-in status, use **Check sign-in status**
 to check the existing attempt. Start a new sign-in if Studio reports
 that the attempt failed or expired. Use **Cancel sign-in** to end an

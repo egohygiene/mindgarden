@@ -1,5 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import {
+  Activity,
   ArrowRight,
   ArrowUpRight,
   BookOpen,
@@ -37,6 +38,7 @@ import {
 } from "./api";
 import { BookletView, ChatView, useStudioBooklet, useStudioChat } from "./assistant";
 import { ConnectorPreview, SourcesView } from "./connectors";
+import { DiagnosticsPanel, useBrowserDiagnostics } from "./diagnostics-session";
 import { KnowledgeExplorer } from "./explorer";
 import { ContextView, NotesView, NoteView } from "./features";
 import { GardenGraph } from "./graph";
@@ -51,6 +53,7 @@ type Route =
   | { name: "chat" }
   | { name: "booklet" }
   | { name: "models" }
+  | { name: "diagnostics" }
   | { name: "note"; reference: string };
 
 const sections = [
@@ -62,6 +65,7 @@ const sections = [
   { label: "Chat", route: { name: "chat" }, icon: MessageSquare },
   { label: "Consultation booklet", route: { name: "booklet" }, icon: ScrollText },
   { label: "Models", route: { name: "models" }, icon: Server },
+  { label: "Diagnostics", route: { name: "diagnostics" }, icon: Activity },
 ] satisfies Array<{ label: string; route: Route; icon: typeof Compass }>;
 
 const affiliated = [
@@ -75,7 +79,7 @@ function canOpen(route: Route, garden?: GardenOverview) {
   if (route.name === "context") return garden?.capabilities.context;
   if (route.name === "chat") return garden?.demo && garden.capabilities.assistant;
   if (route.name === "booklet") return garden?.demo && garden.capabilities.booklet;
-  if (route.name === "models") return garden?.demo && garden.capabilities.models;
+  if (route.name === "models" || route.name === "diagnostics") return garden?.demo && garden.capabilities.models;
   return true;
 }
 
@@ -336,12 +340,14 @@ export function Studio({ client }: { client: GardenClient }) {
   const [connectorError, setConnectorError] = useState("");
   const [error, setError] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [diagnosticsEnabled, setDiagnosticsEnabled] = useState(false);
   const main = useRef<HTMLElement>(null);
   const afterNavigation = useRef(false);
   const noteReturn = useRef<Route>({ name: "notes", query: "" });
   const reducedMotion = useReducedMotion();
   const chat = useStudioChat(client);
   const booklet = useStudioBooklet(client);
+  const browserEvents = useBrowserDiagnostics(diagnosticsEnabled);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -349,11 +355,13 @@ export function Studio({ client }: { client: GardenClient }) {
       if (controller.signal.aborted) return;
       if (!next.demo || !next.capabilities.assistant) chat.clear();
       if (!next.demo || !next.capabilities.booklet) booklet.clear();
+      setDiagnosticsEnabled(Boolean(canOpen({ name: "diagnostics" }, next)));
       setGarden(next);
     }).catch((problem: unknown) => {
       if (controller.signal.aborted) return;
       chat.clear();
       booklet.clear();
+      setDiagnosticsEnabled(false);
       setError(problem instanceof Error ? problem.message : "Couldn't open the garden.");
     });
     return () => controller.abort();
@@ -453,7 +461,8 @@ export function Studio({ client }: { client: GardenClient }) {
         break;
       }
       case "booklet": content = <BookletView booklet={booklet} />; break;
-      case "models": content = <ModelsView client={client} />; break;
+      case "models": content = <ModelsView client={client} onOpenDiagnostics={() => navigate({ name: "diagnostics" })} />; break;
+      case "diagnostics": content = <DiagnosticsPanel client={client} browserEvents={browserEvents} />; break;
     }
   }
 

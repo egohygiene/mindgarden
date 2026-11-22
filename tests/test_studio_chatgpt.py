@@ -110,6 +110,7 @@ class ChatGPTAdapterTests(unittest.TestCase):
         self.stream = completed()
         self.inference_status = 200
         self.list_status = 200
+        self.list_body = json.dumps(CATALOG).encode()
         self.stream_content_type = "text/event-stream; charset=utf-8"
         self.length = True
         self.on_infer = None
@@ -121,7 +122,7 @@ class ChatGPTAdapterTests(unittest.TestCase):
                 self.reply(
                     fixture.list_status,
                     "application/json",
-                    json.dumps(CATALOG).encode(),
+                    fixture.list_body,
                 )
 
             def do_POST(self):
@@ -245,6 +246,30 @@ class ChatGPTAdapterTests(unittest.TestCase):
         with self.assertRaisesRegex(ContractError, "^MODEL_INVALID"):
             self.provider.run("hidden-tool", PROMPT)
         self.assertEqual(len(self.requests), 1)
+
+    def test_catalog_diagnostics_distinguish_empty_http_entitlement_and_transport(self):
+        canary = "private-upstream-catalog-canary"
+        for status, body, expected in (
+            (200, {"models": [{"visibility": "hidden", "slug": canary}]}, "MODEL_CATALOG_EMPTY"),
+            (200, {"error": {"message": canary}}, "MODEL_CATALOG_RESPONSE"),
+            (400, {"error": {"code": canary}}, "MODEL_CATALOG_HTTP"),
+            (403, {"error": {"message": canary}}, "MODEL_CATALOG_FORBIDDEN"),
+            (403, {"error": {"code": "subscription_sharing_user_not_eligible", "message": canary}},
+             "MODEL_CATALOG_NO_ENTITLEMENT"),
+            (502, {"error": {"message": canary}}, "MODEL_CATALOG_SERVICE_UNAVAILABLE"),
+            (401, {"error": {"message": canary}}, "MODEL_REAUTH"),
+            (429, {"error": {"message": canary}}, "MODEL_QUOTA"),
+        ):
+            with self.subTest(code=expected):
+                self.list_status, self.list_body = status, json.dumps(body).encode()
+                check = self.provider.check()
+                self.assertEqual(check["diagnostic_code"], expected)
+                self.assertNotIn(canary, json.dumps(check))
+                self.assertFalse(check["can_run"])
+        with patch.object(HTTPConnection, "connect", side_effect=OSError(canary)):
+            check = self.provider.check()
+        self.assertEqual(check["diagnostic_code"], "MODEL_CATALOG_TRANSPORT")
+        self.assertNotIn(canary, json.dumps(check))
 
     def test_invalid_credential_envelopes_never_send_bearer_requests(self):
         for change in (

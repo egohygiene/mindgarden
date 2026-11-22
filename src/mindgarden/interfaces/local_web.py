@@ -34,6 +34,7 @@ from ..application.studio_assistant import (
 )
 from ..domain.contracts import canonical_json, read_object, safe_path, strict_json
 from ..domain.validation import ContractError
+from .studio_diagnostics import StudioDiagnostics, login_action_code, model_check_code
 
 if TYPE_CHECKING:
     from ..application.model_lab import ModelLab
@@ -315,6 +316,9 @@ class GardenServer(ThreadingHTTPServer):
         self.assistant = assistant
         self.model_lab = model_lab
         self.chatgpt_login = chatgpt_login
+        self.diagnostics = StudioDiagnostics() if model_lab is not None else None
+        if chatgpt_login is not None and self.diagnostics is not None:
+            chatgpt_login.attach_diagnostics(self.diagnostics.sign_in)
         self.access_token = token_urlsafe(32)
         super().__init__((HOST, port), GardenHandler)
         self.authority = HOST if self.server_port == 80 else f"{HOST}:{self.server_port}"
@@ -408,15 +412,17 @@ class GardenHandler(BaseHTTPRequestHandler):
             parameters(raw_query, set())
             verified_metadata(context)
             body = canonical_json(self.server.model_lab.snapshot())
+        elif path == "/api/diagnostics" and self.server.diagnostics is not None:
+            parameters(raw_query, set())
+            verified_metadata(context)
+            body = canonical_json(self.server.diagnostics.snapshot())
         elif path == CHATGPT_LOGIN_STATUS and self.server.chatgpt_login is not None:
             parameters(raw_query, set())
             context.check_live()
             body = canonical_json(self.server.chatgpt_login.snapshot())
         elif path == "/api/connectors":
             parameters(raw_query, set())
-            index = build_index(context, projection="evidence", enforce_bytes=False)
-            records = index["records"][:overview_limit(context)]
-            body = canonical_json(connector_evidence(context, records, demo=self.server.demo))
+            body = canonical_json(self.connectors(context))
         elif path in {"/api/search", "/api/context"}:
             query = parameters(raw_query, {"q"})["q"].strip()
             if len(query) > MAX_QUERY_LENGTH or not all(char.isprintable() for char in query):
@@ -439,6 +445,16 @@ class GardenHandler(BaseHTTPRequestHandler):
             raise ContractError("QUERY_BUDGET: browser output exceeds its byte ceiling")
         context.ensure_output(body)
         return body
+
+    def connectors(self, context: QueryContext) -> dict:
+        def read():
+            index = build_index(context, projection="evidence", enforce_bytes=False)
+            records = index["records"][:overview_limit(context)]
+            return connector_evidence(context, records, demo=self.server.demo)
+
+        if self.server.diagnostics is not None and self.command == "GET":
+            return self.server.diagnostics.observe("studio", "sources", read, lambda _: "SOURCES_OK")
+        return read()
 
     def post_body(self) -> dict:
         media_types = self.headers.get_all("Content-Type", [])
@@ -512,18 +528,34 @@ class GardenHandler(BaseHTTPRequestHandler):
         verified_metadata(context)
         # Model actions receive only their synthetic selection. The garden
         # session remains an HTTP access gate, never a provider input.
-        return canonical_json(getattr(lab, method)(value))
+        action = getattr(lab, method)
+        if method in {"preview", "install_preview"}:
+            return canonical_json(action(value))
+
+        def dispatch():
+            result = action(value)
+            context.check_live()
+            return result
+
+        provider = "ollama" if method == "install" else value["provider"]
+        outcome = (partial(model_check_code, provider) if method == "check"
+                   else lambda _: "MODEL_INSTALL_OK" if method == "install" else "MODEL_RUN_OK")
+        return canonical_json(self.server.diagnostics.observe(provider, method, dispatch, outcome))
 
     def chatgpt_login_post(self, context: QueryContext, value: dict) -> bytes:
         if value:
             raise ContractError("MODEL_INVALID: this connection action accepts an empty object")
         verified_metadata(context)
         login = self.server.chatgpt_login
-        if self.path == "/api/models/chatgpt/cancel":
-            return canonical_json(login.cancel())
         invalidate = partial(self.server.model_lab.reset_connection, "chatgpt")
-        operation = login.start if self.path == "/api/models/chatgpt/connect" else login.disconnect
-        return canonical_json(operation(context.check_live, invalidate))
+        operation = self.path.rsplit("/", 1)[1]
+        if operation == "connect":
+            start = partial(login.start, context.check_live, invalidate)
+            return canonical_json(self.server.diagnostics.observe("chatgpt", "sign-in", start, None))
+        action = login.cancel if operation == "cancel" else partial(login.disconnect, context.check_live, invalidate)
+        return canonical_json(self.server.diagnostics.observe(
+            "chatgpt", operation, action, partial(login_action_code, operation),
+        ))
 
     def do_POST(self):
         provider = self.server.assistant
