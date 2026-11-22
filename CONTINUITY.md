@@ -7,13 +7,13 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-21T23:10:27Z'
+  updated_at: '2026-11-22T00:57:59Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Land the reviewed local checkpoints and qualify the existing Studio and archive journeys.
+  purpose: Inspect provider connection outcomes in the local Studio Diagnostics panel.
   includes:
   - listed-criteria acceptance audit
   - bounded ready integration checkpoints and tested merges
@@ -57,7 +57,7 @@ scope:
   - docs/private-routing.md
   - docs/compaction-retention.md
 work:
-  objective: Land the reviewed local checkpoints and qualify the existing Studio and archive journeys.
+  objective: Inspect provider connection outcomes in the local Studio Diagnostics panel.
   success_conditions:
   - Complete bounded synthetic checkpoints with exact evidence and explicit review authority.
   - Preserve Python/v0, original sources, live scope enforcement and proposed ADR status.
@@ -68,84 +68,61 @@ work:
     url: https://github.com/egohygiene/mindgarden/issues/163
   next:
     kind: action
-    id: qualify-existing-studio-provider
-    description: Observe the ChatGPT plan card on the owner Mac, identify the catalog outcome, and qualify one explicitly
-      approved fictional turn.
+    id: read-owner-model-catalog-diagnostic
+    description: 'Activate the Models demo from #178 on the owner Mac, check the ChatGPT plan connection and read the
+      latest diagnostic code.'
     readiness: ready
     references:
-    - docs/studio-chatgpt-consent.md
-    - docs/studio-model-connections.md
+    - docs/studio-model-connections.md#diagnose-a-connection
     depends_on: []
 state:
   base:
-    revision: cf7f7ab395739498e2f2e6b29ac152448f6d2dff
+    revision: 75977289aa2a646e3df4bc51a0a5bf0882d055bd
     ref: refs/heads/main
-    verified_at: '2026-11-21T23:10:27Z'
+    verified_at: '2026-11-22T00:57:59Z'
   candidate:
-    branch: fix/studio-chatgpt-callback
-    revision: 32b305c66bbcfd602e149fca3e3d0a56f1e0f1a1
+    branch: feature/studio-diagnostics
+    revision: 3168e6e281f0ff91ab50ddbf7b652d1ff26a2bc5
     pull_request:
       provider: github
-      id: egohygiene/mindgarden#175
-      url: https://github.com/egohygiene/mindgarden/pull/175
+      id: egohygiene/mindgarden#178
+      url: https://github.com/egohygiene/mindgarden/pull/178
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-21T23:10:27Z'
-    default_branch_revision: cf7f7ab395739498e2f2e6b29ac152448f6d2dff
+    observed_at: '2026-11-22T00:57:59Z'
+    default_branch_revision: 75977289aa2a646e3df4bc51a0a5bf0882d055bd
     issue_state: open
     pull_request_state: draft
-    notes: '#176 and #177 merged in dependency order. #13 is closed. #175 merges the callback implementation with the
-      latest handoff and coverage.'
+    notes: '#176, #177 and #175 are merged. #13 and #174 closed. Draft #178 advances #163. GitHub showed 33 open issues.'
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-21T23:10:27Z'
+  reviewed_at: '2026-11-22T00:57:59Z'
   reviewed_by: codex
   evidence:
-  - command: PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_routing tests.test_routing_dispositions tests.test_routing_incoming
-      tests.test_routing_lifecycle tests.test_routing_transfers tests.test_reference_repairs -q
+  - command: PYTHONPATH=src python -m unittest tests.test_studio_diagnostics tests.test_studio_model_routes tests.test_studio_chatgpt_visit
+      tests.test_studio_chatgpt_login tests.test_chatgpt_callback tests.test_chatgpt_connection tests.test_studio_chatgpt
+      tests.test_studio_model_http tests.test_studio_codex tests.test_model_lab -q
     outcome: passed
-    observed_at: '2026-11-21T20:17:55Z'
-    notes: 43 tests passed on each of Python 3.12.14 and 3.13.5, zero skips.
-  - command: PYTHONPATH=src python -m unittest tests.test_extraction tests.test_ollama_extraction tests.test_mixed_curation
-      tests.test_archive_diagrams experiments.ollama_extraction.test_evaluate tests.test_insights -q
+    observed_at: '2026-11-22T00:57:59Z'
+    notes: 75 cases on each of Python 3.12.14 and 3.13.5. Covers live local authority, bounded memory, redacted event
+      shape, and fictional HTTP and transport errors.
+  - command: npm --prefix web ci --offline --no-fund --audit=false && npm --prefix web run build && npm --prefix web test
     outcome: passed
-    observed_at: '2026-11-21T20:17:55Z'
-    notes: 24 tests passed on each Python, including replay of the observed rejection and nine public insights cases.
-  - command: python scripts/release_journey_demo.py --workspace <fresh> --report <file> --require-source && python scripts/pipeline_completion_demo.py
-      --workspace <fresh> --report <file> --require-source
+    observed_at: '2026-11-22T00:57:59Z'
+    notes: Production build and ten frontend tests passed on Node 24.19.0. The existing garden-cover.webp warning remains.
+  - command: python scripts/check_studio_model_browser.py --chromium /usr/bin/chromium --axe <axe-core> --artifacts <synthetic-output>
     outcome: passed
-    observed_at: '2026-11-21T20:17:55Z'
-    notes: Clean archived main. Release journey SHA-256 0d31d9d3841f5c394bb23776c97f0d211907bcf8361f5ad4978156a9650f7600.
-      Completion proof SHA-256 66377ee3762d0a46a338490e7cf8282c1e73de3acf9ba5baf37e1cd5bdd8b09f.
-  - command: python experiments/ollama_extraction/evaluate.py --model gemma3:1b --endpoint http://127.0.0.1:<port> --live
-      --include-output --timeout-seconds 90
-    outcome: failed
-    observed_at: '2026-11-21T20:17:55Z'
-    notes: Ollama 0.40.17 returned schema-valid synthetic output with unresolved endpoints. Application exited 1 and created
-      no candidates. The evaluation completed with a recorded rejection.
-  - command: PYTHONPATH=src python -m unittest tests.test_source_compaction tests.test_compaction_refresh tests.test_output_scope
-      -q
-    outcome: passed
-    observed_at: '2026-11-21T20:20:13Z'
-    notes: 25 focused cases passed on each supported Python. The archived main run failed five assertions across three
-      red cases. The existing 13-node bundle retained its original plan digest, hashes and modification times.
-  - command: python3 -S scripts/compaction_demo.py --require-source --workspace <fresh> --report <file>
-    outcome: passed
-    observed_at: '2026-11-21T20:20:13Z'
-    notes: Eight checks from the existing synthetic demo passed. Complete context was 4,001 of 8,192 bytes.
-  - command: npm --prefix web run build && npm --prefix web test
-    outcome: passed
-    observed_at: '2026-11-21T23:10:27Z'
-    notes: Reconciled checkout. Production build and eight frontend tests passed. The existing garden-cover.webp runtime
-      resolution warning remains.
+    observed_at: '2026-11-22T00:57:59Z'
+    notes: 1440 and 390 px, offline fixtures. Catalog outcome timeline, sign-in, console warning, fixed-code clipboard
+      redaction, keyboard, refresh, and axe passed.
   environment_limitations:
-  - 'The owner reported successful Mac Studio sign-in. Individual model discovery and a completed live turn remain separate
-    #163 acceptance.'
-  - The native Ollama evaluation covers one synthetic input. Wider model accuracy remains unmeasured.
-  - The approved real archive, dedicated production mount, reusable Relay action and private retention pilot remain open.
-  - The original heads passed hosted Test and release preparation. The reconciliation has its own automatic checks.
+  - The original live model check error on the owner Mac is still unclassified. The new diagnostics were exercised with
+    synthetic providers.
+  - The panel is available in the Models-enabled Studio visit. Source status reflects the reviewed capture, and CLI Drive
+    capture retains its own workflow.
+  - Hosted checks run separately.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -165,48 +142,48 @@ privacy:
 
 ## Purpose and precedence
 
-Land the reviewed local checkpoints and qualify the existing Studio and archive journeys.
+Inspect provider connection outcomes in the local Studio Diagnostics panel.
 
 ## Resume protocol
 
-Refresh live GitHub state and use current main after the merge. Check the [coverage ledger](docs/open-issue-coverage.md) for the remaining acceptance owners.
+Refresh GitHub state and open [draft #178](https://github.com/egohygiene/mindgarden/pull/178). Use the [Models guide](docs/studio-model-connections.md#diagnose-a-connection) to reproduce the panel.
 
 ## Current objective and success conditions
 
-Qualify the existing workflows before expanding product scope. Record what passed in Studio, what requires the approved private pilot and which organization decisions still gate completion.
+Show which provider or local source-status operation ran, its result and elapsed time. Keep the diagnostic history bounded and available only through the authorized local visit.
 
 ## State snapshot
 
-#176 merged as `875e73f` and closed #13. #177 merged as `cf7f7ab`. #175 reconciles its callback fix with that main tree and closes #174 on merge.
+Main `7597728` contains #176, #177 and #175. #13 and #174 are closed. Draft #178 on `feature/studio-diagnostics` implements the first panel at `3168e6e`.
 
 ## Completed and material changes
 
-One local Ollama evaluation completed and the application correctly rejected its invalid proposal. Private routing replay preserves the canonical home and exact citation. Saved compaction checks are read-only and enforce complete output limits. The callback distinguishes receipt, verification and completion. The owner reported successful Mac browser sign-in.
+Studio shows recent consent stages, provider checks and runs, local source-status reads, and browser warning and error categories. Filters, duration bars and redacted clipboard output use fixed diagnostic events. The ChatGPT catalog separates empty, ineligible, permission, service, transport and invalid responses.
 
 ## Validation and review evidence
 
-All five hosted checks passed for each of the three original PR heads. Each merge of #176 and #177 preserved its exact qualified tree. The reconciled Studio checkout passed the production web build, eight frontend tests and the pinned handoff checks.
+Each supported Python passed 75 focused tests. The production build and ten frontend cases passed. Chromium and axe passed at 1440 and 390 px with fictional OAuth, provider faults, navigation and clipboard redaction. Hosted results remain separate.
 
 ## Blockers, risks, unknowns, and deferred work
 
-The ChatGPT model catalog failure still lacks an exact status. Qualify that and one approved fictional turn under #163. Native Codex runtime is separate. Existing portal, real archive and governed privacy checks remain open. Release work stays deferred.
+The owner reported successful Mac sign-in. The exact live model catalog outcome and first approved model response remain open under #163. Native Codex runtime and actual Drive capture retain their existing acceptance.
 
 ## Next dependency-ready work
 
-Observe the Models card on the owner Mac. Verify the current catalog and approve one fictional request. Independently replay the reviewed brief under #162 and the January booklet under #165. The selected Drive folder proof follows owner approval under #87.
+Build the branch and start the Models demo on the owner Mac. Run **ChatGPT plan → Check connection**, select **Diagnostics**, filter to **ChatGPT plan**, and copy the visible events if needed. Use the latest connection-check code to choose the next test.
 
 ## Parallel changes and reconciliation
 
-#177 was retargeted to main after its parent #176 landed. #175 was reconciled afterward. The overlap was limited to this handoff and the coverage ledger.
+Draft #178 targets main directly. The prior closeout order `#176 → #177 → #175` is merged.
 
 ## Privacy and redaction
 
-Use public or synthetic evidence. Keep callback values, private source data and credentials in the authorized local environment.
+Use synthetic public evidence. The local event rings contain fixed categories and timing. Raw console text, credentials and private garden content stay outside the diagnostic feed.
 
 ## Handoff update protocol
 
-Record exact branch, PR, head, checks and the next operation. Refresh live state before acting.
+Record the exact branch, PR, implementation head, fixtures, results and next operation. Refresh live state before acting.
 
 ## Compaction and supersession
 
-Earlier qualification receipts remain in the [coverage ledger](docs/open-issue-coverage.md). The [consumer journey](docs/consumer-journey.md) records accepted Empathy evidence.
+The [coverage ledger](docs/open-issue-coverage.md) retains earlier evidence and the remaining acceptance by issue.
